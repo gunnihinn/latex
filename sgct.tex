@@ -12,6 +12,8 @@
 \usepackage{amsthm}
 
 \newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\End}{End}
@@ -153,6 +155,52 @@ This form is non-degenerate, but has mixed signature. One can still define conne
 \label{sec:orgcfabeed}
 
 Might be fun to do in different ways. Local coordinates, more globally.
+
+The complex projective space is the space of lines in a given complex vector space. That is, if $V$ is a complex vector space, then
+$$
+\kk P(V) := \{ v \in V \mid v \not= 0 \} / \kk C^*,
+$$
+where $\kk C^*$ acts by multiplication. By convention we write $\kk P^n := \kk P(\kk C^{n+1})$.\footnote{Some people insist on writing $\kk C \kk P^n$ to distinguish between fields. As a better woman than I once said, we're doing geometry so we'll work over $\kk C$. In that case there's little to distinguish from.}
+
+There is a holomorphic projection map $\pi : V \setminus \{0\} \to \kk P(V)$. If we consider the trivial vector bundle $V \to \kk P(V)$, then the definition of projective space gives a line bundle $\cc O(-1) \subset V$ whose fiber over a point $[v]$ is the line $\kk C \cdot v$. This line bundle is holomorphic.
+
+Fix a Hermitian inner product $h$ on $V$. This defines a flat Hermitian metric on the trivial vector bundle $V \to \kk P(V)$. It follows that the induced metric on $\cc O(-1)$ is non-positive.\footnote{Hence the $-1$.}
+
+The usual charts on $\kk P^n$ are of the form
+$$
+U_j = \{[z_0 : \cdots : z_n] \in \kk P^{n} \mid z_j \not= 0\}
+$$
+and we have isomorphisms $U_j \to \kk C^n$ defined by
+$$
+[z_0 : \cdots : z_n] \mapsto (z_0/z_j, \ldots, \widehat{z_j/z_j}, \ldots, z_n/z_j).
+$$
+
+Let $\lambda \in V^* \setminus \{0\}$ and define $U_\lambda = \{ [v] \in \kk P(V) \mid \lambda(v) \not= 0 \}$. If we try to define a map on $U_\lambda$ by setting $[v] \mapsto v / \lambda(v)$, where does it take its values? In $V$? Actually in an affine hyperplane $H_\lambda = \{v \in V \mid \lambda(v) = 1 \}$. That has the right dimension and the map is clearly surjective.
+
+On $H_\lambda$, we have a section $s$ of $\cc O(-1)$ given by $s(v) = v$. This is just the Euler section $\xi$. The curvature form of the line bundle is then
+$$
+i \partial \bar\partial \log h(\xi, \xi)
+= i\partial \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}
+= \frac{i h(\partial \xi, \partial \xi)}{h(\xi, \xi)}
+- i\frac{h(\partial \xi, \xi)}{h(\xi, \xi)} \wedge \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}.
+$$
+The Euler field satisfies $\partial_u \xi = u$ for holomorphic vector fields $u$. The $(1,1)$-form defined by the curvature form is then
+$$
+\omega(\alpha, \beta)
+= \frac{h(\alpha, \beta)}{h(\xi, \xi)}
+- \frac{h(\alpha, \xi)}{h(\xi, \xi)} \cdot \frac{h(\xi, \beta)}{h(\xi, \xi)}.
+$$
+We claim that this is positive-definite. We have
+\begin{align*}
+  \omega(\alpha, \alpha)
+&= \frac{h(\alpha, \alpha)}{h(\xi, \xi)}
+- \frac{|h(\alpha, \xi)|^2}{h(\xi, \xi)^2}
+\\
+&\geq \frac{h(\alpha, \alpha)}{h(\xi, \xi)}
+- \frac{h(\alpha, \alpha) h(\xi, \xi)}{h(\xi, \xi)^2}
+= 0
+\end{align*}
+with equality if and only if $\alpha$ is a multiple of the Euler field $\xi$. Why can't that happen? The section $\alpha$ has to be tangent to $H_\lambda$, which means it satisfies $\lambda(\alpha) = 0$. But we've defined our $H_\lambda$ so that $\lambda(\xi) = 1$.
 
 \section{Poincaré half-plane}
 \label{sec:orgfbd87cb}
