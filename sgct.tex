@@ -88,7 +88,8 @@ It's worth mentioning that if \(h\) is a K\"ahler metric on a manifold of dimens
 $$
 d(e^f \omega) = \omega \wedge (e^f df)
 $$
-and the linear morphism from one- to three-forms defined by wedging with the symplectic form \(\omega\) is injective. (The proof reduces to linear algebra by a calculation in local coordinates, either Darbeaux ones or in holomorphic ones that are orthonormal at a point. The hard Lefschetz theorem generalizes this to cohomology.)
+and the linear morphism from one- to three-forms defined by wedging with the symplectic form \(\omega\) is injective.\footnote{The hard Lefschetz theorem generalizes this to cohomology.}
+The proof reduces to linear algebra by a calculation in local coordinates, either Darbeaux ones or in holomorphic ones that are orthonormal at a point.
 
 \section{Flat metrics}
 \label{sec:org504b250}
@@ -154,53 +155,209 @@ This form is non-degenerate, but has mixed signature. One can still define conne
 \section{Projective space}
 \label{sec:orgcfabeed}
 
-Might be fun to do in different ways. Local coordinates, more globally.
-
 The complex projective space is the space of lines in a given complex vector space. That is, if $V$ is a complex vector space, then
 $$
 \kk P(V) := \{ v \in V \mid v \not= 0 \} / \kk C^*,
 $$
-where $\kk C^*$ acts by multiplication. By convention we write $\kk P^n := \kk P(\kk C^{n+1})$.\footnote{Some people insist on writing $\kk C \kk P^n$ to distinguish between fields. As a better woman than I once said, we're doing geometry so we'll work over $\kk C$. In that case there's little to distinguish from.}
+where $\kk C^*$ acts by multiplication. By convention we write $\kk P^n := \kk P(\kk C^{n+1})$.\footnote{Some people write $\kk C \kk P^n$ to distinguish between projective spaces over different fields. We'll stick to $\kk C$ so there's little to distinguish from.}
 
-There is a holomorphic projection map $\pi : V \setminus \{0\} \to \kk P(V)$. If we consider the trivial vector bundle $V \to \kk P(V)$, then the definition of projective space gives a line bundle $\cc O(-1) \subset V$ whose fiber over a point $[v]$ is the line $\kk C \cdot v$. This line bundle is holomorphic.
+There is a projection map $\pi : V \setminus \{0\} \to \kk P(V)$ and we equip $\kk P(V)$ with the quotient topology. If we fix a Hermitian inner product $h$ on $V$, then the quotient map factors through the unit sphere:
+$$
+V \setminus \{0\} \to S(V, h) \to \kk P(V).
+$$
+As the unit sphere is compact, it follows that the projective space $\kk P(V)$ is compact.
+
+
+\paragraph{Manifold structure}
+
+We're going to construct local holomorphic charts on $\kk P(V)$. Let $\lambda \in V^* \setminus \{0\}$ and define
+$$
+U_\lambda := \{ [v] \in \kk P(V) \mid \lambda(v) \not= 0 \}.
+$$
+This is an open set in $\kk P(V)$ equipped with the quotient topology, as its preimage under the projection is the complement of the hyperplane $\{v \in V \mid \lambda(v) = 0\}$, which is open.
+
+We define a map $f_\lambda: U_\lambda \to V$ by setting
+$$
+f([v]) = v/\lambda(v).
+$$
+This is well defined by the linearity of $\lambda$ and by definition of $U_\lambda$. This map takes values in the affine hyperplane
+$$
+H_\lambda := \{ v \in V \mid \lambda(v) = 1 \}.
+$$
+It is in fact a bijection onto this set: If $v \in H_\lambda$ then $[v]$ is an element of $U_\lambda$ that maps to $v$, so $f_\lambda$ is surjective. If $[v], [w] \in U_\lambda$ are such that $f_\lambda(v) = f_\lambda(w)$, then $v/\lambda(v) = w/\lambda(w)$ for any representatives $v, w$ of those classes. Then $v = (\lambda(v)/\lambda(w)) w$, so $[v] = [w]$ and $f_\lambda$ is injective.
+
+The map $f_\lambda$ is continuous: Let $U \subset H_\lambda$ be open. Then $\pi^{-1}(f_\lambda^{-1}(U)) = \kk C^* \cdot U$, which is open. Its inverse is also continuous: The map $f_\lambda^{-1}$ is just the restriction of $\pi$ to $H_\lambda$. Thus $f_\lambda$ is a homeomorphism.
+
+The collection $(f_\lambda : U_\lambda \to H_\lambda)_{\lambda \in V^* \setminus \{0\}}$ covers $\kk P(V)$ and provides local homeomorphisms to spaces biholomorphic to $\kk C^n$. If $\lambda$ and $\lambda'$ are two nonzero elements of the dual space, then the transition map between charts is
+$$
+f_{\lambda'} \circ f_{\lambda}^{-1} : \{v \in H_\lambda \mid \lambda'(v) \not= 0 \} \to H_{\lambda'},
+\quad
+v \mapsto v/\lambda'(v).
+$$
+This map is a composition of field operations and a linear map, so it is holomorphic. The collection above thus forms a holomorphic atlas.
+
+
+\paragraph{Tautological bundle}
+
+
+If we consider the trivial vector bundle $V \to \kk P(V)$, then the definition of projective space gives a line bundle $\cc O(-1) \subset V$ whose fiber over a point $[v]$ is
+the line $\kk C \cdot v$. This \emph{tautological line bundle} is holomorphic:
+
+On a local chart $H_\lambda$, the line bundle is given by $\kk C \cdot v \subset V$. It is trivialized by the Euler section $\xi(v) = v$, which is certainly holomorphic on the local chart. Changing coordinates to ones defined by $\lambda'$ multiplies the section by $1/\lambda'(\xi)$, which is holomorphic.
+
+
+
+\paragraph{Curvature of tautological bundle}
 
 Fix a Hermitian inner product $h$ on $V$. This defines a flat Hermitian metric on the trivial vector bundle $V \to \kk P(V)$. It follows that the induced metric on $\cc O(-1)$ is non-positive.\footnote{Hence the $-1$.}
 
-The usual charts on $\kk P^n$ are of the form
+On $H_\lambda$, we have the Euler section $\xi$ of $\cc O(-1)$ given by $\xi(v) = v$. The curvature form of the line bundle is then
 $$
-U_j = \{[z_0 : \cdots : z_n] \in \kk P^{n} \mid z_j \not= 0\}
+-\frac i2 \partial \bar\partial \log h(\xi, \xi)
+= -\frac i2\partial \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}
+= -\frac i2\frac{h(\partial \xi, \partial \xi)}{h(\xi, \xi)}
++ \frac i2\frac{h(\partial \xi, \xi)}{h(\xi, \xi)} \wedge \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}.
 $$
-and we have isomorphisms $U_j \to \kk C^n$ defined by
+The Euler field satisfies $\partial_u \xi = u$ for holomorphic vector fields $u$. The sesquilinear form defined by the curvature form is then
 $$
-[z_0 : \cdots : z_n] \mapsto (z_0/z_j, \ldots, \widehat{z_j/z_j}, \ldots, z_n/z_j).
+\phi(\alpha, \beta)
+= -\frac{h(\alpha, \beta)}{h(\xi, \xi)}
++ \frac{h(\alpha, \xi)}{h(\xi, \xi)} \cdot \frac{h(\xi, \beta)}{h(\xi, \xi)}.
 $$
-
-Let $\lambda \in V^* \setminus \{0\}$ and define $U_\lambda = \{ [v] \in \kk P(V) \mid \lambda(v) \not= 0 \}$. If we try to define a map on $U_\lambda$ by setting $[v] \mapsto v / \lambda(v)$, where does it take its values? In $V$? Actually in an affine hyperplane $H_\lambda = \{v \in V \mid \lambda(v) = 1 \}$. That has the right dimension and the map is clearly surjective.
-
-On $H_\lambda$, we have a section $s$ of $\cc O(-1)$ given by $s(v) = v$. This is just the Euler section $\xi$. The curvature form of the line bundle is then
-$$
-i \partial \bar\partial \log h(\xi, \xi)
-= i\partial \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}
-= \frac{i h(\partial \xi, \partial \xi)}{h(\xi, \xi)}
-- i\frac{h(\partial \xi, \xi)}{h(\xi, \xi)} \wedge \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}.
-$$
-The Euler field satisfies $\partial_u \xi = u$ for holomorphic vector fields $u$. The $(1,1)$-form defined by the curvature form is then
-$$
-\omega(\alpha, \beta)
-= \frac{h(\alpha, \beta)}{h(\xi, \xi)}
-- \frac{h(\alpha, \xi)}{h(\xi, \xi)} \cdot \frac{h(\xi, \beta)}{h(\xi, \xi)}.
-$$
-We claim that this is positive-definite. We have
+We claim that this is negative-definite. We have
 \begin{align*}
-  \omega(\alpha, \alpha)
-&= \frac{h(\alpha, \alpha)}{h(\xi, \xi)}
-- \frac{|h(\alpha, \xi)|^2}{h(\xi, \xi)^2}
+\phi(\alpha, \alpha)
+&= -\frac{h(\alpha, \alpha)}{h(\xi, \xi)}
++ \frac{|h(\alpha, \xi)|^2}{h(\xi, \xi)^2}
 \\
-&\geq \frac{h(\alpha, \alpha)}{h(\xi, \xi)}
-- \frac{h(\alpha, \alpha) h(\xi, \xi)}{h(\xi, \xi)^2}
+&\leq -\frac{h(\alpha, \alpha)}{h(\xi, \xi)}
++ \frac{h(\alpha, \alpha) h(\xi, \xi)}{h(\xi, \xi)^2}
 = 0
 \end{align*}
-with equality if and only if $\alpha$ is a multiple of the Euler field $\xi$. Why can't that happen? The section $\alpha$ has to be tangent to $H_\lambda$, which means it satisfies $\lambda(\alpha) = 0$. But we've defined our $H_\lambda$ so that $\lambda(\xi) = 1$.
+with equality if and only if $\alpha$ is a multiple of the Euler field $\xi$. But note that $H_\lambda$ is defined so that $\lambda(\xi) = 1$, while its tangent space identifies with the set of vectors $\alpha$ such that $\lambda(\alpha) = 0$. Therefore $\alpha$ is not a multiple of $\xi$.
+
+
+\paragraph{Fubini--Study metric}
+
+The dual of the tautological line bundle is denoted by $\cc O(1) := \cc O(-1)^*$. By the above, it is a positive line bundle on the projective space $\kk P(V)$. Its curvature form $\omega$ is called the \emph{Fubini--Study metric} on the projective space. It is a K\"ahler metric. In local coordinates it is given by the Hermitian form $-\phi$ above.
+
+We want to compute the Chern connection and curvature of this metric. We \emph{could} try to do it directly from the expression for $\phi$, but we're going to try to cheat. We will look at the Hermitian metric $\psi := -h(\xi,\xi) \phi$, given by
+$$
+\psi(\alpha, \beta) = h(\alpha, \beta) h(\xi, \xi) - h(\alpha, \xi) h(\xi, \beta).
+$$
+We have
+\begin{align*}
+\partial\psi(\alpha, \beta)
+&= h(\partial\alpha, \beta) h(\xi, \xi)
++ h(\alpha, \beta) h(\partial\xi, \xi)
+- h(\partial\alpha, \xi) h(\xi, \beta)
+- h(\alpha, \xi) h(\partial\xi, \beta)
+\\
+&= \psi(\partial\alpha, \beta)
++ h\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr) h(\xi,\xi)
+- h(\alpha, \xi) h(\partial\xi, \beta)
+\\
+&= \psi(\partial\alpha, \beta)
++ \psi\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr)
++ \frac{h(\partial\xi, \xi)h(\alpha,\xi) h(\xi,\beta)}{h(\xi,\xi)}
+- \frac{h(\alpha, \xi) h(\partial\xi, \beta)h(\xi,\xi)}{h(\xi,\xi)}
+\\
+&= \psi(\partial\alpha, \beta)
++ \psi\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr)
++ \frac{h(\alpha,\xi)}{h(\xi,\xi)} \bigl(h(\partial\xi,\xi)h(\xi,\beta) - h(\partial\xi,\beta)h(\xi,\xi)\bigr)
+\\
+&=\psi(\partial\alpha, \beta)
++ \psi\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr)
+- \psi\biggl(\frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi,\beta\biggr)
+\\
+&=
+\psi\biggl(
+\partial\alpha
++ \frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha
+- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi
+, \beta
+\biggr).
+\end{align*}
+The Chern connection of $\psi$ is then
+$$
+D_\psi \alpha = d\alpha
++ \frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha
+- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi.
+$$
+Its curvature form is then
+$$
+\bar\partial D_\psi \alpha
+= -\frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
++ \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}\wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
+- \frac{h(\alpha,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi
++ \frac{h(\alpha,\xi)}{h(\xi,\xi)}\frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi,
+$$
+where we have been very careful with the signs when calculating $\bar\partial h(\partial\xi, \xi)$.
+We're of course not interested in the curvature form of $\psi$, but we have
+$$
+\psi = e^{\log h(\xi,\xi)^2} \phi.
+$$
+Then we get
+$$
+\bar\partial \log h(\xi,\xi)^2
+= 2\bar\partial \log h(\xi,\xi)
+= 2 \frac{h(\xi,\partial\xi)}{h(\xi,\xi)}
+$$
+and
+$$
+\partial\bar\partial \log h(\xi,\xi)^2
+= 2 \frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)}
+- 2 \frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)}.
+$$
+We know that
+$$
+\Theta_\psi = - \partial\bar\partial \log h(\xi,\xi)^2 \otimes \id + \Theta_\phi
+$$
+so
+\begin{align*}
+\Theta_\phi \alpha
+&= \frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
+- \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}\wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
++ \partial\xi \wedge \frac{h(\alpha,\partial\xi)}{h(\xi,\xi)}
+- \partial\xi \wedge \frac{h(\alpha,\xi)}{h(\xi,\xi)}\frac{h(\xi,\partial\xi)}{h(\xi,\xi)}
+\\
+&= \phi(\partial\xi, \partial\xi) \wedge \alpha
++ \partial\xi \wedge \phi(\alpha, \partial\xi).
+\end{align*}
+
+
+\paragraph{Fubini--Study curvature tensors}
+
+From the above discussion, we see that
+$$
+R(\alpha,\beta,\gamma,\delta)
+= \phi(\alpha,\beta)\phi(\gamma,\delta) + \phi(\gamma,\beta)\phi(\alpha,\delta).
+$$
+The holomorphic bisectional curvature is then
+$$
+B(\alpha,\beta) = \frac{R(\alpha,\alpha,\beta,\beta)}{\phi(\alpha,\alpha)\phi(\beta,\beta)}
+= \frac{\phi(\alpha,\alpha)\phi(\beta,\beta)+|\phi(\alpha,\beta)|^2}{\phi(\alpha,\alpha)\phi(\beta,\beta)}.
+$$
+We have
+$$
+1 \leq B(\alpha,\beta) \leq 2
+$$
+by Cauchy--Schwarz. The holomorphic sectional curvature is
+$$
+H(\alpha) = B(\alpha,\alpha) = 2.
+$$
+To find the Ricci curvature we pick a holomorphic frame $(\zeta_1, \ldots, \zeta_n)$ that's orthonormal at a point $z$. There we have
+$$
+r(\alpha,\beta)
+= \sum_{j=1}^n R(\alpha,\beta,\zeta_j,\zeta_j)
+= \sum_{j=1}^n \phi(\alpha,\beta) + \phi(\alpha,\zeta_j)\phi(\zeta_j,\beta)
+= (n+1) \phi(\alpha,\beta).
+$$
+The Fubini--Study metric is thus a K\"ahler--Einstein metric. Contracting the Ricci tensor we find that its scalar curvature is
+$$
+s = n(n+1).
+$$
+
 
 \section{Poincaré half-plane}
 \label{sec:orgfbd87cb}
@@ -233,11 +390,11 @@ H^2(X, \kk C) \cong H^2(S^{2n-1}, \kk C) \oplus H^1(S^{2n-1}, \kk C) \otimes H^1
 $$
 so it is not K\"ahler.
 
-Let \(\pi : \kk C^n \setminus \{0\} \to X\) be the projection. If \(\omega\) is a Hermitian metric on \(X\), then its pullback \(\pi^*\omega\) is a Hermitian metric on \(\kk C^n \setminus \{0\}\) that is invariant under the action of \(\Gamma\). If we write it as \(\pi^*\omega = \sum_{j,k} a_{jk}(z) \tfrac{i}{2} dz_j \wedge d\bar z_k\), then the smooth functions \(a_{jk}\) must satisfy
+Let \(\pi : \kk C^n \setminus \{0\} \to X\) be the projection. If \(h\) is a Hermitian metric on \(X\), then its pullback \(\pi^*h\) is a Hermitian metric on \(\kk C^n \setminus \{0\}\) that is invariant under the action of \(\Gamma\). If we write its K\"ahler form as \(\sum_{j,k} a_{jk}(z) \tfrac{i}{2} dz_j \wedge d\bar z_k\), then the smooth functions \(a_{jk}\) must satisfy
 $$
 a_{jk}(\lambda z) = \frac{1}{|\lambda|^2} a_{jk}(z).
 $$
-We can pick one such metric to inspect; we'll choose \(\omega = \frac{1}{\|z\|^2} \omega_{\mathrm{std}}\), that is, a metric that is conformal to the standard metric on \(\kk C^n \setminus \{0\}\). The Ph.D. thesis \cite{istrati:tel-02156198} has a nice discussion of the history of these metrics on the Hopf manifold.
+We can pick one such metric to inspect; we'll choose \(h = \frac{1}{\|z\|^2} h_{\mathrm{std}}\), that is, a metric that is conformal to the standard metric on \(\kk C^n \setminus \{0\}\). The Ph.D. thesis \cite{istrati:tel-02156198} has a nice discussion of the history of these metrics on the Hopf manifold.
 
 As the metric is conformal to a K\"ahler metric, and the conformal factor is non-constant, the metric is not K\"ahler. (We already knew this because \emph{no} metric on the Hopf manifold is K\"ahler, but it's nice to check.)
 
@@ -245,33 +402,31 @@ As the metric is conformal to a K\"ahler metric, and the conformal factor is non
 \paragraph{Curvature tensor}
 \label{sec:org96d544d}
 
-We've \hyperref[sec:org65fcbad]{already computed} the curvature of a conformal metric, so we know the curvature form of this metric is
+We've \hyperref[sec:org65fcbad]{already computed} the curvature of a conformal metric, so we know the curvature form of the metric $h$ is
 $$
-D^2 s = i\partial\bar\partial \log \|z\|^2 \otimes s.
+D^2 s = \partial\bar\partial \log \|z\|^2 \otimes s.
 $$
-Let's compute this and express the curvature tensor of the metric. We have
-$$
-\bar\partial \log \|z\|^2
-= \frac{1}{\|z\|^2} \sum_{k=1}^n z_k \bar\partial z_k
-$$
-and
-$$
-i\partial\bar\partial \log \|z\|^2
-= - \frac{i}{\|z\|^4} \biggl(\sum_{j=1}^n \bar z_j \partial z_j \biggr) \wedge \biggl(\sum_{k=1}^n z_k \bar\partial z_k\biggr) + \frac{1}{\|z\|^2} \sum_{j=1}^n i\partial z_j \wedge \bar\partial z_j.
-$$
-We can try to write this in a more global way by looking at the Euler vector field
+Let's compute this and express the curvature tensor of the metric. To do that we'll use the Euler field
 $$
 \xi = \sum_{j=1}^n z_j \frac{\partial}{\partial z_j}.
 $$
-Then
+It is a holomorphic tensor field whose norm is $\|\xi\|^2 = \|z\|^2$ and satisfies $\partial_\alpha \xi = \alpha$ for holomorphic tensor fields $\alpha$. We have
 $$
-i\partial\bar\partial \log \|z\|^2
-= -\frac{4}{\|z\|^4} \langle \cdot, \xi \rangle \wedge \langle \xi, \cdot \rangle + \frac{2}{\|z\|^2} \langle \cdot, \cdot \rangle.
+\bar\partial \log \|z\|^2
+= \frac{\langle \xi, \partial\xi \rangle}{\langle \xi,\xi \rangle}
+$$
+and
+$$
+\partial\bar\partial \log \|z\|^2
+= \frac{\langle \partial \xi, \partial \xi \rangle}{\langle \xi, \xi \rangle}
+- \frac{\langle \partial\xi, \xi\rangle}{\langle \xi, \xi \rangle} \wedge \frac{\langle \xi, \partial \xi \rangle}{\langle \xi, \xi \rangle}
+= h(\partial\xi, \partial\xi) - h(\partial\xi, \xi) \wedge h(\xi, \partial\xi).
 $$
 The curvature tensor of the metric \(h\) on the Hopf manifold is then
 $$
 R(\alpha,\beta,\gamma,\delta)
-= 2 h(\alpha, \beta)\,h(\gamma, \delta) - 4 h(\alpha, \xi)\, h(\xi, \beta)\,h(\gamma, \delta).
+= h(\alpha, \beta) h(\gamma, \delta)
+- h(\alpha, \xi) h(\xi, \beta) h(\gamma, \delta).
 $$
 We note that it has the expected conjugate symmetries, that is, that \(R(\beta, \alpha, \delta, \gamma) = \overline{R(\alpha, \beta, \gamma, \delta)}\), but \(R(\gamma, \delta, \alpha, \beta) \not= R(\alpha, \beta, \gamma, \delta)\) like it would if this were the curvature tensor of a K\"ahler metric.
 
@@ -279,21 +434,24 @@ We note that it has the expected conjugate symmetries, that is, that \(R(\beta, 
 \paragraph{Holomorphic sectional curvature}
 \label{sec:org6471503}
 
+The holomorphic bisectional curvature of the metric is
+$$
+B(\alpha,\beta)
+= \frac{R(\alpha,\beta,\alpha,\beta)}{\|\alpha\|^2\|\beta\|^2}
+= \frac{|h(\alpha,\beta)|^2 - h(\alpha,\xi)h(\xi,\beta)h(\alpha,\beta)}{\|\alpha\|^2\|\beta\|^2}.
+$$
 The holomorphic sectional curvature of the Hopf manifold is
-\begin{align*}
+$$
 H(\alpha)
-= \frac{1}{\|\alpha\|^4} R(\alpha, \alpha, \alpha, \alpha)
-&= \frac{1}{\|\alpha\|^4} \bigl( 2 \|\alpha\|^4 - 4 |h(\alpha, \xi)|^2 \|\alpha\|^2 \bigr)
-\\
-&\geq \frac{1}{\|\alpha\|^4}\bigl( 2 \|\alpha\|^4 - 4 \|\alpha\|^4\bigr)
-= -2,
-\end{align*}
-where the inequality is by Cauchy--Schwarz and that \(\|\xi\|^2 = 1\) for the metric \(h\). By dropping the negative term we get an easy upper bound as well, and see that
+= B(\alpha,\alpha)
+= \frac{\|\alpha\|^4 - |h(\alpha,\xi)|^2 \|\alpha\|^2}{\|\alpha\|^4}
+= \frac{\|\alpha\|^2 - |h(\alpha,\xi)|^2}{\|\alpha\|^2}.
 $$
--2 \leq H(\alpha) \leq 2.
+We have the bounds
 $$
-Both of these bounds are sharp, as one is acheived when \(\alpha\) is a multiple of \(\xi\) and the other when \(\alpha\) is orthogonal to \(\xi\). By the intermediate value theorem, the holomorphic sectional curvature also assumes any value in between the two.
-
+0 \leq H(\alpha) \leq 1
+$$
+that are obtained when $\alpha$ is a multiple of $\xi$ and when it is orthogonal to $\xi$, respectively.
 
 \paragraph{Ricci tensors}
 \label{sec:org3942125}
@@ -303,15 +461,15 @@ The curvature tensor can be contracted in three ways to obtain a \((1,1)\)-form.
 The easiest of these to compute for us is the one given by taking the traces of the endomorphisms in the curvature form. As those endomorphisms are the identity here, we find that
 $$
 r_1(\alpha, \beta)
-= 2n \bigl( h(\alpha, \beta) - 2 h(\alpha, \xi) \, h(\xi, \beta) \bigr).
+= n \bigl( h(\alpha, \beta) - h(\alpha, \xi) h(\xi, \beta) \bigr).
 $$
 This is the same as we obtain by contracting the curvature tensor along \(\delta\) and \(\gamma\). As before, Cauchy--Schwarz gives us the estimates
 $$
--2n
+0
 \leq \frac{r_1(\alpha, \alpha)}{\|\alpha\|^2}
-\leq 2n
+\leq n
 $$
-which are sharp under the same conditions as before. As expected, this form is neither positive- nor negative-definite: It is the curvature form of the anti-canonical bundle on \(X\) when equipped with the metric induced by \(\omega\). If it were positive or negative, \(X\) would be projective.
+which are sharp under the same conditions as before. This form is the curvature form of the anti-canonical bundle on $X$ when equipped with the metric induced by $h$, and surprisingly it is semipositive. It cannot be positive, of course, as that would imply that $X$ were projective, but it comes as close as it can.
 
 Our second contraction is along \(\alpha\) and \(\beta\). The only relevant part of the curvature tensor we don't know how to contract is \(h(\alpha, \xi)h(\xi, \beta)\). Let \((\zeta_1, \ldots, \zeta_n)\) be a local holomorphic frame that's orthonormal at a point \(z\) we care about. We have
 $$
@@ -321,10 +479,10 @@ as \(\xi = \sum_{j=1}^n h(\xi, \zeta_j) \zeta_j\) and \(h(\xi,\xi) = 1\).
 Then
 $$
 r_2(\gamma, \delta)
-= 2n h(\gamma, \delta) - 4 h(\gamma, \delta)
-= 2(n-2) h(\gamma, \delta).
+= n h(\gamma, \delta) - h(\gamma, \delta)
+= (n-1) h(\gamma, \delta).
 $$
-This form is not only different from \(r_1\) but it has a sign: when \(n = 2\) it is identically zero, and when \(n > 2\) it is positive-definite.
+This form is not only different from \(r_1\) but it is positive-definite.
 
 The third contraction is along \(\beta\) and \(\gamma\). We let \((\zeta_1, \ldots, \zeta_n)\) be a local holomorphic frame that's orthonormal at a point \(z\) as before. We have
 $$
@@ -340,7 +498,7 @@ $$
 Together, we get
 $$
 r_3(\alpha, \delta)
-= 2 h(\alpha, \delta) - 4 h(\alpha, \xi) h(\xi, \delta)
+= h(\alpha, \delta) - h(\alpha, \xi) h(\xi, \delta)
 = \frac{1}{n} r_1(\alpha, \delta).
 $$
 
@@ -349,9 +507,9 @@ $$
 
 We can contract any of the Ricci-forms we got to obtain the scalar curvature of the Hopf manifold. Picking the first two, we get
 $$
-s = 2n(n-2),
+s = n(n-1),
 $$
-while picking the third gives \(1/n\) times that. We see that the Hopf surface has identically zero scalar curvature, while the higher-dimensional Hopf manifolds have positive constant scalar curvature.
+while picking the third gives \(1/n\) times that, so Hopf manifolds have positive constant scalar curvature.
 
 
 \section{Iwasawa manifold}
