@@ -47,6 +47,69 @@ Discuss positivity concepts: Nakano, Griffits positive. Ricci positive. Bisectio
 
 Can prove that holomorphic bisectional curvature > 0 -> scalar curvature > 0.
 
+
+\section{Flat metrics}
+\label{sec:org504b250}
+
+Let $(E,h) \to X$ be a holomorphic Hermitian vector bundle. The curvature form $\Theta$ of $h$ is a smooth section of $\bigwedge^{1,1}T_X \otimes \End E$. The simplest such section is of course the zero section. We say that the metric $h$ is \emph{flat} if its curvature form is zero.
+
+
+\subsection{Euclidean metric}
+
+The prime example of such a metric is the standard Euclidean metric on any open set $U \subset \kk C^n$. The metric $h$ defined by the usual inner product,
+$$
+h(\xi, \eta) = \sum_{j=1}^n \xi_j \overline{\eta_j}.
+$$
+The associated K\"ahler form is
+$$
+\omega = \sum_{j=1}^n \frac{i}{2} dz_j \wedge d\bar z_j.
+$$
+This is clearly $d$-closed, so the Euclidean metric is K\"ahler.\footnote{It has a global potential $\|z\|^2$. This is seldom useful.} We have
+$$
+h(D\xi, \eta) + h(\xi, D\eta)
+= d h(\xi, \eta)
+= \sum_{j=1}^n d\xi_j \otimes \overline{\eta_j} + \xi_j \otimes \overline{d\eta_j}
+$$
+so the Chern connection of $h$ is equal to the exterior derivative.
+
+% TODO: Is any of the following relevant to examples of curvature tensors?
+% Do we want to only do examples or also have a review of some things that are known about curvature?
+
+\subsection{Compact manifolds}
+
+There are also compact manifolds with flat metrics. Let $\Lambda \subset \kk C^n$ be a lattice, that is, an abelian group of rank $2n$. Then $X := \kk C^n / \Lambda$ is a compact complex manifold, called a \emph{complex torus}. As $\Lambda$ acts by translations on $\kk C^n$, it preserves the Euclidean metric, which descends to $X$.
+
+One can ask whether the converse holds: If $X$ is a compact complex manifold with a flat metric, then is $X$ a complex torus?
+
+The answer is subtle. First, the proposed answer cannot be true, as some complex tori admit subgroups that act freely, and whose quotients are thus again compact complex manifolds with flat metrics that are not tori. In the K\"ahler case, that is the extent of the problems that can arise. We can see this quickly if we're prepared to nuke a mosquito:
+
+Suppose $X$ is a compact K\"ahler manifold that admits a flat metric. All of its Chern classes are then zero, in particular the first one. By \cite{beauville1983}, the universal covering of $X$ splits into a product of $\kk C^n$ and compact manifolds with zero first Chern class. The vanishing of all Chern classes of $X$ implies the product only involves $\kk C^n$.
+
+For Hermitian manifolds, the answer is slightly more complicated: A flat Hermitian manifold is covered by a simply connected complex Lie group~\cite{boothby1958}.
+
+
+\subsection{Gauss--Manin}
+
+% TODO: I'm not sure this should be here at all.
+
+Let $\pi : X \to S$ be a family of compact K\"ahler manifolds over a connected smooth base $S$. All of the manifolds $X_s := \pi^{-1}(s)$ in the family are diffeomorphic, so they all have isomorphic cohomology groups $H^k(X_s, \kk Z)$. These can be assembled into a holomorphic vector bundle $E \to S$ (by taking direct images of constant sheaves) whose fibers are exactly
+$$
+E_s = H^k(X_s, \kk C).
+$$
+The construction also yields a connection $\nabla$ on this vector bundle, called the \emph{Gauss--Manin connection}. It is flat, and if $\alpha$ is a local section of $E$ and $Y \subset X_s$ a $2k$-dimensional submanifold, then
+$$
+d \! \int_{X_s}\!\!\!\! \alpha = \int_{X_s} \!\!\! \nabla \alpha.
+$$
+The Gauss--Manin connection is generally not the Chern connection of a metric on $E$.
+
+Something mildly interesting happens in the middle cohomology. Suppose the manifolds in the family are of dimension $n$. Then there is an intersection form on $n$-forms, which yields a sesquilinear form
+$$
+b(\alpha, \beta) = \int_{X_s} i^{n^2} \alpha \wedge \overline{\beta}.
+$$
+This form is non-degenerate, but has mixed signature. One can still define connections for such forms, and the usual proof of the existance and uniqueness of the Chern connection carries through for them. One can check that the Gauss--Manin connection is the Chern connection of the intersection form in this sense. This does not appear to have any applications.
+
+
+
 \section{Conformal metrics}
 \label{sec:org65fcbad}
 
@@ -81,7 +144,7 @@ $$
 
 It's fun to work out what this gives for metrics conformal to a flat metric. We'll do that later when we study a particular metric on the \hyperref[sec:org8f5818e]{Hopf manifold}.
 
-\paragraph{Conformal to K\"ahler is not K\"ahler}
+\subsection{Conformal to K\"ahler is not K\"ahler}
 \label{sec:org7b1cfdf}
 
 It's worth mentioning that if \(h\) is a K\"ahler metric on a manifold of dimension \(n > 1\) and \(f\) is non-constant, then \(h'\) is not a K\"ahler metric. The reason is that if \(\omega\) is the symplectic form associated to \(h\), then the symplectic form of \(h'\) is \(e^f \omega\) and
@@ -91,65 +154,56 @@ $$
 and the linear morphism from one- to three-forms defined by wedging with the symplectic form \(\omega\) is injective.\footnote{The hard Lefschetz theorem generalizes this to cohomology.}
 The proof reduces to linear algebra by a calculation in local coordinates, either Darbeaux ones or in holomorphic ones that are orthonormal at a point.
 
-\section{Flat metrics}
-\label{sec:org504b250}
 
-Let $(E,h) \to X$ be a holomorphic Hermitian vector bundle. The curvature form $\Theta$ of $h$ is a smooth section of $\bigwedge^{1,1}T_X \otimes \End E$. The simplest such section is of course the zero section. We say that the metric $h$ is \emph{flat} if its curvature form is zero.
+\section{Riemann surfaces}
+\label{sec:org776713b}
 
+In Riemannian geometry, the full curvature tensor doesn't appear until in dimension $4$. Before that, the low dimensions of the tangent space restrict what tensors can appear. The equivalent situation in complex geometry only occurs in complex dimension one, one Riemann surfaces. Complex dimension two is real dimension four and already contains all the complexities of the higher dimensions. Conversely, complex dimension one is only real dimension two and too simple to give a good idea of what happens in higher dimensions.
 
-\paragraph{Euclidean metric}
-
-The prime example of such a metric is the standard Euclidean metric on any open set $U \subset \kk C^n$. The metric $h$ defined by the usual inner product,
+\subsection{Everything is K\"ahler}
+Let $U \subset \kk C$ be an open set. We can imagine it is a small neighborhood around a point in a Riemann surface we care about. Let $h$ be a Hermitian metric on $U$. The K\"ahler form of the metric can be written as
 $$
-h(\xi, \eta) = \sum_{j=1}^n \xi_j \overline{\eta_j}.
+\omega = e^{f(z)} \frac{i}{2} dz \wedge d\bar z
 $$
-The associated K\"ahler form is
+on $U$. Then $d\omega = 0$ for dimensional reasons, so any Hermitian metric on $U$ is K\"ahler.
+
+\subsection{Curvature}
+By the above, we also have $h = e^f h_{\mathrm{std}}$, so the Chern connection and curvature of the metric can be deduced from our discussion on conformal metrics. Notably, the curvature form is
 $$
-\omega = \sum_{j=1}^n \frac{i}{2} dz_j \wedge d\bar z_j.
+\Theta
+= -\frac i2\partial\bar\partial f
+= -\frac{1}{e^f}\frac{\partial^2f}{\partial z \partial \bar z} \; e^f \frac{i}{2} dz \wedge d\bar z
+= -\Delta_\omega f \; \omega.
 $$
-This is clearly $d$-closed, so the Euclidean metric is K\"ahler.\footnote{It has a global potential $\|z\|^2$. This is seldom useful.} We have
+There should be a tensor product with the identity map on $T_X$ in the first equality, but the identity map on a one-dimensional space is just multiplication by $1$ so we can skip it.
+
+One can note that an endomorphism on a one-dimensional space can be identified with its trace. From that point of view, one can say that the curvature form in complex dimension one can be identified with the form one gets by taking the trace of the curvature endomorphisms. In some sense, the full curvature form collapses to the Ricci form. In some other sense, the above computations imply the Ricci form only contains the scalar curvature. There's not enough space for complex curvature tensors.
+
+
+\subsection{Poincar\'e disk}
+
+Let $D = \{z \in \kk C \mid |z| < 1\}$ be the unit disk in the complex plane. We can pull a Hermitian metric out of our hat by setting
 $$
-h(D\xi, \eta) + h(\xi, D\eta)
-= d h(\xi, \eta)
-= \sum_{j=1}^n d\xi_j \otimes \overline{\eta_j} + \xi_j \otimes \overline{d\eta_j}
+\omega = \frac 1{(1-|z|^2)^2} \frac i2 dz \wedge d\bar z.
 $$
-so the Chern connection of $h$ is equal to the exterior derivative.
-
-% TODO: Is any of the following relevant to examples of curvature tensors?
-% Do we want to only do examples or also have a review of some things that are known about curvature?
-
-\paragraph{Compact manifolds}
-
-There are also compact manifolds with flat metrics. Let $\Lambda \subset \kk C^n$ be a lattice, that is, an abelian group of rank $2n$. Then $X := \kk C^n / \Lambda$ is a compact complex manifold, called a \emph{complex torus}. As $\Lambda$ acts by translations on $\kk C^n$, it preserves the Euclidean metric, which descends to $X$.
-
-One can ask whether the converse holds: If $X$ is a compact complex manifold with a flat metric, then is $X$ a complex torus?
-
-The answer is subtle. First, the proposed answer cannot be true, as some complex tori admit subgroups that act freely, and whose quotients are thus again compact complex manifolds with flat metrics that are not tori. In the K\"ahler case, that is the extent of the problems that can arise. We can see this quickly if we're prepared to nuke a mosquito:
-
-Suppose $X$ is a compact K\"ahler manifold that admits a flat metric. All of its Chern classes are then zero, in particular the first one. By \cite{beauville1983}, the universal covering of $X$ splits into a product of $\kk C^n$ and compact manifolds with zero first Chern class. The vanishing of all Chern classes of $X$ implies the product only involves $\kk C^n$.
-
-For Hermitian manifolds, the answer is slightly more complicated: A flat Hermitian manifold is covered by a simply connected complex Lie group~\cite{boothby1958}.
-
-
-\paragraph{Gauss--Manin}
-
-% TODO: I'm not sure this should be here at all.
-
-Let $\pi : X \to S$ be a family of compact K\"ahler manifolds over a connected smooth base $S$. All of the manifolds $X_s := \pi^{-1}(s)$ in the family are diffeomorphic, so they all have isomorphic cohomology groups $H^k(X_s, \kk Z)$. These can be assembled into a holomorphic vector bundle $E \to S$ (by taking direct images of constant sheaves) whose fibers are exactly
+As
 $$
-E_s = H^k(X_s, \kk C).
+\frac 1{(1-|z|^2)^2} = e^{-2\log(1-|z|^2)}
 $$
-The construction also yields a connection $\nabla$ on this vector bundle, called the \emph{Gauss--Manin connection}. It is flat, and if $\alpha$ is a local section of $E$ and $Y \subset X_s$ a $2k$-dimensional submanifold, then
-$$
-d \! \int_{X_s}\!\!\!\! \alpha = \int_{X_s} \!\!\! \nabla \alpha.
-$$
-The Gauss--Manin connection is generally not the Chern connection of a metric on $E$.
+the curvature form of $\omega$ is
+\begin{align*}
+2\frac i2 \partial\bar\partial \log(1-|z|^2)
+&= 2\frac i2 \partial \frac{-z d\bar z}{1-|z|^2}
+\\
+&= 2\frac i2 \frac{- dz \wedge d\bar z}{1-|z|^2}
+- 2\frac i2 \frac{-\bar z dz}{1-|z|^2} \wedge \frac{-zd\bar z}{1-|z|^2}
+\\
+&= 2\biggl(\frac{-1}{1-|z|^2} - \frac{|z|^2}{(1-|z|^2)^2} \biggr) \frac i2 dz \wedge d\bar z
+\\
+&= -2 \omega.
+\end{align*}
+The Poincar\'e metric is the first negatively curved K\"ahler metric we see. Most Riemann surfaces are negatively curved. Compact ones can be organized according to their genus, which is one-half of the dimension of their first homology group. Any compact Riemann surface of genus zero is isomorphic to the projective line and so is positively curved; a Riemann surface of genus one is a torus and thus flat; and any other Riemann surface is covered by the unit disk and negatively curved.
 
-Something mildly interesting happens in the middle cohomology. Suppose the manifolds in the family are of dimension $n$. Then there is an intersection form on $n$-forms, which yields a sesquilinear form
-$$
-b(\alpha, \beta) = \int_{X_s} i^{n^2} \alpha \wedge \overline{\beta}.
-$$
-This form is non-degenerate, but has mixed signature. One can still define connections for such forms, and the usual proof of the existance and uniqueness of the Chern connection carries through for them. One can check that the Gauss--Manin connection is the Chern connection of the intersection form in this sense. This does not appear to have any applications.
 
 
 \section{Projective space}
@@ -168,7 +222,7 @@ $$
 As the unit sphere is compact, it follows that the projective space $\kk P(V)$ is compact.
 
 
-\paragraph{Manifold structure}
+\subsection{Manifold structure}
 
 We're going to construct local holomorphic charts on $\kk P(V)$. Let $\lambda \in V^* \setminus \{0\}$ and define
 $$
@@ -197,7 +251,7 @@ $$
 This map is a composition of field operations and a linear map, so it is holomorphic. The collection above thus forms a holomorphic atlas.
 
 
-\paragraph{Tautological bundle}
+\subsection{Tautological bundle}
 
 
 If we consider the trivial vector bundle $V \to \kk P(V)$, then the definition of projective space gives a line bundle $\cc O(-1) \subset V$ whose fiber over a point $[v]$ is
@@ -207,7 +261,7 @@ On a local chart $H_\lambda$, the line bundle is given by $\kk C \cdot v \subset
 
 
 
-\paragraph{Curvature of tautological bundle}
+\subsection{Curvature of tautological bundle}
 
 Fix a Hermitian inner product $h$ on $V$. This defines a flat Hermitian metric on the trivial vector bundle $V \to \kk P(V)$. It follows that the induced metric on $\cc O(-1)$ is non-positive.\footnote{Hence the $-1$.}
 
@@ -237,7 +291,7 @@ We claim that this is negative-definite. We have
 with equality if and only if $\alpha$ is a multiple of the Euler field $\xi$. But note that $H_\lambda$ is defined so that $\lambda(\xi) = 1$, while its tangent space identifies with the set of vectors $\alpha$ such that $\lambda(\alpha) = 0$. Therefore $\alpha$ is not a multiple of $\xi$.
 
 
-\paragraph{Fubini--Study metric}
+\subsection{Fubini--Study metric}
 
 The dual of the tautological line bundle is denoted by $\cc O(1) := \cc O(-1)^*$. By the above, it is a positive line bundle on the projective space $\kk P(V)$. Its curvature form $\omega$ is called the \emph{Fubini--Study metric} on the projective space. It is a K\"ahler metric. In local coordinates it is given by the Hermitian form $-\phi$ above.
 
@@ -326,7 +380,7 @@ so
 \end{align*}
 
 
-\paragraph{Fubini--Study curvature tensors}
+\subsection{Fubini--Study curvature tensors}
 
 From the above discussion, we see that
 $$
@@ -359,16 +413,13 @@ s = n(n+1).
 $$
 
 
-\section{Poincaré half-plane}
-\label{sec:orgfbd87cb}
-
-\section{Higher-dimensional hyperbolic metrics}
+\section{TODO: Higher-dimensional hyperbolic metrics}
 \label{sec:org21fa1aa}
 
-\section{Grassmannian}
+\section{TODO: Grassmannian}
 \label{sec:org34425b6}
 
-\section{Flag manifold}
+\section{TODO: Flag manifold}
 \label{sec:orga0ef6a0}
 
 These are K\"ahler. There is a ``natural'' non-K\"ahler metric on them.
@@ -399,7 +450,7 @@ We can pick one such metric to inspect; we'll choose \(h = \frac{1}{\|z\|^2} h_{
 As the metric is conformal to a K\"ahler metric, and the conformal factor is non-constant, the metric is not K\"ahler. (We already knew this because \emph{no} metric on the Hopf manifold is K\"ahler, but it's nice to check.)
 
 
-\paragraph{Curvature tensor}
+\subsection{Curvature tensor}
 \label{sec:org96d544d}
 
 We've \hyperref[sec:org65fcbad]{already computed} the curvature of a conformal metric, so we know the curvature form of the metric $h$ is
@@ -431,7 +482,7 @@ $$
 We note that it has the expected conjugate symmetries, that is, that \(R(\beta, \alpha, \delta, \gamma) = \overline{R(\alpha, \beta, \gamma, \delta)}\), but \(R(\gamma, \delta, \alpha, \beta) \not= R(\alpha, \beta, \gamma, \delta)\) like it would if this were the curvature tensor of a K\"ahler metric.
 
 
-\paragraph{Holomorphic sectional curvature}
+\subsection{Holomorphic sectional curvature}
 \label{sec:org6471503}
 
 The holomorphic bisectional curvature of the metric is
@@ -453,7 +504,7 @@ $$
 $$
 that are obtained when $\alpha$ is a multiple of $\xi$ and when it is orthogonal to $\xi$, respectively.
 
-\paragraph{Ricci tensors}
+\subsection{Ricci tensors}
 \label{sec:org3942125}
 
 The curvature tensor can be contracted in three ways to obtain a \((1,1)\)-form. On a K\"ahler manifold, all three ways give the same result; on a non-K\"ahler manifold they may not.
@@ -502,7 +553,7 @@ r_3(\alpha, \delta)
 = \frac{1}{n} r_1(\alpha, \delta).
 $$
 
-\paragraph{Scalar curvature}
+\subsection{Scalar curvature}
 \label{sec:orgf9212d2}
 
 We can contract any of the Ricci-forms we got to obtain the scalar curvature of the Hopf manifold. Picking the first two, we get
@@ -512,10 +563,10 @@ $$
 while picking the third gives \(1/n\) times that, so Hopf manifolds have positive constant scalar curvature.
 
 
-\section{Iwasawa manifold}
+\section{TODO: Iwasawa manifold}
 \label{sec:orgd67c2ff}
 
-\section{Direct image curvatures}
+\section{TODO: Direct image curvatures}
 \label{sec:org5619e67}
 
 Weil--Peterson, maybe.
@@ -523,7 +574,7 @@ Weil--Peterson, maybe.
 Berndtsson has papers from about ten years ago we could look at. Cao et al took that further recently, but that's probably too advanced for what we want to do.
 
 
-\section{Algebraic curvature tensors}
+\section{TODO: Algebraic curvature tensors}
 \label{sec:orga0722e9}
 
 Dimension of their subspace.
@@ -531,38 +582,14 @@ Kobayashi-Nomitzu products.
 Holomorphic bisectional curvature determines curvature tensor.
 
 
-\section{Intuitive explanation for curvature forms}
+\section{TODO: Intuitive explanation for curvature forms}
 \label{sec:org2b43ecb}
 
 Wikipedia has a handwavy explanation of curvature as what happens when we parallel transport a section along a parallelogram. Can we make this precise?
 
 
-\section{Riemann surfaces}
-\label{sec:org776713b}
 
-In Riemannian geometry, the full curvature tensor doesn't appear until in dimension $4$. Before that, the low dimensions of the tangent space restrict what tensors can appear. The equivalent situation in complex geometry only occurs in complex dimension one, one Riemann surfaces. Complex dimension two is real dimension four and already contains all the complexities of the higher dimensions. Conversely, complex dimension one is only real dimension two and too simple to give a good idea of what happens in higher dimensions.
-
-\paragraph{Everything is K\"ahler}
-Let $U \subset \kk C$ be an open set. We can imagine it is a small neighborhood around a point in a Riemann surface we care about. Let $h$ be a Hermitian metric on $U$. The K\"ahler form of the metric can be written as
-$$
-\omega = e^{f(z)} \frac{i}{2} dz \wedge d\bar z
-$$
-on $U$. Then $d\omega = 0$ for dimensional reasons, so any Hermitian metric on $U$ is K\"ahler.
-
-\paragraph{Curvature}
-By the above, we also have $h = e^f h_{\mathrm{std}}$, so the Chern connection and curvature of the metric can be deduced from our discussion on conformal metrics. Notably, the curvature form is
-$$
-\Theta
-= i\partial\bar\partial f
-= \frac{2}{e^f}\frac{\partial^2f}{\partial z \partial \bar z} \; e^f \frac{i}{2} dz \wedge d\bar z
-= 2\Delta_\omega f \; \omega.
-$$
-There should be a tensor product with the identity map on $T_X$ in the first equality, but the identity map on a one-dimensional space is just multiplication by $1$ so we can skip it.
-
-One can note that an endomorphism on a one-dimensional space can be identified with its trace. From that point of view, one can say that the curvature form in complex dimension one can be identified with the form one gets by taking the trace of the curvature endomorphisms. In some sense, the full curvature form collapses to the Ricci form. In some other sense, the above computations imply the Ricci form only contains the scalar curvature. There's not enough space for complex curvature tensors.
-
-
-\section{Hermitian metrics}
+\section{TODO: Hermitian metrics}
 \label{sec:orgad8dbb1}
 
 Discuss extra symmetries we get when \(E = T_X\).
@@ -572,14 +599,28 @@ Define sectional curvatures, Ricci tensors, scalar curvature.
 Discuss K\"ahler metrics. Extra curvature symmetries. All Ricci forms are equal.
 
 
-\section{Hom-metrics}
+\section{TODO: Hom-metrics}
 
 Somewhere you have a draft that talks about the space of functions $f : X \to Y$ and how we can put a metric on that when given metrics on $X$ or $Y$. I think we computed the curvature tensors we get from that.
 
 
-\section{Moduli space of complex tori}
+\section{TODO: Moduli space of complex tori}
 
 That space has a fairly explicit metric whose curvature tensor we can compute. Might be related to the Grassmannian?
+
+
+\section{TODO: Hilbert scheme or cycle space}
+
+Check Barlet and Magnusson's book. Maybe difficult.
+
+\section{TODO: Curves in projective space}
+
+Done in \cite{fischer1983differential}, apparently. Looks inscrutable.
+
+\section{TODO: Hypersurfaces in projective space}
+
+Done in \cite{vitter1974curvature}, which I can verify once scihub's search comes back.
+
 
 
 \bibliographystyle{plain}
