@@ -209,7 +209,7 @@ The Poincar\'e metric is the first negatively curved K\"ahler metric we see. Mos
 \section{Projective space}
 \label{sec:orgcfabeed}
 
-The complex projective space is the space of lines in a given complex vector space. That is, if $V$ is a complex vector space, then
+The complex projective space is the space of lines in a given complex vector space. That is, if $V$ is a complex vector space of dimension $n$ > 1, then
 $$
 \kk P(V) := \{ v \in V \mid v \not= 0 \} / \kk C^*,
 $$
@@ -242,7 +242,7 @@ It is in fact a bijection onto this set: If $v \in H_\lambda$ then $[v]$ is an e
 
 The map $f_\lambda$ is continuous: Let $U \subset H_\lambda$ be open. Then $\pi^{-1}(f_\lambda^{-1}(U)) = \kk C^* \cdot U$, which is open. Its inverse is also continuous: The map $f_\lambda^{-1}$ is just the restriction of $\pi$ to $H_\lambda$. Thus $f_\lambda$ is a homeomorphism.
 
-The collection $(f_\lambda : U_\lambda \to H_\lambda)_{\lambda \in V^* \setminus \{0\}}$ covers $\kk P(V)$ and provides local homeomorphisms to spaces biholomorphic to $\kk C^n$. If $\lambda$ and $\lambda'$ are two nonzero elements of the dual space, then the transition map between charts is
+The collection $(f_\lambda : U_\lambda \to H_\lambda)_{\lambda \in V^* \setminus \{0\}}$ covers $\kk P(V)$ and provides local homeomorphisms to spaces biholomorphic to $\kk C^{\dim V - 1}$. If $\lambda$ and $\lambda'$ are two nonzero elements of the dual space, then the transition map between charts is
 $$
 f_{\lambda'} \circ f_{\lambda}^{-1} : \{v \in H_\lambda \mid \lambda'(v) \not= 0 \} \to H_{\lambda'},
 \quad
@@ -411,6 +411,93 @@ The Fubini--Study metric is thus a K\"ahler--Einstein metric. Contracting the Ri
 $$
 s = n(n+1).
 $$
+
+
+\section{Projective space redux}
+
+Let $V$ be a complex vector space of dimension $n > 1$ as before, and let $h$ be a Hermitian inner product on $V$. We take as given that the projective space $\kk P(V)$ exists and is a holomorphic manifold. We denote by $\pi : V \setminus \{0\} \to \kk P(V)$ the holomorphic projection map.
+
+As before we have the trivial vector bundle $V \to \kk P(V)$ and the tautological line bundle $\cc O(-1) \to \kk P(V)$. We also have such bundles over the complex manifold $V \setminus \{0\}$, and its tangent bundle is in fact $T_{V \setminus \{0\}} = V$. We also see that the pullback of $\pi^*\cc O(-1)$ is the ``same'' line bundle $\cc O(-1)$ over $V \setminus \{0\}$. There is also a short exact sequence
+$$
+0 \longrightarrow
+\cc O(-1) \longrightarrow
+T_{V\setminus\{0\}} \longrightarrow
+\pi^* T_{\kk P(V)} \longrightarrow
+0
+$$
+of vector bundles over $V \setminus \{0\}$.\footnote{This is not the Euler sequence, which exists over $\kk P(V)$ and includes extra twists.}
+
+On $V\setminus\{0\}$, we have the flat Hermitian metric $h$. We equip $\cc O(-1)$ with the Hermitian metric induced by the inclusion into the tangent bundle. The Euler section $\xi(v) = v$ over $V \setminus \{0\}$ is a nowhere-zero holomorphic section that trivializes the bundle $\cc O(-1)$. The curvature form of the metric on $\cc O(-1)$ is thus
+$$
+\omega
+= -\frac i2\partial\bar\partial \log h(\xi,\xi)
+= -\frac i2 \frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)}
++ \frac i2 \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}\wedge\frac{h(\xi,\partial\xi)}{h(\xi,\xi)}.
+$$
+Evaluated on tangent vectors, we have
+$$
+\omega(\alpha,\beta)
+= - \frac{h(\alpha,\beta)}{h(\xi,\xi)}
++ \frac{h(\alpha,\xi)}{h(\xi,\xi)} \cdot \frac{h(\xi,\beta)}{h(\xi,\xi)}.
+$$
+Cauchy--Schwarz shows that $\omega(\alpha,\alpha) \leq 0$ with equality if and only if $\alpha$ is a multiple of $\xi$. Note that $\pi^*T_{\kk P(V)}$ contains exactly the fields that are not multiples of $\xi$. The form $\omega$ is clearly invariant under the action of $\kk C^*$, which means that it descends to define a closed $(1,1)$-form on $T_{\kk P(V)}$. That form is negative-definite there.
+
+Like before we now consider $\cc O(1)$ and the induced K\"ahler metric, which we denote $\omega$ in a slight abuse of notation. Our game will be to compute the curvature form of $\pi^*\omega$ on $\pi^*T_{\kk P(V)}$. For variety, we'll do this directly instead of appealing to conformal metrics like before.
+
+Denote the Chern connection of $\omega$ on $\kk P(V)$ by $D$. Upstairs, we have
+\begin{align*}
+\pi^*\omega(\pi^*D \alpha, \beta)
+&= \partial \pi^*\omega(\alpha,\beta)
+\\
+&= \frac{h(\partial\alpha, \beta)}{h(\xi,\xi)}
+- \frac{h(\partial\xi, \xi)}{h(\xi,\xi)}
+ \frac{h(\alpha,\beta)}{h(\xi,\xi)}
+\\
+&\qquad{}
+- \frac{h(\partial\alpha,\xi)}{h(\xi,\xi)}
+\frac{h(\xi,\beta)}{h(\xi,\xi)}
++ \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}
+\frac{h(\alpha,\xi)}{h(\xi,\xi)}
+\frac{h(\xi,\beta)}{h(\xi,\xi)}
+\\
+&\qquad{}
+- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \frac{h(\partial\xi,\beta)}{h(\xi,\xi)}
++\frac{h(\alpha, \xi)}{h(\xi,\xi)}
+\frac{h(\partial\xi,\xi)}{h(\xi,\xi)}
+\frac{h(\xi,\beta)}{h(\xi,\xi)}
+\\
+&= \pi^*\omega(\partial\alpha,\beta)
+- \pi^*\omega\biggl(\frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi, \beta \biggr)
+- \pi^*\omega\biggl(\frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \alpha, \beta \biggr)
+\end{align*}
+so the pullback of the Chern connection is
+$$
+\pi^*D \alpha
+= d\alpha
+- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi
+- \frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \alpha.
+$$
+For the curvature form, we then have
+\begin{align*}
+\pi^*\frac i2\bar\partial D\alpha
+&= -\frac i2 \partial\bar\partial \alpha
+- \frac i2 \frac{h(\alpha,\partial\xi)}{h(\alpha,\xi)} \wedge \partial \xi
++ \frac i2 \frac{h(\alpha,\xi)}{h(\xi,\xi)} \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi
+\\
+&\qquad{}
++ \frac i2\frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
+- \frac i2\frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
+\\
+&= - \pi^*\omega(\alpha, \partial\xi) \wedge \partial \xi
++ \pi^*\omega(\partial\xi, \partial\xi) \alpha.
+\end{align*}
+As before we have to be careful about signs when computing $\bar\partial \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}$. Note also the sign flip when we (silently) commute $\partial\xi$ below. We conclude that the pullback of the curvature tensor is
+$$
+\pi^* R(\alpha,\beta,\gamma,\delta)
+= \pi^*\omega(\alpha, \beta) \pi^*\omega(\gamma, \delta)
++ \pi^*\omega(\alpha, \delta) \pi^*\omega(\gamma, \beta).
+$$
+We can extend the pullback of the curvature tensor to all of $T_{V\setminus\{0\}}$; it simply vanishes when any of the entries is a multiple of $\xi$ as $\pi^*\omega$ vanishes in that case.
 
 
 \section{TODO: Higher-dimensional hyperbolic metrics}
