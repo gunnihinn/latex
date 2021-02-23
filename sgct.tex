@@ -11,13 +11,23 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
 
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\id}{id}
+
+\newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
 
 \newtheorem{question}{Question}
 
@@ -40,12 +50,626 @@
 \tableofcontents
 
 
-\section{Topics}
+\section{Theory}
 \label{sec:org093d592}
+
+Let $E \to X$ be a holomorphic vector bundle. We denote by $\cc A^k(E)$ the sheaf $\bigwedge^k T_X^* \otimes E$ of $k$-forms with values in $E$. Similarly we denote by $\cc A^{p,q}(E)$ the sheaf $\bigwedge^{p,q} T_X^* \otimes E$ of $(p,q)$-forms with values in $E$.
+
+
+\subsection{Connections}
+
+\begin{defi}
+A \emph{connection} $D$ on a vector bundle $E$ is a $\kk C$-linear morphism $D : \cc A^0(E) \to \cc A^1(E)$ that satisfies
+$$
+D(f \otimes s) = df \otimes s + f Ds
+$$
+for all smooth functions $f$ and sections $s$.
+\end{defi}
+
+We can extend the connection to forms of higher degree $D : \cc A^k(E) \to \cc A^{k+1}(E)$ by requiring that
+$$
+D(\omega \otimes s) = d \omega \otimes s + (-1)^{k} \omega \wedge D s
+$$
+for any $k$-form $\omega$ and section $s$ of $E$.
+
+
+\begin{prop}
+  Let $\alpha$ be a $p$-form and $\beta$ be a $q$-form with values in $E$. Then
+$$
+D(\alpha \wedge \beta)
+= (d\alpha) \wedge \beta
++ (-1)^p \alpha \wedge D(\beta).
+$$
+\end{prop}
+
+\begin{proof}
+Assume that $\beta = \gamma \otimes s$, where $\gamma$ is a $q$-form and $s$ a section of $E$. Then
+\begin{align*}
+D(\alpha \wedge \beta)
+= D(\alpha \wedge \gamma \otimes s)
+&= d(\alpha \wedge \gamma) \otimes s
++ (-1)^{p+q} \alpha \wedge \gamma \wedge Ds
+\\
+&= d\alpha \wedge \gamma \otimes s
++ (-1)^p \alpha \wedge d\gamma \otimes s
++ (-1)^{p+q} \alpha \wedge \gamma \wedge Ds
+\\
+&=
+d\alpha \wedge \beta
++ (-1)^p \alpha \wedge D\beta.
+\end{align*}
+The result follows from linearity.
+\end{proof}
+
+
+A holomorphic vector bundle almost comes with a free connection. The $\bar\partial$ operator can be defined on the sections of any holomorphic vector bundle. It is $\kk C$-linear, but only satisfies
+$$
+\bar\partial(f \otimes s) = \bar\partial f \otimes s + f \bar\partial s.
+$$
+We'll see later how adding some information to the bundle can yield connections related to the $\bar\partial$ operator.
+
+
+
+\subsection{Covariant derivative}
+
+\begin{defi}
+If $\xi$ is a tangent field on $X$ and $s$ a section of $E$, we define the \emph{covariant derivative} of $s$ in the direction of $\xi$ by the contraction
+$$
+D_\xi s := \iota_\xi D s.
+$$
+\end{defi}
+
+This operation is $\kk C$-linear on sections of $E$, and $C^\infty$-linear in $\xi$.
+
+\begin{prop}
+The covariant derivative of a $k$-form $\alpha$ with values in $E$ is
+$$
+\displaylines{
+(D \alpha)(\xi_0, \ldots, \xi_k)
+= \smash{\sum_{j=0}^k} (-1)^j D_{\xi_j} \alpha(\xi_0, \ldots, \hat{\xi}_j, \ldots, \xi_k)
+\hfill\cr\hfill{}
++ \sum_{i < j} (-1)^{i+j} \alpha([\xi_i,\xi_j], \xi_0, \ldots, \hat{\xi}_i, \ldots, \hat{\xi}_j, \ldots, \xi_k).
+}
+$$
+\end{prop}
+
+\begin{proof}
+Recall that the exterior derivative of a $k$-form can be defined by the formula
+$$
+\displaylines{
+(d\omega)(\xi_0, \ldots, \xi_{k})
+  = \smash{\sum_{j=0}^k} (-1)^j d_{\xi_j} \omega(\xi_0, \ldots, \hat{\xi}_j, \ldots, \xi_k)
+  \hfill\cr\hfill{}
++ \sum_{i < j} (-1)^{i+j} \omega([\xi_i,\xi_j], \xi_0, \ldots, \hat{\xi}_i, \ldots, \hat{\xi}_j, \ldots, \xi_k),
+}
+$$
+where $[\xi_i,\xi_j]$ is the Lie bracket and $\hat{\xi}_j$ means the element $\xi_j$ is omitted. For a decomposable $k$-form $\omega \otimes s$ we have
+$$
+D(\omega \otimes s) = d\omega \otimes s + (-1)^k \omega \wedge Ds.
+$$
+Evaluating this on tangent fields we get
+$$
+\displaylines{
+D(\omega \otimes s)(\xi_0, \ldots, \xi_k)
+= \smash{\sum_{j}} (-1)^j d_{\xi_j} \omega(\xi_0, \ldots, \hat \xi_j, \ldots, \xi_k) \cdot s
+\hfill\cr\hfill{}
++ \smash{\sum_{i < j}} (-1)^{i+j} \omega([\xi_i,\xi_j], \xi_0, \ldots, \hat\xi_i, \ldots, \hat\xi_j, \ldots, \xi_k) \cdot s
+\cr\hfill{}
++ (-1)^k(\omega \wedge Ds)(\xi_0, \ldots, \xi_k)
+\cr{}
+\phantom{D(\omega \otimes s)(\xi_0, \ldots, \xi_k)}
+= \smash{\sum_{j}}\bigl( (-1)^j d_{\xi_j} \omega(\xi_0, \ldots, \hat \xi_j, \ldots, \xi_k) \cdot s
+\hfill\cr\hfill{}
++ (-1)^k (-1)^j \omega(\xi_0, \ldots, \hat\xi_j, \ldots, \xi_k) D_{\xi_j} s\bigr)
+\cr\hfill{}
++ \sum_{i < j} (-1)^{i+j} \omega([\xi_i,\xi_j], \xi_0, \ldots, \hat\xi_i, \ldots, \hat\xi_j, \ldots, \xi_k) \cdot s
+\cr{}
+\phantom{D(\omega \otimes s)(\xi_0, \ldots, \xi_k)}
+= \smash{\sum_j} (-1)^j D_{\xi_j} \alpha(\xi_0, \ldots, \hat\xi_j, \ldots, \xi_k)
+\hfill\cr\hfill{}
+\sum_{i < j} (-1)^{i+j} \alpha([\xi_i,\xi_j], \xi_0, \ldots, \hat\xi_i, \ldots, \hat\xi_j, \ldots, \xi_k)
+}
+$$
+and we conclude by extending by linearity.
+\end{proof}
+
+
+\subsection{Curvature form}
+
+\begin{defi}
+The \emph{curvature form} $F^D$ of a connection $D$ is defined by
+$$
+F^D \wedge s = D^2 s
+$$
+for sections $s$ of $E$. It is a $2$-form that takes values in $\End E$.
+\end{defi}
+
+
+\begin{prop}
+Let $\alpha$ be a $k$-form with values in $E$. Then
+$$
+D^2 \alpha = F^D \wedge \alpha.
+$$
+\end{prop}
+
+\begin{proof}
+This is true for sections by definition. Let $\alpha = \omega \otimes s$ be a decomposable form. We have
+$$
+D\alpha = d\omega \otimes s + (-1)^k \omega \wedge Ds
+$$
+and
+\begin{align*}
+D^2 \alpha
+&= d^2 \omega \otimes s - (-1)^k d\omega \wedge Ds
++ (-1)^k d\omega \wedge Ds + \omega \wedge D^2 s
+\\
+&= \omega \wedge F^D \wedge s
+= F^D \wedge \alpha.
+\end{align*}
+The result follows by linearity.
+\end{proof}
+
+The above proof shows in particular that if $f$ is a smooth function (that is, a $0$-form) then $F^D(f s) = f F^D s$ for any section $s$. That is, the curvature is $C^\infty$-linear. This justifies our claim that the curvature form takes values in $\End E$.
+
+
+\begin{prop}
+\label{curvature-commutative}
+Let $\xi, \eta$ be tangent fields on $X$ and $s$ a section of $E$. Then
+$$
+F^D(\xi, \eta) \wedge s
+= D_\xi D_\eta s - D_\eta D_\xi s - D_{[\xi,\eta]} s.
+$$
+\end{prop}
+
+\begin{proof}
+Apply our formula for the exterior covariant derivative to the $1$-form $Ds$ which takes values in $E$. This gives
+\[
+F^D(\xi,\eta) s
+= D(Ds)(\xi,\eta)
+= D_\xi D_\eta s - D_\eta D_\xi s - D_{[\xi,\eta]} s.
+\qedhere
+\]
+\end{proof}
+
+
+\begin{prop}
+The curvature form is $\cc C^\infty$-linear in any of its variables.
+\end{prop}
+
+\begin{proof}
+Let $f$ be a smooth function. We have
+$$
+D(fs) = df \otimes s + f Ds
+$$
+so
+\begin{align*}
+D^2(fs)
+&= D(df \otimes s + f Ds)
+\\
+&= d^2f \otimes s - df \wedge Ds + df \otimes Ds + f D^2 s
+= f D^2 s.
+\end{align*}
+For any tangent field, we have $D_{f\xi}s = f D_\xi s$. Then
+$$
+D_\eta D_{f \xi} s
+= D_\eta f D_\xi s
+= d_\eta f \, D_\xi s + f D_\eta D_\xi s.
+$$
+We also have $[f\xi, \eta] = f[\xi,\eta] - d_\eta f \cdot \xi$, so
+$$
+D_{[f\xi,\eta]}s
+= D_{f[\xi,\eta]}s - D_{d_\eta f \cdot \xi} s
+= f D_{[\xi,\eta]} s - d_\eta f D_\xi s.
+$$
+Putting this together with Proposition~\ref{curvature-commutative} we get
+\begin{align*}
+F(f \xi, \eta) s
+&= f D_\xi D_\eta s - (d_\eta f D_\xi s + f D_\eta D_\xi s) - (f D_{[\xi,\eta]} s - d_\eta f D_\xi s)
+\\
+&= f D_\xi D_\eta s - f D_\eta D_\xi s - f D_{[\xi,\eta]} s
+= f F(\xi, \eta) s.
+\end{align*}
+We then conclude that $F(\xi,f \eta)s = f F(\xi,\eta) s$ by anticommutativity of $F$.
+\end{proof}
+
+
+\subsection{Metrics}
+
+\begin{defi}
+A \emph{Hermitian metric} $h$ on a holomorphic vector bundle $E \to X$ is a smooth section of $\bigwedge^{1,1}E^* := E^* \otimes \overline E^*$ that satisfies $h(t, s) = \overline{h(s, t)}$ for all sections $s, t$ of $E$.
+\end{defi}
+
+Any holomorphic vector bundle admits a Hermitian metric. This is clear over any trivializing neighborhood, and we can patch those together with a partition of unity.
+
+
+\begin{defi}
+Let $(E, h) \to X$ be a Hermitian holomorphic vector bundle. A connection $D$ on $E$ is \emph{compatible} with $h$ if
+$$
+d h(s, t) = h(Ds, t) + h(s, Dt)
+$$
+for all sections $s, t$ of $E$.
+\end{defi}
+
+A Hermitian metric comes with a unique connection:
+
+
+\begin{prop}
+Let $(E, h) \to X$ be a Hermitian holomorphic vector bundle. There exists a unique connection $D$ on $E$ that is compatible with the metric $h$ and whose $(0,1)$-part is $\bar\partial$. This is the \emph{Chern} connection of $(E,h)$.
+\end{prop}
+
+\begin{proof}
+Let's view the metric $h$ as an isomorphism $E \to \overline E^*$. The map $t \mapsto \partial_\xi h(s, t)$ defines a $(0,1)$-form on $E$, so there exists a unique smooth section $A(\xi,s)$ of $E$ such that
+$$
+\partial_\xi h(s, t) = h(A(\xi, s), t)
+$$
+for all $t$.\footnote{What we'd \emph{really} like to do is to say that $\partial h$ is a $(1,0)$-form with values in $\bigwedge^{1,1}E$, and thus $h^{-1}\partial h$ is a $(1,0)$-form with values in $\End E$. Adding $\bar\partial$ gives the Chern connection. This doesn't work because the exterior derivative isn't well-defined on $\bigwedge^{1,1}E$, so $\partial h$ is meaningless. However, this \emph{is} how the construction of the Chern connection goes in a local frame. One then proves that the local construction glues along the coordinate change maps and is well-defined globally. We're able to get away with this here because $h(s,t)$ is a perfectly good smooth function that we can take exterior derivatives of.}
+As $\partial$ is linear in $\xi$, then so is $A$. We have $\partial_\xi h(f s, t) = \partial_\xi f h(s,t) + f \partial_\xi h(s, t)$, so $A(\xi, fs) = \partial f A(\xi, s) + f A(\xi, s)$. The morphism $A$ depends smoothly on $\xi$ and $s$ because the metric is smooth.
+
+It follows that $(\xi, s) \mapsto A(\xi, s)$ is a connection on holomorphic sections of $E$. Such an object can be extended uniquely to a connection on smooth sections of $E$: If $s$ is holomorphic and $f$ is smooth, we set $A(\xi, f s) = df \otimes s + f A(\xi, s)$. If $s$ is a smooth section, we pick local holomorphic sections $(s_1, \ldots, s_r)$ and find smooth functions $f_j$ such that $s = \sum_j f_j s_j$, and set $A(\xi,s) = \sum_j A(\xi, f_j s_j)$.
+
+By construction, the resulting connection is compatible with the metric, and its $(0,1)$-part is $\bar\partial$.
+
+
+LOCAL:
+
+Let $(s_1, \ldots, s_r)$ be a holomorphic frame of $E$ over a trivializing neighborhood $U$. We write $H = (h(s_j, s_k))_{jk}$ for the matrix of $h$ in this frame, and define
+$$
+D s := H^{-1}\partial (H s) + \bar\partial s
+$$
+for any section $s$ of $E$ over $U$. This object $D$ is $\kk C$-linear, and if $f$ is a smooth function then
+\begin{align*}
+D(fs)
+= H^{-1}\partial (H fs) + \bar\partial (fs)
+&= H^{-1}(\partial f \otimes Hs + f\partial( H s)) + \bar\partial f \otimes s + f \bar\partial s
+\\
+&= df \otimes s + f Ds
+\end{align*}
+so $D$ is a connection on $E$ over $U$. Its $(0,1)$-part is clearly $\bar\partial$.
+
+If $s = f \otimes s_j$ and $t = g \otimes s_k$ are smooth decomposable sections, then $h(s,t) = f\overline{g} h(s_j,s_k)$. Then
+$$
+d h(s,t)
+= df \otimes \bar g h(s_j,s_k)
++ f d\bar g \otimes h(s_j,s_k)
++ f\bar g\partial h(s_j,s_k)
++ f\bar g\bar\partial h(s_j,s_k).
+$$
+Now, $Ds_j$ is defined exactly so that $h(Ds_j, s_k) = \partial h(s_j,s_k)$, and conjugating we find that $\bar\partial h(s_j,s_k) = h(s_j, D s_k)$. Putting these together we get
+\begin{align*}
+d h(s,t)
+&= h(df \otimes s_j, g s_k)
++ h(f s_j, d g \otimes s_k)
++ h(f D s_j,g s_k)
++ h(f s_j,g D s_k)
+\\
+&= h(Ds, t) + h(s, Dt)
+\end{align*}
+so $D$ is compatible with $h$.
+
+Finally, let $(t_1, \ldots, t_r)$ be a holomorphic frame over a trivializing neighborhood $V$ and assume that $U \cap V \not= \varnothing$. There is a holomorphic frame change matrix $G$ from the frame $(s_1, \ldots, s_r)$ to $(t_1,\ldots,t_r)$. The matrix of $h$ becomes $H = \overline{G}^{t}H'G$ under this frame change. Then
+$$
+H^{-1} \partial H
+= G^{-1} (H')^{-1} (\overline G^t)^{-1} \overline G^t \partial(H'G)
+= G^{-1} ((H')^{-1} \partial H') G + G^{-1} \partial G
+$$
+so $D$ glues together to define a connection on all of $E$.
+\end{proof}
+
+
+\begin{prop}
+The curvature form of the Chern connection is a purely imaginary $(1,1)$-form.
+\end{prop}
+
+\begin{proof}
+Let $s, t$ be sections of $E$. We have
+\begin{align*}
+0
+= d^2 h(s, t)
+&= d h(Ds, t) + d h(s, Dt)
+\\
+&= h(F s, t) - h(Ds, Dt) + h(Ds, Dt) + h(s, F t)
+\\
+&=
+h(Fs,t) + h(\overline{F^{t}}s, t).
+\end{align*}
+It follows that $\overline{F^t} = -F$, so $F$ is imaginary.
+
+We have $D = D^{1,0} + \bar\partial$, so $F = (D^{1,0})^2 + (\bar\partial D^{1,0} + D^{1,0}\bar\partial)$ because $\bar\partial^2 = 0$. That is, $F$ has no $(0,2)$-part. But then it also has no $(2,0)$-part by the above.
+\end{proof}
+
+For this reason we often consider the curvature form of a Chern connection to be $\Theta := \frac i2 F$. That is a real $(1,1)$-form with values in $\End E$.
+
 
 Discuss positivity concepts: Nakano, Griffits positive. Ricci positive. Bisectional curvature; holomorphic bisectional curvature.
 
-Can prove that holomorphic bisectional curvature > 0 -> scalar curvature > 0.
+Can prove that holomorphic sectional curvature > 0 -> scalar curvature > 0.
+
+
+
+\subsection{Hermitian metrics}
+
+We now focus on $E = T_X$, the tangent bundle of a given manifold $X$.
+
+
+\begin{prop}
+Let $\operatorname{Herm}(T_X)$ denote the sheaf of smooth Hermitian forms on $T_X$. Then
+$$
+\operatorname{Herm}(T_X) \to \ext{1,1} T_X^*,
+\quad
+h \mapsto \im h
+$$
+is an isomorphism.
+\end{prop}
+
+\begin{proof}
+Let $h$ be a Hermitian form. For tangent fields $\alpha$ and $\beta$ we have
+$$
+\overline{\im h(\alpha,\beta)}
+= -\im \overline{h(\alpha, \beta)}
+= -\im h(\beta, \alpha)
+$$
+so the morphism is well-defined. It is clearly $\kk R$-linear (even $C^\infty$-linear for real-valued functions). If $h$ is a Hermitian form such that $\im h = 0$, then $h$ is real for all tangent fields. In particular,
+$$
+h(i\alpha, \alpha) = i h(\alpha,\alpha)
+$$
+is real, so $h(\alpha,\alpha) = 0$ for all $\alpha$. It follows that $h = 0$, so the morphism is injective. By inspection in a local frame, both bundles have the same rank, so $h$ is surjective.
+\end{proof}
+
+TODO: For this to make sense we really have to look at $T_X^{\kk C} = T_X^{1,0} \oplus T_X^{0,1}$.
+
+\begin{defi}
+If $h$ is a Hermitian form, the $(1,1)$-form $\omega = -\im h$ is the \emph{K\"ahler form} of $h$.
+\end{defi}
+
+
+We will write $\nabla$ for the Chern connection of a given Hermitian metric $h$. By the discussion in the previous sections, we can apply this connection to tensor fields on $X$. In particular, we can consider the identity morphism $\id : T_X \to T_X$, which we view as a $(1,0)$-form with values in $T_X$. Taking its covariant derivative, we obtain
+$$
+(\nabla \id)(\alpha, \beta)
+= \nabla_\alpha \beta - \nabla_\beta \alpha - [\alpha, \beta].
+$$
+This is better known as the torsion tensor of the connection:
+
+\begin{defi}
+The \emph{torsion} of $\nabla$ is
+$$
+\tau(\alpha,\beta)
+= \nabla_\alpha \beta - \nabla_\beta \alpha - [\alpha, \beta].
+$$
+\end{defi}
+
+\begin{prop}
+The torsion tensor is antisymmetric and $\cc C^\infty$-linear in both of its variables.
+\end{prop}
+
+\begin{proof}
+  That the tensor is antisymmetric is clear from its definition. If $f$ is a smooth function, we have
+\begin{align*}
+\tau(f\alpha,\beta)
+&= \nabla_{f\alpha}\beta - \nabla_\beta(f\alpha) - [f\alpha,\beta]
+\\
+&= f\nabla_\alpha \beta - (d_\beta f \alpha + f \nabla_\beta \alpha) - (f[\alpha,\beta] - d_\beta f \alpha)
+= f \tau(\alpha,\beta).
+\qedhere
+\end{align*}
+\end{proof}
+
+There's a very nice relationship between the torsion tensor and the K\"ahler form of the metric.
+
+\begin{prop}
+For holomorphic tangent fields, we have
+$$
+h(\tau(\alpha,\beta), \gamma)
+= \partial\omega(\alpha,\beta,\overline\gamma).
+$$
+\end{prop}
+
+\begin{proof}
+By definition of the Chern connection, we have
+$$
+\partial \omega(\id, \id)
+= \omega(\nabla \id, \id).
+$$
+Evaluating these $(2,1)$-forms on $\alpha, \beta$ and $\overline\gamma$, we get
+\[
+\partial\omega(\alpha,\beta,\overline{\gamma})
+= h(\tau(\alpha,\beta), \gamma).
+\qedhere
+\]
+\end{proof}
+
+\begin{coro}
+\label{kahler-zero-torsion}
+The torsion of $\nabla$ is zero if and only if $d\omega = 0$.
+\end{coro}
+
+
+We'll have more to say about this condition later. For now we'll say a little more about the curvature of a Hermitian metric.
+
+
+\begin{defi}
+The \emph{curvature tensor} of a Hermitian metric $h$ is the $(2,2)$-tensor defined by
+$$
+R(\alpha,\beta,\gamma,\delta)
+= h(\tfrac i2 F_{\alpha\beta}\gamma, \delta).
+$$
+\end{defi}
+
+As $h$ and $F$ are $\cc C^\infty$-linear in their variables, so is $R$. We have
+$$
+R(\alpha,\beta,\gamma,\delta)
+= h(\tfrac i2 F_{\alpha\beta}\gamma, \delta)
+= h(\gamma, \tfrac i2 F_{\beta\alpha}\delta)
+= \overline{h(\tfrac i2 F_{\beta\alpha}\delta, \gamma)}
+= \overline{R(\beta,\alpha,\delta,\gamma)}.
+$$
+In general, this is the only symmetry the curvature tensor of a Hermitian metric satisfies. The obstruction to other symmetries we might expect is governed by the torsion tensor. This is explained by the Bianchi identities, but we'll see clearer how the absense of torsion results in extra symmetries later.
+
+
+\begin{prop}[Bianchi identities]
+The curvature form of a Hermitian metric satisfies
+$$
+F \wedge \id_{T_X} = \nabla \tau
+\quad\text{and}\quad
+\nabla F = 0.
+$$
+\end{prop}
+
+These are the first and second Bianchi identities.
+
+\begin{proof}
+  For the first equality, take the covariant exterior derivative of the $1$-form $\id_{T_X}$ twice and recall the definition of $\tau$. For the second, take the covariant exterior derivative of the first to get
+$$
+\nabla F \wedge \id_{T_X} + F \wedge \tau = F \wedge \tau
+$$
+and cancel $F \wedge \tau$.
+\end{proof}
+
+
+The above does not say that $F_{\alpha\beta}\gamma = \nabla_\alpha \tau(\beta,\gamma)$. It is an equality of $3$-forms with values in $T_X$ and involves the permutations of all of the tensor fields.
+
+The first Bianchi identity can only be stated for metrics on the tangent bundle, as it involves the torsion. The second Bianchi identity is true for the curvature form $\Theta$ of an arbitrary connection $D$ on a vector bundle $E$, where it says that $D_{\End E} \Theta = 0$.
+
+
+\subsection{K\"ahler metrics}
+
+\begin{defi}
+A \emph{K\"ahler metric} $h$ is a Hermitian metric with zero torsion.
+\end{defi}
+
+
+A metric is K\"ahler if and only if its K\"ahler form is closed by Corollary~\ref{kahler-zero-torsion}, which again means that it is a symplectic form. As such, many operations involving the K\"ahler metric descend to the level of cohomology on a K\"ahler manifold and restrict its structure.
+
+In practice it is usually much easier to verify that the K\"ahler form of a metric is closed than to compute its torsion tensor. For example, a large class of K\"ahler metrics arise as the curvature forms of holomorphic line bundles (we'll see the details later), where it is obvious that the K\"ahler form is closed.
+
+The historical definition of a K\"ahler metric is as a Hermitian metric whose K\"ahler form is closed~\cite{kahler}, where the condition was used to locally approximate the Euclidean metric around any point. As far as I know symplectic geometry -- that is, the study of manifolds that admit a non-degenerate closed $2$-form -- didn't take off as its own subject until Arnol'd~\cite{arnold} pointed out its connection to classical mechanics.
+
+I'm unsure of when the vanishing of the torsion tensor was pointed out explicitly, but we've chosen it as our definition as it makes the connection between K\"ahler and Riemannian geometry very clear. It is my favorite condition, as it suggests that we should investigate what the isomorphism between harmonic forms and the cohomology groups of a compact smooth manifold looks like in the K\"ahler case, which leads quickly to the invention of Hodge theory. There are already plenty of books about Hodge theory, so we won't get into it here.
+
+The first consequence of the vanishing of the torsion we'll note is that the curvature tensor of a K\"ahler metric has extra symmetries.
+
+\begin{prop}
+Let $R$ be the curvature tensor of a K\"ahler metric. Then
+$$
+R(\alpha,\beta,\gamma,\delta) = R(\gamma,\beta,\alpha,\delta)
+\quad\text{and}\quad
+R(\alpha,\beta,\gamma,\delta) = R(\alpha,\delta,\gamma,\beta).
+$$
+\end{prop}
+
+\begin{proof}
+The first Bianchi identity for a metric with vanishing torsion is $F \wedge \id = 0$. When we evaluate these $(2,1)$-form on tangent fields, we get
+$$
+F_{\alpha\beta}\gamma - F_{\gamma\beta}\alpha = 0
+$$
+% (1 2 3) = - (1 3 2) = (3 1 2) = -(3 2 1)
+from which we conclude the first equality. The second follows from the first and the conjugate symmetry of the curvature form.
+\end{proof}
+
+
+
+\subsection{Algebraic K\"ahler curvature tensors}
+
+Let $V$ be a complex vector space of dimension $n$. Let $\cc R$ be the subset of the space of $V \otimes \overline V \otimes V \otimes \overline V \to \kk C$ defined by elements $R$ that satisfy
+$$
+R(x, y, z, w) = \overline{R(y, x, w, z)}
+\quad\text{and}\quad
+R(x, y, z, w) = R(z, y, x, w)
+$$
+for all $x,y,z,w \in V$. These are the symmetries that the curvature tensor of a K\"ahler metric satisfies (the curvature tensor of a Hermitian metric only satisfies the conjugate symmetry). We discuss some properties of this set; our reference is \cite{algebraic-kahler-curvature}.
+
+The set $\cc R$ is closed under addition and real multiplication, so it is a real subspace.
+
+
+\begin{prop}
+The set $\cc R$ is isomorphic to the space of Hermitian forms on $S^2 V$.
+\end{prop}
+
+\begin{proof}
+Let $R$ be an element of our subspace. We define a bilinear form $b$ on $S^2 V$ by
+$$
+b(x \cdot z, y \cdot w)
+= R(x, y, z, w).
+$$
+We have $R(x,y,z,w) = R(z,y,x,w)$ by hypothesis, and
+$$
+R(x,w,z,y)
+= \overline{R(w,x,y,z)}
+= \overline{R(y,x,w,z)}
+= R(x,y,z,w)
+$$
+by using both properties of elements of $\cc R$. Our form $b$ is thus well-defined on the symmetric product of $V$, and Hermitian by the first property of elements of $\cc R$. The morphism this defines is $\kk R$-linear, and clearly injective.
+
+Given a Hermitian form $b$ on $S^2V$, we also define
+$$
+R(x,y,z,w) = b(x \cdot z, y \cdot w).
+$$
+Then $R$ satisfies the properties required by the elements of $\cc R$. It is linear in its first and third variables, and conjugate linear in the others. It is thus a well-defined element of $\cc R$. The two maps defined here are inverses of each other, so the two subspaces are isomorphic.
+\end{proof}
+
+
+\begin{coro}
+$$
+\dim \cc R
+= \binom{n+1}{2}^2.
+$$
+\end{coro}
+
+
+\begin{proof}
+The dimension of the space of Hermitian forms on a vector space of dimension $n$ has dimension $n^2$, and $S^k V$ has dimension $\binom{n + k - 1}{k}$.
+\end{proof}
+
+
+We often view a curvature form as a Hermitian form on $E \otimes T_X$. This corresponds here to the space of curvature tensors of Hermitian metrics. This space then has dimension $(n^2)^2 = n^4$. We do have that $\binom{n+1}{2}^2 \leq n^4$ with equality if and only if $n = 1$, which is a nice sanity check. The ratio of the dimensions tends to $1/4$ as $n \to \infty$; in one sense we can expect slightly more than one tensor out of four to be a K\"ahler curvature tensor, in another almost no tensors are the ones of a K\"ahler metric.
+
+
+
+TODO: Holomorphic sectional curvature determines curvature tensor. Try to use polarization to show that $H$ determines bisectional curvature, which is the restriction of $R$ to a diagonal, thus it determines the whole thing.
+
+
+
+\subsection{Constructing algebraic curvature tensors}
+
+
+An easy way to construct elements of $\cc R$ is to pick a basis for $V$ and just write down some tensors. This is in some way unsatisfactory because we'd like to see curvature tensors that arise in the wild. To do so we'd like to have coordinate-invariant ways of constructing elements of $\cc R$. We point out two of those here.
+
+Suppose we have a Hermitian form $h$ on $V$. It induces a Hermitian form on $S^2 V$, defined by
+$$
+(h \odot h)(x \odot y, z \odot w)
+= h(x,z)h(y,w) + h(z,y)h(x,w).
+$$
+This is the complex-geometric version of the Kulkarni--Nomizu product. If $g$ and $h$ are Hermitian forms on $V$ we can polarize this identity and get a Hermitian form on $S^2V$ by setting
+$$
+\displaylines{
+(g \odot h)(x \odot y, z \odot w)
+  = g(x,y) h(z,w) + g(x,w) h(z,y)
+  \hfill\cr\hfill{}
+  + g(z,y) h(x,w) + g(z,w) h(x,y).
+}
+$$
+The below result is now clear.
+
+\begin{prop}
+  If $g$ and $h$ are Hermitian forms on $V$, then $g \odot h$ is a Hermitian form on $S^2V$, and thus defines a K\"ahler curvature tensor.
+
+  Suppose $h$ is a Hermitian inner product on $V$. Then $h \odot h$ has constant holomorphic scalar curvature equal to $2$, and is Griffiths-positive.
+\end{prop}
+
+Another way of constructing these kinds of elements is to pull back Hermitian forms to the symmetric product. In that case we get weaker positivity properties than above, simply because any linear morphism we pull back by will have a nontrivial kernel:
+
+\begin{prop}
+Let $f \in \Hom(S^2V, V)$ and let $h$ be a Hermitian form on $V$. Then
+$$
+(f^*h)(x \odot y, z \odot w)
+= h(f(x \odot y), f(z \odot w))
+$$
+is a Hermitian form on $S^2V$, and thus a K\"ahler curvature tensor.
+
+If $h$ is a Hermitian inner product, then $f^*h$ has semipositive holomorphic sectional curvature and is Griffiths-semipositive.
+\end{prop}
+
+
+We claimed that these constructions would exhibit tensors that arise in the wild. For the Kulkarni--Nomitzu product this is clear, as the Fubini--Study metric (see Section~\ref{sec:orgcfabeed}) has constant holomorphic sectional curvature and is thus of that form. The same is true for the curvature tensor of the Bergman metric. It's less clear that any ``natural'' K\"ahler metric has a curvature tensor of the pullback form but that does indeed happen; see the natural metric on the complexification of the K\"ahler cone in Section~\ref{complexified-kahler-cone}.
 
 
 \section{Flat metrics}
@@ -98,15 +722,16 @@ E_s = H^k(X_s, \kk C).
 $$
 The construction also yields a connection $\nabla$ on this vector bundle, called the \emph{Gauss--Manin connection}. It is flat, and if $\alpha$ is a local section of $E$ and $Y \subset X_s$ a $2k$-dimensional submanifold, then
 $$
-d \! \int_{X_s}\!\!\!\! \alpha = \int_{X_s} \!\!\! \nabla \alpha.
+d \int_{Y} \alpha = \int_{Y} \nabla \alpha.
 $$
 The Gauss--Manin connection is generally not the Chern connection of a metric on $E$.
 
-Something mildly interesting happens in the middle cohomology. Suppose the manifolds in the family are of dimension $n$. Then there is an intersection form on $n$-forms, which yields a sesquilinear form
+Something mildly interesting happens in the middle cohomology of $4n$-dimensional manifolds. Then there is an intersection form on $2n$-forms, which yields a sesquilinear form
 $$
-b(\alpha, \beta) = \int_{X_s} i^{n^2} \alpha \wedge \overline{\beta}.
+b(\alpha, \beta) = \int_{X_s} \alpha \wedge \overline{\beta}.
 $$
-This form is non-degenerate, but has mixed signature. One can still define connections for such forms, and the usual proof of the existance and uniqueness of the Chern connection carries through for them. One can check that the Gauss--Manin connection is the Chern connection of the intersection form in this sense. This does not appear to have any applications.
+This form is non-degenerate, but has mixed signature. One can still define connections for such forms, and the usual proof of the existance and uniqueness of the Chern connection carries through for them. One can check that the Gauss--Manin connection is the Chern connection of the intersection form in this sense.\footnote{This is where we use that the forms are of even degree to show compatibility with the form $b$; otherwise there's an extra $(-1)^n$ involved.}
+This does not appear to have any applications.
 
 
 
@@ -209,11 +834,11 @@ The Poincar\'e metric is the first negatively curved K\"ahler metric we see. Mos
 \section{Projective space}
 \label{sec:orgcfabeed}
 
-The complex projective space is the space of lines in a given complex vector space. That is, if $V$ is a complex vector space of dimension $n$ > 1, then
+The complex projective space is the space of lines in a given complex vector space. That is, if $V$ is a complex vector space, then we define the projective space as the set
 $$
 \kk P(V) := \{ v \in V \mid v \not= 0 \} / \kk C^*,
 $$
-where $\kk C^*$ acts by multiplication. By convention we write $\kk P^n := \kk P(\kk C^{n+1})$.\footnote{Some people write $\kk C \kk P^n$ to distinguish between projective spaces over different fields. We'll stick to $\kk C$ so there's little to distinguish from.}
+where $\kk C^*$ acts by multiplication. If $V$ is the zero space, then $\kk P(V) = \varnothing$ by this definition; if $V$ is a line, then $\kk P(V)$ is a point. People usually take care not to be in either of those cases.
 
 There is a projection map $\pi : V \setminus \{0\} \to \kk P(V)$ and we equip $\kk P(V)$ with the quotient topology. If we fix a Hermitian inner product $h$ on $V$, then the quotient map factors through the unit sphere:
 $$
@@ -263,7 +888,7 @@ On a local chart $H_\lambda$, the line bundle is given by $\kk C \cdot v \subset
 
 \subsection{Curvature of tautological bundle}
 
-Fix a Hermitian inner product $h$ on $V$. This defines a flat Hermitian metric on the trivial vector bundle $V \to \kk P(V)$. It follows that the induced metric on $\cc O(-1)$ is non-positive.\footnote{Hence the $-1$.}
+Fix a Hermitian inner product $h$ on $V$. This defines a flat Hermitian metric on the trivial vector bundle $V \to \kk P(V)$. It follows that the induced metric on $\cc O(-1)$ is non-positive.
 
 On $H_\lambda$, we have the Euler section $\xi$ of $\cc O(-1)$ given by $\xi(v) = v$. The curvature form of the line bundle is then
 $$
@@ -272,122 +897,90 @@ $$
 = -\frac i2\frac{h(\partial \xi, \partial \xi)}{h(\xi, \xi)}
 + \frac i2\frac{h(\partial \xi, \xi)}{h(\xi, \xi)} \wedge \frac{h(\xi, \partial \xi)}{h(\xi, \xi)}.
 $$
-The Euler field satisfies $\partial_u \xi = u$ for holomorphic vector fields $u$. The sesquilinear form defined by the curvature form is then
+The Euler field satisfies $\partial_\alpha \xi = \alpha$ for holomorphic vector fields $\alpha$. The sesquilinear form defined by the curvature form is then
 $$
 \phi(\alpha, \beta)
 = -\frac{h(\alpha, \beta)}{h(\xi, \xi)}
 + \frac{h(\alpha, \xi)}{h(\xi, \xi)} \cdot \frac{h(\xi, \beta)}{h(\xi, \xi)}.
 $$
-We claim that this is negative-definite. We have
-\begin{align*}
+We claim that this is negative-definite. Cauchy--Schwarz gives
+$$
 \phi(\alpha, \alpha)
-&= -\frac{h(\alpha, \alpha)}{h(\xi, \xi)}
+= -\frac{h(\alpha, \alpha)}{h(\xi, \xi)}
 + \frac{|h(\alpha, \xi)|^2}{h(\xi, \xi)^2}
-\\
-&\leq -\frac{h(\alpha, \alpha)}{h(\xi, \xi)}
+\leq -\frac{h(\alpha, \alpha)}{h(\xi, \xi)}
 + \frac{h(\alpha, \alpha) h(\xi, \xi)}{h(\xi, \xi)^2}
 = 0
-\end{align*}
+$$
 with equality if and only if $\alpha$ is a multiple of the Euler field $\xi$. But note that $H_\lambda$ is defined so that $\lambda(\xi) = 1$, while its tangent space identifies with the set of vectors $\alpha$ such that $\lambda(\alpha) = 0$. Therefore $\alpha$ is not a multiple of $\xi$.
 
 
 \subsection{Fubini--Study metric}
 
-The dual of the tautological line bundle is denoted by $\cc O(1) := \cc O(-1)^*$. By the above, it is a positive line bundle on the projective space $\kk P(V)$. Its curvature form $\omega$ is called the \emph{Fubini--Study metric} on the projective space. It is a K\"ahler metric. In local coordinates it is given by the Hermitian form $-\phi$ above.
+The dual of the tautological line bundle is denoted by $\cc O(1) := \cc O(-1)^*$. By the above, it is a positive line bundle on the projective space $\kk P(V)$. Its curvature form $\omega$ is called the \emph{Fubini--Study metric} on the projective space. It is a K\"ahler metric. In local coordinates it is given by the Hermitian form $\psi := -\phi$.
 
-We want to compute the Chern connection and curvature of this metric. We \emph{could} try to do it directly from the expression for $\phi$, but we're going to try to cheat. We will look at the Hermitian metric $\psi := -h(\xi,\xi) \phi$, given by
-$$
-\psi(\alpha, \beta) = h(\alpha, \beta) h(\xi, \xi) - h(\alpha, \xi) h(\xi, \beta).
-$$
-We have
+We want to compute the Chern connection of this metric. By definition, it satisfies $\partial \psi(\alpha,\beta) = \psi(D\alpha,\beta)$ for holomorphic tangent fields $\alpha$ and $\beta$, and it is enough to know the connection on such fields. We have
 \begin{align*}
-\partial\psi(\alpha, \beta)
-&= h(\partial\alpha, \beta) h(\xi, \xi)
-+ h(\alpha, \beta) h(\partial\xi, \xi)
-- h(\partial\alpha, \xi) h(\xi, \beta)
-- h(\alpha, \xi) h(\partial\xi, \beta)
+\partial \psi(\alpha,\beta)
+&= \frac{h(\partial\alpha, \beta)}{h(\xi,\xi)}
+- \frac{h(\partial\xi, \xi)}{h(\xi,\xi)}
+ \frac{h(\alpha,\beta)}{h(\xi,\xi)}
 \\
-&= \psi(\partial\alpha, \beta)
-+ h\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr) h(\xi,\xi)
-- h(\alpha, \xi) h(\partial\xi, \beta)
+&\qquad{}
+- \frac{h(\partial\alpha,\xi)}{h(\xi,\xi)}
+\frac{h(\xi,\beta)}{h(\xi,\xi)}
++ \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}
+\frac{h(\alpha,\xi)}{h(\xi,\xi)}
+\frac{h(\xi,\beta)}{h(\xi,\xi)}
 \\
-&= \psi(\partial\alpha, \beta)
-+ \psi\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr)
-+ \frac{h(\partial\xi, \xi)h(\alpha,\xi) h(\xi,\beta)}{h(\xi,\xi)}
-- \frac{h(\alpha, \xi) h(\partial\xi, \beta)h(\xi,\xi)}{h(\xi,\xi)}
+&\qquad{}
+- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \frac{h(\partial\xi,\beta)}{h(\xi,\xi)}
++\frac{h(\alpha, \xi)}{h(\xi,\xi)}
+\frac{h(\partial\xi,\xi)}{h(\xi,\xi)}
+\frac{h(\xi,\beta)}{h(\xi,\xi)}
 \\
-&= \psi(\partial\alpha, \beta)
-+ \psi\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr)
-+ \frac{h(\alpha,\xi)}{h(\xi,\xi)} \bigl(h(\partial\xi,\xi)h(\xi,\beta) - h(\partial\xi,\beta)h(\xi,\xi)\bigr)
-\\
-&=\psi(\partial\alpha, \beta)
-+ \psi\biggl(\frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha, \beta\biggr)
-- \psi\biggl(\frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi,\beta\biggr)
-\\
-&=
-\psi\biggl(
-\partial\alpha
-+ \frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha
+&= \psi(\partial\alpha,\beta)
+- \psi\biggl(\frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi, \beta \biggr)
+- \psi\biggl(\frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \alpha, \beta \biggr)
+\end{align*}
+so the Chern connection is
+$$
+ D \alpha
+= d\alpha
 - \frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi
-, \beta
-\biggr).
-\end{align*}
-The Chern connection of $\psi$ is then
+- \frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \alpha.
 $$
-D_\psi \alpha = d\alpha
-+ \frac{h(\partial\xi, \xi)}{h(\xi,\xi)} \alpha
-- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi.
-$$
-Its curvature form is then
-$$
-\bar\partial D_\psi \alpha
-= -\frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
-+ \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}\wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
-- \frac{h(\alpha,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi
-+ \frac{h(\alpha,\xi)}{h(\xi,\xi)}\frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi,
-$$
-where we have been very careful with the signs when calculating $\bar\partial h(\partial\xi, \xi)$.
-We're of course not interested in the curvature form of $\psi$, but we have
-$$
-\psi = e^{\log h(\xi,\xi)^2} \phi.
-$$
-Then we get
-$$
-\bar\partial \log h(\xi,\xi)^2
-= 2\bar\partial \log h(\xi,\xi)
-= 2 \frac{h(\xi,\partial\xi)}{h(\xi,\xi)}
-$$
-and
-$$
-\partial\bar\partial \log h(\xi,\xi)^2
-= 2 \frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)}
-- 2 \frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)}.
-$$
-We know that
-$$
-\Theta_\psi = - \partial\bar\partial \log h(\xi,\xi)^2 \otimes \id + \Theta_\phi
-$$
-so
+For the curvature form, we then have
 \begin{align*}
-\Theta_\phi \alpha
-&= \frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
-- \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}\wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
-+ \partial\xi \wedge \frac{h(\alpha,\partial\xi)}{h(\xi,\xi)}
-- \partial\xi \wedge \frac{h(\alpha,\xi)}{h(\xi,\xi)}\frac{h(\xi,\partial\xi)}{h(\xi,\xi)}
+\frac i2\bar\partial D\alpha
+&= -\frac i2 \partial\bar\partial \alpha
+- \frac i2 \frac{h(\alpha,\partial\xi)}{h(\alpha,\xi)} \wedge \partial \xi
++ \frac i2 \frac{h(\alpha,\xi)}{h(\xi,\xi)} \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi
 \\
-&= \phi(\partial\xi, \partial\xi) \wedge \alpha
-+ \partial\xi \wedge \phi(\alpha, \partial\xi).
+&\qquad{}
++ \frac i2\frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
+- \frac i2\frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
+\\
+&= - \psi(\alpha, \partial\xi) \wedge \partial \xi
++ \psi(\partial\xi, \partial\xi) \alpha.
 \end{align*}
-
-
-\subsection{Fubini--Study curvature tensors}
-
-From the above discussion, we see that
+We have to be careful about signs here, as $\partial \xi \wedge \bar\partial \xi = - \bar\partial \xi \wedge \partial \xi$. Note also the sign flip when we commute $\partial\xi$ and $\bar\partial\xi$ below, where we conclude that the curvature tensor is
 $$
 R(\alpha,\beta,\gamma,\delta)
-= \phi(\alpha,\beta)\phi(\gamma,\delta) + \phi(\gamma,\beta)\phi(\alpha,\delta).
+= h(\tfrac i2\Theta_{\alpha \beta} \gamma, \delta)
+= \psi(\alpha, \beta) \psi(\gamma, \delta)
++ \psi(\alpha, \delta) \psi(\gamma, \beta).
 $$
-The holomorphic bisectional curvature is then
+The extra symmetries
+$$
+R(\alpha,\beta,\gamma,\delta) = R(\gamma,\beta,\alpha,\delta)
+\quad\text{and}\quad
+R(\alpha,\beta,\gamma,\delta) = R(\alpha,\delta,\gamma,\beta)
+$$
+that a K\"ahler curvature tensor has compared to a Hermitian curvature tensor are very clear here.
+
+
+The holomorphic bisectional curvature is
 $$
 B(\alpha,\beta) = \frac{R(\alpha,\alpha,\beta,\beta)}{\phi(\alpha,\alpha)\phi(\beta,\beta)}
 = \frac{\phi(\alpha,\alpha)\phi(\beta,\beta)+|\phi(\alpha,\beta)|^2}{\phi(\alpha,\alpha)\phi(\beta,\beta)}.
@@ -413,94 +1006,9 @@ s = n(n+1).
 $$
 
 
-\section{Projective space redux}
-
-Let $V$ be a complex vector space of dimension $n > 1$ as before, and let $h$ be a Hermitian inner product on $V$. We take as given that the projective space $\kk P(V)$ exists and is a holomorphic manifold. We denote by $\pi : V \setminus \{0\} \to \kk P(V)$ the holomorphic projection map.
-
-As before we have the trivial vector bundle $V \to \kk P(V)$ and the tautological line bundle $\cc O(-1) \to \kk P(V)$. We also have such bundles over the complex manifold $V \setminus \{0\}$, and its tangent bundle is in fact $T_{V \setminus \{0\}} = V$. We also see that the pullback of $\pi^*\cc O(-1)$ is the ``same'' line bundle $\cc O(-1)$ over $V \setminus \{0\}$. There is also a short exact sequence
-$$
-0 \longrightarrow
-\cc O(-1) \longrightarrow
-T_{V\setminus\{0\}} \longrightarrow
-\pi^* T_{\kk P(V)} \longrightarrow
-0
-$$
-of vector bundles over $V \setminus \{0\}$.\footnote{This is not the Euler sequence, which exists over $\kk P(V)$ and includes extra twists.}
-
-On $V\setminus\{0\}$, we have the flat Hermitian metric $h$. We equip $\cc O(-1)$ with the Hermitian metric induced by the inclusion into the tangent bundle. The Euler section $\xi(v) = v$ over $V \setminus \{0\}$ is a nowhere-zero holomorphic section that trivializes the bundle $\cc O(-1)$. The curvature form of the metric on $\cc O(-1)$ is thus
-$$
-\omega
-= -\frac i2\partial\bar\partial \log h(\xi,\xi)
-= -\frac i2 \frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)}
-+ \frac i2 \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}\wedge\frac{h(\xi,\partial\xi)}{h(\xi,\xi)}.
-$$
-Evaluated on tangent vectors, we have
-$$
-\omega(\alpha,\beta)
-= - \frac{h(\alpha,\beta)}{h(\xi,\xi)}
-+ \frac{h(\alpha,\xi)}{h(\xi,\xi)} \cdot \frac{h(\xi,\beta)}{h(\xi,\xi)}.
-$$
-Cauchy--Schwarz shows that $\omega(\alpha,\alpha) \leq 0$ with equality if and only if $\alpha$ is a multiple of $\xi$. Note that $\pi^*T_{\kk P(V)}$ contains exactly the fields that are not multiples of $\xi$. The form $\omega$ is clearly invariant under the action of $\kk C^*$, which means that it descends to define a closed $(1,1)$-form on $T_{\kk P(V)}$. That form is negative-definite there.
-
-Like before we now consider $\cc O(1)$ and the induced K\"ahler metric, which we denote $\omega$ in a slight abuse of notation. Our game will be to compute the curvature form of $\pi^*\omega$ on $\pi^*T_{\kk P(V)}$. For variety, we'll do this directly instead of appealing to conformal metrics like before.
-
-Denote the Chern connection of $\omega$ on $\kk P(V)$ by $D$. Upstairs, we have
-\begin{align*}
-\pi^*\omega(\pi^*D \alpha, \beta)
-&= \partial \pi^*\omega(\alpha,\beta)
-\\
-&= \frac{h(\partial\alpha, \beta)}{h(\xi,\xi)}
-- \frac{h(\partial\xi, \xi)}{h(\xi,\xi)}
- \frac{h(\alpha,\beta)}{h(\xi,\xi)}
-\\
-&\qquad{}
-- \frac{h(\partial\alpha,\xi)}{h(\xi,\xi)}
-\frac{h(\xi,\beta)}{h(\xi,\xi)}
-+ \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}
-\frac{h(\alpha,\xi)}{h(\xi,\xi)}
-\frac{h(\xi,\beta)}{h(\xi,\xi)}
-\\
-&\qquad{}
-- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \frac{h(\partial\xi,\beta)}{h(\xi,\xi)}
-+\frac{h(\alpha, \xi)}{h(\xi,\xi)}
-\frac{h(\partial\xi,\xi)}{h(\xi,\xi)}
-\frac{h(\xi,\beta)}{h(\xi,\xi)}
-\\
-&= \pi^*\omega(\partial\alpha,\beta)
-- \pi^*\omega\biggl(\frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi, \beta \biggr)
-- \pi^*\omega\biggl(\frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \alpha, \beta \biggr)
-\end{align*}
-so the pullback of the Chern connection is
-$$
-\pi^*D \alpha
-= d\alpha
-- \frac{h(\alpha,\xi)}{h(\xi,\xi)} \partial\xi
-- \frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \alpha.
-$$
-For the curvature form, we then have
-\begin{align*}
-\pi^*\frac i2\bar\partial D\alpha
-&= -\frac i2 \partial\bar\partial \alpha
-- \frac i2 \frac{h(\alpha,\partial\xi)}{h(\alpha,\xi)} \wedge \partial \xi
-+ \frac i2 \frac{h(\alpha,\xi)}{h(\xi,\xi)} \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \wedge \partial\xi
-\\
-&\qquad{}
-+ \frac i2\frac{h(\partial\xi,\partial\xi)}{h(\xi,\xi)} \alpha
-- \frac i2\frac{h(\partial\xi,\xi)}{h(\xi,\xi)} \wedge \frac{h(\xi,\partial\xi)}{h(\xi,\xi)} \alpha
-\\
-&= - \pi^*\omega(\alpha, \partial\xi) \wedge \partial \xi
-+ \pi^*\omega(\partial\xi, \partial\xi) \alpha.
-\end{align*}
-As before we have to be careful about signs when computing $\bar\partial \frac{h(\partial\xi,\xi)}{h(\xi,\xi)}$. Note also the sign flip when we (silently) commute $\partial\xi$ below. We conclude that the pullback of the curvature tensor is
-$$
-\pi^* R(\alpha,\beta,\gamma,\delta)
-= \pi^*\omega(\alpha, \beta) \pi^*\omega(\gamma, \delta)
-+ \pi^*\omega(\alpha, \delta) \pi^*\omega(\gamma, \beta).
-$$
-We can extend the pullback of the curvature tensor to all of $T_{V\setminus\{0\}}$; it simply vanishes when any of the entries is a multiple of $\xi$ as $\pi^*\omega$ vanishes in that case.
 
 
-\section{TODO: Higher-dimensional hyperbolic metrics}
+\section{TODO: Bergman metrics}
 \label{sec:org21fa1aa}
 
 \section{TODO: Grassmannian}
@@ -650,8 +1158,325 @@ $$
 while picking the third gives \(1/n\) times that, so Hopf manifolds have positive constant scalar curvature.
 
 
-\section{TODO: Iwasawa manifold}
+\section{Iwasawa manifold}
 \label{sec:orgd67c2ff}
+
+Let $G$ be the complex Lie group formed by upper-triangular complex matrices
+$$
+\begin{pmatrix}
+  1 & x & z
+  \\
+  0 & 1 & y
+  \\
+  0 & 0 & 1
+\end{pmatrix}
+$$
+and let $\Gamma \subset G$ be the discrete subgroup of matricies of this form whose entries are Gaussian integers. Then $X = G / \Gamma$ is a compact complex manifold of dimension $3$, called the \emph{Iwasawa manifold}.
+
+Let $M := M(x,y,z)$ be a matrix as above. Then $M^{-1}dM$ is a matrix of $1$-forms that is invariant under the action of $G$, so it descends to define $1$-forms on $X$. Writing this out, we have
+$$
+M^{-1}dM
+= \begin{pmatrix}
+  1 & -x & -z
+  \\
+  0 & 1 & -y
+  \\
+  0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+  0 & dx & dz
+  \\
+  0 & 0 & dy
+  \\
+  0 & 0 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+  0 & dx & dz - x dy
+  \\
+  0 & 0 & dy
+  \\
+  0 & 0 & 0
+\end{pmatrix}.
+$$
+That is, the holomorphic $1$-forms $dx$, $dy$ and $dz - x dy$ on $G$ descend to $X$. Note that $d(dz - xdy) = -dx \wedge dy \not= 0$, so $X$ is not a K\"ahler manifold, as any holomorphic $1$-form on a compact K\"ahler manifold is closed.
+
+These three $1$-forms are linearly independent at any point of $X$, so they trivialize the cotangent bundle $\Omega_X$. That is, they define a holomorphic bundle isomorphism $\Omega_X \to \kk C^3$. Pulling back the flat metric on the trivial bundle then gives a flat metric on $\Omega_X$, and taking duals gives a flat Hermitian metric on $X$. Let's work this out concretely.
+
+Pulling back the flat metric amounts to defining our Hermitian metric on $\Omega_X$ so that $(dx, dy, dz - xdy)$ is an orthonormal frame. The matrix of the map from $(dx, dy, dz)$ coordinates to $(dx, dy, dz - xdy)$ is
+$$
+A = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & -x & 1
+\end{pmatrix}
+$$
+so its inverse gives the coordinate change going the other way. The pullback of the standard metric in $(dx, dy, dz-x dy)$ coordiates to $(dx, dy, dz)$ ones is thus given by
+$$
+H = \overline{(A^{-1})^t} I_3 A^{-1}
+=
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & \bar x \\
+0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & x & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1+|x|^2 & \bar x \\
+0 & x & 1
+\end{pmatrix}.
+$$
+The Hermitian metric on $T_X$ is then given by
+$$
+H' := \overline{H}^{-1}
+= \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & - x \\
+0 & -\bar x & 1+|x|^2
+\end{pmatrix}.
+$$
+We have
+$$
+(H')^{-1} = \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & 1 + |x|^2 & x \\
+  0 & \bar x & 1
+\end{pmatrix}
+$$
+so the Chern connection of this metric is
+$$
+(H')^{-1} \partial H'
+= \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & 1 + |x|^2 & x \\
+  0 & \bar x & 1
+\end{pmatrix}
+\begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & -dx \\
+0 & 0 & \bar x dx
+\end{pmatrix}
+= \begin{pmatrix}
+0 & 0 & 0 \\
+0 & 0 & -dx \\
+0 & 0 & 0
+\end{pmatrix}.
+$$
+This satisfies $\bar\partial((H')^{-1} \partial H') = 0$ as expected, which is a nice sanity check. A neat property of this metric is that its Chern connection is not trivial, but its curvature is still zero.
+
+A fairly common question among those who learn complex geometry is to what extent properties of the curvature tensor determine the metric?\footnote{See Berger~\cite[Section~4.5]{berger} for a discussion of this question in the Riemannian case.} The Iwasawa manifold gives an example where a Hermitian metric has a flat curvature tensor, which of course coincides exactly with the curvature tensor of a K\"ahler metric, but where the manifold itself admits no K\"ahler metric. So the curvature tensor can not detect whether a metric is K\"ahler. Bo and Zheng~\cite{yang2016curvature} discuss some of these questions.
+
+
+
+\section{TODO: Projectivized bundles}
+
+
+
+\subsection{Curvature of tautological bundle}
+
+Let $(E, h) \to X$ be a holomorphic Hermitian vector bundle of rank $r + 1$ over a complex manifold $X$. The group $\kk C^*$ acts fiberwise on $E$, and we can quotient by its action to form a projective bundle $\kk P(E) \to X$. In general there are projective bundles that do not arise as the projectivization of vector bundles, but we are not going to look at those here.
+
+As before there is a tautological line bundle $\cc O(-1) \to \kk P(E)$, and the metric $h$ defines a Hermitian metric on it. We want to compute the curvature form of this metric, and later see if we can turn that form into an honest K\"ahler metric.
+
+It is enough to perform these computations locally. In this case I think we are even forced to. If we try to play the same trick as in section~\ref{projective-space-redux} we end up having to compute the value of the pullback of a connection on the Euler section that trivializes $\cc O(-1)$ over the total space of $E$ minus the zero section. But the pullback of the connection is defined on pullbacks of sections and extended by linearity, and the Euler section is not the pullback of a section downstairs, so we have to look at the local picture.
+
+In any case, we pick a point of interest $(x_0, [v_0])$ of $\kk P(E)$. As $E \to X$ is a vector bundle, there is a neighborhood $U \subset X$ of $x$ such that $E|_U \cong U \times V$, where $V$ is the fiber of $E$. It follows that the projective bundle also splits holomorphically over that neighborhood; $\kk P(E)|_U \cong U \times \kk P(V)$. We pick $\lambda \in V^*$ that does not vanish on any representative of $[v]$, and consider the neighborhood $U \times H_\lambda$ of $(x, [v])$. There we have the holomorphic Euler section $\xi(x, v) = v$ that trivializes the tautological bundle. We want to compute the (negative of the) curvature form
+$$
+\psi = -\frac i2 \partial \bar\partial \log h(\xi, \xi).
+$$
+The difference with the case of projective space is that there we had a flat Hermitian metric $h$ (one that did not depend on the base variable $x$), while here the metric has curvature. We also have to take derivatives in the base and fiber directions, instead of only in the fiber directions. (This is thankfully easy as the bundle splits holomorphically locally.)
+
+So let $(\alpha, s)$ and $(\beta, t)$ be local holomorphic sections of $T_{U \times H_\lambda}$. We have
+$$
+\bar\partial_{(\beta, t)} \log h(\xi,\xi)
+= \frac{h(\xi, \nabla_\beta \xi + t)}{h(\xi,\xi)},
+$$
+where $\nabla$ is the Chern connection of $h$. Then
+\begin{align*}
+\psi((\alpha,s), (\beta,t))
+&= -\frac{h(\nabla_\alpha \xi + s, \nabla_\beta \xi + t)}{h(\xi,\xi)}
+- \frac{h(\xi, \bar\partial_\alpha \nabla_\beta \xi)}{h(\xi,\xi)}
++ \frac{h(\nabla_\alpha \xi + s, \xi)}{h(\xi,\xi)}
+\frac{h(\xi, \nabla_\beta \xi + t)}{h(\xi,\xi)}
+\\
+&= -\omega(\nabla_\alpha \xi + s, \nabla_\beta \xi + t)
+- \frac{h(\xi, F^\nabla_{\alpha\beta}\xi)}{h(\xi,\xi)},
+\end{align*}
+where $\omega$ is the Fubini--Study metric on $\kk P(V)$ and we recall that on holomorphic sections we have $\bar\partial \nabla \xi = F^\nabla \xi$ and $F^\nabla$ is anti-Hermitian.
+
+This curvature form does usually not have a definite sign. The Fubini--Study part can equal zero without the tangent fields in question being zero, and in general pretty much anything can appear in the curvature term of $h$. One exception is when $(E,h)$ is Griffiths negative. In that case, the curvature form $\psi$ is positive-definite, which implies that $E^*$ is ample.\footnote{We should be looking at $\kk P(E^*)$ like algebraic geometers. If we did, Griffiths positive would imply $E$ ample (that is, $\cc O(1) \to \kk P(E^*)$ would be ample).}
+
+
+
+
+SKETCH:
+
+$$
+\bar\partial \log h(\xi,\xi)
+= \frac{h(\xi, \nabla \xi)}{h(\xi,\xi)}
++ \frac{h(\xi, \id_H)}{h(\xi,\xi)}
+$$
+and
+$$
+\displaylines{
+\partial\bar\partial \log h(\xi,\xi)
+% Term 1, base derivatives
+= \frac{h(\nabla \xi, \nabla \xi)}{h(\xi,\xi)}
++ \frac{h(\xi, \bar\partial_U \nabla \xi)}{h(\xi,\xi)}
+- \frac{h(\nabla \xi, \xi)}{h(\xi,\xi)}
+\wedge \frac{h(\xi, \nabla \xi)}{h(\xi,\xi)}
+\hfill\cr\hfill{}
+% Term 1, fiber derivatives
++ \frac{h(\id_H, \nabla \xi)}{h(\xi,\xi)}
+- \frac{h(\id_H, \xi)}{h(\xi,\xi)}
+\wedge \frac{h(\xi, \nabla \xi)}{h(\xi,\xi)}
+\cr\hfill{}
+% Term 2, base derivatives
++ \frac{h(\nabla \xi, \id_H)}{h(\xi,\xi)}
+- \frac{h(\nabla \xi, \xi)}{h(\xi, \xi)}
+\wedge \frac{h(\xi, \id_H)}{h(\xi,\xi)}
+\cr\hfill{}
+% Term 2, fiber derivatives
++ \frac{h(\id_H, \id_H)}{h(\xi,\xi)}
+- \frac{h(\id_H, \xi)}{h(\xi,\xi)}
+\wedge \frac{h(\xi, \id_H)}{h(\xi,\xi)}
+}
+$$
+That is as a $(1,1)$-form. The associated sesquilinear form evaluated on $s \oplus \alpha$ and $t \oplus \beta$ is
+$$
+\psi(s \oplus \alpha, t \oplus \beta)
+= -h_{\mathrm{FS}}(\nabla_\alpha \xi + s, \nabla_\beta \xi + t)
++ \frac{h(\frac i2\Theta_{\alpha\beta}\xi, \xi)}{h(\xi,\xi)}.
+$$
+I'd like to be able to say that the Fubini--Study metric doesn't depend on the Hermitian inner product used to define it, so even though $h$ is used in the definition of $h_{\mathrm{FS}}$, that inner product is equal to the pullback from the projective space factor. That is, it doesn't depend on the base variables. (So the only dependency on those comes from the vector fields we put in here.)
+
+
+In any case, the curvature form of the tautological bundle has a definite sign when restricted to the fiber directions. This points the way to showing that the projective bundle is a K\"ahler manifold, at least when the base is a compact K\"ahler manifold: We pull back a K\"ahler metric from the base and multiply it with a big enough constant to offset the potential negativity of the curvature form in non-fiber directions.
+
+
+\subsection{Splitting the tangent bundle}
+
+We have a short exact sequence of vector bundles
+$$
+0
+\longrightarrow T_{\kk P(E) / X}
+\stackrel{j}{\longrightarrow} T_{\kk P(E)}
+\stackrel{\pi_*}{\longrightarrow} \pi^* T_X
+\longrightarrow 0.
+$$
+We also have a real $(1,1)$-form $\psi$ on $\kk P(E)$ that is positive-definite on the subbundle $T_{\kk P(E)/X}$. If $\psi$ were positive-definite on the whole tangent bundle, we could use it to split the exact sequence smoothly. In fact, knowing only that it is positive-definite on the subbundle is enough to do this.
+
+One way to define a splitting of the exact sequence is to construct a linear morphism $j^* : T_{\kk P(E)} \to T_{\kk P(E)/X}$ such that $j^* j = \id_{T_{\kk P(E)/X}}$; the splitting is then given by
+$$
+T_{\kk P(E)} \to T_{\kk P(E)/X} \oplus \pi^*T_X,
+\quad
+\Xi \mapsto j^*(\Xi) \oplus \pi_*(\Xi).
+$$
+We can view the $(1,1)$-form $\psi$ as a morphism $\psi : T_{\kk P(E)} \to \overline{T}_{\kk P(E)}^*$. By hypothesis, it is an isomorphism when restricted to $T_{\kk P(E)/X}$. We then set
+$$
+j^* := \psi^{-1} \circ \bar{j}^* \circ \psi.
+$$
+It helps to look at what this gives on given fields. Let $A$ and $B$ be tangent fields on $\kk P(E)$. Then
+$$
+\psi(A) = (B \mapsto \psi(A, B)),
+$$
+and
+$$
+\bar j^* \circ \psi(A) = (b \mapsto \psi(A, b)),
+$$
+where $b \in T_{\kk P(E)/X}$. This defines an element of $\overline T_{\kk P(E)/X}^*$, where $\psi$ is an isomorphism, so $\psi^{-1} \circ \bar j^* \circ \psi(A)$ is the unique element $a$ of $T_{\kk P(E)/X}$ such that
+$$
+\psi(a, b) = \psi(A, b)
+$$
+for all $b$ in $T_{\kk P(E)/X}$. Tracing back through this shows that $j^* \circ j = \id_{T_{\kk P(E)/X}}$.
+
+To work out what this gives for $s \oplus \alpha$ for our curvature form, we have
+$$
+t \mapsto \psi(s \oplus \alpha, t) = h_{\mathrm{FS}}(D^h_\alpha \xi + s, t)
+$$
+so $j^*(s \oplus \alpha) = D^h_\alpha \xi + s$. In our local coordinates, the splitting is the smooth isomorphism
+$$
+\Phi: T_H \oplus T_U \to T_H \oplus T_U,
+\quad
+s \oplus \alpha
+\mapsto
+\begin{pmatrix}
+  \id & D^h_\bullet \xi
+  \\
+  0 & \id
+\end{pmatrix}
+\begin{pmatrix}
+  s \\ \alpha
+\end{pmatrix}.
+$$
+The curvature form of the tautological bundle is the pullback under $\Phi$ of the direct sum of the Fubini--Study metric on $T_H$ and the sesquilinear form
+$$
+\theta(\alpha, \beta) = -\frac{h(\frac i2\Theta_{\alpha\beta}\xi, \xi)}{h(\xi,\xi)}
+$$
+on $\pi^*T_X$. For what it's worth, that form extends to all of $T_{\kk P(E)}$ by $\theta(A, B) = \theta(\pi_*A, \pi_*B)$.
+
+Note that we can add the pullback of any form we want from the base without changing the smooth splitting of the tangent bundle.
+
+\subsection{Attempts at the Chern connection}
+
+If $D$ is the Chern connection of the Fubini--Study metric, this would give us
+$$
+\displaylines{
+\partial_{\gamma \oplus z} \psi(\alpha \oplus s, \beta \oplus t)
+% First term, base directions
+% Wait, the FS connection should only differentiate in fiber directions
+= h_{\mathrm{FS}}(\partial_\gamma(\nabla_\alpha \xi + s), \nabla_\beta \xi + t)
++ h_{\mathrm{FS}}(\nabla_\alpha \xi + s, \bar\partial_\gamma(\nabla_\beta \xi + t))
++ h_{\mathrm{FS}}(\nabla_\alpha \xi + s, \tfrac{i}{2} \Theta_{\gamma\beta} \xi)
+% First term, fiber directions
+\hfill\cr\hfill{}
++ h_{\mathrm{FS}}(\nabla_\alpha z + \partial s, \nabla_\beta \xi + t)
+\cr\hfill{}
+% Second term, base directions
++ \frac{h(\nabla_\gamma\frac i2\Theta_{\alpha\beta}\xi, \xi)}{h(\xi,\xi)}
+- \frac{h(\nabla_\gamma\xi,\xi)}{h(\xi,\xi)}
+\frac{h(\frac i2\Theta_{\alpha\beta}\xi, \xi)}{h(\xi,\xi)}
+\cr\hfill{}
+% Second term, fiber directions
+% We can flip the curvature endomorphism here twice and get that his is equal to
+% h_{FS}(z, \tfrac i2 \Theta_{\alpha\beta} \xi)
++ \frac{h(\frac i2\Theta_{\alpha\beta}z, \xi)}{h(\xi,\xi)}
+- \frac{h(z, \xi)}{h(\xi,\xi)}
+\frac{h(\frac i2\Theta_{\alpha\beta}\xi, \xi)}{h(\xi,\xi)}
+}
+$$
+
+
+\subsection{Some kind of connection}
+
+We have a real closed smooth $(1,1)$-form on $\kk P(V)$. It may or may not be degenerate, so there is not a unique connection compatible with the form whose $(0,1)$-part is $\bar\partial$. We can nonetheless calculate something.
+
+Let $(\gamma, u)$ be another tangent field. We have
+$$
+\displaylines{
+\partial_{(\gamma,u)} \psi((\alpha,s),(\beta,t))
+= \omega(D_u (\nabla_\alpha \xi + s), \nabla_\beta\xi + t)
++ \omega(\nabla_\alpha u + \partial_u s, \nabla_\beta\xi + t)
+\hfill\cr\hfill{}
++ \frac{h(\nabla_\gamma \frac i2\Theta_{\alpha\beta} \xi, \xi)}{h(\xi,\xi)}
+- \frac{h(\frac i2\Theta_{\alpha\beta} \xi, \xi)}{h(\xi,\xi)}
+\frac{h(\nabla_\gamma\xi,\xi)}{h(\xi,\xi)}
+\cr\hfill{}
++ \frac{h(\frac i2\Theta_{\alpha\beta} u, \xi)}{h(\xi,\xi)}
+- \frac{h(\frac i2\Theta_{\alpha\beta} \xi, \xi)}{h(\xi,\xi)}
+\frac{h(u,\xi)}{h(\xi,\xi)}
+}
+$$
+This needs work. There will be a term that involves $d \Theta$. This would need to be rewritten using $h^{-1}$ (or equivalent), which we have stubbornly refused to do until now. Shows the need to use one of the more local pictures for calculations. Maybe we can cheat to some extent and say that $h(\partial\Theta_{\alpha\beta}\xi,\xi)$ is a $1$-form so there exists a unique vector $\theta$ such that $\psi(\theta,\xi)$ equals it?
+
+
+
 
 \section{TODO: Direct image curvatures}
 \label{sec:org5619e67}
@@ -659,14 +1484,6 @@ while picking the third gives \(1/n\) times that, so Hopf manifolds have positiv
 Weil--Peterson, maybe.
 
 Berndtsson has papers from about ten years ago we could look at. Cao et al took that further recently, but that's probably too advanced for what we want to do.
-
-
-\section{TODO: Algebraic curvature tensors}
-\label{sec:orga0722e9}
-
-Dimension of their subspace.
-Kobayashi-Nomitzu products.
-Holomorphic bisectional curvature determines curvature tensor.
 
 
 \section{TODO: Intuitive explanation for curvature forms}
@@ -707,6 +1524,10 @@ Done in \cite{fischer1983differential}, apparently. Looks inscrutable.
 \section{TODO: Hypersurfaces in projective space}
 
 Done in \cite{vitter1974curvature}, which I can verify once scihub's search comes back.
+
+
+\section{TODO: Complexified K\"ahler cone}
+\label{complexified-kahler-cone}
 
 
 
