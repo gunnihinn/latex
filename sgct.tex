@@ -1,5 +1,7 @@
 \documentclass[11pt]{article}
 
+\usepackage{tgpagella}
+\linespread{1.1}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
@@ -21,11 +23,15 @@
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
 
+\def\^#1{^{[#1]}}
+
 \DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Vol}{Vol}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
 
 \newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
 
@@ -527,7 +533,51 @@ and cancel $F \wedge \tau$.
 
 The above does not say that $F_{\alpha\beta}\gamma = \nabla_\alpha \tau(\beta,\gamma)$. It is an equality of $3$-forms with values in $T_X$ and involves the permutations of all of the tensor fields.
 
-The first Bianchi identity can only be stated for metrics on the tangent bundle, as it involves the torsion. The second Bianchi identity is true for the curvature form $\Theta$ of an arbitrary connection $D$ on a vector bundle $E$, where it says that $D_{\End E} \Theta = 0$.
+The first Bianchi identity can only be stated for metrics on the tangent bundle, as it involves the torsion. The second Bianchi identity is true for the curvature form $F$ of an arbitrary connection $D$ on a vector bundle $E$, where it says that $D_{\End E} F = 0$.
+
+
+\subsection{Derived curvature tensors}
+
+
+A curvature tensor is a complicated thing. We humans have proven bad at understanding objects as multilinear as these. For many applications it is enough to look at simpler tensors that are constructed from the full curvature tensor.
+
+The first two of these are the holomorphic bisectional and sectional curvatures.
+
+\begin{defi}
+  The \emph{holomorphic bisectional curvature} of a Hermitian metric $h$ is
+$$
+B(x,y) = \frac{R(x,x,y,y)}{h(x,x)h(y,y)}.
+$$
+The \emph{holomorphic sectional curvature} is
+$$
+H(x) = B(x,x) = \frac{R(x,x,x,x)}{h(x,x)^2}.
+$$
+\end{defi}
+
+Both of these are defined to be invariant under scalings, so $B(fx,y) = B(x,y)$ for all smooth $f$. The holomorphic bisectional curvature is real-valued by the symmetry of a Hermitian curvature tensor, and so is the holomorphic sectional curvature.
+
+
+\paragraph{}
+It is also possible to use the metric to contract the curvature tensor and obtain a $(1,1)$-tensor.
+
+\begin{defi}
+  Let $(v_1, \ldots, v_n)$ be a local holomorphic frame that's orthonormal at a given point. There we define the \emph{first}, \emph{second}, and \emph{third Ricci tensors} by
+\begin{align*}
+r_1(x,y) &= \sum_{j=1}^n R(x,y,v_j,v_j),
+\\
+r_2(x,y) &= \sum_{j=1}^n R(v_j, v_j, x,y),
+\\
+r_3(x,y) &= \sum_{j=1}^n R(x,v_j,v_j,y).
+\end{align*}
+\end{defi}
+
+There is a fourth possible contraction ($\sum_{j=1}^n R(v_j,y,x,v_j)$) but it is conjugate to $r_3$.
+
+These definitions are independent of the holomorphic frame used. It's easiest to see this by rewriting them using the metric isomorphism $h : T_X \to \overline T_X^*$ and its inverse and taking traces. In general these definitions are really different (see Section~\ref{sec:org8f5818e}), but we'll see later that they all agree for K\"ahler metrics.
+
+The first of these is a tensor associated to the curvature form of a line bundle, as its associated $(1,1)$-form is clearly equal to $\tr \frac i2 F$. That form is also closed, as it can be defined by $\frac i2 \partial\bar\partial \log \det h$. It's the curvature form of the anticanonical bundle $-K_X$ with the metric induced by $h$.
+
+
 
 
 \subsection{K\"ahler metrics}
@@ -620,31 +670,242 @@ The dimension of the space of Hermitian forms on a vector space of dimension $n$
 \end{proof}
 
 
-We often view a curvature form as a Hermitian form on $E \otimes T_X$. This corresponds here to the space of curvature tensors of Hermitian metrics. This space then has dimension $(n^2)^2 = n^4$. We do have that $\binom{n+1}{2}^2 \leq n^4$ with equality if and only if $n = 1$, which is a nice sanity check. The ratio of the dimensions tends to $1/4$ as $n \to \infty$; in one sense we can expect slightly more than one tensor out of four to be a K\"ahler curvature tensor, in another almost no tensors are the ones of a K\"ahler metric.
+We often view a curvature form as a Hermitian form on $E \otimes T_X$. This corresponds here to the space of curvature tensors of Hermitian metrics. This space then has dimension $(n^2)^2 = n^4$. We do have that $\binom{n+1}{2}^2 \leq n^4$ with equality if and only if $n = 1$, which is a nice sanity check.
+
+When $E = T_X$ we can also consider the space of Riemannian curvature tensors on the smooth manifold underlying $X$. The corresponding space of algebraic Riemannian curvature tensors has real dimension
+$$
+\frac{(2n)^2((2n)^2 - 1)}{12}
+= \frac{n^2(4n^2 - 1)}{3}.
+$$
+We have
+$$
+\binom{n+1}{2}^2 \leq n^4 \leq \frac{n^2(4n^2 - 1)}{3}
+$$
+for all $n \geq 1$ with equality in either place if and only if $n = 1$, so in a given complex dimension there are more Hermitian curvature tensors than K\"ahler ones, and more Riemannian tensors than Hermitian ones. (Recall that a K\"ahler metric is Riemannian, but a Riemannian metric doesn't have to be compatible with any complex structure.) The space of K\"ahler tensors can be embedded in the space of Riemannian tensors (clearly), but Hermitian tensors do not embed there (as they're generally not the curvature tensors of Riemannian metrics).
+
+
+\paragraph{}
+
+A slightly surprising property of K\"ahler curvature tensors is that the holomorphic sectional curvature determines the whole tensor. The holomorphic bisectional curvature clearly does so, but it's not obvious that restricting to the diagonal doesn't lose information.
+
+\begin{prop}
+If $R_1$ and $R_2$ are elements of $\cc R$ such that
+$$
+R_1(x,x,x,x) = R_2(x,x,x,x)
+$$
+for all $x \in V$, then $R_1 = R_2$.
+\end{prop}
+
+\begin{proof}
+We mostly follow the proof in \cite[Lemma~7.19]{zheng2000complex}, which we can't improve much upon.
+
+By linearity it's enough to prove that if $R$ is a tensor such that $R(x,x,x,x) = 0$ for all $x$, then $R = 0$. Fix $x, y \in V$ and consider $R(x+\lambda y,x+\lambda y,x+\lambda y,x+\lambda y)$ for $\lambda \in \kk C$. This is a polynomial in $\lambda$ and $\bar\lambda$ that is identically zero, so all its coefficients are zero. The coefficient of $|\lambda|^2$ is
+$$
+R(x,x,y,y) + R(x,y,y,x) + R(y,x,x,y) + R(y,y,x,x)
+= 4 R(x,x,y,y)
+$$
+by the extra symmetries of $R$, so we conclude that $R(x,x,y,y) = 0$ for all $x, y$.
+
+Recall that we can view $R$ as a Hermitian form $b$ on $S^2V$ by $b(x \odot z, y \odot w) = R(x,y,z,w)$. The above then says that the quadratic form associated to $b$, which is $x \odot z \mapsto b(x \odot z, x \odot z) = R(x,x,z,z)$, is identically zero. But if a quadratic form on a complex vector space is induced by a Hermitian form, then it determines the Hermitian form by polarization. We conclude that $b = 0$, and so $R = 0$.
+\end{proof}
+
+
+\paragraph{}
+A Hermitian metric generally has three different Ricci forms. For a K\"ahler metric, these are all equal.
+
+\begin{prop}
+Let $R \in \cc R$. All the Ricci forms of $R$ are equal.
+\end{prop}
+
+\begin{proof}
+  Pick a Hermitian inner product $h$ on $V$ and an orthonormal basis $(v_1,\ldots,v_n)$. We want to compare
+\begin{align*}
+r_1(x,y) &= \sum_{j=1}^n R(x,y,v_j,v_j),
+\\
+r_2(x,y) &= \sum_{j=1}^n R(v_j, v_j, x,y),
+\\
+r_3(x,y) &= \sum_{j=1}^n R(x,v_j,v_j,y).
+\end{align*}
+By the symmetries of K\"ahler curvature tensors we have $R(x,y,v_j,v_j) = R(x,v_j,v_j,y)$, so $r_1 = r_3$. Again by the same, we have $R(x,v_j,v_j,y) = R(v_j,v_j,x,y)$, so $r_3 = r_2$.
+\end{proof}
+
+For a K\"ahler metric we thus speak of \emph{the} Ricci form and tensor of the metric. It also follows that the Ricci form of a K\"ahler metric is closed.
+
+
+\paragraph{}
+We can again contract the Ricci tensor of a K\"ahler metric and get the \emph{scalar curvature} of the metric. It is equal to the scalar curvature of the underlying Riemannian metric.
+
+\begin{defi}
+The \emph{scalar curvature} of a K\"ahler metric with curvature tensor $R$ is
+$$
+s = \sum_{k=1}^n r(v_k,v_k) = \sum_{j,k=1}^n R(v_j,v_j,v_k,v_k).
+$$
+\end{defi}
+
+
+\begin{prop}
+Let $\omega$ be the K\"ahler form of a K\"ahler metric, and let $r$ be its Ricci-form. Then
+$$
+s \, \omega\^{n} = r \wedge \omega\^{n-1}.
+$$
+\end{prop}
+
+\begin{proof}
+The right-hand side is equal to $\Lambda(r) \omega\^n$, which is just the contraction of the Ricci-form by the metric, which is the scalar curvature.
+\end{proof}
+
+The Ricci-form of a K\"ahler metric represents the cohomology class $c_1(X)$, as it is the curvature form of a Hermitian metric on $-K_X$. The above proposition then implies that on a compact K\"ahler manifold, the integral of the scalar curvature is a cohomological invariant.
 
 
 
-TODO: Holomorphic sectional curvature determines curvature tensor. Try to use polarization to show that $H$ determines bisectional curvature, which is the restriction of $R$ to a diagonal, thus it determines the whole thing.
+\paragraph{}
 
+Let's discuss some positivity properties of the various curvature tensors we have. The tangent bundle is just another vector bundle, so we can speak of Nakano-positivity and Griffiths-positivity of its curvature. Beyond that, the derived curvature tensors can also be positive. We can summarize the relationships between the positivity of the various tensors as below.
+
+
+\begin{prop}
+\label{derived-tensor-positivity}
+  Let $R$ be a K\"ahler curvature tensor.
+  \begin{enumerate}
+    \item If $R$ is Nakano-positive, then $R$ is Griffiths-positive.
+    \item If $R$ is Griffiths-positive, then $B$ is positive.
+    \item If $B$ is positive, then $H$ and $r$ are positive.
+    \item If $H$ is positive, then $s$ is positive.
+    \item If $r$ is positive, then $s$ is positive.
+  \end{enumerate}
+\end{prop}
+
+The proposition remains true if we replace ``positive'' with ``semipositive'', ``negative'' or ``seminegative''.
+
+\begin{proof}
+  \begin{enumerate}
+  \item This is true for any vector bundle and is trivial.
+  \item True by definition of $B$.
+  \item The positivity of $H$ is obvious. We note that
+    $$
+    r(x,x) = \sum_{j=1}^n R(x,x,v_j,v_j) = |x|^2 \sum_{j=1}^n B(x,v_j)
+    $$
+    from which the positivity of $r$ follows.
+  \item Follows from Lemma~\ref{holomorphic-sectional-to-scalar}.
+  \item The scalar curvature is the trace of the Ricci form, so this is obvious.
+  \end{enumerate}
+\end{proof}
+
+
+\begin{lemm}
+\label{holomorphic-sectional-to-scalar}
+Let $h$ be a Hermitian inner product on $V$, and $H$ and $s$ the holomorphic sectional and scalar curvatures of a K\"aher curvature tensor. Then
+$$
+\int_{S(V,h)} H(x) \, d\sigma(x) = \frac{\Vol(S^{2n-1})}{n(n+1)} s.
+$$
+\end{lemm}
+
+\begin{proof}
+  We pick an orthonormal basis $(v_1,\ldots,v_n)$ of $V$ and write $z = \sum_{j=1}^n z_j v_j$. On the unit sphere we then have
+$$
+H(z)
+= R(z,z,z,z)
+= \sum_{j,k,l,m=1}^n z_j \bar z_k z_l \bar z_m R_{jklm}.
+$$
+Consider the real and imaginary parts of the polynomial here. By inspecting degrees, we see that the result is odd in one of its variables and so its integral over the unit sphere vanishes unless $j = k$ and $l = m$ or $j = m$ and $l = k$. We thus have to evaluate
+$$
+\int_{S^{2n-1}} |z_j|^4 \, d\sigma
+\quad\text{and}\quad
+\int_{S^{2n-1}} |z_j|^2 |z_k|^2 \, d\sigma
+\quad(j \not= k).
+$$
+After Folland~\cite{folland}, we know that
+\begin{align*}
+\int_{S^{2n-1}} d\sigma
+&= \Vol(S^{2n-1}) = \frac{2\Gamma(\tfrac12)^{2n}}{\Gamma(n)},
+\\
+\int_{S^{2n-1}} x_j^4 \, d\sigma
+&= \frac{2\Gamma(\tfrac 52)\Gamma(\tfrac 12)^{2n-1}}{\Gamma(n+2)}
+\\
+&= \frac{\Gamma(\tfrac52)}{\Gamma(\tfrac12)(n+1)n} \Vol(S^{2n-1})
+= \frac{3}{4n(n+1)} \Vol(S^{2n-1}),
+\\
+\int_{S^{2n-1}} x_j^2 x_k^2 \, d\sigma
+&= \frac{2\Gamma(\tfrac32)^2\Gamma(\tfrac 12)^{2n-2}}{\Gamma(n+2)}
+\\
+&= \frac{\Gamma(\tfrac32)^2}{\Gamma(\tfrac12)^2 (n+1)n} \Vol(S^{2n-1})
+= \frac{1}{4n(n+1)} \Vol(S^{2n-1})
+\end{align*}
+for real variables $x_j, x_k$ when $j \not= k$. As
+\begin{align*}
+|z_j|^4 &= x_j^4 + 2 x_j^2 y_j^2 + y_j^4,
+\\
+|z_j|^2 |z_k|^2 &= x_j^2 x_k^2 + x_j^2 y_k^2 + y_j^2 x_k^2 + y_j^2 y_k^2
+\end{align*}
+we get that
+\begin{align*}
+\int_{S^{2n-1}} |z_j|^4 \, d\sigma
+&= \frac{2}{n(n+1)} \Vol(S^{2n-1}),
+\\
+\int_{S^{2n-1}} |z_j|^2 |z_k|^2 \, d\sigma
+&= \frac{1}{n(n+1)} \Vol(S^{2n-1})
+\quad(j \not= k).
+\end{align*}
+This finally gives
+\begin{align*}
+\int_{S^{2n-1}} H(z) \,d\sigma
+&= \sum_{j=1}^n \int_{S^{2n-1}} |z_j|^4 \, d\sigma
++ \sum_{j \not= k}^n \int_{S^{2n-1}} |z_j|^2|z_k|^2 \, d\sigma
+\\
+&= \frac{2}{n(n+1)} \Vol(S^{2n-1}) \sum_{j=1}^n R(v_j,v_j,v_j,v_j)
+\\
+&\qquad{}+ \frac{1}{n(n+1)} \Vol(S^{2n-1}) \sum_{j \not= k}^n R(v_j,v_j,v_k,v_k)
+\\
+&\qquad{}+
+\frac{1}{n(n+1)} \Vol(S^{2n-1}) \sum_{j \not= k}^n R(v_j,v_k,v_k,v_j)
+\\
+&= \frac{1}{n(n+1)} \Vol(S^{2n-1}) \sum_{j,k=1}^n R(v_j,v_j,v_k,v_k)
+\\
+&\qquad{}+
+\frac{1}{n(n+1)} \Vol(S^{2n-1}) \sum_{j,k=1}^n R(v_j,v_k,v_k,v_j)
+\\
+&= \frac{2}{n(n+1)} \Vol(S^{2n-1}) \sum_{j,k=1}^n R(v_j,v_j,v_k,v_k)
+\\
+&= \frac{1}{n(n+1)} \Vol(S^{2n-1}) \cdot s
+\end{align*}
+where we have used the symmetries of the curvature tensor.
+\end{proof}
+
+
+The reverse implications in Proposition~\ref{derived-tensor-positivity} all fail. The reader can amuse themselves by constructing algebraic curvature tensors that exhibit those failures.\footnote{If the reader does not find this amusing, they can see how we construct some such tensors in the next subsection.}
+
+The relationship between the holomorphic sectional and Ricci curvatures is not obvious. The positivity or negativity of one does not imply the positivity or negativity of the other. For example, there are known natural metrics with positive holomorphic sectional curvature that do not have positive Ricci curvature~\cite{hitchin1975curvature,yang2019hirzebruch}. In the next section we construct some algebraic curvature tensors that show this concretely.
+
+Nevertheless there are some results where the existence of a metric with either tensor positive is used to construct a possibly different metric with the other tensor positive. For example, Kobayashi conjectured that a manifold that admits a metric with negative holomorphic sectional curvature should have ample canonical bundle; this was proved by Wu and Yau~\cite{wu2016negative} for projective manifolds. See also the survey by Diverio~\cite{diverio2020kobayashi}.
 
 
 \subsection{Constructing algebraic curvature tensors}
 
 
-An easy way to construct elements of $\cc R$ is to pick a basis for $V$ and just write down some tensors. This is in some way unsatisfactory because we'd like to see curvature tensors that arise in the wild. To do so we'd like to have coordinate-invariant ways of constructing elements of $\cc R$. We point out two of those here.
+An easy way to construct elements of $\cc R$ is to pick a basis for $V$ and just write down some tensors. This is in some way unsatisfactory because we'd like to see curvature tensors that arise in the wild.\footnote{I mean, we're not above doing this, we just feel bad about it.} To do so we'd like to have coordinate-invariant ways of constructing elements of $\cc R$. We point out two of those here.
 
 Suppose we have a Hermitian form $h$ on $V$. It induces a Hermitian form on $S^2 V$, defined by
 $$
 (h \odot h)(x \odot y, z \odot w)
-= h(x,z)h(y,w) + h(z,y)h(x,w).
+= \tfrac 12 \bigl( h(x,z)h(y,w) + h(x,w)h(y,z) \bigr).
 $$
-This is the complex-geometric version of the Kulkarni--Nomizu product. If $g$ and $h$ are Hermitian forms on $V$ we can polarize this identity and get a Hermitian form on $S^2V$ by setting
+% x \odot z = 1/2 (x \otimes z + z \otimes x)
+% y \odot w = 1/2 (y \otimes w + w \otimes y)
+% < x \odot z, y \odot w >
+% = < x \otimes z + z \otimes x, y \otimes w + w \otimes y >
+% = 1/4 (< x \otimes z, y \otimes w > + < x \otimes z, w \otimes y>
+% + < z \otimes x, y \otimes w > + < z \otimes x, w \otimes y>)
+% = 1/4 (<x,y> <z,w> + <x,w> <z,y> + <z,y> <x,w> + <z,w> <x,y>)
+% = 1/2 (<x,y> <z,w> + <x,w> <z,y>)
+This is the complex-geometric version of the Kulkarni--Nomizu product. It has the property that if $(v_1,\ldots,v_n)$ is an orthonormal basis of $V$, then $(v_j \odot v_k)_{1 \leq j \leq k \leq n}$ is an orthonormal basis of $S^2V$.
+
+If $g$ and $h$ are Hermitian forms on $V$ we can polarize this identity and get a Hermitian form on $S^2V$ by setting
 $$
 \displaylines{
 (g \odot h)(x \odot y, z \odot w)
-  = g(x,y) h(z,w) + g(x,w) h(z,y)
+  = \tfrac 14 \bigl(g(x,y) h(z,w) + g(x,w) h(z,y)
   \hfill\cr\hfill{}
-  + g(z,y) h(x,w) + g(z,w) h(x,y).
+  + g(z,y) h(x,w) + g(z,w) h(x,y)\bigr).
 }
 $$
 The below result is now clear.
@@ -652,7 +913,7 @@ The below result is now clear.
 \begin{prop}
   If $g$ and $h$ are Hermitian forms on $V$, then $g \odot h$ is a Hermitian form on $S^2V$, and thus defines a K\"ahler curvature tensor.
 
-  Suppose $h$ is a Hermitian inner product on $V$. Then $h \odot h$ has constant holomorphic scalar curvature equal to $2$, and is Griffiths-positive.
+  Suppose $h$ is a Hermitian inner product on $V$. Then $h \odot h$ has constant holomorphic scalar curvature equal to $1$, and is Griffiths-positive.
 \end{prop}
 
 Another way of constructing these kinds of elements is to pull back Hermitian forms to the symmetric product. In that case we get weaker positivity properties than above, simply because any linear morphism we pull back by will have a nontrivial kernel:
@@ -672,10 +933,153 @@ If $h$ is a Hermitian inner product, then $f^*h$ has semipositive holomorphic se
 We claimed that these constructions would exhibit tensors that arise in the wild. For the Kulkarni--Nomitzu product this is clear, as the Fubini--Study metric (see Section~\ref{sec:orgcfabeed}) has constant holomorphic sectional curvature and is thus of that form. The same is true for the curvature tensor of the Bergman metric. It's less clear that any ``natural'' K\"ahler metric has a curvature tensor of the pullback form but that does indeed happen; see the natural metric on the complexification of the K\"ahler cone in Section~\ref{complexified-kahler-cone}.
 
 
+
+\paragraph{Dimension two}
+
+Let's examine the first nontrivial case, when $\dim V = 2$. We pick an inner product on $V$ and let $(v_1,v_2)$ be an orthonormal basis. Then $(v_1 \odot v_1, v_1 \odot v_2, v_2 \odot v_2)$ is an orthonormal basis of $S^2V$ under the inner product induced by the one we picked. A curvature tensor $R$ identifies with a Hermitian form on $S^2V$, that is, with a Hermitian matrix
+$$
+h = \begin{pmatrix}
+  h_{11} & h_{12} & h_{13} \\
+  h_{21} & h_{22} & h_{23} \\
+  h_{31} & h_{32} & h_{33}
+\end{pmatrix}.
+$$
+The various positivity notions we've seen can now be translated as follows:
+
+\smallskip\noindent$\bullet$\quad
+$R$ is Nakano positive if the Hermitian form defined by $h$ is positive-definite.
+
+\smallskip\noindent$\bullet$\quad
+  $R$ is Griffiths positive if $h$ is positive on decomposable tensors $x \odot y$.
+
+\smallskip\noindent$\bullet$\quad
+  $R$ has positive holomorphic sectional curvature if $h$ is positive on decomposable tensors $x \odot x$. Write $x = x_1v_1 + x_2v_2$. Then $x \odot x = x_1^2 v_1 \odot v_1 + 2x_1x_2 v_1 \odot v_2 + x_2^2 v_2 \odot v_2$, and
+\begin{align*}
+H(x)
+&= \frac{R(x,x,x,x)}{|x|^4}
+\\
+&= \begin{pmatrix} \bar x_1^2 & 2\bar x_1\bar x_2 & \bar x_2^2 \end{pmatrix}
+\begin{pmatrix}
+  h_{11} & h_{12} & h_{13} \\
+  h_{21} & h_{22} & h_{23} \\
+  h_{31} & h_{32} & h_{33}
+\end{pmatrix}
+\begin{pmatrix} x_1^2 \\ 2x_1x_2 \\ x_2^2 \end{pmatrix}
+\biggm/
+(|x_1|^2 + |x_2|^2)^2.
+\end{align*}
+Calculating the matrix product, we get
+\begin{align*}
+\begin{pmatrix}
+  h_{11} & h_{12} & h_{13} \\
+  h_{21} & h_{22} & h_{23} \\
+  h_{31} & h_{32} & h_{33}
+\end{pmatrix}
+\begin{pmatrix} x_1^2 \\ 2x_1x_2 \\ x_2^2 \end{pmatrix}
+= \begin{pmatrix}
+h_{11} x_1^2 + 2h_{12} x_1x_2 + h_{13} x_2^2
+\\
+h_{21} x_1^2 + 2h_{22} x_1x_2 + h_{23} x_2^2
+\\
+h_{31} x_1^2 + 2h_{32} x_1x_2 + h_{33} x_2^2
+\end{pmatrix}
+\end{align*}
+so
+\begin{align*}
+R(x,x,x,x)
+&=
+(h_{11} x_1^2 + 2h_{12} x_1x_2 + h_{13} x_2^2)\bar x_1^2
+\\
+&\qquad{}+
+(h_{21} x_1^2 + 2h_{22} x_1x_2 + h_{23} x_2^2)2 \bar x_1 \bar x_2
+\\
+&\qquad{}+
+(h_{31} x_1^2 + 2h_{32} x_1x_2 + h_{33} x_2^2) \bar x_2^2.
+\end{align*}
+
+\smallskip\noindent$\bullet$\quad
+The Ricci tensor of $R$ is
+\begin{align*}
+  r(x,y)
+  &= R(x,y,v_1,v_1) + R(x,y,v_2,v_2)
+  \\
+  &= h(x \odot v_1, y \odot v_1) + h(x \odot v_2, y \odot v_2).
+\end{align*}
+Write $x = x_1v_1 + x_2v_2$ and $y = y_1 v_1 + y_2v_2$. Then
+\begin{align*}
+h\bigl((x_1 v_1 + x_2v_2) \odot v_1, (y_1v_1 + y_2v_2) \odot v_1 \bigr)
+&= x_1\bar y_1 h_{11} + x_1\bar y_2 h_{12} + x_2\bar y_1 h_{21} + x_2\bar y_2 h_{22}
+\\
+h\bigl((x_1 v_1 + x_2v_2) \odot v_2, (y_1v_1 + y_2v_2) \odot v_2 \bigr)
+&= x_1\bar y_1 h_{22} + x_1\bar y_2 h_{23} + x_2\bar y_1 h_{32} + x_2\bar y_2 h_{33}
+\end{align*}
+so
+$$
+r(x,y)
+= \begin{pmatrix}\bar y_1 & \bar y_2\end{pmatrix}
+  \begin{pmatrix}
+  h_{11} + h_{22}  & h_{21} + h_{32}
+    \\
+  h_{12} + h_{23} & h_{22} + h_{33}
+  \end{pmatrix}
+  \begin{pmatrix}x_1 \\ x_2 \end{pmatrix}.
+$$
+
+
+\smallskip\noindent$\bullet$\quad
+The scalar curvature of $R$ is the trace of the Ricci tensor, so
+$$
+s = h_{11} + 2 h_{22} + h_{33}.
+$$
+
+\smallskip
+Consider a diagonal matrix $h$. The holomorphic sectional curvature of the corresponding tensor $R$ is
+$$
+H(x,y)
+= \frac{h_{11} |x|^4 + 4 h_{22} |x|^2|y|^2 + h_{33}|y|^4}{(|x|^2+|y|^2)^2},
+$$
+its Ricci tensor is
+$$
+r(x,y) = (h_{11} + h_{22})|x|^2 + (h_{22} + h_{33})|y|^2
+$$
+and its scalar curvature is
+$$
+s = h_{11} + 2h_{22} + h_{33}.
+$$
+We can now setup a variety of situations to show that positivity properties only ``flow downwards''. For example, taking $h_{11} > 0$, $h_{33} < 0$ and setting $2h_{22} + h_{33} = 0$ we get a tensor such that the scalar curvature is positive, but the Ricci tensor has no definite sign.
+
+Note that
+$$
+H(x,x) = \tfrac 14 \bigl(h_{11} + 4h_{22} + h_{33} \bigr).
+$$
+Picking coefficients such that $s > 0$ but $H(x,x) < 0$ is now clearly possible.
+
+If we pick coefficients such that $h_{11} + h_{22} > 0$ and $h_{22} + h_{33} > 0$ but $h_{11} + 4h_{22} + h_{33} < 0$ we then have a tensor with $r > 0$ everywhere but $H < 0$ in some directions.
+
+Finally for now, the term that controls the sign of the holomorphic sectional curvature can be written as (picking $h_{11} = 1$ to simplify)
+$$
+(|x|^2 - \sqrt{h_{33}}|y|^2)^2 + (4h_{22} + 2\sqrt{h_{33}})|x|^2|y|^2.
+$$
+The corresponding Ricci tensor is
+$$
+r(x,y) = (1 + h_{22})|x|^2 + (h_{22} + h_{33}) |y|^2.
+$$
+Set $h_{22} = -\sqrt{h_{33}}/2$. Then $H \geq 0$, but
+$$
+r(x,y) = (1-\sqrt{h_{33}}/2)|x|^2 + (h_{33} - \sqrt{h_{33}}/2)|y|^2
+$$
+and taking $h_{33} > 4$ yields a Ricci tensor that is negative in some directions. Taking $h_{22} = -\sqrt{h_{33}}/2 + \varepsilon$ then gives $H > 0$ everywhere but $r < 0$ somewhere.
+
+
 \section{Flat metrics}
 \label{sec:org504b250}
 
 Let $(E,h) \to X$ be a holomorphic Hermitian vector bundle. The curvature form $\Theta$ of $h$ is a smooth section of $\bigwedge^{1,1}T_X \otimes \End E$. The simplest such section is of course the zero section. We say that the metric $h$ is \emph{flat} if its curvature form is zero.
+
+
+TODO: Show that the universal covering of a flat manifold is a complex Lie group.
+
+TODO: Show that a compact complex Lie group is commutative, i.e., a torus. Any compact flat manifold is thus K\"ahler.
 
 
 \subsection{Euclidean metric}
@@ -783,7 +1187,7 @@ The proof reduces to linear algebra by a calculation in local coordinates, eithe
 \section{Riemann surfaces}
 \label{sec:org776713b}
 
-In Riemannian geometry, the full curvature tensor doesn't appear until in dimension $4$. Before that, the low dimensions of the tangent space restrict what tensors can appear. The equivalent situation in complex geometry only occurs in complex dimension one, one Riemann surfaces. Complex dimension two is real dimension four and already contains all the complexities of the higher dimensions. Conversely, complex dimension one is only real dimension two and too simple to give a good idea of what happens in higher dimensions.
+In Riemannian geometry, the full curvature tensor doesn't appear until in dimension $4$. Before that, the low dimensions of the tangent space restrict what tensors can appear. The equivalent situation in complex geometry only occurs in complex dimension one, on Riemann surfaces. Complex dimension two is real dimension four and already contains all the complexities of the higher dimensions. Conversely, complex dimension one is only real dimension two and too simple to give a good idea of what happens in higher dimensions.
 
 \subsection{Everything is K\"ahler}
 Let $U \subset \kk C$ be an open set. We can imagine it is a small neighborhood around a point in a Riemann surface we care about. Let $h$ be a Hermitian metric on $U$. The K\"ahler form of the metric can be written as
