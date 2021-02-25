@@ -19,11 +19,13 @@
 \newtheorem{coro}[theo]{Corollary}
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
 
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
 
 \def\^#1{^{[#1]}}
+\def\qandq{\quad\text{and}\quad}
 
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Vol}{Vol}
@@ -637,7 +639,7 @@ The set $\cc R$ is isomorphic to the space of Hermitian forms on $S^2 V$.
 \begin{proof}
 Let $R$ be an element of our subspace. We define a bilinear form $b$ on $S^2 V$ by
 $$
-b(x \cdot z, y \cdot w)
+b(x \odot z, y \odot w)
 = R(x, y, z, w).
 $$
 We have $R(x,y,z,w) = R(z,y,x,w)$ by hypothesis, and
@@ -651,7 +653,7 @@ by using both properties of elements of $\cc R$. Our form $b$ is thus well-defin
 
 Given a Hermitian form $b$ on $S^2V$, we also define
 $$
-R(x,y,z,w) = b(x \cdot z, y \cdot w).
+R(x,y,z,w) = b(x \odot z, y \odot w).
 $$
 Then $R$ satisfies the properties required by the elements of $\cc R$. It is linear in its first and third variables, and conjugate linear in the others. It is thus a well-defined element of $\cc R$. The two maps defined here are inverses of each other, so the two subspaces are isomorphic.
 \end{proof}
@@ -792,7 +794,7 @@ The proposition remains true if we replace ``positive'' with ``semipositive'', `
 \end{proof}
 
 
-\begin{lemm}
+\begin{lemm}[Berger~\cite{berger1965varietes}\footnote{Apparently. I haven't found a copy of this source to double-check. I believe one is available in the library in CIRM in Marseille.  Diverio may know where to find a copy, and Yang or Zheng possibly do as well; at least they've all cited this source.}]
 \label{holomorphic-sectional-to-scalar}
 Let $h$ be a Hermitian inner product on $V$, and $H$ and $s$ the holomorphic sectional and scalar curvatures of a K\"aher curvature tensor. Then
 $$
@@ -874,20 +876,26 @@ where we have used the symmetries of the curvature tensor.
 
 The reverse implications in Proposition~\ref{derived-tensor-positivity} all fail. The reader can amuse themselves by constructing algebraic curvature tensors that exhibit those failures.\footnote{If the reader does not find this amusing, they can see how we construct some such tensors in the next subsection.}
 
-The relationship between the holomorphic sectional and Ricci curvatures is not obvious. The positivity or negativity of one does not imply the positivity or negativity of the other. For example, there are known natural metrics with positive holomorphic sectional curvature that do not have positive Ricci curvature~\cite{hitchin1975curvature,yang2019hirzebruch}. In the next section we construct some algebraic curvature tensors that show this concretely.
+The relationship between the holomorphic sectional and Ricci curvatures is not obvious. The positivity or negativity of one does not imply the positivity or negativity of the other. For example, there are known natural metrics with positive holomorphic sectional curvature that do not have positive Ricci curvature~\cite{hitchin1975curvature,alvarez2016positive,yang2019hirzebruch}. In the next section we construct some algebraic curvature tensors that show this concretely.
 
-Nevertheless there are some results where the existence of a metric with either tensor positive is used to construct a possibly different metric with the other tensor positive. For example, Kobayashi conjectured that a manifold that admits a metric with negative holomorphic sectional curvature should have ample canonical bundle; this was proved by Wu and Yau~\cite{wu2016negative} for projective manifolds. See also the survey by Diverio~\cite{diverio2020kobayashi}.
+\begin{exam}
+The holomorphic sectional curvature determines the whole curvature tensor, so having trivial holomorphic sectional curvature implies trivial Ricci curvature. The converse is false:
+
+Let $X$ be a compact K\"ahler manifold with $c_1(X) = 0$, and let $h$ be a Ricci-flat K\"ahler metric on $X$. Recall also that a compact K\"ahler manifold is flat if and only if it is a complex torus. If $X$ is not a complex torus (like a Calabi--Yau manifold, K3 surface or a hyperk\"ahler manifold~\cite{beauville1983}), then $R$ is nontrivial, so the holomorphic sectional curvature of $h$ is also nontrivial. By the above lemma, its average over the unit sphere is zero at any point, so it cannot have a definitive sign. In particular, zero Ricci curvature does not imply trivial holomorphic sectional curvature.
+\end{exam}
+
+There are some results where the existence of a metric with either tensor positive is used to construct a possibly different metric with the other tensor positive. For example, Kobayashi conjectured that a manifold that admits a metric with negative holomorphic sectional curvature should have ample canonical bundle; this was proved by Wu and Yau~\cite{wu2016negative} for projective manifolds. See also the survey by Diverio~\cite{diverio2020kobayashi}.
 
 
 \subsection{Constructing algebraic curvature tensors}
 
 
-An easy way to construct elements of $\cc R$ is to pick a basis for $V$ and just write down some tensors. This is in some way unsatisfactory because we'd like to see curvature tensors that arise in the wild.\footnote{I mean, we're not above doing this, we just feel bad about it.} To do so we'd like to have coordinate-invariant ways of constructing elements of $\cc R$. We point out two of those here.
+An easy way to construct elements of $\cc R$ is to pick a basis for $V$ and just write down some tensors. This is in some way unsatisfactory because we'd like to see curvature tensors that arise in the wild.\footnote{We're not above doing this, we just feel bad about it.} To do so we'd like to have coordinate-invariant ways of constructing elements of $\cc R$. We point out two of those here.
 
-Suppose we have a Hermitian form $h$ on $V$. It induces a Hermitian form on $S^2 V$, defined by
+Suppose we have a Hermitian form $b$ on $V$. It induces a Hermitian form on $S^2 V$, defined by
 $$
-(h \odot h)(x \odot y, z \odot w)
-= \tfrac 12 \bigl( h(x,z)h(y,w) + h(x,w)h(y,z) \bigr).
+(b \odot b)(x \odot y, z \odot w)
+= \tfrac 12 \bigl( b(x,z)b(y,w) + b(x,w)b(y,z) \bigr).
 $$
 % x \odot z = 1/2 (x \otimes z + z \otimes x)
 % y \odot w = 1/2 (y \otimes w + w \otimes y)
@@ -899,22 +907,112 @@ $$
 % = 1/2 (<x,y> <z,w> + <x,w> <z,y>)
 This is the complex-geometric version of the Kulkarni--Nomizu product. It has the property that if $(v_1,\ldots,v_n)$ is an orthonormal basis of $V$, then $(v_j \odot v_k)_{1 \leq j \leq k \leq n}$ is an orthonormal basis of $S^2V$.
 
-If $g$ and $h$ are Hermitian forms on $V$ we can polarize this identity and get a Hermitian form on $S^2V$ by setting
+If $a$ and $b$ are Hermitian forms on $V$ we can polarize this identity and get a Hermitian form on $S^2V$ by setting
 $$
 \displaylines{
-(g \odot h)(x \odot y, z \odot w)
-  = \tfrac 14 \bigl(g(x,y) h(z,w) + g(x,w) h(z,y)
-  \hfill\cr\hfill{}
-  + g(z,y) h(x,w) + g(z,w) h(x,y)\bigr).
+(a \odot b)(x \odot y, z \odot w)
+= \tfrac 14 \bigl(a(x,y) b(z,w)
++ a(x,w) b(z,y)
+\hfill\cr\hfill{}
++ a(z,y) b(x,w)
++ a(z,w) b(x,y)\bigr).
 }
 $$
-The below result is now clear.
 
 \begin{prop}
-  If $g$ and $h$ are Hermitian forms on $V$, then $g \odot h$ is a Hermitian form on $S^2V$, and thus defines a K\"ahler curvature tensor.
+  If $a$ and $b$ are Hermitian forms on $V$, then $a \odot b$ is a Hermitian form on $S^2V$, and thus defines a K\"ahler curvature tensor. Its derived curvature tensors are
+\begin{align*}
+H(x) &= \frac{a(x,x)b(x,x)}{h(x,x)^2},
+\\
+r(x,y) &= \tfrac 14 \bigl(
+a(x,y) \langle b, h \rangle
++ (ah^{-1}b)(x,y) + (bh^{-1}a)(x,y)
++ b(x,y) \langle a, h \rangle
+\bigr),
+\\
+s &= \tfrac 12 \bigl(
+\langle a, h \rangle \langle b, h \rangle
++ \langle a, b \rangle
+\bigr),
+\end{align*}
+where $h$ is a Hermitian inner product on $V$.
 
-  Suppose $h$ is a Hermitian inner product on $V$. Then $h \odot h$ has constant holomorphic scalar curvature equal to $1$, and is Griffiths-positive.
+In particular, for an inner product $h$ the tensor $h \odot h$ is Griffiths-positive, has constant holomorphic scalar curvature equal to $1$, its Ricci tensor is $r = \frac{n+1}{2} h$, and its scalar curvature is $s = \frac{n(n+1)}2$.
 \end{prop}
+
+\begin{proof}
+  Only the claim about the Ricci tensor is not clear. The way to interpret the expression $ah^{-1}b$ is to view $a, b, h$ as linear morphisms $V \to \overline V^*$ and use that $h$ is an isomorphism.
+
+Let's pick an orthonormal basis $(v_1, \ldots, v_n)$ for $h$. The Ricci tensor of $a \odot b$ is then the trace of the form with respect to the induced inner product on $S^2V$. We'll compute the trace $\sum (a\odot b) (x,y,v_j,v_j)$.
+
+Recall that $\sum_j a(v_j,v_j) = \langle a, h \rangle$, where the inner product is the one that $h$ induces on $\Hom(V, \overline V^*)$. This takes care of the first and fourth terms in the trace of the curvature tensor.
+
+Now write $x = \sum_{l} x_l v_l$ and $y = \sum_{k} y_k v_k$. Then
+$$
+\sum_{j=1}^n a(x,v_j) b(v_j, y)
+= \sum_{j,k,l=1}^n x_l \bar y_k a_{lj} b_{jk}
+= x^t A I_n B \bar y,
+$$
+where $A$ and $B$ are the matrices of $a$ and $b$ in the chosen basis. This shows that $\sum a(x,v_j)b(v_j,y) = (ah^{-1}b)(x,y)$, and the remaining term is similar.
+
+For an inner product $h$, we have
+$$
+(h \odot h)(x \odot y, x \odot y)
+= \tfrac12 \bigl(
+h(x,x)h(y,y) + |h(x,y)|^2
+\bigr),
+$$
+which is positive for all $x$ and $y$, so $h \odot h$ is Griffiths positive. The other claims are clear.
+\end{proof}
+
+
+\begin{exam}
+\label{not-griffiths-positive}
+Let $V$ be of dimension $2$, let $h$ be a Hermitian inner product, and let $a$ be given by
+$$
+A = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+$$
+in an orthonormal basis. Consider the curvature tensor $R = a \odot a$. Its holomorphic sectional curvature is
+$$
+H(x) = \frac{a(x,x)^2}{h(x,x)^2} \geq 0,
+$$
+but its holomorphic bisectional curvature is
+$$
+B(x,y) = \frac{a(x,x)a(y,y)}{h(x,x)h(y,y)}
+$$
+which does not have a definite sign (take $x$ such that $a(x,x) < 0$ and $y$ such that $a(y,y) > 0$). Thus the holomorphic sectional curvature does not dominate the holomorphic bisectional curvature.
+
+We have $\langle a, h \rangle = 0$ by construction, and the Ricci tensor of $R$ is
+$$
+r(x,y) = \tfrac12 h(x, y),
+$$
+which is positive definite, while the holomorphic sectional curvature is only semipositive. This also shows that Ricci positivity does not imply Griffiths positivity.
+\end{exam}
+
+
+
+\begin{exam}
+Let $V$ again be of dimension $2$ and let $h$ be a Hermitian inner product. Consider now the tensor $R = h \odot h$. It is Griffiths-positive by our earlier discussion.
+
+If $(v_1,v_2)$ is an orthonormal basis of $V$, then $(v_1 \odot v_1, v_1 \odot v_2, v_2 \odot v_2)$ is an orthonormal basis of $S^2V$. We let $x = x_1 v_1 + x_2 v_2$ and $y = y_1 v_1 + y_2v_2$. Then
+$$
+B(x, y)
+= R(x,x,y,y)
+= (h \odot h)(x \odot y, x \odot y) \geq 0
+$$
+with equality if and only if $x \odot y = 0$, because $h \odot h$ is an inner product on $S^2V$.
+
+$$
+(h\odot h)(x \odot y + z \odot w,x \odot y + z \odot w)
+= (h\odot h)(x \odot y, x \odot y)
++ (h\odot h)(x \odot y, z \odot w)
++ (h\odot h)(z \odot w, x \odot y)
++ (h\odot h)(z \odot w, z \odot w)
+$$
+
+Now, $x \odot y = x_1y_1 v_1 \odot v_1 + (x_1y_2 + x_2y_1) v_1 \odot v_2 + x_2y_2 v_2 \odot v_2$. Then $(1,0) \odot (0,1) = v_1 \odot v_2$
+\end{exam}
+
 
 Another way of constructing these kinds of elements is to pull back Hermitian forms to the symmetric product. In that case we get weaker positivity properties than above, simply because any linear morphism we pull back by will have a nontrivial kernel:
 
@@ -930,11 +1028,11 @@ If $h$ is a Hermitian inner product, then $f^*h$ has semipositive holomorphic se
 \end{prop}
 
 
-We claimed that these constructions would exhibit tensors that arise in the wild. For the Kulkarni--Nomitzu product this is clear, as the Fubini--Study metric (see Section~\ref{sec:orgcfabeed}) has constant holomorphic sectional curvature and is thus of that form. The same is true for the curvature tensor of the Bergman metric. It's less clear that any ``natural'' K\"ahler metric has a curvature tensor of the pullback form but that does indeed happen; see the natural metric on the complexification of the K\"ahler cone in Section~\ref{complexified-kahler-cone}.
+We claimed that these constructions would exhibit tensors that arise in the wild. For the Kulkarni--Nomizu product this is clear, as the Fubini--Study metric (see Section~\ref{sec:orgcfabeed}) has constant holomorphic sectional curvature and is thus of that form. The same is true for the curvature tensor of the Bergman metric. It's less clear that any ``natural'' K\"ahler metric has a curvature tensor of the pullback form but that does happen; see the metric on the complexification of the K\"ahler cone in Section~\ref{complexified-kahler-cone}.
 
 
 
-\paragraph{Dimension two}
+\subsection{Positivity counterexamples in dimension two}
 
 Let's examine the first nontrivial case, when $\dim V = 2$. We pick an inner product on $V$ and let $(v_1,v_2)$ be an orthonormal basis. Then $(v_1 \odot v_1, v_1 \odot v_2, v_2 \odot v_2)$ is an orthonormal basis of $S^2V$ under the inner product induced by the one we picked. A curvature tensor $R$ identifies with a Hermitian form on $S^2V$, that is, with a Hermitian matrix
 $$
@@ -947,10 +1045,7 @@ $$
 The various positivity notions we've seen can now be translated as follows:
 
 \smallskip\noindent$\bullet$\quad
-$R$ is Nakano positive if the Hermitian form defined by $h$ is positive-definite.
-
-\smallskip\noindent$\bullet$\quad
-  $R$ is Griffiths positive if $h$ is positive on decomposable tensors $x \odot y$.
+  $R$ is Griffiths positive if the Hermitian form defined by $h$ is positive-definite.
 
 \smallskip\noindent$\bullet$\quad
   $R$ has positive holomorphic sectional curvature if $h$ is positive on decomposable tensors $x \odot x$. Write $x = x_1v_1 + x_2v_2$. Then $x \odot x = x_1^2 v_1 \odot v_1 + 2x_1x_2 v_1 \odot v_2 + x_2^2 v_2 \odot v_2$, and
@@ -1046,17 +1141,26 @@ and its scalar curvature is
 $$
 s = h_{11} + 2h_{22} + h_{33}.
 $$
-We can now setup a variety of situations to show that positivity properties only ``flow downwards''. For example, taking $h_{11} > 0$, $h_{33} < 0$ and setting $2h_{22} + h_{33} = 0$ we get a tensor such that the scalar curvature is positive, but the Ricci tensor has no definite sign.
+We can now setup a variety of situations to show that positivity properties only ``flow downwards''.
 
+\begin{exam}
+Take $h_{11} > 0$, $h_{33} < 0$ and set $2h_{22} + h_{33} = 0$. Then we get a tensor such that the scalar curvature is positive, but the Ricci tensor has no definite sign.
+\end{exam}
+
+\begin{exam}
 Note that
 $$
 H(x,x) = \tfrac 14 \bigl(h_{11} + 4h_{22} + h_{33} \bigr).
 $$
-Picking coefficients such that $s > 0$ but $H(x,x) < 0$ is now clearly possible.
+We can then clearly pick coefficients such that $s > 0$ but $H(x,x) < 0$. Thus positive scalar curvature does not imply positive holomorphic sectional curvature.
+\end{exam}
 
+\begin{exam}
 If we pick coefficients such that $h_{11} + h_{22} > 0$ and $h_{22} + h_{33} > 0$ but $h_{11} + 4h_{22} + h_{33} < 0$ we then have a tensor with $r > 0$ everywhere but $H < 0$ in some directions.
+\end{exam}
 
-Finally for now, the term that controls the sign of the holomorphic sectional curvature can be written as (picking $h_{11} = 1$ to simplify)
+\begin{exam}
+The term that controls the sign of the holomorphic sectional curvature can be written as (picking $h_{11} = 1$ to simplify)
 $$
 (|x|^2 - \sqrt{h_{33}}|y|^2)^2 + (4h_{22} + 2\sqrt{h_{33}})|x|^2|y|^2.
 $$
@@ -1069,6 +1173,45 @@ $$
 r(x,y) = (1-\sqrt{h_{33}}/2)|x|^2 + (h_{33} - \sqrt{h_{33}}/2)|y|^2
 $$
 and taking $h_{33} > 4$ yields a Ricci tensor that is negative in some directions. Taking $h_{22} = -\sqrt{h_{33}}/2 + \varepsilon$ then gives $H > 0$ everywhere but $r < 0$ somewhere.
+\end{exam}
+
+We already saw that having $r > 0$ does not imply the holomorphic bisectional curvature is positive, and that $H \geq 0$ does not imply that either (Example~\ref{not-griffiths-positive}).
+
+
+\paragraph{}
+
+Nakano positivity is suspiciously absent from our list of positivity properties. The reason is that not all the positivity notions of the curvature tensor transport across the isomorphism with Hermitian forms on symmetric powers. Recall that the curvature tensor defines a Hermitian form $Q$ on $V \otimes V$ by
+$$
+Q(x \otimes z, y \otimes w) = R(x,y,z,w)
+$$
+that is extendend by linearity to all of $V \otimes V$. The curvature tensor is Nakano positive if $Q$ is positive-definite. The following example shows that something is lost under our favorite isomorphism.
+
+\begin{exam}
+Let $V$ be of dimension two with a Hermitian form $h$ and orthonormal basis $(e_1,e_2)$. We consider the curvature tensor defined by
+$$
+R(x,y,z,w) = \tfrac12( h(x,y)h(z,w) + h(x,w)h(z,y)).
+$$
+It can be viewed as a Hermitian form both on $V \otimes V$ and $S^2V$. These spaces have orthonormal bases $(e_1 \otimes e_1, e_1 \otimes e_2, e_2 \otimes e_1, e_2 \otimes e_2)$ and $(e_1 \odot e_1, e_1 \odot e_2, e_2 \odot e_2)$, and the matrices of the Hermitian forms defined by $R$ in these bases are
+$$
+A = \begin{pmatrix}
+  1 & 0 & 0 & \tfrac12 \\
+  0 & \tfrac12 & \tfrac12 & 0 \\
+  0 & \tfrac12 & \tfrac12 & 0 \\
+  \tfrac12 & 0 & 0 & 1
+\end{pmatrix}
+\qandq
+B = \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 & 1 & 0 \\
+  0 & 0 & 1
+\end{pmatrix}.
+$$
+The form on $S^2V$ is positive-definite, but the one on $V \otimes V$ has a two-dimensional kernel and is positive on its complement. The tensor $R$ is thus Griffiths positive but not Nakano positive.
+
+The tensor $R$ is the curvature tensor of the Fubini--Study metric on the projective space. Its tangent bundle is known to have these positivity properties, so the example is not surprising. For the tangent bundle, one uses general vanishing theorems for Nakano-positive bundles to see that \emph{no} metric on the projective space is Nakano positive. That seems to be how people generally prove that the Fubini--Study metric is not Nakano positive. Maybe they find the vanishing theorems easier to prove and apply than to plough through the linear algebra.
+
+In fact, no complete K\"ahler manifold has Nakano positive curvature. Such a manifold would be compact by Tsukamoto~\cite{tsukamoto1957kahlerian}, and have positive bisectional holomorphic curvature and thus be isomorphic to projective space by Siu and Yau's solution~\cite{siu1980compact} of the Frenkel conjecture. But the projective space does not admit a Nakano positive metric by the Nakano vanishing theorem and an explicit computation of its cohomology groups.
+\end{exam}
 
 
 \section{Flat metrics}
