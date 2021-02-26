@@ -769,7 +769,6 @@ Let's discuss some positivity properties of the various curvature tensors we hav
 \label{derived-tensor-positivity}
   Let $R$ be a K\"ahler curvature tensor.
   \begin{enumerate}
-    \item If $R$ is Nakano-positive, then $R$ is Griffiths-positive.
     \item If $R$ is Griffiths-positive, then $B$ is positive.
     \item If $B$ is positive, then $H$ and $r$ are positive.
     \item If $H$ is positive, then $s$ is positive.
@@ -781,7 +780,6 @@ The proposition remains true if we replace ``positive'' with ``semipositive'', `
 
 \begin{proof}
   \begin{enumerate}
-  \item This is true for any vector bundle and is trivial.
   \item True by definition of $B$.
   \item The positivity of $H$ is obvious. We note that
     $$
@@ -887,6 +885,38 @@ Let $X$ be a compact K\"ahler manifold with $c_1(X) = 0$, and let $h$ be a Ricci
 There are some results where the existence of a metric with either tensor positive is used to construct a possibly different metric with the other tensor positive. For example, Kobayashi conjectured that a manifold that admits a metric with negative holomorphic sectional curvature should have ample canonical bundle; this was proved by Wu and Yau~\cite{wu2016negative} for projective manifolds. See also the survey by Diverio~\cite{diverio2020kobayashi}.
 
 
+
+\paragraph{}
+We didn't talk about Nakano positivity when discussing positivity of K\"ahler curvature tensors. The reason is that none of those tensors are Nakano positive or negative.
+
+\begin{prop}
+Let $R$ be an algebraic K\"ahler curvature tensor, and let $Q$ be the Hermitian form it defines on $V \otimes V$. Then $\dim \Ker Q \geq \binom n2$.
+\end{prop}
+
+\begin{proof}
+The form $Q$ is defined by
+$$
+Q(x \otimes z, y \otimes w) = R(x,y,z,w)
+$$
+for $x,y,z,w \in V$ and extended by linearity. Let $(v_1,\ldots,v_n)$ be an orthonormal basis of $V$, so $(v_j \otimes v_k)_{1 \leq j,k \leq n}$ is an orthonormal basis of $V \otimes V$. The matrix of $Q$ in this basis is $q = (Q(v_j \otimes v_l, v_k \otimes v_m) = R(v_j,v_k,v_l,v_m))$. The K\"ahler curvature symmetries entail that
+$$
+Q(v_j \otimes v_l, v_k \otimes v_m)
+= R(v_j,v_k,v_l,v_m)
+= R(v_l,v_k,v_j,v_m)
+= Q(v_l \otimes v_j, v_k \otimes v_m)
+$$
+for all $j,k,l,m$. Thus $q(v_j \otimes v_l - v_l \otimes v_j) = 0$ for all $j,l$, and there are $\binom n2$ ways of picking nontrivial such elements.
+\end{proof}
+
+\begin{coro}
+\label{no-nakano-positive}
+A K\"ahler metric is never Nakano positive or Nakano negative.
+\end{coro}
+
+I haven't seen this proposition or corollary pointed out in the litarature, but they must be known to the experts. It's amusing that the Nakano vanishing theorem is often used to prove that there is no Nakano positive K\"ahler metric on the projective space: One computes its cohomology groups and notes that some that the Nakano vanishing theorem would annihilate are in fact nontrivial. As we have seen, this is quite the case of nuking a mosquito.
+
+
+
 \subsection{Constructing algebraic curvature tensors}
 
 
@@ -987,30 +1017,6 @@ $$
 r(x,y) = \tfrac12 h(x, y),
 $$
 which is positive definite, while the holomorphic sectional curvature is only semipositive. This also shows that Ricci positivity does not imply Griffiths positivity.
-\end{exam}
-
-
-
-\begin{exam}
-Let $V$ again be of dimension $2$ and let $h$ be a Hermitian inner product. Consider now the tensor $R = h \odot h$. It is Griffiths-positive by our earlier discussion.
-
-If $(v_1,v_2)$ is an orthonormal basis of $V$, then $(v_1 \odot v_1, v_1 \odot v_2, v_2 \odot v_2)$ is an orthonormal basis of $S^2V$. We let $x = x_1 v_1 + x_2 v_2$ and $y = y_1 v_1 + y_2v_2$. Then
-$$
-B(x, y)
-= R(x,x,y,y)
-= (h \odot h)(x \odot y, x \odot y) \geq 0
-$$
-with equality if and only if $x \odot y = 0$, because $h \odot h$ is an inner product on $S^2V$.
-
-$$
-(h\odot h)(x \odot y + z \odot w,x \odot y + z \odot w)
-= (h\odot h)(x \odot y, x \odot y)
-+ (h\odot h)(x \odot y, z \odot w)
-+ (h\odot h)(z \odot w, x \odot y)
-+ (h\odot h)(z \odot w, z \odot w)
-$$
-
-Now, $x \odot y = x_1y_1 v_1 \odot v_1 + (x_1y_2 + x_2y_1) v_1 \odot v_2 + x_2y_2 v_2 \odot v_2$. Then $(1,0) \odot (0,1) = v_1 \odot v_2$
 \end{exam}
 
 
@@ -1178,14 +1184,6 @@ and taking $h_{33} > 4$ yields a Ricci tensor that is negative in some direction
 We already saw that having $r > 0$ does not imply the holomorphic bisectional curvature is positive, and that $H \geq 0$ does not imply that either (Example~\ref{not-griffiths-positive}).
 
 
-\paragraph{}
-
-Nakano positivity is suspiciously absent from our list of positivity properties. The reason is that not all the positivity notions of the curvature tensor transport across the isomorphism with Hermitian forms on symmetric powers. Recall that the curvature tensor defines a Hermitian form $Q$ on $V \otimes V$ by
-$$
-Q(x \otimes z, y \otimes w) = R(x,y,z,w)
-$$
-that is extendend by linearity to all of $V \otimes V$. The curvature tensor is Nakano positive if $Q$ is positive-definite. The following example shows that something is lost under our favorite isomorphism.
-
 \begin{exam}
 Let $V$ be of dimension two with a Hermitian form $h$ and orthonormal basis $(e_1,e_2)$. We consider the curvature tensor defined by
 $$
@@ -1194,10 +1192,10 @@ $$
 It can be viewed as a Hermitian form both on $V \otimes V$ and $S^2V$. These spaces have orthonormal bases $(e_1 \otimes e_1, e_1 \otimes e_2, e_2 \otimes e_1, e_2 \otimes e_2)$ and $(e_1 \odot e_1, e_1 \odot e_2, e_2 \odot e_2)$, and the matrices of the Hermitian forms defined by $R$ in these bases are
 $$
 A = \begin{pmatrix}
-  1 & 0 & 0 & \tfrac12 \\
+  1 & 0 & 0 & 0 \\
   0 & \tfrac12 & \tfrac12 & 0 \\
   0 & \tfrac12 & \tfrac12 & 0 \\
-  \tfrac12 & 0 & 0 & 1
+  0 & 0 & 0 & 1
 \end{pmatrix}
 \qandq
 B = \begin{pmatrix}
@@ -1206,11 +1204,24 @@ B = \begin{pmatrix}
   0 & 0 & 1
 \end{pmatrix}.
 $$
-The form on $S^2V$ is positive-definite, but the one on $V \otimes V$ has a two-dimensional kernel and is positive on its complement. The tensor $R$ is thus Griffiths positive but not Nakano positive.
+The form on $S^2V$ is positive-definite, but the one on $V \otimes V$ has a one-dimensional kernel and is positive on its complement. The tensor $R$ is thus Griffiths positive and Nakano semipositive. This is the most positivity one can hope for in lieu of Corollary~\ref{no-nakano-positive}.
 
-The tensor $R$ is the curvature tensor of the Fubini--Study metric on the projective space. Its tangent bundle is known to have these positivity properties, so the example is not surprising. For the tangent bundle, one uses general vanishing theorems for Nakano-positive bundles to see that \emph{no} metric on the projective space is Nakano positive. That seems to be how people generally prove that the Fubini--Study metric is not Nakano positive. Maybe they find the vanishing theorems easier to prove and apply than to plough through the linear algebra.
+The tensor $R$ is the curvature tensor of the Fubini--Study metric on the projective space, as we will see later.
+\end{exam}
 
-In fact, no complete K\"ahler manifold has Nakano positive curvature. Such a manifold would be compact by Tsukamoto~\cite{tsukamoto1957kahlerian}, and have positive bisectional holomorphic curvature and thus be isomorphic to projective space by Siu and Yau's solution~\cite{siu1980compact} of the Frenkel conjecture. But the projective space does not admit a Nakano positive metric by the Nakano vanishing theorem and an explicit computation of its cohomology groups.
+
+
+\begin{exam}
+  Sticking with the same setup as in the last example, we consider the Hermitian form $b$ on $V \otimes V$ defined by everyone's favorite matrix
+$$
+\begin{pmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & 0 & 1
+\end{pmatrix}.
+$$
+The associated curvature tensor $R$ is Nakano positive, but is of course not the curvature tensor of a K\"ahler metric. The reader can check that, for example, $R(v_1,v_2,v_2,v_1) \not= R(v_1,v_2,v_1,v_2)$.
 \end{exam}
 
 
