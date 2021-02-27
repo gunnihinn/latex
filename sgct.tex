@@ -699,17 +699,45 @@ for all $x \in V$, then $R_1 = R_2$.
 \end{prop}
 
 \begin{proof}
-We mostly follow the proof in \cite[Lemma~7.19]{zheng2000complex}, which we can't improve much upon.
+  By linearity it's enough to prove that if $R$ is a tensor such that $R(x,x,x,x) = 0$ for all $x$, then $R = 0$. This translates into showing that if $h$ is a Hermitian form on $S^2V$ such that $h(x \odot x, x \odot x) = 0$ for all $x \in V$, then $h = 0$.
 
-By linearity it's enough to prove that if $R$ is a tensor such that $R(x,x,x,x) = 0$ for all $x$, then $R = 0$. Fix $x, y \in V$ and consider $R(x+\lambda y,x+\lambda y,x+\lambda y,x+\lambda y)$ for $\lambda \in \kk C$. This is a polynomial in $\lambda$ and $\bar\lambda$ that is identically zero, so all its coefficients are zero. The coefficient of $|\lambda|^2$ is
+  We first show that this implies that $h(x \odot y, x \odot y) = 0$ for all $x, y \in V$. The result follows from this by a standard polarization argument for Hermitian forms. To do so, we take $t \in \kk C$ and calculate
+\begin{align*}
+0 &= h((x + ty) \odot (x + ty), (x + ty) \odot (x + ty))
+\\
+&= 2 h(x \odot x, tx \odot y) + h(x \odot x, t^2 y \odot y)
+\\
+&\qquad{}
++ 2 h(t x \odot y, x \odot x) + 4h(t x \odot x, tx \odot y) + 2h(t x \odot x, t^2 y \odot y)
+\\
+&\qquad{}
++ h(t^22 y \odot y, x \odot x) + 2h(y \odot y, tx \odot y).
+\end{align*}
+Adding the expressions for $t$ and $-t$ we get
 $$
-R(x,x,y,y) + R(x,y,y,x) + R(y,x,x,y) + R(y,y,x,x)
-= 4 R(x,x,y,y)
+0 = \overline t^2 h(x \odot x, y \odot y)
++ 2 |t|^2 h(x \odot y, x \odot y)
++ t^2 h(y \odot y, x \odot x).
 $$
-by the extra symmetries of $R$, so we conclude that $R(x,x,y,y) = 0$ for all $x, y$.
-
-Recall that we can view $R$ as a Hermitian form $b$ on $S^2V$ by $b(x \odot z, y \odot w) = R(x,y,z,w)$. The above then says that the quadratic form associated to $b$, which is $x \odot z \mapsto b(x \odot z, x \odot z) = R(x,x,z,z)$, is identically zero. But if a quadratic form on a complex vector space is induced by a Hermitian form, then it determines the Hermitian form by polarization. We conclude that $b = 0$, and so $R = 0$.
+Adding up what we get for $t = 1$ and $t = i$ then gives
+\begin{align*}
+0 &=
+h(x \odot x, y \odot y)
++ 2 h(x \odot y, x \odot y)
++ h(y \odot y, x \odot x)
+\\
+&\qquad{}
+- h(x \odot x, y \odot y)
++ 2 h(x \odot y, x \odot y)
+- h(y \odot y, x \odot x)
+\\
+&= 4 h(x \odot y, x \odot y).
+\qedhere
+\end{align*}
 \end{proof}
+
+There's an alternate proof of this fact in \cite[Lemma~7.19]{zheng2000complex} for those who find this argument boring. I can't say I love it, but it does show that the reason this works is because being able to square vector elements lets us run the polarization argument twice to bootstrap ourselves from $x \odot x$ to $x \odot y$ to all decomposable tensors.
+
 
 
 \paragraph{}
@@ -882,7 +910,7 @@ The holomorphic sectional curvature determines the whole curvature tensor, so ha
 Let $X$ be a compact K\"ahler manifold with $c_1(X) = 0$, and let $h$ be a Ricci-flat K\"ahler metric on $X$. Recall also that a compact K\"ahler manifold is flat if and only if it is a complex torus. If $X$ is not a complex torus (like a Calabi--Yau manifold, K3 surface or a hyperk\"ahler manifold~\cite{beauville1983}), then $R$ is nontrivial, so the holomorphic sectional curvature of $h$ is also nontrivial. By the above lemma, its average over the unit sphere is zero at any point, so it cannot have a definitive sign. In particular, zero Ricci curvature does not imply trivial holomorphic sectional curvature.
 \end{exam}
 
-There are some results where the existence of a metric with either tensor positive is used to construct a possibly different metric with the other tensor positive. For example, Kobayashi conjectured that a manifold that admits a metric with negative holomorphic sectional curvature should have ample canonical bundle; this was proved by Wu and Yau~\cite{wu2016negative} for projective manifolds. See also the survey by Diverio~\cite{diverio2020kobayashi}.
+There are some results where the existence of a metric with either tensor positive is used to prove the existence of a different metric with the other tensor positive. For example, Kobayashi conjectured that a manifold that admits a metric with negative holomorphic sectional curvature should have ample canonical bundle; this was proved by Wu and Yau~\cite{wu2016negative} for projective manifolds. See also the survey by Diverio~\cite{diverio2020kobayashi}.
 
 
 
@@ -898,14 +926,13 @@ The form $Q$ is defined by
 $$
 Q(x \otimes z, y \otimes w) = R(x,y,z,w)
 $$
-for $x,y,z,w \in V$ and extended by linearity. Let $(v_1,\ldots,v_n)$ be an orthonormal basis of $V$, so $(v_j \otimes v_k)_{1 \leq j,k \leq n}$ is an orthonormal basis of $V \otimes V$. The matrix of $Q$ in this basis is $q = (Q(v_j \otimes v_l, v_k \otimes v_m) = R(v_j,v_k,v_l,v_m))$. The K\"ahler curvature symmetries entail that
+for $x,y,z,w \in V$ and extended by linearity. When viewed as a linear morphism $V \otimes V \to \overline V^* \otimes \overline V^*$, the symmetries of the curvature tensor entail that
 $$
-Q(v_j \otimes v_l, v_k \otimes v_m)
-= R(v_j,v_k,v_l,v_m)
-= R(v_l,v_k,v_j,v_m)
-= Q(v_l \otimes v_j, v_k \otimes v_m)
+Q(x \otimes z) = Q(z \otimes x)
 $$
-for all $j,k,l,m$. Thus $q(v_j \otimes v_l - v_l \otimes v_j) = 0$ for all $j,l$, and there are $\binom n2$ ways of picking nontrivial such elements.
+for all $x, z \in V$.
+
+Let $(v_1,\ldots,v_n)$ be a basis of $V$, so $(v_j \otimes v_k)_{1 \leq j,k \leq n}$ is a basis of $V \otimes V$. Then $v_j \otimes v_l - v_l \otimes v_j \in \Ker Q$ for all $j, l$, and there are $\binom n2$ ways of picking nontrivial such elements.
 \end{proof}
 
 \begin{coro}
