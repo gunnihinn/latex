@@ -699,30 +699,50 @@ for all $x \in V$, then $R_1 = R_2$.
 \end{prop}
 
 \begin{proof}
-  By linearity it's enough to prove that if $R$ is a tensor such that $R(x,x,x,x) = 0$ for all $x$, then $R = 0$. This translates into showing that if $h$ is a Hermitian form on $S^2V$ such that $h(x \odot x, x \odot x) = 0$ for all $x \in V$, then $h = 0$.
+We apply our favorite isomorphism and obtain two Hermitian forms $h_1$ and $h_2$ on $S^2V$. Our hypothesis is that $h_1(x \odot x, x \odot x) = h_2(x \odot x, x \odot x)$ for all $x \in V$.
 
-  We first show that this implies that $h(x \odot y, x \odot y) = 0$ for all $x, y \in V$. The result follows from this by a standard polarization argument for Hermitian forms. To do so, we take $t \in \kk C$ and calculate
+We first show that this implies that $h_1(x \odot y, x \odot y) = h_2(x \odot y, x \odot y)$ for all $x, y \in V$. The result follows from this by a standard polarization argument for Hermitian forms. To do so, we take $t \in \kk C$ and an arbitrary Hermitian form $h$ and calculate
 \begin{align*}
-0 &= h((x + ty) \odot (x + ty), (x + ty) \odot (x + ty))
+&h((x + ty) \odot (x + ty), (x + ty) \odot (x + ty))
 \\
-&= 2 h(x \odot x, tx \odot y) + h(x \odot x, t^2 y \odot y)
+&= h(x \odot x, x \odot x) + 2 h(x \odot x, tx \odot y) + h(x \odot x, t^2 y \odot y)
 \\
 &\qquad{}
 + 2 h(t x \odot y, x \odot x) + 4h(t x \odot x, tx \odot y) + 2h(t x \odot x, t^2 y \odot y)
 \\
 &\qquad{}
-+ h(t^22 y \odot y, x \odot x) + 2h(y \odot y, tx \odot y).
++ h(t^22 y \odot y, x \odot x) + 2h(y \odot y, tx \odot y) + h(t^2 y \odot y, t^2 y \odot y).
 \end{align*}
 Adding the expressions for $t$ and $-t$ we get
 $$
-0 = \overline t^2 h(x \odot x, y \odot y)
+\displaylines{
+h((x + ty) \odot (x + ty), (x + ty) \odot (x + ty))
++ h((x - ty) \odot (x - ty), (x - ty) \odot (x - ty))
+\hfill\cr\hfill{}
+= 2 h(x \odot x, x \odot x)
++ \overline t^2 h(x \odot x, y \odot y)
 + 2 |t|^2 h(x \odot y, x \odot y)
-+ t^2 h(y \odot y, x \odot x).
+\cr\hfill{}
++ t^2 h(y \odot y, x \odot x)
++ 2 |t|^4 h( y \odot y, y \odot y).
+}
 $$
 Adding up what we get for $t = 1$ and $t = i$ then gives
 \begin{align*}
-0 &=
-h(x \odot x, y \odot y)
+&h((x + y) \odot (x + y), (x + y) \odot (x + y))
+\\
+&\qquad{}
++ h((x - y) \odot (x - y), (x - y) \odot (x - y))
+\\
+&\qquad{}
++ h((x + iy) \odot (x + iy), (x + iy) \odot (x + iy))
+\\
+&\qquad{}
++ h((x - iy) \odot (x - iy), (x - iy) \odot (x - iy))
+\\
+&=
+4 h(x \odot x, x \odot x)
++ h(x \odot x, y \odot y)
 + 2 h(x \odot y, x \odot y)
 + h(y \odot y, x \odot x)
 \\
@@ -730,15 +750,22 @@ h(x \odot x, y \odot y)
 - h(x \odot x, y \odot y)
 + 2 h(x \odot y, x \odot y)
 - h(y \odot y, x \odot x)
++ 4 h(y \odot y, y \odot y)
 \\
-&= 4 h(x \odot y, x \odot y).
-\qedhere
+&= 4 \bigl(
+h(x \odot x, x \odot x)
++ h(x \odot y, x \odot y)
++ h(y \odot y, y \odot y)
+\bigr).
 \end{align*}
+The moral of this is that we can express $h(x \odot y, x \odot y)$ as a sum of values of the form $h(z \odot z, z \odot z)$. Thus if $h_1$ and $h_2$ agree on $x \odot x$ for all $x$, they agree for all $x \odot y$. Using the standard polarization identity for Hermitian forms we now conclude that $h_1(x \odot y, z \odot w) = h_2(x \odot y, z \odot w)$ for all $x,y,z,w \in V$.
 \end{proof}
 
 There's an alternate proof of this fact in \cite[Lemma~7.19]{zheng2000complex} for those who find this argument boring. I can't say I love it, but it does show that the reason this works is because being able to square vector elements lets us run the polarization argument twice to bootstrap ourselves from $x \odot x$ to $x \odot y$ to all decomposable tensors.
 
+I only know of one place in the wild where knowledge of the holomorphic sectional curvature is used to compute the rest of the curvature tensor: Siu~\cite{siu1986curvature} does this in an impressive paper where he computes the curvature of the Weil--Petersson metric on moduli spaces of manifolds with negative first Chern class. Reading that paper, one gets the sense that there are people who do differential geometry, and the rest of us.
 
+Knowing a polarization identity like this lets us prove things like that a bound on the holomorphic sectional curvature extends to a bound on the whole curvature tensor. One can prove that if $|H(x)| \leq C$ for all $x$, then $|B(x,y)| \leq 6 C$ for all $x,y$. From there we can polarize again to obtain $|R(x,y,z,w)| \leq 24C |x||y||z||w|$ for all $x,y,z,w$. I believe this is mostly useful to then quote general structure results from Riemannian geometry, but don't remember particular applications. These bounds are obtained by applying the triangle inequality to cases where equality is clearly not obtained and are likely not optimal. I don't know what the optimal bounds on $B$ and $R$ are given a bound on $H$.\footnote{If I had to guess I'd think the optimal bound would be attained on constant holomorphic curvature, where we have $|H| = C \implies |B| \leq 2C$.} It doesn't seem to be a question whose answer would have applications.
 
 \paragraph{}
 A Hermitian metric generally has three different Ricci forms. For a K\"ahler metric, these are all equal.
@@ -804,7 +831,7 @@ Let's discuss some positivity properties of the various curvature tensors we hav
   \end{enumerate}
 \end{prop}
 
-The proposition remains true if we replace ``positive'' with ``semipositive'', ``negative'' or ``seminegative''.
+The proposition remains true if we replace ``positive'' with ``semipositive'', ``negative'' or ``seminegative'' everywhere.
 
 \begin{proof}
   \begin{enumerate}
@@ -1043,7 +1070,7 @@ We have $\langle a, h \rangle = 0$ by construction, and the Ricci tensor of $R$ 
 $$
 r(x,y) = \tfrac12 h(x, y),
 $$
-which is positive definite, while the holomorphic sectional curvature is only semipositive. This also shows that Ricci positivity does not imply Griffiths positivity.
+which is positive definite, while the holomorphic sectional curvature is only semipositive. This also shows that Ricci positivity does not imply positivity of the holomorphic bisectional curvature.
 \end{exam}
 
 
