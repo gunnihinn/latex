@@ -672,6 +672,54 @@ The dimension of the space of Hermitian forms on a vector space of dimension $n$
 \end{proof}
 
 
+It's natural to wonder about the positivity properties of a tensor $R$ under this isomorphism. It is clear that if the image of a tensor is positive-definite, then the original tensor is Griffiths positive. The converse is false in general; Griffiths positivity does not imply that the image of the tensor is positive-definite, only that it is positive on vectors of the form $x \odot y$. Very surprisingly (to me, at least) the first counterexample of this can only show up in dimension~4:
+
+
+
+\begin{lemm}
+Let $V$ be a complex vector space. Then the map
+$$
+V \times V \to S^2 V,
+\quad
+(x, y) \mapsto x \odot y
+$$
+of topological spaces is continuous, and surjective if $\dim V \leq 3$.
+\end{lemm}
+
+\begin{proof}
+  Let $(v_1, \ldots, v_n)$ be a basis of $V$. Then $(v_j \odot v_j ; v_j \odot v_k)_{1 \leq j \leq n; 1 \leq j < k \leq n}$ is a basis of $S^2V$. Here the meaning of the notation is that in the basis the elements $(v_j \odot v_j)$ come first, and then all elements $(v_j \odot v_k)$ with $j < k$. Let $(z_1, \ldots, z_n; w_1 \ldots, w_n)$ be coordinates for $V \times V$. The map in question is then equal to
+$$
+f(z_1, \ldots, z_n; w_1, \ldots, w_n)
+=( z_j w_j; z_j w_k + z_k w_j )_{1 \leq j \leq n; 1 \leq j < k \leq n}.
+$$
+Its entries are polynomials, so it is continuous.
+
+Let $a = (a_j; a_{jk})$ be an element of $S^2V$. We would like to solve the system of equations
+\begin{align*}
+  z_j w_j &= a_j &1 \leq j \leq n,\\
+  z_j w_k + z_k w_j &= a_{jk} &1 \leq j < k \leq n.
+\end{align*}
+To this end, multiply each equation of the second form by $z_jz_k$. They become
+$$
+z_j^2 z_k w_k + z_jz_k^2 w_j = a_{jk} z_jz_k.
+$$
+Use now $z_jw_j = a_j$ and $z_kw_k = a_k$ to rewrite this as
+$$
+a_k z_j^2 + a_j z_k^2 = a_{jk} z_jz_k.
+$$
+This gives $\binom n2$ quadratic equations to solve simultaneously in $\kk C^n$. By B\'ezout that's going to be possible for all values of $a$ only when $\binom n2 \leq n$, which happens when $n \leq 3$.
+\end{proof}
+
+This suggests a notion of positivity for K\"ahler curvature tensors that should be stronger than Griffiths positivity in higher dimensions. It is related to notions of $k$-positivity for curvature forms on $E \otimes T_X$, as a tensor that is $k$-positive on $S^2(T_X)$ is $k$-semipositive on $T_X \otimes T_X$. It's not clear whether this distinction is meaningful or results in any interesting theorems about K\"ahler curvature tensors.
+
+
+
+\paragraph{}
+
+
+
+
+
 We often view a curvature form as a Hermitian form on $E \otimes T_X$. This corresponds here to the space of curvature tensors of Hermitian metrics. This space then has dimension $(n^2)^2 = n^4$. We do have that $\binom{n+1}{2}^2 \leq n^4$ with equality if and only if $n = 1$, which is a nice sanity check.
 
 When $E = T_X$ we can also consider the space of Riemannian curvature tensors on the smooth manifold underlying $X$. The corresponding space of algebraic Riemannian curvature tensors has real dimension
@@ -964,10 +1012,13 @@ Let $(v_1,\ldots,v_n)$ be a basis of $V$, so $(v_j \otimes v_k)_{1 \leq j,k \leq
 
 \begin{coro}
 \label{no-nakano-positive}
-A K\"ahler metric is never Nakano positive or Nakano negative.
+A K\"ahler metric is never $2$-positive. In particular, it is never Nakano positive or Nakano negative.
 \end{coro}
 
-I haven't seen this proposition or corollary pointed out in the litarature, but they must be known to the experts. It's amusing that the Nakano vanishing theorem is often used to prove that there is no Nakano positive K\"ahler metric on the projective space: One computes its cohomology groups and notes that some that the Nakano vanishing theorem would annihilate are in fact nontrivial. As we have seen, this is quite the case of nuking a mosquito.
+I haven't seen this proposition or corollary pointed out in the literature, but they must be known to the experts.
+
+
+The Nakano vanishing theorem is often used to prove that there is no Nakano positive metric on the projective space~\cite[Example~8.4]{demailly-complex}: One computes its cohomology groups and notes that some that the Nakano vanishing theorem would annihilate are in fact nontrivial. This is not a case of nuking a mosquito, as we can only say that no \emph{K\"ahler} metric on the projective space is Nakano positive, and can say nothing about \emph{Hermitian} metrics.
 
 
 
@@ -1102,10 +1153,7 @@ h = \begin{pmatrix}
   h_{31} & h_{32} & h_{33}
 \end{pmatrix}.
 $$
-The various positivity notions we've seen can now be translated as follows:
-
-\smallskip\noindent$\bullet$\quad
-  $R$ is Griffiths positive if the Hermitian form defined by $h$ is positive-definite.
+The various derived positivity notions we've seen can now be translated as follows:
 
 \smallskip\noindent$\bullet$\quad
   $R$ has positive holomorphic sectional curvature if $h$ is positive on decomposable tensors $x \odot x$. Write $x = x_1v_1 + x_2v_2$. Then $x \odot x = x_1^2 v_1 \odot v_1 + 2x_1x_2 v_1 \odot v_2 + x_2^2 v_2 \odot v_2$, and
