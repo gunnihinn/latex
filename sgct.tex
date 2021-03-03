@@ -975,6 +975,44 @@ where we have used the symmetries of the curvature tensor.
 \end{proof}
 
 
+\begin{proof}[Second attempt]
+Fix a Hermitian inner product $h$ on $V$ and let it induce an inner
+product $g$ on $S^2V$. For any Hermitian form $b$ on $S^2V$, we have
+$$
+\tr_{g} b
+= C \int_{S(S^2V, g)} g(g^{-1}b x, x)
+= C \int_{S(S^2V, g)} b(x, x).
+$$
+Taking $b = g$ gives $\dim S^2V = C \Vol(S(S^2V, g))$, which determines $C$. Pick an orthonormal basis $(v_1,\ldots,v_n)$ of $V$, and let $(v_j v_k)$ be the induced orthonormal basis of $S^2V$. If $x = \sum x_{jk} v_{jk}$, we have
+$$
+b(x, x)
+= \sum_{jk,lm} x_{jk} \overline x_{lm} b(v_{jk}, v_{lm}).
+$$
+The integral of these over the unit sphere is zero unless $j = l$ and $k = m$. We have
+$$
+\displaylines{
+b(v_{jk}, v_{jk})
+= b(v_j v_k, v_j v_k)
+= b(\alpha_{jk}, \alpha_{jk})
++ b(\beta_{jk}, \beta_{jk})
++ b(\gamma_{jk}, \gamma_{jk})
+\hfill\cr\hfill{}
++ b(\delta_{jk},\delta_{jk})
+- b(v_{jj},v_{jj})
+- b(v_{kk},v_{kk}),
+}
+$$
+where $\alpha_{jk} = (v_j + v_k)^2/2$,
+$\beta_{jk} = (v_j - v_k)^2/2$,
+$\gamma_{jk} = (v_j + iv_k)^2/2$
+and $\delta_{jk} = (v_j - iv_k)^2/2$.
+
+These greek vectors are unit vectors. How do we reduce the integral to the unit sphere in $V$?
+\end{proof}
+
+The nicest thing one can say about this proof is that it works. I really want there to be a proof of this lemma based around the polarization identity we used to show the holomorphic sectional curvature determines the whole curvature tensor, but can't figure out how to reduce the integral over the unit sphere in $S^2V$ (from which we get equality with the trace) to one over the unit sphere in $V$. There's of course the Veronese embedding $j : V \to S^2V$ given by $v \mapsto v \odot v$, but it's not clear why pulling anything back by it helps.
+
+
 The reverse implications in Proposition~\ref{derived-tensor-positivity} all fail. The reader can amuse themselves by constructing algebraic curvature tensors that exhibit those failures.\footnote{If the reader does not find this amusing, they can see how we construct some such tensors in the next subsection.}
 
 The relationship between the holomorphic sectional and Ricci curvatures is not obvious. The positivity or negativity of one does not imply the positivity or negativity of the other. For example, there are known natural metrics with positive holomorphic sectional curvature that do not have positive Ricci curvature~\cite{hitchin1975curvature,alvarez2016positive,yang2019hirzebruch}. In the next section we construct some algebraic curvature tensors that show this concretely.
@@ -1668,8 +1706,101 @@ $$
 
 
 
-\section{TODO: Bergman metrics}
+\section{Bergman metric}
 \label{sec:org21fa1aa}
+
+We're going to look at a special case of the \emph{Bergman metric}. Let $B = \{ z \in \kk C^n \mid |z|<1 \}$ be the unit ball. We define a $(1,1)$-form on $B$ by $\omega = \frac i2 \partial \bar \partial \log f$, where
+$$
+f(z) = \frac{1}{1-|z|^2}.
+$$
+As the definition suggests, this is the curvature form of a line bundle on $B$. In general, the Bergman metrics are the curvature forms of Hermitian metrics on the canonical bundle of a manifold, but we are going to skip that part of the theory here.
+
+We have
+$$
+\bar\partial \log f
+= - \bar\partial \log (1 -|z|^2)
+= \frac{\langle z, dz\rangle}{1 - |z|^2}
+$$
+so
+$$
+\omega
+= \frac i2 \partial\bar\partial \log f
+= \frac{\frac i2 \langle dz, dz\rangle}{1-|z|^2}
++ \frac i2 \frac{\langle dz, z \rangle}{1-|z|^2}\wedge \frac{\langle z, dz \rangle}{1-|z|^2}.
+$$
+The Hermitian form associated to $\omega$ is thus
+$$
+h(\alpha,\beta)
+=\frac{\langle \alpha, \beta\rangle}{1-|z|^2}
++ \frac{\langle \alpha, z \rangle}{1-|z|^2}
+\cdot \frac{\langle z, \beta \rangle}{1-|z|^2}.
+$$
+As before, we recall that $|\langle \alpha, z \rangle| \leq |\alpha| |z|$, so
+$$
+h(\alpha,\alpha)
+\geq \frac{|\alpha|^2}{1-|z|^2}
++ \frac{|\alpha|^2|z|^2}{(1-|z|^2)^2}
+= \frac{|\alpha|^2}{(1-|z|^2)^2}
+> 0
+$$
+if $\alpha \not= 0$, so $h$ is a K\"ahler metric.
+
+To compute the Chern connection of $h$, we note that for holomorphic tangent fields we have
+\begin{align*}
+\partial_\gamma h(\alpha,\beta)
+&= \frac{\langle d_\gamma\alpha, \beta\rangle}{1-|z|^2}
++ \frac{\langle \gamma, z \rangle}{1-|z|^2}
+\cdot \frac{\langle \alpha, \beta\rangle}{1-|z|^2}
+\\
+&\qquad{}
++ \frac{\langle d_\gamma \alpha, z \rangle}{1-|z|^2}
+\cdot \frac{\langle z, \beta \rangle}{1-|z|^2}
++ \frac{\langle \gamma, z \rangle}{1-|z|^2}
+\cdot \frac{\langle \alpha, z\rangle}{1-|z|^2}
+\cdot \frac{\langle z, \beta \rangle}{1-|z|^2}
+\\
+&\qquad{}
++ \frac{\langle \alpha, z\rangle}{1-|z|^2}
+\cdot \frac{\langle \gamma, \beta \rangle}{1-|z|^2}
++
+\frac{\langle \alpha, z\rangle}{1-|z|^2}
+\cdot \frac{\langle \gamma, z \rangle}{1-|z|^2}
+\cdot \frac{\langle z, \beta \rangle}{1-|z|^2}
+\\
+&=
+h(d_\gamma \alpha, \beta)
++ h\biggl( \frac{\langle \gamma, z \rangle}{1-|z|^2} \alpha , \beta\biggr)
++ h\biggl( \frac{\langle \alpha, z \rangle}{1-|z|^2} \gamma , \beta\biggr)
+\end{align*}
+so the Chern connection of $h$ is
+$$
+D \alpha
+= d \alpha
++ \frac{\langle dz, z \rangle}{1-|z|^2} \alpha
++ \frac{\langle \alpha, z \rangle}{1-|z|^2} dz.
+$$
+To find the curvature form, we then calculate
+$$
+\displaylines{
+\bar\partial D \alpha
+=
+-\frac{\langle dz, dz \rangle}{1-|z|^2} \alpha
+- \frac{\langle dz, z \rangle}{1-|z|^2}
+\wedge \frac{\langle z, dz \rangle}{1-|z|^2} \alpha
+\hfill\cr\hfill{}
++ \frac{\langle \alpha, dz \rangle}{1-|z|^2} \wedge dz
++ \frac{\langle \alpha, z \rangle}{1-|z|^2}
+\cdot \frac{\langle \alpha, dz \rangle}{1-|z|^2} \wedge dz.
+}
+$$
+After permuting some fields, taking the inner product with a fourth tangent field, and minding the order of wedge products, this results in the curvature tensor
+$$
+R(\alpha,\beta,\gamma,\delta)
+= -h(\alpha,\beta) h(\gamma,\delta)
+- h(\alpha,\delta) h(\gamma,\beta).
+$$
+By inspection, we recognize this as the curvature tensor of a metric with constant holomorphic sectional curvature $-2$. It follows that this is a K\"ahler--Einstein metric with $r(\alpha,\beta) = - (n+1) h(\alpha,\beta)$, and that its scalar curvature is $-n(n+1)$.
+
 
 \section{TODO: Grassmannian}
 \label{sec:org34425b6}
@@ -2151,16 +2282,6 @@ Berndtsson has papers from about ten years ago we could look at. Cao et al took 
 
 Wikipedia has a handwavy explanation of curvature as what happens when we parallel transport a section along a parallelogram. Can we make this precise?
 
-
-
-\section{TODO: Hermitian metrics}
-\label{sec:orgad8dbb1}
-
-Discuss extra symmetries we get when \(E = T_X\).
-Talk about torsion tensor and how it's related to the K\"ahler form
-Define sectional curvatures, Ricci tensors, scalar curvature.
-
-Discuss K\"ahler metrics. Extra curvature symmetries. All Ricci forms are equal.
 
 
 \section{TODO: Hom-metrics}
