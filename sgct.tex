@@ -7,30 +7,46 @@
 
 \usepackage[normalem]{ulem}
 \usepackage{textcomp}
-\usepackage{hyperref}
+\usepackage{fancyref}
+\usepackage[colorlinks=true]{hyperref}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{amsthm}
+\usepackage[amsmath,thref,thmmarks,hyperref]{ntheorem}
 
+\usepackage{tikz-cd}
+
+\theorembodyfont{\itshape}
 \newtheorem{theo}{Theorem}
 \newtheorem{prop}[theo]{Proposition}
 \newtheorem{lemm}[theo]{Lemma}
 \newtheorem{coro}[theo]{Corollary}
-\theoremstyle{definition}
+
+\theorembodyfont{\rm}
 \newtheorem{defi}[theo]{Definition}
 \newtheorem{exam}[theo]{Example}
+\newtheorem*{claim}{Claim}
+
+\theoremseparator{:}
+\theoremsymbol{\ensuremath{\Box}}
+\newtheorem*{proof}{Proof}
 
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
 
+\def\qedhere{}
+
 \def\^#1{^{[#1]}}
 \def\qandq{\quad\text{and}\quad}
 
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Vol}{Vol}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\tr}{tr}
@@ -58,7 +74,7 @@
 \tableofcontents
 
 
-\section{Theory}
+\section{Preliminaries}
 \label{sec:org093d592}
 
 Let $E \to X$ be a holomorphic vector bundle. We denote by $\cc A^k(E)$ the sheaf $\bigwedge^k T_X^* \otimes E$ of $k$-forms with values in $E$. Similarly we denote by $\cc A^{p,q}(E)$ the sheaf $\bigwedge^{p,q} T_X^* \otimes E$ of $(p,q)$-forms with values in $E$.
@@ -221,7 +237,7 @@ The above proof shows in particular that if $f$ is a smooth function (that is, a
 
 
 \begin{prop}
-\label{curvature-commutative}
+\label{prop:curvature-commutative}
 Let $\xi, \eta$ be tangent fields on $X$ and $s$ a section of $E$. Then
 $$
 F^D(\xi, \eta) \wedge s
@@ -235,7 +251,6 @@ Apply our formula for the exterior covariant derivative to the $1$-form $Ds$ whi
 F^D(\xi,\eta) s
 = D(Ds)(\xi,\eta)
 = D_\xi D_\eta s - D_\eta D_\xi s - D_{[\xi,\eta]} s.
-\qedhere
 \]
 \end{proof}
 
@@ -269,7 +284,7 @@ D_{[f\xi,\eta]}s
 = D_{f[\xi,\eta]}s - D_{d_\eta f \cdot \xi} s
 = f D_{[\xi,\eta]} s - d_\eta f D_\xi s.
 $$
-Putting this together with Proposition~\ref{curvature-commutative} we get
+Putting this together with \thref{prop:curvature-commutative} we get
 \begin{align*}
 F(f \xi, \eta) s
 &= f D_\xi D_\eta s - (d_\eta f D_\xi s + f D_\eta D_\xi s) - (f D_{[\xi,\eta]} s - d_\eta f D_\xi s)
@@ -278,6 +293,103 @@ F(f \xi, \eta) s
 = f F(\xi, \eta) s.
 \end{align*}
 We then conclude that $F(\xi,f \eta)s = f F(\xi,\eta) s$ by anticommutativity of $F$.
+\end{proof}
+
+
+
+\subsection{Induced connections and curvatures}
+\label{sec:induced-connections}
+
+Any ``natural'' construction in the category of vector spaces defines the same construction in the category of vector bundles.\footnote{``Natural'' here means any construction that can be proven to be independent of the choice of a basis.} Thus we have duals, tensor products and powers, symmetric and exterior powers of bundles, and so on. If we have connections on the component bundles of our construction, we get an induced connection on the new bundle as well. Whenever there is a product available on the underlying vector spaces, the induced connection is defined in such a way as to preserve the product.
+
+
+\begin{prop}
+  Let $E$ and $F$ be vector bundles over $X$, and let $D_E$ and $D_F$ be connections on $E$ and $F$. Let $s$ be a section of $\cc A^p(E)$ and $t$ a section of $\cc A^q(F)$. Then:
+  \begin{enumerate}
+\item There is a connection $D_{E \oplus F}$ on $E \oplus F$ defined by
+\[
+D_{E \oplus F}(s \oplus t) = D_E s \oplus D_F t.
+\]
+Its curvature is
+\[
+\Theta_{E \oplus F} = \Theta_E \oplus \Theta_F.
+\]
+\item There is a connection $D_{E \otimes F}$ on $E \otimes F$ defined by
+\[
+D_{E \otimes F}(s \otimes t)
+= D_E s \otimes t + (-1)^{\deg s} s \otimes D_F t.
+\]
+Its curvature is
+\[
+\Theta_{E \otimes F} = \Theta_E \otimes \id_F \oplus \id_E \otimes \Theta_F.
+\]
+\item There is a connection $D_{E^*}$ on $E^*$ defined by
+\[
+d(\alpha(s)) = (D_{E^*}\alpha)(s) - (-1)^{\deg s} \alpha(D_E s),
+\]
+where $\alpha$ is a section of $E^*$.
+Its curvature is
+\[
+\Theta_{E^*} = -\Theta_E^{\dagger}.
+\]
+\item There is a connection $D_{\Hom(E,F)}$ on $\Hom(E,F)$ defined by
+\[
+D_F(f(s)) = (D_{\Hom(E,F)}f)(s) - (-1)^{\deg s} f(D_E s),
+\]
+where $f$ is a section of $\Hom(E,F)$. Under the isomorphism $\Hom(E,F) = E^* \otimes F$, it corresponds to the connection induced by $D_E$ and $D_F$ on the tensor product. Its curvature is
+\[
+\Theta_{\Hom(E,F)} = -\Theta_E^{\dagger} \otimes \id_F + \id_E \otimes \Theta_F.
+\]
+\item There is a connection $D_{S^kE}$ on $S^kE$ defined by
+\[
+D_{S^kE} (s_1 \odot \cdots \odot s_k)
+= \sum_{j=1}^k (-1)^{\deg s_1 + \cdots + \deg s_{j-1}} s_1 \odot \cdots \odot D_E s_j \odot \cdots \odot s_k.
+\]
+Its curvature is
+\[
+\Theta_{S^kE} (s_1 \odot \cdots \odot s_k)
+= \sum_{j=1}^k s_1 \odot \cdots \odot \Theta_E s_j \odot \cdots \odot s_k.
+\]
+\item There is a connection $D_{\bigwedge^kE}$ on $\bigwedge^k E$ defined by
+\[
+D_{\bigwedge^kE} (s_1 \wedge \cdots \wedge s_k)
+= \sum_{j=1}^k (-1)^{\deg s_1 + \cdots + \deg s_{j-1}} s_1 \wedge \cdots \wedge D_E s_j \wedge \cdots \wedge s_k.
+\]
+Its curvature is
+\[
+\Theta_{\bigwedge^kE} (s_1 \wedge \cdots \wedge s_k)
+= \sum_{j=1}^k s_1 \wedge \cdots \wedge \Theta_E s_j \wedge \cdots \wedge s_k.
+\]
+\item There is a connection $D_{\det E}$ on $\det E$ whose curvature is
+\[
+\Theta_{\det E}
+= \tr(\Theta_E).
+\]
+\end{enumerate}
+\end{prop}
+
+
+\begin{proof}
+  TODO.
+\end{proof}
+
+
+A word of warning: The curvature form $\Theta_{\bigwedge^kE}$ is not the same as the exterior power $\bigwedge^k \Theta_E$. The former is a $(1,1)$-form, while the latter is a $(k,k)$-form, and they live on different bundles. The latter comes up in Chern--Weil theory when constructing differential forms that represent the Chern classes of bundles.
+
+
+\begin{prop}[Bianchi identity]
+\[
+D_{\Hom(E,E)} \Theta_E = 0.
+\]
+\end{prop}
+
+\begin{proof}
+Let $s$ be a section of $\cc A^p(E)$. Then
+\[
+D_{\Hom(E,E)}(\Theta_E)(s)
+= D_E(\Theta_E s) - \Theta_E(D_E s)
+= D_E^3 s - D_E^3 s = 0.
+\]
 \end{proof}
 
 
@@ -388,11 +500,6 @@ We have $D = D^{1,0} + \bar\partial$, so $F = (D^{1,0})^2 + (\bar\partial D^{1,0
 For this reason we often consider the curvature form of a Chern connection to be $\Theta := \frac i2 F$. That is a real $(1,1)$-form with values in $\End E$.
 
 
-Discuss positivity concepts: Nakano, Griffits positive. Ricci positive. Bisectional curvature; holomorphic bisectional curvature.
-
-Can prove that holomorphic sectional curvature > 0 -> scalar curvature > 0.
-
-
 
 \subsection{Hermitian metrics}
 
@@ -486,7 +593,7 @@ Evaluating these $(2,1)$-forms on $\alpha, \beta$ and $\overline\gamma$, we get
 \end{proof}
 
 \begin{coro}
-\label{kahler-zero-torsion}
+\label{coro:kahler-zero-torsion}
 The torsion of $\nabla$ is zero if and only if $d\omega = 0$.
 \end{coro}
 
@@ -575,7 +682,7 @@ r_3(x,y) &= \sum_{j=1}^n R(x,v_j,v_j,y).
 
 There is a fourth possible contraction ($\sum_{j=1}^n R(v_j,y,x,v_j)$) but it is conjugate to $r_3$.
 
-These definitions are independent of the holomorphic frame used. It's easiest to see this by rewriting them using the metric isomorphism $h : T_X \to \overline T_X^*$ and its inverse and taking traces. In general these definitions are really different (see Section~\ref{sec:org8f5818e}), but we'll see later that they all agree for K\"ahler metrics.
+These definitions are independent of the holomorphic frame used. It's easiest to see this by rewriting them using the metric isomorphism $h : T_X \to \overline T_X^*$ and its inverse and taking traces. In general these definitions are really different (see \fref{sec:org8f5818e}), but we'll see later that they all agree for K\"ahler metrics.
 
 The first of these is a tensor associated to the curvature form of a line bundle, as its associated $(1,1)$-form is clearly equal to $\tr \frac i2 F$. That form is also closed, as it can be defined by $\frac i2 \partial\bar\partial \log \det h$. It's the curvature form of the anticanonical bundle $-K_X$ with the metric induced by $h$.
 
@@ -589,7 +696,7 @@ A \emph{K\"ahler metric} $h$ is a Hermitian metric with zero torsion.
 \end{defi}
 
 
-A metric is K\"ahler if and only if its K\"ahler form is closed by Corollary~\ref{kahler-zero-torsion}, which again means that it is a symplectic form. As such, many operations involving the K\"ahler metric descend to the level of cohomology on a K\"ahler manifold and restrict its structure.
+A metric is K\"ahler if and only if its K\"ahler form is closed by \thref{coro:kahler-zero-torsion}, which again means that it is a symplectic form. As such, many operations involving the K\"ahler metric descend to the level of cohomology on a K\"ahler manifold and restrict its structure.
 
 In practice it is usually much easier to verify that the K\"ahler form of a metric is closed than to compute its torsion tensor. For example, a large class of K\"ahler metrics arise as the curvature forms of holomorphic line bundles (we'll see the details later), where it is obvious that the K\"ahler form is closed.
 
@@ -597,7 +704,32 @@ The historical definition of a K\"ahler metric is as a Hermitian metric whose K\
 
 I'm unsure of when the vanishing of the torsion tensor was pointed out explicitly, but we've chosen it as our definition as it makes the connection between K\"ahler and Riemannian geometry very clear. It is my favorite condition, as it suggests that we should investigate what the isomorphism between harmonic forms and the cohomology groups of a compact smooth manifold looks like in the K\"ahler case, which leads quickly to the invention of Hodge theory. There are already plenty of books about Hodge theory, so we won't get into it here.
 
-The first consequence of the vanishing of the torsion we'll note is that the curvature tensor of a K\"ahler metric has extra symmetries.
+
+There are two constructions of manifolds from existing ones that preserve K\"ahler metrics:
+
+\begin{prop}
+  \begin{itemize}
+  \item If $X$ is a K\"ahler manifold and $Y \subset X$ is a submanifold, then $Y$ is K\"ahler.
+  \item If $X$ and $Y$ are K\"ahler manifolds, then $X \times Y$ is a K\"ahler manifold.
+  \end{itemize}
+\end{prop}
+
+\begin{proof}
+  Both points are easily proved using the closedness of the K\"ahler form. If $\omega$ is a differential form on $X$, then $d(f^*\omega) = f^*d\omega$ for all holomorphic maps $f$, so if $j : Y \hookrightarrow X$ is the inclusion then $j^*\omega$ is a K\"ahler form on~$Y$.%
+
+Similarly, if $\omega_X$ and $\omega_Y$ are K\"ahler forms on $X$ and $Y$, then $\omega := \pi_X^*\omega_X + \pi_Y^*\omega_Y$ is a K\"ahler form on $X \times Y$.
+\end{proof}
+
+It is difficult to point out other many other general ways of constructing K\"ahler manifolds from existing ones. We can prove that the blow-up of a point on a compact K\"ahler manifold is K\"ahler, and that a projective bundle over a compact K\"ahler manifold is K\"ahler.
+
+A fiber space over a compact base with compact fibers does not have to be K\"ahler even if the base and fibers are; in fact many examples of non-K\"ahler manifolds arise this way, like the Hopf and Iwasawa manifolds.
+
+Small deformations of compact K\"ahler manifolds are K\"ahler~\cite{kodaira1960deformations}; large ones do not have to be~\cite{hironaka1962example}. The (smooth part of) the base of versal deformations of compact K\"ahler manifolds tends to be K\"ahler, because direct image sheaves are often positive~\cite{berndtsson2009curvature} and we can use K\"ahler metrics on the fibers to get a Hermitian metric on the relative canonical bundle. This is how the Weil--Petersson metrics for moduli of curves and K\"ahler--Einstein manifolds are constructed.
+
+Interesting examples can often be constructed explicitly from projective manifolds by ad-hoc methods; Serre~\cite{serre1958topologie} showed that every finite group is the fundamental group of a projective variety, and Schreieder~\cite{schreieder2015construction} constructed compact manifolds with every possible Hodge diamond.
+
+
+Another consequence of the vanishing of the torsion is that the curvature tensor of a K\"ahler metric has extra symmetries.
 
 \begin{prop}
 Let $R$ be the curvature tensor of a K\"ahler metric. Then
@@ -619,7 +751,8 @@ from which we conclude the first equality. The second follows from the first and
 
 
 
-\subsection{Algebraic K\"ahler curvature tensors}
+\section{Algebraic K\"ahler curvature tensors}
+\label{sec:algebraic-curvature-tensors}
 
 Let $V$ be a complex vector space of dimension $n$. Let $\cc R$ be the subset of the space of $V \otimes \overline V \otimes V \otimes \overline V \to \kk C$ defined by elements $R$ that satisfy
 $$
@@ -869,7 +1002,7 @@ Let's discuss some positivity properties of the various curvature tensors we hav
 
 
 \begin{prop}
-\label{derived-tensor-positivity}
+\label{prop:derived-tensor-positivity}
   Let $R$ be a K\"ahler curvature tensor.
   \begin{enumerate}
     \item If $R$ is Griffiths-positive, then $B$ is positive.
@@ -889,14 +1022,14 @@ The proposition remains true if we replace ``positive'' with ``semipositive'', `
     r(x,x) = \sum_{j=1}^n R(x,x,v_j,v_j) = |x|^2 \sum_{j=1}^n B(x,v_j)
     $$
     from which the positivity of $r$ follows.
-  \item Follows from Lemma~\ref{holomorphic-sectional-to-scalar}.
+  \item Follows from \thref{lemm:holomorphic-sectional-to-scalar}.
   \item The scalar curvature is the trace of the Ricci form, so this is obvious.
   \end{enumerate}
 \end{proof}
 
 
 \begin{lemm}[Berger~\cite{berger1965varietes}\footnote{Apparently. I haven't found a copy of this source to double-check. I believe one is available in the library in CIRM in Marseille.  Diverio may know where to find a copy, and Yang or Zheng possibly do as well; at least they've all cited this source.}]
-\label{holomorphic-sectional-to-scalar}
+\label{lemm:holomorphic-sectional-to-scalar}
 Let $h$ be a Hermitian inner product on $V$, and $H$ and $s$ the holomorphic sectional and scalar curvatures of a K\"aher curvature tensor. Then
 $$
 \int_{S(V,h)} H(x) \, d\sigma(x) = \frac{\Vol(S^{2n-1})}{n(n+1)} s.
@@ -1013,7 +1146,7 @@ These greek vectors are unit vectors. How do we reduce the integral to the unit 
 The nicest thing one can say about this proof is that it works. I really want there to be a proof of this lemma based around the polarization identity we used to show the holomorphic sectional curvature determines the whole curvature tensor, but can't figure out how to reduce the integral over the unit sphere in $S^2V$ (from which we get equality with the trace) to one over the unit sphere in $V$. There's of course the Veronese embedding $j : V \to S^2V$ given by $v \mapsto v \odot v$, but it's not clear why pulling anything back by it helps.
 
 
-The reverse implications in Proposition~\ref{derived-tensor-positivity} all fail. The reader can amuse themselves by constructing algebraic curvature tensors that exhibit those failures.\footnote{If the reader does not find this amusing, they can see how we construct some such tensors in the next subsection.}
+The reverse implications in \thref{prop:derived-tensor-positivity} all fail. The reader can amuse themselves by constructing algebraic curvature tensors that exhibit those failures.\footnote{If the reader does not find this amusing, they can see how we construct some such tensors in the next subsection.}
 
 The relationship between the holomorphic sectional and Ricci curvatures is not obvious. The positivity or negativity of one does not imply the positivity or negativity of the other. For example, there are known natural metrics with positive holomorphic sectional curvature that do not have positive Ricci curvature~\cite{hitchin1975curvature,alvarez2016positive,yang2019hirzebruch}. In the next section we construct some algebraic curvature tensors that show this concretely.
 
@@ -1049,7 +1182,7 @@ Let $(v_1,\ldots,v_n)$ be a basis of $V$, so $(v_j \otimes v_k)_{1 \leq j,k \leq
 \end{proof}
 
 \begin{coro}
-\label{no-nakano-positive}
+\label{coro:no-nakano-positive}
 A K\"ahler metric is never $2$-positive. In particular, it is never Nakano positive or Nakano negative.
 \end{coro}
 
@@ -1140,7 +1273,7 @@ which is positive for all $x$ and $y$, so $h \odot h$ is Griffiths positive. The
 
 
 \begin{exam}
-\label{not-griffiths-positive}
+\label{exam:not-griffiths-positive}
 Let $V$ be of dimension $2$, let $h$ be a Hermitian inner product, and let $a$ be given by
 $$
 A = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
@@ -1166,7 +1299,8 @@ which is positive definite, while the holomorphic sectional curvature is only se
 Another way of constructing these kinds of elements is to pull back Hermitian forms to the symmetric product. In that case we get weaker positivity properties than above, simply because any linear morphism we pull back by will have a nontrivial kernel:
 
 \begin{prop}
-Let $f \in \Hom(S^2V, V)$ and let $h$ be a Hermitian form on $V$. Then
+\label{prop:algebraic-curvature-second-fundamental}
+Let $f \in \Hom(S^2V, W)$ and let $h$ be a Hermitian form on $W$. Then
 $$
 (f^*h)(x \odot y, z \odot w)
 = h(f(x \odot y), f(z \odot w))
@@ -1177,7 +1311,8 @@ If $h$ is a Hermitian inner product, then $f^*h$ has semipositive holomorphic se
 \end{prop}
 
 
-We claimed that these constructions would exhibit tensors that arise in the wild. For the Kulkarni--Nomizu product this is clear, as the Fubini--Study metric (see Section~\ref{sec:orgcfabeed}) has constant holomorphic sectional curvature and is thus of that form. The same is true for the curvature tensor of the Bergman metric. It's less clear that any ``natural'' K\"ahler metric has a curvature tensor of the pullback form but that does happen; see the metric on the complexification of the K\"ahler cone in Section~\ref{complexified-kahler-cone}.
+We claimed that these constructions would exhibit tensors that arise in the wild. For the Kulkarni--Nomizu product this is clear, as the Fubini--Study metric (see \thref{sec:orgcfabeed}) has constant holomorphic sectional curvature and is thus of that form. The same is true for the curvature tensor of the Bergman metric. It's less clear that any ``natural'' K\"ahler metric has a curvature tensor of the pullback form but that does happen; see the curvature tensors of submanifolds of complex tori (\thref{sec:sub-quotient}) or
+the metric on the complexification of the K\"ahler cone in \thref{sec:complexified-kahler-cone}.
 
 
 
@@ -1321,7 +1456,7 @@ $$
 and taking $h_{33} > 4$ yields a Ricci tensor that is negative in some directions. Taking $h_{22} = -\sqrt{h_{33}}/2 + \varepsilon$ then gives $H > 0$ everywhere but $r < 0$ somewhere.
 \end{exam}
 
-We already saw that having $r > 0$ does not imply the holomorphic bisectional curvature is positive, and that $H \geq 0$ does not imply that either (Example~\ref{not-griffiths-positive}).
+We already saw that having $r > 0$ does not imply the holomorphic bisectional curvature is positive, and that $H \geq 0$ does not imply that either (\thref{exam:not-griffiths-positive}).
 
 
 \begin{exam}
@@ -1344,7 +1479,7 @@ B = \begin{pmatrix}
   0 & 0 & 1
 \end{pmatrix}.
 $$
-The form on $S^2V$ is positive-definite, but the one on $V \otimes V$ has a one-dimensional kernel and is positive on its complement. The tensor $R$ is thus Griffiths positive and Nakano semipositive. This is the most positivity one can hope for in lieu of Corollary~\ref{no-nakano-positive}.
+The form on $S^2V$ is positive-definite, but the one on $V \otimes V$ has a one-dimensional kernel and is positive on its complement. The tensor $R$ is thus Griffiths positive and Nakano semipositive. This is the most positivity one can hope for in lieu of \thref{coro:no-nakano-positive}.
 
 The tensor $R$ is the curvature tensor of the Fubini--Study metric on the projective space, as we will see later.
 \end{exam}
@@ -1477,6 +1612,163 @@ $$
 and the linear morphism from one- to three-forms defined by wedging with the symplectic form \(\omega\) is injective.\footnote{The hard Lefschetz theorem generalizes this to cohomology.}
 The proof reduces to linear algebra by a calculation in local coordinates, either Darbeaux ones or in holomorphic ones that are orthonormal at a point.
 
+
+\section{Sub- and quotient bundles}
+\label{sec:sub-quotient}
+
+Let $X$ be a complex manifold and let
+\[
+0 \longrightarrow
+S \stackrel{j}{\longrightarrow}
+E \stackrel{q}{\longrightarrow}
+Q \longrightarrow
+0
+\]
+be a short exact sequence of holomorphic vector bundles. Suppose that $h_E$ is a Hermitian metric on $E$. It induces a smooth splitting $E \cong S \oplus Q$ of $E$, and incudes Hermitian metrics $h_S$ and $h_Q$ on the bundles $S$ and $Q$. We want to express the curvatures of $S$ and $Q$ in terms of the curvature of $E$. This was first done by Griffiths~\cite{griffiths1965hermitian}; we won't improve at all upon his presentation.
+
+
+\begin{prop}
+The \emph{second fundamental form} $b := D_E - D_S$ of $S$ in $E$ is a $(1,0)$-form with values in $Q$.
+\end{prop}
+
+\begin{proof}
+The connections are $\cc C^\infty$-linear in their tensor field variables, so $b$ is also thus. The difference of two connections is also $\cc C^\infty$-linear in the section variable. Both connections are Chern connections, so their $(0,1)$-part is $\bar\partial$. Thus $b$ is a $(1,0)$-form with values at least in $E$. To show that it takes values in $Q$ it is enough to show that $h_E(b(s), t) = 0$ for all sections $s,t$ of $S$.
+
+For such sections, we have $h_E(s,t) - h_S(s,t) = 0$ by definition of $h_S$. Taking $\partial$ of this equality, we see that
+\[
+0 = h_E(D_E's, t) - h_S(D_S's,t)
+= h_E((D_E' - D_S')s, t)
+= h_E(b(s), t).
+\qedhere
+\]
+\end{proof}
+
+
+\begin{prop}[Codazzi equation]
+\label{prop:codazzi-equation}
+The curvature tensors of $S$ and $E$ satisfy
+\[
+R_S(\alpha,\beta,s,t)
+= R_{E}(\alpha,\beta,js,jt)
+- h_Q(b_S(\alpha,s), b_S(\beta,t)),
+\]
+where $s, t$ are sections of $S$ and $\alpha,\beta$ are tangent fields on $X$.
+\end{prop}
+
+\begin{proof}
+As usual it's enough to prove tensorial equations for holomorphic sections. For any Hermitian metric $h$ with Chern connection $D$ and curvature form $\Theta$ we have
+$$
+\partial\bar\partial h(s,t)
+= h(Ds,Dt) - h(\Theta s, t)
+$$
+for holomorphic sections $s,t$. Here we have $h_S(s,t) = h_E(js, jt)$, so on the one hand we have
+$$
+\partial\bar\partial h_S(s,t) =
+h_S(D_S s, D_S t) - h_S(\Theta_S s, t)
+$$
+and on the other we have
+$$
+\partial\bar\partial h_E(js, jt)
+= h_E(D_E(js), D_E(jt)) - h_E(\Theta_E (js), jt).
+$$
+We again use that $h_E(js,jt) = h_S(s,t)$, so
+$$
+h_S(Ds,t)
+= h_E(D_E(js), jt)
+= h_E(D_{\Hom(S,E)}j(s), jt) + h_S(D_S s,t),
+$$
+that is, $h_E(D_{\Hom(S,E)}j(s), jt) = 0$ for all holomorphic sections $s, t$ of $S$. Then $D_{\Hom(S,E)}j(s) = b(s)$ by comparison with the second fundamental form. Taking this together, we have
+\begin{align*}
+h_S(D_S s, D_S t) - h_S(\Theta_S s, t)
+&= h_E(D_E(js), D_E(jt)) - h_E(\Theta_E (js), jt)
+\\
+&= h_Q(b(s),b(t)) + h_S(D_S s, D_S t) - h_E(\Theta_E (js), jt).
+\end{align*}
+Canceling terms and multiplying through by $-1$ gives the result.
+\end{proof}
+
+The holomorphic Codazzi equation shows that the curvature of a holomorphic subbundle is less or equal to the curvature of the ambient bundle. In particular, the curvature of a submanifold is dominated by the curvature of the ambient manifold. The same is of course not true in Riemannian geometry; see for example the sphere in Euclidean space.
+
+There are many open questions regarding the relationship between hyperbolicity, ample canonical bundles, and negative holomorphic sectional curvature for compact complex manifolds. For example, a manifold with negative holomorphic sectional curvature is hyperbolic by a version of the Schwarz lemma. By the Codazzi equation, any submanifold of such a manifold is thus also hyperbolic. The converse is conjectured to hold in some form; that if all the subvarieties of a manifold are hyperbolic, then so is the manifold itself.
+
+There is also an equation relating the curvature of the quotient bundle $Q$ and $E$; the relationship is nicely symmetric with the subbundle case.
+
+\begin{prop}
+The curvature tensors of $Q$ and $E$ satisfy
+\[
+R_Q(\alpha,\beta,q s,q t)
+= R_{E}(\alpha,\beta,s,t)
++ h_S(b_S^*(\alpha,q s), b_S^*(\beta,q t)),
+\]
+where $s, t$ are sections of $E$, $\alpha,\beta$ are tangent fields on $X$ and $b_S^* \in \Hom(Q,S)$ is the adjoint of the second fundamental form of $S$.
+\end{prop}
+
+\begin{proof}
+TODO: FINISH.
+
+Consider the conjugate dual short exact sequence
+$$
+0 \to \overline Q^* \to \overline E^* \to \overline S^* \to 0
+$$
+over the conjugate holomorphic manifold $\overline X$. We have a commutative diagram
+\[
+\begin{tikzcd}
+0 \arrow[r] & S \arrow[r,"j"] \arrow[d,"h_S"] & E \arrow[r,"q"]  \arrow[d,"h_E"] & Q \arrow[r]  \arrow[d,"h_Q"] & 0
+\\
+0  & \overline S^* \arrow[l] & \overline E^* \arrow[l,"j^t"'] & \overline Q^* \arrow[l,"q^t"'] & \arrow[l] 0
+\end{tikzcd}
+\]
+where the upper line is over $X$ and the lower line over $\overline X$, and the vertical arrows are isometries. Applying the Codazzi equation to $\overline Q^*$ gives
+$$
+h_{\overline Q^*}(\Theta_{\overline Q^*} s, t)
+= h_{\overline E^*}(\Theta_{\overline E^*} (q^t s), q^t t) - h_{\overline S^*}(b_{\overline Q^*}(s),b_{\overline Q^*}(t)).
+$$
+\end{proof}
+
+
+TODO: Show the adjoint of the fundamental form classifies extensions of $S$ by $Q$.
+
+
+
+\paragraph{Submanifolds}
+
+A common situation where this is applicable is when we have a submanifold $Y \subset X$ of a complex manifold. Then we have a short exact sequence
+\[
+\begin{tikzcd}
+0 \arrow[r] & T_Y \arrow[r] & T_{X|Y} \arrow[r] & N_{X/Y} \arrow[r] & 0
+\end{tikzcd}
+\]
+of holomorphic vector bundles over $Y$. If $X$ is equipped with a Hermitian metric $h_X$, it induces Hermitian metrics $h_Y$ and $h_{N}$ on $Y$ and $N_{X/Y}$. The Cotazzi equation then determines the curvature tensor of $Y$.
+
+
+If the metric on $X$ is K\"ahler, then so is the metric on $Y$. The curvature tensor of a K\"ahler metric has extra symmetries, and the ones for $Y$ will be reflected somehow in the term that involves the second fundamental form. If we recall our Riemannian geometry, we can guess at how this will happen:
+
+\begin{prop}
+If $h_X$ is K\"ahler, then the second fundamental form of $Y$ in $X$ is symmetric.
+\end{prop}
+
+\begin{proof}
+Let $j : Y \hookrightarrow X$ be the inclusion. As $Y$ is a submanifold, we have $[j\xi,j\eta] = j[\xi,\eta]$ for all tangent fields $\xi,\eta$ of $Y$. A straightforward calculation then gives
+\[
+b(\xi,\eta) - b(\eta,\xi)
+= (D_{X,\xi}\eta - D_{Y,\xi}\eta)
+- (D_{X,\eta}\xi - D_{Y,\eta}\xi)
+= \tau_X(\xi,\eta) - \tau_Y(\xi,\eta),
+\]
+where $\tau$ are the torsion tensors of the metrics. When the metrics are K\"ahler, these tensors are zero.
+\end{proof}
+
+The curvature tensor of a submanifold of a K\"ahler manifold is thus of the form
+\[
+R_Y(\alpha,\beta,\gamma,\delta)
+= R_X(\alpha,\beta,\gamma,\delta)
+- h_{X/Y}(b(\alpha,\gamma), b(\beta,\delta)),
+\]
+where $b \in \Hom(S^2 T_Y, N_{X/Y})$. When $R_X = 0$ we saw some algebraic curvature tensors of this type back in \thref{prop:algebraic-curvature-second-fundamental}.
+
+
+
+TODO: Hypersurface.
 
 \section{Riemann surfaces}
 \label{sec:org776713b}
@@ -1805,6 +2097,293 @@ By inspection, we recognize this as the curvature tensor of a metric with consta
 \section{TODO: Grassmannian}
 \label{sec:org34425b6}
 
+Let $V$ be a complex vector space of dimension $n$.
+The Grassmannian $\Gr(k, V)$ is the set of $k$-dimensional subspaces of $V$. When $k = 1$ this is just the projective space we already saw.
+
+Our discussion of the non-metric aspects of the Grassmannian mostly follows Voisin~\cite{voisin2002theorie}, while the metric aspects take some inspiration from Zheng~\cite{zheng2000complex}. See also Demailly~\cite[Chapter~5.16]{demailly-complex} for a whirlwind tour.
+
+If $S \subset V$ is a subspace, then there is a short exact sequence
+$$
+0 \to S \to V \to V/S \to 0.
+$$
+Taking duals, we get
+$$
+0 \to (V/S)^* \to V^* \to S^* \to 0.
+$$
+Because our spaces are finite-dimensional we have $(S^*)^* = S$. This means that the correspondances $S \mapsto (V/S)^* \mapsto (V^* / (V/S)^*)^* = (S^*)^* = S$ define a natural bijection
+$$
+\Gr(k, V) = \Gr(n-k, V^*).
+$$
+We're used to seeing this in the projective space, where a hyperplane corresponds to the kernel of a line of linear functionals.
+
+We can also pick an isomorphism $V \to V^*$, from which we get a non-canonical bijection $\Gr(k, V) \cong \Gr(n-k, V)$.
+
+\subsection{Manifold structure}
+
+Our first objective is to show the Grassmannian is a complex manifold.
+
+\begin{prop}
+$\Gr(k, V)$ is a complex manifold of dimension $k(n-k)$.
+\end{prop}
+
+
+\begin{proof}
+Let $S \in \Gr(k, V)$, and pick $W \subset V$ such that $S \oplus W = V$. We denote the projections onto each factor by $\pi_S : V \to S$ and $\pi_W : V \to W$. We define the set of subspaces close to $S$ by
+$$
+U_S =
+\{
+S' \in \Gr(k, V)
+\mid
+S' \cap W = 0
+\}.
+$$
+
+\begin{claim}
+There is a bijection $U_s \cong \Hom(S, W)$ between $U_S$ and the set of linear morphisms $S \to W$.
+\end{claim}
+
+\begin{proof}
+Let $S' \in U_S$. Since $\Ker \pi_S = W$ and $S' \cap W = 0$, the restriction of $\pi_S$ to $S'$ is an injective linear morphism $\pi_S : S' \to S$. As $S$ and $S'$ both have dimension $k$, $\pi_S$ is an isomorphism. We then define
+$$
+A: U_S \to \Hom(S, W),
+\quad
+S' \mapsto \pi_W \circ (\pi_S|_{S'})^{-1}.
+$$
+Going the other way, suppose $f \in \Hom(S, W)$. The graph of $f$, that is
+$$
+\Gamma(f) = \{ (s, f(s)) \in S \oplus W \mid s \in S \},
+$$
+identifies via $S \oplus W = V$ with a linear subspace $\Gamma(f) \subset V$. As the projection onto the first factor is an isomorphism with $S$, this subspace has dimension $k$. If $(s, f(s)) \in W$, then $s \in W \cap S$, so $s = 0$. Thus $\Gamma(f) \cap W = 0$, so $\Gamma(f) \in U_S$. This defines a map
+$$
+B: \Hom(S, W) \to U_S,
+\quad
+f \mapsto \Gamma(f).
+$$
+Let's now take $f \in \Hom(S, W)$. Then its image under the second map is the subspace $\Gamma(f) = \{(s, f(s)) \mid s \in S\}$. The restriction of $\pi_S$ to $\Gamma(f)$ is $\pi_S((s, f(s))) = s$. Then $\pi_W \circ (\pi_S|_{\Gamma(f)})^{-1}(s) = \pi_W((s, f(s))) = f(s)$, so $AB = \id_{\Hom(S, W)}$.
+
+Finally, take $S' \in U_S$. It maps to $\pi_W \circ (\pi_S|_{S'})^{-1}$. The graph of this morphism is $\{(s, \pi_W(s')) \mid s \in S\}$ where $s' \in S'$ is the unique element such that $\pi_S(s') = s$. This is equal to the set $\{(\pi_s(s'), \pi_W(s')) \mid s' \in S'\}$. That is just the image of $S'$ under the isomorphism $V \to S \oplus W$, so applying its inverse $S \oplus W \to V$ we get $BA = \id_{U_S}$.
+\end{proof}
+
+Each set $\Hom(S, W)$ is a complex vector space, and we transport its topology to the set $U_S$. This induces a topology on the Grassmannian. By construction, each point has a neighborhood homomorphic to a complex vector space. To show that we have a complex structure, we need to show the following:
+
+
+\begin{claim}
+  The transition morphisms between these neighborhoods are holomorphic.
+\end{claim}
+
+\begin{proof}
+Let $S, S' \in \Gr(k,V)$ be subspaces such that $U_S \cap U_{S'} \not= \varnothing$. We let $W,W' \subset V$ be the complementary subspaces chosen such that $S \oplus W = V$ and $S' \oplus W' = V$. Let $A = \{ f \in \Hom(S, W) \mid \Gamma(f) \cap W' = 0 \}$. This is an open set; by putting a Hermitian metric on $V$ we can test the distance of a subspace from $W$ on the unit sphere, where compactness lets us deform $f$ a little in any direction.
+
+The coordinate change map $A \to \Hom(S',W')$ first maps $f$ to $\Gamma(f)$ and then to $\pi_{W'} \circ (\pi_{S'|\Gamma(f)})^{-1}$. The map $(\pi_{S'|\Gamma(f)})^{-1}$ takes $s' \in S'$ and maps it to the unique $(s, f(s))$ such that $\pi_{S'}(s, f(s)) = s'$ (this makes sense because $f \in A$). This is just $s' \mapsto (\pi_{S'|S}^{-1}(s'), f \circ \pi_{S'|S}^{-1}(s'))$, so the coordinate change map is
+$$
+f \mapsto \pi_{W'} \circ f \circ (\pi_{S'}|_{S})^{-1}.
+$$
+This is the composition of some complex linear morphisms, and thus holomorphic in $f$.
+\end{proof}
+
+The Grassmannian is thus a complex manifold of dimension
+\[
+\dim \Hom(S, W) = k (n-k).
+\qedhere
+\]
+\end{proof}
+
+When we defined this complex structure we had to pick complementary subspaces $W$ for each point $S \in \Gr(k,V)$. As we have isomorphisms $\Hom(S, W) = \Hom(S, V/S)$ for every such $W$, changing the complementary subspace results in isomorphic local affine models.
+
+In fact we can just define the local models to be \emph{all} collections $U_S(W)$ for \emph{any} complementary subspace $W$ to $S$. Changing from one such $U_S(W)$ to another $U_S(W')$ (same $S$) amounts to a coordinate change map, which we have just shown are holomorphic, so we end up with the same manifold structure.
+
+We can't use $\Hom(S, V/S)$ directly as a local model for the manifold structure. This makes me sad because I don't like making arbitrary choices.\footnote{As you may have noticed from the rest of these notes.} However, this would lead us to look at sets of $S' \subset S \oplus V/S$ such that $S' \to S$ is an isomorphism. But then $S'$ is not a subspace of $V$, so it's not an element of the Grassmannian. We need to fix an isomorphism $V \cong S \oplus V/S$ to be able to proceed, and then we'd have to show that the result doesn't depend on the choice of that isomorphism.
+
+
+
+\paragraph{Grassmannians are homogeneous and compact}
+
+The general linear group $\GL(V)$ acts transitively on $V$ and sends $k$-dimensional subspaces to $k$-dimen\-sional subspaces. It thus acts on the Grassmannian as well.
+
+\begin{prop}
+$\GL(V)$ acts transitively on $\Gr(k,V)$.
+\end{prop}
+
+\begin{proof}
+It's easiest to prove this by picking bases (sigh). Let $S,S' \in \Gr(k, V)$. Pick a basis $(v_1,\ldots,v_n)$ of $V$ such that $S = \Span(v_1,\ldots,v_k)$, and a basis $(v_1', \ldots, v_n')$ such that $S' = \Span(v_1', \ldots, v_k')$. Then we can define $f \in \GL(V)$ by $f(v_j) = v_j'$ for all $j$, and $f(S) = S'$.
+\end{proof}
+
+The orbit-stabilizer theorem then gives:
+
+\begin{coro}
+For any $S \in \Gr(k, V)$, we have $\Gr(k, V) \cong \GL(V) / H_S$, where $H_S = \{ f \in \GL(V) \mid f(S) = S \}$ is the stabilizer of $S$.
+\end{coro}
+
+We're working over $\kk C$, where we also have actions by other groups. In particular, if we fix an inner product on $V$, then Gram--Schmidt implies that any subspace admits an orthonormal basis that extends to an orthonormal basis of $V$. That is:
+
+\begin{prop}
+If $h$ is a Hermitian inner product on $V$, then $U(V,h)$ acts transitively on $\Gr(k, V)$.
+\end{prop}
+
+As $U(V,h)$ is a compact Lie group, this gives:
+
+\begin{coro}
+\label{coro:grassmannian-is-compact}
+$\Gr(k, V)$ is compact.
+\end{coro}
+
+It's possible to prove the compactness of the Grassmannian without resorting to Lie groups. As it's a lot of fun to do so, we'll outline how to do~it.%
+
+\begin{proof}[Sketch of alternate proof of \thref{coro:grassmannian-is-compact}]
+Consider the incidence variety
+$$
+X = \{
+(l, S) \in \kk P(V) \times \Gr(k, V)
+\mid
+l \subset S
+\}.
+$$
+It is a smooth submanifold of $\kk P(V) \times \Gr(k, V)$.
+
+The projections $\pi_1 : X \to \kk P(V)$ and $\pi_2 : X \to \Gr(k, V)$ are holomorphic and surjective. The fiber $\pi_1^{-1}(l) = \{ S \in \Gr(k,V) \mid l \subset S \}$ identifies with the space of $(k-1)$-subspaces in $V / l$, so $\pi_1 : X \to \kk P(V)$ is a $\Gr(k-1,V/l)$-bundle. The fiber $\pi_2^{-1}(S)$ identifies with $\kk P(S)$, so $\pi_2 : X \to \Gr(k, V)$ is a projective bundle.
+
+We now reason by induction on $\dim V$ and $k$, the cases of $\dim V$ arbitrary and $k = 1$ having already been proven. Suppose that $\Gr(j, W)$ is compact for all $W$ with $\dim W < \dim V$ and $j < k$. The family $\pi_1 : X \to \kk P(V)$ is then a bundle with compact fibers over a compact base, so the total space $X$ is compact. The map $\pi_2 : X \to \Gr(k,V)$ is then a surjective continuous map, so $\Gr(k,V)$ is compact.
+\end{proof}
+
+
+
+\subsection{Universal bundles}
+
+Consider the trivial vector bundle $\cc V \to \Gr(k,V)$ of rank $\dim V$. Similarly to the case of projective space, each point of $\Gr(k,V)$ gives a subspace $S \subset V$. This defines the \emph{universal subbundle} $\cc S \subset \cc V$ whose fiber over $S$ is the subspace~$S$. We also get a quotient bundle $\cc Q = \cc V/\cc S$ and a short exact sequence
+$$
+0 \to \cc S \to \cc V \to \cc Q \to 0
+$$
+of vector bundles over $\Gr(k,V)$. The bundle $\cc S$ has rank $k$ and the bundle $\cc Q$ has rank $n-k$.
+
+
+\begin{prop}
+The bundles $\cc S$ and $\cc Q$ are holomorphic.
+\end{prop}
+
+\begin{proof}
+  It's enough to prove that $\cc S$ is holomorphic, because then $\cc Q = \cc V/\cc S$ is a quotient of holomorphic bundles.
+
+  Let $S \in \Gr(k, V)$ and let $W$ be an orthogonal complement. Over an affine chart $U_S$, the bundle $\cc S \to U_S$ is isomorphic to a trivial bundle as $\cc S \to U_S \times S$ via $(\id_{U_S}, \pi_S)$. If $S'$ is a different element with affine chart $U_{S'}$, the coordinate change function on the intersection $U_S \cap U_{S'}$ is $\pi_{S'}$. The trivializations are then related by $(U_S \cap U_{S'}) \times S \to (U_{S'} \cap U_S) \times S'$ by $(\pi_{S'}, \pi_{S'})$, which is holomorphic.
+\end{proof}
+
+
+\begin{prop}
+The tangent bundle of $\Gr(k,V)$ is isomorphic to $\cc S^* \otimes \cc Q$.
+\end{prop}
+
+
+\begin{proof}
+The Grassmannian is covered by neighborhoods around each $S$ that are isomorphic to $\Hom(S, W)$, where $W$ is a complement of $S$. All of these are isomorphic to $\Hom(S, V/S)$ via the quotient map $q : V \to V/S$. Thus
+\[
+\cc T_{\Gr(k,V),S}
+\cong \Hom(S,W)
+= \Hom(S,V/S)
+= (\cc S^* \otimes \cc Q)_S.
+\]
+The first isomorphism depends on the choice of $W$. Any difference from picking a different one gets eliminated by the passage to $\Hom(S,V/S)$, so the total isomorphism doesn't depend on $W$.
+\end{proof}
+
+
+\begin{coro}
+The canonical bundle is $K_{\Gr(k, V)} = -\det \cc Q^{n}$.
+\end{coro}
+
+\begin{proof}
+The short exact sequence
+$$
+0 \to \cc S \to \cc V \to \cc Q \to 0
+$$
+gives $\det \cc S \otimes \det \cc Q = \cc O$. Then
+\begin{align*}
+K_{\Gr(k,V)}
+= \det \cc T_{\Gr(k,V)}^*
+&= \det (\cc S^* \otimes \cc Q)^*
+\\
+&= - (\det \cc S^*)^{n-k} \otimes (\det \cc Q)^k
+= - (\det \cc Q)^{n}.
+\qedhere
+\end{align*}
+\end{proof}
+
+As a sanity check, on projective space we have $\det Q = \cc O(1)$ and this gives $K_{\kk P(V)} = \cc O(-\dim V)$. The usual formula is $K_{\kk P^n} = \cc O(-n-1)$, which matches with our convention here.
+
+
+If $S \subset V$ is a subspace of dimension $k$, then $\bigwedge^k S \subset \bigwedge^k V$ is also a subspace. As $\bigwedge^k S$ is a line, this defines a map $\Gr(k,V) \to \kk P(\bigwedge^k V)$ called the \emph{Pl\"ucker embedding}. We're not going to use it, but will just mention that it is an honest holomorphic embedding, and that the pullback of $\cc O(1)$ via it is $\det \cc Q$.
+
+
+
+\subsection{Metric and curvature}
+
+If we fix a Hermitian inner product on $V$, we get a flat Hermitian metric on $\cc V$. It induces Hermitian metrics $h_{\cc S}$ and $h_{\cc Q}$ on $\cc S$ and $\cc Q$. The quotient $\cc Q$ is then positively curved and the subbundle $\cc S$ negatively curved, so the tangent bundle $\cc T_{\Gr(k,V)} = \cc S^* \otimes \cc Q$ should be positively curved. This was the case for the projective space, and we'll see that it is the case as well for the general Grassmannian.
+
+
+Recall that if $S$ and $Q$ are finite-dimensional complex vector spaces with inner products $h_S$ and $h_Q$, then the space $\Hom(S,Q)$ admits the Fr\"obenius inner product
+$$
+\langle f, g \rangle
+= \tr(h_S^{-1} \overline g^* h_Q f).
+$$
+If $S^* \otimes Q$ is equipped with the induced inner product $h_S^* \otimes h_Q$, then the canonical map $S^* \otimes Q \to \Hom(S,Q)$ is an isometry. Either way, we get a Hermitian metric $h$ on $\Gr(k,V) \cong \Hom(\cc S, \cc Q) \cong \cc S^* \otimes \cc Q$.
+
+
+\begin{prop}
+The Hermitian metric $h$ is K\"ahler and invariant under the transitive action of $U(V)$ on $\Gr(k,V)$.
+\end{prop}
+
+\begin{proof}
+The invariance is easiest to see on $h_{\cc S}^* \otimes h_{\cc Q}$. If $f \in U(V)$, it's clear that the metric on $\cc S$ is invariant under $f$, as it is just the restriction of the flat (and invariant) metric to $\cc S$. By identifying $\cc Q$ with the orthogonal complement of $\cc S$, the same is true for $h_{\cc Q}$, and thus for $h_{\cc S}^* \otimes h_{\cc Q}$.
+
+To see the K\"ahler property, we'll pick a point $S \in \Gr(k,V)$, and pick an orthonormal basis $(v_1,\ldots,v_n)$ of $V$ such that $S = \Span(v_1, \ldots,v_k)$. The tangent space at $S$ then identifies with the space of $(n-k) \times k$ matrices $Z$, and the metric is
+$$
+\langle Z, W \rangle = \tr(W^*Z)
+$$
+at $S$. This is the Hermitian form associated to
+$$
+\omega
+= \tfrac i2 \partial\bar\partial \tr(Z^* Z)
+= \tfrac i2 \tr(d\overline Z^t \wedge dZ),
+$$
+which is clearly closed.
+
+To see the K\"ahler property, we pick a point $S \in \Gr(k,V)$ and let $S^\perp$ be its orthogonal complement with respect to the inner product on $V$. We now get an open neighborhood around $S$ that is isomorphic to a neighborhood $U$ of $0$ in $\Hom(S, S^\perp)$. At a point $\alpha \in \Hom(S,S^\perp)$, our Hermitian metric is given by
+% S \to \Gamma(\alpha) = s + \alpha(s)
+%
+$$
+h_\alpha(f, g)
+= \tr().
+$$
+
+
+ As an open set in a complex vector space, this neighborhood admits the holomorphic Euler vector field $\xi(f) = f$. We have
+\begin{align*}
+\tfrac i2 \partial\bar\partial \log |\xi|^2
+&= \tfrac i2 \partial \frac{\tr(h^{-1} d\bar \xi^t h \xi)}{|\xi|^2}
+\\
+&= \frac i2
+\frac{\tr(h^{-1}\xi^t h d\xi)}{|\xi|^2}
+\wedge
+\frac{\tr(h^{-1} d\bar \xi^t h d \xi)}{|\xi|^2}
+- \frac i2 \frac{\tr(h^{-1} d\bar \xi^t \wedge h d\xi)}{|\xi|^2}
+\end{align*}
+so
+\end{proof}
+
+\begin{prop}
+The curvature tensors of the universal sub- and quotient bundles~are%
+\begin{align*}
+R_{\cc S}(f,g,s,t) &= - h_{\cc Q}(f(s), g(t)),
+\\
+R_{\cc Q}(f,g,q,r) &= h_{\cc S}(f^t(q), g^t(r)).
+\end{align*}
+\end{prop}
+
+\begin{proof}
+We know the second fundamental form of $\cc S$ in $\cc Q$ is $b(f, s) = f(s)$. The result then follows from the holomorphic Codazzi equations~\ref{prop:codazzi-equation} for sub- and quotient bundles as the ambient bundle is flat.
+\end{proof}
+
+Note that the subbundle $\cc S$ is only seminegative in general. If $\dim S > 1$, then there always exists a linear morphism $f: S \to Q$ such that $f \not= 0$ but $\Ker f \not= 0$. If $s \in \Ker f \setminus \{0\}$, then we'll have $R_{\cc S}(f,f,s,s) = 0$ for nonzero $f$ and $s$. When $\dim S = 1$ we're looking at the projective space, where we know the tautological line bundle is strictly negative.
+
+
+
 \section{TODO: Flag manifold}
 \label{sec:orga0ef6a0}
 
@@ -2075,7 +2654,7 @@ Let $(E, h) \to X$ be a holomorphic Hermitian vector bundle of rank $r + 1$ over
 
 As before there is a tautological line bundle $\cc O(-1) \to \kk P(E)$, and the metric $h$ defines a Hermitian metric on it. We want to compute the curvature form of this metric, and later see if we can turn that form into an honest K\"ahler metric.
 
-It is enough to perform these computations locally. In this case I think we are even forced to. If we try to play the same trick as in section~\ref{projective-space-redux} we end up having to compute the value of the pullback of a connection on the Euler section that trivializes $\cc O(-1)$ over the total space of $E$ minus the zero section. But the pullback of the connection is defined on pullbacks of sections and extended by linearity, and the Euler section is not the pullback of a section downstairs, so we have to look at the local picture.
+It is enough to perform these computations locally. In this case I think we are even forced to. If we try to play the same trick as in \thref{sec:projective-space-redux} we end up having to compute the value of the pullback of a connection on the Euler section that trivializes $\cc O(-1)$ over the total space of $E$ minus the zero section. But the pullback of the connection is defined on pullbacks of sections and extended by linearity, and the Euler section is not the pullback of a section downstairs, so we have to look at the local picture.
 
 In any case, we pick a point of interest $(x_0, [v_0])$ of $\kk P(E)$. As $E \to X$ is a vector bundle, there is a neighborhood $U \subset X$ of $x$ such that $E|_U \cong U \times V$, where $V$ is the fiber of $E$. It follows that the projective bundle also splits holomorphically over that neighborhood; $\kk P(E)|_U \cong U \times \kk P(V)$. We pick $\lambda \in V^*$ that does not vanish on any representative of $[v]$, and consider the neighborhood $U \times H_\lambda$ of $(x, [v])$. There we have the holomorphic Euler section $\xi(x, v) = v$ that trivializes the tautological bundle. We want to compute the (negative of the) curvature form
 $$
@@ -2308,7 +2887,7 @@ Done in \cite{vitter1974curvature}, which I can verify once scihub's search come
 
 
 \section{TODO: Complexified K\"ahler cone}
-\label{complexified-kahler-cone}
+\label{sec:complexified-kahler-cone}
 
 
 

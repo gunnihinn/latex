@@ -2,7 +2,7 @@
 
 let
   tex = pkgs.texlive.combine {
-    inherit (pkgs.texlive) scheme-medium capt-of wrapfig;
+    inherit (pkgs.texlive) scheme-medium capt-of wrapfig tikz-cd ntheorem;
   };
 
 in pkgs.mkShell {
