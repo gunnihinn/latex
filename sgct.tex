@@ -1808,11 +1808,13 @@ There is also an equation relating the curvature of the quotient bundle $Q$ and 
 \begin{prop}
 The curvature tensors of $Q$ and $E$ satisfy
 \[
-R_Q(\alpha,\beta,q s,q t)
-= R_{E}(\alpha,\beta,s,t)
-+ h_S(b_S^\dagger(\alpha,q s), b_S^\dagger(\beta,q t)),
+R_Q(\alpha,\ov\beta,q s, \ov{q t})
+= R_{E}(\alpha,\ov\beta,s,\ov t)
++ h_S(b_S^\dagger(\ov\beta,q s),\ov{ b_S^\dagger(\ov\alpha,q t)}),
 \]
-where $s, t$ are sections of $E$, $\alpha,\beta$ are tangent fields on $X$ and $b_S^\dagger \in \Hom(Q,S)$ is the adjoint of the second fundamental form of $S$.
+where $s, t$ are sections of $E$, $\alpha,\beta$ are tangent fields on
+$X$ and $b_S^\dagger \in \cc A^{0,1}(\Hom(Q,S))$ is the adjoint of the second
+fundamental form of $S$.
 \end{prop}
 
 \begin{proof}
@@ -2381,7 +2383,7 @@ $$
 By inspection, we recognize this as the curvature tensor of a metric with constant holomorphic sectional curvature $-2$. It follows that this is a K\"ahler--Einstein metric with $r(\alpha,\beta) = - (n+1) h(\alpha,\beta)$, and that its scalar curvature is $-n(n+1)$.
 
 
-\section{TODO: Grassmannian}
+\section{Grassmannian}
 \label{sec:org34425b6}
 
 Let $V$ be a complex vector space of dimension $n$.
@@ -2600,83 +2602,6 @@ If $S \subset V$ is a subspace of dimension $k$, then $\bigwedge^k S \subset \bi
 
 
 \subsection{Metric and curvature}
-
-We begin with some amusement. Consider a short exact sequence
-\[
-\begin{tikzcd}
-0 \ar[r] & S \ar[r,"j"] & V \ar[r,"q"] & Q \ar[r] & 0
-\end{tikzcd}
-\]
-of vector spaces. We get two linear morphisms
-\[
-\theta : \Hom(Q,S) \to \End V,
-\quad
-f \mapsto j \circ f \circ q
-\]
-and
-\[
-\phi : \End V \to \Hom(S,Q),
-\quad
-f \mapsto q \circ f \circ j.
-\]
-To see these morphisms clearer, we pick a splitting
-$V \cong S \oplus Q$. Then
-\[
-\End V
-= \End S \oplus \Hom(S, Q) \oplus \Hom(Q,S) \oplus \End Q
-\]
-The map $\theta : \Hom(Q,S) \to \End V$ corresponds to the injection
-into the direct sum, while $\phi : \End V \to \Hom(S,Q)$ corresponds
-to the projection onto that factor. Thus $\theta$ is injective, $\phi$
-is surjective, and $\im \theta \subset \Ker \phi$.
-
-We do not have $\Ker \phi \subset \im \theta$, as there are plenty of morphisms in $\Ker \phi$ that are not in $\im \theta$, like any element of $\End S$ or $\End Q$. This is of course very sad.
-
-Finally, note that
-\[
-\Hom(Q,S)
-= Q^* \otimes S
-= (S^* \otimes Q)^*
-= \Hom(S,Q)^*
-\]
-where all the equality signs are natural isomorphisms because our spaces are finite-dimensional.
-That is, given a short exact sequence like we began with, we naturally get exact sequences
-\[
-\begin{tikzcd}
-0 \ar[r] &
-\Hom(S,Q)^* \ar[r,"\theta"] &
-\End V
-\end{tikzcd}
-\]
-and
-\[
-\begin{tikzcd}
-\End V \ar[r,"\phi"] &
-\Hom(S,Q) \ar[r] &
-0.
-\end{tikzcd}
-\]
-If $V$ is equipped with a Hermitian inner product $h$ then $\End V$ has the Fr\"obenius inner product
-\[
-\langle f, g \rangle
-= \tr(h^{-1} \ov g^* h f).
-\]
-It induces inner products on the subspace and quotient as usual. In the context of the Grassmannian, this gives:
-
-\begin{prop}
-There is a surjective morphism
-\[
-\begin{tikzcd}
-\End V \ar[r] & T_{\Gr} \ar[r] & 0
-\end{tikzcd}
-\]
-of holomorphic vector bundles over $\Gr(k,V)$, and $\End V$ is equipped with a flat Hermitian metric.
-\end{prop}
-
-As a corollary of the holomorphic Codazzi equations, $T_{\Gr}$ is semipositive when equipped with the induced metric. We have $(\End V)^* = \End V$, so taking the dual realizes $\Omega_{\Gr}^1$ as a subbundle of $\End V$. It is thus seminegative when equipped with the dual metric or, which is the same thing, the metric induced as a subbundle.
-
-
-\paragraph{}
 
 
 We want to calculate the Chern connection and curvature of the metric on the Grassmannian. We begin with some technical points.
@@ -2944,7 +2869,7 @@ h(\beta^\dagger\gamma(v_l), \ov{\alpha^\dagger\delta(v_l)})_{S}
 $$
 where the last equality holds because the Fr\"obenius inner product of two morphisms is equal to the sum of inner products of their column vectors in a basis.
 
-The first term is slightly more trouble. We have
+The first term is not much more trouble. We have
 $$
 \displaylines{
 h\bigl((-\Theta_S \otimes \id_Q)(\alpha,\ov\beta,\gamma), \ov\delta)_{S^* \otimes Q}
@@ -2959,39 +2884,169 @@ h\biggl(
 \hfill\cr{}
 \qquad
 = \sum_{l,m=1}^k
--R_{\cc S}(\alpha,\ov\beta,v_l,\ov{v_m})
+-R_{\cc S}(\alpha,\ov\beta,v_m,\ov{v_l})
 \cdot h(\gamma(v_l), \ov{\delta(v_m)})_Q
 \hfill\cr{}
 \qquad
 = \sum_{l,m=1}^k
-h(\alpha(v_l), \ov{\beta(v_m)})_Q
-\cdot h(\gamma(v_l), \ov{\delta(v_m)})_Q.
+h(\alpha(v_m), \ov{\beta(v_l)})_Q
+\cdot h(\gamma(v_l), \ov{\delta(v_m)})_Q
+\hfill\cr{}
+\qquad
+= \sum_{m=1}^k
+\sum_{l=1}^k
+h(\beta^\dagger\alpha(v_m), \ov{v_l})_S
+\cdot h(v_l, \ov{\gamma^\dagger\delta(v_m)})_S
+\hfill\cr{}
+\qquad
+= \sum_{m=1}^k
+h(\beta^\dagger\alpha(v_m),
+\ov{\gamma^\dagger\delta(v_m)})_S
+= h(\beta^\dagger\alpha,
+\ov{\gamma^\dagger\delta})_{\End S}.
 \hfill
 }
 $$
-If $f$ is a linear morphism, we'll identify it with $\sum_{l,m} f_{jk} v_j^* \otimes v_m$. Below we'll use the Einstein summation convention, where there is an implicit sum over any index that occurs twice. We have
-\begin{align*}
-h(\alpha(v_l), \ov{\beta(v_m)})_Q
-\cdot h(\gamma(v_l), \ov{\delta(v_m)})_Q
-&=
-h(\alpha_{jl} v_j, \ov{\beta_{km} v_k})_Q
-\cdot
-h(\gamma_{jl} v_j, \ov{\delta_{km} v_k})_Q
-\\
-&= \alpha_{jl} \ov\beta_{jm} \gamma_{jl} \ov\delta_{jm}
-\\
-&= \ov{(\ov\gamma_{lj}^t \delta_{jm})} (\ov\beta_{mj}^t \alpha_{jl})
-\\
-&= h(\beta^\dagger \alpha, \ov{\gamma^\dagger \delta})_{\End S}.
-\end{align*}
-Adding the two terms together finishes the proof.
+Note that $v_l$ and $v_m$ get swapped when passing from the curvature form on $S^*$ to the negative of the one on $S$.
+Adding the two terms together now finishes the proof.
 \end{proof}
 
 
 
-TODO: Holomorphic bisectional curvature is semipositive, can be zero if $k > 1$. Holomorphic sectional curvature pinched between 1 and 2, not constant if $k > 1$. Ricci tensor is a multiple of the metric so the Grassmannian is K\"ahler--Einstein and Fano.
+\begin{prop}
+\begin{itemize}
+\item
+The holomorphic bisectional curvature satisfies
+\[
+0 \leq B(\alpha,\beta)
+\leq 2.
+\]
+If $1 < k < n$ then the holomorphic bisectional curvature can be zero.
+\item
+The holomorphic sectional curvature satisfies
+\[
+\frac{2}{k^2} \leq H(\alpha) \leq 2.
+\]
+\item
+The Ricci tensor is
+\[
+r(\alpha,\ov\beta) = n \, h(\alpha,\ov\beta)
+\]
+so the metric is K\"ahler--Einstein and the Grassmannian is a Fano manifold.
+\end{itemize}
+\end{prop}
 
 
+\begin{proof}
+Recall that the holomorphic bisectional curvature is
+\[
+B(\alpha,\beta)
+= \frac{R(\alpha,\ov\alpha,\beta,\ov\beta)}{|\alpha|^2|\beta|^2}.
+\]
+We already know that $R$ is Griffiths-semipositive, as the curvature tensor is equal to the one on $\cc S^* \otimes \cc Q$, and $\cc S$ is non-positive and $\cc Q$ is non-negative by the holomorphic Codazzi equations~\ref{prop:codazzi-equation}. Thus $B \geq 0$.
+
+We have
+\[
+R(\alpha,\ov\alpha,\beta,\ov\beta)
+= \langle \alpha^\dagger \alpha, \ov{\beta^\dagger \beta} \rangle
++ |\alpha^\dagger \beta|^2
+\]
+If $1 < k < n-1$, then both $S$ and $Q$ have dimension greater than 1.
+We can then find two orthogonal lines in $S$ and two orthogonal lines
+in $Q$. Let $\alpha : S \to Q$ send one line in $S$ to one line in $Q$
+and other vectors to 0, and $\beta : S \to Q$ be similar but to
+operate on the other pair of lines.
+Then $\alpha^\dagger \beta = 0$, and $\alpha^\dagger \alpha$ is a morphism that scales one line in $S$ by some nonzero number, and likewise for $\beta^\dagger \beta$. As the lines are orthogonal, we have $\langle \alpha^\dagger \alpha, \beta^\dagger \beta \rangle = 0$. Then $B(\alpha,\beta) = 0$.
+
+If $k = 1$ or $k = n-1$ then we're looking at the Fubini--Study metric on projective space, which we know to have positive holomorphic bisectional curvature.
+
+For the upper bound,
+Cauchy--Schwarz gives
+\[
+|\langle \alpha^\dagger \alpha, \ov{\beta^\dagger \beta} \rangle|^2
+\leq
+|\alpha^\dagger \alpha|^2 |\beta^\dagger \beta|^2
+\]
+with equality if and only if $\alpha^\dagger\alpha$ and $\beta^\dagger\beta$ are linearly dependent.
+The Fr\"obenius norm is submultiplicative, so we further get that
+\[
+|\langle \alpha^\dagger \alpha, \ov{\beta^\dagger \beta} \rangle|
+\leq |\alpha|^2 |\beta|^2
+\qandq
+|\alpha^\dagger \beta|^2
+\leq |\alpha|^2 |\beta|^2.
+\]
+Then
+\[
+B(\alpha,\beta) \leq 2
+\]
+and equality can be acheived.
+
+The holomorphic sectional curvature is
+\[
+H(\alpha) = 2 \frac{|\alpha^\dagger \alpha|^2}{|\alpha|^4} \leq 2.
+\]
+We have
+\[
+|\alpha|^2
+= \langle \alpha^\dagger \alpha, \id_S \rangle
+\leq k \, |\alpha^\dagger \alpha|
+\]
+by Cauchy--Schwarz, so
+\[
+\frac{2}{k^2} \leq H(\alpha) \leq 2
+\]
+for all $\alpha$, with equality on the left-hand side if and only if
+$\alpha^\dagger \alpha$ is a multiple of the identity. This happens
+when the nonzero morphism $\alpha : S \to Q$ is injective; thus it \emph{always} happens when $k = 1$, and \emph{never} happens when $k > n-k$.\footnote{The situations for $k$ and $n-k$ are the same, as $\Gr(k,V) = \Gr(n-k,V^*)$, so for $k > n-k$ the optimal bound lower bound is $2/(n-k)^2$.}
+
+
+For the Ricci tensor, we let $(v_1,\ldots,v_n)$ be an orthonormal basis of $V$ such that $(v_1,\ldots,v_k)$ is a basis of $S$ and identify $Q$ with $S^\perp = \Span(v_{k+1},\ldots,v_n)$.
+Then $v_{lm} = v_m \otimes v_l^*$ for $1 \leq l \leq k$ and $k+1 \leq m \leq n$ form an orthonormal basis of $\Hom(S,Q)$.
+We want to calculate
+\[
+r(\alpha,\ov\beta)
+= \sum_{l,m} R(\alpha,\ov\beta,v_{lm}, \ov v_{lm})
+= \sum_{l,m}
+\langle \beta^\dagger \alpha, \ov{ v_{lm}^\dagger v_{lm}} \rangle
++ \langle \beta^\dagger v_{lm}, \ov{ \alpha^\dagger v_{lm} }\rangle.
+\]
+For the first sum, note that $v_{lm}^\dagger v_{lm} = (v_m^* \otimes v_l)(v_m \otimes v_l^*) = v_l^* \otimes v_l$. Then
+\[
+\sum_{l,m} \langle \beta^\dagger \alpha, \ov{ v_{lm}^\dagger v_{lm}} \rangle
+= \sum_{l,m} \langle \beta^\dagger \alpha, \ov{ v_{l}^* v_{l}} \rangle
+= \sum_{m} \langle \beta^\dagger \alpha, \ov{\id_S}\rangle
+= (n-k) \langle \alpha, \ov \beta \rangle.
+\]
+If $f : S \to Q$ is a linear morphism, we identify it with $\sum_{r,s}
+f_{sr} v_r^* \otimes v_s$. Then $f^\dagger = \sum_{r,s} \ov f_{rs}
+v_r \otimes v_s^*$, and
+\[
+f^\dagger v_{lm}
+= \sum_{r,s} \ov f_{rs} (v_r \otimes v_s^*)(v_m \otimes v_l^*)
+= \sum_{r} \ov f_{rm} v_r \otimes v_l^*.
+\]
+Then
+\begin{align*}
+\sum_{l,m} \langle \beta^\dagger v_{lm}, \ov{ \alpha^\dagger v_{lm} }\rangle
+&= \sum_{l,m} \sum_{r,s} \alpha_{sm} \ov \beta_{rm}
+\langle v_r \otimes v_l^*, \ov{v_s \otimes v_l^*} \rangle
+\\
+&= \sum_{l} \sum_{m,r} \alpha_{rm} \ov \beta_{rm}
+= k \langle \alpha, \ov\beta \rangle.
+\end{align*}
+Together, we get $r(\alpha,\ov\beta) = n \, h(\alpha, \ov\beta)$.\footnote{This \emph{does} match with what we found for the Fubini--Study metric. There we got the Einstein constant $n+1$ on the projective space of dimension $n$, but that is the dimension of the vector space $V$ we started from and not of the projective space.}
+\end{proof}
+
+
+Projective space is characterized by having Griffiths-positive
+curvature. We have seen the Grassmannian has Griffiths-semipositive
+curvature, and could ask whether that characterizes the Grassmannians?
+This is much too optimistic, as the product of a projective space and
+a torus has semipositive curvature. There are also in fact more
+irreducible manifolds with semipositive curvature.
+Mok~\cite{mok1988uniformization} found all of them by studying a version of Hamilton's Ricci flow for K\"ahler manifolds. The manifolds he obtains include the
+Grassmannians, but also other symmetric spaces.
 
 \section{Hopf manifold}
 \label{sec:org8f5818e}
