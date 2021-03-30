@@ -1,12 +1,10 @@
-\documentclass[11pt]{article}
+\documentclass[10pt,a4paper]{article}
 
-\usepackage{tgpagella}
+\usepackage{lmodern}
 \linespread{1.1}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-\usepackage[normalem]{ulem}
-\usepackage{textcomp}
 \usepackage{fancyref}
 \usepackage[colorlinks=true]{hyperref}
 
@@ -1888,6 +1886,143 @@ One can actually prove that the class of $b^\dagger$ represents the extension cl
 
 
 
+\begin{prop}
+The curvature tensor of $\Hom(S,Q)$ is
+\[
+R(\alpha,\ov\beta,f,\ov g)
+= h(b(\beta)^\dagger b(\alpha), \ov{f^\dagger g})_{\End S}
++ h(b(\beta)^\dagger f, \ov{b(\alpha)^\dagger g})_{\End S},
+\]
+where $b$ is the second fundamental form of $S$,
+$\alpha,\beta \in T_X$ and $f,g \in \cc \Hom(S,Q)$.
+\end{prop}
+
+
+\begin{proof}
+We have $\Hom(S, Q) = S^* \otimes Q$. We thus have $\Theta_{\Hom(S,Q)} = -\Theta_S \otimes \id_Q + \id_{S^*} \otimes \Theta_Q$.
+The curvature tensors of the universal sub- and quotient bundles~are%
+\begin{align*}
+R_{S}(\alpha,\ov \beta,s,\ov t)
+&= R_E(\alpha,\ov\beta,js, \ov{jt})
+- h_{Q}(b(\alpha)(s), \ov{b(\beta)(t)}),
+\\
+R_{Q}(\alpha,\ov \beta, z, \ov w)
+&= R_E(\alpha,\ov\beta,q^\dagger z, \ov{q^\dagger w})
++ h_{S}(b(\beta)^\dagger(z), \ov{b(\alpha)^\dagger(w)})
+\end{align*}
+by the holomorphic Codazzi equations~\ref{prop:codazzi-equation}.
+
+We pick an orthonormal basis $(v_1,\ldots,v_n)$ of $E$ so that $S = \Span(v_1, \ldots, v_k)$ and identify $Q$ with $S^\perp = \Span(v_{k+1},\ldots,v_n)$. A morphism $f : S \to Q$ then identifies with the element $\sum_{j=1}^k v_j^* \otimes f(v_j)$ of $S^* \otimes Q$.
+
+The easier part of the curvature tensor is the second term
+$$
+\displaylines{
+h\bigl((\id_{S^*} \otimes \Theta_Q)(\alpha,\ov\beta,f), \ov g\bigr)_{S^* \otimes Q}
+\hfill\cr{}
+\qquad
+= h
+\biggl((\id_{S^*} \otimes \Theta_Q)\Bigl(\alpha, \ov\beta,
+\sum_{l=1}^k v_l^* \otimes f(v_l)\Bigr), \sum_{m=1}^k \ov{v_m^* \otimes g(v_m)}
+\biggr)_{S^* \otimes Q}
+\hfill\cr{}
+\qquad
+= \sum_{l,m=1}^k
+h(v_l^*, \ov{v_m^*})_{S^*}
+\cdot
+R_{\cc Q}(\alpha,\ov\beta,f(v_l),\ov{g(v_m)})
+\hfill\cr{}
+\qquad
+= \sum_{l=1}^k
+R_E(\alpha,\ov\beta, q^\dagger f(v_l), \ov{q^\dagger g(v_l)})
++ h(b(\beta)^\dagger f(v_l), \ov{b(\alpha)^\dagger g(v_l)})_{S}
+\hfill\cr{}
+\qquad
+=
+\sum_{l=1}^k
+R_E(\alpha,\ov\beta, q^\dagger f(v_l), \ov{q^\dagger g(v_l)})
++ h(b(\beta)^\dagger f, \ov{b(\alpha)^\dagger g})_{\End S},
+\hfill
+}
+$$
+where the last equality holds because the Fr\"obenius inner product of two morphisms is equal to the sum of inner products of their column vectors in a basis.
+
+The first term is not much more trouble. We have
+$$
+\displaylines{
+h\bigl((-\Theta_S \otimes \id_Q)(\alpha,\ov\beta,f), \ov g)_{S^* \otimes Q}
+\hfill\cr{}
+\qquad
+=
+h\biggl(
+(\Theta_{S^*} \otimes \id_Q)\Bigl(\alpha,\ov\beta,
+\sum_{l=1}^k v_l^* \otimes f(v_l) \Bigr),
+\sum_{m=1}^k \ov{v_m^* \otimes g(v_m)}
+\biggr)_{S^*\otimes Q}
+\hfill\cr{}
+\qquad
+= \sum_{l,m=1}^k
+-R_{S}(\alpha,\ov\beta,v_m,\ov{v_l})
+\cdot h(f(v_l), \ov{g(v_m)})_Q
+\hfill\cr{}
+\qquad
+= \sum_{l,m=1}^k
+\bigl(
+h(b(\alpha)(v_m), \ov{b(\beta)(v_l)})_Q
+- R_E(\alpha,\ov\beta, j v_m, \ov {j v_l})
+\bigr)
+\cdot h(f(v_l), \ov{g(v_m)})_Q
+\hfill\cr{}
+\qquad
+= \sum_{m=1}^k
+\sum_{l=1}^k
+\bigl(
+h(b(\beta)^\dagger b(\alpha)(v_m), \ov{v_l})_S
+- R_E(\alpha,\ov\beta, j v_m, \ov{j v_l})
+\bigr)
+\cdot h(v_l, \ov{f^\dagger g(v_m)})_S
+\hfill\cr{}
+\qquad
+= \sum_{m=1}^k
+h(b(\beta)^\dagger b(\alpha)(v_m),
+\ov{f^\dagger g(v_m)})_S
+- R_E(\alpha, \ov\beta, j v_m, \ov{j f^\dagger g(v_m)})
+\hfill\cr{}
+\qquad
+= h(b(\beta)^\dagger b(\alpha), \ov{f^\dagger g})_{\End S}
+- \sum_{m=1}^k
+R_E(\alpha, \ov\beta, j v_m, \ov{j f^\dagger g(v_m)}).
+\hfill
+}
+$$
+Note that $v_l$ and $v_m$ get swapped when passing from the curvature form on $S^*$ to the negative of the one on $S$.
+
+The curvature tensor is $\cc C^\infty$-linear in its variables, so for any smooth endomorphism $f$ of $E$ we have
+\[
+\langle \Theta_{\alpha\ov\beta} f(s), \ov t \rangle
+= \langle f(\Theta_{\alpha\ov\beta} s), \ov t \rangle.
+\]
+We can apply this to the endomorphism $q^\dagger \circ f \circ j^\dagger$ of $E$. That gives
+\begin{align*}
+R_E(\alpha,\ov\beta,q^\dagger f j^\dagger (v), \ov w)
+&= \langle \Theta_{\alpha\ov\beta} q^\dagger f j^\dagger(v),\ov w \rangle
+\\
+&= \langle q^\dagger f j^\dagger \Theta_{\alpha\ov\beta}v, \ov w \rangle
+\\
+&= \langle \Theta_{\alpha\ov\beta} v, \ov{ j f^\dagger q (w) }\rangle
+= R_E(\alpha,\ov\beta, v, \ov{ j f^\dagger q( w) }).
+\end{align*}
+For $v \in S$ and $w = q^\dagger g(v)$ this yields
+\[
+R_E(\alpha,\ov\beta,q^\dagger f (v), \ov{q^\dagger g(v)})
+= R_E(\alpha,\ov\beta, jv, \ov{j f^\dagger g(v)}).
+\]
+The terms involving $R_E$ in our expression thus cancel out, and the proof is acheived.
+\end{proof}
+
+
+
+
+
 \paragraph{Failing to construct K\"ahler metrics}
 
 
@@ -2665,19 +2800,19 @@ Applying this to the real and imaginary parts of $|z_j|^2$ we get
 The value of the constant here is $\Vol(S(V,h)) / n$, but that won't be important.
 
 
-To construct a metric on $\Gr(k,V)$, we're going to fix an inner product $h_V$ on $V$. We have an isomorphism
+To construct a metric on $\Gr(k,V)$, we're going to fix an inner product $h_V$ on $V$. The second fundamental form gives an isomorphism
 \[
-\cc T_{\Gr} = \Hom(\cc S, \cc Q)
+b : T_{\Gr} \to \Hom(\cc S, \cc Q)
 \]
 and the fiber of the right-hand side at $S \in \Gr(k,V)$ is $\Hom(S, Q)$, where $Q = V/S$. The inner product on $V$ induces inner products on $S$ and $Q$, and in fact Hermitian metrics on $\cc S$ and $\cc Q$. We then have the Fr\"obenius (or Hilbert--Schmidt) inner product on $\Hom(S,Q)$, defined by
 \[
 h(f, g) = \tr(h_S^{-1} \ov g^* h_Q f),
 \]
-where $f, g \in \Hom(S,Q)$. As $h_S$ and $h_Q$ vary smoothly with $S$, this defines a smooth Hermitian metric on $\Gr(k,V)$.
+where $f, g \in \Hom(S,Q)$. As $h_S$ and $h_Q$ vary smoothly with $S$, this defines a smooth Hermitian metric on $\Hom(\cc S,\cc Q)$ that we pull back via $b$ to a metric on $\Gr(k,V)$.
 
 
 \begin{prop}
-The Chern connection of this metric is $D_{\Hom(S,Q)}$, where the connection is constructed from the Chern connections induced by the flat metric $h_V$ on $V$.
+The Chern connection of this metric is $D\alpha = D_{\Hom(S,Q)}(b(\alpha))$, where the connection is constructed from the Chern connections induced by the flat metric $h_V$ on $V$.
 \end{prop}
 
 \begin{proof}
@@ -2769,54 +2904,61 @@ d h(f,g)
 \end{align*}
 \end{proof}
 
+\begin{proof}[Alternate 2: Electric bugaloo]
+As the metric on $V$ is flat, we have $D_{\Hom(S,Q)}b = 0$. Then
+\[
+D_{\Hom(S,Q)}(b(\alpha))
+= (D_{\Hom(S,Q)}b)(\alpha) + b(D\alpha)
+= b(D\alpha).
+\]
+In particular, because $\bar\partial b = 0$, we see that $D^{0,1} = \bar\partial$.
+Now,
+\begin{align*}
+d\langle \alpha, \ov\beta \rangle
+= d \langle b(\alpha), \ov{b(\beta)} \rangle
+&= \langle D(b(\alpha)), \ov{b(\beta)} \rangle
++ \langle b(\alpha), \ov{D(b(\beta))} \rangle
+\\
+&= \langle b(D\alpha)), \ov{b(\beta)} \rangle
++ \langle b(\alpha), \ov{b(D\beta)} \rangle
+\\
+&= \langle D\alpha, \ov \beta \rangle
++ \langle \alpha, \ov{D\beta} \rangle
+\end{align*}
+so $D$ is compatible with the metric.
+\end{proof}
+
 
 \begin{prop}
 The metric $h$ on $\Gr(k,V)$ is K\"ahler.
 \end{prop}
 
 \begin{proof}
-Let $S \in \Gr(k,V)$ and let $\Hom(S,S^\perp)$ be an affine neighborhood centered at $S$. We define a smooth closed $(1,1)$-form on this neighborhood by
-\[
-\omega = -\frac i2 \partial\bar\partial \log \det (\id_S + \xi^\dagger \xi),
-\]
-where $\xi$ is the Euler field. We claim this is actually a form on all of $\Gr(k,V)$.
-
-The coordinate change map from one $\Hom(S,S^\perp)$ to $\Hom(T,T^\perp)$ is $\theta(f) = \pi_{T^\perp} \circ f \circ (\pi_{T|S})^{-1}$. We have
-\begin{align*}
-(\pi_{T^\perp} g (\pi_{T|S})^{-1})^\dagger (\pi_{T^\perp} f (\pi_{T|S})^{-1})
-&=
-(\pi_{T|S})^{-1,\dagger} g^\dagger \pi_{T^\perp}^\dagger \pi_{T^\perp} f (\pi_{T|S})^{-1}
-\\
-&= (\pi_{T|S})^{-1,\dagger} g^\dagger f (\pi_{T|S})^{-1}
-\end{align*}
+If $\alpha$ and $\beta$ are tangent fields, then
+\(
+b(D_\alpha \beta)
+= D_{\Hom(S,Q),\alpha} b(\beta)
+\),
 so
-\[
-\id_T + (\pi_{T|S})^{-1,\dagger} g^\dagger f (\pi_{T|S})^{-1}
-= (\pi_{T|S})^{-1,\dagger}(\id_S + g^\dagger f)  (\pi_{T|S})^{-1}.
-\]
-Now,
-\[
-\partial\bar\partial \log \det((\pi_{T|S})^{-1,\dagger}(\pi_{T|S})^{-1}) = 0
-\]
-as one part in the morphism composition is holomorphic while the other is antiholomorphic, so we conclude that the local representations of $\omega$ glue together on coordinate charts. It thus represents a smooth closed $(1,1)$-form on $\Gr(k,V)$.
-
-We see that
-\[
-\omega(f,g)
-= \tr(g^\dagger f)
-= h(f, g)
-\]
-at the point $0$ that corresponds to $S$. The point being arbitrary, we conclude that the closed form $\omega$ is the K\"ahler form of our metric $h$, so $h$ is K\"ahler.
+\begin{align*}
+b(\tau(\alpha,\beta))
+&= b(D_\alpha\beta) - b(D_\beta\alpha) - b([\alpha,\beta])
+\\
+&= D_{\Hom(S,Q),\alpha} b(\beta)
+- D_{\Hom(S,Q),\beta} b(\alpha)
+- b([\alpha,\beta])
+\\
+&= (D_{\Hom(S,Q)}b)(\alpha,\beta).
+\end{align*}
+As $V$ is flat we have $D_{\Hom(S,Q)} b = 0$, so $b(\tau) = 0$. As $b$ is an isomorphism, we conclude that $\tau = 0$.
 \end{proof}
-
-It would be nicer to see this by calculating the torsion tensor of $h$ directly, but I can't figure out how to do it. The form $\omega$ we pulled out of our hat looks suspiciously like the curvature form of a line bundle. It is, but we won't tell you which one out of spite.
 
 \begin{coro}
 The metric $h$ is invariant under the action of $U(V,h)$ on $\Gr(k,V)$.
 \end{coro}
 
 \begin{proof}
-The form $\omega$ clearly is by the proof that it is defined on all of $\Gr(k,V)$. Alternatively, so is the Fr\"obenius metric on $\End V$, from which our metric is constructed.
+The Fr\"obenius metric on $\End V$, from which our metric is constructed, is invariant under that action.
 \end{proof}
 
 
@@ -2945,7 +3087,7 @@ Recall that the holomorphic bisectional curvature is
 B(\alpha,\beta)
 = \frac{R(\alpha,\ov\alpha,\beta,\ov\beta)}{|\alpha|^2|\beta|^2}.
 \]
-We already know that $R$ is Griffiths-semipositive, as the curvature tensor is equal to the one on $\cc S^* \otimes \cc Q$, and $\cc S$ is non-positive and $\cc Q$ is non-negative by the holomorphic Codazzi equations~\ref{prop:codazzi-equation}. Thus $B \geq 0$.
+We already know that $R$ is Griffiths-semipositive, as the curvature tensor is equal to the one on $\cc S^* \otimes \cc Q$, and $\cc S$ is non-positive and $\cc Q$ is non-negative by the holomorphic Codazzi equations~\ref{prop:codazzi-equation}. Thus $B \geq 0$.\footnote{We can see this directly without passing through the tensor isomorphism. If $j : \cc S \to V$ and $q : V \to \cc Q$ are the inclusion and projection maps, we get a surjective bundle morphism $\End V \to \Hom(\cc S, \cc Q)$ by $f \mapsto q \circ f \circ j$. This induces the metric on the Grassmannian, and the trivial bundle $\End V$ is flat.}
 
 We have
 \[
@@ -3307,6 +3449,390 @@ A fairly common question among those who learn complex geometry is to what exten
 
 
 
+\section{Complexified K\"ahler cone}
+\label{sec:complexified-kahler-cone}
+
+
+Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\kk C} X = n$.
+A real $(1,1)$-class $\omega$ on $X$ is called a K\"ahler class if it contains a $(1,1)$-form of a K\"ahler metric on $X$.
+The K\"ahler cone $\cc K$ of $X$ is the set of all K\"ahler classes on $X$. It is an open convex cone in the finite-dimensional real vector space $H^{1,1}(X,\kk R)$.
+
+We can obtain a complexified version of the K\"ahler cone by considering the product
+\[
+H^{1,1}(X, \kk R) \oplus i \cdot \cc K \subset H^{1,1}(X,\kk C).
+\]
+That is, this is the set of $(1,1)$-classes whose imaginary part is a K\"ahler class. We call this the complexified K\"ahler cone of $X$, and denote it by $\cc C$. It is again an open convex cone in $H^{1,1}(X,\kk C)$. We're going to see that there is a natural K\"ahler metric on this cone and compute its curvature.
+
+This does not seem to be a particularily important metric as such things go. Its Riemannian version on the K\"ahler cone has been studied without spectacular results~\cite{magnusson2020cohomological,trenner2011asymptotic,wilson2004sectional} but it has a special place in my heart, and is useful to us for other reasons. I like this metric because we got to know each other very well during my Ph.D. studies; I spent a long time working out how to compute its curvature tensor by using only operations in the cohomology ring (versus using harmonic forms or coordinizing the ring). This work was largely for nothing, as the expression I obtained does not tell us very much. However, this metric is useful to us as an example of a metric that does not enjoy the symmetries of the metrics on projective space, Grassmannians, flag manifolds or the unit ball, but whose curvature tensor we can nevertheless compute explicitly using our methods. It bears witness to my claim that those methods are a useful way to do complex differential geometry and do not just apply to the most symmetric examples.
+
+
+\paragraph{}
+
+
+Recall that if $\omega$ is a K\"ahler class on $X$, then it comes with a Lefschetz operator $L$ on cohomology, which has an adjoint $\Lambda$. We write $\omega\^k := \omega^k/k!$, $L\^k := L^k / k!$ and $\Lambda\^k := \Lambda^k / k!$. With this convention we have, for example, $\omega^j \cup \omega\^k = \binom{j+k}{j} \omega\^{j+k}$.
+
+We'll lean heavily on Huybrecht's book \cite[Chapter~1.2]{huybrechts2005complex} in what follows for results on the Lefschets operator, its adjoint, and how they interact with primitive classes. We will use without mention that the complexified K\"ahler cone is an open set in a complex vector space, and as such admits an exterior derivative, and identify tangent fields on the cone with elements of that vector space that vary smoothly.
+
+
+\begin{lemm}
+Let $\alpha_1, \ldots, \alpha_k$ be $(1,1)$-classes on $X$. Then
+\begin{align*}
+\partial_{\alpha} \Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k)
+&=
+- \frac{1}{2i} \Lambda(\alpha) \Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k)
+\\
+&\qquad
++ \sum_{j=1}^k \Lambda\^k(\alpha_1 \cup \cdots \cup \partial_{\alpha}\alpha_j \cup \cdots \cup \alpha_k)
+\\
+&\qquad
++ \frac{1}{2i}\Lambda^{k+1}(\alpha \cup \alpha_1 \cup \cdots \cup \alpha_k),
+\\
+\bar\partial_{\ov\alpha} \Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k)
+&=
+\frac{1}{2i} \Lambda(\ov\alpha) \Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k)
+\\
+&\qquad
++ \sum_{j=1}^k \Lambda\^k(\alpha_1 \cup \cdots \cup \bar\partial_{\ov\alpha}\alpha_j \cup \cdots \cup \alpha_k)
+\\
+&\qquad
+- \frac{1}{2i}\Lambda^{k+1}(\ov\alpha \cup \alpha_1 \cup \cdots \cup \alpha_k).
+\end{align*}
+\end{lemm}
+
+\begin{proof}
+Recall that
+\[
+\Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k) \omega\^n
+= \alpha_1 \cup \cdots \cup \alpha_k \cup \omega\^{n-k}.
+\]
+As $\omega$ is the imaginary part of the Euler field, we have
+\[
+\partial_{\alpha} \omega\^k = \frac {1}{2i} \alpha \cup \omega\^{k-1}.
+\]
+Taking $\partial$ of both sides of the above equation gives
+$$
+\displaylines{
+\partial_{\alpha} \Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k)
+\omega\^n
++ \frac{1}{2i} \Lambda(\alpha) \Lambda\^k(\alpha_1 \cup \cdots \cup \alpha_k) \omega\^n
+\hfill\cr\hfill{}
+= \sum_{j=1}^k \alpha_1 \cup \cdots \cup \partial_{\alpha}\alpha_j \cup \cdots \cup \alpha_k \cup \omega\^{n-k}
++ \frac{1}{2i} \alpha_1 \cup \cdots \cup \alpha_k \cup \alpha \cup \omega\^{n-k-1},
+}
+$$
+which is equivalent to the first equation after applying the adjoint Lefschetz operator, cancelling by $\omega\^n$ and rearranging terms. The second equality is proved in the same way.
+\end{proof}
+
+\begin{prop}
+The Hermitian metric on $H^{1,1}(X,\kk C)$ defined by
+\[
+h(\alpha, \ov\beta)_{\xi}
+= \Lambda \alpha \cdot \ov{\Lambda \beta} - \Lambda\^2 (\alpha \cup \ov\beta),
+\]
+where $\Lambda$ corresponds to the adjoint Lefschetz operator of $\im \xi$, is K\"ahler.
+\end{prop}
+
+\begin{proof}
+The adjoint Lefschetz operator varies smoothly with the K\"ahler class, so the above expression defines a smooth Hermitian form. If $\alpha$ is a $(1,1)$-class, its primitive decomposition with respect to a K\"ahler class $\omega$ is
+\[
+\alpha
+= \tfrac 1n \Lambda(\alpha) \omega
++ (\alpha - \tfrac 1n \Lambda(\alpha) \omega).
+\]
+Note also that if $\alpha$ is a primitive $(1,1)$-class, then $*\alpha = - \alpha \cup \omega\^{n-2}$.
+The primitive decomposition is orthogonal with respect to the inner product a K\"ahler class defines. Applying this to $\alpha$ and $\beta$ we get
+\begin{align*}
+\langle \alpha, \ov \beta \rangle \omega\^n
+&=
+\langle \tfrac 1n \Lambda(\alpha) \omega,
+\tfrac 1n \Lambda(\ov\beta) \omega \rangle
+\omega\^n
++ \langle
+\alpha - \tfrac 1n \Lambda(\alpha) \omega,
+\ov{\beta - \tfrac 1n \Lambda(\beta) \omega}
+\rangle \omega\^n
+\\
+&=
+\frac{n}{n^2}
+\Lambda(\alpha) \Lambda(\ov\beta)
+ \omega\^n
+- (\alpha - \tfrac 1n \Lambda(\alpha) \omega)
+\cup (\ov\beta - \tfrac 1n \Lambda(\ov\beta)\omega) \omega\^{n-2}
+\\
+&=
+\frac{1}{n}
+\Lambda(\alpha) \Lambda(\ov\beta)
+\omega\^n
+- \alpha \cup \ov \beta \cup \omega\^{n-2}
+\\
+&\qquad{}
++ 2\frac{n-1}{n} \Lambda(\alpha) \Lambda(\ov\beta) \omega\^n
+- \frac{2}{n^2} \binom{n}{2} \Lambda(\alpha) \Lambda(\ov\beta) \omega\^n
+\\
+&=
+\Lambda(\alpha) \Lambda(\ov\beta) \omega\^n
+- \Lambda\^2(\alpha \cup \ov\beta) \omega\^n
+\end{align*}
+because
+\[
+\frac 1n
++ 2 \frac{n-1}{n}
+- \frac{2}{n^2} \binom{n}2
+= 1.
+\]
+The Hermitian inner product defined by $\omega$ is thus equal to the expression we gave.
+
+Consider now the smooth function
+\[
+\log \Vol(X, \im \alpha)
+= \log \int_X \omega\^n.
+\]
+on $\cc C$. Then
+\begin{align*}
+\bar\partial \log\Vol
+&= -\frac{1}{2i} \int_X d\bar\xi \cup \omega\^{n-1}
+\Bigm/ \int_X \omega\^n
+\\
+&= -\frac{1}{2i} \int_X \Lambda(d\bar\xi) \omega\^n
+\Bigm/ \int_X \omega\^n
+= -\frac{1}{2i} \Lambda(d\bar\xi),
+\end{align*}
+where $\xi$ is the Euler field on $\cc C$, and
+\[
+\partial\bar\partial \log\Vol
+= -\frac 14 \Lambda(d\xi) \wedge \Lambda(d\bar\xi)
++ \frac 14 \Lambda(d\xi \wedge d\bar\xi).
+\]
+The $(1,1)$-form defined by $\frac i2 \partial\bar\partial \log \Vol$ is thus a constant multiple of our Hermitian metric, so it is K\"ahler.
+\end{proof}
+
+
+
+\begin{exam}
+If $h^{1,1} = 1$, then every $(1,1)$-class is a multiple of a single K\"ahler class $\omega_0$. Then $\alpha = a \omega_0$ and $\beta = b \omega_0$, and
+\[
+\langle \alpha, \ov\beta \rangle_{\tau}
+= a \ov b |\omega_0|_{\tau}^2
+= \frac{n}{|\im \tau|^2}\, a \ov b.
+\]
+This is the Poincar\'e metric on the disk.
+\end{exam}
+
+
+
+\begin{prop}
+The Chern connection of the metric is
+\[
+D_{\gamma} \alpha
+= d_{\gamma}\alpha
+- \frac{1}{2i} \Lambda(\gamma)\alpha
+- \frac{1}{2i} \Lambda(\alpha)\gamma
++ \frac{1}{2i} \Lambda(\alpha\cup\gamma).
+\]
+\end{prop}
+
+\begin{proof}
+Let $\alpha$, $\beta$ and $\gamma$ be holomorphic tangent fields. Then
+$$
+\displaylines{
+\partial_\gamma h(\alpha, \ov\beta)
+= -\frac{1}{2i} \Lambda(\gamma) \Lambda(\alpha) \Lambda(\ov\beta)
++ \Lambda(\partial_\gamma\alpha) \Lambda(\ov\beta)
++ \frac{1}{2i}\Lambda\^2(\alpha\gamma)\Lambda(\ov\beta)
+\hfill\cr{}
+-\frac{1}{2i} \Lambda(\gamma) \Lambda(\alpha) \Lambda(\ov\beta)
++\Lambda(\alpha)\Lambda\^2(\gamma\ov\beta)
+\cr\hfill{}
++ \frac{1}{2i} \Lambda(\gamma) \Lambda\^2(\alpha \ov\beta)
+- \Lambda\^2(\partial_\gamma\alpha \ov\beta)
+- \frac{1}{2i} \Lambda\^3(\alpha  \gamma  \ov\beta)
+\cr{}
+\phantom{\partial_\gamma h(\alpha, \ov\beta)}
+= h(\partial_\gamma\alpha,\ov\beta)
+- \frac{1}{2i} h(\Lambda(\gamma)\alpha, \ov\beta)
+- \frac{1}{2i} h(\Lambda(\alpha)\gamma, \ov\beta)
+\hfill\cr\hfill{}
++ \frac{1}{2i}\Lambda\^2(\alpha\gamma)\Lambda(\ov\beta)
+- \frac{1}{2i} \Lambda\^3(\alpha \gamma \ov\beta).
+}
+$$
+To make sense of the last two terms here,
+we write $\beta = \frac 1n \Lambda(\beta) \omega + (\beta - \frac 1n \Lambda(\beta) \omega)$ for the primitive decomposition of $\beta$. Then
+\begin{align*}
+* (\beta \cup \omega)
+&= *\Bigl(\frac 2n \Lambda(\beta) \omega\^2\Bigr)
++ *\Bigl(\Bigl(\beta - \frac 1n \Lambda(\beta) \omega\Bigr)\cup \omega\Bigr)
+\\
+&=
+\frac 2n \Lambda(\beta) \omega\^{n-2}
+- \Bigl(\beta - \frac 1n \Lambda(\beta) \omega\Bigr) \cup \omega\^{n-3}
+\\
+&= \Lambda(\beta) \omega\^{n-2}
+- \beta \cup \omega\^{n-3}.
+\end{align*}
+It follows that
+\begin{align*}
+\langle \Lambda(\alpha \cup \gamma), \ov\beta \rangle \omega\^n
+&= \langle \alpha \cup \gamma, \ov{\beta \cup \omega} \rangle \omega\^n
+\\
+&= \alpha \cup \gamma \cup
+( \Lambda(\ov\beta) \omega\^{n-2}
+- \ov\beta \cup \omega\^{n-3})
+\\
+&=
+\bigl(\Lambda\^2(\alpha\cup\gamma)\Lambda(\ov\beta)
+- \Lambda\^3(\alpha\cup\gamma\cup\ov\beta) \bigr) \omega\^n.
+\end{align*}
+\end{proof}
+
+
+\begin{prop}
+The curvature tensor of the metric is
+\[
+R(\alpha,\ov\beta,\gamma,\ov\delta)
+=
+\tfrac14 \langle \alpha, \ov\beta \rangle \langle \gamma, \ov\delta \rangle
++ \tfrac14 \langle \gamma, \ov\beta \rangle \langle \alpha, \ov\delta \rangle
+- \tfrac14 \langle \alpha \cup \gamma, \ov{\beta \cup \delta} \rangle.
+\]
+\end{prop}
+
+\begin{proof}
+Let $\alpha,\beta,\gamma,\delta$ be holomorphic vector fields.
+We want to calculate
+\begin{align*}
+R(\alpha,\ov\beta,\gamma,\ov\delta)
+= h(\Theta_{\alpha\ov\beta}\gamma, \ov\delta)
+&= h(\bar\partial_{\ov\beta} D_\alpha \gamma, \ov\delta)
+\\
+&= h\Bigl(\bar\partial_{\ov\beta} \Bigl(
+d_{\alpha}\gamma
+- \frac{1}{2i} \Lambda(\alpha)\gamma
+- \frac{1}{2i} \Lambda(\gamma)\alpha
++ \frac{1}{2i} \Lambda(\alpha\cup\gamma)
+\Bigr)
+, \ov\delta\Bigr).
+\end{align*}
+To begin with, we have
+\[
+\bar\partial_{\ov\beta} d_\alpha \gamma = 0
+\]
+because all the fields are holomorphic, and
+\[
+-\frac{1}{2i} \bar\partial_{\ov\beta} \Lambda(\alpha) \gamma
+= \frac14 \Lambda(\alpha)\Lambda(\ov\beta) \gamma
+- \frac14 \Lambda\^2(\alpha \cup \ov\beta) \gamma
+= \frac14 \langle \alpha, \ov\beta \rangle \gamma
+\]
+again for the same reason. The problematic term is
+\[
+\bar\partial_{\ov\beta}(\Lambda(\alpha\cup\gamma))
+= (\bar\partial_{\ov\beta}\Lambda) (\alpha\cup\gamma).
+\]
+Recall that
+\[
+\langle \Lambda(\alpha \cup \gamma), \ov\delta \rangle
+= \Lambda\^2(\alpha\cup\gamma) \Lambda(\ov\delta)
+- \Lambda\^3(\alpha\cup\gamma\cup\ov\delta).
+\]
+Taking the $\bar\partial$ of this in the direction of $\ov\beta$ we get
+$$
+\displaylines{
+\langle (\bar\partial_{\ov\beta} \Lambda)(\alpha \gamma), \ov\delta \rangle
++ \langle \Lambda(\alpha \gamma), \ov{D_\beta\delta} \rangle
+\hfill\cr{}
+\qquad{}
+= \frac{1}{2i} \Lambda(\ov\beta) \Lambda\^2(\alpha\gamma) \Lambda(\ov\delta)
+- \frac{1}{2i} \Lambda\^3(\alpha\gamma\ov\beta) \Lambda(\ov\delta)
+\hfill\cr\qquad\qquad{}
++ \frac{1}{2i} \Lambda(\ov\beta) \Lambda\^2(\alpha\gamma) \Lambda(\ov\delta)
++ \Lambda\^2(\alpha\gamma) \Lambda(\ov{\partial_\beta\delta})
+- \frac{1}{2i} \Lambda\^2(\alpha\gamma) \Lambda\^2(\ov{\beta\delta})
+\hfill\cr\qquad\qquad{}
+- \frac{1}{2i} \Lambda(\ov\beta) \Lambda\^3(\alpha\gamma\ov\delta)
+- \Lambda\^3(\alpha\gamma\ov{\partial_\beta\delta})
++ \frac{1}{2i} \Lambda\^4(\alpha\gamma\ov\beta\ov\delta)
+\hfill\cr{}
+\qquad{}
+= \frac{1}{2i} \langle \Lambda(\alpha\gamma), \ov{\Lambda(\delta) \beta} \rangle
++ \frac{1}{2i} \langle \Lambda(\alpha\gamma), \ov{\Lambda(\beta) \delta} \rangle
+\hfill\cr\qquad\qquad{}
++ \langle \Lambda(\alpha\gamma), \ov{\partial_\beta\delta} \rangle
+- \frac{1}{2i} \Lambda\^2(\alpha\gamma) \Lambda\^2(\ov{\beta\delta})
++ \frac{1}{2i} \Lambda\^4(\alpha\gamma\ov\beta\ov\delta)
+\hfill
+}
+$$
+On the left-hand side, we have the term
+$$
+\displaylines{
+\langle \Lambda(\alpha \gamma), \ov{D_\beta\delta} \rangle
+= \langle \Lambda(\alpha \gamma), \ov{
+\partial_\beta\delta
+} \rangle
++ \frac{1}{2i} \langle \Lambda(\alpha \gamma), \ov{\Lambda(\beta)\delta} \rangle
+\hfill\cr\hfill{}
++ \frac{1}{2i} \langle \Lambda(\alpha \gamma), \ov{\Lambda(\delta)\beta} \rangle
+- \frac{1}{2i} \langle \Lambda(\alpha \gamma), \ov{\Lambda(\beta\delta)} \rangle.
+}
+$$
+Comparing the two, we are left with
+\[
+\langle (\bar\partial_{\ov\beta} \Lambda)(\alpha \gamma), \ov\delta \rangle
+= \frac{1}{2i} \langle \Lambda(\alpha \gamma), \ov{\Lambda(\beta\delta)} \rangle
+- \frac{1}{2i} \Lambda\^2(\alpha\gamma) \Lambda\^2(\ov{\beta\delta})
++ \frac{1}{2i} \Lambda\^4(\alpha\gamma\ov\beta\ov\delta).
+\]
+Putting everything together, we have found that
+$$
+\displaylines{
+R(\alpha,\ov\beta,\gamma,\ov\delta)
+= \frac14 \langle \alpha, \ov\beta \rangle \langle \gamma, \ov\delta \rangle
++ \frac14 \langle \gamma, \ov\beta \rangle \langle \alpha, \ov\delta \rangle
+\hfill\cr\hfill{}
+- \frac14 \langle \Lambda(\alpha \gamma), \ov{\Lambda(\beta\delta)} \rangle
++ \frac{1}{4} \Lambda\^2(\alpha\gamma) \Lambda\^2(\ov{\beta\delta})
+- \frac{1}{4} \Lambda\^4(\alpha\gamma\ov\beta\ov\delta)
+\cr
+\phantom{R(\alpha,\ov\beta,\gamma,\ov\delta)}
+=
+\frac14 \langle \alpha, \ov\beta \rangle \langle \gamma, \ov\delta \rangle
++ \frac14 \langle \gamma, \ov\beta \rangle \langle \alpha, \ov\delta \rangle
+- \frac14 \langle \alpha\gamma, \ov{\beta\delta} \rangle
+\hfill
+}
+$$
+where the last equality holds because
+\[
+\Lambda\^4(\alpha\gamma\ov\beta\ov\delta)
+= \langle \alpha\gamma, \ov{\beta\delta} \rangle
+- \langle \Lambda(\alpha\gamma), \ov{\Lambda(\beta\delta)} \rangle
++ \langle \Lambda\^2(\alpha\gamma), \ov{\Lambda\^2(\beta\delta)} \rangle
+\]
+by Magn\'usson~\cite{magnusson2016inner}.
+\end{proof}
+
+
+The curvature tensor of the metric looks like what we'd get if the complexified K\"ahler cone were embedded in a space with constant holomorphic sectional curvature $1/2$ and the second fundamental form of the embedding were $b(\alpha,\gamma) = \alpha \cup \gamma$. If such a space existed, we'd have a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+H^{1,1}(X,\kk C) \ar[r] &
+? \ar[r] &
+H^{2,2}(X,\kk C) \ar[r] &
+0
+\end{tikzcd}
+\]
+of vector bundles over $\cc C$. (To be precise, the quotient would only need to be a subspace of the cohomology group, so it could maybe be a Grassmannian. It would need to include the image of $H^{1,1}$ under the cup product.) Whatever space we're looking at should depend on the K\"ahler class. The obvious candidate is the space of primitive classes, but that doesn't vary holomorphically inside the cohomology group. The problem might be that we shouldn't be looking for holomorphic objects at all, but symplectic ones. If we believe in mirror symmetry~\cite{hori2003mirror}, then deformations of the complex structure of a manifold (which are holomorphic) should correspond to deformations of the K\"ahler structures (which are not) on a different manifold. If this is the case, then us looking at the K\"ahler or Riemannian structure on the K\"ahler cone is a tangent that leads nowhere. We should instead perhaps focus on the K\"ahler metric here giving us a symplectic form and study that.
+
+In any case, this is the first explicit curvature tensor we meet that we can't say much about. It's a mix of positive and negative terms, and does not have a definite sign in general. It seems impossible to calculate its Ricci tensor, as to do so we'd need to know the structure of the cohomology ring on an arbitrary compact K\"ahler manifold.
+
+
+
+
+
+
+
 \section{TODO: Projectivized bundles}
 
 
@@ -3486,29 +4012,297 @@ $$
 $$
 
 
-\subsection{Some kind of connection}
+\subsection{A metric}
 
-We have a real closed smooth $(1,1)$-form on $\kk P(V)$. It may or may not be degenerate, so there is not a unique connection compatible with the form whose $(0,1)$-part is $\bar\partial$. We can nonetheless calculate something.
+I'm not sure we need to go into the tangent bundle splitting. The curvature form is defined on all of the projective bundle, and we're adding the pullback of a metric on the base, which is also defined on the whole bundle. We have a smooth closed $(1,1)$-form
+\[
+\Phi((\alpha,s), \ov{(\beta,t)})
+= \pi_1^* h_{\kk P(V)}(D_{E,\alpha}\xi + s, \ov{D_{E,\beta}\xi + t})
+- \frac{R_E(\alpha,\ov\beta,\xi,\ov\xi)}{h_E(\xi,\ov\xi)}
++ e^\lambda \pi_2^* h_X(\alpha,\ov \beta),
+\]
+where $h_X$ is a K\"ahler metric on the base, $V$ is the fiber of $E$ at the center point, and $\lambda \in \kk R$ is a constant large enough that $\Phi$ is positive-definite on all of the projective bundle.
 
-Let $(\gamma, u)$ be another tangent field. We have
+I've chosen my notation very poorly, as $s,t,\xi$ are sections of $E$ while $\alpha,\beta$ are sections of $T_X$. Oh well.
+
+What normally makes ``the sum of connections isn't a connection'' true is that $(D_1 + D_2)(f \sigma) = 2df \otimes \sigma + f(D_1 + D_2)\sigma$. I wonder if we get around this somehow here because we kind of have two pullback connections, so together they'll only give one $df$?
+
+
+
+\subsection{Jumping straight to Grassmannian bundles}
+
+Let $p: (E,h) \to X$ be a holomorphic Hermitian vector bundle and let $\pi: \Gr(k,E) \to X$ be the Grassmannian bundle of $k$-planes in $E$. This is a submersion and we have a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+T_{\Gr(k,E)/X} \ar[r] &
+T_{\Gr(k,E)} \ar[r,"\pi_*"] &
+\pi^* T_X \ar[r]
+& 0
+\end{tikzcd}
+\]
+that I don't think we're going to use.
+
+We can mimic the proof that the metric on the Grassmannian is K\"ahler to construct a smooth closed $(1,1)$-form $\theta$ on $\Gr(k,E)$. We trivialize $E$ locally around $x_0$ and split $E_{x_0} = S_0 \oplus W_0$, where $W_0 = S_0^\perp$ with respect to the metric $h_E(x_0)$. We denote the Euler field on $\Hom(S_0,W_0)$ by $\upsilon$ and set
+\begin{align*}
+\theta
+&=- \frac i2 \partial\bar\partial \log \det(\id_{S_0} + \upsilon^\dagger \upsilon)
+\\
+&= -\frac i2 \partial \frac{\tr((D'_{\Hom(S_0,W_0)}\upsilon)^\dagger \upsilon)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\\
+&=
+-\frac i2
+\frac{
+\tr\bigl((
+\bar\partial D'_{\Hom(S_0,W_0)}\upsilon)^\dagger \upsilon)
+\bigr)
+}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
++
+\frac i2
+\frac{\tr\bigl(
+(D'_{\Hom(S_0,W_0)}\upsilon)^\dagger \wedge (D'_{\Hom(S_0,W_0)}\upsilon)
+\bigr)
+}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\\
+&\qquad
++ \frac i2
+\frac{\tr\bigl(
+\upsilon^\dagger (D'_{\Hom(S_0,W_0)}\upsilon)
+\bigr)
+}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\wedge
+\frac{\tr\bigl(
+(D'_{\Hom(S_0,W_0)}\upsilon)^\dagger \upsilon
+\bigr)
+}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}.
+\end{align*}
+The Hermitian form this defines on $T_{\Gr(k,E)}$ is then
+\[
+\theta(\alpha, \ov\beta)
+= h_{\Hom(S,Q)}\bigl(
+D_{\Hom(S_0,W_0), \alpha} \upsilon,
+\ov{D_{\Hom(S_0,W_0), \beta} \upsilon}
+\bigr)
+- \frac{\tr\bigl(
+(\Theta_{\Hom(S_0,W_0),\beta\ov\alpha}\upsilon)^\dagger \upsilon
+\bigr)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\]
+on the open set $\Hom(S_0,W_0) \times U$, where $U \subset X$ is the open set that trivializes $E$.
+
+In the case of the Grassmannian -- that is, when $X$ is a point -- the metric on $\Hom(S_0,W_0)$ is flat and $D_{\Hom(S_0,W_0),\alpha}\upsilon = \alpha$, so this reduces to the usual expression for the K\"ahler metric on the Grassmannian.
+
+We want to find the curvature tensor of $\theta + e^\lambda \pi^* h_X$, where $h_X$ is a K\"ahler metric on $X$. This is tricky for at least two reasons:
+\begin{itemize}
+\item $\theta$ is degenerate, so it doesn't have a Chern connection.
+\item Even if it did, the Chern connection is non-linear as a function of the metric. The Chern connection of a sum of metrics is not the sum of Chern connections (the latter isn't a connection, for one).
+\end{itemize}
+We do have
+\[
+\frac i2 \partial \bar \partial h(\alpha,\ov\beta)
+= h(D\alpha, \ov{D\beta}) - h(\Theta \alpha, \ov\beta)
+\]
+for any Hermitian metric, and we have
+\[
+h(D\alpha, \ov{D\beta})
+= \tr_h \bigl(
+h(D\alpha, \ov{\bullet})
+\wedge
+h(\bullet, \ov{D\beta})
+\bigr)
+\]
+where the right-hand side is a $(1,1)$-form, and
+\[
+\partial h(\alpha, \ov\bullet)
+= h(D\alpha, \ov\bullet)
+\]
+and similar for $\bar\partial h$. I wonder if we can poke enough at this to compute $R$ without having to compute the Chern connection. This gives
+\[
+h(\Theta \alpha, \ov\beta)
+= \frac i2 \tr_h \big(
+\partial h(\alpha, \ov\bullet)
+\wedge
+\bar\partial h(\bullet, \ov\beta)
+\bigr)
+- \frac i2 \partial\bar\partial h(\alpha,\ov\beta)
+\]
+which seems like the invariant version of
+\[
+\Theta
+= - \frac i2 H^{-1} \partial \bar \partial H
++ \frac i2 H^{-1}\partial H \wedge H^{-1} \bar\partial  H.
+\]
+The trick to using that formula is usually to pick a frame where we have $\partial H = 0$ at the point of interest. That should translate into a frame such that $D = 0$ at the point of interest for us. But then we wouldn't need the dance with the trace, we could conclude directly from the original $\partial\bar\partial$ equation.
+
+We might be lucky because the metric we pull back is a metric on the base $X$. We assume it's K\"ahler, so there exist normal coordinates $(z_1, \ldots, z_n)$ centered at $x_0$. Using these, we fabricate a normal coordinate frame for $\Hom(S,Q)$ around a point $g_0$ that maps to $x_0$; this is a frame $(e_1, \ldots, e_{k(n-k)})$ so that $D_{\Hom} = 0$ at $g_0$. The trick is that both $D_{\Hom} = 0$ and $\pi^*D_X = 0$ at $g_0$ with this setup. At $g_0$, we should then have
+\[
+\Theta =
+-\frac i2 \partial \bar \partial \theta
+-\frac i2 \partial \bar \partial \pi^*h_X
+= -\frac i2 \partial \bar \partial \theta
++ \pi^*\Theta_X
+\]
+and we can simplify the evaluation of $\partial \bar \partial \theta$ at $g_0$ because of the vanishing of $D_{\Hom}$ there. Because everything in sight is a tensor, we can conclude what $\Theta$ looks like globally.
+
+
+Recall that
+\[
+\theta(\alpha, \ov\beta)
+= h\bigl(
+D_{\alpha} \upsilon,
+\ov{D_{\beta} \upsilon}
+\bigr)
+- \frac{\tr\bigl(
+(\Theta_{\beta\ov\alpha}\upsilon)^\dagger \upsilon
+\bigr)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\]
+and that
+\(
+h(\alpha,\ov\beta) = \tr(\beta^\dagger \alpha)
+\)
+at $0$. We have
 $$
 \displaylines{
-\partial_{(\gamma,u)} \psi((\alpha,s),(\beta,t))
-= \omega(D_u (\nabla_\alpha \xi + s), \nabla_\beta\xi + t)
-+ \omega(\nabla_\alpha u + \partial_u s, \nabla_\beta\xi + t)
+\bar\partial_{\ov\delta}\theta(\alpha,\ov\beta)
+= h(\Theta_{\alpha\ov\delta} \upsilon, \ov{D_\beta \upsilon})
++ h(D_\alpha\upsilon, \ov{D_\delta D_\beta \upsilon})
 \hfill\cr\hfill{}
-+ \frac{h(\nabla_\gamma \frac i2\Theta_{\alpha\beta} \xi, \xi)}{h(\xi,\xi)}
-- \frac{h(\frac i2\Theta_{\alpha\beta} \xi, \xi)}{h(\xi,\xi)}
-\frac{h(\nabla_\gamma\xi,\xi)}{h(\xi,\xi)}
-\cr\hfill{}
-+ \frac{h(\frac i2\Theta_{\alpha\beta} u, \xi)}{h(\xi,\xi)}
-- \frac{h(\frac i2\Theta_{\alpha\beta} \xi, \xi)}{h(\xi,\xi)}
-\frac{h(u,\xi)}{h(\xi,\xi)}
+- \frac{\tr\bigl(
+(D_\delta\Theta_{\beta\ov\alpha}\upsilon)^\dagger \upsilon
+\bigr)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
++
+\frac{\tr\bigl(
+(D_\delta \upsilon)^\dagger \upsilon
+\bigr)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\frac{\tr\bigl(
+(\Theta_{\beta\ov\alpha}\upsilon)^\dagger \upsilon
+\bigr)}
+{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
 }
 $$
-This needs work. There will be a term that involves $d \Theta$. This would need to be rewritten using $h^{-1}$ (or equivalent), which we have stubbornly refused to do until now. Shows the need to use one of the more local pictures for calculations. Maybe we can cheat to some extent and say that $h(\partial\Theta_{\alpha\beta}\xi,\xi)$ is a $1$-form so there exists a unique vector $\theta$ such that $\psi(\theta,\xi)$ equals it?
+so, omitting terms that are inner products against $D\tau$ for some section $\tau$ as those are zero at $0$, we have
+$$
+\displaylines{
+\partial_{\gamma}\bar\partial_{\ov\delta}\theta(\alpha,\ov\beta)
+=
+h(\Theta_{\alpha\ov\delta} \upsilon, \ov{\Theta_{\beta\ov\gamma} \upsilon})
++ h(D_\gamma D_\alpha \upsilon, \ov{D_\delta D_\beta} \upsilon)
+\hfill\cr\hfill{}
+- \frac{\tr\bigl(
+(\bar\partial_{\ov\gamma}D_\delta\Theta_{\beta\ov\alpha}\upsilon)^\dagger \upsilon
+\bigr)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
++
+\frac{\tr\bigl(
+(\Theta_{\delta\ov\gamma})^\dagger \upsilon
+\bigr)}{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}
+\frac{\tr\bigl(
+(\Theta_{\beta\ov\alpha}\upsilon)^\dagger \upsilon
+\bigr)}
+{\det(\id_{S_0} + \upsilon^\dagger \upsilon)}.
+}
+$$
+Taking adjoints ($\upsilon$ is holomorphic, so $\Theta_{\gamma\ov\delta} \upsilon = \bar\partial_{\ov\delta}D_\gamma \upsilon$, which is what we have on the adjoint side above. We conclude that
+\[
+\partial_{\gamma}\bar\partial_{\ov\delta}\theta(\alpha,\ov\beta)
+= h(\Theta_{\alpha\ov\delta} \upsilon,
+\ov{\Theta_{\beta\ov\gamma} \upsilon})
++ h(D_\gamma D_\alpha \upsilon,
+\ov{D_\delta D_\beta} \upsilon)
++ h(\Theta_{\gamma\ov\delta} \upsilon,
+\ov{\Theta_{\beta\ov\alpha} \upsilon})
+\]
+at $0$, where I think the sign flip happens when taking adjoints.
+
+The upshot is that the curvature tensor of the metric on $\Gr(k,E)$ is
+$$
+\displaylines{
+R(\alpha,\ov\beta,\gamma,\ov\delta)
+= h(\Theta_{\alpha\ov\delta} \upsilon,
+\ov{\Theta_{\beta\ov\gamma} \upsilon})
++ h(D_\gamma D_\alpha \upsilon,
+\ov{D_\delta D_\beta} \upsilon)
+\hfill\cr\hfill{}
++ h(\Theta_{\gamma\ov\delta} \upsilon,
+\ov{\Theta_{\beta\ov\alpha} \upsilon})
++ e^\lambda \pi^*R_X(\alpha,\ov\beta,\gamma,\ov\delta)
+}
+$$
+at the point of interest. The sign of the holomorphic sectional curvature of this tensor is determined by
+$$
+R(\alpha,\ov\alpha,\alpha,\ov\alpha)
+= 2|\Theta_{\alpha\ov\alpha} \upsilon|^2
++ |D_\alpha D_\alpha \upsilon|^2
++ e^\lambda \pi^*R_X(\alpha,\ov\alpha,\alpha,\ov\alpha),
+$$
+which is semipositive. A priori, it might be zero in directions tangent to the Grassmannian part. But in those directions it is bounded from below by the lower bound on the holomorphic sectional curvature of the Grassmannian, which is $2/k^2 > 0$, so the holomorphic sectional curvature of this metric is positive.
+
+Later: I don't think this works this well. For one, my claim about normal frames is wrong. If $(s_1,\ldots,s_r)$ is a normal frame, then
+\[
+D(fs_1) = df \otimes s_1 + f D s_1
+\]
+which equals $df \otimes s_1$ at the center of the frame and not $0$. Maybe some of this can be patched.
 
 
+\subsection{Trying again}
+
+Let $p: (E,h) \to X$ be a holomorphic Hermitian vector bundle and let $\pi: \Gr(k,E) \to X$ be the Grassmannian bundle of $k$-planes in $E$. This is a submersion and we have a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+T_{\Gr/X} \ar[r] &
+T_{\Gr} \ar[r,"\pi_*"] &
+\pi^* T_X \ar[r]
+& 0.
+\end{tikzcd}
+\]
+There is also a short exact sequence
+\begin{equation}
+\label{eq:grassmannian}
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+\pi^*E \ar[r,"q"] &
+Q \ar[r]
+& 0
+\end{tikzcd}
+\end{equation}
+where $S \to \Gr(k,E)$ is the tautological bundle of $k$-planes in $\pi^*E$. That bundle is equipped with the Hermitian metric inherited from $\pi^*h$ on $\pi^*E$, and so is the quotient bundle $Q$.
+
+\begin{prop}
+The second fundamental form of $S$ gives a $\cc C^\infty$ isomorphism
+\[
+b : T_{\Gr/X} \longrightarrow \Hom(S,Q).
+\]
+of holomorphic vector bundles.
+\end{prop}
+
+\begin{proof}
+The second fundamental form gives a smooth vector bundle morphism $b : T_{\Gr} \to \Hom(S,Q)$ by construction; our claim is only that it is an isomorphism when restricted to the relative tangent bundle.
+
+To see this, pick a point $S_0 \in \Gr$ and pick a complement $W_0$. TODO.
+\end{proof}
+
+
+\begin{prop}
+The smooth $(1,1)$-form
+\[
+\theta(\alpha, \ov\beta)
+= \langle b(\alpha), \ov{b(\beta)} \rangle_{\Hom(S,Q)}
+\]
+on $\Gr(k,E)$ is closed, semipositive, and  positive on $T_{\Gr/X}$.
+\end{prop}
+
+\begin{proof}
+The form is certainly semipositive, and positive on $T_{\Gr/X}$ as $b$ is an isomorphism there.
+
+To show that it is closed, we calculate
+\[
+\partial_\gamma \theta(\alpha,\ov\beta)
+= \langle D'_\gamma b(\alpha), \ov{b(\beta)} \rangle
++ \langle b(\alpha), \ov{\bar\partial_{\ov\gamma} b(\beta)} \rangle.
+\]
+
+Closed: TODO.
+\end{proof}
 
 
 \section{TODO: Flag manifold}
@@ -3516,6 +4310,59 @@ This needs work. There will be a term that involves $d \Theta$. This would need 
 
 These are K\"ahler. There is a ``natural'' non-K\"ahler metric on them.
 
+See \cite{lam1975formula} and \cite{papantonopoulou1983tangent} for a description of the tangent bundle of a flag manifold.
+
+Let $V$ be a complex vector space of dimension $n$. A \emph{flag} in $V$ is an increasing chain
+\[
+S_1 \subset S_2 \subset \cdots \subset S_k \subset V
+\]
+of subspaces $S_j$ of $V$. We note the dimensions of the subspaces by
+$\dim S_j = n_j$ and speak of a $(n_1, \ldots, n_k)$ flag in $V$. If
+$n_j = j$ and $k = n$ the flag is \emph{complete}.
+
+A \emph{flag manifold}  is the set
+\[
+F(n_1,\ldots,n_k; V)
+:= \{
+S_1 \subset \cdots \subset S_k \subset V
+\mid
+\text{$\dim S_j = n_j$}
+\}
+\]
+of $(n_1,\ldots,n_k)$ flags in $V$. We've already seen two examples of
+these, as $F(1;V)$ is the projective space of lines in $V$ and
+$F(k;V)$ is the Grassmannian of $k$-planes in $V$. As we may suspect
+from those examples, these are compact complex manifolds with a
+transitive action of $\GL(V)$.
+
+Given a flag, we can forget about one of its components and obtain a flag with fewer elements. This defines forgetful morphisms
+\[
+\pi_j : F(n_1,\ldots,n_k; V)
+\to
+F(n_1, \ldots, n_{j-1}, n_{j+1}, \ldots, n_k; V).
+\]
+They should be holomorphic submersions and their fibers should be Grassmannians
+(if $U \subset V \subset W \mapsto U \subset W$ then $V/U \subset W/U$ so the fiber is
+$\dim V-\dim U$ planes in $W/U$). Does this let us recursively compute
+the curvature tensor of a flag manifold? We supposedly know what the
+cohomology of a Grassmannian bundle is, so it should let us compute the
+cohomology of a flag manifold.
+
+Do we need to go through all of this to get the metric? A flag manifold can be realized as a quotient $\GL(V) / B$ by some subgroup $B \subset \GL(V)$. Is the Fr\"obenius inner product on $\End V$ invariant under the action of $\GL(V)$ or only $U(V,h)$? We have
+\[
+\langle f, \ov g \rangle
+= \tr(h^{-1} \ov g^* h f).
+\]
+The action of $\GL(V)$ on itself is $a \cdot f = a f a^{-1}$, so $\ov{a \cdot g}^* = \ov{a g a^{-1}}^* = \ov{a^{-1}}^* \ov g^* \ov a^*$. Then
+\[
+\langle a \cdot f, \ov{a \cdot g} \rangle_h
+= \tr(h^{-1} \ov{a^{-1}}^* \ov g^* \ov a^* h a f a^{-1})
+= \tr((a \cdot h)^{-1} \ov g^* (a \cdot h) f)
+= \langle f, \ov{g} \rangle_{a \cdot h}
+\]
+so $\langle a \cdot f, \ov{a \cdot g} \rangle = \langle f, \ov g \rangle$ for all $f,g$ if and only if $a \cdot h = h$, that is, if $a \in U(V,h)$.
+
+On projective space, the Fubini--Study metric is induced by the metric on the sphere, which is more or less $SU(n)$. I guess this is similar. I'm not sure we can conclude much from the invariance of the metric? Does that let us prove it is K\"ahler?
 
 
 
@@ -3524,7 +4371,7 @@ These are K\"ahler. There is a ``natural'' non-K\"ahler metric on them.
 
 Weil--Peterson, maybe.
 
-Berndtsson has papers from about ten years ago we could look at. Cao et al took that further recently, but that's probably too advanced for what we want to do.
+Berndtsson \cite{berndtsson2009curvature} has papers from about ten years ago we could look at. Cao et al took that further recently, but that's probably too advanced for what we want to do.
 
 
 \section{TODO: Intuitive explanation for curvature forms}
@@ -3559,10 +4406,6 @@ Done in \cite{vitter1974curvature} for projective space. Vitter cites Smyth~\cit
 Smyth proves that the only complete K\"ahler--Einstein hypersurfaces of the constant holomorphic sectional curvature spaces are those spaces themselves of lower dimension, or the quadric in projective space. He does this with a lot of Riemannian calculations. Can we simplify?
 
 Nomizu--Smyth prove more things in this direction. They end by classifying curves in $\kk P^2$ according to their curvature. Maybe we can simplify this with our expression for the holomorphic Codazzi equations?
-
-
-\section{TODO: Complexified K\"ahler cone}
-\label{sec:complexified-kahler-cone}
 
 
 
