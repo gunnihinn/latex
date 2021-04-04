@@ -1887,143 +1887,83 @@ One can actually prove that the class of $b^\dagger$ represents the extension cl
 
 
 \begin{prop}
+\label{prop:hom-bundle-curvature}
 The curvature tensor of $\Hom(S,Q)$ is
-\[
-R(\alpha,\ov\beta,f,\ov g)
-= h(b(\beta)^\dagger b(\alpha), \ov{f^\dagger g})_{\End S}
+$$
+\displaylines{
+R_{\Hom(S,Q)}(\alpha,\ov\beta,f,\ov g)
+= R_{\End E}(\alpha, \ov\beta, q^\dagger f j^\dagger, \ov{q^\dagger g j^\dagger})
+\hfill\cr\hfill{}
++ h(b(\beta)^\dagger b(\alpha), \ov{f^\dagger g})_{\End S}
 + h(b(\beta)^\dagger f, \ov{b(\alpha)^\dagger g})_{\End S},
-\]
+}
+$$
 where $b$ is the second fundamental form of $S$,
 $\alpha,\beta \in T_X$ and $f,g \in \cc \Hom(S,Q)$.
 \end{prop}
 
 
 \begin{proof}
-We have $\Hom(S, Q) = S^* \otimes Q$. We thus have $\Theta_{\Hom(S,Q)} = -\Theta_S \otimes \id_Q + \id_{S^*} \otimes \Theta_Q$.
-The curvature tensors of the universal sub- and quotient bundles~are%
-\begin{align*}
-R_{S}(\alpha,\ov \beta,s,\ov t)
-&= R_E(\alpha,\ov\beta,js, \ov{jt})
-- h_{Q}(b(\alpha)(s), \ov{b(\beta)(t)}),
-\\
-R_{Q}(\alpha,\ov \beta, z, \ov w)
-&= R_E(\alpha,\ov\beta,q^\dagger z, \ov{q^\dagger w})
-+ h_{S}(b(\beta)^\dagger(z), \ov{b(\alpha)^\dagger(w)})
-\end{align*}
-by the holomorphic Codazzi equations~\ref{prop:codazzi-equation}.
+The morphisms $j : S \to E$ and $q : E \to Q$ induce a holomorphic bundle morphism $\End E \to \Hom(S,Q)$ via $f \mapsto q \circ f \circ j$. We're basically going to calculate the induced curvature tensor by hand instead of appealing to the Codazzi equations.
 
-We pick an orthonormal basis $(v_1,\ldots,v_n)$ of $E$ so that $S = \Span(v_1, \ldots, v_k)$ and identify $Q$ with $S^\perp = \Span(v_{k+1},\ldots,v_n)$. A morphism $f : S \to Q$ then identifies with the element $\sum_{j=1}^k v_j^* \otimes f(v_j)$ of $S^* \otimes Q$.
-
-The easier part of the curvature tensor is the second term
-$$
-\displaylines{
-h\bigl((\id_{S^*} \otimes \Theta_Q)(\alpha,\ov\beta,f), \ov g\bigr)_{S^* \otimes Q}
-\hfill\cr{}
-\qquad
-= h
-\biggl((\id_{S^*} \otimes \Theta_Q)\Bigl(\alpha, \ov\beta,
-\sum_{l=1}^k v_l^* \otimes f(v_l)\Bigr), \sum_{m=1}^k \ov{v_m^* \otimes g(v_m)}
-\biggr)_{S^* \otimes Q}
-\hfill\cr{}
-\qquad
-= \sum_{l,m=1}^k
-h(v_l^*, \ov{v_m^*})_{S^*}
-\cdot
-R_{\cc Q}(\alpha,\ov\beta,f(v_l),\ov{g(v_m)})
-\hfill\cr{}
-\qquad
-= \sum_{l=1}^k
-R_E(\alpha,\ov\beta, q^\dagger f(v_l), \ov{q^\dagger g(v_l)})
-+ h(b(\beta)^\dagger f(v_l), \ov{b(\alpha)^\dagger g(v_l)})_{S}
-\hfill\cr{}
-\qquad
-=
-\sum_{l=1}^k
-R_E(\alpha,\ov\beta, q^\dagger f(v_l), \ov{q^\dagger g(v_l)})
-+ h(b(\beta)^\dagger f, \ov{b(\alpha)^\dagger g})_{\End S},
-\hfill
-}
-$$
-where the last equality holds because the Fr\"obenius inner product of two morphisms is equal to the sum of inner products of their column vectors in a basis.
-
-The first term is not much more trouble. We have
-$$
-\displaylines{
-h\bigl((-\Theta_S \otimes \id_Q)(\alpha,\ov\beta,f), \ov g)_{S^* \otimes Q}
-\hfill\cr{}
-\qquad
-=
-h\biggl(
-(\Theta_{S^*} \otimes \id_Q)\Bigl(\alpha,\ov\beta,
-\sum_{l=1}^k v_l^* \otimes f(v_l) \Bigr),
-\sum_{m=1}^k \ov{v_m^* \otimes g(v_m)}
-\biggr)_{S^*\otimes Q}
-\hfill\cr{}
-\qquad
-= \sum_{l,m=1}^k
--R_{S}(\alpha,\ov\beta,v_m,\ov{v_l})
-\cdot h(f(v_l), \ov{g(v_m)})_Q
-\hfill\cr{}
-\qquad
-= \sum_{l,m=1}^k
-\bigl(
-h(b(\alpha)(v_m), \ov{b(\beta)(v_l)})_Q
-- R_E(\alpha,\ov\beta, j v_m, \ov {j v_l})
-\bigr)
-\cdot h(f(v_l), \ov{g(v_m)})_Q
-\hfill\cr{}
-\qquad
-= \sum_{m=1}^k
-\sum_{l=1}^k
-\bigl(
-h(b(\beta)^\dagger b(\alpha)(v_m), \ov{v_l})_S
-- R_E(\alpha,\ov\beta, j v_m, \ov{j v_l})
-\bigr)
-\cdot h(v_l, \ov{f^\dagger g(v_m)})_S
-\hfill\cr{}
-\qquad
-= \sum_{m=1}^k
-h(b(\beta)^\dagger b(\alpha)(v_m),
-\ov{f^\dagger g(v_m)})_S
-- R_E(\alpha, \ov\beta, j v_m, \ov{j f^\dagger g(v_m)})
-\hfill\cr{}
-\qquad
-= h(b(\beta)^\dagger b(\alpha), \ov{f^\dagger g})_{\End S}
-- \sum_{m=1}^k
-R_E(\alpha, \ov\beta, j v_m, \ov{j f^\dagger g(v_m)}).
-\hfill
-}
-$$
-Note that $v_l$ and $v_m$ get swapped when passing from the curvature form on $S^*$ to the negative of the one on $S$.
-
-The curvature tensor is $\cc C^\infty$-linear in its variables, so for any smooth endomorphism $f$ of $E$ we have
+Let then $f,g \in \Hom(S,Q)$. These induce smooth sections of $\End E$ via the adjoints as $q^\dagger f j^\dagger$, and similar for $g$, and we have the equality
 \[
-\langle \Theta_{\alpha\ov\beta} f(s), \ov t \rangle
-= \langle f(\Theta_{\alpha\ov\beta} s), \ov t \rangle.
+\langle f, \ov g \rangle_{\Hom(S,Q)}
+= \langle q^\dagger f j^\dagger, \ov{q^\dagger g j^\dagger} \rangle_{\End E}
 \]
-We can apply this to the endomorphism $q^\dagger \circ f \circ j^\dagger$ of $E$. That gives
-\begin{align*}
-R_E(\alpha,\ov\beta,q^\dagger f j^\dagger (v), \ov w)
-&= \langle \Theta_{\alpha\ov\beta} q^\dagger f j^\dagger(v),\ov w \rangle
-\\
-&= \langle q^\dagger f j^\dagger \Theta_{\alpha\ov\beta}v, \ov w \rangle
-\\
-&= \langle \Theta_{\alpha\ov\beta} v, \ov{ j f^\dagger q (w) }\rangle
-= R_E(\alpha,\ov\beta, v, \ov{ j f^\dagger q( w) }).
-\end{align*}
-For $v \in S$ and $w = q^\dagger g(v)$ this yields
+by definition of the inner product on the quotient bundle.
+
+A formal calculation shows that
 \[
-R_E(\alpha,\ov\beta,q^\dagger f (v), \ov{q^\dagger g(v)})
-= R_E(\alpha,\ov\beta, jv, \ov{j f^\dagger g(v)}).
+\Theta_{\End E} (q^\dagger f j^\dagger)
+= \Theta_{\Hom(Q,E)} q^\dagger f j^\dagger
++ q^\dagger \Theta_{\Hom(S,Q)} f j^\dagger
++ q^\dagger f \Theta_{\Hom(E,S)} j^\dagger.
 \]
-The terms involving $R_E$ in our expression thus cancel out, and the proof is acheived.
+Referring to Demailly~\cite[Theorem~14.3]{demailly-complex}, we see that
+\begin{align*}
+\Theta_{\Hom(Q,E)} q^\dagger
+&= D'_{\Hom(Q,E)} \bar\partial q^\dagger
+= -D'_{\Hom(Q,E)} (j b^\dagger)
+= -q^\dagger b \wedge b^\dagger - j D'_{\Hom(Q,S)}b^\dagger,
+\\
+\Theta_{\Hom(E,S)} j^\dagger
+&= D'_{\Hom(E,S)} \bar\partial j^\dagger
+= D'_{\Hom(E,S)}(b^\dagger q)
+= D'_{\Hom(Q,S)}b^\dagger q - b^\dagger \wedge b j^\dagger.
+\end{align*}
+Then we have
+\begin{align*}
+\langle \Theta_{\Hom(Q,E)} q^\dagger f j^\dagger, \ov{q^\dagger g j^\dagger} \rangle_{\End E}
+&= -\langle q^\dagger b \wedge b^\dagger f j^\dagger, \ov{q^\dagger g j^\dagger} \rangle_{\End E}
+\\
+&\qquad - \langle j D'_{\Hom(Q,S)}b^\dagger f j^\dagger, \ov{q^\dagger g j^\dagger} \rangle_{\End E}
+\\
+&= -\langle b^\dagger f, \ov{b^\dagger g} \rangle_{\Hom(S,Q)},
+\end{align*}
+where the second term is zero because we can flip $j$ from the left-hand side to its adjoint on the right and get $j^\dagger q^\dagger = 0$. We also get
+\begin{align*}
+\langle q^\dagger f \Theta_{\Hom(E,S)} j^\dagger, \ov{q^\dagger g j^\dagger} \rangle_{\End E}
+&= \langle q^\dagger f D'_{\Hom(Q,S)}b^\dagger q , \ov{q^\dagger g j^\dagger} \rangle_{\End E}
+\\
+&\qquad
+- \langle q^\dagger f b^\dagger \wedge b j^\dagger, \ov{q^\dagger g j^\dagger} \rangle_{\End E}
+\\
+&= - \langle b^\dagger \wedge b, \ov{f^\dagger g} \rangle_{\Hom(S,Q)},
+\end{align*}
+where the first term is zero because it is of the form
+\[
+\langle f q, \ov{g j^\dagger} \rangle_{\End E}
+= \tr(j g^\dagger f q)
+= \tr(g^\dagger f q j) = 0
+\]
+and the last equality holds because $q j = 0$.
+Putting this all together, we get the announced result.
 \end{proof}
 
 
 
-
-
-\paragraph{Failing to construct K\"ahler metrics}
+\subsection{Failing to construct K\"ahler metrics}
 
 
 Let $X$ be a complex manifold. We're going to consider the situation where we have a short exact sequence
@@ -2112,8 +2052,134 @@ My attempts to show this have all ended in tautologies that go ``the metric is K
 
 
 
+\subsection{Sums of metrics}
 
-\paragraph{Submanifolds}
+The curvature tensor of a sum of metrics is not the sum of the curvature tensors of each metric. This is very sad. We can quantify exactly how sad using the Codazzi equations. This section amounts to the solution to an exercise given in Zheng's book~\cite{zheng2000complex}.
+
+Let $E \to X$ be a holomorphic vector bundle, and let $h_1$ and $h_2$ be Hermitian metrics on it. We write $D_{h_1}$ and $R_{h_1}$ for the Chern connection and curvature tensor of $h_1$, and similar for $h_2$. Consider the short exact sequence
+\[
+\begin{tikzcd}
+0 \arrow[r] &
+E \arrow[r,"j"] &
+E \oplus E \arrow[r,"q"] &
+E \arrow[r] &
+ 0
+\end{tikzcd}
+\]
+where $j(v) = v \oplus v$ and $q(v \oplus w) = v - w$. We equip the subbundle with the metric $h_1 + h_2$, the direct sum with the metric $h_1 \oplus h_2$, and the quotient with the induced metric.
+
+\begin{prop}
+The second fundamental form of $E$ is
+\[
+b(v) = (D_{h_1} - D_{h_2})v.
+\]
+\end{prop}
+
+\begin{proof}
+We calculate
+\begin{align*}
+b(v)
+= q(D_{h_1 \oplus h_2} j(v))
+&= q(D_{h_1 \oplus h_2} (v \oplus v))
+\\
+&= q(D_{h_1} v \oplus v + v \oplus D_{h_2} v)
+= (D_{h_1} - D_{h_2})v.
+\end{align*}
+\end{proof}
+
+
+\begin{coro}
+The curvature tensor of $h_1 + h_2$ is
+$$
+\displaylines{
+R_{h_1 + h_2}(\alpha,\ov\beta,s,\ov t)
+= R_{h_1}(\alpha,\ov\beta,s,\ov t)
++ R_{h_2}(\alpha,\ov\beta,s,\ov t)
+\hfill\cr\hfill{}
+- \langle (D_{h_1,\alpha} - D_{h_2,\alpha}) s,
+\ov{(D_{h_1,\beta} - D_{h_2,\beta}) t} \rangle_Q,
+}
+$$
+where the inner product labeled with $Q$ is the one on the ``quotient'' space $E$.
+\end{coro}
+
+
+One would think it would be nice to be able to say what the inner product on the quotient is. We can actually write this down and find out that it isn't so much.
+
+\begin{prop}
+The inner product on the quotient space $E$ is
+\begin{align*}
+h(x, \ov y)
+&=
+h_1\bigl(((h_1+h_2)^{-1}h_2(x),
+\ov{(h_1+h_2)^{-1}h_2(y)}\bigr)
+\\
+&\qquad
++ h_2\bigl(((h_1+h_2)^{-1}h_1(x),
+\ov{(h_1+h_2)^{-1}h_1(y)}\bigr).
+\end{align*}
+\end{prop}
+
+\begin{proof}
+First we note that the adjoint of $j : S \to E$ is defined by
+\[
+(h_1 + h_2)(j^\dagger x \oplus y, \ov v)
+= (h_1\oplus h_2)( x \oplus y, \ov{v \oplus v})
+= h_1(x, \ov v) + h_2(y, \ov v)
+\]
+so
+\[
+j^\dagger(x \oplus y)
+= (h_1+h_2)^{-1}(h_1(x) + h_2(y)).
+\]
+Then $x \oplus y = jj^\dagger (x\oplus y) + q^\dagger q(x \oplus y)$, so we find that
+\[
+q^\dagger q(x \oplus y)
+= \bigl(
+x - (h_1+h_2)^{-1}(h_1(x) + h_2(y))
+\bigr) \oplus
+\bigl(
+y - (h_1+h_2)^{-1}(h_1(x) + h_2(y))
+\bigr).
+\]
+We write $x = (h_1+h_2)^{-1}(h_1 + h_2)(x)$ and get
+\[
+x - (h_1+h_2)^{-1}(h_1(x) + h_2(y))
+= (h_1+h_2)^{-1}h_2(x - y).
+\]
+Similarly we get
+\[
+y - (h_1+h_2)^{-1}(h_1(x) + h_2(y))
+= -(h_1+h_2)^{-1}h_1(x - y).
+\]
+Then
+\[
+q^\dagger q(x \oplus y)
+= \bigl(
+(h_1+h_2)^{-1}h_2(x - y)
+\bigr)
+\oplus
+\bigl(
+-(h_1+h_2)^{-1}h_1(x - y)
+\bigr).
+\]
+In particular, the adjoint of $q$ is
+\[
+q^\dagger(v)
+=\bigl(
+(h_1+h_2)^{-1}h_2(v)
+\bigr)
+\oplus
+\bigl(
+-(h_1+h_2)^{-1}h_1(v)
+\bigr).
+\]
+The inner product on the quotient is the pullback of $h_1 \oplus h_2$ by $q^\dagger$, which completes the proof.
+\end{proof}
+
+
+
+\subsection{Submanifolds}
 
 A common situation where this is applicable is when we have a submanifold $Y \subset X$ of a complex manifold. Then we have a short exact sequence
 \[
@@ -2966,91 +3032,15 @@ The Fr\"obenius metric on $\End V$, from which our metric is constructed, is inv
 The curvature tensor of the Grassmannian $\Gr(k,V)$ at a point $S$ is
 \[
 R(\alpha,\ov\beta,\gamma,\ov\delta)
-= h(\beta^\dagger \alpha, \ov{\gamma^\dagger \delta})_{\End S}
-+ h(\beta^\dagger \gamma, \ov{\alpha^\dagger \delta})_{\End S},
+= h(b(\beta)^\dagger b(\alpha), \ov{b(\gamma)^\dagger b(\delta)})_{\End S}
++ h(b(\beta)^\dagger b(\gamma), \ov{b(\alpha)^\dagger b(\delta)})_{\End S},
 \]
-where $\alpha,\beta,\gamma,\delta \in \cc T_{\Gr,S} = \Hom(S,Q)$.
+where $\alpha,\beta,\gamma,\delta \in \cc T_{\Gr,S}$ and $b$ is the second fundamental form of the universal subbundle.
 \end{prop}
 
 
 \begin{proof}
-At any point $S$, we have $\cc T_{\Gr(k,V),S} = \Hom(S, Q) = S^* \otimes Q$, where $Q = V/S$. We thus have $\Theta_{\Hom(S,Q)} = -\Theta_S \otimes \id_Q + \id_{S^*} \otimes \Theta_Q$.
-The curvature tensors of the universal sub- and quotient bundles~are%
-\begin{align*}
-R_{\cc S}(\alpha,\ov \beta,s,\ov t) &= - h_{\cc Q}(\alpha(s), \ov{\beta(t)}),
-\\
-R_{\cc Q}(\alpha,\ov \beta,q,\ov r) &= h_{\cc S}(\beta^\dagger(q), \ov{\alpha^\dagger(r)})
-\end{align*}
-by the holomorphic Codazzi equations~\ref{prop:codazzi-equation} because the second fundamental form of $\cc S$ in $\cc V$ is $b(f, s) = f(s)$.
-
-We pick an orthonormal basis $(v_1,\ldots,v_n)$ of $V$ so that $S = \Span(v_1, \ldots, v_k)$ and identify $Q$ with $S^\perp = \Span(v_{k+1},\ldots,v_n)$. A morphism $f : S \to Q$ then identifies with the element $\sum_{j=1}^k v_j^* \otimes f(v_j)$ of $S^* \otimes Q$.
-
-The easier part of the curvature tensor is the second term
-$$
-\displaylines{
-h\bigl((\id_{S^*} \otimes \Theta_Q)(\alpha,\ov\beta,\gamma), \ov\delta\bigr)_{S^* \otimes Q}
-\hfill\cr{}
-\qquad
-= h
-\biggl((\id_{S^*} \otimes \Theta_Q)\Bigl(\alpha, \ov\beta,
-\sum_{l=1}^k v_l^* \otimes \gamma(v_l)\Bigr), \sum_{m=1}^k \ov{v_m^* \otimes \delta(v_m)}
-\biggr)_{S^* \otimes Q}
-\hfill\cr{}
-\qquad
-= \sum_{l,m=1}^k
-h(v_l^*, \ov{v_m^*})_{S^*}
-\cdot
-R_{\cc Q}(\alpha,\ov\beta,\gamma(v_l),\ov{\delta(v_m)})
-\hfill\cr{}
-\qquad
-= \sum_{l=1}^k
-h(\beta^\dagger\gamma(v_l), \ov{\alpha^\dagger\delta(v_l)})_{S}
-= h(\beta^\dagger \gamma, \ov{ \alpha^\dagger \delta})_{\End S},
-\hfill
-}
-$$
-where the last equality holds because the Fr\"obenius inner product of two morphisms is equal to the sum of inner products of their column vectors in a basis.
-
-The first term is not much more trouble. We have
-$$
-\displaylines{
-h\bigl((-\Theta_S \otimes \id_Q)(\alpha,\ov\beta,\gamma), \ov\delta)_{S^* \otimes Q}
-\hfill\cr{}
-\qquad
-=
-h\biggl(
-(\Theta_{S^*} \otimes \id_Q)\Bigl(\alpha,\ov\beta,
-\sum_{l=1}^k v_l^* \otimes \gamma(v_l) \Bigr),
-\sum_{m=1}^k \ov{v_m^* \otimes \delta(v_m)}
-\biggr)_{S^*\otimes Q}
-\hfill\cr{}
-\qquad
-= \sum_{l,m=1}^k
--R_{\cc S}(\alpha,\ov\beta,v_m,\ov{v_l})
-\cdot h(\gamma(v_l), \ov{\delta(v_m)})_Q
-\hfill\cr{}
-\qquad
-= \sum_{l,m=1}^k
-h(\alpha(v_m), \ov{\beta(v_l)})_Q
-\cdot h(\gamma(v_l), \ov{\delta(v_m)})_Q
-\hfill\cr{}
-\qquad
-= \sum_{m=1}^k
-\sum_{l=1}^k
-h(\beta^\dagger\alpha(v_m), \ov{v_l})_S
-\cdot h(v_l, \ov{\gamma^\dagger\delta(v_m)})_S
-\hfill\cr{}
-\qquad
-= \sum_{m=1}^k
-h(\beta^\dagger\alpha(v_m),
-\ov{\gamma^\dagger\delta(v_m)})_S
-= h(\beta^\dagger\alpha,
-\ov{\gamma^\dagger\delta})_{\End S}.
-\hfill
-}
-$$
-Note that $v_l$ and $v_m$ get swapped when passing from the curvature form on $S^*$ to the negative of the one on $S$.
-Adding the two terms together now finishes the proof.
+The second fundamental form of $S$ gives an holomorphic bundle isomorphism $b : T_{\Gr} \to \Hom(S, Q)$. Note that the bundle $\End V$ is flat. Then the result follows by \thref{prop:hom-bundle-curvature}.
 \end{proof}
 
 
@@ -3087,8 +3077,9 @@ Recall that the holomorphic bisectional curvature is
 B(\alpha,\beta)
 = \frac{R(\alpha,\ov\alpha,\beta,\ov\beta)}{|\alpha|^2|\beta|^2}.
 \]
-We already know that $R$ is Griffiths-semipositive, as the curvature tensor is equal to the one on $\cc S^* \otimes \cc Q$, and $\cc S$ is non-positive and $\cc Q$ is non-negative by the holomorphic Codazzi equations~\ref{prop:codazzi-equation}. Thus $B \geq 0$.\footnote{We can see this directly without passing through the tensor isomorphism. If $j : \cc S \to V$ and $q : V \to \cc Q$ are the inclusion and projection maps, we get a surjective bundle morphism $\End V \to \Hom(\cc S, \cc Q)$ by $f \mapsto q \circ f \circ j$. This induces the metric on the Grassmannian, and the trivial bundle $\End V$ is flat.}
+We already know that $R$ is Griffiths-semipositive, as there is a holomorphic surjection $\End V \to \Hom(S,Q)$ that induces the metric on the latter, and $\End V$ is flat. Thus $B \geq 0$.
 
+In what follows we won't distinguish between a tangent field and its image under the second fundamental form.
 We have
 \[
 R(\alpha,\ov\alpha,\beta,\ov\beta)
@@ -4420,6 +4411,84 @@ for references. One of them is Demailly from his youth.
 
 Demailly proved these identities for a Hermitian metric on a Hermitian holomorphic vector bundle. He used essentially the moving frames formulation. Can we write an intrinsic proof?
 
+
+
+\section{Degenerate Hermitian linear algebra}
+\label{sec:deglinalg}
+
+All vector spaces are finite-dimensional and over the complex numbers. Let $V$ be a vector space and let $b$ be a Hermitian form on $V$. We want to study the geometry of the pair $(V,b)$.
+
+One motivation is that the category of vector spaces with Hermitian inner products has few morphisms. All morphisms there must be injective, while there are applications where we would like to be able to relax that condition.
+
+The Hermitian form can be seen as a linear morphism $b : V \to \ov V^*$. It comes with a well-defined kernel
+\[
+\Ker b = \{ v \in V \mid b(v, \ov w) = 0 \text{ for all $w$}\}.
+\]
+There may be two ways of doing what we want. One is to try to work with the isomorphism $b : V / \Ker b \to \im b \subset \ov V^*$ and then lift things. This may not play well with Hermitian metrics on holomorphic bundles. The other is to pick complements $A \subset V$ and $B \subset \ov V^*$ such that
+\[
+A \oplus \Ker b = V
+\qandq
+B \oplus \im b = \ov V^*,
+\]
+use them to extend constructions from the injective part to the whole space, and keep track of how those extensions depend on the complements. This is equivalent to picking isomorphisms
+\[
+V = \Ker b \oplus V / \Ker b
+\qandq
+\ov V^* = \im b \oplus \ov V^* / \im b
+\]
+which is maybe easier to keep track of.
+
+Limiting cases:
+\begin{itemize}
+\item
+$b$ is an inner product, so $\Ker b = 0$ and $\ov V^* / \im b = 0$ and there is only one isomorphism in each case.
+\item
+$b = 0$, so $\Ker b = V$ and $\im b = 0$ and again there is only one isomorphism.
+\end{itemize}
+
+
+\begin{defi}
+A \emph{moral space} is a vector space $V$ with a Hermitian form $b$ and isomorphisms
+\[
+\nu : \Ker b \oplus V / \Ker b \to V
+\qandq
+\mu : \im b \oplus \ov V^* / \im b \to \ov V^*
+\]
+such that the following diagram commutes:
+\[
+\begin{tikzcd}
+V / \Ker b \oplus \Ker b
+\ar[d,"\nu"]
+\ar[r,"b \oplus 0"] &
+\im b \oplus \ov V^* / \im b
+\ar[d,"\mu"]
+\\
+V \ar[r,"b"]  &
+\ov V^*
+\end{tikzcd}
+\]
+When necessary this package of information is denoted $(V,b,\nu,\mu)$.
+\end{defi}
+
+
+\begin{defi}
+A \emph{morphism} of moral spaces $(V,b,\nu,\mu)$ and $(W,c,\kappa,\lambda)$ is a linear morphism $f : V \to W$ such that $f^*c = b$.
+\end{defi}
+
+This condition implies compatibility with the complement isomorphisms.
+
+
+If $(V,b,\nu,\mu)$ is a moral space and $f : W \to V$ is a linear morphism, then any complement isomorphisms $\kappa$ and $\lambda$ for $W$ make $f : (W,f^*b,\kappa,\lambda) \to (V,b,\nu,\mu)$ into a morphism of moral spaces.
+
+I'm sure there's a category-theoretic idea here. We have a forgetful functor from the category of moral spaces to the category of spaces with (degenereate) Hermitian forms.
+
+This definition is pretty much made so that we can have short exact sequences of things. That is, if
+\[
+0 \to S \to V \to Q \to 0
+\]
+is a short exact sequence of vector spaces, and $(V,b,\nu,\mu)$ is moral, then we can turn the quotient into a moral space as well. (It's trivial to make the subspace moral. Then we can turn the conjugate dual quotient moral, and use the complement isomorphisms to make the quotient moral.)
+
+Another point of doing all this is to show that we have (unique!) Chern curvature tensors for arbitrary Hermitian forms, and ask when the Codazzi equations hold for them. (We may have to restrict to semipositive Hermitian forms. Otherwise we can take $b = h - h$ for a Hermitian metric $h$. The Codazzi equations don't work out in this case.)
 
 
 \bibliographystyle{plain}
