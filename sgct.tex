@@ -419,7 +419,7 @@ D_{\Hom(E,E)}(\Theta_E)(s)
 \subsection{Metrics}
 
 \begin{defi}
-A \emph{Hermitian metric} $h$ on a holomorphic vector bundle $E \to X$ is a smooth section of $\bigwedge^{1,1}E^* := E^* \otimes \overline E^*$ that satisfies $h(t, s) = \overline{h(s, t)}$ for all sections $s, t$ of $E$.
+A \emph{Hermitian metric} $h$ on a holomorphic vector bundle $E \to X$ is a smooth section of $\bigwedge^{1,1}E^* := E^* \otimes \overline E^*$ that satisfies $h(t,\ov s) = \overline{h(s,\ov t)}$ for all sections $s, t$ of $E$.
 \end{defi}
 
 Any holomorphic vector bundle admits a Hermitian metric. This is clear over any trivializing neighborhood, and we can patch those together with a partition of unity.
@@ -428,20 +428,33 @@ Any holomorphic vector bundle admits a Hermitian metric. This is clear over any 
 \begin{defi}
 Let $(E, h) \to X$ be a Hermitian holomorphic vector bundle. A connection $D$ on $E$ is \emph{compatible} with $h$ if
 $$
-d h(s, t) = h(Ds, t) + h(s, Dt)
+d h(s, \ov t)
+= h(Ds, \ov t) + h(s,\ov{Dt})
 $$
 for all sections $s, t$ of $E$.
 \end{defi}
 
-A Hermitian metric comes with a unique connection:
+If we view the metric as a linear morphism $h : E \to \ov E^*$, then $h(s, \ov t) = h(s)(\ov t)$. Using the connections that a connection $D$ induces on derived bundles, we get
+\begin{align*}
+d h(s, \ov t)
+&= (D_{\Hom(E, \ov E^*)}h)(s)(\ov t)
++ h(D_E s)(\ov t)
++ h(s)(D_{\ov E}\ov{t})
+\\
+&= (D_{\Hom(E, \ov E^*)}h)(s)(\ov t)
++ h(D_E s, \ov t)
++ h(s, \ov{D_E t}).
+\end{align*}
+A compatible connection is thus one for which the metric is parallel.
+A Hermitian metric comes with a unique compatible connection:
 
 
 \begin{prop}
-Let $(E, h) \to X$ be a Hermitian holomorphic vector bundle. There exists a unique connection $D$ on $E$ that is compatible with the metric $h$ and whose $(0,1)$-part is $\bar\partial$. This is the \emph{Chern} connection of $(E,h)$.
+Let $(E, h) \to X$ be a Hermitian holomorphic vector bundle. There exists a unique connection $D$ on $E$ that is compatible with the metric $h$ and whose $(0,1)$-part is $\bar\partial$. This is the \emph{Chern connection} of $(E,h)$.
 \end{prop}
 
 \begin{proof}
-Let's view the metric $h$ as an isomorphism $E \to \overline E^*$. The map $t \mapsto \partial_\xi h(s, t)$ defines a $(0,1)$-form on $E$, so there exists a unique smooth section $A(\xi,s)$ of $E$ such that
+Let's view the metric $h$ as an isomorphism $E \to \overline E^*$. The map $\ov t \mapsto \partial_\xi h(s, \ov t)$ defines a $(0,1)$-form on $E$, so there exists a unique smooth section $A(\xi,s) = h^{-1}(\partial_\xi h(s, \ov t))$ of $E$ such that
 $$
 \partial_\xi h(s, t) = h(A(\xi, s), t)
 $$
@@ -451,51 +464,6 @@ As $\partial$ is linear in $\xi$, then so is $A$. We have $\partial_\xi h(f s, t
 It follows that $(\xi, s) \mapsto A(\xi, s)$ is a connection on holomorphic sections of $E$. Such an object can be extended uniquely to a connection on smooth sections of $E$: If $s$ is holomorphic and $f$ is smooth, we set $A(\xi, f s) = df \otimes s + f A(\xi, s)$. If $s$ is a smooth section, we pick local holomorphic sections $(s_1, \ldots, s_r)$ and find smooth functions $f_j$ such that $s = \sum_j f_j s_j$, and set $A(\xi,s) = \sum_j A(\xi, f_j s_j)$.
 
 By construction, the resulting connection is compatible with the metric, and its $(0,1)$-part is $\bar\partial$.
-
-
-LOCAL:
-
-Let $(s_1, \ldots, s_r)$ be a holomorphic frame of $E$ over a trivializing neighborhood $U$. We write $H = (h(s_j, s_k))_{jk}$ for the matrix of $h$ in this frame, and define
-$$
-D s := H^{-1}\partial (H s) + \bar\partial s
-$$
-for any section $s$ of $E$ over $U$. This object $D$ is $\kk C$-linear, and if $f$ is a smooth function then
-\begin{align*}
-D(fs)
-= H^{-1}\partial (H fs) + \bar\partial (fs)
-&= H^{-1}(\partial f \otimes Hs + f\partial( H s)) + \bar\partial f \otimes s + f \bar\partial s
-\\
-&= df \otimes s + f Ds
-\end{align*}
-so $D$ is a connection on $E$ over $U$. Its $(0,1)$-part is clearly $\bar\partial$.
-
-If $s = f \otimes s_j$ and $t = g \otimes s_k$ are smooth decomposable sections, then $h(s,t) = f\overline{g} h(s_j,s_k)$. Then
-$$
-d h(s,t)
-= df \otimes \bar g h(s_j,s_k)
-+ f d\bar g \otimes h(s_j,s_k)
-+ f\bar g\partial h(s_j,s_k)
-+ f\bar g\bar\partial h(s_j,s_k).
-$$
-Now, $Ds_j$ is defined exactly so that $h(Ds_j, s_k) = \partial h(s_j,s_k)$, and conjugating we find that $\bar\partial h(s_j,s_k) = h(s_j, D s_k)$. Putting these together we get
-\begin{align*}
-d h(s,t)
-&= h(df \otimes s_j, g s_k)
-+ h(f s_j, d g \otimes s_k)
-+ h(f D s_j,g s_k)
-+ h(f s_j,g D s_k)
-\\
-&= h(Ds, t) + h(s, Dt)
-\end{align*}
-so $D$ is compatible with $h$.
-
-Finally, let $(t_1, \ldots, t_r)$ be a holomorphic frame over a trivializing neighborhood $V$ and assume that $U \cap V \not= \varnothing$. There is a holomorphic frame change matrix $G$ from the frame $(s_1, \ldots, s_r)$ to $(t_1,\ldots,t_r)$. The matrix of $h$ becomes $H = \overline{G}^{t}H'G$ under this frame change. Then
-$$
-H^{-1} \partial H
-= G^{-1} (H')^{-1} (\overline G^t)^{-1} \overline G^t \partial(H'G)
-= G^{-1} ((H')^{-1} \partial H') G + G^{-1} \partial G
-$$
-so $D$ glues together to define a connection on all of $E$.
 \end{proof}
 
 
@@ -507,15 +475,15 @@ The curvature form of the Chern connection is a purely imaginary $(1,1)$-form.
 Let $s, t$ be sections of $E$. We have
 \begin{align*}
 0
-= d^2 h(s, t)
-&= d h(Ds, t) + d h(s, Dt)
+= d^2 h(s, \ov t)
+&= d h(Ds, \ov t) + d h(s, \ov{Dt})
 \\
-&= h(F s, t) - h(Ds, Dt) + h(Ds, Dt) + h(s, F t)
+&= h(F s, \ov t) - h(Ds, \ov{Dt}) + h(Ds, \ov{Dt}) + h(s, \ov{F t})
 \\
 &=
-h(Fs,t) + h(\overline{F^{t}}s, t).
+h(Fs,\ov t) + h(F^{\dagger}s, \ov{t}).
 \end{align*}
-It follows that $\overline{F^t} = -F$, so $F$ is imaginary.
+It follows that $F^\dagger = -F$, so $F$ is imaginary.
 
 We have $D = D^{1,0} + \bar\partial$, so $F = (D^{1,0})^2 + (\bar\partial D^{1,0} + D^{1,0}\bar\partial)$ because $\bar\partial^2 = 0$. That is, $F$ has no $(0,2)$-part. But then it also has no $(2,0)$-part by the above.
 \end{proof}
@@ -542,18 +510,17 @@ is an isomorphism.
 \begin{proof}
 Let $h$ be a Hermitian form. For tangent fields $\alpha$ and $\beta$ we have
 $$
-\overline{\im h(\alpha,\beta)}
-= -\im \overline{h(\alpha, \beta)}
-= -\im h(\beta, \alpha)
+\overline{\im h(\alpha,\ov\beta)}
+= -\im \overline{h(\alpha, \ov\beta)}
+= -\im h(\beta, \ov\alpha)
 $$
 so the morphism is well-defined. It is clearly $\kk R$-linear (even $C^\infty$-linear for real-valued functions). If $h$ is a Hermitian form such that $\im h = 0$, then $h$ is real for all tangent fields. In particular,
 $$
-h(i\alpha, \alpha) = i h(\alpha,\alpha)
+h(i\alpha, \ov\alpha) = i h(\alpha,\ov\alpha)
 $$
-is real, so $h(\alpha,\alpha) = 0$ for all $\alpha$. It follows that $h = 0$, so the morphism is injective. By inspection in a local frame, both bundles have the same rank, so $h$ is surjective.
+is real, so $h(\alpha,\ov\alpha) = 0$ for all $\alpha$. It follows that $h = 0$, so the morphism is injective. By inspection in a local frame, both bundles have the same rank, so $h$ is surjective.
 \end{proof}
 
-TODO: For this to make sense we really have to look at $T_X^{\kk C} = T_X^{1,0} \oplus T_X^{0,1}$.
 
 \begin{defi}
 If $h$ is a Hermitian form, the $(1,1)$-form $\omega = -\im h$ is the \emph{K\"ahler form} of $h$.
@@ -1723,7 +1690,8 @@ b(s) := q(D_E(js) - jD_S(s)).
 
 \begin{prop}
 \label{prop:second-fundamental-form}
-The second fundamental form is an element of $\Hom(S,Q)$. We also have
+The second fundamental form is an element of $\cc A^{1,0}(\Hom(S,Q))$.
+We have
 \[
 b(s)
 = q(D_{\Hom(S,E)}(j)(s))
@@ -1740,6 +1708,14 @@ As $qj = 0$ it is clear that $b(s) = q(D_E(js))$. We also have
 D_E(js) = D_{\Hom(S,E)}(j)(s) + j(D_Ss),
 \]
 so $b(s) = q(D_{\Hom(S,E)}(j)(s))$.
+
+We now see that
+\[
+D_{\Hom(E,Q)}q(s) + q(D_S s)
+= D_{Q}(b(s))
+= D'_{\Hom(E,Q)}q \wedge D_E(js)
++ q(\Theta_E(js))
+\]
 \end{proof}
 
 
@@ -1752,6 +1728,49 @@ We have defined the second fundamental form almost like it is done in Riemannian
 and $D_E(js) - jD_Ss$ is a tensor. By the above calculation it is a $(1,0)$-form that takes values in the orthogonal bundle $S^\perp$. Here a Riemannian geometer would emit a content sigh and move on with their life. They can do this because they work in the smooth category, and to them working with the smooth bundle $S^\perp$ is just fine. We prefer having holomorphic bundles, even if the sections we look at end up only being smooth, and thus compose with the quotient map and get values in $Q$.
 
 This also leads us to having two more expressions for the second fundamental form. The different expressions have different interpretations and uses. The one we used for the definition is a metric one, useful when doing differential geometry. The one involving $D_{\Hom(S,E)}$ comes in handy when viewing the subbundle as deforming inside $E$, which is a Grassmannian viewpoint. Finally the one involving only $D_E$ is quite useful for calculations involving submanifolds of a given space.
+
+
+\begin{prop}
+Formulas.
+\end{prop}
+
+\begin{proof}
+Let $j^\dagger$ and $q^\dagger$ be the adjoints of $j$ and $q$.
+Then $\id_E = jj^\dagger + q^\dagger q$. The induced connections on the sub- and quotient bundles are $D_S = j^\dagger D_E(j)$ and $D_Q = q D_E(q^\dagger)$. The second fundamental form is $b = q(D_E(j))$. Its adjoint is defined by
+\[
+h_S(s, \ov{b^\dagger t})
+= h_Q(bs, \ov t)
+= h_Q(q(D_E(js)), \ov t)
+= h_Q(D_E(js), \ov{q^\dagger t})
+\]
+If $D$ is a connection we have
+\[
+d h(s, \ov t)
+= h(Ds, \ov t) + h(s, \ov{Dt})
+= h((D + D^\dagger)s, \ov t).
+\]
+
+
+ and its adjoint is $b^\dagger = j^\dagger D_E(q^\dagger)$.
+
+For a section $s$ of $E$ this gives $s = jj^\dagger(s) + q^\dagger q(s)$. We have
+\begin{align*}
+D_E(jj^\dagger(s))
+&= j(j^\dagger D_E(j(j^\dagger s)))
++ q^\dagger(q D_E(j(j^\dagger s)))
+\\
+&= j(D_S(j^\dagger s))
++ q^\dagger(b(j^\dagger s)).
+\end{align*}
+Similarly,
+\begin{align*}
+D_E(q^\dagger q(s))
+&= j(j^\dagger(D_E(q^\dagger(q s))))
++ q^\dagger(q(D_E(q^\dagger (q s))))
+\\
+&= j(b^\dagger(q s)) + q^\dagger (D_q(qs)).
+\end{align*}
+\end{proof}
 
 
 \begin{prop}[Codazzi equation]
@@ -1871,7 +1890,9 @@ On the one hand we have
 = \langle D's, b^\dagger t \rangle
 + \langle s, \bar\partial b^\dagger (t) \rangle.
 \]
-As $b_S = D'_{\Hom(S,E)}j$ we have $D'b_S = (D')^2j = 0$. On the other hand, we then have
+TODO.
+
+As $b_S = qD'_{\Hom(S,E)}j$ we have $D'b_S = D'q \wedge D'j + q(D')^2j$. Since $qj = 0$ we have $D'q(j) + q(D'j) = 0$ On the other hand, we then have
 \[
 \partial \langle s, b^\dagger t \rangle
 = \partial \langle b s, t \rangle
@@ -2864,6 +2885,19 @@ Applying this to the real and imaginary parts of $|z_j|^2$ we get
 \end{proof}
 
 The value of the constant here is $\Vol(S(V,h)) / n$, but that won't be important.
+
+
+\begin{prop}
+The second fundamental form of $S$ is holomorphic and an isomorphism
+\[
+b : T_{\Gr} \to \Hom(S,Q)
+\]
+of holomorphic vector bundles.
+\end{prop}
+
+\begin{proof}
+The trivial bundle $(V,h) \to \Gr(k, V)$ is flat and we know this implies that $\bar\partial b = 0$, so $b$ is holomorphic.
+\end{proof}
 
 
 To construct a metric on $\Gr(k,V)$, we're going to fix an inner product $h_V$ on $V$. The second fundamental form gives an isomorphism
