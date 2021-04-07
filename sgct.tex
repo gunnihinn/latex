@@ -547,7 +547,7 @@ The torsion tensor is antisymmetric and $\cc C^\infty$-linear in both of its var
 \end{prop}
 
 \begin{proof}
-  That the tensor is antisymmetric is clear from its definition. If $f$ is a smooth function, we have
+That the tensor is antisymmetric is clear from its definition. If $f$ is a smooth function, we have
 \begin{align*}
 \tau(f\alpha,\beta)
 &= \nabla_{f\alpha}\beta - \nabla_\beta(f\alpha) - [f\alpha,\beta]
@@ -561,25 +561,33 @@ The torsion tensor is antisymmetric and $\cc C^\infty$-linear in both of its var
 There's a very nice relationship between the torsion tensor and the K\"ahler form of the metric.
 
 \begin{prop}
-For holomorphic tangent fields, we have
-$$
-h(\tau(\alpha,\beta), \gamma)
-= \partial\omega(\alpha,\beta,\overline\gamma).
-$$
+For holomorphic tangent fields $\alpha, \beta$ and $\gamma$, we have
+\[
+\partial\omega(\alpha,\gamma,\ov\beta)
+= \omega(\tau(\alpha,\gamma), \ov\beta).
+\]
 \end{prop}
 
 \begin{proof}
-By definition of the Chern connection, we have
-$$
-\partial \omega(\id, \id)
-= \omega(\nabla \id, \id).
-$$
-Evaluating these $(2,1)$-forms on $\alpha, \beta$ and $\overline\gamma$, we get
+From the definition of $\omega$ as the imaginary part of $h$ we get
 \[
-\partial\omega(\alpha,\beta,\overline{\gamma})
-= h(\tau(\alpha,\beta), \gamma).
-\qedhere
+\partial\omega(\alpha,\ov\beta)
+= -\partial\im h(\alpha, \ov\beta)
+= -\im h(\nabla\alpha,\ov\beta))
+= \omega(\nabla\alpha,\ov\beta).
 \]
+Then
+\begin{align*}
+\partial\omega(\alpha,\gamma,\ov\beta)
+&= \partial_\alpha\omega(\gamma,\ov\beta)
+- \partial_\gamma\omega(\alpha,\ov\beta)
+- \omega([\alpha,\gamma], \ov\beta)
+\\
+&= \omega(\nabla_\alpha\gamma, \ov\beta)
+- \omega(\nabla_\gamma\alpha, \ov\beta)
+- \omega([\alpha,\gamma], \ov\beta)
+= \omega(\tau(\alpha,\gamma), \ov\beta).
+\end{align*}
 \end{proof}
 
 \begin{coro}
