@@ -401,6 +401,7 @@ A word of warning: The curvature form $\Theta_{\bigwedge^kE}$ is not the same as
 
 
 \begin{prop}[Bianchi identity]
+\label{prop:bianchi-general}
 \[
 D_{\Hom(E,E)} \Theta_E = 0.
 \]
@@ -455,11 +456,11 @@ Let $(E, h) \to X$ be a Hermitian holomorphic vector bundle. There exists a uniq
 
 \begin{proof}
 Let's view the metric $h$ as an isomorphism $E \to \overline E^*$. The map $\ov t \mapsto \partial_\xi h(s, \ov t)$ defines a $(0,1)$-form on $E$, so there exists a unique smooth section $A(\xi,s) = h^{-1}(\partial_\xi h(s, \ov t))$ of $E$ such that
-$$
-\partial_\xi h(s, t) = h(A(\xi, s), t)
-$$
+\[
+\partial_\xi h(s, \ov t) = h(A(\xi, s), \ov t)
+\]
 for all $t$.\footnote{What we'd \emph{really} like to do is to say that $\partial h$ is a $(1,0)$-form with values in $\bigwedge^{1,1}E$, and thus $h^{-1}\partial h$ is a $(1,0)$-form with values in $\End E$. Adding $\bar\partial$ gives the Chern connection. This doesn't work because the exterior derivative isn't well-defined on $\bigwedge^{1,1}E$, so $\partial h$ is meaningless. However, this \emph{is} how the construction of the Chern connection goes in a local frame. One then proves that the local construction glues along the coordinate change maps and is well-defined globally. We're able to get away with this here because $h(s,t)$ is a perfectly good smooth function that we can take exterior derivatives of.}
-As $\partial$ is linear in $\xi$, then so is $A$. We have $\partial_\xi h(f s, t) = \partial_\xi f h(s,t) + f \partial_\xi h(s, t)$, so $A(\xi, fs) = \partial f A(\xi, s) + f A(\xi, s)$. The morphism $A$ depends smoothly on $\xi$ and $s$ because the metric is smooth.
+As $\partial$ is linear in $\xi$, then so is $A$. We have $\partial_\xi h(f s, \ov t) = \partial_\xi f h(s,\ov t) + f \partial_\xi h(s, \ov t)$, so $A(\xi, fs) = \partial f A(\xi, s) + f A(\xi, s)$. The morphism $A$ depends smoothly on $\xi$ and $s$ because the metric is smooth.
 
 It follows that $(\xi, s) \mapsto A(\xi, s)$ is a connection on holomorphic sections of $E$. Such an object can be extended uniquely to a connection on smooth sections of $E$: If $s$ is holomorphic and $f$ is smooth, we set $A(\xi, f s) = df \otimes s + f A(\xi, s)$. If $s$ is a smooth section, we pick local holomorphic sections $(s_1, \ldots, s_r)$ and find smooth functions $f_j$ such that $s = \sum_j f_j s_j$, and set $A(\xi,s) = \sum_j A(\xi, f_j s_j)$.
 
@@ -504,27 +505,71 @@ $$
 \quad
 h \mapsto \im h
 $$
-is an isomorphism.
+is an isomorphism onto the space of real $(1,1)$-forms.
 \end{prop}
 
 \begin{proof}
 Let $h$ be a Hermitian form. For tangent fields $\alpha$ and $\beta$ we have
 $$
 \overline{\im h(\alpha,\ov\beta)}
-= -\im \overline{h(\alpha, \ov\beta)}
-= -\im h(\beta, \ov\alpha)
+= \overline{\frac{1}{2i}(h(\alpha,\ov\beta) - h(\beta,\ov\alpha))}
+= -\frac{1}{2i}(h(\beta,\ov\alpha) - h(\alpha,\ov\beta))
+= \im h(\alpha, \ov\beta)
 $$
-so the morphism is well-defined. It is clearly $\kk R$-linear (even $C^\infty$-linear for real-valued functions). If $h$ is a Hermitian form such that $\im h = 0$, then $h$ is real for all tangent fields. In particular,
+so $\im h$ is a real $(1,1)$-form. It is clearly $\kk R$-linear (even $C^\infty$-linear for real-valued functions). If $h$ is a Hermitian form such that $\im h = 0$, then $h$ is real for all tangent fields. In particular,
 $$
 h(i\alpha, \ov\alpha) = i h(\alpha,\ov\alpha)
 $$
-is real, so $h(\alpha,\ov\alpha) = 0$ for all $\alpha$. It follows that $h = 0$, so the morphism is injective. By inspection in a local frame, both bundles have the same rank, so $h$ is surjective.
+is real, so $h(\alpha,\ov\alpha) = 0$ for all $\alpha$. It follows that $h = 0$, so the morphism is injective.
 \end{proof}
 
 
 \begin{defi}
 If $h$ is a Hermitian form, the $(1,1)$-form $\omega = -\im h$ is the \emph{K\"ahler form} of $h$.
 \end{defi}
+
+The sign deserves an explanation. Suppose we're on a complex vector space $V$ of dimension $n$, and that we have a basis $(v_1,\ldots,v_n)$. In this basis, the Hermitian form $h$ can be written as
+\[
+h(z, \ov w)
+= \sum_{jk} h(v_j, \ov v_k) z_j \ov w_k
+= \Bigl(
+\sum_{jk} h(v_j, \ov v_k) \, dv_j \otimes d\bar v_k
+\Bigr)(z, \ov w).
+\]
+where $z = \sum_j z_j v_j$ and $w = \sum_k w_k v_k$.
+The imaginary part of this is
+$$
+\displaylines{
+\frac{1}{2i}
+\sum_{jk}
+\bigl(
+ h(v_j, \ov v_k) \, d v_j \otimes d \bar v_k
+- \ov{h(v_j, \ov v_k)} \, d \bar v_j \otimes d v_k
+\bigr)
+\hfill\cr\hfill{}
+\begin{aligned}
+&= \frac{1}{2i}
+\sum_{jk}
+\bigl(
+ h(v_j, \ov v_k) \, d v_j \otimes d \bar v_k
+- h(v_k, \ov v_j) \, d \bar v_j \otimes d v_k
+\bigr)
+\\
+&= -
+\sum_{jk}
+h(v_j, \ov v_k)
+\frac i2 \bigl(
+d v_j \otimes d \bar v_k - d \bar v_k \otimes d v_j
+\bigr)
+= -2
+\sum_{jk}
+ h(v_j, \ov v_k)
+\, \frac i2 d v_j \wedge d \bar v_k.
+\end{aligned}
+}
+$$
+The extra factor of $2$ appears because $d v_j \wedge d \bar v_k = \frac 12 (d v_j \otimes d\bar v_k - d\bar v_k \otimes v_j)$, but the elements $\frac i2 dv_j \wedge d\bar v_k$ define an orthonormal basis for the space of $(1,1)$-forms, so we prefer writing things in terms of them. In any case, the imaginary part of $h$ is clearly a \emph{negative} $(1,1)$-form if $h$ is positive-definite. This is unfortunate, so we take the K\"ahler form to be the negative imaginary part to get a positive $(1,1)$-form when $h$ is positive-definite.
+
 
 
 We will write $\nabla$ for the Chern connection of a given Hermitian metric $h$. By the discussion in the previous sections, we can apply this connection to tensor fields on $X$. In particular, we can consider the identity morphism $\id : T_X \to T_X$, which we view as a $(1,0)$-form with values in $T_X$. Taking its covariant derivative, we obtain
@@ -640,7 +685,7 @@ and cancel $F \wedge \tau$.
 
 The above does not say that $F_{\alpha\beta}\gamma = \nabla_\alpha \tau(\beta,\gamma)$. It is an equality of $3$-forms with values in $T_X$ and involves the permutations of all of the tensor fields.
 
-The first Bianchi identity can only be stated for metrics on the tangent bundle, as it involves the torsion. The second Bianchi identity is true for the curvature form $F$ of an arbitrary connection $D$ on a vector bundle $E$, where it says that $D_{\End E} F = 0$.
+The first Bianchi identity can only be stated for metrics on the tangent bundle, as it involves the torsion. The second Bianchi identity is true for the curvature form $F$ of an arbitrary connection $D$ on a vector bundle $E$, where it says that $D_{\End E} F = 0$; see \thref{prop:bianchi-general}.
 
 
 \subsection{Derived curvature tensors}
@@ -1709,21 +1754,18 @@ for sections $s$ of $S$.
 \end{prop}
 
 \begin{proof}
-The connections are $\cc C^\infty$-linear in their tensor field variables, so $b$ is also thus. The difference of two connections is also $\cc C^\infty$-linear in the section variable. Both connections are Chern connections, so their $(0,1)$-part is $\bar\partial$. Thus $b$ is a $(1,0)$-form with values in $Q$, that is, an element of $\Hom(S,Q)$.
-
 As $qj = 0$ it is clear that $b(s) = q(D_E(js))$. We also have
 \[
 D_E(js) = D_{\Hom(S,E)}(j)(s) + j(D_Ss),
 \]
 so $b(s) = q(D_{\Hom(S,E)}(j)(s))$.
 
-We now see that
+As $j$ is holomorphic, we have $D_{\Hom(S,E)}j = D'_{\Hom(S,E)}j$ so $b$ has no $(0,1)$-part. It is also clearly $\cc C^\infty$-linear in its tensor field variable. If $f$ is a smooth function, we have
 \[
-D_{\Hom(E,Q)}q(s) + q(D_S s)
-= D_{Q}(b(s))
-= D'_{\Hom(E,Q)}q \wedge D_E(js)
-+ q(\Theta_E(js))
+D_E(j(fs))
+= df \otimes js + f D_E(js)
 \]
+so $b(fs) = q(D_E(j(fs))) = q(f D_E(js)) = fb(s)$.
 \end{proof}
 
 
@@ -1792,37 +1834,30 @@ R_S(\alpha,\beta,s,t)
 where $s, t$ are sections of $S$ and $\alpha,\beta$ are tangent fields on $X$.
 \end{prop}
 
+
 \begin{proof}
-As usual it's enough to prove tensorial equations for holomorphic sections. For any Hermitian metric $h$ with Chern connection $D$ and curvature form $\Theta$ we have
-$$
-\partial\bar\partial h(s,t)
-= h(Ds,Dt) - h(\Theta s, t)
-$$
-for holomorphic sections $s,t$. Here we have $h_S(s,t) = h_E(js, jt)$, so on the one hand we have
-$$
-\partial\bar\partial h_S(s,t) =
-h_S(D_S s, D_S t) - h_S(\Theta_S s, t)
-$$
-and on the other we have
-$$
-\partial\bar\partial h_E(js, jt)
-= h_E(D_E(js), D_E(jt)) - h_E(\Theta_E (js), jt).
-$$
-We again use that $h_E(js,jt) = h_S(s,t)$, so
-$$
-h_S(Ds,t)
-= h_E(D_E(js), jt)
-= h_E(D_{\Hom(S,E)}j(s), jt) + h_S(D_S s,t),
-$$
-that is, $h_E(D_{\Hom(S,E)}j(s), jt) = 0$ for all holomorphic sections $s, t$ of $S$. Then $D_{\Hom(S,E)}j(s) = b(s)$ by comparison with the second fundamental form. Taking this together, we have
+It's enough to prove tensorial equations on holomorphic sections.
+For any Hermitian metric $h$ with Chern connection $D$ and curvature form $\Theta$ we have
+\[
+\partial\bar\partial h(s, \ov t)
+= h(Ds, \ov{Dt}) - h(\Theta s, \ov t)
+\]
+for holomorphic sections $s$ and $t$. Here we have $h_S(s,\ov t) = h_E(js, \ov{jt})$. We note that
+\[
+D_E(js)
+= D_{\Hom(S,E)}j(s) + j(D_Ss)
+= q^\dagger b(s) + j(D_Ss)
+\]
+and that the sum on the right-hand side is orthogonal with respect to the metrics in play. Then we get
 \begin{align*}
-h_S(D_S s, D_S t) - h_S(\Theta_S s, t)
-&= h_E(D_E(js), D_E(jt)) - h_E(\Theta_E (js), jt)
+h_S(D_Ss, \ov{D_St}) - h_S(\Theta_S s, \ov t)
+&= h_E(D_E(js), \ov{D_E(jt)}) - h_E(\Theta_E(js), \ov{jt})
 \\
-&= h_Q(b(s),b(t)) + h_S(D_S s, D_S t) - h_E(\Theta_E (js), jt).
+&= h_Q(b(s), \ov{b(t)}) + h_S(D_Ss, \ov{D_St}) - h_E(\Theta_E(js), \ov{jt})
 \end{align*}
-Canceling terms and multiplying through by $-1$ gives the result.
+and the result follows by clearing terms.
 \end{proof}
+
 
 The holomorphic Codazzi equation shows that the curvature of a holomorphic subbundle is less or equal to the curvature of the ambient bundle. In particular, the curvature of a submanifold is dominated by the curvature of the ambient manifold. The same is of course not true in Riemannian geometry; see for example the sphere in Euclidean space.
 
@@ -1895,18 +1930,17 @@ That is, $[b_S^\dagger]$ defines a Dolbeault cohomology class in $H^{0,1}(X, \Ho
 On the one hand we have
 \[
 \partial \langle s, b^\dagger t \rangle
-= \langle D's, b^\dagger t \rangle
+= \langle D'_Ss, b^\dagger t \rangle
 + \langle s, \bar\partial b^\dagger (t) \rangle.
 \]
-TODO.
-
-As $b_S = qD'_{\Hom(S,E)}j$ we have $D'b_S = D'q \wedge D'j + q(D')^2j$. Since $qj = 0$ we have $D'q(j) + q(D'j) = 0$ On the other hand, we then have
+On the other hand, we then have
 \[
 \partial \langle s, b^\dagger t \rangle
 = \partial \langle b s, t \rangle
-= \langle D'b (s) + b(Ds), t \rangle
-= \langle Ds, b^\dagger t \rangle.
+= \langle D'_{\Hom(S,Q)}b (s) + b(D'_Ss), t \rangle
+= \langle D'_Ss, b^\dagger t \rangle
 \]
+because $D'_{\Hom(S,Q)}b = 0$.
 Comparing, we see that $\langle s, \bar\partial b^\dagger (t) \rangle = 0$ for all holomorphic sections $s,t$, so $\bar\partial b^\dagger = 0$.
 \end{proof}
 
@@ -2078,7 +2112,6 @@ The Hermitian metric constructed on $X$ in this way is ``generally'' not K\"ahle
 \end{prop}
 
 My attempts to show this have all ended in tautologies that go ``the metric is K\"ahler when it's K\"ahler''. While true, it is unhelpful.
-
 
 
 \subsection{Sums of metrics}
@@ -4460,12 +4493,155 @@ Demailly proved these identities for a Hermitian metric on a Hermitian holomorph
 
 All vector spaces are finite-dimensional and over the complex numbers. Let $V$ be a vector space and let $b$ be a Hermitian form on $V$. We want to study the geometry of the pair $(V,b)$.
 
-One motivation is that the category of vector spaces with Hermitian inner products has few morphisms. All morphisms there must be injective, while there are applications where we would like to be able to relax that condition.
+One motivation is that the category of vector spaces with Hermitian inner products has few morphisms. All morphisms there must be injective, while there are applications where we would like to be able to relax that condition. If we start from vector spaces with inner products and take as morphisms arbitrary linear ones, we get semipositive degenerate Hermitian forms. A priori there doesn't seem to be a reason to consider only positive forms, so we look at arbitrary ones.
 
-The Hermitian form can be seen as a linear morphism $b : V \to \ov V^*$. It comes with a well-defined kernel
+A Hermitian form can be seen as a linear morphism $b : V \to \ov V^*$. As such, it comes with a kernel
 \[
-\Ker b = \{ v \in V \mid b(v, \ov w) = 0 \text{ for all $w$}\}.
+\Ker b = \{ v \in V \mid b(v) = 0 \}.
 \]
+For any subspace $S \subset V$ we define its \emph{orthogonal complement} with respect to the form $b$ as
+\[
+S^\perp = \{ v \in V \mid b(v, \ov w) = 0 \text{ for all $w \in S$}\}.
+\]
+It is clearly a linear subspace of $V$.
+
+\begin{prop}
+\[
+\Ker b \subset S^\perp.
+\]
+\end{prop}
+
+\begin{proof}
+Let $v \in \Ker b$. Then $b(v, \ov w) = 0$ for all $w \in S$.
+\end{proof}
+
+
+\begin{prop}
+If $S \subset R$, then $R^\perp \subset S^\perp$.
+\end{prop}
+
+\begin{proof}
+Let $v \in R^\perp$, so $b(v, \ov w) = 0$ for all $w \in R$. Then $b(v, \ov w) = 0$ for all $w \in S \subset R$, so $v \in S^\perp$.
+\end{proof}
+
+\begin{prop}
+\[
+\Ker b
+= V^\perp.
+\]
+\end{prop}
+
+\begin{proof}
+If $v \in \Ker b$ then $b(v, \ov w) = 0$ for all $w \in V$, so $\Ker b \subset V^\perp$. If $v \in V^\perp$, then $b(v, \ov w) = b(v)(\ov w) = 0$ for all $w \in V$, so $b(v) = 0$ and $v \in \Ker b$.
+\end{proof}
+
+
+Consider the quotient space $V / \Ker b$ and the quotient morphism $q : V \to \Ker b$. The form $b$ induces a Hermitian form $\hat b$ on $V / \Ker b$ by
+\[
+\hat b(q x, \ov {qy})
+= b(x, \ov y).
+\]
+This is well-defined, as any other representative $x'$ of $x$ differs by an element of $\Ker b$, so $b(x', \ov y) = b(x, \ov y)$. The form $\hat b$ is also non-degenerate.
+
+\begin{prop}
+Let $S \subset V$. Then
+\[
+q(S^\perp) = q(S)^\perp,
+\]
+where the orthogonal complement on the right-hand side is with respect to $\hat b$.
+\end{prop}
+
+\begin{proof}
+Let $v \in S^\perp$, so $b(v, \ov w) = 0$ for all $w \in S$. Then $\hat b(qv, \ov{qw}) = 0$ for all $w \in S$, which means that $\hat b(qv, \ov w) = 0$ for all $w \in q(S)$, so $qv \in q(S)^\perp$.
+
+Suppose then that $v \in q(S)^\perp$, so $\hat b(v, \ov w) = 0$ for all $w \in q(S)$. If $x \in V$ is such that $qx = v$, then this means that $b(x, \ov w) = 0$ for all $w \in S$. Then $x \in S^\perp$, so $qx \in q(S^\perp)$.
+\end{proof}
+
+
+\begin{prop}
+For any subspace $S \subset V$ we have
+\[
+q^{-1}(q(S)) = \Ker b + S.
+\]
+\end{prop}
+
+\begin{proof}
+Let $x \in q^{-1}(q(S))$. Then $qx \in q(S)$, so there is some $v \in S$ such that $qx = qv$. Then $q(x - v) = 0$, so $x - v \in \Ker q = \Ker b$, and $x = v + (x - v) \in S + \Ker b$.
+
+Conversely, if $v \in S$ and $x \in \Ker b$, then $q(v + x) \in q(S)$, so $v + x \in q^{-1}(q(S))$.
+\end{proof}
+
+\begin{prop}
+\[
+(S^\perp)^\perp
+= \Ker b + S.
+\]
+\end{prop}
+
+\begin{proof}
+We have $q(S)^\perp = q(S^\perp)$ for any subspace $S$, so
+\[
+q((S^\perp)^\perp)
+= q(S^\perp)^\perp
+= (q(S)^\perp)^\perp
+= q(S)
+\]
+as $\hat q$ is non-degenerate. Then
+\[
+(S^\perp)^\perp + \Ker b
+= q^{-1}(q((S^\perp)^\perp))
+= q^{-1}(q(S))
+= S + \Ker b.
+\]
+But $\Ker b \subset S^\perp$ for any subspace, so $\Ker b \subset (S^\perp)^\perp$, and the left-hand side is thus just $(S^\perp)^\perp$.
+\end{proof}
+
+
+\begin{prop}
+\[
+S + S^\perp = V.
+\]
+\end{prop}
+
+\begin{proof}
+We have
+\[
+q(S + S^\perp)
+= q(S) + q(S^\perp)
+= q(S) + q(S)^\perp
+= V / \Ker b
+\]
+as $\hat q$ is non-degenerate. As $q$ is surjective, this implies the result.
+\end{proof}
+
+
+
+
+\begin{prop}
+\[
+S \cap S^\perp = S \cap \Ker b.
+\]
+\end{prop}
+
+\begin{proof}
+We have
+\[
+q(S \cap S^\perp)
+= q(S) \cap q(S^\perp)
+= q(S) \cap q(S)^\perp
+= 0
+\]
+as $\hat q$ is non-degenerate,
+so $S \cap S^\perp \subset \Ker q = \Ker b$. Conversely, $\Ker b \subset S^\perp$, so $S \cap \Ker b \subset S \cap S^\perp$.
+\end{proof}
+
+
+
+
+
+
+\paragraph{}
+
 There may be two ways of doing what we want. One is to try to work with the isomorphism $b : V / \Ker b \to \im b \subset \ov V^*$ and then lift things. This may not play well with Hermitian metrics on holomorphic bundles. The other is to pick complements $A \subset V$ and $B \subset \ov V^*$ such that
 \[
 A \oplus \Ker b = V
@@ -4531,6 +4707,60 @@ This definition is pretty much made so that we can have short exact sequences of
 is a short exact sequence of vector spaces, and $(V,b,\nu,\mu)$ is moral, then we can turn the quotient into a moral space as well. (It's trivial to make the subspace moral. Then we can turn the conjugate dual quotient moral, and use the complement isomorphisms to make the quotient moral.)
 
 Another point of doing all this is to show that we have (unique!) Chern curvature tensors for arbitrary Hermitian forms, and ask when the Codazzi equations hold for them. (We may have to restrict to semipositive Hermitian forms. Otherwise we can take $b = h - h$ for a Hermitian metric $h$. The Codazzi equations don't work out in this case.)
+
+
+\paragraph{Induced forms}
+
+Let
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+E \ar[r,"q"] &
+Q \ar[r] &
+0
+\end{tikzcd}
+\]
+be a short exact sequence of vector spaces, and let $b_E$ be a Hermitian form on $E$. Then we get an induced form $b_S$ on $S$ by restriction,
+\[
+b_S(x,\ov y)
+= b_E(jx, \ov{jy}).
+\]
+Can we also induce a form on $Q$ without more information?
+
+When $h_E$ is non-degenerate, it induces a splitting $E = S \oplus S^\perp$ and $q : S^\perp \to Q$ is an isomorphism. Then we set $h_Q$ to be the pullback via $q^{-1}$ of the restriction of $h_E$ to $S^\perp$.
+
+In general, we can set
+\[
+S^\perp =
+\{ y \in E \mid h_E(jx, \ov y) = 0 \text{ for all $x \in S$}\}.
+\]
+Then $S^\perp$ is a linear subspace of $E$ as before. If $y \in S \cap S^\perp$, then
+\[
+h_S(x, \ov y) = h_E(jx, \ov{jy}) = 0
+\]
+for all $x \in S$, so $y \in \Ker h_S$. Conversely, if $y \in \Ker h_S$, then $h_E(jx, \ov{jy}) = 0$ for all $x \in S$. Thus
+\[
+S \cap S^\perp = \Ker h_S.
+\]
+Does $S + S^\perp = E$? The usual way to prove this is to construct the adjoint $j^\dagger : E \to S$; then $x = jj^\dagger x + (x - jj^\dagger x) \in S + S^\perp$.
+
+The adjoint of $j$ is defined by
+\[
+h_S(j^\dagger x, \ov{y})
+= h_E(x, \ov{jy})
+\]
+for all $x \in E$, $y \in S$. To prove this is well-defined we have to argue that the $(0,1)$-form $y \mapsto h_E(x, \ov {jy})$ is in the image of $h_S : S \to \ov S^*$ for all $x \in E$.
+
+So what's that image? Pick a subspace $W$ so that $S = \Ker h_S \oplus W$. Then $\ov S^* = \ov{\Ker h_S^*} \oplus \ov W^*$ and $h_S \cong 0 \oplus h$, where $h : W \to \ov W^*$ is an isomorphism. If $x \in S$ then $h_S(x)$ is a $(0,1)$-form such that $h_S(x)(\ov y) = 0$ for all $y \in \Ker h_S$. Suppose that $\alpha$ is a $(0,1)$-form such that $\alpha(\ov y) = 0$ for all $y \in \Ker h_S$. Then $\alpha$ is the pullback of a form on $\ov W$. That form is in the image of $h : W \to \ov W^*$, so there exists $x \in W \subset S$ such that $h_S(x) = h(x) = \alpha$. Thus:
+\[
+\im h_S
+= \{ \alpha \in \ov S^* \mid \alpha_{|\Ker h_S} = 0 \}.
+\]
+Getting back to the problem at hand, we have a $(0,1)$-form $y \mapsto h_E(x, \ov{jy})$. If $y \in \Ker h_S$, then $h_E(jx, \ov{jy}) = 0$ for all $x \in S$. I don't think it follows that $h_E(x, \ov{jy}) = 0$ for all $x \in E$.
+
+Wait, don't we have $j(\Ker h_S) \subset \Ker h$? If we do this is no problem.
+
 
 
 \bibliographystyle{plain}
