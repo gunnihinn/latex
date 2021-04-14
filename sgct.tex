@@ -1780,46 +1780,54 @@ and $D_E(js) - jD_Ss$ is a tensor. By the above calculation it is a $(1,0)$-form
 This also leads us to having two more expressions for the second fundamental form. The different expressions have different interpretations and uses. The one we used for the definition is a metric one, useful when doing differential geometry. The one involving $D_{\Hom(S,E)}$ comes in handy when viewing the subbundle as deforming inside $E$, which is a Grassmannian viewpoint. Finally the one involving only $D_E$ is quite useful for calculations involving submanifolds of a given space.
 
 
-\begin{prop}
-Formulas.
+\begin{prop}[Demailly~{{\cite[Theorem~14.3]{demailly-complex}}}]
+\label{prop:seq-formulas}
+\begin{alignat*}{2}
+D'_{\Hom(S,E)}j &= q^\dagger \circ b,
+&
+\qquad
+\bar\partial j &= 0,
+\\
+D'_{\Hom(E, Q)} q &= - b \circ j^\dagger,
+&
+\bar\partial q &= 0,
+\\
+D'_{\Hom(E,S)} j^\dagger &= 0,
+&
+\bar\partial j^\dagger &= b^\dagger \circ q,
+\\
+D'_{\Hom(Q,E)} q^\dagger &= 0,
+&
+\bar\partial q^\dagger &= - j \circ b^\dagger.
+\end{alignat*}
 \end{prop}
 
 \begin{proof}
-Let $j^\dagger$ and $q^\dagger$ be the adjoints of $j$ and $q$.
-Then $\id_E = jj^\dagger + q^\dagger q$. The induced connections on the sub- and quotient bundles are $D_S = j^\dagger D_E(j)$ and $D_Q = q D_E(q^\dagger)$. The second fundamental form is $b = q(D_E(j))$. Its adjoint is defined by
+Let $s$ be a section of $S$. Then
 \[
-h_S(s, \ov{b^\dagger t})
-= h_Q(bs, \ov t)
-= h_Q(q(D_E(js)), \ov t)
-= h_Q(D_E(js), \ov{q^\dagger t})
+j(D_S s) + q^\dagger b(s)
+= D_E(js)
+= D_{\Hom(S,E)}j (s) + j(D_S s),
 \]
-If $D$ is a connection we have
+where the first equality is by definition of $D_S$ and $b$, so
 \[
-d h(s, \ov t)
-= h(Ds, \ov t) + h(s, \ov{Dt})
-= h((D + D^\dagger)s, \ov t).
+D_{\Hom(S,E)}j = q^\dagger \circ b.
 \]
+The morphism $j$ is holomorphic, so $\bar\partial j = 0$. This proves the first line. The third line follows from the first by taking adjoints.
 
 
- and its adjoint is $b^\dagger = j^\dagger D_E(q^\dagger)$.
-
-For a section $s$ of $E$ this gives $s = jj^\dagger(s) + q^\dagger q(s)$. We have
+For the second line, the morphism $q$ is also holomorphic, so $\bar\partial q = 0$. Taking adjoints, we get that $D'_{\Hom(Q,E)} q^\dagger = 0$.
+We have $\id_E = j \circ j^\dagger + q^\dagger \circ q$, so
 \begin{align*}
-D_E(jj^\dagger(s))
-&= j(j^\dagger D_E(j(j^\dagger s)))
-+ q^\dagger(q D_E(j(j^\dagger s)))
+0
+&= D'_{\End E} \id_E
 \\
-&= j(D_S(j^\dagger s))
-+ q^\dagger(b(j^\dagger s)).
-\end{align*}
-Similarly,
-\begin{align*}
-D_E(q^\dagger q(s))
-&= j(j^\dagger(D_E(q^\dagger(q s))))
-+ q^\dagger(q(D_E(q^\dagger (q s))))
+&= D'_{\Hom(S,E)} j \circ j^\dagger + j \circ D'_{\Hom(E,S)}j^\dagger
++ D'_{\Hom(Q,E)}q^\dagger \circ q + q^\dagger D'_{\Hom(E,Q)} q
 \\
-&= j(b^\dagger(q s)) + q^\dagger (D_q(qs)).
+&= q^\dagger \circ b \circ j^\dagger + q^\dagger \circ D'_{\Hom(E,Q)}q.
 \end{align*}
+Applying $q$, we conclude that $D'_{\Hom(E,Q)}q = - b \circ j^\dagger$. This proves the second line. Taking adjoints we get the final piece of the fourth line.
 \end{proof}
 
 
@@ -1983,7 +1991,7 @@ A formal calculation shows that
 + q^\dagger \Theta_{\Hom(S,Q)} f j^\dagger
 + q^\dagger f \Theta_{\Hom(E,S)} j^\dagger.
 \]
-Referring to Demailly~\cite[Theorem~14.3]{demailly-complex}, we see that
+Referring to \thref{prop:seq-formulas} we see that
 \begin{align*}
 \Theta_{\Hom(Q,E)} q^\dagger
 &= D'_{\Hom(Q,E)} \bar\partial q^\dagger
@@ -2061,7 +2069,7 @@ We have $j^\dagger \circ j = \id_{T_X}$. Then
 = D_{\End T_X} \id_{T_X}
 = D_{\Hom(E,T_X)}j^\dagger \circ j + j^\dagger \circ D_{\Hom(T_X,E)}j.
 \]
-By Demailly~\cite[Theorem~14.3]{demailly-complex} we have
+By \thref{prop:seq-formulas} we have
 \[
 D_{\Hom(E,T_X)}j^\dagger
 = b^\dagger \circ q
@@ -4488,12 +4496,235 @@ Demailly proved these identities for a Hermitian metric on a Hermitian holomorph
 
 
 
-\section{Degenerate Hermitian linear algebra}
+\section{Degenerate Hermitian geometry}
 \label{sec:deglinalg}
+
+
+\subsection{Linear algebra}
+
+
 
 All vector spaces are finite-dimensional and over the complex numbers. Let $V$ be a vector space and let $b$ be a Hermitian form on $V$. We want to study the geometry of the pair $(V,b)$.
 
-One motivation is that the category of vector spaces with Hermitian inner products has few morphisms. All morphisms there must be injective, while there are applications where we would like to be able to relax that condition. If we start from vector spaces with inner products and take as morphisms arbitrary linear ones, we get semipositive degenerate Hermitian forms. A priori there doesn't seem to be a reason to consider only positive forms, so we look at arbitrary ones.
+Our interest in the topic comes from complex differential geometry, where we sometimes construct an honest metric by adding together two degenerate Hermitian forms. We'll thus mostly be focused on constructing adjoints of morphisms and inducing forms in short exact sequences.
+
+\begin{defi}
+A \emph{Hermitian space} is a finite-dimensional vector space $V$ with a Hermitian form $b$.
+
+A \emph{morphism} of Hermitian spaces is a linear morphism $f : V \to W$ such that
+\[
+b_W(fx, \ov{fy}) = b_V(x, \ov y)
+\]
+for all $x, y \in V$.
+\end{defi}
+
+The category this forms is the one that has Hermitian spaces for objects and the above morphisms between them. Given two objects in this category, there is not necessarily any morphism between them; if $V$ has a non-degenerate form while $W$ has the zero form, there is no morphism $V \to W$.
+
+A Hermitian form can be seen as a linear morphism $b : V \to \ov V^*$. As such, it has a kernel. We clearly have
+\[
+\Ker b = \{ x \in V \mid b(x, \ov y) = 0 \text{ for all $y \in V$}\}.
+\]
+
+\begin{prop}
+Let $f : V \to W$ be a morphism of Hermitian spaces. Then
+\[
+f^{-1}(\Ker b_W) \subset \Ker b_v.
+\]
+\end{prop}
+
+\begin{proof}
+If $x \in f^{-1}(\Ker b_W)$ then
+\[
+b_V(x, \ov y) = b_W(fx, \ov{fy}) = 0
+\]
+for all $y \in V$, so $x \in \Ker b_V$.
+\end{proof}
+
+One motivation for the study of these objects is that while this category doesn't have many morphisms, the category of vector spaces with Hermitian inner products has even fewer morphisms. All morphisms there must be injective, while there are applications where we would like to be able to relax that condition. If we start from vector spaces with inner products and take as morphisms arbitrary linear ones, we get semipositive degenerate Hermitian forms. A priori there doesn't seem to be a reason to consider only positive forms, so we look at arbitrary ones.
+
+
+
+\paragraph{Reformed spaces}
+
+Everything is easier with non-degenerate Hermitian forms. Luckily we can reduce many questions in the general case to that one.
+
+\begin{prop}
+Let $V$ be a vector space. For every Hermitian form $b$ on $V$, there exists a unique non-degenerate Hermitian form $\hat b$ on $V / \Ker V$ such that $\pi : V \to V/\Ker b$ is a Hermitian morphism.
+\end{prop}
+
+
+\begin{proof}
+We define
+\[
+\hat b(qx, \ov{qy})
+= b(x, \ov y).
+\]
+This is well-defined, as any other element in $qx$ differs from the one we chose by an element of $\Ker q = \Ker b$. The form $\hat b$ is also non-degenerate, as if $qx \in \Ker \hat b$ then $x \in \Ker b$, so $qx = 0$. The form is also defined in such a way that $q$ is a morphism of Hermitian spaces.
+
+If $b'$ is another non-degenerate Hermitian form on $V / \Ker b$ that makes $q$ into a Hermitian morphism, then
+\[
+b'(qx, \ov{qy})
+= b(x, \ov{y})
+= b(qx, \ov{qy})
+\]
+for all $qy \in V / \Ker b$. Thus $b(qx) = b'(qx)$ as $(0,1)$-forms for all $qx \in V / \Ker b$, so $b = b'$.
+\end{proof}
+
+
+If this operation should be called anything, it is clearly a reformation of the original space, as it removes all the degeneracy from the Hermitian form. As an example application of this operation, we'll study adjoints of morphisms.
+
+
+\begin{defi}
+Let $(V, b_V)$ and $(W, b_W)$ be Hermitian spaces, and let $f : V \to W$ be a linear morphism. An \emph{adjoint} of $f$ is a linear morphism $f^\dagger : W \to V$ such that
+\[
+b_V(f^\dagger x, \ov y)
+= b_W(x, \ov{f y})
+\]
+for all $x \in W$ and $y \in V$.
+\end{defi}
+
+
+If $b_V$ is non-degenerate, every morphism $f : V \to W$ admits a unique adjoint. It is defined by
+\[
+f^\dagger = b_V^{-1} \circ \ov f^* \circ b_W,
+\]
+where $\ov f^*$ is the conjugate dual morphism $f^* : \ov W^* \to \ov V^*$ that $f$ induces. In general, adjoints may not exist, but we can say when they do.
+
+
+\begin{prop}
+Let $f : V \to W$ be a linear morphism. The morphism $f$ admits an adjoint if and only if $f(\Ker b_V) \subset \Ker b_W$. If the set of adjoints of $f$ is not empty, it is a $\Hom(W, \Ker b_V)$ torsor.
+\end{prop}
+
+\begin{proof}
+If $f$ admits an adjoint $f^\dagger$, then
+\[
+b_V(f^\dagger x, \ov y)
+= b_W(x, \ov{fy})
+\]
+for all $x \in W$ and $y \in V$. Taking $y \in \Ker b$, we see that $b_W(x, \ov{fy}) = 0$ for all $x \in W$, so $f(y) \in \Ker b_W$.
+
+Suppose then that $f(\Ker b_V) \subset \Ker b_W$. Then $f$ defines a linear morphism $\hat f : V / \Ker b_V \to W / \Ker b_W$. As the induced forms on those spaces are non-degenerate, we get a unique adjoint $\hat f^\dagger : W / \Ker b_W \to V / \Ker b_V$. It induces a morphism $W \to V / \Ker b_V$. Picking a lift $V / \Ker b_V \to V$ we then get an adjoint $f^\dagger$ of $f$.
+
+If $g$ and $h$ are adjoints of $f^\dagger$, then
+\[
+b_V((g - h)x, \ov y)
+= b_V(gx, \ov y) - b_V(hx, \ov y)
+= b_W(x, \ov{fy}) - b_W(x, \ov{fy})
+= 0
+\]
+for all $x \in W$ and $y \in V$, so the image of $g - h$ is contained in $\Ker b_V$.
+\end{proof}
+
+
+\begin{coro}
+The subset of $\Hom(V,W)$ of morphisms that have adjoints is a linear subspace.  The zero morphism always has an adjoint.
+\end{coro}
+
+
+
+\begin{coro}
+If $f : V \to W$ has an adjoint $f^\dagger$, then $f^\dagger$ also has an adjoint.
+\end{coro}
+
+\begin{proof}
+If $x \in \Ker W$, then
+\[
+b_V(f^\dagger x, \ov y)
+= b_W(x, \ov{fy})
+= 0
+\]
+for all $y \in V$, so $f^\dagger x \in \Ker b_V$.
+\end{proof}
+
+The difference between a morphism $f$ and an adjoint of its adjoint is an element of $\Hom(V, \Ker b_V)$, so a double adjoint is unique and equal to $f$ if and only if $b_V$ is non-degenerate.
+
+
+\begin{prop}
+Let $j : S \to V$ be a linear morphism, let $b_V$ be a Hermitian form on $V$, and set $b_S = j^*b_V$. Then $j$ admits an adjoint.
+\end{prop}
+
+\begin{proof}
+We have
+\[
+\Ker b_S = j^{-1}(\Ker b_V) \cup \Ker j
+\]
+so $j(\Ker b_S) = j(j^{-1}(\Ker b_V)) \subset \Ker b_V$.
+\end{proof}
+
+We're usually interested in applying this proposition to a short exact sequence $0 \to S \to V \to Q \to 0$. In that case $j$ admits an adjoint $j^\dagger$, and we set $\pi = \id_V - jj^\dagger$. We have
+\[
+b_S(j^\dagger j x, \ov y)
+= b_V(jx, \ov{jy})
+= b_S(x, \ov y)
+\]
+for all $x, y \in S$.
+Then
+\begin{align*}
+b_V(\pi x, \ov{jy})
+= b_V(x, \ov{jy}) - b_V(jj^\dagger x, \ov{jy})
+&= b_V(x, \ov{jy}) - b_S(j^\dagger x, \ov{j^\dagger jy})
+\\
+&= b_S(j^\dagger x, \ov{y}) - b_S(j^\dagger x, \ov{y}) = 0
+\end{align*}
+for all $x \in V$ and $y \in S$, so $\im \pi \subset S^\perp$. (Note that we don't necessarily have $\pi^2 = \pi$.)
+
+
+\paragraph{Short exact sequences}
+
+Let
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+V \ar[r,"q"] &
+Q \ar[r] &
+0
+\end{tikzcd}
+\]
+be a short exact sequence of vector spaces, and suppose that $V$ is equipped with a Hermitian form $b_V$. If $b_V$ is non-degenerate it is well-known that it induces non-degenerate Hermitian forms $b_S$ and $b_Q$ on $S$ and $Q$, and that we get a Hermitian splitting $(V, b_V) \cong (S, b_S) \oplus (Q, b_Q)$.
+
+The form $b_S$ is simply defined by pull-back by $j$. It's slightly trickier to define $b_Q$. It can be done by splitting $V = S \oplus S^\perp$ and showing that $q : S^\perp \to Q$ is an isomorphism; then $b_Q = (q_{|S^\perp}^{-1})*b_V$. Alternatively we can note that $q \circ b_V^{-1}\circ \ov q^* : \ov Q^* \to Q$ is an isomorphism; its inverse is then $b_Q$.
+
+\begin{theo}
+There exist unique Hermitian forms $b_S$ and $b_Q$ on $S$ and $Q$ such that the diagram
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] \ar[d,"\pi_S"] &
+V \ar[r,"q"] \ar[d,"\pi_V"] &
+Q \ar[r] \ar[d,"\pi_Q"] &
+0
+\\
+0 \ar[r] &
+S / \Ker b_S \ar[r,"\hat j"] &
+V / \Ker b_V \ar[r,"\hat q"] &
+Q / \Ker b_Q \ar[r] &
+0
+\end{tikzcd}
+\]
+is commutative, the horizontal sequences are exact, and all the morphisms except $q$ and $\hat q$ are Hermitian.
+\end{theo}
+
+
+\begin{proof}
+We define $b_S = j^*b_V$ and construct $\hat b_V$ on $V / \Ker b_V$ as before. We have $\pi_V j = \hat j \pi_S$ as $\Ker b_S = j^{-1}(\Ker b_V)$, so $\hat b_S = \hat j^* \hat b_V$. The non-degenerate form $\hat b_V$ induces a non-degenerate form $\hat b_Q$ on $(V / \Ker b_V) / (S / \Ker b_S)$. We define a linear morphism $f : Q \to (V / \Ker b_V) / (S / \Ker b_S)$ by
+\[
+f(qx) = \pi(\pi_V(x)).
+\]
+If $x' \in V$ is another element such that $qx' = qx$, then $x' - x = jt$. Then
+\[
+\pi_V(x' - x)
+= \pi_V(jt)
+= \hat j(\pi_S(t))
+\]
+so $\pi(\pi_V(x')) - \pi(\pi_V(x))
+= \pi \hat j (t) = 0$, so $f$ is well-defined. It is also surjective: If $z \in (V / \Ker b_V) / (S / \Ker b_S)$, then there is a $y \in V / \Ker b_V$ such that $\pi(y) = z$; then there is a $x \in V$ such that $\pi_V(x) = y$; and then $f(qx) = z$. We then define $b_Q = f^* \hat b_Q$, so $(V / \Ker b_V) / (S / \Ker b_S) = Q / \Ker b_Q$.
+
+TODO: Uniqueness, but this is kind of horrifying already.
+\end{proof}
+
+
+\paragraph{Orthogonal complements}
 
 A Hermitian form can be seen as a linear morphism $b : V \to \ov V^*$. As such, it comes with a kernel
 \[
@@ -4516,32 +4747,7 @@ Let $v \in \Ker b$. Then $b(v, \ov w) = 0$ for all $w \in S$.
 \end{proof}
 
 
-\begin{prop}
-If $S \subset R$, then $R^\perp \subset S^\perp$.
-\end{prop}
-
-\begin{proof}
-Let $v \in R^\perp$, so $b(v, \ov w) = 0$ for all $w \in R$. Then $b(v, \ov w) = 0$ for all $w \in S \subset R$, so $v \in S^\perp$.
-\end{proof}
-
-\begin{prop}
-\[
-\Ker b
-= V^\perp.
-\]
-\end{prop}
-
-\begin{proof}
-If $v \in \Ker b$ then $b(v, \ov w) = 0$ for all $w \in V$, so $\Ker b \subset V^\perp$. If $v \in V^\perp$, then $b(v, \ov w) = b(v)(\ov w) = 0$ for all $w \in V$, so $b(v) = 0$ and $v \in \Ker b$.
-\end{proof}
-
-
-Consider the quotient space $V / \Ker b$ and the quotient morphism $q : V \to \Ker b$. The form $b$ induces a Hermitian form $\hat b$ on $V / \Ker b$ by
-\[
-\hat b(q x, \ov {qy})
-= b(x, \ov y).
-\]
-This is well-defined, as any other representative $x'$ of $x$ differs by an element of $\Ker b$, so $b(x', \ov y) = b(x, \ov y)$. The form $\hat b$ is also non-degenerate.
+As before we have the quotient space $q : V \to V / \Ker b$, and the induced non-degenerate form $\hat b$ on $V / \Ker b$.
 
 \begin{prop}
 Let $S \subset V$. Then
@@ -4557,44 +4763,6 @@ Let $v \in S^\perp$, so $b(v, \ov w) = 0$ for all $w \in S$. Then $\hat b(qv, \o
 Suppose then that $v \in q(S)^\perp$, so $\hat b(v, \ov w) = 0$ for all $w \in q(S)$. If $x \in V$ is such that $qx = v$, then this means that $b(x, \ov w) = 0$ for all $w \in S$. Then $x \in S^\perp$, so $qx \in q(S^\perp)$.
 \end{proof}
 
-
-\begin{prop}
-For any subspace $S \subset V$ we have
-\[
-q^{-1}(q(S)) = \Ker b + S.
-\]
-\end{prop}
-
-\begin{proof}
-Let $x \in q^{-1}(q(S))$. Then $qx \in q(S)$, so there is some $v \in S$ such that $qx = qv$. Then $q(x - v) = 0$, so $x - v \in \Ker q = \Ker b$, and $x = v + (x - v) \in S + \Ker b$.
-
-Conversely, if $v \in S$ and $x \in \Ker b$, then $q(v + x) \in q(S)$, so $v + x \in q^{-1}(q(S))$.
-\end{proof}
-
-\begin{prop}
-\[
-(S^\perp)^\perp
-= \Ker b + S.
-\]
-\end{prop}
-
-\begin{proof}
-We have $q(S)^\perp = q(S^\perp)$ for any subspace $S$, so
-\[
-q((S^\perp)^\perp)
-= q(S^\perp)^\perp
-= (q(S)^\perp)^\perp
-= q(S)
-\]
-as $\hat q$ is non-degenerate. Then
-\[
-(S^\perp)^\perp + \Ker b
-= q^{-1}(q((S^\perp)^\perp))
-= q^{-1}(q(S))
-= S + \Ker b.
-\]
-But $\Ker b \subset S^\perp$ for any subspace, so $\Ker b \subset (S^\perp)^\perp$, and the left-hand side is thus just $(S^\perp)^\perp$.
-\end{proof}
 
 
 \begin{prop}
@@ -4636,130 +4804,140 @@ so $S \cap S^\perp \subset \Ker q = \Ker b$. Conversely, $\Ker b \subset S^\perp
 \end{proof}
 
 
+\begin{theo}
+Let $q : V \to Q$ be a surjective morphism. A Hermitian form $b_V$ on $V$ induces a Hermitian form $b_Q$ on $Q$.
+\end{theo}
 
-
-
-
-\paragraph{}
-
-There may be two ways of doing what we want. One is to try to work with the isomorphism $b : V / \Ker b \to \im b \subset \ov V^*$ and then lift things. This may not play well with Hermitian metrics on holomorphic bundles. The other is to pick complements $A \subset V$ and $B \subset \ov V^*$ such that
-\[
-A \oplus \Ker b = V
-\qandq
-B \oplus \im b = \ov V^*,
-\]
-use them to extend constructions from the injective part to the whole space, and keep track of how those extensions depend on the complements. This is equivalent to picking isomorphisms
-\[
-V = \Ker b \oplus V / \Ker b
-\qandq
-\ov V^* = \im b \oplus \ov V^* / \im b
-\]
-which is maybe easier to keep track of.
-
-Limiting cases:
-\begin{itemize}
-\item
-$b$ is an inner product, so $\Ker b = 0$ and $\ov V^* / \im b = 0$ and there is only one isomorphism in each case.
-\item
-$b = 0$, so $\Ker b = V$ and $\im b = 0$ and again there is only one isomorphism.
-\end{itemize}
-
-
-\begin{defi}
-A \emph{moral space} is a vector space $V$ with a Hermitian form $b$ and isomorphisms
-\[
-\nu : \Ker b \oplus V / \Ker b \to V
-\qandq
-\mu : \im b \oplus \ov V^* / \im b \to \ov V^*
-\]
-such that the following diagram commutes:
-\[
-\begin{tikzcd}
-V / \Ker b \oplus \Ker b
-\ar[d,"\nu"]
-\ar[r,"b \oplus 0"] &
-\im b \oplus \ov V^* / \im b
-\ar[d,"\mu"]
-\\
-V \ar[r,"b"]  &
-\ov V^*
-\end{tikzcd}
-\]
-When necessary this package of information is denoted $(V,b,\nu,\mu)$.
-\end{defi}
-
-
-\begin{defi}
-A \emph{morphism} of moral spaces $(V,b,\nu,\mu)$ and $(W,c,\kappa,\lambda)$ is a linear morphism $f : V \to W$ such that $f^*c = b$.
-\end{defi}
-
-This condition implies compatibility with the complement isomorphisms.
-
-
-If $(V,b,\nu,\mu)$ is a moral space and $f : W \to V$ is a linear morphism, then any complement isomorphisms $\kappa$ and $\lambda$ for $W$ make $f : (W,f^*b,\kappa,\lambda) \to (V,b,\nu,\mu)$ into a morphism of moral spaces.
-
-I'm sure there's a category-theoretic idea here. We have a forgetful functor from the category of moral spaces to the category of spaces with (degenereate) Hermitian forms.
-
-This definition is pretty much made so that we can have short exact sequences of things. That is, if
-\[
-0 \to S \to V \to Q \to 0
-\]
-is a short exact sequence of vector spaces, and $(V,b,\nu,\mu)$ is moral, then we can turn the quotient into a moral space as well. (It's trivial to make the subspace moral. Then we can turn the conjugate dual quotient moral, and use the complement isomorphisms to make the quotient moral.)
-
-Another point of doing all this is to show that we have (unique!) Chern curvature tensors for arbitrary Hermitian forms, and ask when the Codazzi equations hold for them. (We may have to restrict to semipositive Hermitian forms. Otherwise we can take $b = h - h$ for a Hermitian metric $h$. The Codazzi equations don't work out in this case.)
-
-
-\paragraph{Induced forms}
-
-Let
+\begin{proof}
+Let $S = \Ker q$, and consider $S^\perp \subset V$. We have a short exact sequence
 \[
 \begin{tikzcd}
 0 \ar[r] &
-S \ar[r,"j"] &
-E \ar[r,"q"] &
+S \cap \Ker b_V \ar[r] &
+S^\perp \ar[r,"q"] &
 Q \ar[r] &
 0
 \end{tikzcd}
 \]
-be a short exact sequence of vector spaces, and let $b_E$ be a Hermitian form on $E$. Then we get an induced form $b_S$ on $S$ by restriction,
+because $S^\perp \cap \Ker q = S^\perp \cap S = S \cap \Ker b_V$, and $q$ restricted to $S^\perp$ is still surjective. We define
 \[
-b_S(x,\ov y)
-= b_E(jx, \ov{jy}).
+b_Q(qx, \ov{qy})
+= b_V(x, \ov y)
 \]
-Can we also induce a form on $Q$ without more information?
+for $x, y \in S^\perp$. This is well-defined by the above, as any other element $x'$ that maps to $qx$ satisfies $x' - x \in S \cap \Ker b_V \subset \Ker b_V$.
+\end{proof}
 
-When $h_E$ is non-degenerate, it induces a splitting $E = S \oplus S^\perp$ and $q : S^\perp \to Q$ is an isomorphism. Then we set $h_Q$ to be the pullback via $q^{-1}$ of the restriction of $h_E$ to $S^\perp$.
 
-In general, we can set
-\[
-S^\perp =
-\{ y \in E \mid h_E(jx, \ov y) = 0 \text{ for all $x \in S$}\}.
-\]
-Then $S^\perp$ is a linear subspace of $E$ as before. If $y \in S \cap S^\perp$, then
-\[
-h_S(x, \ov y) = h_E(jx, \ov{jy}) = 0
-\]
-for all $x \in S$, so $y \in \Ker h_S$. Conversely, if $y \in \Ker h_S$, then $h_E(jx, \ov{jy}) = 0$ for all $x \in S$. Thus
-\[
-S \cap S^\perp = \Ker h_S.
-\]
-Does $S + S^\perp = E$? The usual way to prove this is to construct the adjoint $j^\dagger : E \to S$; then $x = jj^\dagger x + (x - jj^\dagger x) \in S + S^\perp$.
+\subsection{Chern connections}
 
-The adjoint of $j$ is defined by
-\[
-h_S(j^\dagger x, \ov{y})
-= h_E(x, \ov{jy})
-\]
-for all $x \in E$, $y \in S$. To prove this is well-defined we have to argue that the $(0,1)$-form $y \mapsto h_E(x, \ov {jy})$ is in the image of $h_S : S \to \ov S^*$ for all $x \in E$.
 
-So what's that image? Pick a subspace $W$ so that $S = \Ker h_S \oplus W$. Then $\ov S^* = \ov{\Ker h_S^*} \oplus \ov W^*$ and $h_S \cong 0 \oplus h$, where $h : W \to \ov W^*$ is an isomorphism. If $x \in S$ then $h_S(x)$ is a $(0,1)$-form such that $h_S(x)(\ov y) = 0$ for all $y \in \Ker h_S$. Suppose that $\alpha$ is a $(0,1)$-form such that $\alpha(\ov y) = 0$ for all $y \in \Ker h_S$. Then $\alpha$ is the pullback of a form on $\ov W$. That form is in the image of $h : W \to \ov W^*$, so there exists $x \in W \subset S$ such that $h_S(x) = h(x) = \alpha$. Thus:
-\[
-\im h_S
-= \{ \alpha \in \ov S^* \mid \alpha_{|\Ker h_S} = 0 \}.
-\]
-Getting back to the problem at hand, we have a $(0,1)$-form $y \mapsto h_E(x, \ov{jy})$. If $y \in \Ker h_S$, then $h_E(jx, \ov{jy}) = 0$ for all $x \in S$. I don't think it follows that $h_E(x, \ov{jy}) = 0$ for all $x \in E$.
 
-Wait, don't we have $j(\Ker h_S) \subset \Ker h$? If we do this is no problem.
+Let $E \to X$ be a holomorphic vector bundle with a smooth Hermitian form $b$. We say that a connection $D$ on $E$ is \emph{compatible with $b$} if
+\[
+d b(s, \ov t) = b(Ds, \ov t) + b(s, \ov{Dt})
+\]
+for all sections $s, t$ of $E$.
+
+
+\begin{prop}
+Let $E \to X$ be a holomorphic vector bundle and let $b$ be a smooth Hermitian form on $E$. Then there exists a connection $D$ on $E$ that's compatible with $b$ and has $D^{0,1} = \bar\partial$.
+\end{prop}
+
+
+\begin{proof}
+The plan is to construct a connection locally on trivializing neighborhoods of $E$ and to glue the pieces together with a partition of unity.
+
+Let $s$ and $t$ be smooth sections of $E$, and let $\alpha$ be a tangent field. We want to solve the equation
+\begin{equation}
+\label{eq:conn}
+\partial_\alpha b(s, \ov t)
+= b(A(\alpha, s), \ov t).
+\end{equation}
+This is possible exactly when $\ov t \mapsto \partial_\alpha b(s, \ov t)$ is in $\im b$, which happens when the restriction of this form vanishes on $\Ker b$. If $t$ is a section of $\Ker b$, we have $b(s, \ov t) = 0$ for all sections $s$, so
+\[
+\partial_\alpha b(s, \ov t) = 0
+\]
+for any tangent field $\alpha$. Given $\alpha$ and $s$, we can thus find a smooth section $A(\alpha, s)$ of $E$ such that \eqref{eq:conn} is satisfied.
+
+If $A(\alpha, s)$ is a solution of \eqref{eq:conn} and $f$ is a smooth function, we note that $f A(\alpha, s)$ is a solution of $\partial_{f\alpha} b(s, \ov t)$, and that $\partial_\alpha f \otimes s + f A(\alpha, s)$ is a solution of $\partial_\alpha b(fs, \ov t)$. If $\beta$ is another tangent field, then $A(\alpha,s) + A(\beta,s)$ is a solution of $\partial_{\alpha+\beta}b(s, \ov t)$, and if $r$ is another section of $E$, then $A(\alpha,s) + A(\alpha,r)$ is a solution of $\partial_\alpha b(s + r, \ov t)$. We will use this to piece toegether a connection from its values on local frames.
+
+Suppose $U \subset X$ is a neighborhood that trivializes $E$, and pick a holomorphic frame $(e_1,\ldots,e_r)$ for $E$ over $U$ and coordinates $(z_1, \ldots, z_n)$ on $U$. We let $A(\frac{\partial}{\partial z_j}, e_k)$ for $j = 1, \ldots, n$ and $k = 1, \ldots, r$ be the solutions to the equations
+\[
+\partial_j b(e_j, \ov t)
+= b\Bigl(A\Bigl(\frac{\partial}{\partial z_j}, e_j \Bigr), \ov t\Bigr)
+\]
+on $U$. We then define an operator $D$ on $U$ by setting $D_j e_k = A(\frac{\partial}{\partial z_j}, e_k)$ and extending by linearity and the product rule. For a smooth tangent field
+\(
+\xi
+= \sum_j \alpha_j \frac{\partial}{\partial z_j}
++ \sum_j \beta_j \frac{\partial}{\partial \bar z_j}
+\)
+and a smooth section $s = \sum_k s_k e_k$ this means we set
+\[
+D_\xi s
+= \sum_k d_\xi s_k \otimes e_k
++ \sum_{jk} s_k \alpha_j D_j e_k.
+\]
+This operator $D$ is a connection whose $(0,1)$-part is $\bar\partial$.
+
+We now cover $X$ by neighborhoods $U_\mu$ as above and construct connections $D_\mu$ on each $U_\mu$. We then take a partition of unity $(\phi_\mu)$ relative to this covering, and define a connection $D$ on $E$ by setting
+\[
+D s = \sum_\mu D_\mu(\phi_\mu s).
+\]
+This defines a connection on $E$ that's compatible with $b$ and whose $(0,1)$-part is $\bar\partial$.
+\end{proof}
+
+
+
+We will call a connection $D$ that's compatible with $b$ and has $D^{0,1} = \bar\partial$ a \emph{Chern connection} of $b$. If $b$ has a nontrivial kernel, such a connection is not unique.
+
+
+\begin{prop}
+Let $D_1$ and $D_2$ be Chern connections of $b$. Then $D_1 - D_2$ is an element of $\cc A^{1,0}(\Hom(E, \Ker b))$.
+\end{prop}
+
+\begin{proof}
+It is well-known that the difference of two connections is an element of $\cc A^1(\End E)$. Both connections here have the same $(0,1)$-part, so their difference is a $(1,0)$-form. If $s$ and $t$ are holomorphic sections, we have
+\[
+b((D'_1 - D'_2)s, \ov t)
+= \partial b(s, \ov t) - \partial b(s, \ov t) = 0,
+\]
+so $D_1 - D_2 = D_1' - D_2'$ takes values in $\Ker b$.
+\end{proof}
+
+
+\begin{theo}
+Let $(E, b) \to X$ be a holomorphic vector bundle with a Hermitian form, and let $D$ be a Chern connection of $E$. The curvature tensor
+\[
+R(\alpha,\ov\beta,s, \ov t)
+= b\bigl(\tfrac i2 D^2_{\alpha\ov\beta}s, \ov t\bigr)
+\]
+is independent of the choice of $D$.
+\end{theo}
+
+
+\begin{proof}
+Let $D_1$ and $D_2$ be Chern connections of $b$. Then $D_1 = D_2 + A$, where $A \in \Hom(E, \Ker b)$, and
+\[
+D_1^2
+= (D_2 + A)^2
+= D_2^2 + A D_2 + D_2 A + A^2.
+\]
+If $s$ is a section of $\Ker b$, then
+\[
+0
+= \partial b(s, \ov t)
+= b(D_2s, \ov t)
+\]
+for all holomorphic sections $t$ of $E$, so $D_2 s \in \cc A^1(\Ker b)$. This means that $D_2A s \in \cc A^1(\Ker b)$ for any section $s$, and the result follows.
+\end{proof}
+
+
+\begin{prop}
+Let $E \to X$ and $F \to X$ be holomorphic vector bundles. Let $b_F$ be a Hermitian form on $F$ with a Chern connection $D_F$ and let $f : E \to F$ be a holomorphic vector bundle morphism. Then $f^*D_F$ is a Chern connection of the Hermitian form $f^*b_F$ on $E$.
+\end{prop}
+
+
 
 
 
