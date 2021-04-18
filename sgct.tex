@@ -1731,7 +1731,7 @@ E \stackrel{q}{\longrightarrow}
 Q \longrightarrow
 0
 \]
-be a short exact sequence of holomorphic vector bundles. Suppose that $h_E$ is a Hermitian metric on $E$. It induces a smooth splitting $E \cong S \oplus Q$ of $E$, and incudes Hermitian metrics $h_S$ and $h_Q$ on the bundles $S$ and $Q$. We want to express the curvatures of $S$ and $Q$ in terms of the curvature of $E$. This was first done by Griffiths~\cite{griffiths1965hermitian}; we won't improve at all upon his presentation.
+be a short exact sequence of holomorphic vector bundles. Suppose that $h_E$ is a Hermitian metric on $E$. It induces a smooth splitting $E \cong S \oplus Q$ of $E$, and incudes Hermitian metrics $h_S$ and $h_Q$ on the bundles $S$ and $Q$. We want to express the curvatures of $S$ and $Q$ in terms of the curvature of $E$. This was first done by Griffiths in~\cite{griffiths1965hermitian}, which the reader really should look up, it's great. We mostly follow Demailly~\cite[Chapter~5.14]{demailly-complex}, which I have spent years reading.
 
 
 \begin{defi}
@@ -1780,7 +1780,13 @@ and $D_E(js) - jD_Ss$ is a tensor. By the above calculation it is a $(1,0)$-form
 This also leads us to having two more expressions for the second fundamental form. The different expressions have different interpretations and uses. The one we used for the definition is a metric one, useful when doing differential geometry. The one involving $D_{\Hom(S,E)}$ comes in handy when viewing the subbundle as deforming inside $E$, which is a Grassmannian viewpoint. Finally the one involving only $D_E$ is quite useful for calculations involving submanifolds of a given space.
 
 
-\begin{prop}[Demailly~{{\cite[Theorem~14.3]{demailly-complex}}}]
+
+\paragraph{}
+
+Our goal is to calculate the curvature forms of the sub- and quotient bundles. The first stop on the way is a wildly useful list of formulas from Demailly~{{\cite[Theorem~14.3]{demailly-complex}}}.
+
+
+\begin{prop}
 \label{prop:seq-formulas}
 \begin{alignat*}{2}
 D'_{\Hom(S,E)}j &= q^\dagger \circ b,
@@ -1798,7 +1804,11 @@ D'_{\Hom(E,S)} j^\dagger &= 0,
 \\
 D'_{\Hom(Q,E)} q^\dagger &= 0,
 &
-\bar\partial q^\dagger &= - j \circ b^\dagger.
+\bar\partial q^\dagger &= - j \circ b^\dagger,
+\\
+D'_{\Hom(S,Q)} b &= 0,
+&
+\bar\partial b^\dagger &= 0.
 \end{alignat*}
 \end{prop}
 
@@ -1827,135 +1837,212 @@ We have $\id_E = j \circ j^\dagger + q^\dagger \circ q$, so
 \\
 &= q^\dagger \circ b \circ j^\dagger + q^\dagger \circ D'_{\Hom(E,Q)}q.
 \end{align*}
-Applying $q$, we conclude that $D'_{\Hom(E,Q)}q = - b \circ j^\dagger$. This proves the second line. Taking adjoints we get the final piece of the fourth line.
-\end{proof}
+Applying $q$, we conclude that $D'_{\Hom(E,Q)}q = - b \circ j^\dagger$. This proves the second line. Taking adjoints we get the last piece of the fourth line.
 
-
-\begin{prop}[Codazzi equation]
-\label{prop:codazzi-equation}
-The curvature tensors of $S$ and $E$ satisfy
-\[
-R_S(\alpha,\beta,s,t)
-= R_{E}(\alpha,\beta,js,jt)
-- h_Q(b_S(\alpha,s), b_S(\beta,t)),
-\]
-where $s, t$ are sections of $S$ and $\alpha,\beta$ are tangent fields on $X$.
-\end{prop}
-
-
-\begin{proof}
-It's enough to prove tensorial equations on holomorphic sections.
-For any Hermitian metric $h$ with Chern connection $D$ and curvature form $\Theta$ we have
-\[
-\partial\bar\partial h(s, \ov t)
-= h(Ds, \ov{Dt}) - h(\Theta s, \ov t)
-\]
-for holomorphic sections $s$ and $t$. Here we have $h_S(s,\ov t) = h_E(js, \ov{jt})$. We note that
-\[
-D_E(js)
-= D_{\Hom(S,E)}j(s) + j(D_Ss)
-= q^\dagger b(s) + j(D_Ss)
-\]
-and that the sum on the right-hand side is orthogonal with respect to the metrics in play. Then we get
+Finally we note that
 \begin{align*}
-h_S(D_Ss, \ov{D_St}) - h_S(\Theta_S s, \ov t)
-&= h_E(D_E(js), \ov{D_E(jt)}) - h_E(\Theta_E(js), \ov{jt})
+D'_{\Hom(S,Q)} b
+&= D'_{\Hom(S,Q)} (q D'_{\Hom(S,E)}j)
 \\
-&= h_Q(b(s), \ov{b(t)}) + h_S(D_Ss, \ov{D_St}) - h_E(\Theta_E(js), \ov{jt})
+&= - b \circ j^\dagger \circ q^\dagger \circ b
++ q^\dagger (D'_{\Hom(S,Q)})^2 j
+= 0
 \end{align*}
-and the result follows by clearing terms.
-\end{proof}
-
-
-The holomorphic Codazzi equation shows that the curvature of a holomorphic subbundle is less or equal to the curvature of the ambient bundle. In particular, the curvature of a submanifold is dominated by the curvature of the ambient manifold. The same is of course not true in Riemannian geometry; see for example the sphere in Euclidean space.
-
-There are many open questions regarding the relationship between hyperbolicity, ample canonical bundles, and negative holomorphic sectional curvature for compact complex manifolds. For example, a manifold with negative holomorphic sectional curvature is hyperbolic by a version of the Schwarz lemma. By the Codazzi equation, any submanifold of such a manifold is thus also hyperbolic. The converse is conjectured to hold in some form; that if all the subvarieties of a manifold are hyperbolic, then so is the manifold itself.
-
-There is also an equation relating the curvature of the quotient bundle $Q$ and $E$; the relationship is nicely symmetric with the subbundle case.
-
-\begin{prop}
-The curvature tensors of $Q$ and $E$ satisfy
-\[
-R_Q(\alpha,\ov\beta,q s, \ov{q t})
-= R_{E}(\alpha,\ov\beta,s,\ov t)
-+ h_S(b_S^\dagger(\ov\beta,q s),\ov{ b_S^\dagger(\ov\alpha,q t)}),
-\]
-where $s, t$ are sections of $E$, $\alpha,\beta$ are tangent fields on
-$X$ and $b_S^\dagger \in \cc A^{0,1}(\Hom(Q,S))$ is the adjoint of the second
-fundamental form of $S$.
-\end{prop}
-
-\begin{proof}
-Consider the dual short exact sequence
-\[
-\begin{tikzcd}
-0 \arrow[r] & Q^* \arrow[r,"q^*"] & E^* \arrow[r,"j^*"]  & S^* \arrow[r] & 0
-\end{tikzcd}
-\]
-of holomorphic bundles over $X$ equipped with the dual metrics.
-Applying the Codazzi equation to $Q^*$ gives
-$$
-h_{Q^*}(\Theta_{Q^*} \sigma, \ov \tau)
-= h_{E^*}(\Theta_{E^*} (q^* \sigma),\ov{ q^* \tau})
-- h_{S^*}(b_{Q^*}(\sigma), \ov{b_{Q^*}(\tau)})
-$$
-for sections $\sigma,\tau$ of $Q^*$. The Hermitian metric $h_E : E \to \ov E^*$ induces a conjugate linear isometry $E^* \to E$. This gives
-\[
-h_{E^*}(\Theta_{E^*} (q^* \sigma),\ov{ q^* \tau})
-= h_{\ov E}(\ov{\Theta_{E} (q^\dagger s)}, q^\dagger t)
-= -h_{E}(\Theta_{E} (q^\dagger s), \ov{q^\dagger t}),
-\]
-where $\sigma \cong \ov s$ and $\tau \cong \ov t$,
-and similarly for $h_{Q^*}$.
-
-Under our isometry, we have $j^* \cong j^\dagger$ and $q^* \cong q^\dagger$. Then
-\[
-b_{Q^*}
-= j^*D_{\Hom(Q^*,E^*)}q^*
-\cong j^\dagger D_{\Hom(Q,E)}^\dagger q^\dagger
-= (q D_{\Hom(S,E)} j)^\dagger
-= b_S^\dagger,
-\]
-so
-\[
-h_{S^*}(b_{Q^*}(\sigma), \ov{b_{Q^*}(\tau)})
-= h_{S}(b_S^\dagger(q^\dagger s), b_S^\dagger(q^\dagger t)).
-\]
-We have $q \circ q^\dagger = \id_Q$, so putting all of these together we get the result.
+as we're dealing with curvature tensors of Hermitian forms which are of type $(1,1)$. The statement about $\bar\partial b^\dagger$ follows by taking adjoints.
 \end{proof}
 
 
 
-\begin{prop}
-We have
-\[
-\bar\partial b_S^\dagger = 0.
-\]
-That is, $[b_S^\dagger]$ defines a Dolbeault cohomology class in $H^{0,1}(X, \Hom(Q,S))$.
-\end{prop}
+\begin{coro}
+The splitting $E \to S \oplus Q$ is holomorphic if and only if $b = 0$.
+\end{coro}
 
-\begin{proof}
-On the one hand we have
-\[
-\partial \langle s, b^\dagger t \rangle
-= \langle D'_Ss, b^\dagger t \rangle
-+ \langle s, \bar\partial b^\dagger (t) \rangle.
-\]
-On the other hand, we then have
-\[
-\partial \langle s, b^\dagger t \rangle
-= \partial \langle b s, t \rangle
-= \langle D'_{\Hom(S,Q)}b (s) + b(D'_Ss), t \rangle
-= \langle D'_Ss, b^\dagger t \rangle
-\]
-because $D'_{\Hom(S,Q)}b = 0$.
-Comparing, we see that $\langle s, \bar\partial b^\dagger (t) \rangle = 0$ for all holomorphic sections $s,t$, so $\bar\partial b^\dagger = 0$.
-\end{proof}
-
+\begin{coro}
+The $(0,1)$-form $b^\dagger$ defines a cohomology class in $H^{0,1}(X, \Hom(Q,S))$.
+\end{coro}
 
 One can actually prove that the class of $b^\dagger$ represents the extension class of $E$ among all extensions of $S$ by $Q$; see Demailly~\cite[Proposition~14.9]{demailly-complex}. That is, if $0 \to S \to F \to Q \to 0$ is another short exact sequence, then $[b_{S,F}^\dagger] = [b_{S,E}^\dagger]$ if and only if there is a holomorphic isomorphism $E \cong F$. In particular, if $[b_S^\dagger] = 0$ if and only if $E = S \oplus Q$. This is a neat result, but I don't recall applications of it. If the reader knows of any they're welcome to educate me.
 
 
+
+
+\begin{prop}
+Under the smooth splitting $E \to S \oplus Q$ defined by $s \mapsto j^\dagger s \oplus qs$ the Chern connection and curvature form of $E$ is
+\begin{align*}
+D_E s &=
+\begin{pmatrix}
+j^\dagger & q
+\end{pmatrix}^\dagger
+\begin{pmatrix}
+D_S & - b^\dagger
+\\
+b & D_Q
+\end{pmatrix}
+\begin{pmatrix}
+j^\dagger \\ q
+\end{pmatrix}
+(s),
+\\
+D_E^2 s &=
+\begin{pmatrix}
+j^\dagger & q
+\end{pmatrix}^\dagger
+\begin{pmatrix}
+D^2_S - b^\dagger \wedge b & -D'_{\Hom(Q,S)} b^\dagger
+\\
+\bar\partial b & D^2_Q - b \wedge b^\dagger
+\end{pmatrix}
+\begin{pmatrix}
+  j^\dagger \\ q
+\end{pmatrix}(s).
+\end{align*}
+\end{prop}
+
+
+\begin{proof}
+Let $s$ be a section of $E$. We write
+\[
+s = j (j^\dagger s) + q^\dagger( qs).
+\]
+Then
+\[
+D_E s
+= q^\dagger \circ b (j^\dagger s)
++ j \circ D_S( j^\dagger s)
+- j \circ b^\dagger (qs)
++ q^\dagger \circ D_Q (qs).
+\]
+This proves the first statement.
+For each of the terms here, we have
+\begin{align*}
+D_E(q^\dagger \circ b (j^\dagger s))
+&= -j \circ b^\dagger \circ b (j^\dagger s)
++ q^\dagger \circ \bar\partial b (j^\dagger s)
+- q^\dagger \circ b \circ D_S(j^\dagger s),
+\\
+D_E(j \circ D_S( j^\dagger s))
+&= q^\dagger \circ b \circ D_S(j^\dagger s)
++ j \circ D_S^2 (j^\dagger s),
+\\
+D_E(-j \circ b^\dagger (qs))
+&= - q^\dagger \circ b \circ b^\dagger (qs)
+- j \circ D'_{\Hom(Q,S)}b^\dagger (qs)
++ j \circ b^\dagger \circ D_Q(qs),
+\\
+D_E(q^\dagger \circ D_Q (qs))
+&= -j \circ b^\dagger \circ D_Q(qs)
++ q^\dagger \circ D_Q^2 (qs).
+\end{align*}
+Grouping these together by pre- and postfix morphisms, we get
+\begin{align*}
+D_E^2 s
+&= j \bigl( D_S^2 - b^\dagger \circ b \bigr) j^\dagger s
+- j \bigl( D'_{\Hom(Q,S)} b^\dagger \bigr) qs
+\\
+&\qquad
++ q^\dagger \bigl( \bar\partial b \bigr) j^\dagger s
++ q^\dagger \bigl( D^2_Q - b \circ b^\dagger \bigr) qs
+\\
+&=
+\begin{pmatrix}
+j^\dagger & q
+\end{pmatrix}^\dagger
+\begin{pmatrix}
+D^2_S - b^\dagger \wedge b & -D'_{\Hom(Q,S)} b^\dagger
+\\
+\bar\partial b & D^2_Q - b \wedge b^\dagger
+\end{pmatrix}
+\begin{pmatrix}
+  j^\dagger \\ q
+\end{pmatrix}(s).
+\end{align*}
+\end{proof}
+
+
+
+The next corollary is immediate, but will be useful later when discussing the curvature of the Grassmannian.
+
+\begin{coro}
+If $E$ is flat, then $\bar\partial b = 0$.
+\end{coro}
+
+
+The real money is however in the following corollary, which is the holomorphic analogue of the Codazzi equation in Riemannian geometry.
+
+
+\begin{coro}[Codazzi--Griffiths equations]
+\label{prop:codazzi-equation}
+The curvature tensors of $S$ and $Q$ satisfy
+\begin{align*}
+R_S(\alpha, \ov\beta, s, \ov t)
+&= R_E(\alpha, \ov\beta, js, \ov{jt})
+- \tfrac i2 h_Q(b(\alpha, s), \ov{b(\beta, t)}),
+\\
+R_Q(\alpha, \ov\beta, s, \ov t)
+&= R_E(\alpha, \ov\beta, q^\dagger s, \ov{q^\dagger t})
++ \tfrac i2 h_S(b^\dagger(\ov\beta, s), \ov{b^\dagger(\ov\alpha, t)}).
+\end{align*}
+In particular, $R_S \leq R_E \leq R_Q$, with equality on either side if and only if the splitting $E = S \oplus Q$ is holomorphic.
+\end{coro}
+
+\begin{proof}
+The task here is to convince the reader that our signs are correct and that the arguments go in the right place. Recall that we have a $(1,0)$-form $b$ with values in $\Hom(S,Q)$. Then $b \circ b^\dagger$ and $b^\dagger \circ b$ are both $(1,1)$-forms, with values in $\End Q$ and $\End S$, respectively. Our first claims are that the $(1,1)$-forms
+\[
+\tfrac i2 h_Q(b \circ b^\dagger(s), \ov s)
+\qandq
+\tfrac i2 h_S(b^\dagger \circ b(s), \ov s)
+\]
+are real and seminegative and semipositive for all sections $s$ (of $S$ and $Q$ as appropriate), respectively. For the realness, we have
+\begin{align*}
+\overline{\rho(\alpha, \ov\beta)}
+:= \overline{\tfrac i2 h_Q(b \circ b^\dagger(\alpha, \ov\beta, s), \ov s)}
+&= -\tfrac i2 h_Q(s, \ov{b \circ b^\dagger(\alpha,\ov\beta, s)})
+\\
+&= -\tfrac i2 h_Q(b \circ b^\dagger(\ov\alpha, \beta, s), \ov{s})
+\\
+&= \tfrac i2 h_Q(b \circ b^\dagger(\beta, \ov\alpha, s), \ov{s})
+= \rho(\beta, \ov\alpha),
+\end{align*}
+so the first form is real. The second is also real by a very similar calculation.
+
+TODO: We'd like to show that
+\[
+\tfrac i2 b \wedge b^\dagger (\alpha, \ov\beta, s)
+= b(\alpha, b^\dagger(\ov\beta, s)),
+\]
+where the left-hand side is the value of the $(1,1)$-form $\frac i2 b \wedge b^\dagger$. Maybe this needs to be interpreted as ``the $(1,1)$-form is the imaginary part of a Hermitian form with values in $\End Q$, which is the right-hand side''.
+
+Now note that
+\[
+\tfrac i2 h_S(b \circ b^\dagger(\alpha, \ov\beta, s), \ov t)
+= \tfrac i2 h_S(b(\alpha, b^\dagger(\ov \beta, s)), \ov t)
+= \tfrac i2 h_S(b^\dagger(\ov \beta, s), \ov{b^\dagger(\ov \alpha, t)}),
+\]
+so the second form is semipositive. The first form looks very similar, but a careful inspection will reveal that if we were to write it out in local coordinates its terms would be of the form $\frac i2 d\bar z_k \wedge dz_j$. This explains why we have
+\begin{align*}
+\tfrac i2 h_Q(b^\dagger \circ b(\alpha, \ov\beta, s), \ov t)
+&= -\tfrac i2 h_Q(b^\dagger \circ b(\ov\beta, \alpha, s), \ov t)
+\\
+&= -\tfrac i2 h_Q(b^\dagger(\ov\beta, b(\alpha, s)), \ov t)
+= -\tfrac i2 h_Q(b(\alpha, s), \ov{b(\ov\beta, t)}),
+\end{align*}
+so the form is seminegative.
+
+The announced formulas both follow from these calculations. The same calculations show that we have equality $R_S = R_E$ or $R_E = R_Q$ if and only if $|b|_{\Hom(S,Q)} = 0$ or $|b^\dagger|_{\Hom(Q,S)} = 0$, which happens if and only if the splitting $E = S \oplus Q$ is holomorphic.
+\end{proof}
+
+
+
+The Codazzi--Griffiths equations show that the curvature of a holomorphic subbundle is less or equal to the curvature of the ambient bundle. In particular, the curvature of a submanifold is dominated by the curvature of the ambient manifold. The same is of course not true in Riemannian geometry; see for example the sphere in Euclidean space.
+
+There are many open questions regarding the relationship between hyperbolicity, ample canonical bundles, and negative holomorphic sectional curvature for compact complex manifolds. For example, a manifold with negative holomorphic sectional curvature is hyperbolic by a version of the Schwarz lemma. By the Codazzi equation, any submanifold of such a manifold is thus also hyperbolic. The converse is conjectured to hold in some form; that if all the subvarieties of a manifold are hyperbolic, then so is the manifold itself.
+
+
+
+
+\paragraph{}
+
+We can amuse ourselves by calculating curvature tensors of bundles derived from the ones we have. To pick one at random that will absolutely not show up when we calculate the curvature of the Grassmannian:
 
 \begin{prop}
 \label{prop:hom-bundle-curvature}
@@ -1965,8 +2052,8 @@ $$
 R_{\Hom(S,Q)}(\alpha,\ov\beta,f,\ov g)
 = R_{\End E}(\alpha, \ov\beta, q^\dagger f j^\dagger, \ov{q^\dagger g j^\dagger})
 \hfill\cr\hfill{}
-+ h(b(\beta)^\dagger b(\alpha), \ov{f^\dagger g})_{\End S}
-+ h(b(\beta)^\dagger f, \ov{b(\alpha)^\dagger g})_{\End S},
++ h_{\End S}(b(\ov\beta)^\dagger \circ b(\alpha), \ov{f^\dagger \circ g})
++ h_{\End S}(b(\ov\beta)^\dagger \circ f, \ov{b^\dagger(\ov\alpha) \circ g}),
 }
 $$
 where $b$ is the second fundamental form of $S$,
@@ -1975,7 +2062,7 @@ $\alpha,\beta \in T_X$ and $f,g \in \cc \Hom(S,Q)$.
 
 
 \begin{proof}
-The morphisms $j : S \to E$ and $q : E \to Q$ induce a holomorphic bundle morphism $\End E \to \Hom(S,Q)$ via $f \mapsto q \circ f \circ j$. We're basically going to calculate the induced curvature tensor by hand instead of appealing to the Codazzi equations.
+The morphisms $j : S \to E$ and $q : E \to Q$ induce a surjective holomorphic bundle morphism $\End E \to \Hom(S,Q)$ via $f \mapsto q \circ f \circ j$. We're basically going to calculate the induced curvature tensor by hand instead of appealing to the Codazzi equations.
 
 Let then $f,g \in \Hom(S,Q)$. These induce smooth sections of $\End E$ via the adjoints as $q^\dagger f j^\dagger$, and similar for $g$, and we have the equality
 \[
@@ -2124,7 +2211,7 @@ My attempts to show this have all ended in tautologies that go ``the metric is K
 
 \subsection{Sums of metrics}
 
-The curvature tensor of a sum of metrics is not the sum of the curvature tensors of each metric. This is very sad. We can quantify exactly how sad using the Codazzi equations. This section amounts to the solution to an exercise given in Zheng's book~\cite{zheng2000complex}.
+The curvature tensor of a sum of metrics is not the sum of the curvature tensors of each metric. This is very sad. We can quantify exactly how sad using the Codazzi--Griffiths equations. This section amounts to the solution to an exercise given in Zheng's book~\cite{zheng2000complex}.
 
 Let $E \to X$ be a holomorphic vector bundle, and let $h_1$ and $h_2$ be Hermitian metrics on it. We write $D_{h_1}$ and $R_{h_1}$ for the Chern connection and curvature tensor of $h_1$, and similar for $h_2$. Consider the short exact sequence
 \[
@@ -2174,7 +2261,7 @@ where the inner product labeled with $Q$ is the one on the ``quotient'' space $E
 \end{coro}
 
 
-One would think it would be nice to be able to say what the inner product on the quotient is. We can actually write this down and find out that it isn't so much.
+One would think it would be nice to be able to say what the inner product on the quotient is. We can write it down and find out that it isn't so much.1
 
 \begin{prop}
 The inner product on the quotient space $E$ is
@@ -4847,38 +4934,68 @@ Let $E \to X$ be a holomorphic vector bundle and let $b$ be a smooth Hermitian f
 \begin{proof}
 The plan is to construct a connection locally on trivializing neighborhoods of $E$ and to glue the pieces together with a partition of unity.
 
-Let $s$ and $t$ be smooth sections of $E$, and let $\alpha$ be a tangent field. We want to solve the equation
+Let $s$ be a smooth section of $E$ over a neighborhood $U$. We want to solve the equation
 \begin{equation}
 \label{eq:conn}
 \partial_\alpha b(s, \ov t)
-= b(A(\alpha, s), \ov t).
+= b(A(\alpha), \ov t),
 \end{equation}
-This is possible exactly when $\ov t \mapsto \partial_\alpha b(s, \ov t)$ is in $\im b$, which happens when the restriction of this form vanishes on $\Ker b$. If $t$ is a section of $\Ker b$, we have $b(s, \ov t) = 0$ for all sections $s$, so
+where $\alpha \in \cc C^\infty(U, T_X)$ and $t \in \cc C^\infty(U, E)$. Consider the short exact sequence
 \[
-\partial_\alpha b(s, \ov t) = 0
+\begin{tikzcd}
+0 \ar[r] &
+\Ker b \ar[r] &
+E \ar[r,"b"] &
+\im b \ar[r] &
+0,
+\end{tikzcd}
 \]
-for any tangent field $\alpha$. Given $\alpha$ and $s$, we can thus find a smooth section $A(\alpha, s)$ of $E$ such that \eqref{eq:conn} is satisfied.
+and tensor it by the vector bundle $\Omega^1_X$ to obtain
+\[
+\begin{tikzcd}
+0 \ar[r] &
+\Omega^1_X \otimes \Ker b \ar[r] &
+\Omega^1_X \otimes E \ar[r,"\id \otimes b"] &
+\Omega^1_X \otimes \im b \ar[r] &
+0.
+\end{tikzcd}
+\]
+We claim that $\alpha \otimes t \mapsto \partial_\alpha b(s, \ov t)$ is a smooth section of $\Omega^1_X \otimes \im b$. By the above, this is true if it is zero on the sheaf generated by sections of the form $\alpha \otimes t$, where $t \in \Ker b$. But for such a section we have $b(s, \ov t) = 0$ on $U$, so $\partial_\alpha b(s, \ov t) = 0$. By taking a small enough neighborhood so the sheaf morphism above is surjective, or noting that the sheaves are ones of smooth modules which are fine, we obtain a section $A_s \in \cc C^\infty(U, \Omega_X^1 \otimes E)$ such that \eqref{eq:conn} holds for any $\alpha$ and $t$.
 
-If $A(\alpha, s)$ is a solution of \eqref{eq:conn} and $f$ is a smooth function, we note that $f A(\alpha, s)$ is a solution of $\partial_{f\alpha} b(s, \ov t)$, and that $\partial_\alpha f \otimes s + f A(\alpha, s)$ is a solution of $\partial_\alpha b(fs, \ov t)$. If $\beta$ is another tangent field, then $A(\alpha,s) + A(\beta,s)$ is a solution of $\partial_{\alpha+\beta}b(s, \ov t)$, and if $r$ is another section of $E$, then $A(\alpha,s) + A(\alpha,r)$ is a solution of $\partial_\alpha b(s + r, \ov t)$. We will use this to piece toegether a connection from its values on local frames.
+Suppose now that there exists a holomorphic frame $(e_1, \ldots, e_r)$ of $E$ over $U$. Such a frame exists over a small enough neighborhood around any point. Let $A_1, \ldots, A_r$ be the sections we just found for $e_1, \ldots, e_r$. Any section $s \in \cc C^\infty(U, E)$ can be written as $s = \sum_j f_j e_j$ for smooth functions $f_j$ on $U$. We define
+\[
+D s := \sum_{j=1}^r df_j \otimes e_j + f_j A_j
+\]
+on $U$. We claim that $D$ is a connection on $E$ over $U$ that is compatible with $b$ and whose $(0,1)$-part is $\bar\partial$.
 
-Suppose $U \subset X$ is a neighborhood that trivializes $E$, and pick a holomorphic frame $(e_1,\ldots,e_r)$ for $E$ over $U$ and coordinates $(z_1, \ldots, z_n)$ on $U$. We let $A(\frac{\partial}{\partial z_j}, e_k)$ for $j = 1, \ldots, n$ and $k = 1, \ldots, r$ be the solutions to the equations
-\[
-\partial_j b(e_j, \ov t)
-= b\Bigl(A\Bigl(\frac{\partial}{\partial z_j}, e_j \Bigr), \ov t\Bigr)
-\]
-on $U$. We then define an operator $D$ on $U$ by setting $D_j e_k = A(\frac{\partial}{\partial z_j}, e_k)$ and extending by linearity and the product rule. For a smooth tangent field
-\(
-\xi
-= \sum_j \alpha_j \frac{\partial}{\partial z_j}
-+ \sum_j \beta_j \frac{\partial}{\partial \bar z_j}
-\)
-and a smooth section $s = \sum_k s_k e_k$ this means we set
-\[
-D_\xi s
-= \sum_k d_\xi s_k \otimes e_k
-+ \sum_{jk} s_k \alpha_j D_j e_k.
-\]
-This operator $D$ is a connection whose $(0,1)$-part is $\bar\partial$.
+This object $D$ is a $1$-form with values in $E$ by construction of the $A_j$. If $s$ is a section of $E$ and $f$ a smooth function, we write $s = \sum_j f_j e_j$. Then
+\begin{align*}
+D(fs)
+&= \sum d(f f_j) \otimes e_j + f f_j A_j
+\\
+&= \sum df \otimes f_j e_j + f df \otimes e_j + f f_j A_j
+= df \otimes s + f Ds,
+\end{align*}
+so $D$ is a connection on $E$. The forms $A_j$ are $(1,0)$-forms by construction, so the $(0,1)$-part of $Ds$ is $\sum_j \bar\partial f_j e_j = \bar\partial s$.
+
+Finally, let $f$ and $g$ be smooth functions. We have
+\begin{align*}
+d b(fe_j, \ov{ge_k})
+&= d\bigl(f \ov g b(e_j, \ov e_k) \bigr)
+\\
+&= df \cdot \ov g b(e_j, \ov e_k)
++ f dg \cdot b(e_j, \ov e_k)
++ \partial b(e_j, \ov e_k)
++ \ov{\partial b(e_k, \ov e_j)}
+\\
+&= b(df \otimes e_j, \ov{ge_k})
++ b(f e_j, \ov{dg \otimes e_k})
++ b(A_j, \ov e_k)
++ b(e_j, \ov{A_k})
+\\
+&= b(D(f e_j), \ov{ge_k}) + b(f e_j, \ov{D(g e_k)}).
+\end{align*}
+For smooth sections $s = \sum f_j e_j$ and $t = \sum g_k e_k$ we deduce from the above and linearity that $D$ is compatible with $b$ over the neighborhood $U$.
 
 We now cover $X$ by neighborhoods $U_\mu$ as above and construct connections $D_\mu$ on each $U_\mu$. We then take a partition of unity $(\phi_\mu)$ relative to this covering, and define a connection $D$ on $E$ by setting
 \[
