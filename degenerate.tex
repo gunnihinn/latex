@@ -113,12 +113,44 @@ A seeming novelty of our approach is that we prove all our results using the con
 
 
 
-We finish this introduction by noting that we think the technical results developed here on general Hermitian forms are only interesting when applied to the study of honest Hermitian metrics, and do not have merit on their own. Some examples may explain this opinion:
+We finish this introduction by noting that we think the technical results developed here on general Hermitian forms are only interesting when applied to the study of honest Hermitian metrics, and do not have merit on their own.
+Some examples may explain this opinion:
 
-As an extreme case, we can consider the zero form on any vector bundle. Any connection will be compatible with that form. As a less extreme example, consider a compact complex manifold of dimension $n$ that admits a nowhere-zero holomorphic one-form. That form gives us a smooth Hermitian form whose kernel forms a holomorphic subbundle of rank $n-1$ and whose quotient is the trivial line bundle. Any of our Chern connections for this form will yield a curvature form whose top exterior power vanishes; we conclude the top Chern class of the manifold is zero. However, a much easier way to conclude the same is to use the additivity property of total Chern classes. The moral is that the larger the kernel of a given form, the less information having a compatible connection gives us. We gain the most by considering the non-degenerate case.
 
-Even in the non-degenerate case (where our results are not new as the usual proofs for everything work unchanged for non-degenerate forms), the most useful results are to be found when the form we consider is positive-definite. The reason is that the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic, so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so. We prefer to not throw this baby out with the bathwater.
+\begin{exam}
+More degenerate the form is, the less information the connection gives:
+Let $E \to X$ be a holomorphic vector bundle, let $b = 0$, and let $D$ be any connection whose $(0,1)$-part is $\bar\partial$. Then $D$ is a Chern connection of $b$.
+\end{exam}
 
+
+\begin{exam}
+Let $X$ be a compact complex manifold of dimension $n$
+that admits a nowhere-zero holomorphic one-form $\alpha$.
+It  gives us a smooth Hermitian form $b = i \alpha \wedge \ov \alpha$ whose kernel forms a holomorphic subbundle of rank $n-1$ and whose quotient is the trivial line bundle.
+Any of our Chern connections for this form will yield a curvature form whose top exterior power vanishes; so if we were to develop Chern--Weil theory in this setting we should expect to conclude the top Chern class of the manifold is zero.
+However, a much easier way to conclude the same is to use the additivity property of total Chern classes on the short exact sequence we began with.
+\end{exam}
+
+
+\begin{exam}
+Even when a form is non-degenerate, having a Chern connection and curvature form just doesn't let us say very much:
+Let $\pi : X \to S$ be a family of compact complex K\"ahler manifolds of dimension $2n$ over a smooth base $S$.
+Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is $\mathcal R^{n}\pi_{*}\mathbb C \otimes \mathcal O_{S}$ and whose fiber over a point $s$ is $E_{s} = H^{n}(X_{s}, \mathbb C)$.
+This vector bundle admits a non-degenerate Hermitian form given by the cap product, and the flat Gauss--Manin connection is the Chern connection of this Hermitian form.
+\end{exam}
+
+Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic, so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
+
+We'll finish with one final example we don't have any applications in mind for, but find amusing.
+
+\begin{exam}
+Let $(E,h) \to X$ be a holomorphic vector bundle with a Hermitian metric $h$. The curvature tensor of the metric,
+\[
+  R(\alpha, \ov\beta, s, \ov t)
+  = h(\tfrac i2 \Theta_{\alpha, \ov\beta}s, \ov t),
+\]
+defines a Hermitian form on $E \otimes T_{X}$ that is usually not positive-definite. Good luck saying anything about its curvature tensor.
+\end{exam}
 
 
 
@@ -158,7 +190,7 @@ A Hermitian form can be seen as a linear morphism $b : V \to \ov V^*$. As such, 
 \]
 
 
-The results we want to prove are all known for spaces with non-degenerate form. Our main technical tool will be to reduce to that case by quotienting out the kernel of the form we have.
+The results we want to prove are all known for spaces with a non-degenerate form. Our main technical tool will be to reduce to that case by quotienting out the kernel of the form we have.
 
 \begin{prop}
 Let $V$ be a vector space. For every Hermitian form $b$ on $V$, there exists a unique non-degenerate Hermitian form $\hat b$ on $V / \Ker V$ such that $q : V \to V/\Ker b$ is a Hermitian morphism.
@@ -183,7 +215,7 @@ for all $qy \in V / \Ker b$. Thus $b(qx) = b'(qx)$ as $(0,1)$-forms for all $qx 
 \end{proof}
 
 
-If this operation should be called anything, it is clearly a \emph{reformation} of the original space, as it removes all the degeneracy from the Hermitian form.
+If this operation should be called anything, it is clearly a \emph{purge} of the original space, as it removes all the degeneracy from the Hermitian form.
 
 
 
@@ -207,7 +239,7 @@ If $b_V$ is non-degenerate, every morphism $f : V \to W$ admits a unique adjoint
 \[
 f^\dagger = b_V^{-1} \circ \ov f^* \circ b_W,
 \]
-where $\ov f^*$ is the conjugate dual morphism $f^* : \ov W^* \to \ov V^*$ that $f$ induces. In general, adjoints may not exist, but we can say when they do.
+where $\ov f^*$ is the conjugate dual morphism $f^* : \ov W^* \to \ov V^*$ that $f$ induces. In general adjoints may not exist.
 
 
 \begin{theo}
@@ -236,8 +268,29 @@ for all $x \in W$ and $y \in V$, so the image of $g - h$ is contained in $\Ker b
 
 
 \begin{coro}
-The subset of $\Hom(V,W)$ of morphisms that have adjoints is a linear subspace.  The zero morphism always has an adjoint.
+The subset of $\Hom(V,W)$ of morphisms that have adjoints is a linear subspace
+of codimension $\dim \Ker b_V (\dim W - \dim \Ker b_W)$.
 \end{coro}
+
+\begin{proof}
+The subset is not empty because the zero morphism always has an adjoint,
+and it is clearly a subspace.
+
+Let's pick splittings $V = \Ker b_V \oplus V / \Ker b_V$ and $W = \Ker b_W
+\oplus W / \Ker b_W$. Then we get a splitting
+$$
+\displaylines{
+\Hom(V, W)
+= \Hom(\Ker b_V, \Ker b_W)
+\oplus \Hom(\Ker b_V, W / \Ker b_W)
+\hfill\cr\hfill{}
+\oplus \Hom(V / \Ker b_v, \Ker b_W)
+\oplus \Hom(V / \Ker b_v, W / \Ker b_W).
+}
+$$
+A morphism $f : V \to W$ satisfies $f(\Ker b_V) \subset f(\Ker b_W)$ if and only
+if its projection onto $\Hom(\Ker b_V, W / \Ker b_W)$ in this splitting is zero.
+\end{proof}
 
 
 
@@ -265,7 +318,7 @@ Let $j : S \to V$ be a linear morphism, let $b_V$ be a Hermitian form on $V$, an
 \begin{proof}
 We have
 \[
-\Ker b_S = j^{-1}(\Ker b_V) \cup \Ker j
+\Ker b_S = j^{-1}(\Ker b_V) + \Ker j
 \]
 so $j(\Ker b_S) = j(j^{-1}(\Ker b_V)) \subset \Ker b_V$.
 \end{proof}
@@ -358,7 +411,14 @@ so $S \cap S^\perp \subset \Ker q = \Ker b$. Conversely, $\Ker b \subset S^\perp
 \end{proof}
 
 
-If $f : S \to V$ is a linear morphism and $b_V$ is a Hermitian form on $V$, then we get an induced Hermitian form $b_S := f^*b_V$ on $S$. We can ask whether the same happens when we have a morphism $f : V \to Q$ and a form $b_V$. Clearly we can only expect something on the image of $f$, so we should take it to be surjective. When the form on $b_V$ is non-degenerate, we can define a form on $Q$ by using the injection $0 \to Q^* \to V^*$ and the dual Hermitian forms. In general, we can still get a Hermitian form on the quotient space by using orthogonal complements.
+If $f : S \to V$ is a linear morphism and $b_V$ is a Hermitian form on $V$, then
+we get an induced Hermitian form $b_S := f^*b_V$ on $S$. We can ask whether the
+same happens when we have a morphism $f : V \to Q$ and a form $b_V$. Clearly we
+can only expect something on the image of $f$, so we should take it to be
+surjective. When the form on $b_V$ is positive-definite, we can define a form on
+$Q$ by using the injection $0 \to Q^* \to V^*$ and the dual Hermitian forms. In
+general, we can still get a Hermitian form on the quotient space by using
+orthogonal complements.
 
 
 \begin{theo}
@@ -384,25 +444,6 @@ b_Q(qx, \ov{qy})
 for $x, y \in S^\perp$. This is well-defined by the above, as any other element $x'$ that maps to $qx$ satisfies $x' - x \in S \cap \Ker b_V \subset \Ker b_V$.
 \end{proof}
 
-
-It's possible to define this form by passing to quotients as well, but the construction is a little less clear. We consider the commutative diagram
-\[
-\begin{tikzcd}
-0 \ar[r] &
-S \ar[r,"j"] \ar[d,"\pi_S"] &
-V \ar[r,"q"] \ar[d,"\pi_V"] &
-Q \ar[r] &
-0
-\\
-0 \ar[r] &
-S / \Ker b_S \ar[r,"\hat j"] &
-V / \Ker b_V \ar[r,"\hat q"] &
-(V / \Ker b_V) / (S / \Ker b_S) \ar[r] &
-0
-\end{tikzcd}
-\]
-where the horizontal sequences are exact,
-from which we arrow chase a surjective morphism $\pi_Q : Q \to (V / \Ker b_V) / (S / \Ker b_S)$ that makes the relevant squares commute. The space $V / \Ker b_V$ has a non-degenerate Hermitian form, so we get a non-degenerate Hermitian form on its quotient in the usual way. The form on $Q$ is then defined by pullback by $\pi_Q$.
 
 
 \begin{prop}
@@ -460,10 +501,26 @@ If we denote by $\Hom_b(V,W) \subset \Hom(V,W)$ the subspace of morphisms that a
 \]
 and that we define a Hermitian form upstairs by pullback of the one downstairs, which exists because the Hermitian forms there are non-degenerate.
 
-
-TODO: Prove something. Possibly that $\Hom(V,W) \cong V^* \otimes W$ behaves well with respect to this. Talk about what the form on $V^*$ is.
-
-
+The special case $V^* = \Hom(V, \kk C)$, where $\kk C$ is equipped with the
+standard inner product, is interesting.
+Here an element $\lambda \in V^*$ admits an adjoint if and only if $\lambda(\Ker b_V)
+= 0$, that is, if $\Ker b_V \subset \Ker \lambda$.
+Note however that the dimension of the space of dual vectors that admit adjoints
+is $\dim V - \dim \Ker b_V$.
+Meanwhile, the dimension of the space of morphisms $V \to W$ that admit adjoints
+is $\dim V \dim W - \dim \Ker b_V (\dim W - \dim \Ker b_W)$.
+We then have
+$$
+\dim \Hom_b(V, W)
+- \dim V^*_b \dim W
+= \dim \Ker b_v \dim \Ker b_W,
+$$
+which is generally positive, so the canonical map $V_b^* \otimes W \to \Hom_b(V,
+W)$ is generally only injective and not bijective like in the non-degenerate
+case.
+The problem is that the image of any element on the left-hand side will be a
+morphism $f$ that satisfies $f(\Ker b_V) = 0$, while there are more elements on
+the right-hand side.
 
 
 \section{Chern connections}
@@ -599,7 +656,6 @@ R(\alpha,\ov\beta,s, \ov t)
 is independent of the choice of $D$.
 \end{theo}
 
-
 \begin{proof}
 Let $D_1$ and $D_2$ be Chern connections of $b$. Then $D_1 = D_2 + A$, where $A \in \Hom(E, \Ker b)$, and
 \[
@@ -612,8 +668,9 @@ The difference $D_1^2 - D_2^2$ thus takes values in $\Ker b$.
 
 
 
+
 \begin{prop}
-Let $(E,b_E) \to X$ and $(F,b_F) \to X$ be holomorphic vector bundles with Hermitian forms and let $D_E$ and $D_F$ be Chern connections of $E$ and $F$. Let $f : E \to F$ be a smooth bundle morphism that admits an adjoint $f^\dagger$. Then $D_{\Hom(E,F)}f$ admits an adjoint and $(D_{\Hom(E,F)}f)^\dagger$ and $D_{\Hom(F,E)}f^\dagger$ are both adjoints.
+Let $(E,b_E) \to X$ and $(F,b_F) \to X$ be holomorphic vector bundles with Hermitian forms and let $D_E$ and $D_F$ be Chern connections of $E$ and $F$. Let $f : E \to F$ be a smooth bundle morphism that admits an adjoint $f^\dagger$. Then $D_{\Hom(E,F)}f$ admits an adjoint and $(D_{\Hom(E,F)}f)^\dagger$ and $D_{\Hom(F,E)}f^\dagger$ are both its adjoints.
 \end{prop}
 
 
@@ -662,8 +719,21 @@ When $b_E$ is non-degenerate morphisms from $E$ to $F$ admit a unique adjoint, s
 
 
 \begin{prop}
-Let $E \to X$ and $F \to X$ be holomorphic vector bundles. Let $b_F$ be a Hermitian form on $F$ with a Chern connection $D_F$ and let $f : E \to F$ be a holomorphic vector bundle morphism. Then $f^*D_F$ is a Chern connection of the Hermitian form $f^*b_F$ on $E$.
+Let $f : X \to Y$ be a holomorphic morphism and $E \to Y$ be a holomorphic vector bundle.
+Let $b$ be a Hermitian form on $E$ with a Chern connection $D$.
+Then $f^{*}D$ is a Chern connection of $f^{*}b$ on $f^{*}E \to X$.
 \end{prop}
+
+\begin{proof}
+If $s$ and $t$ are holomorphic sections of $E$ and $\xi$ a tangent vector at a point on $X$ we have
+\[
+\partial_{\xi} f^{*} b(f^{*}s, \overline{f^{*}t})
+= f^{*}(\partial_{f_{*}\xi} b(s, \overline t))
+= f^{*}(b(D_{f_{*}\xi}s, \overline{t}))
+= f^{*}b(f^{*}D_{\xi} f^{*}s, \overline{f^{*}t}).
+\]
+As $f^{*}E$ is generated by sections of the form $f^{*}s$, this completes the proof.
+\end{proof}
 
 
 \subsection*{A word on notation}

@@ -2261,7 +2261,7 @@ where the inner product labeled with $Q$ is the one on the ``quotient'' space $E
 \end{coro}
 
 
-One would think it would be nice to be able to say what the inner product on the quotient is. We can write it down and find out that it isn't so much.1
+One would think it would be nice to be able to say what the inner product on the quotient is. We can write it down and find out that it isn't so much.
 
 \begin{prop}
 The inner product on the quotient space $E$ is
@@ -2333,6 +2333,89 @@ q^\dagger(v)
 \]
 The inner product on the quotient is the pullback of $h_1 \oplus h_2$ by $q^\dagger$, which completes the proof.
 \end{proof}
+
+Working in coordinates clarifies a little what this metric is.  If we
+simultaneously diagonalize the Hermitian metrics $h_1$ and $h_2$, say as
+matrices with $(a_j)$ and $(b_j)$ on their diagonals, the matrix of the quotient
+metric is also diagonal and the entries on its diagonal are
+\[
+\frac{a_jb_j}{a_j+b_j}.
+\]
+
+
+If $h$ is a Hermitian metric on $V$, we denote by $S(V,h)$ the unit sphere in $V$ and by $S(V,h,r)$ the sphere of radius $r$. Let $h_1$ and $h_2$ be Hermitian metrics on $V$. Then we have a map
+\[
+\pi : S(V,h_1+h_2) \to K,
+\quad
+v \mapsto |v|_{h_1},
+\]
+where $K = [\min |v|_{h_1},\max |v|_{h_1}] =: [m,M]$ is a compact interval. We assume $m < M$ (if $h_1 = h_2$ then $m = M$). We have $0 < \min |v|_{h_1}$ and $\max |v|_{h_1} < 1$ (because $v$ has to have nonzero $h_2$-norm to be on the sphere).
+The fiber over a point $x$ is $S(V,h_1,x)$. There is a map $S(V,h_1) \to S(V,h_1,t)$ given by $v \mapsto xv$ that's bijective for $x \not= 0$. If $f : V \to \kk R$ is a continuous homogeneous function of degree $k$, then
+\begin{align*}
+\int_{S(V,h_1+h_2)} f(v) \, d\sigma(v)
+&= \int_m^M \int_{S(V,h_1,x)} f(v) \, d\sigma(v) dx
+\\
+&= \int_m^M \int_{S(V,h_1)} f(xv) \, d\sigma(xv) dx
+\\
+&= \int_m^M \int_{S(V,h_1)} x^{2n-1+k} f(v) \, d\sigma(v) dx
+\\
+&= \frac{M^{2n+k}-m^{2n+k}}{2n+k} \int_{S(V,h_1)} f(v) \, d\sigma(v) dx
+\end{align*}
+Let $R_1$ be the curvature tensor of $h_1$. We get
+\begin{align*}
+\int_{S(V,h_1+h_2)} R_1(\alpha, \ov\beta, t, \ov t) \,d\sigma(t)
+= \frac{M^{2n+2}-m^{2n+2}}{2(n+1)} \frac{n}{\Vol(S^{2n-1})} r_1(\alpha, \ov\beta),
+\end{align*}
+where $r_1$ is the trace of $R_1$. Then
+\[
+r(\alpha, \ov\beta)
+= \frac{\max |v|_{h_1}^{2n+2} - \min |v|_{h_1}^{2n+2}}{2(n+1)} r_1(\alpha, \ov\beta)
++ \frac{\max |v|_{h_2}^{2n+2} - \min |v|_{h_2}^{2n+2}}{2(n+1)} r_2(\alpha, \ov\beta)
+- h_{\End E}(b(\alpha), \ov{b(\beta)}),
+\]
+where $\End E = \Hom(E,E)$ is equipped with the metric induced by $h_1+h_2$ on the first $E$ and $h_Q$ on the second $E$.
+
+Suppose that $v'$ is such that $|v'|_{h_1} = \max |v|_{h_1}$. Then $|v|_{h_1} \leq |v'|_{h_1}$ for all $v$. We then have
+\[
+|v|_{h_2}^2 = 1 - |v|_{h_1}^2 \geq 1 - |v'|_{h_1}^2 = |v'|_{h_2}^2
+\]
+for all $v$, so $|v'|_{h_2} = \min |v|_{h_2}$. A similar swap happens for vectors that acheive the minimum for $h_1$, so
+\[
+\max |v|_{h_1}^2 = 1 - \min |v|_{h_2}^2
+\qandq
+\min |v|_{h_1}^2 = 1 - \max |v|_{h_2}^2.
+\]
+Setting $m$ and $M$ to be the min and max for $h_1$, we get
+\[
+r(\alpha, \ov\beta)
+= \frac{{M^2}^{2n}-{m^2}^{2n}}{2(n+1)} r_1(\alpha, \ov\beta)
++ \frac{(1-m^2)^{2n}-(1-M^2)^{2n}}{2(n+1)} r_2(\alpha, \ov\beta)
+- h_{\End E}(b(\alpha), \ov{b(\beta)}).
+\]
+How different can $m$ and $M$ get? They are equal when $h_1$ and $h_2$ are multiples of each other.
+
+We have
+\[
+(x-1)^{2k} - (y-1)^{2k}
+= \sum_{j=0}^{2k}\binom{2k}{j} x^j (-1)^{2k-j} - y^j (-1)^{2k-j}
+= \sum_{j=0}^{2k}\binom{2k}{j} (-1)^{j}(x^j - y^j).
+\]
+Recall that
+\[
+\sum_{l=0}^{j-1} x^l = \frac{x^j-1}{x-1}
+\]
+so
+\[
+x^j-y^j
+= y^j((x/y)^j - 1)
+= y^j ((x/y)-1) \sum_{l=0}^{j-1} (x/y)^l
+= (x - y) \sum_{l=0}^{j-1} x^l y^{j-1-l}.
+\]
+Then
+\[
+\sum_{j=0}^{2k}\binom{2k}{j} (-1)^{j}(x^j - y^j)
+= \sum_{j=0}^{2k}\binom{2k}{j} (-1)^{j} (x - y) \sum_{l=0}^{j-1} x^l y^{j-1-l}
+\]
 
 
 
@@ -4695,7 +4778,7 @@ for all $qy \in V / \Ker b$. Thus $b(qx) = b'(qx)$ as $(0,1)$-forms for all $qx 
 \end{proof}
 
 
-If this operation should be called anything, it is clearly a \emph{reformation} of the original space, as it removes all the degeneracy from the Hermitian form. As the first of many applications, we'll study adjoints of morphisms.
+If this operation should be called anything, it is clearly a \emph{purge} of the original space, as it removes all the degeneracy from the Hermitian form. As the first of many applications, we'll study adjoints of morphisms.
 
 
 \begin{defi}
@@ -5082,9 +5165,22 @@ The difference $D_1^2 - D_2^2$ thus takes values in $\Ker b$.
 \end{proof}
 
 
+
+These Chern connections and curvature tensors behave very well with respect to
+pull-backs of arbitrary bundle morphisms:
+
+
 \begin{prop}
-Let $E \to X$ and $F \to X$ be holomorphic vector bundles. Let $b_F$ be a Hermitian form on $F$ with a Chern connection $D_F$ and let $f : E \to F$ be a holomorphic vector bundle morphism. Then $f^*D_F$ is a Chern connection of the Hermitian form $f^*b_F$ on $E$.
+Let $E \to X$ and $F \to X$ be holomorphic vector bundles. Let $b_F$ be a
+Hermitian form on $F$ with a Chern connection $D_F$ and curvature tensor $R_F$
+and let $f : E \to F$ be a holomorphic vector bundle morphism.
+Then $f^*D_F$ and $f^*R_F$ are a Chern connection and the curvature tensor of
+the Hermitian form $f^*b_F$ on $E$.
 \end{prop}
+
+\begin{proof}
+    TODO
+\end{proof}
 
 
 \subsection{A word on notation}
@@ -5126,7 +5222,11 @@ If $D$ is a Chern connection of $(E,b)$ and $s \sim t$ then $Ds \sim Dt$.
 \item
 If $D_1$ and $D_2$ are Chern connections of $(E,b)$, then $D_1s \sim D_2s$ for all sections $s$.
 \end{itemize}
-As adjoints and connections behave well with respect to this relation, we can prove the result we want by essentially the same arguments as in the case where the Hermitian forms are positive-definite; we simply replace ``$=$'' in those proofs by ``$\sim$'' and note that everything else works as before.
+As adjoints and connections behave well with respect to this relation, we can
+prove the result we want by essentially the same arguments as in the case where
+the Hermitian forms are positive-definite; we simply replace ``$=$'' in those
+proofs by ``$\sim$'' and note that everything else works as before. We will use
+this to prove the Codazzi--Griffiths equations by the same arguments as always.
 
 
 
