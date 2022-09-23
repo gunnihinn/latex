@@ -1,0 +1,1460 @@
+\documentclass[11pt]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{tikz-cd}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\^#1{^{[#1]}}
+\def\qandq{\quad\text{and}\quad}
+\def\ov#1{\overline{#1}}
+
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+
+\newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
+
+\newtheorem{question}{Question}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{Blog}
+
+\begin{document}
+
+\maketitle
+
+\section{13. September 2022}
+
+I know why the result I stated on the scalar curvature of a submanifold was so
+surpising: It's not true.
+
+For one, suppose it were. Then take a K3 surface and a curve in it. By that
+statement, the curve must admit a metric of negative scalar curvature. But there
+are K3 surfaces with rational curves (like the Fermat surface, or Kummer
+surfaces).
+
+The problem is that we only sum over those elements of the frame that are in
+$T_Y$, which isn't enough to recover all of the Ricci tensor or scalar curvature
+of the ambient space. For example, for a hypersurface we have
+\[
+r_Y(\alpha, \ov\beta)
+= r_X(\alpha, \ov\beta)
+- R_X(\alpha, \ov\beta, e_n, \ov{e_n})
+- \langle \sigma(\alpha), \ov{\sigma(\beta)} \rangle
+\]
+and
+\begin{align*}
+s_Y
+&= (s_X - r_X(e_n, \ov{e_n}))
+- (r_X(e_n, \ov{e_n}) - H_X(e_n))
+- |\sigma|^2
+\\
+&= s_X - 2 r_X(e_n, \ov{e_n}) + H_X(e_n) - |\sigma|^2,
+\end{align*}
+where $H$ is the holomorphic sectional curvature.
+
+\section{8. September 2022}
+
+We may have overcomplicated things yesterday.
+
+Let $Y \subset X$ be a complex submanifold of dimension $m$ in a complex
+manifold of dimension $n$.
+Let $h_X$ be a K\"ahler metric on $X$ and $h_Y$ the induced metric on $Y$.
+We have
+$$
+0 \to T_Y \to T_{X|Y} \to N_{Y/X} \to 0
+$$
+as usual and
+$$
+R_Y = R_X - \sigma^* h_N.
+$$
+Here $h_N$ is the metric $h_X$ induces on $N_{Y/X}$, $R_X$ is the curvature
+tensor of $h_X$ and similar for $R_Y$, and $\sigma \in \Hom(\operatorname{Sym}^2
+T_Y, N_{Y/X})$ is the second fundamental form of $Y$ in $X$. It descends to the
+symmetric product instead of living in $\Hom(T_Y^* \otimes T_Y^*, N_{Y/X})$
+because of the K\"ahler condition.
+
+Fix a point $y \in Y$.
+Let $(e_1,\ldots,e_m,e_{m+1},\ldots,e_n)$ be a local orthonormal frame of $T_X =
+T_Y \oplus N_{Y/X}$.
+To find the Ricci tensor of $h_Y$ we consider $R_Y(\alpha, \ov\beta, \gamma,
+\ov\delta)$ and take the trace over $\gamma$ and $\delta$. For the second
+fundamental form this gives
+$$
+\sum_{j=1}^m h_N(\sigma(\alpha)(e_j), \ov{\sigma(\beta)(e_j)})
+= h_{\Hom(T_Y, N_{Y/X})}(\sigma(\alpha), \ov{\sigma(\beta)}),
+$$
+so
+$$
+r_Y(\alpha, \ov\beta)
+= r_X(\alpha, \ov\beta)
+- h_{\Hom(T_Y, N_{Y/X})}(\sigma(\alpha), \ov{\sigma(\beta)}).
+$$
+For the scalar curvature, take the trace again and get
+$$
+s_Y = s_X - |\sigma|^2_{\Hom(\operatorname{Sym}^2 T_Y, N_{Y/X})}.
+$$
+Surprisingly this says that if $s_Y = s_X$ at a point, then $R_Y = R_X$ there.
+
+
+For any local holomorphic tangent field $\xi$ of $T_Y$ around $y$ we have
+$h_X(\xi, \ov e_k) = 0$ for $k > m$. Then
+$$
+0 = \partial h_X(\xi, \ov e_k)
+= h_X(D_X^{1,0} \xi, \ov e_k) + h_X(\xi, \ov{\bar\partial e_k})
+= h_X(D_X \xi, \ov e_k) + h_X(\xi, \ov{\bar\partial e_k}).
+$$
+It follows that
+\begin{align*}
+0
+= \!\!\! \sum_{k=m+1}^n \!\!\! \partial h_X(\xi, \ov e_k) e_k
+&= \!\!\! \sum_{k=m+1}^n \!\!\! h_X(D_X \xi, \ov e_k)e_k + h_X(\xi, \ov{\bar\partial e_k}) e_k
+\\
+&= \pi(D_X \xi) + \!\!\! \sum_{k=m+1}^n \!\!\! h_X(\xi, \ov{\bar\partial e_k}) e_k,
+\end{align*}
+where $\pi : T_{X|Y} \to N_{Y/X}$ is the orthogonal projection.
+Therefore the second fundamental form vanishes when either (a) all the $e_k$ are
+holomorphic, or (b) when $\bar\partial e_k$ lands in $\Omega_Y^{0,1} \otimes
+N_{Y/X}$ for every $k$ (the former is stronger than the latter, but nice to keep
+in mind).
+
+
+This morning I thought I could prove this:
+
+Let $Y \subset \kk P^n$ be a hypersurface defined by a homogeneous polynomial
+$f$ with real coefficients.
+If the real points of $Y$ are dense in $Y$, then the second fundamental form of
+$Y$ in $\kk P^n$ is zero.
+
+Making $f$ have real coefficients means we can swap $(f_1,\ldots,f_n)$ out for
+its conjugate when taking inner products (at real points!), so $df^\sharp$ will
+actually be orthogonal to $T_Y$ (as $T_Y = \ker df$).
+
+Doing this at a real point means that orthogonality in the Euclidean metric
+implies orthogonality in the Fubini--Study metric, for similar reasons involving
+inner products against the Euler field.
+Therefore at real points, a holomorphic tangent field is orthogonal to $T_Y$.
+
+If real points are dense, this is true on a dense subset of $Y$, and therefore
+everywhere by continuity.
+Thus our caveat above applies, and $\sigma = 0$.
+As rational points are real, this also applies if rational points are dense.
+
+This would imply that $R_Y = R_X$, so $T_Y$ would be Griffiths-positive, and $Y$
+would thus in fact be $\kk P^{n-1}$.
+From a cursory read of the Wikipedia page of rational points, that seems too
+good to be true. There should be non-projective hypersurfaces of a projective
+space with dense rational points.
+
+
+
+\section{7. September 2022}
+
+Let $X$ be a complex manifold, let $L \to X$ be a line bundle and let $s$ be a
+section of $L$ that defines a complex submanifold $Y \subset X$. There is a
+short exact sequence
+$$
+0 \to T_Y \to T_{X|Y} \to L_{|Y} \to 0,
+$$
+where the holomorphic map $ds : T_{X|Y} \to L$ is defined by picking a connection $D$
+on $L$ and letting $\xi \mapsto D_\xi s$. This is independent of the connection
+chosen (on $Y$!) and holomorphic. This identifies $N_{Y/X}$ with $L_{|Y}$.
+
+Let $h_X$ be a K\"ahler metric on $X$, and denote by $h_Y$ and $h_L$ the induced
+metrics on $Y$ and $L$. Note that $h_L$ is \emph{not} defined outside of $Y$.
+We write $\sigma$ for the second fundamental form of $Y$
+in $X$. The curvature tensor of $h_Y$ is then
+\[
+R_Y = j^* R_X - \sigma^* h_L,
+\]
+where $j : Y \to X$ is the inclusion map. We'd like to describe $h_L$ and
+$\sigma$ better and look at, for example, the scalar curvature of $h_Y$.
+
+Let $D_L$ be the Chern connection of $h_L$. The second fundamental form is
+\[
+    \sigma(\xi)(\eta)
+    = ds(D_{X,j_*\xi} j_* \eta)
+    = D_{L,D_{X,j_*\xi} j_* \eta} s.
+\]
+
+Can we describe the adjoints any better? Let
+$$
+0 \to Y \to X \to L \to 0
+$$
+be a short exact sequence of vector spaces where $\dim L = 1$, and let $h$ be
+metrics like before. Let $q : X \to L$ be the quotient map, so $Y = \ker q$.
+As $\Hom(X,L) \cong X^* \otimes L$ and $L$ is one-dimensional we can find $x \in
+X$ and $t \in L$ such that $\bar x \otimes t \mapsto q$ under $h_X \otimes
+\id_L$.
+
+\section{21. August 2022}
+
+The positivity result we need is this:
+
+Let $R_1$ and $R_2$ be curvature tensors on $V$.
+Suppose that $V = W_1 \oplus W_2$, where $R_1$ is positive on $W_1$,
+$R_2$ is positive on $W_2$,
+and suppose $R_2 \geq 0$ on $V$.
+Then there exists $\lambda$ such that $R_\lambda := R_1 + e^\lambda R_2$ is
+positive on $V$.
+
+Proof:\quad
+If we pick a reference inner product on $V$ it is enough to show positivity on
+the unit sphere $S(V)$ in $V$.
+Let $m_1 = \inf_{v \in S(V)} R_1(v, \bar v, v, \bar v)$.
+As $S(V)$ is compact, this minimum is attained at a point $v$.
+If $v \in V_1$, then $R$ is positive as $R_1$ is positive there.
+Otherwise the projection of $v$ to $W_2$ is nonzero, so $m_2 := R_2(v, \bar v, v, \bar v) > 0$.
+If we pick $\lambda$ so that $m_1 + e^\lambda m_2 > 0$
+then $R$ will then be positive on all of $S(V)$.
+
+
+
+\section{19. August 2022}
+
+I think we can prove something like this:
+
+\medskip
+\noindent
+\textbf{Theorem}\quad
+{\sl
+Let $\pi : X \to B$ be a family of compact complex manifolds over a compact base
+$B$.
+Suppose there exists a Hermitian form $h_{X/B}$ on $X$ whose restriction to any
+fiber $X_b$ is a Hermitian metric.
+Let $h_B$ be a Hermitian metric on $B$.
+
+\begin{enumerate}
+\item
+If the curvature tenors of the metrics are positive, then $h_{X/B} + e^\lambda \pi^* h_B$ is positive for large $\lambda$.
+
+\item
+If the curvature tenors of the metrics are negative, then $h_{X/B} + e^\lambda \pi^* h_B$ is negative for large $\lambda$.
+\end{enumerate}
+}
+\medskip
+
+Write $h_\lambda = h_{X/B} + e^\lambda \pi^* h_B$.
+The curvature tensor of this is
+$$
+R_\lambda
+= R_{X/B}
++ e^\lambda \pi^* R_B
+- (D_{X/B} - \pi^* D_{B})^* h_{q,\lambda},
+$$
+where $h_{q,\lambda}$ is the ``quotient'' metric.
+Note that $\Ker \pi_* \subset \Ker h_q$.
+Since $h_{X/B}$ is positive-definite on $T_{X/B}$ it defines a smooth splitting
+$T_X = T_{X/B} \oplus \pi^* T_B$.
+If $j$ and $q$ are the inclusion and projection from $T_X$ to $\pi^*T_B$ we have
+$\lim_{\lambda \to \infty} h_{q,\lambda} = p^* j^* h_{X/B}$.
+
+Suppose that both curvature tensors are positive.
+First we deal with $T_{X/B}$, where $\pi^*R_B = 0$.
+Let $(x,b)$ be a point in $X$, so that $x \in X_b$.
+There exists a local normal frame of $T_{X_b}$ for $h_{X/B,b}$ centered at $x$.
+In this frame, we have $D_{X/B} - \pi^* D_B = 0$ at $x$.
+The only part of our curvature tensor that survives at $x$ is thus $R_\lambda =
+R_{X/B}$,
+which is positive, so $R_\lambda$ is positive on $T_{X/B}$.
+
+Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
+$S(T_X) \subset T_X$ to test positivity on.
+Let
+\begin{align*}
+m_\lambda &=
+\inf_{S(T_X)} R_{X/B}
+- (D_{X/B} - \pi^* D_{B})^* h_{q,\lambda},
+\\
+m_\infty &=
+\inf_{S(T_X)} R_{X/B}
+- (D_{X/B} - \pi^* D_{B})^* p^* j^* h_{X/B}.
+\end{align*}
+As $S(T_X)$ is compact, the infimum $m_\infty$ is attained at a point $v$.
+If $v \in \Ker \pi^*$, then we're done as we know that $R_{X/B}$ is positive
+there.
+Otherwise $\pi^*(v) \not= 0$, so $m_2 := \pi^*R_B(v, \bar v, v, \bar v) > 0$.
+We then pick $\lambda_0$ big enough so that $m_\infty + e^{\lambda_0} m_2 > 0$.
+Now note that
+$m_\lambda \to m_\infty$ as $\lambda \to \infty$ because $h_{\lambda,q} \to
+p^*j^*h_{X/B}$.
+For $\lambda > \lambda_0$ we then have
+$$
+m_\lambda + e^\lambda m_2
+\geq m_\lambda + e^{\lambda_0} m_2
+\to m_\infty  + e^{\lambda_0} m_2
+> 0.
+$$
+For all large enough $\lambda$, it follows that $R_\lambda$ will be positive.
+
+The proof for the negative curvature case is the same.
+
+
+
+\section*{11. August 2022}
+
+Can we deform a hypersurface in the direction of its normal bundle?
+
+Let $(X, g)$ be a Riemannian manifold and let $Y \subset X$ be a submanifold.
+Let $\xi$ be a tangent field that trivializes $N_{Y/X}$.
+Consider the exponential map
+$$
+\exp_p : T_{X,p} \to X
+$$
+(let's suppose $X$ is complete so this is defined everywhere).
+We define $Y(\xi)$ to be the set of points
+$$
+Y(\xi) := \{ \exp_x(\xi(x)) \mid x \in Y \}.
+$$
+
+Claim/hope 1: $Y(\xi)$ is again a submanifold of dimension $\dim Y$ for $\xi$ small.
+
+Claim/hope 2: $D\Vol(Y(\xi))|_{\xi = 0} = \int_Y s |\xi| \, dV$, where $s$ is the
+scalar curvature.
+
+(1) should hold by the tubular neighborhood theorem.
+For $\xi$ small (inside the tube) $Y(\xi)$ should just be the image of $\xi$
+under the tube map in~$X$.
+
+Maybe the best way to do this is to pull everything back to the normal bundle
+and work there?
+
+
+
+\section*{6. August 2022}
+
+A problem I saw on lobste.rs (of all places) is:
+Suppose $f : [0,1] \to \kk R$ is integrable and that
+$\int_0^1 f(x) dx = 1$ and $\int_0^1 xf(x) dx = 1$.
+Show that
+$$
+\int_0^1 f(x)^2 dx \geq 4.
+$$
+The solution given considers the integral of $(f(x) - (ax + b))^2$ and minimizes
+it as a function of $a$ and $b$.
+I feel like this is a little heavy.
+
+There's an easy first bound:
+The hypotheses are $\langle f, 1 \rangle = 1$ and $\langle f, x \rangle = 1$.
+Apply Cauchy--Schwarz to the second one and get
+\[
+1
+= \langle f, x \rangle^2
+\leq |f|^2 \int_0^1 x^2 dx
+= |f|^2 / 3
+\]
+so $3 \leq |f|^2 = \int_0^1 f(x)^2 dx$.
+
+The solution given is to define
+$$
+g(t,s) =
+|f - (tx + s)|^2.
+$$
+We have
+\begin{align*}
+0 \leq g(t,s)
+&= \langle f - (tx + s), f - (tx + s) \rangle
+\\
+&= |f|^2 - 2 \langle f, tx + s \rangle + |tx + s|^2
+\\
+&= |f|^2 - 2(t + s) + t^2/3 + ts + s^2.
+\end{align*}
+
+
+
+
+
+\section*{2. August 2022}
+
+When I worked at the Icelandic Science Web I saw a question I've thought about
+on and off since then:
+
+\begin{quote}
+How much farther does a car that drives the Icelandic ring road on the right
+drive than a car that drives on the left?
+\end{quote}
+
+The ring road is, topologically, a circle.
+Somewhat more interestingly, it is also a closed path in what we'll pretend is
+a plane.
+The starting point of our setup is thus a closed smooth path $\gamma : [0,L] \to
+\kk R^2$, where $\gamma(0) = \gamma(L)$.
+We'll assume $\gamma$ is parametrized by arc length, so $|\gamma'(t)| = 1$ for
+all $t$ and $L$ is the length of the path.
+Under these conditions we can find a vector field $n$ over $\gamma$ such that $|n(t)| = 1$
+and $n$ is orthogonal to $\gamma'$ and $(\gamma', n)$ is a positively oriented
+frame.
+The curvature of the path $\gamma$ is then the positive real function $\kappa$ that
+satisfies
+$\kappa(t) = |\gamma''(t)| = |k(t) n(t)|$,
+where $k = \pm \kappa$ is a real function.
+We recall the second Frenet--Serret formula, which gives $n'(t) = -\kappa(t)
+\gamma'(t)$.
+
+With this in mind, we take as our $\gamma$ the middle of the road in question.
+The left- and right-sides of the roads are then given by $\beta_s(t) := \gamma(t)
++ s n(t)$, for some small $s$.
+The length of the curve $\beta_s$ is
+$$
+L(\beta_s)
+= \int_0^L |\beta_s'(t)| dt
+= \int_0^L |\gamma'(t) - s \kappa(t) \gamma'(t)| dt
+= \int_0^L |1 - s \kappa(t)| dt.
+$$
+For $|s| < 1/ \sup \kappa(t)$, this is
+$$
+L(\beta_s)
+= \int_0^L 1 - s \kappa(t) dt
+= L - 2\pi s
+$$
+by the Gauss--Bonnet theorem.
+
+Now, the distance from the right-side of the road to the center is perhaps something like 1.5m.
+Is it reasonable to assert that $\kappa < 1/1.5m = 2/3m$ everywhere?
+Recall that $\kappa(t)$ can also be defined as one over the radius of an oscillating circle to $\gamma(t)$ at the point $t$.
+No car can be expected to make a turn around a circle of radius $1.5m$ at speeds
+of at least 20km/h (try it! safely!), so we argue that yes.
+The hypotheses of our derivation therefore hold, so the answer to our question is
+$$
+|L(\beta_{1.5}) - L(\beta_{-1.5})|
+= |(L - 2\pi * 1.5) - (L - 2\pi * (-1.5))|
+= 6\pi
+$$
+meters.
+
+
+
+\section*{14. July 2022}
+
+I don't think this semipositive form of mine actually works. If it did, why
+isn't the Hopf surface K\"ahler? That is an elliptic curve bundle over the
+projective line, and I'm fairly sure the flat metric on the curve is invariant
+under the automorphism group.
+
+
+\section*{10. July 2022}
+
+Let $E \to X$ be a holomorphic vector bundle and consider a Grassmannian bundle
+$\Gr(E,k) \to X$. I claim that there is a closed real $(1,1)$-form $\omega$ on
+the total space whose restriction to each fiber is the K\"ahler--Einstein metric
+on that fiber.
+
+I want to construct this form by saying that its value at a point is the
+K\"ahler--Einstein metric on the fiber associated to the point. If we then take
+a local trivialization of $E$ we get a local trivialization of the Grassmannian
+bundle, and the form is just the pullback of the metric on the Grassmannian
+factor to the product. This is closed, real, restricts to what I said, and is
+\emph{semipositive}.
+
+This kind of sounds too good to be true. Does this really work?
+
+If it does, then the metric we get on the total space of the Grassmannian bundle
+is locally the sum of pullbacks from the different factors, so the ``quotient''
+metric degenerates. This makes the curvature formula of the sum just the sum of
+the curvatures.
+
+
+\begin{prop}
+Let $\pi : X \to B$ be a locally trivial holomorphic family with fiber $F$.
+Assume there is a K\"ahler metric $\omega$ on $F$ that is invariant under $\Aut F$.
+Then there is a closed semipositive $(1,1)$-form on $X$ that restricts to $\omega$ on each fiber and whose kernel is $\pi^*T_B$.
+\end{prop}
+
+\begin{proof}
+We'll work locally and may assume the family is a product $X = F \times B$.
+Set $\omega' = \pr_{F}^*\omega$.
+This form satisfies our conclusions if we can prove it is globally defined.
+If we trivialize the family over a different open set and change between the two, we act by an automorphism of $F$.
+Our $\omega$ is invariant under that automorphism, so the construction glues.
+\end{proof}
+
+
+Unrelated, but let $F$ and $B$ be manifolds with nontrivial automorphism groups
+and let $\Aut B \to \Aut F$ be an injection. Then you should be able to
+construct a locally trivial family $X \to B$ with fiber $F$ in the usual way.
+
+
+\section*{1. July 2022}
+
+Can we solve the equation
+\[
+  Lu = v
+\]
+for $u$, where $L$ is the Hodge operator?
+
+We have $m \id = L\Lambda - \Lambda L$ for some $m$. Apply it to $v$ and get
+\[
+  m v = L \Lambda v - \Lambda L v.
+\]
+
+\section*{24. June 2022}
+
+
+We can calculate the projection onto primitive $(p,q)$-classes using $L\Lambda$ and the Cayley--Hamilton theorem.
+
+Let's consider $(p,q)$-classes with $k := p + q \leq n$ (because for $k > n$ there are no primitive classes) and the operator $L\Lambda$. It is an endomorphism of the space of $(p,q)$-classes and has a characteristic polynomial $p(x) = x^n + c_{n-1}x^{n-1} + \cdots + c_1 x + c_0$. Since primitive classes exist we have $c_0 = \det (L\Lambda) = 0$. By the Cayley--Hamilton theorem we then have
+$$
+0 = p(L\Lambda)
+= (L\Lambda)^n + c_{n-1}(L\Lambda)^{n-1} + \cdots + c_1 L\Lambda
+= (L\Lambda)^m f,
+$$
+where $f := (L\Lambda)^{n-m} + c_{n-1} (L\Lambda)^{n-m-1} + \cdots + c_m \operatorname{id}$ and $c_m \not= 0$.
+
+We then have $(L\Lambda)^m f(u) = 0$ for every class $u$. As $L$ is injective, we conclude that $(L\Lambda)^{m-1} f(u)$ is primitive. But $Lv$ is never primitive for a nonzero class $v$, so by induction on $m$ we must in fact have that $f(u)$ is primitive.
+
+Now suppose $u$ is primitive. Then $f(u) = c_m u$, so by rescaling $f$ we obtain a projection operator onto the space of primitive classes. Then the Hodge theorems tell us that
+$$
+u - \frac{1}{c_m} f(u) = Lv
+$$
+for some $(p-1,q-1)$-class $v$, and we recurse.
+
+I think we can calculate the coefficients $c_{j}$ as well by using the basis that's composed of primitive forms and their multiples by $L$. The operator $L\Lambda$ is diagonal in that basis. Let $u$ be a primitive $(p-i,q-i)$-class and consider $L^{i}u$.
+We have
+$$
+[L^{[i]},\Lambda]u = (k-n+i-1)L^{[i-1]}u
+$$
+for all $k$-classes $u$. If $u$ is primitive, we get
+$$
+(k-n+i-1)L^{[i-1]}u
+= [L^{[i]},\Lambda]u = - \Lambda L^{[i]}u
+$$
+so
+$$
+L\Lambda L^{[i]}u
+= -(k-n+1-1) L L^{[i-1]}u
+= - i(k-n+i-1)L^{[i]}u.
+$$
+These are then the eigenvalues of $L\Lambda$ on $k$-classes.
+
+For classes of even degree $2k$ we get eigenvalues $\lambda_{i} = -i(2k-n+i-1)$ for $i = 0, \ldots, k$.
+The multiplicity of $\lambda_{i}$ is equal to the dimension of primitive classes of degree $2k-2i$, which is $b_{2k-2i} - b_{2k-2i-2}$. The nonzero coefficient $c_{m}$ we were looking at above is then
+\begin{align*}
+\prod_{i=1}^{k} \lambda_{i}^{b_{2k-2i}-b_{2k-2i-2}}
+&= \prod_{i=1}^{k} (-i(2k-n+i-1))^{b_{2k-2i}-b_{2k-2i-2}}
+\\
+&= (-1)^{1-b_{2k-2}}\prod_{i=1}^{k}
+(i(2k-n+i-1))^{b_{2k-2i}-b_{2k-2i-2}}
+\end{align*}
+
+Let's look at examples. Pick $k = 2$. Then we have $\lambda_{0} = 0$ and $\lambda_{1} = 2-n$, of multiplicities $m_{0} = b_{2} - 1$ and $m_{1} = 1$. The characteristic polynomial is
+$$
+p(x) = x^{b_{2}-1}(x+n-2)
+$$
+so
+$$
+p(L\Lambda) = (L\Lambda)^{b_{2}-1}(L\Lambda + (n-2)\id)
+$$
+and
+$$
+f(L\Lambda) = L\Lambda + (n-2)\id
+$$
+so the projection operator is $\id + \frac1{n-2} L\Lambda$. There's a sign error
+here.
+
+
+\section*{20. June 2022}
+
+More on the quotient metric.
+
+\begin{prop}
+If $x \in \Ker h_{1}$, then $x \in \Ker h_{Q}$.
+\end{prop}
+
+\begin{proof}
+We have
+\[
+h_{Q} = h_{1} h^{-1} h_{2} + h_{2} h^{-1} h_{1}
+\]
+and $x = h^{-1}h(x) = h^{-1}h_{1}(x) + h^{-1}h_{2}(x)$. If $x \in \Ker h_{1}$ this means that $x = h^{-1}h_{2}(x)$. Plugging this into the above we get
+\[
+h_{Q}(x)
+= h_{1} h^{-1} h_{2}(x) + h_{2} h^{-1} h_{1}(x)
+= h_{1}(x) = 0.
+\qedhere
+\]
+\end{proof}
+
+One of our Hermitian forms is often the pullback of a Hermitian metric on a base, so this maybe simplifies some calculations. At least it should let us say that $h_{Q}$ then becomes a Hermitian form on $\pi^{*}T_{B}$ (but not a pullback of a form on $T_{B}$).
+
+I'd like to be able to prove the estimate below in a coordinate-invariant way. Maybe we can use that
+\begin{align*}
+h
+= hh^{-1}h
+&= h_{1}h^{-1}h_{1}
++ h_{1}h^{-1}h_{2}
++ h_{2}h^{-1}h_{1}
++ h_{2}h^{-1}h_{2}
+\\
+&= h_{1}h^{-1}h_{1}
++ h_{2}h^{-1}h_{2}
++ h_{Q}.
+\end{align*}
+We'd need to be able to say that $h_{1}h^{-1}h_{1} + h_{2}h^{-1}h_{2}$ is semipositive-definite, though.
+
+
+Suppose that our original setup is a short exact sequence $0 \to S \to V \to Q \to 0$ and that $h = h_{V/S} + q^{*} h_{Q}$. By the above the Hermitian form on the quotient is zero on $\Ker q = S$ so it defines a Hermitian form on $Q$. The contribution of the second fundamental form of the sum to the curvature is
+\[
+\langle D_{V/S,x} z - D_{Q,x}z, \ov{D_{V/S,y}w - D_{Q,y}w} \rangle.
+\]
+Once we push this to $Q$ I think this becomes
+\[
+\langle \sigma_{V/S,x} z - q^{*}D_{Q,x}z, \ov{\sigma_{V/S,y}w - q^{*}D_{Q,y}w} \rangle,
+\]
+where $\sigma_{V/S}$ is the second fundamental form of $h_{V/S}$.
+
+
+\section*{19. June 2022}
+
+There's a basic estimate for the ``quotient'' metric I've been looking at.
+
+\begin{prop}
+  We have
+  \[
+    \|x\|_{h_{Q}} \leq \| x \|_{h}
+  \]
+  with equality if and only if $x = 0$.
+\end{prop}
+
+\begin{proof}
+Let $0 \to V \to V \oplus V \to V \to 0$ be the usual short exact sequence and
+$h_{1}$, $h_{2}$ Hermitian forms on $V$ such that $h := h_{1} + h_{2}$ is
+positive-definite and denote by $h_{Q}$ the induced Hermitian form on the quotient. Diagonalize $h$ and $h_{1}$ so $h_{2} = h - h_{1}$ is diagonal as well and get that $h_{Q}$ is diagonal with entries
+\[
+\frac{2 a_{j} b_{j}}{a_{j} + b_{j}},
+\]
+where we know that $a_{j} + b_{j} > 0$. By basic algebra we have
+\[
+\frac{2 a_{j} b_{j}}{a_{j} + b_{j}}
+< a_{j} + b_{j}
+\]
+and the equality cannot be attained. Therefore
+\[
+  \|x\|_{h_{Q}} < \|x\|_{h}
+\]
+for all $x \not= 0$.
+\end{proof}
+
+\section*{18. June 2022}
+
+Let $E \to (X,\omega_{X})$ be a holomorphic vector bundle of rank $r$ over a
+manifold of dimension $n$. We want to construct a metric on the associated
+Grassmannian bundle $\Gr(k, E) \to X$ and want to start by looking at the local picture.
+
+Let $U\subset X$ be an open neighborhood that trivializes $E$, so $E_{|U} \cong E_{0} \times U$, where $E_{0}$ is the fiber of $E$. The Grassmannian bundle also trivializes over $U$ as $\Gr(k,E)_{|U} \cong \Gr(k, E_{0}) \times U$. We then have a local holomorphic splitting $T_{\Gr(k,E)} = T_{\Gr(k,E_{0})} \oplus T_{U}$.
+
+We know that there exists a unique K\"ahler--Einstein metric $\omega_{\Gr}$ of volume 1 on $\Gr(k,E_{0})$. We define our metric on $\Gr(k,E)_{|U}$ by
+\[
+  \omega_{\lambda} = \lambda \omega_{\Gr} +  \omega_{X}.
+\]
+If $\omega_{X}$ is K\"ahler, then this metric is also K\"ahler. (I think this is more or less how Kodaira  calculated the curvature of projective bundles in his paper on his embedding theorem.) We apply our degenerate Codazzi--Griffiths formula and conclude that its curvature tensor is
+\[
+  \displaylines{
+  R_{\lambda}(x,\ov y,z,\ov w)
+  = \lambda R_{\Gr}(x,\ov y,z,\ov w)
+  +  R_{X}(x,\ov y,z,\ov w)
+  \hfill\cr\hfill{}
+  - \langle
+  D_{\Gr,x} z - D_{X,x} z,
+  \ov{D_{\Gr,y}w - D_{X,y}w}
+  \rangle_{\lambda},
+}
+\]
+where the inner product is the one on the ``quotient'' in $0 \to V \to V \oplus V \to V \to 0$ where the first map is the diagonal one. We know that it converges to a Hermitian form $h_{\infty}$ on $V$ as $\lambda \to \infty$.
+
+Consider then the case when $X$ admits a K\"ahler metric of positive holomorphic sectional curvature. The formula above for $R_{\lambda}$ shows that it will eventually have positive holomorphic sectional curvature, as $R_{\Gr}$ does so and the negative contribution is bounded.
+
+
+
+
+
+
+\section*{10. June 2022}
+
+Someone on math.stackexchange asked if the Kahler cone of a product of manifolds is the product of their Kahler cones (for K3 surfaces). I'm not sure if this happens when $H^{1}(X) = H^{2,0}(X) = 0$ (and for $Y$ as well). In that case we have
+\[
+  H^{1,1}(X \times Y) = H^{1,1}(X) \oplus H^{1,1}(Y)
+\]
+and both manifolds are projective. I thought that given $\omega$ Kahler on $X \times Y$ we could look at some linear combination of the pullbacks of $\pi_{1,*} \omega^{\dim X+1}$ and $\pi_{2,*}\omega^{\dim Y+1}$. To show these define the same Kahler class as $\omega$ we need to pick a subvariety $Z \subset X \times Y$ and push it forward to $X$ and $Y$ and integrate. Maybe it works out by abstract machinery?
+
+To write some details, let $p : X \times Y \to X$ and $q : X \times Y \to Y$ be the projections, let $\omega$ be a Kahler class on $X \times Y$, and let $n = \dim X$ and $m = \dim Y$.
+
+My first claim is that $p_{*} \omega^{m+1}$ is a Kahler class on $X$. Let $Z \subset X$ be a subspace of dimension $k$. Then
+\[
+  \int_{Z} (p_{*} \omega^{m+1})^{k}
+  = \int_{Z \times Y} \omega^{m+k+1}
+  > 0
+\]
+because $\omega$ is Kahler. This needs some functorial justification. This should be true fairly generally; if $f : X \to Y$ is a submersion (or weaker?) and $\omega$ is Kahler on $X$ then $f_{*}\omega^{\dim f^{-1}(y)+1}$ should be Kahler on $Y$.
+
+My second claim is that if $Z \subset X \times Y$ is a subspace we can push an integral over it to $X$ and $Y$ and then down from there. This again needs some functorial justification.
+
+I wonder if I'm being stupid about this. If $\omega$ is Kahler on $X \times Y$ then there exist $\alpha$ on $X$ and $\beta$ on $Y$ such that $\omega = p^{*}\alpha + q^{*}\beta$. As $\omega$ is Kahler, then so is its restriction to any subvariety, so $\omega_{|X} = \alpha$ is Kahler, and similarly for $\beta$. Donezo.
+
+\section*{7. June 2022}
+
+Let's try to calculate ball volumes.
+
+We write $B^{n}(r)$ for the ball of radius $r$ in $n$-dimensional space, or $B^{n}$ or just $B$ for the unit ball. We choose coordinates and consider the function
+\[
+  f : B^{n} \to B^{1},\quad
+  x \mapsto x_{n}.
+\]
+It is surjective and its differential is $df(\xi) = \xi_{n}$, which is also surjective. Its fiber over $t$ is $f^{-1}(t) = B^{n-1}(\sqrt{1-t^{2}})$.
+
+If we write $\alpha = dx_{1} \wedge \cdots \wedge dx_{n-1}$, then $dV = \alpha \wedge f^{*} dx_{n}$, where $dV$ is the volume form on $R^{n}$. We get
+\begin{align*}
+  \Vol(B^{n})
+  = \int_{B^{1}} f_{*}(\alpha \wedge f^{*}dx_{n})
+  &= \int_{-1}^{1} \Vol(B^{n-1}(\sqrt{1-t^{2}})) dt
+    \\
+  &= \Vol(B^{n-1})\int_{-1}^{1}\sqrt{1-t^{2}}^{n-1} dt.
+\end{align*}
+Wolfram Alpha says that
+$$
+\int_{-1}^{1}\sqrt{1-t^{2}}^{n-1} dt
+= \frac{\sqrt\pi \Gamma((n+1)/2)}{\Gamma(n/2 + 1)}
+$$
+which sounds fine, but might be difficult to verify.
+
+Some googling of ``integrate powers of sine'' turned up that this integral is actually what people transform those into, so Wolfram Alpha might be full of it.
+Let's split by cases; set $I_{n} = \int_{-1}^{1}\sqrt{1-x^{2}}^{n}$.
+
+We have
+$$
+I_{2n} = \int_{-1}^{1}(1-x^{2})^{n} dx.
+$$
+Integrating by parts a couple of times (with $u = (1-x^{2})^{n-k}$ and $v' = x^{2k}$, then similar) gives
+\begin{align*}
+I_{2n}
+&= 2n \int_{-1}^{1} x^{2} (1-x^{2})^{n-1} dx
+\\
+&= \frac{2^{2} n(n-1)}{1 \cdot 3} \int_{-1}^{1} x^4 (1-x^{2})^{n-2} dx
+\\
+&= \cdots =
+\frac{2^{n} n!}{1 \cdot 3 \cdots (2n-1)} \int_{-1}^{1} x^{2n} dx
+\\
+&= \frac{2^{n+1} n!}{1 \cdot 3 \cdots (2n-1)(2n+1)}
+\\
+&= \frac{2^{n+1} n!}{(2n+1)!/(2^{n}n!)}
+= \frac{2^{2n+1} (n!)^{2}}{(2n+1)!}.
+\end{align*}
+For odd numbers, we have
+\[
+I_{2n+1} = \int_{-1}^{1} \sqrt{1-x^{2}} (1-x^{2})^{n} dx.
+\]
+I'm not sure what to do about that. Maybe turn it into an integral of $\sin \theta$ and use an angle doubling formula?
+
+\section*{31. January 2022}
+
+Let $E \to X$ be a holomorphic vector bundle. I saw a claim that Finsler metrics
+on $E$ correspond to Hermitian metrics on $\cc O_{\kk P(E)}(-1) \to \kk P(E)$ and I'd like
+to verify that.
+
+Suppose $h$ is a Finsler metric on $E \to X$. This is a norm on the fibers of
+$E$ that varies smoothly when the fibers move. Let $s,t$ be local sections of
+the bundle of lines in $E$. We can write $s = fe$ and $t = ge$ for some
+nonvanishing section $e$, and set
+$$
+\langle s, \ov t \rangle
+:= f \ov g \, h(e)^2.
+$$
+If $e'$ is a different such section, then $e = \alpha e'$ and $s = (f/ \alpha)
+e'$ and $t = (g/\alpha)e'$ and we get
+$$
+(f/\alpha) \ov{(g/\alpha)} \, h(e')^2
+= (f/\alpha) \ov{(g/\alpha)} \, |\alpha|^2 h(e)^2
+= f \ov{g} \, h(e)^2
+$$
+so the definition makes sense. This gives a Hermitian metric on $\cc O(-1)$.
+
+Suppose we have a Hermitian metric $h$ on $\cc O(-1)$.
+
+\section*{26. January 2022}
+
+Someone in IRC asked about the function $f: \kk R^n \to \kk R$ defined by
+$$
+f(u)
+= \int_{S^{n-1}} e^{i \langle u, v \rangle}\, d\sigma(v),
+$$
+where $d\sigma$ is the Lebesgue measure. Can we find out what it is explicitly?
+
+It's smooth, and not constant as we see by scaling $u$. It's invariant under the
+action of $SO(n)$ on $\kk R^n$. We can rotate $u$ so it's in the line
+$e_1 = (1,0,\ldots,0)$. The inner product is then
+$$
+\langle t e_1, v \rangle
+= t v_1.
+$$
+Writing $e^{i\langle u, v \rangle} = \cos\langle u, v \rangle + i \sin\langle u,
+v \rangle$ and noting that $\sin$ is odd we see its integral over the sphere is
+zero. We write
+$$
+\cos\langle u, v \rangle
+= \sum_{k = 0}^\infty (-1)^k t^{2k} \frac{v_1^{2k}}{(2k)!}
+$$
+and integrate over the sphere. We have
+$$
+\int_{S^{n-1}} v_1^{2k} d\sigma(v)
+= \frac{2\Gamma(k + \frac12)\Gamma(\frac12)^{n-1}}{\Gamma(k+\frac n2)}
+= 2\Gamma(\tfrac12)^{n-1} \frac{\Gamma(k + \frac12)}{\Gamma(k+\frac n2)}.
+$$
+We have
+$
+\Gamma(x + 1) = x \Gamma(x)
+$
+so
+$$
+\Gamma(k+x)
+= x \Gamma((k-1) x)
+= \cdots
+= x^k \, \Gamma(x)
+$$
+which gives
+$$
+\frac{\Gamma(k + \frac12)}{\Gamma(k+\frac n2)}
+= \frac{(\frac12)^k\Gamma(\frac12)}{(\frac n2)^k\Gamma(\frac n2)}
+= \frac{1}{n^k} \frac{\Gamma(\frac12)}{\Gamma(\frac n2)}.
+$$
+So the coefficients of the series are $(-1)^k /n^k (2k)!$, which is something.
+
+
+\section*{1. June 2021}
+
+\subsection*{Entire maps of finite degree are polynomials}
+
+Let $f : \kk C \to \kk C$ be a holomorphic map of degree $d$. If $f$ has an essential singularity at infinity, big Picard says it takes every value infinitely often, so that can't happen. If $f$ has a removable singularity at infinity, it is constant by Liouville. Therefore $f$ has a pole at infinity, which implies that it is a polynomial, necessarily of degree $d$.
+
+
+
+
+\section*{17. May 2021}
+\subsection*{Integrating over fibers}
+
+From math.SE\footnote{https://math.stackexchange.com/q/4140847/3225}:
+
+Let $f : \kk R \to \kk R$ be a continuous function, and let $v \in \kk R^n$. Then
+\[
+\int_{S^{n-1}} f(\langle x, v \rangle) \, d\sigma(x)
+= \omega_{n-2}\int_{-1}^1 f(|v| t) (1-t^2)^{(n-3)/2} dt,
+\]
+where $\omega_n$ is the volume of the $n$-sphere.
+
+
+I want to show this by factorizing the constant map $S^{n-1} \to \{*\}$ as $S^{n-1} \to [-|v|, |v|] \to \{*\}$, apply functoriality of the pushforward, and use integration over fibers.
+
+First assume $v = 0$. Then the statement we want to prove is
+\[
+\Vol(S^{n-1}) = \Vol(S^{n-2}) \int_{-1}^1 (1-t^2)^{(n-3)/2} dt.
+\]
+We have
+\[
+\int_{-1}^1 (1-t^2)^{(n-3)/2} dt
+= \frac{\sqrt \pi \Gamma((n-1)/2)}{\Gamma(n/2)}
+\]
+and
+\[
+\Vol(S^{n-1}) = \frac{2 \pi^{n/2}}{\Gamma(n/2)}
+\]
+so
+\begin{align*}
+\Vol(S^{n-2})
+\int_{-1}^1 (1-t^2)^{(n-3)/2} dt
+&= \frac{2 \pi^{(n-1)/2}}{\Gamma((n-1)/2)}
+\frac{\sqrt \pi \Gamma((n-1)/2)}{\Gamma(n/2)}
+\\
+&= \frac{2\pi^{n/2}}{\Gamma(n/2)}
+= \Vol(S^{n-1}).
+\end{align*}
+This checks out and is useful for checking that the exponent is correct. We don't have to go through this: the case $v = 0$ is equivalent to calculating $f = 1$ for a non-zero $v$.
+
+Now assume $v \not= 0$. Consider the map $p : \kk R^n \to \kk R$ given by $p(x) = \langle x, v \rangle / |v|$.
+We have
+\[
+|p(x)|^2
+= \frac{\langle x, v \rangle^2}{|v|^2}
+\leq \frac{|x|^2 |v|^2}{|v|^2} = 1
+\]
+with equality when $x$ is a multiple of $v$, so $p(x)$ ranges from $-1$ to $1$.
+If $H = \{ x \in \kk R^n \mid \langle x, v \rangle = 0\}$
+we get an orthogonal splitting
+\[
+\kk R^n \to H \oplus \kk R \frac{1}{|v|}v,
+\quad
+x \mapsto \Bigl(x - p(x) \frac{1}{|v|} v\Bigr) \oplus p(x) \frac{1}{|v|}v.
+\]
+Let $x \in S^{n-1}$, so
+\[
+\Bigl|x - p(x)\frac{1}{|v|}v\Bigr|^2
+= |x|^2 - 2 \frac{p(x)}{|v|} \langle x, v \rangle + \frac{p(x)^2}{|v|^2} |v|^2
+= 1 - 2 \frac{\langle x, v \rangle^2}{|v|^2} + \frac{\langle x, v \rangle^2}{|v|^2}
+= 1 - p(x)^2.
+\]
+The fibers of $p$ are $p^{-1}(t) = \{ x \in S^{n-1} \mid \langle x, v \rangle/|v| = t \}$, and on them we have
+\[
+\Bigl|x-p(x)\frac{1}{|v|}v\Bigr|^2
+= 1 - t^2,
+\]
+so $x-p(x)\frac{1}{|v|}v \in S^{n-2}(\sqrt{1-t^2})$.
+
+We now want to calculate
+\[
+\int_{S^{n-1}} f(\langle x, v \rangle) \, d\sigma(x)
+= \int_{-1}^{1} p_*\bigl(f(\langle x, v \rangle) \, d\sigma(x)\bigr) dt.
+\]
+Pushforwards respect the wedge product, and we have $f(\langle x, v \rangle) = f(t|v|)$ on the fibers of $p$, so we get
+\[
+\int_{-1}^{1} p_*\bigl(f(\langle x, v \rangle) \, d\sigma_{n-1}(x)\bigr) dt
+= \int_{-1}^{1} f(t|v|) p_*\bigl(\sigma_{n-1}(x)\bigr) dt.
+\]
+Let $\frac{\partial}{\partial t}$ be the unit tangent field on $[-1,1]$. The differential of $p$ is
+\[
+p_*(x, \alpha) = \frac{\langle \alpha, v \rangle}{|v|},
+\]
+where $\alpha \in T_{S^{n-1},x}$, that is, $\alpha$ is such that $\langle \alpha, x \rangle = 0$. Let $\alpha(x) = v/|v| - \langle v, x \rangle/|v| x$. Then
+\[
+\langle \alpha, x \rangle
+= \frac{1}{|v|}(\langle v, x \rangle - \langle v, x \rangle |x|^2) = 0
+\]
+so $\alpha(x)$ is tangent to the sphere at $x$,
+and
+\[
+p_*(x, \alpha)
+= \frac{\langle v - \langle v, x \rangle x, v \rangle}{|v|^2}
+= \frac{|v|^2 - \langle v, x \rangle^2}{|v|^2}
+= 1 - p(x)^2
+\]
+so outside of $x = \pm v/|v|$ we have
+\[
+p_* \Bigl( \frac{1}{1-p(x)^2} \alpha \Bigr) = \frac{\partial}{\partial t}.
+\]
+We also have
+\[
+|\alpha(x)|^2
+= 1 - 2 \langle v, x \rangle^2 / |v|^2 + \langle v, x \rangle^2 / |v|^2
+= 1 - p(x)^2.
+\]
+
+The pushforward of the volume form on the sphere is the $1$-form on $[-1,1]$ defined by
+\[
+(p_* \sigma_{n-1})\Bigl( \frac{\partial}{\partial t}; t \Bigr)
+= \int_{p^{-1}(t)} \sigma_{n-1}(x_1, \ldots, x_{n-2}, \alpha),
+\]
+where $x_1,\ldots,x_{n-2}$ span the tangent space of $p^{-1}(t)$.
+
+
+
+The formula for the volume element on $j : S^{n-1} \subset \kk R^n$ is
+\[
+d\sigma(x) = j^*(\iota_x dV),
+\]
+where $x \in S^{n-1}$ and $dV$ is the volume element on $\kk R^n$. Then
+\[
+\iota_{\alpha(x)} d\sigma(x)
+= j^*(\iota_{v/|v|} \iota_x dV)
+\]
+because of anticommutativity of volume elements. We can pick the $x_1,\ldots,x_{n-2}$ to be orthogonal to $x$; then
+\[
+\sigma_{n-1}(x_1,\ldots,x_{n-2},\alpha)
+= \Vol(x_1,\ldots,x_{n-2},v/|v|,x),
+\]
+where the volume is of the parallelepiped in $\kk R^n$ spanned by the vectors. All except $v/|v|$ are orthogonal to each other. We get
+\[
+\sigma_{n-1}(x_1,\ldots,x_{n-2},\alpha)
+= 1 - \sum_{j=1}^{n-2} \langle x_j, v \rangle / |v| - \langle x, v \rangle / |v|.
+\]
+(This might be missing a square root and some squares. Is the norm of $\alpha$ also 1?)
+Integrating the odd-degree polynomial factors over the sphere annihilates them, so we get
+\begin{align*}
+p_* \sigma_{n-1}\Bigl(\frac{\partial}{\partial t}; t \Bigr)
+&= \int_{p^{-1}(t)} \bigl(1 - \langle x, v \rangle / |v| \bigr) \, \sigma_{n-2}
+\\
+  &= (1-t^2)^{(n-2)/2} \Vol(S^{n-2}) \bigl(1 - \langle x, v \rangle / |v| \bigr).
+\end{align*}
+Then we should have (after remembering that we needed to scale by one over $1-p(x)^2 = 1-t^2$)
+\[
+\int_{S^{n-1}} f(\langle x, v \rangle) \sigma(x)
+= \int_{-1}^1 f(t|v|) \frac{(1-t^2)^{(n-2)/2} (1 - t)}{|v| (1-t^2)} \Vol(S^{n-2}) \, dt.
+\]
+
+
+SIDEBAR: Let $v_1,\ldots,v_{n-1}$ be orthonormal vectors in $\kk R^n$ and let $x \in \kk R^n$. Consider
+\[
+x' = \sum_{j=1}^{n-1} \langle x, v_j \rangle v_j.
+\]
+Then $x - x'$ is orthogonal to all of the $v_j$ because $\langle x - x', v_j \rangle = \langle x, v_j \rangle - \langle x, v_j \rangle = 0$. So
+\[
+x = \sum_{j=1}^{n-2} \langle x, v_j \rangle v_j + (x - x')
+\]
+is the orthogonal projection of $x$ onto the hyperplane spanned by $v_1,\ldots,v_{n-1}$. Let $v_n$ be orthogonal to all of the $v_j$ and of norm $1$, so $x - x' = \langle x - x', v_n \rangle v_n$. Then
+\[
+\det(v_1,\ldots,v_{n-1}, x)
+= \det(v_1,\ldots,v_{n-1}, \langle x, v_n \rangle v_n)
+= \langle x, v_n \rangle,
+\]
+and
+\[
+\langle x, v_n \rangle^2
+= |x|^2 - \sum_{j=1}^{n-1} \langle x, v_j \rangle^2.
+\]
+
+
+
+
+\section*{5. May 2021}
+\subsection*{Return to kernels}
+
+Let $V$ be a vector space and $| \, \cdot \, |$ a norm on $V$. Set
+\[
+K(x,y) = \frac{|x+y|-|x-y|}{|x+y|+|x-y|}.
+\]
+We'd like to prove the kernel matrix associated to $n$ different points in $V$ is positive-semidefinite.
+
+Someone on math.SE did this for the original question by using a theorem of Schur on positive-semidefinite Hadamard products. It says that if $A$ and $B$ are positive-semidefinite, then the Hadamard product $A \odot B$ is as well. They applied this to the kernel matrices defined by $A(x,y) = |x+y|-|x-y|$ and $B(x,y) = 1/(|x+y|+|x-y|)$; we assume the points are picked in the open set where $|x+y| > |x-y|$.
+
+Let $x_1,\ldots,x_n$ be pairwise distinct points in $V$. Define
+\(
+A = (A(x_j,x_k))
+\).
+We know that
+\[
+|x+y|-|x-y| \leq |x + y + x - y| = 2 |x|.
+\]
+Using $|x-y|=|y-x|$ we get the upper bound $2|y|$, so
+\[
+|x+y|-|x-y| \leq 2 \min(|x|,|y|) = |x| + |y| - ||x| - |y||.
+\]
+
+The set of positive-definite Hermitian matrices is contractible: If $h_1$ and $h_2$ are positive-definite inner products and $x \in V$, then
+\[
+p(t) = (1-t) h_1(x, \ov x) + t h_2(x, \ov x)
+\]
+is a linear polynomial that satisfies $p(0) > 0$ and $p(1) > 0$, so $p(t) > 0$ for all $t$ in between. The same works for any interpolating functions that result in a monotonic $p$.
+
+
+
+I'd like to see a result where we can prove positive-definiteness by bounding a kernel between functions that are positive-definite.
+
+\begin{prop}
+Let $K_1, K_2, K_3 : V \times V \to \kk R$ be continuous symmetric functions. Suppose $K_1$ and $K_3$ are positive-definite and that $K_1 \leq K_2 \leq K_3$. Then $K_2$ is positive-definite.
+\end{prop}
+
+
+\section*{28. April 2021}
+\subsection*{A possibly semipositive kernel function}
+
+On math.SE\footnote{https://math.stackexchange.com/q/4116252/3225} someone came up with this. Let
+\[
+C = \{ x \in \kk R^n \mid x_j \geq 0 \text{ for all $j$}\}
+\]
+and define a function $K : C \times C \setminus \{(0,0)\} \to \kk R$ by
+\[
+K(x,y) = \frac{\sum_{j} \min(x_j, y_j)}{\sum_j \max(x_j, y_j)}.
+\]
+This function is continuous, smooth outside of the different diagonals, is symmetric, and satisfies $0 \leq K(x,y) \leq 1$ with $K(x,y) = 1$ if and only if $x = y$. It is not homogeneous, but satisfies $\lambda K(x,y) = K(\lambda x, \lambda y)$ for $\lambda \geq 0$.
+
+The question on math.SE asks whether the function $K$ defines a positive-semidefinite kernel. That is, let $x_1, \ldots, x_n \in \kk R^n$ and define a matrix $B = (K(x_j,x_k))$. Is $B$ semi-positive definite? I think if we restrict to the interior of $C$ we can ask whether $B$ is positive-definite.
+
+The ``shape'' of the matrix $B$ is
+\[
+B =
+\begin{pmatrix}
+1  & \cdots & b_{1n}
+\\
+\vdots & \ddots & \vdots
+\\
+b_{n1} & \cdots & 1
+\end{pmatrix}
+\]
+where $b_{jk} = b_{kj}$ and $0 \leq b_{jk} \leq 1$. If $n = 2$ these matrices satisfy $\tr B = 2 > 0$ and $\det B = 1 - b_{12}^2 \geq 0$, so they are positive-definite on the interior of $C$. In general, these matrices are not positive-semidefinite. Having numpy cruch some examples shows that the ratio of positive-definite matrices to general ones goes from $1$ when $n = 2$ to about $0.8$ when $n = 3$, and is less than one-millionth already when $n = 10$. As $n$ grows, we then expect almost none of these matrices to be positive-definite.
+
+However, having numpy randomly sample the space of matrices generated by the kernel function $K$ has \emph{only} turned up matrices that are positive-definite in all dimensions I've tried.
+
+Recall that
+\[
+\min(x,y) = \frac{x + y - |x - y|}{2}
+\qandq
+\max(x,y) = \frac{x + y + |x - y|}{2}.
+\]
+Set $\nu = (1,\ldots,1) \in \kk R^n$. Then
+\begin{align*}
+\frac{\sum_j \min(x_j,y_j)}{\sum_j \max(x_j,y_j)}
+= \frac{\langle x + y, \nu \rangle - |x-y|_1}{\langle x + y, \nu \rangle + |x-y|_1}
+= \frac{|x+y|_1 - |x-y|_1}{|x+y|_1 + |x-y|_1},
+\end{align*}
+where $|\,\cdot\,|_1$ is the $1$-norm, because $\langle x, \nu \rangle = |x|_1$ for vectors $x$ with all $x_j \geq 0$.
+
+We have
+\[
+K(x,y)
+= 1 - \frac{2 t}{1 + t} = \frac{1-t}{1+t},
+\]
+where $t = |x-y|_1/|x+y|_1$, which looks very familiar. It's close to being the angle-doubling formula for tan, but the denominator should have $t^2$. Our $t > 0$, so we can use its square root $s = \sqrt t$ and write
+\[
+K(x,y) = \frac{1-s^2}{1+s^2}
+= \frac{1-\tan^2 \theta}{1 + \tan^2 \theta}
+= \frac{\cos^2\theta - \sin^2\theta}{\cos^2\theta + \sin^2 \theta}
+= \cos 2\theta,
+\]
+where $\tan \theta = s = \sqrt t = \sqrt{|x-y|_1 / |x+y|_1}$.
+That is,
+\[
+\theta(x,y) = \tan^{-1} \sqrt{\frac{|x-y|_1}{|x+y|_1}}.
+\]
+I'm not sure this is helpful. As $0 \leq K(x,y) \leq 1$ we can just write $K(x,y) = \cos \theta(x,y)$ for $0 \leq \theta \leq \pi/2$, or $0 \leq 2\theta \leq \pi$.
+
+Let $v_1, \ldots, v_n \in \kk R^n$ and define a symmetric matrix $B = (K(v_j, v_k))$. Let $x = (x_1, \ldots, x_n)$, then the associated quadratic form is
+\begin{align*}
+q(x)
+= \sum_{jk} K(v_j, v_k) x_j x_k
+&= \sum_{jk} \bigl(
+1 - 2 \sin^2 \theta_{jk}
+\bigr) x_j x_k.
+\end{align*}
+We'd like to write this as a square, something like
+\begin{align*}
+q(x) = \sum_{jk} \bigl(\cos 2\theta_{jk} \bigr) x_j x_k
+&= \Bigl(\sum_{j} \cos \rho_jx_j \Bigr)^2
+\\
+&= \sum_{jk} \cos \rho_j\cos \rho_k \, x_j x_k.
+\end{align*}
+I think the condition to decompose the angle like this will only be fulfilled when $K$ satisfies a version of the parallelogram rule.
+
+
+\section*{23. April 2021}
+
+\subsection*{A natural bilinear form}
+
+Someone on math.SE found a natural quadratic form on special kinds of vector spaces. Let $V$ be a vector space over $k$ and consider $V \oplus V^*$. On this space, we have
+\[
+q(x, \alpha) = \alpha(x).
+\]
+This is a quadratic form, as $q(\lambda(x,\alpha)) = q(\lambda x, \lambda\alpha) = \lambda^2 q(x, \alpha)$. The associated bilinear form is
+\[
+b((x, \alpha), (y, \beta))
+= \frac12\bigl(q(x + y, \alpha + \beta) - q(x, \alpha) - q(y,\beta)\bigr)
+= \frac12 \bigl(\alpha(y) + \beta(x)\bigr).
+\]
+We can also find this form by noting the linear morphism
+\[
+V \oplus V^* \to (V \oplus V^*)^* = V^* \oplus V,
+\quad
+(x, \alpha) \mapsto (\alpha, x)
+\]
+yields the same bilinear form (up to a constant). This bilinear form is nondegenerate. Over $\kk R$ or $\kk C$ it is of mixed signature (if $q(x,\alpha) > 0$ then $q(-x,\alpha) < 0$).
+
+If $(v_1, \ldots, v_n)$ is a basis of $V$, the matrix of this bilinear form is
+\[
+\begin{pmatrix}
+0 & I_n \\
+I_n & 0
+\end{pmatrix}.
+\]
+If we look at the augmented matrix
+\[
+\begin{pmatrix}
+0 & I_n & I_n & 0 \\
+I_n & 0 & 0 & I_n
+\end{pmatrix}
+\]
+and perform elementary operations, we see it is similar to
+\[
+\begin{pmatrix}
+I_n & 0 \\
+0 & -I_n
+\end{pmatrix},
+\]
+so over $\kk R$ the signature of the form is $(\dim V, \dim V)$. (Over $\kk C$ there's only one nondegenerate bilinear form.)
+
+There's nothing stopping us from doing this on a holomorphic bundle $E \oplus E^* \to X$. We get a holomorphic nondegenerate bilinear form $b$. We could look for connections that are compatible with it, in the sense that
+\[
+d b(s, t) = b(Ds, t) + b(s, Dt)
+\]
+for sections $s, t$ of $E \oplus E^*$. If $s$ and $t$ are holomorphic, so is the function $b(s, t)$, so I think $D^{0,1} = \bar\partial$. I think we can split $\partial b(s, t)$ in two halves and define
+\[
+\frac 12 d b(s, t) = b(Ds, t) = b(s, Dt)?
+\]
+But then whatever we get won't satisfy the Leibniz rule.
+
+
+\section*{19. April 2021}
+\subsection*{Nowhere-vanishing holomorphic one-form}
+
+
+I saw a paper on the arXiv\footnote{https://arxiv.org/abs/2104.07074} about varieties with a nowhere-vanishing holomorphic one-form. Some examples of those are a projective bundle over a torus, and large symmetric powers of curves that fiber over the curve's Jacobian. (Or compact Kahler manifolds that surject onto their Albanese variety, like ones with nef anticanonical bundle\footnote{https://arxiv.org/abs/1305.4397}, I suppose.) They have in common that some of the higher Chern classes of the manifold vanish.
+
+I was thinking whether we can construct a connection on the tangent bundle of the manifold whose curvature form vitnesses some of the vanishing? Let $\theta \in H^0(X, \Omega^1)$ be a nowhere-zero form. We get a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+\Ker \theta \ar[r] &
+T_X \ar[r] &
+L \ar[r] &
+0,
+\end{tikzcd}
+\]
+where $L = T_X / \Ker \theta$ is a line bundle, and in fact an induced isomorphism $\theta : L \to \cc O_X$.
+
+From this we get a smooth section $\nu \in \cc C^\infty(X, T_X)$ such that $\theta(\nu) = 1$ on $X$. We can only guarantee a smooth section, not holomorphic, because we don't know when the obstruction to a lift of $\theta^{-1}(1)$ in $H^1(X, \Ker \theta)$ is zero.
+
+
+We'd like to define a connection $D$ on $T_X$ that satisfies
+\[
+\theta(D\xi) = d \theta(\xi).
+\]
+If $\xi$ is a section of $T_X$, we write
+\[
+\xi = (\xi - \theta(\xi)\nu) + \theta(\xi) \nu
+\]
+for the decomposition of $\xi$ into a part in $\Ker \theta$ and an orthogonal complement,
+and define
+\[
+D\xi = d(\theta(\xi)) \otimes \nu.
+\]
+Then $\theta(D\xi) = d \theta(\xi)$. If $f$ is a smooth function, we have
+\[
+D(f\xi)
+= d(\theta(f\xi)) \otimes \nu
+= df \otimes \theta(\xi) \nu + f d\theta(\xi) \otimes \nu
+= df \otimes \theta(\xi) \nu + f D\xi,
+\]
+which is not equal to $df \otimes \xi + f D\xi$,
+so $D$ is not a connection.
+
+This is ``lucky'', because if it were the curvature form of $D$ would be
+\begin{align*}
+D^2 \xi
+= D(D\xi)
+&= D(d \theta(\xi) \otimes \nu)
+\\
+&= d^2 \theta(\xi) \otimes \nu - d\theta(\xi) \wedge D\nu
+\\
+&= - d\theta(\xi) \wedge d\theta(\nu) \otimes \nu
+= 0
+\end{align*}
+as $\theta(\nu) = 1$, so $D$ would be a flat connection on $T_X$. This contradicts the basic examples that exist, because some of their Chern classes are nonzero (and they're not complex tori).
+
+I suppose the moral of the story is that we can't define a connection by just working on a piece of a decomposition of the bundle we care about. Or that I shouldn't try to do math in my head in the middle of the night while my daughter won't sleep.
+
+
+\paragraph{}
+
+But wait. Suppose we pick a connection $D$ on $\Ker \theta$. We then define an operator $\nabla$ on $T_X$ by
+\[
+\nabla \xi
+= D(\xi - \theta(\xi) \nu) + d\theta(\xi) \otimes \nu.
+\]
+If $f$ is a smooth function, we have
+\begin{align*}
+\nabla(f \xi)
+&= D(f\xi - f(\theta(\xi) \nu) + df \otimes \theta(\xi) \nu + f d\theta(\xi) \nu
+\\
+&= df \otimes (\xi - \theta(\xi) \nu) + df \otimes \theta(\xi) \nu + f D(\xi - \theta(\xi) \nu) + f d\theta(\xi) \otimes \nu
+\\
+&=
+df \otimes \xi + f \nabla \xi,
+\end{align*}
+so $\nabla$ is a connection. We have
+\[
+\nabla^2 \xi = D^2(\xi - \theta(\xi) \nu),
+\]
+as the other part is zero as we saw above. Note that
+\[
+\nabla^2 \nu = D^2(\nu - \nu) = 0,
+\]
+so $\dim \Ker \nabla^2 \geq 1$ everywhere on $X$. Does it follow that $\wedge^n \nabla^2 = 0$? If so, then the Chern form $c_n(\nabla) = \tr \wedge^n \nabla^2 = 0$, and by Chern--Weil we get $c_n(T_X) = 0$.
+
+After taking a walk, this follows directly from the short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+\Ker \theta \ar[r] &
+T_X \ar[r] &
+\cc O_X \ar[r] &
+0
+\end{tikzcd}
+\]
+and the additivity of the total Chern class $c(T_X) = c(\Ker \theta) \cup c(\cc O_X)$, which gives
+\[
+c_n(T_X) = c_{n-1}(\Ker \theta) \cup c_1(\cc O_X) = 0.
+\]
+
+
+\section*{10. March 2021}
+
+\subsection*{Invariant Cartan structure equation}
+
+In complex differential geometry, the Cartan structure equation
+$$
+i\Theta
+= -iH^{-1} \partial \bar\partial H
++ i H^{-1} \partial H \wedge H^{-1} \bar\partial H
+$$
+for the curvature form of a Chern connection on a holomorphic vector bundle $(E, h) \to X$ lets us calculate a lot of things. The problem (to me) is that it uses the moving frame formulation of the curvature form, while I want to use the connection formulation for everything. I'd like to have some invariant way of using this equation.
+
+I've played around with taking various derivatives, like $\partial\bar\partial$ of $\langle s, t \rangle$ or $\log |\langle s, t\rangle|^2$. This gives things that sometimes look interesting but are either not what we're looking for or problematic in other ways. I wonder if I'm not overthinking this? By just taking the derivatives of the metric we get
+$$
+\langle \Theta s, t \rangle
+= \langle D s, D t \rangle
+- \partial\bar\partial \langle s, t \rangle
+$$
+which might be enough for some of the applications where the Cartan equations are used.
+
+For example, if $\cc S \to \Gr(k, V)$ is the universal subbundle of the Grassmannian, and $f,g \in \Hom(S,V/S)$ are elements of the tangent space at $S$, then
+\begin{align*}
+\partial_f\bar\partial_g h_S(s,t)
+= \partial_f \bar\partial_g h_V(js,jt)
+&= \partial_f h_V(js, (\partial_g j)(t) + jD_St)
+\\
+&= h((\partial_f j)(s) + jD_S s,(\partial_g j)(t) + jD_St).
+\end{align*}
+We have $(\partial_fj)(s) = f(s)$ (somehow), so
+$$
+\partial_f\bar\partial_g h_S(s,t)
+= h_S(D_{S,f} s, D_{S,g} t) + h_Q(f(s),f(g)).
+$$
+Rearranging according to our version of Cartan's equation gives
+$$
+\langle F_{fg}s,t \rangle
+= h_S(D_{S,f} s, D_{S,g} t) - \partial_f\bar\partial_g h_S(s,t)
+= -h_Q(f(s),g(t)).
+$$
+The subbundle is then seminegative; we have
+$$
+\langle F_{ff}s,s \rangle
+= -h_Q(f(s),f(s)).
+$$
+If $\dim S > 1$ then there always exists a nonzero morphism $f \in \Hom(S, V/S)$ such that $\Ker f \not= 0$. For such a morphism and $s \in \Ker f \setminus \{0\}$ we have $\langle F_{ff}s, s \rangle = 0$ while $f \not=0$ and $s \not= 0$, so $\cc S$ is only seminegative in this case.
+
+
+\section*{2. March 2021}
+\subsection*{Estimating the norm of the exterior product}
+
+Let \(V\) be a real finite-dimensional vector space, and let \(\bigwedge^\bullet V\) be the exterior algebra of \(V\).
+An inner product on \(V\) induces inner products on each component \(\bigwedge^k V\) of the exterior algebra.
+Recall that we have the exterior product
+\[
+\ext{p} V \times \ext{q} V \to \ext{p+q} V,
+\quad
+(u, v) \mapsto u \wedge v.
+\]
+Since all the spaces here are finite-dimensional, there exist constants \(C = C(p,q,n)\) such that
+\[
+|u \wedge v| \leq C |u| \, |v|
+\]
+for all \(u \in \ext p V\) and \(v \in \ext q V\). Can we estimate these constants?
+
+The answer apparently has applications to physics.
+I don't understand the connection to physics or the physical motivation, but in a \href{https://aip.scitation.org/doi/10.1063/1.1703969}{1961 paper} the physicist \href{https://en.wikipedia.org/wiki/Yang_Chen-Ning}{Yang Chen-Ning} conjectured that for even-dimensional spaces the optimal bound is achieved on powers of the standard symplectic form.
+As
+\[
+\frac{\omega^p}{p!} \wedge \frac{\omega^q}{q!} = \binom{p+q}p \frac{\omega^{p+q}}{(p+q)!},
+\]
+where \(\omega = \sum_{i=1}^n dx_{2i-1} \wedge dx_{2i}\) and \(|\omega^p / p!|^2 = \binom np\), the conjecture is that
+\[
+C(2p,2q,2n) = \tbinom{p+q}p\sqrt{\frac{\binom{n}{p+q}}{\binom np \binom nq}}.
+\]
+Yang claims to prove this for the case of \(p = 1\) in his 1961 paper, though I don't understand his proof.
+A \href{https://arxiv.org/abs/1409.3931}{preprint from 2014} claims to prove more cases of the conjecture; again the details of the proof defeat me.
+
+There are two ways of getting rather brutal estimates for these constants.
+Let \((v_1, \ldots, v_n)\) be an orthonormal basis of \(V\).
+Then \((v_I)_{|I| = p}\) and \((v_J)_{|J|=q}\) are orthonormal bases of \(\ext p V\) and \(\ext q V\).
+If \(u\) and \(v\) are elements of these bases, then \(u \wedge v\) is either 0 or has norm 1.
+
+For our first attempt, let \(x = \sum_{|I|=p} x_I v_I\) and \(y = \sum_{|J|=q} y_J v_J\) be elements of \(\bigwedge^p V\) and \(\bigwedge^q V\).
+Then
+\[
+|x \wedge y|
+=
+\biggl|
+\sum_{|I|=p, |J|=q} x_I y_J v_I \wedge v_J
+\biggr|
+\leq
+\sum_{|I|=p, |J|=q} |x_I y_J|
+= \sum_{|I|=p} |x_I| \cdot \sum_{|J|=q} |y_J|.
+\]
+By taking the inner product of \(x\) and the vector whose elements are the signs of each \(x_I\) and applying Cauchy--Schwarz, we get
+\[
+\sum_{|I|=p} |x_I| \leq \sqrt{\tbinom np} |x|.
+\]
+This gives
+\[
+|x \wedge y| \leq \sqrt{\tbinom np \tbinom nq} |x| |y|.
+\]
+Our first estimate is thus \(C(p,q,n) \leq \sqrt{\binom np \binom nq}\).
+This is likely to be a bad estimate, because when applying the triangle inequality above we assigned equal weight to all expressions \(|v_I \wedge v_J|\), even though many of them were zero.
+We also applied the Cauchy--Schwarz inequality on top of the triangle one.
+The conditions for those inequalities to be exact are orthogonal -- the triangle one is exact when all the vectors lie on a straight line, while Cauchy--Schwarz is exact when all the vectors are orthogonal -- which should yield suboptimal bounds.
+
+For our second attempt, we consider the bilinear map
+\[
+b : \ext p V \otimes \ext q V \to \ext {p+q} V,
+\quad
+u \otimes v \mapsto u \wedge v.
+\]
+Its operator norms satisfy \(\|b\|^2 \leq |b|^2\), where
+\[
+\|b\|^2 = \sup_{x,y} \frac{|b(x,y)|^2}{|x|^2|y|^2}
+\]
+and where \(|b|\) is the Hilbert--Schmidt norm. We can calculate that norm by counting the number of non-zero entries in the matrix for \(b\).
+
+Let then \(I = (i_1, \ldots, i_p)\) be a multiindex. We can choose \(\binom{n-p}{q}\) indices \(J = (j_1, \ldots, j_q)\) such that the corresponding basis elements \(v_I\) and \(v_J\) satisfy \(b(v_I \otimes v_J) = v_I \wedge v_J \not= 0\). As there are \(\binom np\) ways of picking \(I\), we conclude that the Hilbert--Schmidt norm of \(b\) is
+\[
+|b|^2 = \tbinom np \tbinom {n-p}q = \tbinom n{n-p} \tbinom {n-p}q.
+\]
+We then get a slightly better estimate
+\[
+C(p,q,n)
+\leq \sqrt{\tbinom n{n-p} \tbinom {n-p}q}
+\leq \sqrt{\tbinom np \tbinom nq}
+\]
+with equality in the second place if and only if \(p = 0\) or \(p = n\).
+
+A fun fact is that these estimates are arbitrarily bad.
+When \(p + q = n\), the Hodge star operator gives an isometry \(\bigwedge^q V \cong \bigwedge^p V\) and the Cauchy--Schwarz inequality gives
+\[
+|u \wedge v| \leq |u| |v|,
+\]
+so \(C(p,n-p,n) = 1\), which agrees with Yang's conjectured value when \(p\) and \(n\) are even.
+Our best estimate in this case is
+\[
+C(2p,2n-2p,2n) \leq \sqrt{\tbinom {2n-2p}{2p}},
+\]
+which goes to infinity as \(n\) grows.
+
+
+
+
+\end{document}

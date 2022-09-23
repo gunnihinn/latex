@@ -1,0 +1,210 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lmodern}
+
+\newtheorem{prop}{Proposition}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+
+\begin{document}
+
+\title{Nakano-positivity}
+\author{Gunnar \TH\'or Magn\'usson}
+
+\maketitle
+
+These are some notes on Nakano-positivity of vector bundles.
+
+
+\paragraph{Setup}
+
+Let $X$ be a complex manifold of dimension $n$.
+Let $(E, h) \to X$ be a holomorphic vector bundle of rank $r$ equipped with a Hermitian metric.
+We denote the Chern connection of $(E,h)$ by $D_{E,h}$ (or $D_h$ or $D$ if there is no risk of confusion).
+We denote the curvature tensor of $(E,h)$ by $\Theta_{E,h}$ (or $\Theta_h$ or $\Theta$).
+
+We can identify the curvature tensor with a $(1,1)$-form $B$ on $E \otimes T_X$. This form is defined by
+$$
+B(s \otimes \xi, t \otimes \nu)
+= h(\Theta_{\xi \overline{\nu}}(s), t).
+$$
+If the form $B$ is non-degenerate, we can define a Chern connection for it in the usual way. Let's compute it.
+
+
+\paragraph{Abstract handwaving}
+
+The metric $h$ can be seen as an isomorphism $h : E \to \overline E^*$. The curvature tensor $\Theta$ is an element of $\bigwedge^{1,1} T_X^* \otimes \End E$. Using
+$$
+\End E
+= E^* \otimes E
+\overset{h}{\cong} E^* \otimes \overline{E}^*
+= \bigwedge{}^{\!\! 1,1} E^*
+$$
+we can view it as a sesquilinear form $b$ on $T_X \otimes E$. We have
+$$
+b = \id_{\bigwedge^{1,1}T_X^*} \otimes (\id_{E^*} \otimes h) \circ \Theta.
+$$
+The Chern connection is a map $D : \bigwedge^k T_X^* \otimes E \to \bigwedge^{k+1} T_X^* \otimes E$. How do we write the compatiblitity with the metric?
+
+\paragraph{Chern connection}
+
+Recall that a connection $D$ on a Hermitian vector bundle can be written as $D = D' + D''$, where $D'$ is of type $(1,0)$ and $D''$ is of type $(0,1)$. The Chern connection is the unique connection that is compatible with the metric and has $D'' = \bar\partial$.
+
+It's enough to compute the Chern connection on holomorphic sections of $E \otimes T_X$. Further, it is enough to compute it on sections of the form $s \otimes \xi$ and $t \otimes \eta$, where $s, t$ are holomorphic sections of $E$ and $\xi, \eta$ are holomorphic sections of $T_X$. For such sections, we have
+$$
+B(D'(s \otimes \xi), t \otimes \eta)
+= \partial B(s \otimes \xi, t \otimes \eta)
+= \partial h(\Theta_{\xi \overline\eta} s, t)
+= h(D'\Theta_{\xi \overline\eta} s, t).
+$$
+
+\paragraph{Invertible curvature}
+
+Suppose that $\Theta_{\xi \eta}$ is invertible. Then
+\begin{align*}
+B(D'(s \otimes \xi), t \otimes \eta)
+= h(D'\Theta_{\xi \overline\eta} s, t)
+&= h(\Theta_{\xi \overline\eta}(\Theta_{\xi \overline\eta}^{-1}D'\Theta_{\xi \overline\eta} s), t)
+\\
+&= B(\Theta_{\xi \overline\eta}^{-1}D'\Theta_{\xi \overline\eta} s \otimes \xi, t \otimes \eta).
+\end{align*}
+This doesn't quite help, as $\eta$ appears on the $\mathbb{C}$-linear side.
+
+\paragraph{Local attempt}
+
+In a local holomorphic frame, we write
+$$
+D'(\xi_j \otimes s_l)
+= \partial(\xi_j \otimes s_l) + A \wedge \xi_j \otimes s_l,
+$$
+where $A = (a_{jl,km})$ is a matrix of $(1,0)$-forms. Then
+\begin{align*}
+B(D'(\xi_j \otimes s_l), \xi_k \otimes s_m)
+&= B(\partial \xi_j \otimes s_l, \xi_k \otimes s_m)
++ B(\xi_j \otimes \partial s_l, \xi_k \otimes s_m)
++ \sum_{\mu \nu} a_{jl,\mu \nu} B(\xi_\mu \otimes s_\nu, \xi_k \otimes s_m)
+\\
+&=
+h(\Theta_{\partial \xi_j \xi_k} s_l, s_m)
++ h(\Theta_{\xi_j \xi_k} \partial s_l, s_m)
++ \sum_{\mu \nu} a_{jl,\mu \nu} h(\Theta_{\xi_\mu \xi_k} s_\nu, s_m).
+\end{align*}
+In theory this relates the coefficients of the local expression of the Chern connection of $B$ with things we already know. We get
+$$
+h(D'\Theta_{\xi_j \xi_k} s_l, s_m)
+= h(\Theta_{\partial \xi_j \xi_k} s_l, s_m)
++ h(\Theta_{\xi_j \xi_k} \partial s_l, s_m)
++ \sum_{\mu \nu} a_{jl,\mu \nu} h(\Theta_{\xi_\mu \xi_k} s_\nu, s_m)
+$$
+and because the RHS of every inner product is $s_m$ we conclude that
+$$
+D'\Theta_{\xi_j \xi_k} s_l
+= \Theta_{\partial \xi_j \xi_k} s_l
++ \Theta_{\xi_j \xi_k} \partial s_l
++ \sum_{\mu \nu} a_{jl,\mu \nu} \Theta_{\xi_\mu \xi_k} s_\nu.
+$$
+Is this progress?
+
+
+\paragraph{Using adjoints}
+
+We get
+\begin{align*}
+\partial_\nu h(\Theta_{\xi \overline\eta} s, \overline t)
+&= \partial_\nu h(s, \overline{\Theta_{\eta \overline\xi} t})
+\\
+&= h(D'_\nu s, \overline{\Theta_{\eta\overline\xi} t}) + h(s, \overline{\bar\partial_{\overline\nu}(\Theta_{\eta \overline \xi} t}))
+\\
+&= h(D'_\nu s, \overline{\Theta_{\eta\overline\xi} t})
++ h(s, \overline{(\bar\partial_{\overline\nu}\Theta_{\eta \overline\xi}) t})
++ h(s, \overline{\Theta_{\eta \overline\xi} \bar\partial_{\overline\nu} t})
+\\
+&= h(\Theta_{\xi \overline\eta} D'_\nu s, \overline{t})
++ h(\Theta_{\xi \overline\eta} s, \overline{\bar\partial_{\overline\nu} t})
++ h(s, \overline{(\bar\partial_{\overline\nu}\Theta_{\eta \overline\xi}) t})
+\\
+&= B(D'_\nu s \otimes \xi, \overline{t \otimes \eta})
++ B(s \otimes \xi, \overline{\bar\partial_{\overline \nu}t \otimes \eta})
++ h(s, \overline{(\bar\partial_{\overline\nu}\Theta_{\eta \overline\xi}) t}).
+\end{align*}
+Recall that
+$$
+\bar\partial(t \otimes \eta)
+= \bar\partial t \otimes \eta + t \otimes \bar\partial \eta.
+$$
+Then we have
+$$
+B(D'_\nu(s \otimes \xi), \overline{t \otimes \nu})
++ B(s \otimes \xi, \overline{t \otimes \bar\partial_{\overline\nu} \eta})
+= B(D'_\nu s \otimes \xi, \overline{t \otimes \eta})
++ h(s, \overline{(\bar\partial_{\overline\nu}\Theta_{\eta \overline\xi}) t}).
+$$
+This does not seem enough to conclude what the Chern connection of $B$ is.
+
+
+\paragraph{As a three-form}
+
+Begin as before. Fix two sections $s, t$ of $E$ and consider the $2$-form defined by
+$$
+h(\Theta s, t)
+$$
+on $T_X$. We have
+$$
+d h(\Theta s, t)
+= h(D \Theta s, t) + h(\Theta s, D t)
+= h(\Theta D s, t) + h(\Theta s, D t)
+$$
+by the Bianchi identity. The above equation holds for $3$-forms.
+
+For tangent fields $\alpha, \beta, \gamma$, we then have
+$$
+\displaylines{
+  d_\alpha h(\Theta_{\beta\gamma}s, t)
+  + d_\beta h(\Theta_{\gamma\alpha}s, t)
+  + d_\gamma h(\Theta_{\alpha\beta}s, t)
+  = h(\Theta_{\alpha\beta}D_\gamma s, t) + h(\Theta_{\alpha\beta} s, D_\gamma t)
+  \cr\hfill{}
+  + h(\Theta_{\beta\gamma}D_\alpha s, t) + h(\Theta_{\beta\gamma} s, D_\alpha t)
+  \cr\hfill{}
+  + h(\Theta_{\gamma\alpha}D_\beta s, t) + h(\Theta_{\gamma\alpha} s, D_\beta t).
+}
+$$
+In the case that interests of, that of Nakano-positive vector bundles, we get
+$$
+\displaylines{
+  B(D_\alpha(s \otimes \beta), t \otimes \gamma) + B(s \otimes \beta, D_\alpha(t \otimes \gamma))
+  \hfill\cr\quad{}
+  + B(D_\beta(s \otimes \gamma), t \otimes \alpha) + B(s \otimes \gamma, D_\beta(t \otimes \alpha))
+  \hfill\cr\quad{}
+  + B(D_\gamma(s \otimes \alpha), t \otimes \beta) + B(s \otimes \alpha, D_\gamma(t \otimes \beta))
+  \hfill\cr\hfill{}
+  = B(D_\gamma s \otimes \alpha, t \otimes \beta) + B(s \otimes \alpha, D_\gamma t \otimes \beta)
+  \hfill\cr\hfill{}
+  + B(D_\alpha s \otimes \beta, t \otimes \gamma) + B(s \otimes \beta, D_\alpha t \otimes \gamma)
+  \cr\hfill{}
+  + B(D_\beta s \otimes \gamma, t \otimes \alpha) + B(s \otimes \gamma, D_\beta t \otimes \alpha).
+}
+$$
+Taking all sections to be holomorphic and looking at the $(1,0)$-part gives
+$$
+\displaylines{
+  B(D'_\alpha(s \otimes \beta), t \otimes \gamma)
+  + B(D'_\beta(s \otimes \gamma), t \otimes \alpha)
+  + B(D'_\gamma(s \otimes \alpha), t \otimes \beta)
+  \hfill\cr\hfill{}
+  = B(D'_\gamma s \otimes \alpha, t \otimes \beta)
+  + B(D'_\alpha s \otimes \beta, t \otimes \gamma)
+  + B(D'_\beta s \otimes \gamma, t \otimes \alpha).
+}
+$$
+Except neither of these make sense either. Replacing, for example $\gamma$ by $f\gamma$ yields derivatives of $f$ on the LHS but not on the RHS.
+
+
+\end{document}

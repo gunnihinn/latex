@@ -1,0 +1,28 @@
+* Papers
+
+** A note on the almost-one-half holomorphic pinching
+
+https://www.sciencedirect.com/science/article/pii/S1631073X17302340
+
+Prove a pinching theorem for compact Kahler manifolds based on positive holomorphic sectional curvature. Main result says that such manifolds are isomorphic to P^n, products of P^n, or a Hermitian symmetric space.
+
+The bibliography is excellent.
+
+Cites:
+
+- Hitchin, /On the curvature of rational surfaces/. Examples of manifolds with H > 0. In some symposium collection that we've stolen.
+
+** On the curvature of rational surfaces
+
+By Hitchin.
+
+Constructs Kahler metrics on the Hirzebruch surfaces H_n := P(O \oplus O(n)) that have positive holomorphic sectional curvature, and positive Ricci curvature when n = 1. (When n > 1, H_n cannot have such a metric. It shows H > 0 does not imply Ric > 0.)
+
+
+** On projectivized vector bundles and positive holomorphic sectional curvature
+
+https://arxiv.org/pdf/1606.08347.pdf
+
+Generalizes the Hitchin construction to show that for any vector bundle $(E,h) \to (X,\omega)$, where $(X,\omega)$ has positive holomorphic sectional curvature, there exists a metric on $P(E)$ with positive holomorphic sectional curvature.
+
+The paper is short and relies heavily on picking nice local coordinates to do intense calculations in. It would be nice to redo it in a coordinate-invariant way.
