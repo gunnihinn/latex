@@ -13,3 +13,9 @@ To build the PDF of a project, either:
 ## Collaborate
 
 I'd be very happy if anyone wanted to collaborate on any of these hair-brained schemes.
+
+## TODO
+
+* Write a Github Action to build each project and write the PDF to an S3 bucket
+
+* Explain what each of these projects is
