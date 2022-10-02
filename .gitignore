@@ -12,3 +12,4 @@
 *.thm
 *.toc
 .auctex-auto
+.direnv

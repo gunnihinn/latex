@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   pname = "sgct";
   version = "0.1";
 
-  srcs = [ ./sgct/main.tex ./sgct/main.bib ];
+  srcs = [ ./main.tex ./main.bib ];
 
   buildInputs = [ tex ];
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     cd $(mktemp -d) && cp $src main.tex
-    latexmk --pdf main.tex
+    latexmk -pdf -f main.tex
   '';
 
   installPhase = ''

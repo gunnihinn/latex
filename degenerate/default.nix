@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   pname = "degenerate";
   version = "0.1";
 
-  srcs = [ ./degenerate/main.tex ];
+  srcs = [ ./main.tex ];
 
   buildInputs = [ tex ];
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     cd $(mktemp -d) && cp $src main.tex
-    latexmk --pdf main.tex
+    latexmk -pdf -f main.tex
   '';
 
   installPhase = ''

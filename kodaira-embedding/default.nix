@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   pname = "kodaira-embedding";
   version = "0.1";
 
-  srcs = [ ./kodaira-embedding/main.tex ];
+  srcs = [ ./main.tex ];
 
   buildInputs = [ tex ];
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     cd $(mktemp -d) && cp $src main.tex
-    latexmk --pdf main.tex
+    latexmk -pdf -f main.tex
   '';
 
   installPhase = ''
