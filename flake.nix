@@ -10,21 +10,33 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        mkDerivation = pkgs.stdenv.mkDerivation;
         tex = pkgs.texlive.combined.scheme-full;
 
-        degenerate =
-          pkgs.callPackage ./degenerate/default.nix { inherit self tex; };
-        grassmannian-bundles =
-          pkgs.callPackage ./grassmannian-bundles/default.nix {
-            inherit self tex;
-          };
-        journal = pkgs.callPackage ./journal/default.nix { inherit self tex; };
-        kodaira-embedding = pkgs.callPackage ./kodaira-embedding/default.nix {
-          inherit self tex;
+        degenerate = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "degenerate";
         };
-        nakano-positive =
-          pkgs.callPackage ./nakano-positive/default.nix { inherit self tex; };
-        sgct = pkgs.callPackage ./sgct/default.nix { inherit self tex; };
+        grassmannian-bundles = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "grassmannian-bundles";
+        };
+        journal = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "journal";
+        };
+        kodaira-embedding = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "kodaira-embedding";
+        };
+        nakano-positive = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "nakano-positive";
+        };
+        sgct = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "sgct";
+        };
       in {
         packages.default = journal;
 
