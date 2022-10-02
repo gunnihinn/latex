@@ -1,18 +1,17 @@
-{ stdenv, tex }:
+{ self, stdenv, tex }:
 
 stdenv.mkDerivation rec {
   pname = "grassmannian-bundles";
   version = "0.1";
-
-  srcs = [ ./grassmannian-bundles/main.tex ./grassmannian-bundles/main.bib ];
+  src = self;
 
   buildInputs = [ tex ];
 
   unpackPhase = "true";
 
   buildPhase = ''
-    cd $(mktemp -d) && cp $src main.tex
-    latexmk -pdf -f main.tex
+    cd $(mktemp -d) && cp $src/grassmannian-bundles/* .
+    ${tex}/bin/latexmk -pdf -f main.tex
   '';
 
   installPhase = ''

@@ -1,18 +1,19 @@
-{ stdenv, tex }:
+{ self, stdenv, tex }:
 
 stdenv.mkDerivation rec {
   pname = "journal";
   version = "0.1";
-
-  srcs = [ ./main.tex ];
+  src = self;
 
   buildInputs = [ tex ];
 
   unpackPhase = "true";
 
   buildPhase = ''
-    cd $(mktemp -d) && cp $src main.tex
-    latexmk -pdf -f main.tex
+    echo $src
+    cd $(mktemp -d) && cp $src/journal/* .
+    ls
+    ${tex}/bin/latexmk -pdf -f main.tex
   '';
 
   installPhase = ''
