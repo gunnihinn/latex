@@ -22,7 +22,7 @@
           pkgs.callPackage ./nakano-positive/default.nix { inherit tex; };
         sgct = pkgs.callPackage ./sgct/default.nix { inherit tex; };
       in {
-        packages.default = sgct;
+        packages.default = journal;
 
         packages.degenerate = degenerate;
         packages.grassmannian-bundles = grassmannian-bundles;
