@@ -6,7 +6,7 @@ These are my various LaTeX projects, in various states of disarray.
 
 To build the PDF of a project, either:
 
-* `cd` to its directory and run `latexmk -pdf *.tex`
+* If you have LaTeX setup, `cd` to a project directory and run `latexmk -pdf *.tex`
 
 * Install `nix`, enable flakes, run `nix build .#<project-name>`, and see the result in `result`
 
