@@ -27,13 +27,13 @@
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
 
-\def\qedhere{}
 
 \def\^#1{^{[#1]}}
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
 
 \DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Ric}{Ric}
 \DeclareMathOperator{\Gr}{Gr}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\im}{Im}
@@ -70,7 +70,7 @@ and curvatures of holomorphic fibrations}
 
 
 \begin{abstract}
-We calculate curvature tensors of metrics on the total spaces of holomorphic fibrations. Our main tool is a theory of Chern connections and curvature forms for possibly degenerate Hermitian forms on holomorphic vector bundles. We prove a version of the Codazzi--Griffiths equations for curvatures of sub- and quotient bundles in that setting and apply them to the study of honest Hermitian metrics on fibrations. Applications include a calculation of the curvature tensor of a metric on Grassmannian bundles.
+We calculate curvature tensors of metrics on the total spaces of holomorphic fibrations. Our main tool is a theory of Chern connections and curvature forms for possibly degenerate Hermitian forms on holomorphic vector bundles. We prove a version of the Codazzi--Griffiths equations for curvatures of sub- and quotient bundles in that setting and apply them to the study of honest Hermitian metrics on fibrations. We apply this to calculate the curvature of a metric on Grassmannian bundles and prove they have positive holomorphic sectional curvature if the base does.
 \end{abstract}
 
 
@@ -99,11 +99,11 @@ If we had the equivalent of Chern connections and curvature forms for arbitrary 
 0 \ar[r] & E \ar[r] & E\oplus E \ar[r] &  E \ar[r] & 0,
 \end{tikzcd}
 \]
-where the metrics on the bundles are (in order) $h_1 + h_2$, $h_1 \oplus h_2$, and the induced metric on the ``quotient''.
+where the metrics on the bundles are (in order) $h_1 + h_2$, $h_1 \oplus h_2$, and the induced metric on the ``quotient''; see \cite[Chapter~7, Exercise~6]{zheng2000complex}.
 
 In this note, we fill in the details of this sketch. In section~\ref{sec:degenerate-chern-connections} we show that a holomorphic vector bundle $E \to X$ with a smooth Hermitian form $b$ admits a Chern connection. Such a connection is not unique when the form is degenerate, but we can always get rid of the ambiguity between different choices of connections by applying the form $b$, as the difference of two such connections must take values in its kernel. This yields a unique curvature \emph{tensor} for such a form. We then prove the Codazzi--Griffiths equations hold in this setting, and turn to applications.
 
-The first is a dotting of i's and crossing of t's from works of \'Alvarez, Heier and Zheng~\cite{alvarez2018projectivized,alvarez2016positive} on the curvature of metrics on projective bundles (see also Yang and Zheng~\cite{yang2019hirzebruch}). They prove that such bundles admit metrics of positive holomorphic sectional curvature, and finish by saying the same arguments can prove that so do Grassmannian bundles. We treat the case of Grassmannian bundles in detail, and as a corollary conclude that bundles of flag manifolds admit metrics of positive holomorphic sectional curvature.
+The first is a dotting of i's and crossing of t's from works of \'Alvarez, Heier and Zheng~\cite{alvarez2016positive,alvarez2018projectivized} on the curvature of metrics on projectivized vector bundles (see also Yang and Zheng~\cite{yang2019hirzebruch}). They prove that such bundles admit metrics of positive holomorphic sectional curvature, and finish by saying the same arguments can prove that so do Grassmannian bundles. We treat the slightly more general case of Grassmannian bundles without mention of an underlying vector bundle, and as a corollary conclude that bundles of flag manifolds admit metrics of positive holomorphic sectional curvature once the base manifold does.
 
 The second application is the paying of a debt of an unfulfilled expectation of the author's Ph.D.~advisor. Consider a family $\pi : X \to S$ of compact K\"ahler manifolds over a smooth base. We can complexify the K\"ahler cone of each manifold and obtain a holomorphic fibration $p : C \to S$ of such cones. Hodge theory gives a natural smooth semipositive Hermitian form on $C$ that is positive-definite on the relative tangent bundle $T_{C/S}$. Given a metric on the base, we can thus construct a metric on $C$, and we use the tools developed here to calculate its curvature tensor. We pay special attention to the case of compact K\"ahler manifolds with zero first Chern class, whose base of versal deformations is smooth and admits a Weil--Petersson metric.
 
@@ -139,9 +139,9 @@ Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is $\math
 This vector bundle admits a non-degenerate Hermitian form given by the cap product, and the flat Gauss--Manin connection is the Chern connection of this Hermitian form.
 \end{exam}
 
-Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic, so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
+Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic,\footnote{For example, on the torus $\kk C^2 / \kk Z^4$ with the form $b = \frac i2 dz_1 \wedge d \bar z_1 - \frac i2 dz_2 \wedge d\bar z_2$ the kernel of the Laplacian is infinite-dimensional.} so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
 
-We'll finish with one final example we don't have any applications in mind for, but find amusing.
+We'll finish with one final example we don't have any applications in mind for, but find amusing in its inaccessibility.
 
 \begin{exam}
 Let $(E,h) \to X$ be a holomorphic vector bundle with a Hermitian metric $h$. The curvature tensor of the metric,
@@ -736,6 +736,27 @@ As $f^{*}E$ is generated by sections of the form $f^{*}s$, this completes the pr
 \end{proof}
 
 
+
+\begin{prop}
+Let $X$ be a complex manifold and let $b$ be a Hermitian form on $T_X$.
+Let $\omega = -\operatorname{Im} b$ be the associated K\"ahler form.
+Then $d \omega = 0$ if and only if the torsion tensor $\tau(\alpha,\beta) = D_\alpha \beta - D_\beta \alpha - [\alpha, \beta]$ of $b$ takes values in $\Ker b$.
+\end{prop}
+
+\begin{proof}
+For holomorphic tangent fields we have
+\[
+\partial b (\alpha, \beta, \ov \gamma)
+= \partial_\alpha b(\beta, \ov\gamma)
+- \partial_\beta b(\alpha, \ov\gamma)
+- b([\alpha,\beta], \ov\gamma)
+= b(\tau(\alpha,\beta), \ov\gamma)
+\]
+and $\partial b = 0$ if and only if $\partial \omega = 0$.
+\end{proof}
+
+
+
 \subsection*{A word on notation}
 
 
@@ -1026,8 +1047,9 @@ D^2_S - \snd^\dagger \wedge \snd & -D'_{\Hom(Q,S)} \snd^\dagger
 \end{pmatrix}
 \begin{pmatrix}
   j^\dagger \\ q
-\end{pmatrix}(s).
+\end{pmatrix}(s),
 \end{align*}
+which completes the proof.
 \end{proof}
 
 
@@ -1038,57 +1060,15 @@ The curvature tensors of $S$ and $Q$ satisfy
 \begin{align*}
 R_S(\alpha, \ov\beta, s, \ov t)
 &= R_E(\alpha, \ov\beta, js, \ov{jt})
-- \tfrac i2 b_Q(\snd(\alpha, s), \ov{\snd(\beta, t)}),
+- b_Q(\snd(\alpha, s), \ov{\snd(\beta, t)}),
 \\
 R_Q(\alpha, \ov\beta, s, \ov t)
 &= R_E(\alpha, \ov\beta, q^\dagger s, \ov{q^\dagger t})
-+ \tfrac i2 b_S(\snd^\dagger(\ov\beta, s), \ov{\snd^\dagger(\ov\alpha, t)}).
++ b_S(\snd^\dagger(\ov\beta, s), \ov{\snd^\dagger(\ov\alpha, t)}).
 \end{align*}
 \end{coro}
 
-\begin{proof}
-The task here is to convince the reader that our signs are correct and that the arguments go in the right place. Recall that we have a $(1,0)$-form $b$ with values in $\Hom(S,Q)$. Then $b \circ b^\dagger$ and $b^\dagger \circ b$ are both $(1,1)$-forms, with values in $\End Q$ and $\End S$, respectively. Our first claims are that the $(1,1)$-forms
-\[
-\tfrac i2 h_Q(b \circ b^\dagger(s), \ov s)
-\qandq
-\tfrac i2 h_S(b^\dagger \circ b(s), \ov s)
-\]
-are real and seminegative and semipositive for all sections $s$ (of $S$ and $Q$ as appropriate), respectively. For the realness, we have
-\begin{align*}
-\overline{\rho(\alpha, \ov\beta)}
-:= \overline{\tfrac i2 h_Q(b \circ b^\dagger(\alpha, \ov\beta, s), \ov s)}
-&= -\tfrac i2 h_Q(s, \ov{b \circ b^\dagger(\alpha,\ov\beta, s)})
-\\
-&= -\tfrac i2 h_Q(b \circ b^\dagger(\ov\alpha, \beta, s), \ov{s})
-\\
-&= \tfrac i2 h_Q(b \circ b^\dagger(\beta, \ov\alpha, s), \ov{s})
-= \rho(\beta, \ov\alpha),
-\end{align*}
-so the first form is real. The second is also real by a very similar calculation.
 
-TODO: We'd like to show that
-\[
-\tfrac i2 b \wedge b^\dagger (\alpha, \ov\beta, s)
-= b(\alpha, b^\dagger(\ov\beta, s)),
-\]
-where the left-hand side is the value of the $(1,1)$-form $\frac i2 b \wedge b^\dagger$. Maybe this needs to be interpreted as ``the $(1,1)$-form is the imaginary part of a Hermitian form with values in $\End Q$, which is the right-hand side''.
-
-Now note that
-\[
-\tfrac i2 h_S(b \circ b^\dagger(\alpha, \ov\beta, s), \ov t)
-= \tfrac i2 h_S(b(\alpha, b^\dagger(\ov \beta, s)), \ov t)
-= \tfrac i2 h_S(b^\dagger(\ov \beta, s), \ov{b^\dagger(\ov \alpha, t)}),
-\]
-so the second form is semipositive. The first form looks very similar, but a careful inspection will reveal that if we were to write it out in local coordinates its terms would be of the form $\frac i2 d\bar z_k \wedge dz_j$. This explains why we have
-\begin{align*}
-\tfrac i2 h_Q(b^\dagger \circ b(\alpha, \ov\beta, s), \ov t)
-&= -\tfrac i2 h_Q(b^\dagger \circ b(\ov\beta, \alpha, s), \ov t)
-\\
-&= -\tfrac i2 h_Q(b^\dagger(\ov\beta, b(\alpha, s)), \ov t)
-= -\tfrac i2 h_Q(b(\alpha, s), \ov{b(\ov\beta, t)}),
-\end{align*}
-so the form is seminegative.
-\end{proof}
 
 
 
@@ -1099,14 +1079,89 @@ $$
 R_h(\alpha, \ov\beta, s, \ov t)
 = R_{b_1}(\alpha, \ov\beta, s, \ov t)
 + R_{b_2}(\alpha, \ov\beta, s, \ov t)
-\hfill\cr\hfill{}
-- b_1(h^{-1}b_2((D_{b_1,\alpha} - D_{b_2,\alpha})s), \ov{h^{-1}b_2(D_{b_1,\beta} - D_{b_2,\beta})t})
-\phantom{.}
-\cr\hfill{}
-- b_2(h^{-1}b_1((D_{b_1,\alpha} - D_{b_2,\alpha})s), \ov{h^{-1}b_1(D_{b_1,\beta} - D_{b_2,\beta})t}).
+- q(\sigma(\alpha) s, \ov{\sigma(\beta) t}),
 }
 $$
+where the second fundamental form is
+$$
+\sigma(\alpha) s = (D_{b_1,\alpha} - D_{b_2,\alpha}) s
+$$
+and the Hermitian form on the ``quotient'' bundle $E$ is
+$$
+q(s, \ov t)
+= b_1(h^{-1}b_2 s, \ov{h^{-1}b_2 t}) + b_2(h^{-1}b_1 s, \ov{h^{-1}b_1 t}).
+$$
 \end{coro}
+
+\begin{proof}
+We have a short exact sequence
+\[
+  0 \longrightarrow E \longrightarrow E \oplus E \longrightarrow E \longrightarrow 0,
+\]
+where the inclusion is $j(s) = s \oplus s$, the quotient map is $\pi(s \oplus t) = s - t$, and the Hermitian metrics on the bundles are, in order, $h_{1} + h_{2}$, $h_{1} \oplus h_{2}$, and the ``quotient'' metric.
+The Chern connection of the direct sum is $D_{1} \oplus D_{2}$ and its curvature tensor is $R_{1} \oplus R_{2}$.
+The second fundamental form is
+\[
+  \sigma(\alpha) s
+  = \pi(D_{1,\alpha} s \oplus D_{2, \alpha} s)
+  = D_{1,\alpha} s - D_{2, \alpha} s.
+\]
+To compute the quotient form we
+first  note that the adjoint of $j : E \to E \oplus E$ is defined by
+\[
+h(j^\dagger( s \oplus t), \ov r)
+= h( s \oplus t, \ov{r \oplus r})
+= b_1(s, \ov r) + b_2(t, \ov r)
+\]
+so
+\[
+j^\dagger(s \oplus t)
+= h^{-1}(b_1(s) + b_2(t)).
+\]
+Then $s \oplus t = jj^\dagger (s\oplus t) + \pi^\dagger \pi(s \oplus t)$, so we find that
+\[
+\pi^\dagger \pi(s \oplus t)
+= \bigl(
+s - h^{-1}(b_1(s) + b_2(t))
+\bigr) \oplus
+\bigl(
+t - h^{-1}(b_1(s) + b_2(t))
+\bigr).
+\]
+We write $s = h^{-1}(b_1 + b_2)(s)$ and get
+\[
+s - h^{-1}(b_1(s) + b_2(t))
+= h^{-1}b_2(s - t).
+\]
+Similarly we get
+\[
+t - h^{-1}(b_1(s) + b_2(t))
+= -h^{-1}b_1(s - t).
+\]
+Then
+\[
+\pi^\dagger \pi(s \oplus t)
+= \bigl(
+h^{-1}b_2(s - t)
+\bigr)
+\oplus
+\bigl(
+-h^{-1}b_1(s - t)
+\bigr).
+\]
+In particular, the adjoint of $\pi$ is
+\[
+\pi^\dagger(s)
+=\bigl(
+h^{-1}b_2(s)
+\bigr)
+\oplus
+\bigl(
+-h^{-1}b_1(s)
+\bigr).
+\]
+The inner product on the quotient is the pullback of $h$ by $\pi^\dagger$, which completes the calculation.
+\end{proof}
 
 
 
@@ -1114,55 +1169,222 @@ $$
 \section{Grassmannian bundles}
 \label{sec:grassmannian-bundles}
 
-TODO.
+
+Recall that a Grassmannian manifold of $k$-planes in $n$-dimensional space admits a unique K\"ahler--Einstein metric $\omega_{\Gr}$ such that
+$\Ric \omega_{\Gr} = k(n-k) \omega_{\Gr}$.
+When we speak of ``the'' K\"ahler--Einstein metric on a Grassmannian, this is the one we mean.
+This metric can be obtained in two ways:
+
+\begin{itemize}
+  \item It is the curvature form of the Hermitian metric on $\det K_{\Gr}$ induced by the choice of any Hermitian inner product on the underlying vector space $V$. This agrees with the metric obtained by pullback of the Fubini--Study metric by the Pl\"ucker embedding.
+
+  \item It is the pullback of the Hermitian metric on $\Hom(\cc S, \cc Q)$ induced by a Hermitian inner product on the underlying vector space by the (holomorphic) second fundamental form, where $0 \to \cc S \to \underline {V} \to \cc Q \to 0$ is the short exact sequence of tautological sub- and quotient bundles of the trivial bundle with fiber $V$.
+\end{itemize}
+
+Our main objective in this section is to prove the following theorem.
+It slightly extends the results of \'Alvarez and her collaborators by not requiring the Grassmannian bundle to come from a vector bundle.
+
+\begin{theo}
+\label{thm:holomorphic-sectional-positive}
+Let $\pi : X \to (B,h_{B})$ be a holomorphic fibration over a compact Hermitian manifold whose fibers are Grassmannians.
+Suppose $h_{B}$ has positive holomorphic sectional curvature.
+Then there exists a Hermitian metric on $X$ that has positive holomorphic sectional curvature, and if $h_{B}$ is K\"ahler then this metric is also K\"ahler.
+\end{theo}
+
+It's best to prepare the road a little for the proof.
 
 
-
-\section{Complexified K\"ahler cone bundles}
-\label{sec:compl-kahl-cone}
-
-TODO.
-
-
-
-
-\section{Curvature tensors as Hermitian forms}
-\label{sec:curvature-tensors-as}
-
-Let $(E,h) \to X$ be a holomorphic vector bundle with a Hermitian metric $h$. The curvature tensor of $E$ is
+\begin{prop}[relative Pl\"ucker embedding]
+Let $\pi : X \to B$ be a holomorphic fibration over a connected base whose fibers are Grassmannian manifolds.
+Then there exists a holomorphic embedding $j : X \to Y$ of holomorphic fibrations
 \[
-R(\alpha, \ov\beta, s, \ov t)
-= h(\tfrac i2 \Theta_{\alpha\ov\beta} s, \ov t).
+\begin{tikzcd}
+  X \ar[d,"\pi"] \ar[r,"j"] & Y \ar[d,"\hat\pi"]
+  \\
+  B \ar[r,"\id"] & B,
+\end{tikzcd}
 \]
-It defines a Hermitian form $b$ on $E \otimes T_X$ that is in general not positive-definite.
+where the fibers of $Y \to B$ are projective spaces, and the fiberwise maps $j_{b} : X_{b} \to Y_{b}$ are Pl\"ucker embeddings.
+\end{prop}
 
-TODO: Calculate a Chern connection and a curvature tensor.
 
-Suppose all the sections involved are holomorphic.
-We have
+\begin{proof}
+Let $(U_{\nu})$ be a covering of $B$ by connected and simply connected charts.
+Then there are local holomorphic isomorphisms $\theta_{\nu} : X_{|U_{\nu}} \to U_{\nu} \times \Gr(k)$, where $\Gr(k)$ is the Grassmannian of $k$-planes in $n$-dimensional space~\cite{fischer1965lokal}.
+We define
+\[
+  j_{\nu} : U_{\nu} \times \Gr(k) \to U_{\nu} \times \kk P^{N},
+  \quad
+  (x, \Span(z_{1}, \ldots, z_{k}))
+  \mapsto
+  (x, [z_{1} \wedge \cdots \wedge z_{k}]),
+\]
+where $N = \binom nk$,
+to be the usual Pl\"ucker embedding.
+
+The coordinate change maps $\theta_{\mu\nu} = \theta_{\mu}\theta_{\nu}^{-1}$ can be written as
+\[
+\theta_{\mu\nu} = \id \times f_{\mu\nu},
+\]
+where $f_{\mu\nu}$ is an automorphism of $\Gr(k)$.
+But an automorphism of $\Gr(k)$ is exactly an automorphism of $\kk P^{N}$ that preserves decomposable $k$-vectors~\cite{cowen1989automorphisms}, so these induce automorphisms $\hat f_{\mu\nu}$ of $\kk P^{N}$. We define the holomorphic family $Y \to B$ by the products $U_{\nu} \times \kk P^{N}$ and the gluing maps $\id \times \hat f_{\mu\nu}$.
+
+By construction and the shape of automorphisms of the Grassmannian, it follows that the maps $j_{\nu}$ glue together to define an embedding $j : X \to Y$.
+\end{proof}
+
+Above we only really used that the fibers of $X$ embed in a manifold $V$ and the automorphism group of the fibers is a subgroup of the automorphism group of $V$, in case the reader has a favorite set of fibrations they'd like to try this out on.
+We'll call the embedding $j : X \to Y$ above the relative Pl\"ucker embedding.
+
+\begin{prop}
+Let $\pi : X \to B$ be a holomorphic fibration over a connected base whose fibers are Grassmannian manifolds.
+There exists a closed Hermitian form $b_{\Gr}$ on $X$ whose restriction to any of the fibers is the K\"ahler--Einstein metric on the fiber.
+\end{prop}
+
+\begin{proof}
+Consider the relative Pl\"ucker embedding $j : X \to Y$ as above.
+Kodaira~\cite[Section 4(V)]{kodaira-embedding} showed that there exists a closed Hermitian form on $Y$ whose restriction to any fiber is the Fubini--Study metric.
+The pullback of this metric to $X$ gives our form $b_{\Gr}$.
+\end{proof}
+
+
+\begin{proof}[Proof of Theorem \ref{thm:holomorphic-sectional-positive}]
+We consider the Hermitian forms $h_{\lambda} = b_{\Gr} + e^{\lambda} \pi^{*} h_{B}$ for real $\lambda$.
+First off, it's clear that if $h_{B}$ is K\"ahler then so is $h_{\lambda}$.
+As the base $B$ is compact, $b_{\Gr}$ is positive on $T_{X/B}$, and $\pi^{*}h_{B}$ is positive on $\pi^{*}T_{B}$, we see that $h_{\lambda}$ is an honest Hermitian metric for all $\lambda \gg 0$.
+Its curvature tensor is then
+\[
+  R_{\lambda}
+  = R_{\Gr} + e^{\lambda}\pi^{*}R_{B} - \sigma^{*}q_{\lambda}.
+\]
+We need to investigate what happens first in $T_{X/B}$ and then the rest of$T_{X}$.
+The calculations can get a little messy, so we split them into a few technical lemmas.
+The first one will help us say what happens on $T_{X/B}$, as the form $\pi^{*}h_{B}$ is zero there.
+
+
+\begin{lemm}
+Let $b_{1}$ and $b_{2}$ be Hermitian forms such that $h := b_{1} + b_{2}$ is positive-definite.
+Let $q$ be the associated ``quotient'' form.
+Then $\Ker b_{j} \subset \Ker q$ for $j = 1,2$.
+\end{lemm}
+
+\begin{proof}
+By symmetry it's enough to prove the statement for $j = 1$.
+Recall that
+\[
+  q = (h^{-1}b_{2})^{*}b_{1} + (h^{-1}b_{1})^{*}b_{2}.
+\]
+We have $x = h^{-1}h(x) = h^{-1}b_{1}(x) + h^{-1}b_{2}(x)$, so if $x \in \Ker b_{1}$ then $x = h^{-1}b_{2}(x)$.
+But then
+\begin{equation*}
+q(x) = (h^{-1}b_{2})^{*}b_{1}(x) = b_{1}(x) = 0.
+\qedhere
+\end{equation*}
+\end{proof}
+
+We can now deal with $T_{X/B}$, where $\pi^*R_B = 0$.
+Let $(x,b)$ be a point in $X$, so that $x \in X_b$.
+There exists a local normal frame of $T_{X_b}$ for $b_{\Gr,b}$ centered at $x$.
+In this frame, we have $D_{\Gr} - \pi^* D_B = 0$ at $x$.
+The only part of our curvature tensor that survives at $x$ is thus
+$R_\lambda = R_{\Gr}$,
+which is positive, so $R_\lambda$ is positive on $T_{X/B}$.
+
+Next we'll consider what happens on the rest of $T_{X}$.
+As we don't know what $R_{\Gr}$ does there, we have to increase the contribution of $\pi^{*}R_{B}$ and try to control the ``quotient'' form.
+For that we need to know what happens to it as $\lambda$ grows.
+
+
+
+\begin{lemm}
+Let $0 \to S \to V \to Q \to 0$ be a short exact sequence.
+Let $b_{1}$ be a Hermitian form on $V$ that is positive-definite on $S$ and $b_{2}$ be a Hermitian inner product on $Q$ such that $h_{\lambda} := b_{1} + e^{\lambda} \pi^{*} b_{2}$ is positive-definite for all $\lambda \geq 0$.
+Let $q$ be the associated ``quotient'' form.
+Then there exists a semipositive Hermitian form $q_{\infty}$ on $V$ that is positive-definite on $S$ such that $h_{\lambda} \to h_{\infty}$ as $\lambda \to \infty$.
+\end{lemm}
+
+
+\begin{proof}
+As $h_{0}$ is positive-definite we can simultaneously diagonalize it and $b_{1}$.
+Then $\pi^{*}b_{2} = h_{0} - b_{1}$ is also diagonal.
+Denote the coefficients of $b_{1}$ by $x_{j}$ and the ones of $\pi^{*}b_{2}$ by $y_{j}$, then the coefficients of $h_{\lambda}$ are
+\[
+  \frac{e^{\lambda}x_{j} y_{j}}{x_{j} + e^{\lambda} y_{j}}
+  \to
+  \begin{cases}
+    x_{j} & y_{j} \not= 0
+    \\
+    0 & y_{j} = 0
+  \end{cases}
+\]
+as $\lambda \to \infty$.
+The form this defines is semipositive on $V$ and positive-definite on~$S$.%
+\end{proof}
+
+The limit form is $(j j^{\dagger})^{*}b_{1}$, where $j^{\dagger}$ is the adjoint of $j$ with respect to $h$. There's probably an invariant proof of this somewhere, but we don't need it.
+
+Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
+$S(T_X) \subset T_X$ to test positivity on.
+Let
 \begin{align*}
-b(D'(\alpha \otimes s), \ov{\beta \otimes t})
-&= \partial h(\tfrac i2 \Theta_{\alpha\ov\beta} s, \ov t)
+m_\lambda &=
+\inf_{S(T_X)} R_{\Gr}
+- (D_{\Gr} - \pi^* D_{B})^* q_{\lambda},
 \\
-&= h(\tfrac i2 D'(\Theta_{\alpha\ov\beta} s), \ov t)
-\\
-&= h(\tfrac i2 (D'_{\End E}\Theta_{\alpha\ov\beta}) s, \ov t)
-+ h(\tfrac i2 \Theta_{\alpha\ov\beta} D' s, \ov t)
-\\
-&= h(\tfrac i2 (D'_{\End E}\Theta_{\alpha\ov\beta}) s, \ov t)
-+ R(\alpha, \ov \beta, Ds, \ov t).
+m_\infty &=
+\inf_{S(T_X)} R_{\Gr}
+- (D_{\Gr} - \pi^* D_{B})^* q_{\infty}
 \end{align*}
-It's tricky to split this up in such a way as to still have something well-defined. Recall that we must respect $f(\beta \otimes t) = f \beta \otimes t = \beta \otimes ft$. Maybe we don't try to split this up? Can we massage
+As $S(T_X)$ is compact, the infimum $m_\infty$ is attained at a point $v$.
+If $v \in \Ker \pi^*$, then we're done as we know that $R_{\Gr}$ is positive
+there.
+Otherwise $\pi^*(v) \not= 0$, so $m_2 := \pi^*R_B(v, \bar v, v, \bar v) > 0$.
+We then pick $\lambda_0$ big enough so that $m_\infty + e^{\lambda_0} m_2 > 0$.
+Now note that
+$m_\lambda \to m_\infty$ as $\lambda \to \infty$ because $q_{\lambda} \to
+q_{\infty}$.
+For $\lambda > \lambda_0$ we then have
+$$
+m_\lambda + e^\lambda m_2
+\geq m_\lambda + e^{\lambda_0} m_2
+\to m_\infty  + e^{\lambda_0} m_2
+> 0.
+$$
+For all large enough $\lambda$, it follows that $R_\lambda$ will be positive.
+\end{proof}
+
+
+
+\begin{coro}
+Let $\pi : X \to B$ be a holomorphic fibration over a compact K\"ahler manifold whose fibers are flag manifolds.
+Suppose $B$ admits a K\"ahler metric with positive holomorphic sectional curvature.
+Then there exists a K\"ahler metric on $X$ that has positive holomorphic sectional curvature.
+\end{coro}
+
+\begin{proof}
+Denote the fibers by $P(d_{0}, \ldots, d_{k})$.
+The forgetful map $P(d_{0}, \ldots, d_{k}) \to P(d_{0}, \ldots, \hat{d_{j}}, \ldots, d_{k})$ is a holomorphic fibration whose fiber is a Grassmannian.
+Similar to before, this extends to a morphism $f$ of holomorphic fibrations
 \[
-b(D'(\alpha \otimes s), \ov{\beta \otimes t})
-= h(\tfrac i2 D'(\Theta_{\alpha\ov\beta} s), \ov t)
+\begin{tikzcd}
+  X \ar[r,"f"]\ar[d] & X_{1} \ar[d]
+  \\
+  B \ar[r] & B
+\end{tikzcd}
 \]
-into an equation involving the curvature form of $b$?
+whose fibers are Grassmannians.
+Continuing this process we end up with a sequence $X \to X_{1} \to \cdots \to X_{k} \to B$ of fibrations with Grassmannian fibers, and Theorem~\ref{thm:holomorphic-sectional-positive} applies to each step in turn.
+\end{proof}
+
+
+
+
+
+
 
 
 
 
 \bibliographystyle{plain}
-\bibliography{sgct}
+\bibliography{main}
 
 \end{document}
