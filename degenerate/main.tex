@@ -109,8 +109,11 @@ The second application is the paying of a debt of an unfulfilled expectation of 
 
 To do this, we require a degenerate analogue of many statements about adjoints, orthogonal subspaces and induced inner products that are classical in the positive-definite case. We do not know a reference for these results, which would make for fun exercises in a linear algebra course, and thus provide statements and proofs. We do this in section~\ref{sec:degenerate-linear-algebra} as we need to refer to those results for our work on connections and curvature.
 
-A seeming novelty of our approach is that we prove all our results using the connection formulation of complex differential geometry (versus the local coordinate or moving frame formulations). While this connection approach is common in modern Riemannian geometry, complex geometers seem to prefer the older, index-heavy, ways. We hope this note also serves as an advertisement for the advantages of the connection approach.
+A seeming novelty of our approach is that we prove all our results using the connection formulation of complex differential geometry (versus the local coordinate or moving frame formulations). While this connection approach is common in modern Riemannian geometry, complex geometers seem to prefer the older, index-heavy, ways. We hope this note also serves as an advertisement for the merits of the connection approach.
 
+There is some prior art on degenerate metrics in Riemannian geometry; see for example \cite{bel1975degenerate,stoica2011cartan,stoica2014singular}.
+The very quick version seems to be that one can define a Levi-Civita connection for such an object and thus a curvature tensor, but neither will generally be unique.
+This nicely mirrors what we find here.
 
 
 We finish this introduction by noting that we think the technical results developed here on general Hermitian forms are only interesting when applied to the study of honest Hermitian metrics, and do not have merit on their own.
@@ -139,7 +142,7 @@ Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is $\math
 This vector bundle admits a non-degenerate Hermitian form given by the cap product, and the flat Gauss--Manin connection is the Chern connection of this Hermitian form.
 \end{exam}
 
-Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic,\footnote{For example, on the torus $\kk C^2 / \kk Z^4$ with the form $b = \frac i2 dz_1 \wedge d \bar z_1 - \frac i2 dz_2 \wedge d\bar z_2$ the kernel of the Laplacian is infinite-dimensional.} so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
+Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic,\footnote{For example, on the torus $\kk C^2 / \kk Z^4$ with the form $b = \smash{\frac i2} dz_1 \wedge d \bar z_1 - \smash{\frac i2} dz_2 \wedge d\bar z_2$ the kernel of the Laplacian is infinite-dimensional.} so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
 
 We'll finish with one final example we don't have any applications in mind for, but find amusing in its inaccessibility.
 
@@ -549,7 +552,7 @@ Let $s$ be a smooth section of $E$ over a neighborhood $U$. We want to solve the
 \partial_\alpha b(s, \ov t)
 = b(A(\alpha), \ov t),
 \end{equation}
-where $\alpha \in \cc C^\infty(U, T_X)$, $t \in \cc C^\infty(U, E)$ and $A \in \cc A^{1,0}(U, E)$. Consider the short exact sequence
+where $\alpha \in \cc C^\infty(U, T_X)$, $t \in \cc C^\infty(U, E)$ and $A \in \cc A^{1,0}(U, E)$, where the last space is the one of smooth $(1,0)$-forms with values in $E$. Consider the short exact sequence
 \[
 \begin{tikzcd}
 0 \ar[r] &
