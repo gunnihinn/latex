@@ -17,5 +17,6 @@ mkDerivation {
   installPhase = ''
     mkdir -p $out
     cp main.pdf $out/${name}.pdf
+    chmod 664 $out/${name}.pdf
   '';
 }
