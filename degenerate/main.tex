@@ -91,7 +91,7 @@ Let $\pi : X \to S$ be a family of complex manifolds, and consider the associate
 \]
 We often find ourselves in the situation of having a metric $h_S$ on the base $S$ and a Hermitian form $h_{X/S}$ on the $X$ that is positive-definite on the relative tangent bundle $T_{X/S}$, and then construct a metric on $X$ as the sum $h_X := h_{X/S} + \pi^*h_S$. This happens when we consider a projective or Grassmannian bundle associated to a vector bundle~\cite{alvarez2016positive,alvarez2018projectivized,yang2019hirzebruch}; the blow-up of a point like in the original proof of the Kodaira embedding theorem~\cite{kodaira-embedding}; metrics on holomorphic fibrations~\cite{calabi-fibres-holomorphes}; or metrics on versal families of deformations~\cite{magnusson2012natural}.
 
-In these situations, the metric on the base has a curvature tensor, and the relative form often has something that resembles such a tensor. As neither form is positive-definite on $X$, we can't use our usual tools to calculate a curvature tensor for $h_X$ from this information. Instead, we are often reduced to committing difficult calculations in local coordinates; see for example \cite{chaturvedi2019hermitian}.
+In these situations, the metric on the base has a curvature tensor, and the relative form often has something that resembles such a tensor. As neither form is positive-definite on $X$, we can't use our usual tools to calculate a curvature tensor for $h_X$ from this information. Instead, we are often reduced to committing difficult calculations in local coordinates; see for example Chaturvedi and Heier~\cite[Theorem~1.1]{chaturvedi2020hermitian}.
 
 If we had the equivalent of Chern connections and curvature forms for arbitrary Hermitian forms, we could try to prove a version of the Codazzi--Griffiths equations~\cite{griffiths1965hermitian} that relate the curvature form of sub- and quotient bundles to that of the ambient bundle. In the positive-definite case, those equations can be used to calculate the curvature tensor of the sum $h_1 + h_2$ of two metrics on a given bundle $E$ by considering the short exact sequence
 \[
@@ -103,7 +103,8 @@ where the metrics on the bundles are (in order) $h_1 + h_2$, $h_1 \oplus h_2$, a
 
 In this note, we fill in the details of this sketch. In section~\ref{sec:degenerate-chern-connections} we show that a holomorphic vector bundle $E \to X$ with a smooth Hermitian form $b$ admits a Chern connection. Such a connection is not unique when the form is degenerate, but we can always get rid of the ambiguity between different choices of connections by applying the form $b$, as the difference of two such connections must take values in its kernel. This yields a unique curvature \emph{tensor} for such a form. We then prove the Codazzi--Griffiths equations hold in this setting and calculate what they imply for sums of Hermitian forms.
 
-As an application, in section~\ref{sec:grassmannian-bundles} we dot some i's and cross some t's from works of \'Alvarez, Heier and Zheng~\cite{alvarez2016positive,alvarez2018projectivized} on the curvature of metrics on projectivized vector bundles (see also Yang and Zheng~\cite{yang2019hirzebruch}). They prove that such bundles admit metrics of positive holomorphic sectional curvature, and finish by saying the same arguments can prove that so do Grassmannian bundles. We treat the slightly more general case of Grassmannian bundles without mention of an underlying vector bundle, and as a corollary conclude that bundles of flag manifolds admit metrics of positive holomorphic sectional curvature once the base manifold does.
+As an application, in section~\ref{sec:grassmannian-bundles} we first recover a result of Chaturvedi and Heier~\cite{chaturvedi2020hermitian}, and then dot some i's and cross some t's from works of \'Alvarez~\cite{alvarez2016positive} and \'Alvarez, Heier and Zheng~\cite{alvarez2018projectivized} on the curvature of metrics on projectivized vector bundles (see also Yang and Zheng~\cite{yang2019hirzebruch}). They prove that such bundles admit metrics of positive holomorphic sectional curvature, and finish by saying the same arguments can prove that so do Grassmannian bundles. We treat the slightly more general case of Grassmannian bundles without mention of an underlying vector bundle, and as a corollary conclude that bundles of flag manifolds admit metrics of positive holomorphic sectional curvature once the base manifold does.
+Along with our insistence on coordinate-invariant calculations, these are the new results of our~note.%
 
 %The second application is the paying of a debt of an unfulfilled expectation of the author's Ph.D.~advisor. Consider a family $\pi : X \to S$ of compact K\"ahler manifolds over a smooth base. We can complexify the K\"ahler cone of each manifold and obtain a holomorphic fibration $p : C \to S$ of such cones. Hodge theory gives a natural smooth semipositive Hermitian form on $C$ that is positive-definite on the relative tangent bundle $T_{C/S}$. Given a metric on the base, we can thus construct a metric on $C$, and we use the tools developed here to calculate its curvature tensor. We pay special attention to the case of compact K\"ahler manifolds with zero first Chern class, whose base of versal deformations is smooth and admits a Weil--Petersson metric.
 
@@ -1169,8 +1170,142 @@ The inner product on the quotient is the pullback of $h$ by $\pi^\dagger$, which
 
 
 
-\section{Grassmannian bundles}
+\section{Positive holomorphic sectional curvature}
 \label{sec:grassmannian-bundles}
+
+Our objective in this section is to prove the following technical theorem and apply it to things relevant to our interests.
+This theorem was first proved by Chaturvedi and Heier~\cite[Theorem~1.1]{chaturvedi2020hermitian} by classical calculations in local coordinates.
+We hope our (mostly) coordinate-free proof is also of interest.
+
+\begin{theo}
+\label{thm:holomorphic-sectional-positive}
+Let $\pi : X \to (B,h_{B})$ be a holomorphic fibration over a compact Hermitian manifold.
+Suppose $h_{B}$ has positive holomorphic sectional curvature.
+Suppose there exists a Hermitian form $h_{X/B}$ on $X$ whose restriction to each fiber is a Hermitian metric that has positive holomorphic sectional curvature.
+Then there exists a Hermitian metric on $X$ that has positive holomorphic sectional curvature, and if $h_{B}$ is K\"ahler and the K\"ahler form of $h_{X/B}$ is closed then this metric is also K\"ahler.
+\end{theo}
+
+
+\begin{proof}[Proof of Theorem \ref{thm:holomorphic-sectional-positive}]
+We consider the Hermitian forms $h_{\lambda} = h_{X/B} + e^{\lambda} \pi^{*} h_{B}$ for real $\lambda$.
+First off, it's clear that if $h_{B}$ is K\"ahler and the K\"ahler form of $h_{X/B}$ is closed, then $h_{\lambda}$ is K\"ahler.
+
+As the base $B$ is compact, $h_{X/B}$ is positive on $T_{X/B}$, and $\pi^{*}h_{B}$ is positive on $\pi^{*}T_{B}$, we see that $h_{\lambda}$ is an honest Hermitian metric for all $\lambda \gg 0$.
+Its curvature tensor is then
+\[
+  R_{\lambda}
+  = R_{X/B} + e^{\lambda}\pi^{*}R_{B} - \sigma^{*}q_{\lambda}.
+\]
+We need to investigate what happens first in $T_{X/B}$ and then the rest of $T_{X}$.
+The calculations can get a little messy, so we split them into a few technical lemmas.
+The first one will help us say what happens on $T_{X/B}$, as the form $\pi^{*}h_{B}$ is zero there.
+
+
+\begin{lemm}
+Let $b_{1}$ and $b_{2}$ be Hermitian forms on a vector space $V$ such that $h := b_{1} + b_{2}$ is positive-definite.
+Let $q$ be the associated ``quotient'' form.
+Then $\Ker b_{j} \subset \Ker q$ for $j = 1,2$.
+\end{lemm}
+
+\begin{proof}
+By symmetry it's enough to prove the statement for $j = 1$.
+Recall that
+\[
+  q = (h^{-1}b_{2})^{*}b_{1} + (h^{-1}b_{1})^{*}b_{2}.
+\]
+We have $x = h^{-1}h(x) = h^{-1}b_{1}(x) + h^{-1}b_{2}(x)$, so if $x \in \Ker b_{1}$ then $x = h^{-1}b_{2}(x)$.
+But then
+\begin{equation*}
+q(x) = (h^{-1}b_{2})^{*}b_{1}(x) = b_{1}(x) = 0.
+\qedhere
+\end{equation*}
+\end{proof}
+
+We can now deal with $T_{X/B}$, where $\pi^*R_B = 0$.
+Let $(x,b)$ be a point in $X$, so that $x \in X_b$.
+There exists a local normal frame of $T_{X_b}$ for $h_{X/B,b}$ centered at $x$.
+In this frame, we have $D_{X/B} - \pi^* D_B = 0$ at $x$.
+The only part of our curvature tensor that survives at $x$ is thus
+$R_\lambda = R_{X/B}$,
+which is positive, so $R_\lambda$ is positive on $T_{X/B}$.
+
+Next we'll consider what happens on the rest of $T_{X}$.
+As we don't know what $R_{X/B}$ does there, we have to increase the contribution of $\pi^{*}R_{B}$ and try to control the ``quotient'' form.
+For that we need to know what happens to it as $\lambda$ grows.
+
+
+
+\begin{lemm}
+Let $0 \to S \to V \stackrel{\pi}{\to} Q \to 0$ be a short exact sequence of vector spaces.
+Let $b_{1}$ be a Hermitian form on $V$ that is positive-definite on $S$ and $b_{2}$ be a Hermitian inner product on $Q$ such that $h_{\lambda} := b_{1} + e^{\lambda} \pi^{*} b_{2}$ is positive-definite for all $\lambda \geq 0$.
+Let $q$ be the associated ``quotient'' form.
+Then there exists a semipositive Hermitian form $q_{\infty}$ on $V$ that is positive-definite on $S$ such that $h_{\lambda} \to h_{\infty}$ as $\lambda \to \infty$.
+\end{lemm}
+
+
+\begin{proof}
+As $h_{0}$ is positive-definite we can simultaneously diagonalize it and $b_{1}$.
+Then $\pi^{*}b_{2} = h_{0} - b_{1}$ is also diagonal.
+Denote the coefficients of $b_{1}$ by $x_{j}$ and the ones of $\pi^{*}b_{2}$ by $y_{j}$, then the coefficients of $h_{\lambda}$ are
+\[
+  \frac{e^{\lambda}x_{j} y_{j}}{x_{j} + e^{\lambda} y_{j}}
+  = \frac{x_{j} y_{j}}{x_{j}e^{-\lambda} + y_{j}}
+  \to
+  \begin{cases}
+    x_{j} & y_{j} \not= 0
+    \\
+    0 & y_{j} = 0
+  \end{cases}
+\]
+as $\lambda \to \infty$.
+The form this defines is semipositive on $V$ and positive-definite on~$S$.%
+\end{proof}
+
+The limit form is $(j j^{\dagger})^{*}b_{1}$, where $j^{\dagger}$ is the adjoint of $j$ with respect to $h$. There's probably an invariant proof of this somewhere, but we don't need it.
+
+Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
+$S(T_X) \subset T_X$ to test positivity on.
+Let
+\begin{align*}
+m_\lambda &=
+\inf_{S(T_X)} R_{X/B}
+- (D_{X/B} - \pi^* D_{B})^* q_{\lambda},
+\\
+m_\infty &=
+\inf_{S(T_X)} R_{X/B}
+- (D_{X/B} - \pi^* D_{B})^* q_{\infty}
+\end{align*}
+As $S(T_X)$ is compact, the infimum $m_\infty$ is attained at a point $v$.
+If $v \in \Ker \pi^*$, then we're done as we know that $R_{X/B}$ is positive
+there.
+Otherwise $\pi^*(v) \not= 0$, so $m_2 := \pi^*R_B(v, \bar v, v, \bar v) > 0$.
+We then pick $\lambda_0$ big enough so that $m_\infty + e^{\lambda_0} m_2 > 0$.
+Now note that
+$m_\lambda \to m_\infty$ as $\lambda \to \infty$ because $q_{\lambda} \to
+q_{\infty}$.
+For $\lambda > \lambda_0$ we then have
+$$
+m_\lambda + e^\lambda m_2
+\geq m_\lambda + e^{\lambda_0} m_2
+\to m_\infty  + e^{\lambda_0} m_2
+> 0.
+$$
+For all large enough $\lambda$, it follows that $R_\lambda$ will be positive.
+\end{proof}
+
+
+
+As a corollaries, we get a family of theorems where a holomorphic family whose fibers have positive holomorphic sectional curvature also has positive holomorphic sectional curvature as soon as we can pick the metrics on the fibers to vary smoothly between them.
+The trick is to find conditions that guarantee we can extend the fiberwise metrics to a single smooth Hermitian form.
+It is tempting to guess that if the metrics on the fibers are K\"ahler then we also get a K\"ahler metric on the total space, but this is delicate.
+Given a family of smoothly varying K\"ahler metrics on each fiber, there does not need to exist a closed Hermitian form on the total space that restricts to each of them.
+Remember for example the Hopf surface, which is the total space of a fibration of projective lines over an elliptic curve; picking any Hermitian metric on the total space we get a family of K\"ahler metrics on the fibers, but if they came from a closed form on the total space the Hopf surface would be K\"ahler.
+
+
+
+
+\subsection*{Grassmannian bundles}
+
 
 
 Recall that a Grassmannian manifold of $k$-planes in $n$-dimensional space admits a unique K\"ahler--Einstein metric $\omega_{\Gr}$ such that
@@ -1184,17 +1319,12 @@ This metric can be obtained in two ways:
   \item It is the pullback of the Hermitian metric on $\Hom(\cc S, \cc Q)$ induced by a Hermitian inner product on the underlying vector space by the (holomorphic) second fundamental form, where $0 \to \cc S \to \underline {V} \to \cc Q \to 0$ is the short exact sequence of tautological sub- and quotient bundles of the trivial bundle with fiber $V$.
 \end{itemize}
 
-Our main objective in this section is to prove the following theorem.
-It slightly extends the results of \'Alvarez and her collaborators by not requiring the Grassmannian bundle to come from a vector bundle.
+We can now slightly extend the results of \'Alvarez and her collaborators on projectivized vector bundles by not requiring our Grassmannian bundle to come from a vector bundle.
 
-\begin{theo}
-\label{thm:holomorphic-sectional-positive}
-Let $\pi : X \to (B,h_{B})$ be a holomorphic fibration over a compact Hermitian manifold whose fibers are Grassmannians.
-Suppose $h_{B}$ has positive holomorphic sectional curvature.
-Then there exists a Hermitian metric on $X$ that has positive holomorphic sectional curvature, and if $h_{B}$ is K\"ahler then this metric is also K\"ahler.
-\end{theo}
 
-It's best to prepare the road a little for the proof.
+
+
+
 
 
 \begin{prop}[relative Pl\"ucker embedding]
@@ -1240,119 +1370,15 @@ We'll call the embedding $j : X \to Y$ above the relative Pl\"ucker embedding.
 
 \begin{prop}
 Let $\pi : X \to B$ be a holomorphic fibration over a connected base whose fibers are Grassmannian manifolds.
-There exists a closed Hermitian form $b_{\Gr}$ on $X$ whose restriction to any of the fibers is the K\"ahler--Einstein metric on the fiber.
+If $B$ admits a metric with positive holomorphic sectional curvature, then so does $X$.
+This metric is K\"ahler if the metric on $B$ is K\"ahler.
 \end{prop}
 
 \begin{proof}
 Consider the relative Pl\"ucker embedding $j : X \to Y$ as above.
 Kodaira~\cite[Section 4(V)]{kodaira-embedding} showed that there exists a closed Hermitian form on $Y$ whose restriction to any fiber is the Fubini--Study metric.
-The pullback of this metric to $X$ gives our form $b_{\Gr}$.
-\end{proof}
-
-
-\begin{proof}[Proof of Theorem \ref{thm:holomorphic-sectional-positive}]
-We consider the Hermitian forms $h_{\lambda} = b_{\Gr} + e^{\lambda} \pi^{*} h_{B}$ for real $\lambda$.
-First off, it's clear that if $h_{B}$ is K\"ahler then so is $h_{\lambda}$.
-As the base $B$ is compact, $b_{\Gr}$ is positive on $T_{X/B}$, and $\pi^{*}h_{B}$ is positive on $\pi^{*}T_{B}$, we see that $h_{\lambda}$ is an honest Hermitian metric for all $\lambda \gg 0$.
-Its curvature tensor is then
-\[
-  R_{\lambda}
-  = R_{\Gr} + e^{\lambda}\pi^{*}R_{B} - \sigma^{*}q_{\lambda}.
-\]
-We need to investigate what happens first in $T_{X/B}$ and then the rest of$T_{X}$.
-The calculations can get a little messy, so we split them into a few technical lemmas.
-The first one will help us say what happens on $T_{X/B}$, as the form $\pi^{*}h_{B}$ is zero there.
-
-
-\begin{lemm}
-Let $b_{1}$ and $b_{2}$ be Hermitian forms such that $h := b_{1} + b_{2}$ is positive-definite.
-Let $q$ be the associated ``quotient'' form.
-Then $\Ker b_{j} \subset \Ker q$ for $j = 1,2$.
-\end{lemm}
-
-\begin{proof}
-By symmetry it's enough to prove the statement for $j = 1$.
-Recall that
-\[
-  q = (h^{-1}b_{2})^{*}b_{1} + (h^{-1}b_{1})^{*}b_{2}.
-\]
-We have $x = h^{-1}h(x) = h^{-1}b_{1}(x) + h^{-1}b_{2}(x)$, so if $x \in \Ker b_{1}$ then $x = h^{-1}b_{2}(x)$.
-But then
-\begin{equation*}
-q(x) = (h^{-1}b_{2})^{*}b_{1}(x) = b_{1}(x) = 0.
-\qedhere
-\end{equation*}
-\end{proof}
-
-We can now deal with $T_{X/B}$, where $\pi^*R_B = 0$.
-Let $(x,b)$ be a point in $X$, so that $x \in X_b$.
-There exists a local normal frame of $T_{X_b}$ for $b_{\Gr,b}$ centered at $x$.
-In this frame, we have $D_{\Gr} - \pi^* D_B = 0$ at $x$.
-The only part of our curvature tensor that survives at $x$ is thus
-$R_\lambda = R_{\Gr}$,
-which is positive, so $R_\lambda$ is positive on $T_{X/B}$.
-
-Next we'll consider what happens on the rest of $T_{X}$.
-As we don't know what $R_{\Gr}$ does there, we have to increase the contribution of $\pi^{*}R_{B}$ and try to control the ``quotient'' form.
-For that we need to know what happens to it as $\lambda$ grows.
-
-
-
-\begin{lemm}
-Let $0 \to S \to V \to Q \to 0$ be a short exact sequence.
-Let $b_{1}$ be a Hermitian form on $V$ that is positive-definite on $S$ and $b_{2}$ be a Hermitian inner product on $Q$ such that $h_{\lambda} := b_{1} + e^{\lambda} \pi^{*} b_{2}$ is positive-definite for all $\lambda \geq 0$.
-Let $q$ be the associated ``quotient'' form.
-Then there exists a semipositive Hermitian form $q_{\infty}$ on $V$ that is positive-definite on $S$ such that $h_{\lambda} \to h_{\infty}$ as $\lambda \to \infty$.
-\end{lemm}
-
-
-\begin{proof}
-As $h_{0}$ is positive-definite we can simultaneously diagonalize it and $b_{1}$.
-Then $\pi^{*}b_{2} = h_{0} - b_{1}$ is also diagonal.
-Denote the coefficients of $b_{1}$ by $x_{j}$ and the ones of $\pi^{*}b_{2}$ by $y_{j}$, then the coefficients of $h_{\lambda}$ are
-\[
-  \frac{e^{\lambda}x_{j} y_{j}}{x_{j} + e^{\lambda} y_{j}}
-  \to
-  \begin{cases}
-    x_{j} & y_{j} \not= 0
-    \\
-    0 & y_{j} = 0
-  \end{cases}
-\]
-as $\lambda \to \infty$.
-The form this defines is semipositive on $V$ and positive-definite on~$S$.%
-\end{proof}
-
-The limit form is $(j j^{\dagger})^{*}b_{1}$, where $j^{\dagger}$ is the adjoint of $j$ with respect to $h$. There's probably an invariant proof of this somewhere, but we don't need it.
-
-Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
-$S(T_X) \subset T_X$ to test positivity on.
-Let
-\begin{align*}
-m_\lambda &=
-\inf_{S(T_X)} R_{\Gr}
-- (D_{\Gr} - \pi^* D_{B})^* q_{\lambda},
-\\
-m_\infty &=
-\inf_{S(T_X)} R_{\Gr}
-- (D_{\Gr} - \pi^* D_{B})^* q_{\infty}
-\end{align*}
-As $S(T_X)$ is compact, the infimum $m_\infty$ is attained at a point $v$.
-If $v \in \Ker \pi^*$, then we're done as we know that $R_{\Gr}$ is positive
-there.
-Otherwise $\pi^*(v) \not= 0$, so $m_2 := \pi^*R_B(v, \bar v, v, \bar v) > 0$.
-We then pick $\lambda_0$ big enough so that $m_\infty + e^{\lambda_0} m_2 > 0$.
-Now note that
-$m_\lambda \to m_\infty$ as $\lambda \to \infty$ because $q_{\lambda} \to
-q_{\infty}$.
-For $\lambda > \lambda_0$ we then have
-$$
-m_\lambda + e^\lambda m_2
-\geq m_\lambda + e^{\lambda_0} m_2
-\to m_\infty  + e^{\lambda_0} m_2
-> 0.
-$$
-For all large enough $\lambda$, it follows that $R_\lambda$ will be positive.
+The pullback of this metric to $X$ gives a form $h_{X/B}$ on $X$ whose restriction to each fiber is the K\"ahler--Einstein metric on the fiber.
+Theorem~\ref{thm:holomorphic-sectional-positive} now applies.
 \end{proof}
 
 
