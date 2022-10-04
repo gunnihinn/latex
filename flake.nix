@@ -17,10 +17,6 @@
           inherit self tex mkDerivation;
           name = "degenerate";
         };
-        grassmannian-bundles = pkgs.callPackage ./project.nix {
-          inherit self tex mkDerivation;
-          name = "grassmannian-bundles";
-        };
         journal = pkgs.callPackage ./project.nix {
           inherit self tex mkDerivation;
           name = "journal";
@@ -41,7 +37,6 @@
         packages.default = journal;
 
         packages.degenerate = degenerate;
-        packages.grassmannian-bundles = grassmannian-bundles;
         packages.journal = journal;
         packages.kodaira-embedding = kodaira-embedding;
         packages.nakano-positive = nakano-positive;
