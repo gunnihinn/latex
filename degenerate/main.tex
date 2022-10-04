@@ -53,8 +53,8 @@
 
 \author{Gunnar Þór Magnússon}
 \date{\today}
-\title[Degenerate Hermitian geometry]{Degenerate Hermitian geometry\\
-and curvatures of holomorphic fibrations}
+\title[Degenerate Hermitian geometry]{Degenerate Hermitian geometry and\\
+curvatures of holomorphic fibrations}
 
 \hypersetup{
  pdfauthor={Gunnar Þór Magnússon},
@@ -140,7 +140,7 @@ However, a much easier way to conclude the same is to use the additivity propert
 Even when a form is non-degenerate, having a Chern connection and curvature form just doesn't let us say very much:
 Let $\pi : X \to S$ be a family of compact complex K\"ahler manifolds of dimension $2n$ over a smooth base $S$.
 Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is $\mathcal R^{n}\pi_{*}\mathbb C \otimes \mathcal O_{S}$ and whose fiber over a point $s$ is $E_{s} = H^{n}(X_{s}, \mathbb C)$.
-This vector bundle admits a non-degenerate Hermitian form given by the cap product, and the flat Gauss--Manin connection is the Chern connection of this Hermitian form.
+This vector bundle admits a non-degenerate Hermitian form given by the cup product, and the flat Gauss--Manin connection is the Chern connection of this Hermitian form.
 \end{exam}
 
 Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic,\footnote{For example, on the torus $\kk C^2 / \kk Z^4$ with the form $b = \smash{\frac i2} dz_1 \wedge d \bar z_1 - \smash{\frac i2} dz_2 \wedge d\bar z_2$ the kernel of the Laplacian is infinite-dimensional.} so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
@@ -1186,7 +1186,7 @@ Then there exists a Hermitian metric on $X$ that has positive holomorphic sectio
 \end{theo}
 
 
-\begin{proof}[Proof of Theorem \ref{thm:holomorphic-sectional-positive}]
+\begin{proof}
 We consider the Hermitian forms $h_{\lambda} = h_{X/B} + e^{\lambda} \pi^{*} h_{B}$ for real $\lambda$.
 First off, it's clear that if $h_{B}$ is K\"ahler and the K\"ahler form of $h_{X/B}$ is closed, then $h_{\lambda}$ is K\"ahler.
 
@@ -1309,7 +1309,7 @@ Remember for example the Hopf surface, which is the total space of a fibration o
 
 
 Recall that a Grassmannian manifold of $k$-planes in $n$-dimensional space admits a unique K\"ahler--Einstein metric $\omega_{\Gr}$ such that
-$\Ric \omega_{\Gr} = k(n-k) \omega_{\Gr}$.
+$\Ric \omega_{\Gr} = n \omega_{\Gr}$.
 When we speak of ``the'' K\"ahler--Einstein metric on a Grassmannian, this is the one we mean.
 This metric can be obtained in two ways:
 
@@ -1318,6 +1318,13 @@ This metric can be obtained in two ways:
 
   \item It is the pullback of the Hermitian metric on $\Hom(\cc S, \cc Q)$ induced by a Hermitian inner product on the underlying vector space by the (holomorphic) second fundamental form, where $0 \to \cc S \to \underline {V} \to \cc Q \to 0$ is the short exact sequence of tautological sub- and quotient bundles of the trivial bundle with fiber $V$.
 \end{itemize}
+
+Either way, the holomorphic sectional curvature $H$ of this metric satisfies
+\[
+  \frac{2}{k^{2}} \leq H \leq 2
+\]
+and is thus positive.
+It's easiest to calculate its holomorphic sectional curvature by going the $\Hom(\cc S, \cc Q)$ route, in case the reader wants to try it out.
 
 We can now slightly extend the results of \'Alvarez and her collaborators on projectivized vector bundles by not requiring our Grassmannian bundle to come from a vector bundle.
 
