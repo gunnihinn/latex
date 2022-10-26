@@ -47,6 +47,9 @@
 
 \def\snd{\sigma}
 
+\def\kahler{complex Riemannian}
+\def\kahlerEinstein{complex Riemann--Einstein}
+
 \newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
 
 \newtheorem{question}{Question}
@@ -55,8 +58,9 @@
 \address{Hafnarfjörður, Iceland}
 \email{gunnar@magnusson.io}
 \date{\today}
+% TODO: New title
 \title[Degenerate Hermitian geometry]{Degenerate Hermitian geometry and\\
-curvatures of holomorphic fibrations}
+positive holomorphic sectional curvature}
 
 \hypersetup{
  pdfauthor={Gunnar Þór Magnússon},
@@ -72,7 +76,16 @@ curvatures of holomorphic fibrations}
 
 
 \begin{abstract}
-We calculate curvature tensors of metrics on the total spaces of holomorphic fibrations. Our main tool is a theory of Chern connections and curvature forms for possibly degenerate Hermitian forms on holomorphic vector bundles. We prove a version of the Codazzi--Griffiths equations for curvatures of sub- and quotient bundles in that setting and apply them to the study of honest Hermitian metrics on fibrations. We apply this to calculate the curvature of a metric on Grassmannian bundles and prove they have positive holomorphic sectional curvature if the base does.
+We develop a theory of Chern connections and curvature forms for possibly
+degenerate Hermitian forms on holomorphic vector bundles.
+Our main result is a version of the Codazzi--Griffiths equations for curvatures
+of sub- and quotient bundles in that setting.
+Those equation can then be used to study the curvature tensors of
+honest Hermitian metrics built up from simpler forms.
+As applications we prove that the total space of a Grassmannian bundle admits a
+metric of positive holomorphic sectional curvature if its compact base does,
+and that the blow-up of a compact manifold of positive holomorphic sectional
+curvature along a proper complex submanifold is again positively curved.
 \end{abstract}
 
 
@@ -91,7 +104,15 @@ Let $\pi : X \to S$ be a family of complex manifolds, and consider the associate
 0 \ar[r] & T_{X/S} \ar[r] & T_X \ar[r] & \pi^*T_S \ar[r] & 0.
 \end{tikzcd}
 \]
-We often find ourselves in the situation of having a metric $h_S$ on the base $S$ and a Hermitian form $h_{X/S}$ on the $X$ that is positive-definite on the relative tangent bundle $T_{X/S}$, and then construct a metric on $X$ as the sum $h_X := h_{X/S} + \pi^*h_S$. This happens when we consider a projective or Grassmannian bundle associated to a vector bundle~\cite{alvarez2016positive,alvarez2018projectivized,yang2019hirzebruch}; the blow-up of a point like in the original proof of the Kodaira embedding theorem~\cite{kodaira-embedding}; metrics on holomorphic fibrations~\cite{calabi-fibres-holomorphes}; or metrics on versal families of deformations~\cite{magnusson2012natural}.
+We often find ourselves in the situation of having a metric $h_S$ on the base
+$S$ and a Hermitian form $h_{X/S}$ on the $X$ that is positive-definite on the
+relative tangent bundle $T_{X/S}$, and then construct a metric on $X$ as the
+sum $h_X := h_{X/S} + \pi^*h_S$. This happens for example when we consider a
+projective or Grassmannian bundle associated to a vector
+bundle~\cite{alvarez2016positive,alvarez2018projectivized,yang2019hirzebruch};
+or metrics on holomorphic fibrations~\cite{calabi-fibres-holomorphes};
+or blow-ups like in the original proof of the Kodaira embedding
+theorem~\cite{kodaira-embedding}.
 
 In these situations, the metric on the base has a curvature tensor, and the relative form often has something that resembles such a tensor. As neither form is positive-definite on $X$, we can't use our usual tools to calculate a curvature tensor for $h_X$ from this information. Instead, we are often reduced to committing difficult calculations in local coordinates; see for example Chaturvedi and Heier~\cite[Theorem~1.1]{chaturvedi2020hermitian}.
 
@@ -105,14 +126,41 @@ where the metrics on the bundles are (in order) $h_1 + h_2$, $h_1 \oplus h_2$, a
 
 In this note, we fill in the details of this sketch. In section~\ref{sec:degenerate-chern-connections} we show that a holomorphic vector bundle $E \to X$ with a smooth Hermitian form $b$ admits a Chern connection. Such a connection is not unique when the form is degenerate, but we can always get rid of the ambiguity between different choices of connections by applying the form $b$, as the difference of two such connections must take values in its kernel. This yields a unique curvature \emph{tensor} for such a form. We then prove the Codazzi--Griffiths equations hold in this setting and calculate what they imply for sums of Hermitian forms.
 
-As an application, in section~\ref{sec:grassmannian-bundles} we first recover a result of Chaturvedi and Heier~\cite{chaturvedi2020hermitian}, and then dot some i's and cross some t's from works of \'Alvarez~\cite{alvarez2016positive} and \'Alvarez, Heier and Zheng~\cite{alvarez2018projectivized} on the curvature of metrics on projectivized vector bundles (see also Yang and Zheng~\cite{yang2019hirzebruch}). They prove that such bundles admit metrics of positive holomorphic sectional curvature, and finish by saying the same arguments can prove that so do Grassmannian bundles. We treat the slightly more general case of Grassmannian bundles without mention of an underlying vector bundle, and as a corollary conclude that bundles of flag manifolds admit metrics of positive holomorphic sectional curvature once the base manifold does.
-Along with our insistence on coordinate-invariant calculations, these are the new results of our~note.%
+As a first application, in section~\ref{sec:grassmannian-bundles} we
+recover a result of Chaturvedi and Heier~\cite{chaturvedi2020hermitian}, and
+then dot some i's and cross some t's from works of
+\'Alvarez~\cite{alvarez2016positive} and \'Alvarez, Heier and
+Zheng~\cite{alvarez2018projectivized} on the curvature of metrics on
+projectivized vector bundles (see also Yang and
+Zheng~\cite{yang2019hirzebruch}). They prove that such bundles admit metrics of
+positive holomorphic sectional curvature, and finish by saying the same
+arguments can prove that so do Grassmannian bundles. We treat the slightly more
+general case of Grassmannian bundles without mention of an underlying vector
+bundle, and as a corollary conclude that bundles of flag manifolds admit
+metrics of positive holomorphic sectional curvature once the base manifold
+does.
 
-%The second application is the paying of a debt of an unfulfilled expectation of the author's Ph.D.~advisor. Consider a family $\pi : X \to S$ of compact K\"ahler manifolds over a smooth base. We can complexify the K\"ahler cone of each manifold and obtain a holomorphic fibration $p : C \to S$ of such cones. Hodge theory gives a natural smooth semipositive Hermitian form on $C$ that is positive-definite on the relative tangent bundle $T_{C/S}$. Given a metric on the base, we can thus construct a metric on $C$, and we use the tools developed here to calculate its curvature tensor. We pay special attention to the case of compact K\"ahler manifolds with zero first Chern class, whose base of versal deformations is smooth and admits a Weil--Petersson metric.
+By repeating the same arguments in a slightly different setting in
+section~\ref{sec:blow-ups-positive}, we then show that the blow-up of a compact
+manifold of positive holomorphic sectional curvature along a proper complex
+submanifold again has positive holomorphic sectional curvature.
+This answers a question of Yau~\cite[Problem~67]{yau1993open} and provides a
+number of new examples of such manifolds, like del Pezzo surfaces.
 
-To do this, we require a degenerate analogue of many statements about adjoints, orthogonal subspaces and induced inner products that are classical in the positive-definite case. We do not know a reference for these results, which would make for fun exercises in a linear algebra course, and thus provide statements and proofs. We do this in section~\ref{sec:degenerate-linear-algebra} as we need to refer to those results for our work on connections and curvature.
+To do this, we require a degenerate analogue of many statements about adjoints,
+orthogonal subspaces and induced inner products that are classical in the
+positive-definite case. We do not know a reference for these results, which
+would make for fun exercises in a linear algebra course, and thus provide
+statements and proofs. We do this in
+section~\ref{sec:degenerate-linear-algebra} as we need to refer to those
+results for our work on connections and curvature.
 
-A seeming novelty of our approach is that we prove all our results using the connection formulation of complex differential geometry (versus the local coordinate or moving frame formulations). While this connection approach is common in modern Riemannian geometry, complex geometers seem to prefer the older, index-heavy, ways. We hope this note also serves as an advertisement for the merits of the connection approach.
+We prove all our results using the connection formulation of complex
+differential geometry (versus the local coordinate or moving frame
+formulations). While this connection approach is common in modern Riemannian
+geometry, complex geometers seem to prefer the older index-heavy ways. We
+hope this note also serves as an advertisement for the merits of the connection
+approach.
 
 There is some prior art on degenerate metrics in Riemannian geometry; see for example \cite{bel1975degenerate,stoica2011cartan,stoica2014singular}.
 The very quick version seems to be that one can define a Levi-Civita connection for such an object and thus a curvature tensor, but neither will generally be unique.
@@ -133,19 +181,43 @@ Let $E \to X$ be a holomorphic vector bundle, let $b = 0$, and let $D$ be any co
 Let $X$ be a compact complex manifold of dimension $n$
 that admits a nowhere-zero holomorphic one-form $\alpha$.
 It  gives us a smooth Hermitian form $b = i \alpha \wedge \ov \alpha$ whose kernel forms a holomorphic subbundle of rank $n-1$ and whose quotient is the trivial line bundle.
-Any of our Chern connections for this form will yield a curvature form whose top exterior power vanishes; so if we were to develop Chern--Weil theory in this setting we should expect to conclude the top Chern class of the manifold is zero.
-However, a much easier way to conclude the same is to use the additivity property of total Chern classes on the short exact sequence we began with.
+Any of our Chern connections for this form will yield a curvature form whose
+top exterior power vanishes; so if we were to develop Chern--Weil theory in
+this setting we should expect to conclude the top Chern class of the manifold
+is zero. However, a much easier way to conclude the same is to use the
+additivity property of total Chern classes on the short exact sequence we began
+~with.%
 \end{exam}
 
 
 \begin{exam}
-Even when a form is non-degenerate, having a Chern connection and curvature form just doesn't let us say very much:
-Let $\pi : X \to S$ be a family of compact complex K\"ahler manifolds of dimension $2n$ over a smooth base $S$.
-Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is $\mathcal R^{n}\pi_{*}\mathbb C \otimes \mathcal O_{S}$ and whose fiber over a point $s$ is $E_{s} = H^{n}(X_{s}, \mathbb C)$.
-This vector bundle admits a non-degenerate Hermitian form given by the cup product, and the flat Gauss--Manin connection is the Chern connection of this Hermitian form.
+Even when a form is non-degenerate, having a Chern connection and curvature
+form just doesn't let us say very much: Let $\pi : X \to S$ be a family of
+compact \kahler\footnote{In this note we use ``\kahler{}'' for what
+are usually called ``K\"ahler'' objects in the literature.
+\href{https://en.wikipedia.org/wiki/Erich_Kähler}{Wikipedia} has this to say about Erich K\"ahler:
+``In the years leading up to World War II Kähler was a supporter of Hitler and
+of German nationalism...
+[K\"ahler] reported that his oath to Hitler (as a civil servant) was important
+to him, and remained an apologist for the Third Reich decades later''.
+I don't want to carry the names of Third Reich apologists into the
+future, and thus propose this name change.
+}
+manifolds of dimension $2n$ over a smooth base $S$.
+Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is
+$\mathcal R^{n}\pi_{*}\mathbb C \otimes \mathcal O_{S}$ and whose fiber over a
+point $s$ is $E_{s} = H^{n}(X_{s}, \mathbb C)$. This vector bundle admits a
+non-degenerate Hermitian form given by the cup product, and the flat
+Gauss--Manin connection is the Chern connection of this Hermitian form.
 \end{exam}
 
-Also note that in the non-degenerate case the most useful results are found when the form is positive-definite. For example the Laplacian of a non-degenerate form of mixed signature will not be strongly elliptic,\footnote{For example, on the torus $\kk C^2 / \kk Z^4$ with the form $b = \smash{\frac i2} dz_1 \wedge d \bar z_1 - \smash{\frac i2} dz_2 \wedge d\bar z_2$ the kernel of the Laplacian is infinite-dimensional.} so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
+Also note that in the non-degenerate case the most useful results are found
+when the form is positive-definite. For example the Laplacian of a
+non-degenerate form of mixed signature will not be strongly elliptic
+(on the torus $\kk C^2 / \kk Z^4$ with the form $b = \smash{\frac i2}
+dz_1 \wedge d \bar z_1 - \smash{\frac i2} dz_2 \wedge d\bar z_2$ the kernel of
+the Laplacian is infinite-dimensional)
+so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
 
 We'll finish with one final example we don't have any applications in mind for, but find amusing in its inaccessibility.
 
@@ -540,6 +612,9 @@ d b(s, \ov t) = b(Ds, \ov t) + b(s, \ov{Dt})
 \]
 for all sections $s, t$ of $E$. By composing a connection with the projection onto $(1,0)$- or $(0,1)$-forms, we get the $(1,0)$- and $(0,1)$-parts of the connection.
 
+We denote by $\cc A^k(E)$ and $\cc A^{p,q}(E)$ the spaces of smooth $k$- and $(p,q)$-forms with values in $E$.
+Sometimes we'll write $\cc A^k(\cc F)$, where $\cc F \subset E$ is a smooth subsheaf, by which we mean sections of $\cc A^k(E)$ that take values in $\cc F$.
+
 
 \begin{prop}
 Let $E \to X$ be a holomorphic vector bundle and let $b$ be a smooth Hermitian form on $E$. Then there exists a connection $D$ on $E$ that's compatible with $b$ and has $D^{0,1} = \bar\partial$.
@@ -745,7 +820,7 @@ As $f^{*}E$ is generated by sections of the form $f^{*}s$, this completes the pr
 
 \begin{prop}
 Let $X$ be a complex manifold and let $b$ be a Hermitian form on $T_X$.
-Let $\omega = -\operatorname{Im} b$ be the associated K\"ahler form.
+Let $\omega = -\operatorname{Im} b$ be the associated symplectic form.
 Then $d \omega = 0$ if and only if the torsion tensor $\tau(\alpha,\beta) = D_\alpha \beta - D_\beta \alpha - [\alpha, \beta]$ of $b$ takes values in $\Ker b$.
 \end{prop}
 
@@ -772,10 +847,15 @@ b_E(f^\dagger f s, \ov t)
 = b_F(f s, \ov{f t})
 = b_E(s, \ov t)
 \]
-for all sections $s$ and $t$,
-so $f^\dagger f - \id_E \in \Hom(E, \Ker b_E)$. When working on vector spaces we could deal with this by quotienting out the kernel. If we try the same trick here, we run into the fact that the rank of the sheaf $\Ker b \to X$ may not be constant. We want to do differential geometry to the sections of this sheaf, so this is a problem.
-
-This difficulty is a mirage as it can be taken care of by notation. We define an equivalence relation on sections by saying that two sections are equivalent if their difference is in the kernel of a Hermitian form of interest:
+for all sections $s$ and $t$, so $f^\dagger f - \id_E \in \Hom(E, \Ker b_E)$.
+When working on vector spaces we could deal with this by quotienting out the
+kernel. If we try the same trick here, we run into the fact that the rank of
+the sheaf $\Ker b \to X$ may not be constant. We want to do differential
+geometry to the sections of this sheaf so seems like a problem, but isn't
+because we can hide it behind some notation.
+We define an equivalence relation on sections by saying that two sections are
+equivalent if their difference is in the kernel of a Hermitian form of
+interest:
 
 
 \begin{defi}
@@ -785,8 +865,6 @@ s \sim t
 \)
 if $s - t \in \cc A^k(\Ker b)$.
 \end{defi}
-
-In general it's problematic to define differential forms with values in a sheaf, but here it's hopefully clear what $\cc A^k(\Ker b)$ means as $\Ker b$ is a subsheaf of the sheaf of sections of a vector bundle.
 
 Using this notation we can rephrase some of our earlier results on degenerate forms:
 \begin{itemize}
@@ -851,15 +929,12 @@ be a short exact sequence of holomorphic bundles over $X$, and let $b_E$ be a sm
 
 
 
-\begin{defi}
+\begin{prop}
 The \emph{second fundamental form} of $S$ in $E$ is
 \[
 \snd(s) := q(D_E(js) - jD_S(s)).
 \]
-\end{defi}
-
-\begin{prop}
-The second fundamental form is an element of $\cc A^{1,0}(\Hom(S,Q))$.
+It is an element of $\cc A^{1,0}(\Hom(S,Q))$.
 We have
 \[
 \snd(s)
@@ -1171,8 +1246,15 @@ The inner product on the quotient is the pullback of $h$ by $\pi^\dagger$, which
 
 
 
+A couple of basic facts follow easily from this formula.
+For example, it shows that the set of Hermitian (or \kahler) metrics of positive (or negative) holomorphic sectional curvature on a compact manifold is open if it is not empty.
+Since the ``quotient'' form is positive definite by inspection if both of the forms in the sum are positive definite, it also shows that the set of metrics of negative holomorphic sectional curvature is path connected.
+Whether or not the set of metrics of positive holomorphic sectional curvature is path connected seems to be an open question \cite[Question~1.2]{yang2019hirzebruch}, which is not as trivially accessible as these facts.
 
-\section{Positive holomorphic sectional curvature}
+
+
+
+\section{Fibrations of positive holomorphic sectional curvature}
 \label{sec:grassmannian-bundles}
 
 Our objective in this section is to prove the following technical theorem and apply it to things relevant to our interests.
@@ -1184,13 +1266,13 @@ We hope our (mostly) coordinate-free proof is also of interest.
 Let $\pi : X \to (B,h_{B})$ be a holomorphic fibration over a compact Hermitian manifold.
 Suppose $h_{B}$ has positive holomorphic sectional curvature.
 Suppose there exists a Hermitian form $h_{X/B}$ on $X$ whose restriction to each fiber is a Hermitian metric that has positive holomorphic sectional curvature.
-Then there exists a Hermitian metric on $X$ that has positive holomorphic sectional curvature, and if $h_{B}$ is K\"ahler and the K\"ahler form of $h_{X/B}$ is closed then this metric is also K\"ahler.
+Then there exists a Hermitian metric on $X$ that has positive holomorphic sectional curvature, and if $h_{B}$ is \kahler{} and the \kahler{} form of $h_{X/B}$ is closed then this metric is also \kahler{}.
 \end{theo}
 
 
 \begin{proof}
 We consider the Hermitian forms $h_{\lambda} = h_{X/B} + e^{\lambda} \pi^{*} h_{B}$ for real $\lambda$.
-First off, it's clear that if $h_{B}$ is K\"ahler and the K\"ahler form of $h_{X/B}$ is closed, then $h_{\lambda}$ is K\"ahler.
+First off, it's clear that if $h_{B}$ is \kahler{} and the \kahler{} form of $h_{X/B}$ is closed, then $h_{\lambda}$ is \kahler{}.
 
 As the base $B$ is compact, $h_{X/B}$ is positive on $T_{X/B}$, and $\pi^{*}h_{B}$ is positive on $\pi^{*}T_{B}$, we see that $h_{\lambda}$ is an honest Hermitian metric for all $\lambda \gg 0$.
 Its curvature tensor is then
@@ -1200,7 +1282,8 @@ Its curvature tensor is then
 \]
 We need to investigate what happens first in $T_{X/B}$ and then the rest of $T_{X}$.
 The calculations can get a little messy, so we split them into a few technical lemmas.
-The first one will help us say what happens on $T_{X/B}$, as the form $\pi^{*}h_{B}$ is zero there.
+The first one will help us say what happens on $T_{X/B}$, as the form
+$\pi^{*}h_{B}$ is zero~there.%
 
 
 \begin{lemm}
@@ -1238,6 +1321,7 @@ For that we need to know what happens to it as $\lambda$ grows.
 
 
 \begin{lemm}
+\label{lemm:limit-form}
 Let $0 \to S \to V \stackrel{\pi}{\to} Q \to 0$ be a short exact sequence of vector spaces.
 Let $b_{1}$ be a Hermitian form on $V$ that is positive-definite on $S$ and $b_{2}$ be a Hermitian inner product on $Q$ such that $h_{\lambda} := b_{1} + e^{\lambda} \pi^{*} b_{2}$ is positive-definite for all $\lambda \geq 0$.
 Let $q$ be the associated ``quotient'' form.
@@ -1263,7 +1347,9 @@ as $\lambda \to \infty$.
 The form this defines is semipositive on $V$ and positive-definite on~$S$.%
 \end{proof}
 
-The limit form is $(j j^{\dagger})^{*}b_{1}$, where $j^{\dagger}$ is the adjoint of $j$ with respect to $h$. There's probably an invariant proof of this somewhere, but we don't need it.
+The limit form looks like $(j j^{\dagger})^{*}b_{1}$, where $j^{\dagger}$ is
+the adjoint of $j$ with respect to $h$. There's probably an invariant proof of
+this somewhere, but we don't need it.
 
 Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
 $S(T_X) \subset T_X$ to test positivity on.
@@ -1297,11 +1383,10 @@ For all large enough $\lambda$, it follows that $R_\lambda$ will be positive.
 
 
 
-As a corollaries, we get a family of theorems where a holomorphic family whose fibers have positive holomorphic sectional curvature also has positive holomorphic sectional curvature as soon as we can pick the metrics on the fibers to vary smoothly between them.
-The trick is to find conditions that guarantee we can extend the fiberwise metrics to a single smooth Hermitian form.
-It is tempting to guess that if the metrics on the fibers are K\"ahler then we also get a K\"ahler metric on the total space, but this is delicate.
-Given a family of smoothly varying K\"ahler metrics on each fiber, there does not need to exist a closed Hermitian form on the total space that restricts to each of them.
-Remember for example the Hopf surface, which is the total space of a fibration of projective lines over an elliptic curve; picking any Hermitian metric on the total space we get a family of K\"ahler metrics on the fibers, but if they came from a closed form on the total space the Hopf surface would be K\"ahler.
+The same proof, with all the inequalities reversed, shows that a fibration over
+a base of negative holomorphic sectional curvature that has a family of
+smoothly varying fiber metrics of negative holomorphic sectional curvature has
+itself a metric of such curvature, which is a theorem of Cheung~\cite{cheung}.
 
 
 
@@ -1310,9 +1395,10 @@ Remember for example the Hopf surface, which is the total space of a fibration o
 
 
 
-Recall that a Grassmannian manifold of $k$-planes in $n$-dimensional space admits a unique K\"ahler--Einstein metric $\omega_{\Gr}$ such that
+Recall that a Grassmannian manifold of $k$-planes in $n$-dimensional space
+admits a unique \kahlerEinstein{} metric $\omega_{\Gr}$ such that
 $\Ric \omega_{\Gr} = n \omega_{\Gr}$.
-When we speak of ``the'' K\"ahler--Einstein metric on a Grassmannian, this is the one we mean.
+When we speak of ``the'' \kahlerEinstein{} metric on a Grassmannian, this is the one we mean.
 This metric can be obtained in two ways:
 
 \begin{itemize}
@@ -1380,22 +1466,22 @@ We'll call the embedding $j : X \to Y$ above the relative Pl\"ucker embedding.
 \begin{prop}
 Let $\pi : X \to B$ be a holomorphic fibration over a connected base whose fibers are Grassmannian manifolds.
 If $B$ admits a metric with positive holomorphic sectional curvature, then so does $X$.
-This metric is K\"ahler if the metric on $B$ is K\"ahler.
+This metric is \kahler{} if the metric on $B$ is \kahler{}.
 \end{prop}
 
 \begin{proof}
 Consider the relative Pl\"ucker embedding $j : X \to Y$ as above.
 Kodaira~\cite[Section 4(V)]{kodaira-embedding} showed that there exists a closed Hermitian form on $Y$ whose restriction to any fiber is the Fubini--Study metric.
-The pullback of this metric to $X$ gives a form $h_{X/B}$ on $X$ whose restriction to each fiber is the K\"ahler--Einstein metric on the fiber.
+The pullback of this metric to $X$ gives a form $h_{X/B}$ on $X$ whose restriction to each fiber is the \kahlerEinstein{} metric on the fiber.
 Theorem~\ref{thm:holomorphic-sectional-positive} now applies.
 \end{proof}
 
 
 
 \begin{coro}
-Let $\pi : X \to B$ be a holomorphic fibration over a compact K\"ahler manifold whose fibers are flag manifolds.
-Suppose $B$ admits a K\"ahler metric with positive holomorphic sectional curvature.
-Then there exists a K\"ahler metric on $X$ that has positive holomorphic sectional curvature.
+Let $\pi : X \to B$ be a holomorphic fibration over a compact \kahler{} manifold whose fibers are flag manifolds.
+Suppose $B$ admits a \kahler{} metric with positive holomorphic sectional curvature.
+Then there exists a \kahler{} metric on $X$ that has positive holomorphic sectional curvature.
 \end{coro}
 
 \begin{proof}
@@ -1414,6 +1500,47 @@ Continuing this process we end up with a sequence $X \to X_{1} \to \cdots \to X_
 \end{proof}
 
 
+
+
+\section{Blow-ups of positive holomorphic sectional curvature}
+\label{sec:blow-ups-positive}
+
+
+By essentially repeating the arguments of the previous section we can prove that blow-ups of compact manifolds with positive holomorphic sectional curvature have positive holomorphic sectional curvature.
+This answers a question of Yau~\cite[Problem~67]{yau1993open}
+and provides a number of new examples of manifolds with positive holomorphic sectional curvature.
+For example, this shows that del Pezzo surfaces (blow-ups of $\kk P^2$ in up to eight points, plus $\kk P^1 \times \kk P^1$) admit such metrics.
+
+
+\begin{theo}
+Let $X$ be a compact complex manifold that admits a metric with positive holomorphic sectional curvature, and let $Y \subset X$ be a proper submanifold.
+Then the blow-up of $X$ along $Y$ admits a metric with positive holomorphic sectional curvature.
+If the metric on $X$ was \kahler{}, then the metric on the blow-up will be \kahler{}.
+\end{theo}
+
+\begin{proof}
+We denote the blow-up of $X$ along $Y$ by $\mu : \hat X \to X$.
+We write $E = \mu^{-1}(Y)$ for the exceptional divisor and recall that the blow-up identifies with the projective bundle $\kk P(N_{Y/X}) \to Y$ over $E$.
+
+Let $h_{X}$ be a positively curved metric on $X$.
+The standard construction of a \kahler{} metric on $\hat X$ \cite[Proposition~3.24]{voisin2002theorie} shows that there exists a smooth Hermitian form $h_{E}$ on $\hat X$ whose \kahler{} form is closed and whose restriction to any fiber of $T_{\kk P(N_{Y/X})/Y}$ is the usual Fubini--Study metric.
+We consider the Hermitian form $h_{\lambda} = e^{\lambda} \mu^{*} h_{X} + h_{E}$, which we may assume is a Hermitian metric for all $\lambda > 1$.
+If $h_{X}$ is \kahler{} this metric is clearly \kahler{} as well.
+
+Its curvature tensor is
+\[
+  R_{\lambda} = e^{\lambda} \mu^{*} R_{X} + R_{E} - \sigma^{*} q_{\lambda},
+\]
+where $q$ is the ``quotient'' form and $\sigma$ is the second fundamental form of the sum.
+As in Lemma~\ref{lemm:limit-form} before we know that $q_{\lambda}$ tends to a Hermitian form $q_{\infty}$ as $\lambda \to \infty$.
+By  the proof of Theorem~\ref{thm:holomorphic-sectional-positive} we know that $h_{\lambda}$ will eventually have positive holomorphic sectional curvature at any unit-length tangent vector $\xi$ for which $\mu_{*}\xi \not= 0$.
+
+Now, the kernel of $\mu_{*}$ is exactly the relative tangent bundle $T_{\kk P(N_{Y/X})/Y}$ over the exceptional divisor.
+Given a nonzero tangent vector $\xi$ in it, we can find a local orthonormal frame of the relevant fiber of $\kk P(N_{Y/X})$ such that $\xi$ is a multiple of one of the frame elements.
+As in the proof of Theorem~\ref{thm:holomorphic-sectional-positive} this implies that $\sigma^{*}q_{\lambda}(\xi, \ov\xi, \xi, \ov\xi) = 0$ at the center of the frame, where we then have
+$R_{\lambda}(\xi,\ov\xi,\xi,\ov\xi) = R_{E}(\xi,\ov\xi,\xi,\ov\xi) > 0$.
+We conclude as before by compactness of the sphere bundle and by taking $\lambda$ large enough.
+\end{proof}
 
 
 

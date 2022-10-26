@@ -55,6 +55,298 @@
 
 \maketitle
 
+\section{11. October 2022}
+
+The statement is that rational points are \emph{Zariski} dense.
+A lot of things are Zariski dense.
+On a curve, any infinite set is Zariski dense.
+On a variety, any set that is open in the classical topology is Zariski dense;
+otherwise it would be contained in the zero set of some holomorphic function,
+which would then be zero on an open set.
+
+
+\section{7. October 2022}
+
+
+I really feel like this is true:
+
+
+\begin{prop}
+Let $Y \subset \kk P^{n}$ be a smooth complex hypersurface defined by a homogeneous polynomial  $f$ with real coefficients.
+Let $\sigma$ be the second fundamental form of $Y$ in~$\kk P^{n}$.
+If real points are dense in $Y$, then $\sigma = 0$.
+\end{prop}
+
+\begin{proof}
+We work in homogeneous coordinates, on the affine space that covers $\kk P^{n}$.
+The tangent bundle of $Y$ is
+\[
+  T_{Y} = \Ker df
+  = \biggl\{
+  \xi \in T_{\kk P^{n}}
+  \Bigm| \sum_{j=0}^{n} \xi_{j} \frac{\partial f}{\partial z_{j}} = 0
+  \biggr\}.
+\]
+As $\bar f = f$ at a real point, we have $T_{Y} = (df^{\sharp})^{\perp}$ there,
+where $df^{\sharp} =
+\smash{\sum_{j=0}^{n} \frac{\partial f}{\partial z_{j}} \frac{\partial}{\partial z_{j}}}$ and the inner product is the standard one on $\kk C^{n+1}$.
+In particular, $N_{Y/\kk P^{n}}$ is spanned by $df^{\sharp}$ at such a point.
+
+The Fubini--Study metric on $\kk P^{n}$ is
+\[
+  \langle \xi, \ov\nu \rangle_{FS}
+  = \frac{\langle \xi, \ov\nu \rangle}{|\eta|^{2}}
+  - \frac{\langle \xi, \ov\eta \rangle}{|\eta|^{2}}
+  \frac{\langle \eta, \ov\nu \rangle}{|\eta|^{2}},
+\]
+where $\eta = \sum_{j=0}^{n} z_{j} \frac{\partial}{\partial z_{j}}$ is the Euler field.
+If we're at a real point and take $\xi \in T_{Y}$, we then have
+\[
+  \langle \xi, \ov{df^{\sharp}} \rangle_{FS}
+  = \frac{\langle \xi, \ov{df^{\sharp}} \rangle}{|\eta|^{2}}
+  - \frac{\langle \xi, \ov\eta \rangle}{|\eta|^{2}}
+  \frac{\langle \eta, \ov{df^{\sharp}} \rangle}{|\eta|^{2}}
+  = 0
+\]
+because $\xi \in (df^{\sharp})^{\perp}$ and the Euler field satisfies $\eta \cdot f = (\deg f) f = 0$ on the zero set of a homogeneous complex polynomial.
+
+The Chern connection of the Fubini--Study metric on $\kk P^{n}$ is
+\[
+  D_{\nu} \xi = d_{\nu}\xi
+  - \frac{\langle \xi, \ov\eta\rangle}{|\eta|^{2}} \nu
+  - \frac{\langle \nu, \ov\eta\rangle}{|\eta|^{2}} \xi.
+\]
+The second fundamental form of $Y$ is then
+\[
+  \sigma(\xi, \nu)
+  = q(D_{\nu}\xi),
+\]
+where $q : T_{\kk P^{n}|Y} \to T_{\kk P^{n}|Y}$ is the orthogonal projection onto $T_{Y}^{\perp}$.
+In fact, we have
+\[
+  \sigma(\xi, \nu)
+  = \frac{\langle D_{\nu} \xi, \ov{df^{\sharp}} \rangle_{FS}}{|df^{\sharp}|_{FS}^{2}} df^{\sharp}
+\]
+at real points of $Y$.
+
+Now suppose real points are dense in $Y$.
+Then $\langle \xi, \ov{df^{\sharp}} \rangle_{FS} = 0$ in a dense set in a neighborhood around our point of interest, and thus on the whole neighborhood.
+We then get
+\[
+  0 = \partial_{\nu} \langle \xi, \ov{df^{\sharp}} \rangle_{FS}
+  = \langle D_{\nu}\xi,  \ov{df^{\sharp}} \rangle_{FS}
+  + \langle \xi,  \ov{\bar\partial_{\ov\nu}df^{\sharp}} \rangle_{FS}
+  = \langle D_{\nu}\xi,  \ov{df^{\sharp}} \rangle_{FS},
+\]
+where the last equality holds because the field $df^{\sharp}$ is holomorphic by inspection.
+But then $\sigma(\xi, \nu) = 0$ at the point of interest.
+\end{proof}
+
+
+\begin{coro}
+If $Y \subset \kk P^{n}$ is a hypersurface with dense real points, then $Y \cong \kk P^{n-1}$.
+\end{coro}
+
+\begin{proof}
+By the above, the Codazzi--Griffiths equations imply that $R_{Y} = R_{FS|Y}$, so $T_{Y}$ is Griffiths-positive, and $Y$ is therefore isomorphic to $\kk P^{n-1}$.
+\end{proof}
+
+This conclusion is nuts because real points are not dense in $\kk P^{n-1}$; they form a real subvariety of real dimension $n-1$.
+
+\begin{exam}
+Consider the circle $C(k) = \{(x,y) \in k^{2} \mid x^{2} + y^{2} = 1\}$ over a field $k$, where we'll care about $k = \kk Q, \kk R, \kk C$.
+We know that the rational points of $C(\kk Q)$ are dense in $C(\kk R)$.
+Take now a point like $(i,\sqrt 2)$ in $C(\kk C)$.
+If $(x,y) \in  C(\kk C)$ is a real point, then
+\[
+  |(x,y) - (i,\sqrt 2)|
+  \geq ||(x,y)| - |(i,\sqrt 2)||
+  = \sqrt 3 - 1 > 0
+\]
+so rational or real points are not dense in $C(\kk C)$.
+\end{exam}
+
+
+The contribution of the second fundamental form to the curvature tensor of $Y$ is
+\[
+  \langle \sigma(\alpha, \beta), \ov{\sigma(\gamma, \delta)} \rangle_{FS}
+  = \frac{\langle d_{\alpha}\beta, \ov{df^{\sharp}} \rangle_{FS}
+  \langle df^{\sharp}, \ov{d_{\gamma}\delta} \rangle_{FS}}{|df^{\sharp}|^{2}_{FS}}
+  = \frac{\langle d_{\alpha}\beta, \ov{df^{\sharp}} \rangle
+  \langle df^{\sharp}, \ov{d_{\gamma}\delta} \rangle }{|df^{\sharp}|^{2}|\eta|^{2}}
+\]
+at a real point. Its contribution to the holomorphic sectional curvature is then
+(TODO: Correct for missing $|df^{\sharp}|^{2}$ factors)
+\begin{align*}
+  \frac{\langle \sigma(\alpha, \alpha), \ov{\sigma(\alpha, \alpha)} \rangle_{FS}}{|\alpha|^{4}_{FS}}
+  &= \frac{\langle d_{\alpha}\alpha, \ov{df^{\sharp}} \rangle}{|\eta|^{2}}
+  \frac{\langle df^{\sharp}, \ov{d_{\alpha}\alpha} \rangle}{|\eta|^{2}}
+  \frac{|\eta|^{4}}{|\alpha|^{4}}
+    \\
+  &= \frac{|\langle d_{\alpha}\alpha, \ov{df^{\sharp}} \rangle|^{2}}{|\alpha|^{4}}
+  \leq \frac{|d_{\alpha}\alpha|^{2} |df^{\sharp}|^{2}}{|\alpha|^{4}}.
+\end{align*}
+If $|\alpha|^{2}_{FS} = 1$ then $|\alpha|^{2} = |\eta|^{2}$.
+If $\alpha = \sum_{j} \alpha_{j} \partial / \partial z_{j}$ then
+\[
+  d_{\alpha} \alpha
+  = \sum_{j,k} \alpha_{k} \frac{\partial{\alpha_{j}}}{\partial z_{k}} \frac{\partial}{\partial z_{j}}
+\]
+so
+\[
+  |d_{\alpha} \alpha|^{2}
+  \leq \sum_{j,k}
+  \biggl|
+  \alpha_{k} \frac{\partial{\alpha_{j}}}{\partial z_{k}}
+  \biggr|^{2}
+\]
+I'm not sure this is going anywhere. Let's try something else.
+
+If $\alpha \in T_{Y}$ then $\alpha \cdot f = 0$. We calculate that
+\[
+  \beta \cdot (\alpha \cdot f)
+  = (\beta \cdot \alpha) \cdot f
+  + \alpha^{t} H(f) \beta,
+\]
+where $H(f)$ is the complex Hessian of $f$ and
+$\beta \cdot \alpha = d_{\beta}\alpha$ is the directional derivative of $\alpha$
+in the direction of $\beta$, which is not an invariant thing.
+For our $f$ and at a real point, we have $(\beta \cdot \alpha) \cdot f = \langle \beta \cdot \alpha, \ov{df^{\sharp}} \rangle$.
+Then
+\[
+  \langle \sigma(\alpha, \beta), \ov{\sigma(\gamma, \delta)} \rangle_{FS}
+  = \frac{\beta^{t}H(f)\alpha \; \ov{\delta^{t}H(f)\gamma}}
+  {|df^{\sharp}|^{2}|\eta|^{2}}.
+\]
+If we take an orthonormal basis $(e_{1}, \ldots, e_{n})$, where $e_{n}$ is colinear with $df^{\sharp}$, then the contribution of this to the scalar curvature is
+\[
+  \sum_{j,k=1}^{n-1} \frac{e_{k}^{t}H(f)e_{j} \; \ov{e_{k}^{t}H(f)e_{j}}}
+  {|df^{\sharp}|^{2}|\eta|^{2}}
+ = \frac{1}{|df^{\sharp}|^{2}|\eta|^{2}}
+ \sum_{j,k=1}^{n-1} |H(f)_{jk}|^{2}
+ \leq \frac{|H(f)|^{2}}{|df^{\sharp}|^{2}|\eta|^{2}},
+\]
+where $|H(f)|$ is the Frobenius norm.
+
+
+\begin{exam}
+Let $f(z,w) = z^{d} + w^{d}$.
+Then $df = (dz^{d-1}, dw^{d-1})$ and
+\[
+H(f) =
+d(d-1)
+\begin{pmatrix}
+z^{d-2} & 0
+\\
+0 & w^{d-2}
+\end{pmatrix}.
+\]
+At a real point we have $\langle \eta, \ov{df} \rangle = 0$.
+We have $\eta^{t}H\eta = 0$, and all other factors involve $df$, so here we get $0$.
+\end{exam}
+
+
+
+\begin{exam}
+Let $f(x,y,z) = x^{d} + y^{d} + z^{d}$.
+Then $df = d(x^{d-1}, y^{d-1}, z^{d-1})$, and
+\[
+H(f) =
+d(d-1)
+\begin{pmatrix}
+x^{d-2} & 0 & 0
+\\
+0 & y^{d-2} & 0
+\\
+0 & 0 & z^{d-2}
+\end{pmatrix}.
+\]
+Again $\eta$ is orthogonal to $df$ at a real point, and $\eta^{t}H\eta = 0$.
+A third orthogonal vector is
+\begin{align*}
+  \eta \times df
+  &= d(
+  y^{d}z^{d-1} - y^{d-1}z^{d} ,
+  z^{d}x^{d-1} - x^{d}z^{d-1} ,
+  x^{d}y^{d-1} - y^{d}x^{d-1}
+  )
+  \\
+  &= d(
+  y^{d-1}z^{d-1}(y - z),
+  x^{d-1}z^{d-1}(z - x),
+  x^{d-1}y^{d-1}(x - y)
+  ).
+\end{align*}
+We have
+\[
+  H (\eta \times df)
+  = d^{2}(d-1)(xyz)^{d-2}(
+  yz(y-z), xz(z-x), xy(x-y)
+  )
+\]
+so
+\[
+  \eta^{t} H (\eta \times df)
+  = d^{2}(d-1)(xyz)^{d-1}
+  (y-z + z - x + x - y)
+  = 0
+\]
+and
+\[
+  (\eta \times df)^{t} H (\eta \times df)
+  = d^{3}(d-1) (xyz)^{3d-2}
+  (
+  (y-z)^{2} + (z-x)^{2} + (x-y)^{2}
+  ),
+\]
+which can be nonzero (and is for real points).
+To find the Frobenius contribution we have to normalize the vector, so we get
+\[
+  \frac{d(d-1) (xyz)^{3d-2}
+  (
+  (y-z)^{2} + (z-x)^{2} + (x-y)^{2}
+  )}{
+  y^{2d-2}z^{2d-2}(y-z)^{2}
+  + x^{2d-2}z^{2d-2}(x-z)^{2}
+  + x^{2d-2}y^{2d-2}(x-y)^{2}
+}
+\]
+We'd then have to divide this by $|df^{\sharp}|^{2}|\eta|^{2}$.
+\end{exam}
+
+
+In general we have $H(f) \eta = (d-1) \, df^{\sharp}$.
+Does it make sense to look at the orbit of $\eta$?
+We can write $\kk C^{n+1} = \kk C \eta \oplus V \oplus \kk C df^{\sharp}$, then this implies we can restrict $H(f)$ to $V$ and only look at what happens there.
+For three-dimensional spaces we can try to do as above.
+Then
+\[
+  \eta \times df^{\sharp}
+  = (
+  y f_{z} - z f_{y},
+  z f_{x} - x f_{z},
+  x f_{z} - z f_{x}
+  )
+\]
+is homogeneous of degree $d$.
+We have
+\[
+  H(f)(\eta \times df^{\sharp})
+  = (
+  f_{xx}(yf_{z} - zf_{y})
+  + f_{xy}(zf_{x} - xf_{z})
+  + f_{xz}(xf_{z} - zf_{x}),
+  )
+\]
+\[
+  \frac{
+    |(\eta \times df^{\sharp})
+    H(f)
+    (\eta \times df^{\sharp})|^{2}
+  }{|df^{\sharp}|^{2}|z|^{2}}
+\]
+
+
 \section{13. September 2022}
 
 I know why the result I stated on the scalar curvature of a submanifold was so
