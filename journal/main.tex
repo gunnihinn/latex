@@ -55,6 +55,25 @@
 
 \maketitle
 
+\section{26. October 2022}
+
+Let $\pi : X \to B$ be a projective bundle over a compact base.
+Suppose we only have $X$.
+Can we figure out that $B$ and $\pi$ exist at all?
+Or what they are?
+
+To put it another way:
+Let $X$ be a compact K\"ahler manifold with $-K_X$ nef.
+Suppose that $X$ admits a K\"ahler metric with positive holomorphic sectional
+curvature.
+Is $X$ the total space of a Grassmannian bundle?
+
+What can you even try to fiber it over?
+The Albanese variety can be trivial.
+
+
+
+
 \section{11. October 2022}
 
 The statement is that rational points are \emph{Zariski} dense.
@@ -88,8 +107,12 @@ The tangent bundle of $Y$ is
   \biggr\}.
 \]
 As $\bar f = f$ at a real point, we have $T_{Y} = (df^{\sharp})^{\perp}$ there,
-where $df^{\sharp} =
-\smash{\sum_{j=0}^{n} \frac{\partial f}{\partial z_{j}} \frac{\partial}{\partial z_{j}}}$ and the inner product is the standard one on $\kk C^{n+1}$.
+where
+$$
+df^{\sharp} =
+\smash{\sum_{j=0}^{n} \frac{\partial f}{\partial z_{j}} \frac{\partial}{\partial z_{j}}}
+$$
+and the inner product is the standard one on $\kk C^{n+1}$.
 In particular, $N_{Y/\kk P^{n}}$ is spanned by $df^{\sharp}$ at such a point.
 
 The Fubini--Study metric on $\kk P^{n}$ is
@@ -148,7 +171,7 @@ If $Y \subset \kk P^{n}$ is a hypersurface with dense real points, then $Y \cong
 \end{coro}
 
 \begin{proof}
-By the above, the Codazzi--Griffiths equations imply that $R_{Y} = R_{FS|Y}$, so $T_{Y}$ is Griffiths-positive, and $Y$ is therefore isomorphic to $\kk P^{n-1}$.
+By the above, Codazzi--Griffiths implies that $R_{Y} = R_{FS|Y}$, so $T_{Y}$ is Griffiths-positive, and $Y$ is therefore isomorphic to $\kk P^{n-1}$.
 \end{proof}
 
 This conclusion is nuts because real points are not dense in $\kk P^{n-1}$; they form a real subvariety of real dimension $n-1$.
@@ -421,7 +444,7 @@ $$
 Surprisingly this says that if $s_Y = s_X$ at a point, then $R_Y = R_X$ there.
 
 
-For any local holomorphic tangent field $\xi$ of $T_Y$ around $y$ we have
+For any holomorphic tangent field $\xi$ of $T_Y$ around $y$ we have
 $h_X(\xi, \ov e_k) = 0$ for $k > m$. Then
 $$
 0 = \partial h_X(\xi, \ov e_k)
@@ -541,7 +564,7 @@ I think we can prove something like this:
 \medskip
 \noindent
 \textbf{Theorem}\quad
-{\sl
+{\it
 Let $\pi : X \to B$ be a family of compact complex manifolds over a compact base
 $B$.
 Suppose there exists a Hermitian form $h_{X/B}$ on $X$ whose restriction to any
@@ -1207,12 +1230,13 @@ we get an orthogonal splitting
 x \mapsto \Bigl(x - p(x) \frac{1}{|v|} v\Bigr) \oplus p(x) \frac{1}{|v|}v.
 \]
 Let $x \in S^{n-1}$, so
-\[
+\begin{align*}
 \Bigl|x - p(x)\frac{1}{|v|}v\Bigr|^2
-= |x|^2 - 2 \frac{p(x)}{|v|} \langle x, v \rangle + \frac{p(x)^2}{|v|^2} |v|^2
-= 1 - 2 \frac{\langle x, v \rangle^2}{|v|^2} + \frac{\langle x, v \rangle^2}{|v|^2}
+&= |x|^2 - 2 \frac{p(x)}{|v|} \langle x, v \rangle + \frac{p(x)^2}{|v|^2} |v|^2
+\\
+&= 1 - 2 \frac{\langle x, v \rangle^2}{|v|^2} + \frac{\langle x, v \rangle^2}{|v|^2}
 = 1 - p(x)^2.
-\]
+\end{align*}
 The fibers of $p$ are $p^{-1}(t) = \{ x \in S^{n-1} \mid \langle x, v \rangle/|v| = t \}$, and on them we have
 \[
 \Bigl|x-p(x)\frac{1}{|v|}v\Bigr|^2
@@ -1276,7 +1300,8 @@ where $x \in S^{n-1}$ and $dV$ is the volume element on $\kk R^n$. Then
 \iota_{\alpha(x)} d\sigma(x)
 = j^*(\iota_{v/|v|} \iota_x dV)
 \]
-because of anticommutativity of volume elements. We can pick the $x_1,\ldots,x_{n-2}$ to be orthogonal to $x$; then
+because of anticommutativity of volume elements.
+We can pick $x_1,\ldots,x_{n-2}$ to be orthogonal to $x$; then
 \[
 \sigma_{n-1}(x_1,\ldots,x_{n-2},\alpha)
 = \Vol(x_1,\ldots,x_{n-2},v/|v|,x),
@@ -1309,7 +1334,10 @@ Then $x - x'$ is orthogonal to all of the $v_j$ because $\langle x - x', v_j \ra
 \[
 x = \sum_{j=1}^{n-2} \langle x, v_j \rangle v_j + (x - x')
 \]
-is the orthogonal projection of $x$ onto the hyperplane spanned by $v_1,\ldots,v_{n-1}$. Let $v_n$ be orthogonal to all of the $v_j$ and of norm $1$, so $x - x' = \langle x - x', v_n \rangle v_n$. Then
+is the orthogonal projection of $x$ onto the hyperplane spanned by
+the elements $v_1,\ldots,v_{n-1}$.
+Let $v_n$ be orthogonal to all of the $v_j$ and of norm
+$1$, so $x - x' = \langle x - x', v_n \rangle v_n$. Then
 \[
 \det(v_1,\ldots,v_{n-1}, x)
 = \det(v_1,\ldots,v_{n-1}, \langle x, v_n \rangle v_n)
@@ -1356,7 +1384,8 @@ is a linear polynomial that satisfies $p(0) > 0$ and $p(1) > 0$, so $p(t) > 0$ f
 
 
 
-I'd like to see a result where we can prove positive-definiteness by bounding a kernel between functions that are positive-definite.
+I'd like to see a result where we can prove positive-definiteness by sandwiching a
+kernel between functions that are positive-definite.
 
 \begin{prop}
 Let $K_1, K_2, K_3 : V \times V \to \kk R$ be continuous symmetric functions. Suppose $K_1$ and $K_3$ are positive-definite and that $K_1 \leq K_2 \leq K_3$. Then $K_2$ is positive-definite.
@@ -1464,7 +1493,9 @@ V \oplus V^* \to (V \oplus V^*)^* = V^* \oplus V,
 \quad
 (x, \alpha) \mapsto (\alpha, x)
 \]
-yields the same bilinear form (up to a constant). This bilinear form is nondegenerate. Over $\kk R$ or $\kk C$ it is of mixed signature (if $q(x,\alpha) > 0$ then $q(-x,\alpha) < 0$).
+yields the same bilinear form (up to a constant). This bilinear form is
+nondegenerate. Over $\kk R$ or $\kk C$ it is of mixed signature (if
+$q(x,\alpha)$ is positive then $q(-x,\alpha)$ is negative).
 
 If $(v_1, \ldots, v_n)$ is a basis of $V$, the matrix of this bilinear form is
 \[
