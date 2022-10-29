@@ -47,8 +47,8 @@
 
 \def\snd{\sigma}
 
-\def\kahler{complex Riemannian}
-\def\kahlerEinstein{complex Riemann--Einstein}
+\def\kahler{K\"ahler}
+\def\kahlerEinstein{\kahler--Einstein}
 
 \newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
 
@@ -157,9 +157,9 @@ results for our work on connections and curvature.
 
 We prove all our results using the connection formulation of complex
 differential geometry (versus the local coordinate or moving frame
-formulations). While this connection approach is common in modern Riemannian
-geometry, complex geometers seem to prefer the older index-heavy ways. We
-hope this note also serves as an advertisement for the merits of the connection
+formulations). The connection approach is common in modern Riemannian geometry,
+while complex geometers often prefer the older index-heavy formulations. We hope
+this note also serves as an advertisement for the merits of the connection
 approach.
 
 There is some prior art on degenerate metrics in Riemannian geometry; see for example \cite{bel1975degenerate,stoica2011cartan,stoica2014singular}.
@@ -193,17 +193,7 @@ additivity property of total Chern classes on the short exact sequence we began
 \begin{exam}
 Even when a form is non-degenerate, having a Chern connection and curvature
 form just doesn't let us say very much: Let $\pi : X \to S$ be a family of
-compact \kahler\footnote{In this note we use ``\kahler{}'' for what
-are usually called ``K\"ahler'' objects in the literature.
-\href{https://en.wikipedia.org/wiki/Erich_Kähler}{Wikipedia} has this to say about Erich K\"ahler:
-``In the years leading up to World War II Kähler was a supporter of Hitler and
-of German nationalism...
-[K\"ahler] reported that his oath to Hitler (as a civil servant) was important
-to him, and remained an apologist for the Third Reich decades later''.
-I don't want to carry the names of Third Reich apologists into the
-future, and thus propose this name change.
-}
-manifolds of dimension $2n$ over a smooth base $S$.
+compact \kahler{} manifolds of dimension $2n$ over a smooth base $S$.
 Let $E \to S$ be the holomorphic vector bundle whose sheaf of sections is
 $\mathcal R^{n}\pi_{*}\mathbb C \otimes \mathcal O_{S}$ and whose fiber over a
 point $s$ is $E_{s} = H^{n}(X_{s}, \mathbb C)$. This vector bundle admits a
@@ -237,8 +227,15 @@ defines a Hermitian form on $E \otimes T_{X}$ that is usually not positive-defin
 
 
 
-All vector spaces are finite-dimensional and over the complex numbers. Let $V$ be a vector space and let $b$ be a Hermitian form on $V$. We want to study the geometry of the pair $(V,b)$.\footnote{Everything we say also applies to symmetric bilinear forms on finite-dimensional vector spaces over arbitrary fields. The reader who is interested in those can mentally erase all the conjugations of vectors or spaces.}
-Our objective is to establish a version of the Codazzi--Griffiths equations for sub- and quotient bundles of a holomorphic vector bundle, so the main questions we want to answer here are:
+All vector spaces are finite-dimensional and over the complex numbers. Let $V$
+be a vector space and let $b$ be a Hermitian form on $V$. We want to study the
+geometry of the pair $(V,b)$.\footnote{Everything here also applies to
+symmetric bilinear forms on finite-dimensional vector spaces over arbitrary
+fields; just erase all the conjugations of vectors or spaces.}
+Our objective is to establish a version of the Codazzi--Griffiths equations for
+sub- and quotient bundles of a holomorphic vector bundle, so the main questions
+we want to answer here are:
+
 \begin{itemize}
 \item
 When does an adjoint of a linear morphism exist?
@@ -422,41 +419,39 @@ S^\perp = \{ v \in V \mid b(v, \ov w) = 0 \text{ for all $w \in S$}\}.
 The orthogonal complement of a subspace is clearly again a subspace.
 
 \begin{prop}
-\[
-\Ker b \subset S^\perp.
-\]
+Let $S \subset V$ be a subspace, let $q : V \to V / \Ker b$ be the quotient and
+let $\hat b$ be the induced nondegenerate form on $V / \Ker b$.
+Then
+\begin{align}
+\label{eq:on}
+\Ker b &\subset S^\perp
+\\
+\label{eq:tw}
+q(S^\perp) &= q(S)^\perp
+\\
+\label{eq:th}
+S + S^\perp &= V
+\\
+\label{eq:fo}
+S \cap S^\perp &= S \cap \Ker b
+\end{align}
+where the orthogonal complement on the right-hand side in \eqref{eq:tw} is with respect to $\hat b$.
 \end{prop}
 
 \begin{proof}
+\eqref{eq:on}\quad
 Let $v \in \Ker b$. Then $b(v, \ov w) = 0$ for all $w \in S$.
-\end{proof}
 
+\eqref{eq:tw}\quad
+Let $v \in S^\perp$, so $b(v, \ov w) = 0$ for all $w \in S$. Then $\hat b(qv,
+\ov{qw}) = 0$ for all $w \in S$, which means that $\hat b(qv, \ov w) = 0$ for
+all $w \in q(S)$, so $qv \in q(S)^\perp$.
 
-As before we have the quotient space $q : V \to V / \Ker b$, and the induced non-degenerate form $\hat b$ on $V / \Ker b$.
+Suppose then that $v \in q(S)^\perp$, so $\hat b(v, \ov w) = 0$ for all $w \in
+q(S)$. If $x \in V$ is such that $qx = v$, then this means that $b(x, \ov w) =
+0$ for all $w \in S$. Then $x \in S^\perp$, so $qx \in q(S^\perp)$.
 
-\begin{prop}
-Let $S \subset V$. Then
-\[
-q(S^\perp) = q(S)^\perp,
-\]
-where the orthogonal complement on the right-hand side is with respect to $\hat b$.
-\end{prop}
-
-\begin{proof}
-Let $v \in S^\perp$, so $b(v, \ov w) = 0$ for all $w \in S$. Then $\hat b(qv, \ov{qw}) = 0$ for all $w \in S$, which means that $\hat b(qv, \ov w) = 0$ for all $w \in q(S)$, so $qv \in q(S)^\perp$.
-
-Suppose then that $v \in q(S)^\perp$, so $\hat b(v, \ov w) = 0$ for all $w \in q(S)$. If $x \in V$ is such that $qx = v$, then this means that $b(x, \ov w) = 0$ for all $w \in S$. Then $x \in S^\perp$, so $qx \in q(S^\perp)$.
-\end{proof}
-
-
-
-\begin{prop}
-\[
-S + S^\perp = V.
-\]
-\end{prop}
-
-\begin{proof}
+\eqref{eq:th}\quad
 We have
 \[
 q(S + S^\perp)
@@ -465,18 +460,8 @@ q(S + S^\perp)
 = V / \Ker b
 \]
 as $\hat q$ is non-degenerate. As $q$ is surjective, this implies the result.
-\end{proof}
 
-
-
-
-\begin{prop}
-\[
-S \cap S^\perp = S \cap \Ker b.
-\]
-\end{prop}
-
-\begin{proof}
+\eqref{eq:fo}\quad
 We have
 \[
 q(S \cap S^\perp)
@@ -805,12 +790,17 @@ Let $b$ be a Hermitian form on $E$ with a Chern connection $D$.
 Then $f^{*}D$ is a Chern connection of $f^{*}b$ on $f^{*}E \to X$.
 \end{prop}
 
+% NOTE: This doesn't contradict Griffith's theorem on the curvature of
+% submanifolds because if j : Y \to X is an embedding this only calculates
+% the curvature of j^*T_X \not= T_Y.
+
 \begin{proof}
-If $s$ and $t$ are holomorphic sections of $E$ and $\xi$ a tangent vector at a point on $X$ we have
+If $s$ and $t$ are holomorphic sections of $E$ and $\xi$ a tangent vector at a
+point on $X$ we have
 \[
 \partial_{\xi} f^{*} b(f^{*}s, \overline{f^{*}t})
-= f^{*}(\partial_{f_{*}\xi} b(s, \overline t))
-= f^{*}(b(D_{f_{*}\xi}s, \overline{t}))
+= \partial_{f_{*}\xi} b(s, \overline t)
+= b(D_{f_{*}\xi}s, \overline{t})
 = f^{*}b(f^{*}D_{\xi} f^{*}s, \overline{f^{*}t}).
 \]
 As $f^{*}E$ is generated by sections of the form $f^{*}s$, this completes the proof.
@@ -1307,12 +1297,22 @@ q(x) = (h^{-1}b_{2})^{*}b_{1}(x) = b_{1}(x) = 0.
 \end{proof}
 
 We can now deal with $T_{X/B}$, where $\pi^*R_B = 0$.
-Let $(x,b)$ be a point in $X$, so that $x \in X_b$.
-There exists a local normal frame of $T_{X_b}$ for $h_{X/B,b}$ centered at $x$.
-In this frame, we have $D_{X/B} - \pi^* D_B = 0$ at $x$.
-The only part of our curvature tensor that survives at $x$ is thus
-$R_\lambda = R_{X/B}$,
-which is positive, so $R_\lambda$ is positive on $T_{X/B}$.
+Let $(x,b)$ be a point in $X$, so that $x \in X_b$, and let $\xi$ be a
+holomorphic section of $T_{X/B}$ on a neighborhood around $(x,b)$.
+There exists a local normal frame of $T_{X_b}$ for $h_{X/B,b}$ centered at $x$
+such that $\xi(x,b)$ is a multiple of one of the frame elements.
+We extend this frame to a local holomorphic frame of $T_X$ around $(x,b)$.
+At the center of this frame we then have
+\[
+D_{X/B, \xi} \xi - \pi^* D_{B, \xi} \xi = 0
+\]
+because of the normal frame on the left and that $\xi \in \Ker \pi_*$ on the right.
+Then
+\[
+R_\lambda(\xi,\ov\xi,\xi,\ov\xi)
+= R_{X/B}(\xi,\ov\xi,\xi,\ov\xi)
+> 0.
+\]
 
 Next we'll consider what happens on the rest of $T_{X}$.
 As we don't know what $R_{X/B}$ does there, we have to increase the contribution of $\pi^{*}R_{B}$ and try to control the ``quotient'' form.
@@ -1347,10 +1347,6 @@ as $\lambda \to \infty$.
 The form this defines is semipositive on $V$ and positive-definite on~$S$.%
 \end{proof}
 
-The limit form looks like $(j j^{\dagger})^{*}b_{1}$, where $j^{\dagger}$ is
-the adjoint of $j$ with respect to $h$. There's probably an invariant proof of
-this somewhere, but we don't need it.
-
 Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
 $S(T_X) \subset T_X$ to test positivity on.
 Let
@@ -1364,7 +1360,7 @@ m_\infty &=
 - (D_{X/B} - \pi^* D_{B})^* q_{\infty}
 \end{align*}
 As $S(T_X)$ is compact, the infimum $m_\infty$ is attained at a point $v$.
-If $v \in \Ker \pi^*$, then we're done as we know that $R_{X/B}$ is positive
+If $v \in \Ker \pi_*$, then we're done as we know that $R_{X/B}$ is positive
 there.
 Otherwise $\pi^*(v) \not= 0$, so $m_2 := \pi^*R_B(v, \bar v, v, \bar v) > 0$.
 We then pick $\lambda_0$ big enough so that $m_\infty + e^{\lambda_0} m_2 > 0$.
@@ -1520,7 +1516,7 @@ If the metric on $X$ was \kahler{}, then the metric on the blow-up will be \kahl
 
 \begin{proof}
 We denote the blow-up of $X$ along $Y$ by $\mu : \hat X \to X$.
-We write $E = \mu^{-1}(Y)$ for the exceptional divisor and recall that the blow-up identifies with the projective bundle $\kk P(N_{Y/X}) \to Y$ over $E$.
+We write $E = \mu^{-1}(Y)$ for the exceptional divisor.
 
 Let $h_{X}$ be a positively curved metric on $X$.
 The standard construction of a \kahler{} metric on $\hat X$ \cite[Proposition~3.24]{voisin2002theorie} shows that there exists a smooth Hermitian form $h_{E}$ on $\hat X$ whose \kahler{} form is closed and whose restriction to any fiber of $T_{\kk P(N_{Y/X})/Y}$ is the usual Fubini--Study metric.
@@ -1533,10 +1529,35 @@ Its curvature tensor is
 \]
 where $q$ is the ``quotient'' form and $\sigma$ is the second fundamental form of the sum.
 As in Lemma~\ref{lemm:limit-form} before we know that $q_{\lambda}$ tends to a Hermitian form $q_{\infty}$ as $\lambda \to \infty$.
-By  the proof of Theorem~\ref{thm:holomorphic-sectional-positive} we know that $h_{\lambda}$ will eventually have positive holomorphic sectional curvature at any unit-length tangent vector $\xi$ for which $\mu_{*}\xi \not= 0$.
+By  the proof of Theorem~\ref{thm:holomorphic-sectional-positive} we know that
+$h_{\lambda}$ will eventually have positive holomorphic sectional curvature at
+any unit-length tangent vector $\xi$ for which $\mu_{*}\xi \not= 0$.
 
-Now, the kernel of $\mu_{*}$ is exactly the relative tangent bundle $T_{\kk P(N_{Y/X})/Y}$ over the exceptional divisor.
-Given a nonzero tangent vector $\xi$ in it, we can find a local orthonormal frame of the relevant fiber of $\kk P(N_{Y/X})$ such that $\xi$ is a multiple of one of the frame elements.
+Outside of $E$ the map $\mu : \hat X \to X$ is an isomorphism, so $\Ker \mu_* = 0$ there.
+Over $E$ we have a short exact sequence
+\[
+0 \longrightarrow
+T_E \longrightarrow
+T_{\hat X} \longrightarrow
+N_{E/\hat X} \longrightarrow
+0
+\]
+and $\mu^*h_X$ is nonzero on $N_{E/\hat X}$.
+The exceptional divisor identifies with the total space of the projective
+bundle $\mu : \kk P(N_{Y/X}) \to Y$, so we have an exact sequence
+\[
+0 \longrightarrow
+T_{\kk P(N_{Y/X})/Y} \longrightarrow
+T_E \longrightarrow
+\mu^* T_Y \longrightarrow
+0
+\]
+and the kernel of $\mu_{*}$ is exactly the relative tangent bundle $T_{\kk
+P(N_{Y/X})/Y}$ over $E$.
+
+Given a nonzero tangent vector $\xi$ in $T_{\kk P(N_{Y/X})/Y}$, we can find a
+local orthonormal frame of the relevant fiber of $\kk P(N_{Y/X})$ such that
+$\xi$ is a multiple of one of the frame elements.
 As in the proof of Theorem~\ref{thm:holomorphic-sectional-positive} this implies that $\sigma^{*}q_{\lambda}(\xi, \ov\xi, \xi, \ov\xi) = 0$ at the center of the frame, where we then have
 $R_{\lambda}(\xi,\ov\xi,\xi,\ov\xi) = R_{E}(\xi,\ov\xi,\xi,\ov\xi) > 0$.
 We conclude as before by compactness of the sphere bundle and by taking $\lambda$ large enough.
