@@ -55,6 +55,56 @@
 
 \maketitle
 
+\section{30. October 2022}
+
+Wu \cite{wu1973remark} proved that if $g$ and $h$ are Hermitian metrics on a
+complex manifold and their holomorphic sectional curvatures satisfy $H_g \leq
+-K_g < 0$ and $H_h \leq -K_h < $ then the holomorphic sectional curvature of
+their sum satisfies
+\[
+H_{g + h} \leq \frac{-K_g K_h}{K_g + K_h} < 0.
+\]
+He does this by proving that the holomorphic sectional curvature in the
+direction of a tangent field $\xi$ at $p$ can be characterized as the maximum
+of curvatures at the center of analytic disks $\gamma : D \to X$ such that
+$\gamma(0) = p$ and $\gamma'(0) = \xi$ and then invoking the same theorem in
+dimension 1, which had been proven by Grauert and Reckziegel.
+
+We know that
+\[
+R_{g + h} = R_g + R_h - \sigma^* q
+\]
+and that $q$ is positive-definite.
+Then
+\[
+H_{g+h}(\xi)
+\leq \frac{H_g(\xi) |\xi|^4_g + H_h(\xi) |\xi|^4_h}{|\xi|^4_{g + h}}
+= \frac{H_g(\xi) |\xi|^4_g + H_h(\xi) |\xi|^4_h}{(|\xi|^2_{g} + |\xi|^2_h)^2}.
+\]
+Thus $H_{g + h} \leq 0$ if $H_g \leq 0$ and $H_h \leq 0$.
+
+As Wu notes,
+for any positive real numbers $a, b, x, y$ we have
+\[
+\frac{xy}{x + y} \leq \frac{a^2 x + b^2 y}{(a + b)^2}
+\]
+by elementary algebra.
+The inequality is reversed if $x$ and $y$ are negative.
+If the holomorphic sectional curvatures of $g$ and $h$ are negative we thus get
+\[
+H_{g + h} \leq \frac{H_g H_h}{H_g + H_h} < 0.
+\]
+
+For positively curved metrics we get
+\[
+H_{g + h}(\xi)
+\geq \frac{H_g H_h}{H_g + H_h}
+- \frac{|D_{g,\xi}\xi - D_{h,\xi}\xi|^2_q}
+{(|\xi|_g^2 + |\xi|_h^2)^2}.
+\]
+Can we set $g = \lambda g$ and take a limit as $\lambda \to \infty$? We have
+$q_\lambda \to g$ as $\lambda \to \infty$ so the negative term tends to zero and the positive term tends to $H_g > 0$.
+
 \section{26. October 2022}
 
 Let $\pi : X \to B$ be a projective bundle over a compact base.
@@ -1778,6 +1828,8 @@ C(2p,2n-2p,2n) \leq \sqrt{\tbinom {2n-2p}{2p}},
 which goes to infinity as \(n\) grows.
 
 
+\bibliographystyle{alpha}
+\bibliography{main}
 
 
 \end{document}
