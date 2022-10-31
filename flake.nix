@@ -33,6 +33,10 @@
           inherit self tex mkDerivation;
           name = "sgct";
         };
+        wu = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "remark-on-wu";
+        };
       in {
         packages.default = journal;
 
@@ -41,6 +45,7 @@
         packages.kodaira-embedding = kodaira-embedding;
         packages.nakano-positive = nakano-positive;
         packages.sgct = sgct;
+        packages.wu = wu;
 
         devShell = pkgs.mkShell { buildInputs = [ tex pkgs.zathura ]; };
       });
