@@ -74,6 +74,139 @@ Can we calculate $\partial \bar\partial \log |\xi|^2$? Anything there?
 What's the Chern connection of $q$?
 
 
+Here we go again:
+\begin{align*}
+\partial \bar\partial \log |\xi|^2
+= \partial \frac{h(\xi, \ov{D\xi})}{|\xi|^2}
+&= \frac{h(\xi, \ov{F\xi})}{|\xi|^2}
++ \frac{h(D\xi, \ov{\xi})}{|\xi|^2} \wedge \frac{h(\xi, \ov{D\xi})}{|\xi|^2}
+\\
+&= - \frac{h(F\xi, \ov{\xi})}{|\xi|^2}
++ \frac{h(D\xi, \ov{\xi})}{|\xi|^2} \wedge \frac{h(\xi, \ov{D\xi})}{|\xi|^2},
+\end{align*}
+so (one day I really have to figure out how these signs work out)
+\[
+\frac i2 \partial_{\xi} \bar\partial_{\ov\xi} \log|\xi|^2
+= - H(\xi) |\xi|^2 + \frac{1}{|\xi|^4} \bigl| h(D_\xi \xi, \ov\xi) \bigr|^2.
+\]
+So at the center of a normal coordinate system where one of the tangent fields
+at the origin is $\xi$ we get
+\[
+\frac i2 \partial_{\xi} \bar\partial_{\ov\xi} \log|\xi|^2
+= - H(\xi) |\xi|^2.
+\]
+Likewise we should be able to arrange things so that
+\[
+\Delta \log |\xi|^2 = - \frac{\operatorname{Ric}(\xi, \ov\xi)}{|\xi|^2}
+\]
+at the center of a normal coordinate system, which is probably just Bochner.
+
+
+Anyway.
+Look at $b := (g+h)^{-1}g^*h$.
+We have
+$$
+b(\xi,\ov\eta) = h((g+h)^{-1}g(\xi), \ov{(g+h)^{-1}g(\eta)}).
+$$
+Then
+$$
+\displaylines{
+\partial b(\xi,\ov\eta)
+= \partial h((g+h)^{-1}g(\xi), \ov{(g+h)^{-1}g(\eta)})
+\hfill\cr\hfill{}
+= h(D_h' (g+h)^{-1}g(\xi), \ov{(g+h)^{-1}g(\eta)})
++ h((g+h)^{-1}g(\xi), \ov{\bar\partial (g+h)^{-1}g(\eta)}).
+}
+$$
+Now
+$$
+\displaylines{
+D_h'(g+h)^{-1}g(\xi)
+= -(g+h)^{-1}(D_h' g + D'_h h) (g+h)^{-1} g(\xi)
+\hfill\cr\hfill{}
++ (g+h)^{-1} (D'_h g) (\xi)
++ (g+h)^{-1} g (D'_h \xi).
+}
+$$
+We have $D_h h = 0$, and
+$$
+\displaylines{
+-(g+h)^{-1}(D'_h g) (g+h)^{-1} g
++ (g+h)^{-1} (D'_h g)
+\hfill\cr{}
+\qquad
+= -(g+h)^{-1}(D'_h g) (g+h)^{-1} g
++ (g+h)^{-1} (D'_h g) (g+h)^{-1} (g + h)
+\hfill
+\cr{}
+\qquad
+= (g+h)^{-1} (D'_h g) (g+h)^{-1} h .
+\hfill
+}
+$$
+So
+$$
+\partial b(\xi, \ov\eta)
+= b((g^{-1} (D_h g) (g+h)^{-1} h) \xi, \ov\eta)
++ b(D_h \xi, \ov\eta)
+$$
+(I think, I haven't accounted for the $\bar\partial$).
+Now do the same with $(g+h)^{-1}h^*g$ and add up.
+
+This might be slightly crazy.
+Griffiths tells you how to calculate $D_{g+h}$ and $D_q$ from $D_g \oplus D_h$
+and the second fundamental form. Why not do that?
+In fact
+$$
+D_{g + h, \xi} s
+= j^\dagger (D_{g, \xi} s \oplus D_{h, \xi} s)
+= (g+h)^{-1}(g(D_{g, \xi} s) + h(D_{h, \xi} s)).
+$$
+Then $D_q s = \pi(D_{g} \oplus D_h (\pi^\dagger s))$, which is something.
+
+
+Anyway.
+As usual $0 \to S \to E \to Q \to 0$.
+We have $D_S s = j^\dagger D_E(js)$.
+Then
+\begin{align*}
+D^2_S s = j^\dagger D_E(j j^\dagger D_E (js))
+&= j^\dagger D_E(D_E(js) - q^\dagger q D_E(js))
+\\
+&= j^\dagger D^2_E(js) - j^\dagger D_E( q^\dagger \sigma(s))
+\\
+&= j^\dagger D^2_E(js) - j^\dagger (D q^\dagger) \wedge \sigma(s)
+\\
+&= j^\dagger D^2_E(js) + \sigma^\dagger \wedge \sigma(s)
+\end{align*}
+because $j^\dagger q^\dagger = 0$ and $D q^\dagger = -j \sigma^\dagger$.
+
+
+The form $\sigma$ is made up of pieces of the form $f \otimes \alpha$, where
+$\alpha$ is a $(1,0)$-form, and $\sigma^\dagger$ of ones of the form $g^\dagger
+\otimes \ov\beta$, where $\beta$ is a $(1,0)$-form. Then
+$$
+\tfrac i2 \sigma^\dagger \wedge \sigma
+= \tfrac i2 g^\dagger \otimes \ov\beta \wedge f \otimes \alpha
+= - g^\dagger f \otimes \tfrac i2 \alpha \wedge \ov\beta.
+$$
+Evaluating this at tangent fields $\xi, \eta$ and sections $s,t$ we get
+\begin{align*}
+\langle \tfrac i2 \sigma^\dagger \wedge \sigma(\xi, \ov\eta) s, \ov t \rangle
+&= -\langle g^\dagger f s \cdot \alpha(\xi) \ov{\beta(\eta)}  , \ov t \rangle
+\\
+&= - \langle \alpha(\xi) fs, \ov{\beta(\eta) g t} \rangle
+= - \langle \sigma(\xi) s, \ov{\sigma(\eta) t} \rangle.
+\end{align*}
+Thus
+$$
+R_S = j^*R_E - \sigma^* h_Q.
+$$
+
+Is this correct? Is $\alpha \wedge \ov\beta(\xi, \ov\eta) = \alpha(\xi)
+\ov{\beta(\eta)}$? Or is it the imaginary part of that?
+
+
 
 \section{30. October 2022}
 
