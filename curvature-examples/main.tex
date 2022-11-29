@@ -1,0 +1,741 @@
+%\documentclass[10pt,a4paper]{smfart}
+\documentclass[10pt,a4paper]{amsart}
+
+\usepackage{lmodern}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{fancyref}
+\usepackage[colorlinks=true]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz-cd}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{exam}[theo]{Example}
+
+\def\ov#1{\overline{#1}}
+\def\qandq{\quad\text{and}\quad}
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\End}{End}
+
+\author{Gunnar \TH\'or Magn\'usson}
+\address{Hafnarfjörður, Iceland}
+\email{gunnar@magnusson.io}
+\date{\today}
+\title{Examples of K\"ahler curvature tensors}
+
+\begin{document}
+
+\begin{abstract}
+We work out examples that show which folklore implications between
+positivity of the various curvature tensors of K\"ahler metrics hold.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+It is well-known that the curvature properties of K\"ahler metrics ``flow
+downward''.
+To give meaning to this statement,
+let us say that a tensor $\alpha$ \emph{dominates} a tensor $\beta$
+if any of the following implications hold:
+\begin{align*}
+\alpha > 0 &\implies \beta > 0,
+&
+\alpha &\geq 0 \implies \beta \geq 0,
+\\
+\alpha < 0 &\implies \beta < 0,
+&
+\alpha &\leq 0 \implies \beta \leq 0.
+\end{align*}
+Strictly speaking we need to specify what it means for a tensor to be
+``positive'' or ``negative'' for this to make sense.
+This is fairly clear for the tensors we'll discuss here, except for the
+K\"ahler curvature tensor itself which we mean to be Griffiths positive (or
+negative).
+
+This is an equivalence relation on tensors (where it's usually more useful to
+restrict to only one of the inequalities holding).
+If $R$ is the curvature tensor of a K\"ahler metric, its various derived
+curvature tensors are the holomorphic sectional curvature $H$, the Ricci
+tensor $r$ and the scalar curvature~$s$.
+Then
+$$
+\begin{tikzcd}
+& R \ar[dl] \ar[dr] &
+\\
+H \ar[dr] & & r \ar[dl]
+\\
+& s &
+\end{tikzcd}
+$$
+where an arrow $\alpha \to \beta$ means that $\alpha$ dominates $\beta$.
+
+The witches of the field know that neither $H$ nor $r$ dominates the other.
+The best evidence for this seems to be indirect.
+We for example know that Hirzebruch surfaces (surfaces that are projective
+bundles over $\kk P^1$) carry metrics with positive holomorphic sectional
+curvature, but carry no metric of positive Ricci curvature as their anticanonical
+bundle is not ample.
+There are some suggestive results in the negatively curved case, though,
+where a compact K\"ahler manifold that carries a metric of negative holomorphic
+sectional curvature also carries a possibly different metric of negative Ricci
+curvature.
+Could it be the same metric?
+We don't know.
+Wouldn't it be nice if some easy calculations said it was?
+Sure would.
+
+It is also folklore that all of the reverse relations in the diagram fail.
+Some do not hold by general considerations; for example Hirzebruch surfaces
+again carry a metric of positive holomorphic sectional curvature but not one of
+positive Griffiths curvature, for otherwise they would be $\kk P^2$ by the
+Yau's Frankel theorem and, lo, they are not.
+
+We feel like the time has come to roll up our sleeves and work out some
+examples that show explicitly what doesn't hold here.
+That is what we do in this note.
+
+
+
+\section{Algebraic curvature tensors}
+
+
+
+\subsection*{K\"ahler curvature tensors come from symmetric tensors}
+
+Let $V$ be a complex vector space of dimension $n$, which we think of as the
+tangent space of a complex manifold at a given point.
+The curvature tensor $R$ of a Hermitian metric on the manifold identifies with
+a Hermitian form $q$ on $V \otimes V$, defined by
+$$
+R(x, \ov y, z, \ov w)
+= q(x \otimes z, \ov{y \otimes w}).
+$$
+If the metric is K\"ahler we get an additional symmetry
+$R(x, \ov y, z, \ov w) = R(z, \ov y, x, \ov w)$
+(and the ones induced by conjugating).
+
+We write $B(V)$ for the real vector space of Hermitian forms on $V$.
+The curvature tensor of a Hermitian metric is then just a member of $B(V
+\otimes V)$. We call such an element an \emph{algebraic Hermitian curvature
+tensor}, and one that satisfies the additional symmetry of a K\"ahler curvature
+tensor an \emph{algebraic K\"ahler curvature tensor}.
+
+The decomposition $V \otimes V = \bigwedge^2 V \oplus \Sym^2 V$ is standard.
+It implies that a Hermitian form on $V \otimes V$ decomposes into components
+$$
+q = \begin{pmatrix}
+q_{\wedge^2 V} & q_{(\Sym^2V, \wedge^2 V)}
+\\
+q_{(\wedge^2 V, \Sym^2V)} & q_{\Sym^2 V},
+\end{pmatrix}
+$$
+where $\ov{q}_{(\wedge^2 V, \Sym^2V)}^t = q_{(\Sym^2V, \wedge^2 V)}$.
+Denote the symmetrization map by
+$$
+\pi : V \otimes V \to \Sym^2 V,
+\quad
+x \otimes y \mapsto \tfrac 12 (x \otimes y + y \otimes x).
+$$
+It is a surjective linear morphism that realizes the space of symmetric tensors
+as a subspace of $V \otimes V$.
+The usual definition of that space is as a quotient of $V \otimes V$ by the
+ideal generated by $x \otimes y - y \otimes x$.
+If we need to distinguish between the two we'll write $S^2V$ for the quotient
+space.
+As the field $\kk C$ has characteristic zero these spaces are isomorphic,
+so the difference between them isn't very important to us (for now).
+
+
+\begin{prop}
+A tensor $R \in B(V \otimes V)$ is an algebraic K\"ahler curvature tensor
+if and only if there exists an element $\hat R \in B(\Sym^2 V)$ such that $R =
+\pi^* \hat R$.
+\end{prop}
+
+\begin{proof}
+Suppose $R \in B(V \otimes V)$ is an algebraic K\"ahler curvature tensor.
+We define
+$$
+\hat R(x \odot z, \ov{y \odot w})
+= R(x, \ov y, z, \ov w),
+$$
+which is well-defined because $R$ is K\"ahler, and we have $R = \pi^* \hat R$.
+
+Conversely, let $\hat R \in B(\Sym^2 V)$, and define $R = \pi^* \hat R$.
+Then
+$$
+R(x, \ov y, z, \ov w)
+= \hat R(x \odot z, \ov{y \odot w})
+= \hat R(z \odot x, \ov{w \odot y})
+= R(z, \ov y, x, \ov w)
+$$
+is an algebraic K\"ahler curvature tensor.
+\end{proof}
+
+As an aside, this proposition explains why we only ever talk about Griffits
+positivity of K\"ahler metrics.
+A Hermitian metric is Nakano positive if its curvature tensor is
+positive-definite as a Hermitian form on $V \otimes V$.
+However, a Hermitian form that is the pullback by a morphism with nontrivial
+kernel is never positive-definite.
+Therefore a K\"ahler metric is never Nakano positive when $\pi$ is not
+injective, which happens when
+$n^2 = \dim V \otimes V > \dim \Sym^2 V = \binom {n+1}2$,
+that is, when $n > 1$.
+
+There should then be a notion of positivity for K\"ahler curvature tensors that
+interpolates between Griffiths positivity and Nakano positivity and is perhaps
+more geometrically motivated than Griffiths positivity, where we would say that
+such a tensor is positive if its Hermitian form on $\Sym^2 V$ is
+positive-definite.
+In light of Siu and Yau's Frankel theorem any compact K\"ahler manifold that
+admits a metric so positive is just projective space, so we don't need to think
+about it anymore.
+
+
+
+\subsection*{Holomorphic sectional curvature determines the whole tensor}
+
+It is well-known that the holomorphic sectional curvature of a K\"ahler metric
+determines the whole curvature tensor and that its average over the unit sphere
+is a multiple of the scalar curvature.
+The proofs of this in the litarature are somewhat mysterious;
+the first proceeds by algebraic manipulations that are not explained or
+motivated and only seem justified post-hoc by virtue of giving the right answer;
+the second is by a brute force integration that seems to imply the result is
+due to the seeming coincidence that integrating $|z_j^4|$ and $|z_j|^2 |z_k|^2$
+over the sphere gives the same result up to a factor of 2.
+We intend to show that both results flow from the same representation-theoretic
+source.
+
+
+Our starting point there involves vector-valued integration, so let's recall
+some basic facts.
+Let $V$ and $W$ be finite-dimensional complex vector spaces equipped with their
+Lebesgue measures.
+If $f : V \to W$ is a continuous function and $X \subset V$ a measurable subset
+we define $\int_X f(v) d\mu(v) \in W$ to be the vector we get after picking
+bases and integrating coordinate by coordinate.
+If $L : W \to Z$ is a linear map then $L \int_X f(v) d\mu(v) = \int_X Lf(v)
+d\mu(v)$, because that holds at every step of the definition of the integral of
+a measurable function.
+This implies the integral is well-defined, as it behaves correctly with respect
+to a change of bases.
+It also implies that if $f : V \to V$ is continuous then the trace commutes
+with the integral.
+
+Let's suppose $V$ is equipped with a Hermitian inner product $h$
+and let's write $d\mu$ for the induced volume form on the unit sphere $S(V)$ in
+$V$. For $v \in V$ we define $v \otimes v^*$ to be the linear map
+$h^*(\ov v) v = x \mapsto h(x, \ov v) v$.
+Note that if $f \in \End V$ then $f \circ v \otimes v^* = h^*(\ov v) f(v)$
+and thus $\tr(f \circ v \otimes v^*) = h(fv, \ov v)$.
+
+\begin{prop}
+\label{prop:int-id}
+On $\Sym^d V$ we have
+$$
+\int_{S(V)} (v \otimes v^*)^{d} d\mu(v)
+= \frac{\Vol(S(V))}{\binom{n+d-1}{d}} \id.
+$$
+\end{prop}
+
+\begin{proof}
+The integral is well-defined as the integrand is invariant under $S_d$.
+Let's denote the map defined by the integral by $L$.
+If $g \in \End V$ is unitary with respect to $h$ we have
+$h(g x, \ov v) = h(x, \ov{g^{-1} v})$
+and $|\!\det g| = 1$
+so the change of basis formula implies that $L g^d = g^d L$.
+As $\Sym^d V$ is an irreducible representation of the unitary group, this
+implies that $L = \lambda \id$ for some scalar $\lambda$.
+For a unit vector $v$ we have $\tr v \otimes v^* = |v|^2 = 1$
+Taking the trace we then find that $\Vol(S(V)) = \lambda \binom{n+d-1}{d}$,
+which implies the result.
+\end{proof}
+
+
+
+\begin{coro}
+\begin{align*}
+\int_{S(V)} H(v) d\sigma(v)
+&= \frac{\Vol(S(V))}{\binom{n+1}{2}} s.
+\\
+\int_{S(V)} H(v)^2 d\sigma(v)
+&= \frac{2 \Vol(S(V))}{\binom{n+1}{2}}(|R|^2 + s^2).
+\end{align*}
+\end{coro}
+
+
+\begin{proof}
+If $f \in \End \Sym^2 V$ then Proposition~\ref{prop:int-id} implies that
+$$
+\int_{S(V)} h^{\odot 2}(f(v \odot v), \ov{v \odot v}) d\sigma(v)
+= \frac{\Vol(S(V))}{\binom{n+1}{2}} \tr f.
+$$
+If $q \in B(\Sym^2)$ is the Hermitian form defined by the curvature tensor $R$,
+then applying this to $f = (h^{\odot 2})^{-1} b$ gives the first equation.
+
+The Frobenius norm of $f$ is $|R|^2 = |f|^2 = \tr(f^\dagger f)$, where
+$f^\dagger$ is the adjoint of $f$ and
+\end{proof}
+
+
+
+\begin{prop}
+If $R$ is an algebraic K\"ahler curvature tensor with $H = 0$ then $R = 0$.
+\end{prop}
+
+\begin{proof}
+If $f$ is an endomorphism of $\Sym^2 V$, then $|f|^2 = \tr f^\dagger f$.
+Then
+\begin{align*}
+\frac{\Vol(S(V))}{\binom{n+1}{2}} |f|^2
+&= \int_{S(V)} h(f^\dagger f(x \odot x), \ov{x \odot x}) d\sigma
+\\
+&= \int_{S(V)} h(f(x \odot x), \ov{f(x \odot x)}) d\sigma
+= \int_{S(V)} |f(x \odot x)|^2 d\sigma.
+\end{align*}
+If $q$ is the Hermitian form that $R$ defines on $\Sym^2 V$ we set $f =
+h^{-1}q$. Then $|f|^2 = |q|^2$ and
+\[
+\frac{\Vol(S(V))}{\binom{n+1}{2}} |q|^2
+= \int_{S(V)} |q(x \odot x, x \odot x)|^2 d\sigma
+= \int_{S(V)} |H(x)|^2 d\sigma.
+\qedhere
+\]
+\end{proof}
+
+
+
+\subsection*{Dominance}
+
+
+\begin{prop}
+If $R$ is an algebraic K\"ahler curvature tensor, then
+$$
+\begin{tikzcd}
+& R \ar[dl] \ar[dr] &
+\\
+H \ar[dr] & & r \ar[dl]
+\\
+& s &
+\end{tikzcd}
+$$
+\end{prop}
+
+\begin{proof}
+We prove the statements under the assumption that the tensors are positive.
+The proofs for semipositivity and (semi)negativity are the same.
+
+If $R$ is Griffiths positive, then by definition $R(x, \ov x, y, \ov y) > 0$
+for all nonzero $x, y$. Then $R(x, \ov x, x, \ov x) > 0$ so $H(x) > 0$.
+The Ricci tensor is the trace
+$$
+r(x, \ov y) = \sum_{j = 1}^n R(x, \ov y, e_j, \ov e_j)
+$$
+in an orthonormal basis $(e_j)$, so it is positive-definite if $R$ is Griffiths
+positive.
+
+The scalar curvature is the trace
+$$
+s = \sum_{j=1}^n r(e_j, \ov e_j)
+$$
+in an orthonormal basis, so it is positive if $r$ is positive.
+
+Suppose finally that $H > 0$.
+If $q$ is the Hermitian form that $R$ defines on $\Sym^2 V$, then
+\[
+\frac{\Vol(S(V))}{\binom{n+1}{2}} s
+= \int_{S(V)} q(x \odot x, \ov{x \odot x}) d\sigma
+= \int_{S(V)} H(x) d\sigma.
+\qedhere
+\]
+\end{proof}
+
+
+
+\section{Examples in dimension two}
+
+Now define
+\begin{align*}
+\cc H(V)
+&= \{ \text{germs of smooth Hermitian metrics on $V$ at $0$} \},
+\\
+\cc K(V)
+&= \{ \text{germs of smooth K\"ahler metrics on $V$ at $0$} \}.
+\end{align*}
+We just write $\cc H$ if $V$ is clear from context and will usually mean $V =
+\kk C^n$. Note that $\cc K$ and $\cc H$ are only convex open cones in real
+vector spaces and not full subspaces.
+Evaluating the curvature tensor of a metric at $0$ defines nonlinear maps and a
+commutative diagram
+$$
+\begin{tikzcd}
+\cc K \ar[d] \ar[r,"\cc R"] & B(\operatorname{Sym}^2 \kk C^n)\ar[d,"\pi^*"]
+\\
+\cc H \ar[r, "\cc R"] & B(\kk C^n \otimes \kk C^n).
+\end{tikzcd}
+$$
+Both vertical arrows are of course injective.
+The horizonal arrows are neither injective nor surjective in general.
+
+
+Let $H$ be the matrix of a Hermitian metric $h$ in a neighborhood around $0$ in
+$V$. The Chern connection of $h$ is given by $D^{1,0} = H^{-1}\partial H$ and its
+curvature form is
+$$
+F = \tfrac i2 \bar\partial(H^{-1}\partial H)
+= - \tfrac i2 H^{-1} \bar\partial H \wedge H^{-1} \partial H
+- \tfrac i2 H^{-1} \partial \bar\partial H.
+$$
+The curvature tensor is then $R(x,\ov y, z, \ov w) = h(F(x, \ov y) z, \ov w)$.
+
+We can pick coordinates such that $H = I_n$ at $0$.
+If $h$ is K\"ahler we can further get $\partial H = 0$ at $0$.
+We will strive to do this.
+
+We now restrict to $V = \kk C^2$.
+
+\begin{prop}
+The image of $\cc K(\kk C^2)$ in $B(\Sym^2 \kk C^2)$ is
+$$
+\left\{
+\begin{pmatrix}
+a & b & c
+\\
+\ov b & c & e
+\\
+c & \ov e & f
+\end{pmatrix}
+\biggm|
+\text{$a, c, f \in \kk R$, $b, e \in \kk C$}
+\right\}.
+$$
+\end{prop}
+
+
+\begin{proof}
+If $h$ is a Hermitian metric on a neighborhood of $0$ in $\kk C^2$
+we can write it in matrix form as
+$$
+H = \begin{pmatrix}
+a & c
+\\
+\ov c & b
+\end{pmatrix}.
+$$
+After a change of coordinates, we can assume that $H(0) = I_2$.
+Assuming $h$ is K\"ahler we can also arrange that $\partial H(0) = 0$.
+Then the matrix of the curvature tensor in the basis
+\def\tg#1#2{\frac{\partial}{\partial #1} \otimes \frac{\partial}{\partial #2}}
+$(\tg zz, \tg zw, \tg wz, \tg ww)$
+is
+$$
+R = \begin{pmatrix}
+a_{z \ov z} & \ov c_{z \ov z} & a_{z \ov w} & \ov c_{z \ov w}
+\\
+c_{z \ov z} & b_{z \ov z} & c_{z \ov w} & b_{z \ov w}
+\\
+a_{w \ov z} & \ov c_{w \ov z} & a_{w \ov w} & \ov c_{w \ov w}
+\\
+c_{w \ov z} & b_{w \ov z} & c_{w \ov w} & b_{w \ov w}
+\end{pmatrix}.
+$$
+We've written, for example, $a_{z \ov w}$ instead of $\frac{\partial^2 a}{\partial z \partial \ov w}$.
+The metric $h$ is K\"ahler, so we have
+$$
+a_w = c_{z},
+\quad
+a_{\ov w} = \ov c_{\ov z},
+\quad
+b_z = \ov c_w,
+\quad
+b_{\ov z} = c_{\ov w},
+$$
+and thus
+$$
+c_{z \ov z} = a_{w \ov z},
+\quad
+\ov c_{w \ov w} = b_{z \ov w},
+\quad
+c_{z \ov w} = a_{w \ov w},
+\quad
+\ov c_{w \ov z} = b_{z \ov z}
+$$
+Then we get
+$$
+R = \begin{pmatrix}
+a_{z \ov z} & a_{z \ov w} & a_{z \ov w} & a_{w \ov w}
+\\
+a_{w \ov z} & a_{w \ov w} & a_{w \ov w} & b_{z \ov w}
+\\
+a_{w \ov z} & a_{w \ov w} & a_{w \ov w} & b_{z \ov w}
+\\
+a_{w \ov w} & b_{w \ov z} & b_{w \ov z} & b_{w \ov w}
+\end{pmatrix},
+$$
+where some simplifications happen because $a$ is real so $a_{w \ov z} =
+a_{z \ov w}$ and we can ping-pong to $b_{z \ov z} = a_{w \ov w}$.
+This is the pullback of the Hermitian form
+$$
+R = \begin{pmatrix}
+a_{z \ov z} & a_{z \ov w} & a_{w \ov w}
+\\
+a_{w \ov z} & a_{w \ov w} & b_{z \ov w}
+\\
+a_{w \ov w} & b_{w \ov z} & b_{w \ov w}
+\end{pmatrix},
+$$
+on $\Sym^2 \kk C^2$, as expected.
+Note that $a_{w \ov w}$ is real, so not every Hermitian form on
+$\Sym^2 \kk C^2$ comes from a curvature tensor of a K\"ahler metric.
+(Note that $a_{w \ov w} = b_{z \ov z}$ so this matrix is more symmetric in $a$
+and $b$ than it appears.)
+
+
+We will conclude the proof by taking the above Hermitian matrix as given and
+constructing a germ of a K\"ahler metric whose curvature tensor agrees with it
+at $0$.
+Suppose we let
+$$
+f(z,w)
+= a_{z \ov z} z \bar z
++ a_{z \ov w} z \ov w
++ a_{w \ov z} w \ov z
++ a_{w \ov w} w \bar w.
+$$
+Then $f(0) = 0$ and $df(0) = 0$ and
+$$
+\operatorname{Hess} f(0)
+= \begin{pmatrix}
+a_{z \ov z} & a_{z \ov w}
+\\
+a_{w \ov z} & a_{w \ov w}
+\end{pmatrix}.
+$$
+We also let
+$$
+g(z,w)
+= a_{w \ov w} z \bar z
++ b_{z \ov w} z \ov w
++ b_{w \ov z} w \ov z
++ b_{w \ov w} w \bar w
+$$
+and
+$$
+h(z,w)
+= h_1 z \bar z
++ h_2 z \ov w
++ h_3 w \ov z
++ h_4 w \bar w.
+$$
+We want
+$$
+a_{w \ov z} \ov z + a_{w \ov w} \bar w
+= f_w = h_z
+= h_1 \ov z + h_2 \ov w,
+$$
+so we set $h_1 = a_{w \ov z}$ and $h_2 = a_{w \ov w}$.
+We also want
+$$
+a_{w \ov w} \ov z + b_{z \ov w} \ov w
+= g_z = \ov h_w
+= \ov h_2 \bar z + \ov h_4 \ov w
+$$
+so $h_4 = b_{z \ov w}$.
+Let's just take $h_3 = \ov h_4$.
+The germ of the K\"ahler metric
+$$
+h(z,w)
+= \begin{pmatrix}
+1 + f(z,w) & h(z,w)
+\\
+\ov{h(z,w)} & 1 + g(z,w)
+\end{pmatrix}
+$$
+then has the curvature tensor $R$ above.
+\end{proof}
+
+Let's look at some special cases. If the tensor looks like
+$$
+R =
+\begin{pmatrix}
+a & 0 & c
+\\
+0 & c & 0
+\\
+c & 0 & f
+\end{pmatrix}
+$$
+then
+\begin{align*}
+R(x, \ov x, x, \ov x)
+&= (a x_1^2 + c x_2^2) \ov x_1^2
++ 4 c |x_1|^2 |x_2|^2
++ (c x_1^2 + f x_2^2) \ov x_2^2
+\\
+&= a |x_1|^4 + f |x_2|^4
++ 2 c \bigl(2 |x_1|^2 |x_2|^2 + \Re(x_1^2 \ov x_2^2) \bigr)
+\\
+r(x, \ov y)
+&=
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+a + c & 0 \\ 0 & c + f
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix},
+\\
+s &= a + 2c + f,
+\end{align*}
+and the sign of $R(x, \ov x, x, \ov x)$ is the same as the sign of the
+holomorphic sectional curvature $H(x)$.
+
+For complex numbers we have $|\Re z| \leq |z|$, so we have
+\begin{align*}
+a |x_1|^4 + f |x_2|^4 + 2c |x_1|^2 |x_2|^2
+&\leq R(x, \ov x, x, \ov x)
+\\
+&\leq a |x_1|^4 + f |x_2|^4 + 6c |x_1|^2 |x_2|^2.
+\end{align*}
+If further $x = x_1 = x_2$ then
+$$
+R(x, \ov x, x, \ov x)
+= (a + 6c + f) |x|^4.
+$$
+
+\begin{exam}[$s \not\to H$]
+We can find $a, c, f$ such that $a + 2c + f > 0$ but $a + 6c + f < 0$,
+(like $a = f = 4$, $c = -3$), so the scalar curvature does not dominate
+the holomorphic sectional curvature.
+\end{exam}
+
+\begin{exam}[$s \not\to r$]
+Take $a = 4$, $f = -1$ and $c = -1$. Then $a + 2c + f = 1 > 0$ but
+$$
+r(x, \ov y) =
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+3 & 0 \\ 0 & -2
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix},
+$$
+is neither positive nor negative semidefinite, so the scalar curvature
+does not dominate the Ricci curvature.
+\end{exam}
+
+\begin{exam}[$r \not\to H$]
+Let $a = f = 2$ and $c = -1$. Then
+$$
+r(x, \ov y) =
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+$$
+is positive-definite, but at $x = (x_1, x_1)$ we have
+$$
+R(x, \ov x, x, \ov x) = -4 |x_1|^2
+$$
+so the Ricci curvature does not dominate the holomorphic sectional curvature.
+Note that the Ricci form is a multiple of the metric, so the metric is
+K\"ahler--Einstein at the origin.
+\end{exam}
+
+\begin{exam}[$H \not\to r$]
+We have
+$$
+R(x, \ov x, x, \ov x)
+\geq
+a |x_1|^2 + 2c |x_1|^2 |x_2|^2 + f |x_2|^4
+$$
+and the right-hand side is the quadratic form defined by
+$$
+Q = \begin{pmatrix}
+a & c \\ c & f
+\end{pmatrix}
+$$
+This form is positive-definite if and only if
+$$
+0 < \tr Q = a + f
+\qandq
+0 < \det Q = af - c^2.
+$$
+Suppose $c = -f - \epsilon$ with $\epsilon > 0$.
+Then
+$$
+af - c^2
+= af - f^2 - 2f \epsilon - \epsilon^2
+= f(a - f - 2\epsilon) - \epsilon^2.
+$$
+If $a > f$, this is positive for small enough $\epsilon$ (like $a = 10$, $f =
+1$, $\epsilon = 1$).
+But then the Ricci form is
+$$
+r(x, \ov y) =
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+a & 0 \\ 0 & -\epsilon
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+$$
+which is not positive-definite,
+so the holomorphic sectional curvature does not dominate the Ricci
+curvature.
+\end{exam}
+
+\begin{exam}[$r \not\to R$]
+We have
+$$
+\det R = acf - c^3 = c(af - c^2) = c \det r.
+$$
+It is then enough to pick a metric with $r$ positive-definite but $c < 0$
+(like $a = f = 2$, $c = -1$)
+to get a curvature tensor whose Ricci tensor is positive but is not itself
+Griffiths positive, because it will satisfy $R(z, \ov w, z, \ov w) < 0$.
+\end{exam}
+
+\begin{exam}[$H \not\to R$]
+Let $a = f = 2$ and $c = -1$.
+Then
+$$
+R(x, \ov x, x, \ov x)
+\geq |x|^4 + (|x_1|^2 - |x_2|^2)^2 > 0
+$$
+so the holomorphic sectional curvature is positive, but
+for $x = (x,0)$ and $y = (0,y)$ we have
+$$
+q(x \odot y)
+= R(x, \ov x, y, \ov y)
+= - (|x|^2 + |y|^2 + x \ov y + y \ov x)
+\leq 0
+$$
+and the inequality can be strict, so the holomorphic sectional curvature does
+not dominate the Griffiths curvature.
+\end{exam}
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+
+\end{document}
