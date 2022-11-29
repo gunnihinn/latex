@@ -40,8 +40,10 @@
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\adj}{adj}
 
 \newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
 
@@ -54,6 +56,1670 @@
 \begin{document}
 
 \maketitle
+
+
+\section{25. November 2022}
+
+For some reason I can't get this out of my head, so let's go.
+
+Let $V$ be a complex $n$-dimensional vector space with an inner product $h$.
+If $X \subset V$ is a Lebesgue measurable subset and $f : X \to W$ a measurable
+function, where $W$ is another complex vector space, we can define
+$$
+\int_X f(v) \, d\mu(v)
+$$
+by picking a basis and integrating coordinate by coordinate.
+Similarly, since $W \cong \kk C^m$ we know what a measurable function with
+values in $W$ is.
+
+If $L : V \to W$ is a linear map then
+$$
+L \biggl( \int_X f(v) \, d\mu(v) \biggr)
+= \int_X L f(v) \, d\mu(v)
+$$
+because the integral is defined step by step by looking at indicator functions,
+then finite linear combinations of those, then supremums of those, and so on,
+and linear maps commute with the integral of all of those.
+In particular if $f : X \to \End V$, then the trace commutes with the integral.
+
+If $v \in V$ then $v \otimes v^*$ denotes the linear map $V \to V$ given by $x
+\mapsto h(x, \ov v) v$.
+Consider the linear map $\pi : V^{\otimes d} \to V^{\otimes d}$ defined by
+$$
+\pi = \int_{S(V)} (v \otimes v^*)^{\otimes d} \, d\mu(v).
+$$
+We claim that if $g \in U(V)$ then $g^{\otimes d} \pi = \pi g^{\otimes d}$.
+On each factor we have $g(v\otimes v^*(x)) = h(x,\ov v) g(v)$
+while $v \otimes v^*(g(x)) = h(g(x), \ov v) v = h(x, \ov{g^{-1}v}) v$.
+Then
+\begin{align*}
+\pi(g^{\otimes d}(x_1 \otimes \cdots \otimes x_d))
+&= \int_{S(V)} \bigotimes_{j=1}^d h(g x_j, \ov v) v \, d\mu(v)
+\\
+&= \int_{S(V)} \bigotimes_{j=1}^d h(x_j, \ov{g^{-1}v}) v \, d\mu(v)
+\\
+&= \int_{S(V)} \bigotimes_{j=1}^d h(x_j, \ov{v}) g v \, d\mu(v)
+\\
+&= g^{\otimes d} \int_{S(V)} \bigotimes_{j=1}^d h(x_j, \ov{v}) v \, d\mu(v)
+\\
+&= g^{\otimes d} \pi(x_1 \otimes \cdots \otimes x_d),
+\end{align*}
+where we make the change of variable $u = gv$ in the third equality and recall
+that $|\!\det g| = 1$.
+
+This means that $\pi$ is an endomorphism of the representation $V^{\otimes d}$
+of $U(V)$.
+It then must be a multiple of a projection onto one of the irreducible factors
+of $V^{\otimes d}$.
+That factor must be $\Sym^d V$, because $\pi$ is clearly invariant under the
+action of the symmetric group $S_d$.
+
+For a fixed unit vector $v = (v_1,\ldots,v_n)$ the map $v \otimes v^*$
+is $v \otimes v^*(x) = v \sum_j x_j \ov v_j$ so its trace is $\sum_j |v_j|^2 = 1$.
+Then $\tr \pi = \Vol(S(V))$, so
+$$
+\pi = \frac{\Vol(S(V))}{\binom{n+d-1}{d}} \Pi_d,
+$$
+where $\Pi_d$ is the projection onto $\Sym^d V$ and $\binom{n+d-1}{d} = \dim
+\Sym^d V$.
+Slightly more generally, if $f : V \to V$ is a linear map, then
+$\tr f (v \otimes v^*) = \tr f |v|^2 = \tr f$ for a unit vector $v$.
+Also
+$\langle f v, \ov v \rangle = \tr f (v \otimes v^*)$.
+
+If $v$ has unit norm then so does $v^{\otimes n}$.
+Then
+$$
+\frac{\Vol(S(V))}{\binom{n+d-1}{d}} \tr(f \Pi_d)
+= \int_{S(V)} \langle f(v^{\otimes d}), \ov{v^{\otimes d}} \rangle \, d\mu(v)
+$$
+for any endomorphism $f$ of $V^{\otimes d}$.
+
+
+\section{22. November 2022}
+
+Let $V$ be an $n$-dimensional vector space.
+Pick a unit vector $v \in V$ and define
+$$
+p : \Sym^2 V \to V,
+\quad
+x \odot y \mapsto \langle y, \ov v \rangle x + \langle x, \ov v \rangle y.
+$$
+This is a linear map.
+
+If $x$ is orthogonal to $v$, then
+$p(x \odot v) = \langle x, \ov v \rangle v + |v|^2 x = x$.
+We also have $p(v \odot v) = 2 v$.
+If $x = x' + a v$, where $x'$ is orthogonal to $v$, we then have
+$$
+p(x' \odot v + \tfrac a2 v \odot v)
+= x' + a v = x
+$$
+so $p$ is surjective.
+
+Let $f$ be an endomorphism of $\Sym^2 V$; we know that
+$$
+\tr f = C \int_{S(\Sym^2 V)} \langle f x, \ov x \rangle d\sigma(x)
+$$
+for a constant $C$.
+The constant map factors as $\Sym^2 V \to V \to *$ via $p$
+so we have
+$$
+\int_{S(\Sym^2 V)} \langle f x, \ov x \rangle d\sigma(x)
+%= \int_{p(S(\Sym^2 V))} p_*(\langle f x, \ov x \rangle d\sigma(x))
+= \int_{y \in p(S(\Sym^2 V))} \int_{x \in p^{-1}(y)}
+\langle f x, \ov{x} \rangle d\sigma(x).
+$$
+
+What are the fibers of $p$?
+Since it's linear, it's enough to know $\Ker p$.
+Suppose $y = x$. Then
+$$
+p(x \odot x)
+= 2 \langle x, \ov v \rangle x
+$$
+so $p(x \odot x) = 0$ if and only if $x$ is orthogonal to $v$.
+Suppose then that $x$ and $y$ are linearly independent.
+Then
+$$
+p(x \odot y) = \langle y, \ov v \rangle x + \langle x, \ov v \rangle y.
+$$
+If $x$ and $y$ are orthogonal to $v$, then this is zero.
+If only $x$ is orthogonal to $v$, then $p(x \odot y) = \langle y, \ov v \rangle
+x$, which is nonzero by hypothesis.
+If neither $x$ nor $y$ are orthogonal to $v$ then $p(x \odot y) \not= 0$ by
+linear independence.
+Then
+$$
+\Ker p
+= \{ x \odot y \mid \text{$x$ and $y$ are orthogonal to $v$} \}
+= \Sym^2 v^\perp \subset \Sym^2 V.
+$$
+I'm not sure this is helpful because as far as I can tell the image or kernel
+of $p$ don't have anything to do with squares in $\Sym^2 V$.
+
+
+\paragraph{Squares in $\Sym^2 V$}
+
+$$
+x \odot y
+= \frac14 \bigl( (x + y)^2 - (x - y)^2 - x^2 - y^2 \bigr)
+$$
+so every element is a sum of squares.
+Is that helpful?
+\begin{align*}
+16 b(xy, \ov{xy})
+&= b((x{+}y)^2 - (x{-}y)^2 - x^2 - y^2, \ov{(x{+}y)^2 - (x{-}y)^2 - x^2 - y^2})
+\\
+&= b((x+y)^2, \ov{(x+y)}^2)
+- b((x+y)^2,(x-y)^2)
+\\
+&\quad
+- b((x+y)^2,x^2)
+- b((x+y)^2,y^2)
+- \cdots
+\end{align*}
+
+\paragraph{The Veronese embedding}
+
+The Veronese map is
+$$
+f : V \to \Sym^2 V,
+\quad
+x \mapsto x \odot x.
+$$
+It is holomorphic.
+It isn't injective as $f(- x) = f(x)$.
+However it defines an embedding
+$$
+f : \kk P(V) \to \kk P(\Sym^2 V),
+\quad
+[x] \mapsto [x^2]
+$$
+that has a regular inverse.
+We have an inner product $h$ on $V$ and $h^2$ on $\Sym^2 V$.
+We have a smooth function $g : \kk P(\Sym^2 V) \to \kk R$ defined by
+$$
+g([v]) = \frac{b(v, \ov{v})}{|v|^2},
+$$
+where $b \in B(\Sym^2 V)$ is a Hermitian form.
+Let $d\mu$ be the volume form of the Fubini--Study metric.
+Then
+$$
+\int_{\kk P(\Sym^2 V)} \frac{b(v, \ov v)}{|v|^2} d\mu
+= C \tr_{h^2} b
+$$
+for $C = \Vol(\kk P(\Sym^2 V))$.
+
+We have $\dim \Sym^2 V = \binom{n+1}2$ and
+$$
+\dim \kk P(\Sym^2 V) - \dim \kk P(V)
+= \tbinom{n+1}{2} - 1 - n + 1
+= \frac{n^2 - n}{2}
+= \tbinom{n}{2}.
+$$
+
+
+
+\paragraph{Maybe just calculate?}
+
+
+Let $(v_1, \ldots, v_n)$ be an orthonormal basis of $V$.
+If $z = \sum_j z_j v_j$ we have
+$$
+z \odot z
+= \sum_{j,k} z_j z_k \, v_j \odot v_k
+$$
+so
+$$
+b(z \odot z, \ov{z \odot z})
+= \sum_{j,k,l,m} z_j z_k \ov z_l \ov z_m
+\, b(v_j \odot v_k, \ov{v_l \odot v_m}).
+$$
+Consider the real and imaginary parts of the product of the $z$.
+If their degree is not even the integral over the sphere is zero by symmetry,
+so the integral is nonzero only if $j = k = l = m$ or or $j = l$ and $k = m$.
+
+
+After Folland we have
+\begin{align*}
+\int_{S(V)} x_j^4 d\sigma &= \frac{3}{4n(n+1)} \Vol(S(V))
+\\
+\int_{S(V)} x_j^2 x_k^2 d\sigma &= \frac{1}{4n(n+1)} \Vol(S(V)),
+\quad j \not= k,
+\end{align*}
+where $\dim V = n$.
+As
+\begin{align*}
+|z_j|^4 &= x_j^4 + 2 x_j^2 y_j^2 + y_j^4
+\\
+|z_j|^2 |z_k|^2 &= x_j^2 x_k^2 + x_j^2 y_k^2 + x_k^2 y_j^2 + y_j^2 y_k^2,
+\quad
+j \not= k
+\end{align*}
+we get
+$$
+\int_{S(V)} |z_j|^4 = 8 C
+\qandq
+\int_{S(V)} |z_j|^2 |z_k|^2 = 4 C,
+\quad j\not=k,
+$$
+where $C = \Vol(S(V)) / (4n(n+1))$.
+Then
+\begin{align*}
+\int_{S(V)}
+\!\!\!
+b(z \odot z, \ov{z \odot z}) d\sigma
+&= 8C \sum_{j} b(v_j {\odot} v_j, \ov{v_j {\odot} v_j})
++ 4C \sum_{j\not=k} b(v_j {\odot} v_k, \ov{v_j {\odot} v_k})
+\\
+&= 8C \sum_{j \leq k} b(v_j {\odot} v_j, \ov{v_k {\odot} v_k})
+= 8C \tr_{h^2} b.
+\end{align*}
+This works out to the lovely equation
+$$
+\dim{\Sym^2 V} \int_{S(V)} \!\! f^*b(z, \ov z) \, d\sigma
+= \Vol(S(V)) \tr_{h^2} b,
+$$
+where $f : V \to \Sym^2 V$ is the Veronese map.
+
+
+\paragraph{Representation theory}
+
+If $f \in \End \Sym^2 V$ the formula
+$$
+\int_{S(V)} \langle f(x \odot x), \ov{x \odot x} \rangle d\sigma
+= \frac{\Vol(S(V))}{\binom{n+1}{2}} \tr f
+$$
+is apparently true by representation theory of unitary groups.
+We can also prove it directly by more or less the same as above.
+
+% xx^* = v \mapsto < v, x > x I guess?
+
+From it we get that $H$ dominates $s$.
+
+If $b$ is the Hermitian form $R$ defines on $\Sym^2 V$ then
+$$
+\frac{\Vol(S(V))}{\binom{n+1}{2}} |b|^2
+= \int_{S(V)} |b(x \odot x, \ov{x \odot x})|^2 d\sigma
+$$
+so we also get that $H = 0$ implies $R = 0$.
+
+I'm having trouble finding sources to say exactly how that formula is true.
+Let's set
+$$
+\mu(f) := \int_{S(V)} \langle f(x \odot x), \ov{x \odot x} \rangle d\sigma
+$$
+for $f \in \End \Sym^2 V$.
+This is a linear functional that is invariant under $U(V)$, as
+$g^{-1} f g (x \odot x) = \ov g^t f (gx \odot gx)$
+so once we take the inner product and integrate we find that $\mu(g^{-1}fg) =
+\mu(f)$ for all $g \in U(V)$.
+This means it is a class function, so it can be written as a linear combination
+of characters of the representation $\Sym^2 V$ of $U(V)$.
+Now what?
+
+If $f,g \in \End \Sym^2 V$ then is $\mu(fg) = \mu(gf)$?
+We of course have $fg = gf - [f, g]$
+
+What does $xx^*$ mean?
+It has to be the linear map $y \mapsto \langle y, \ov x \rangle x$.
+Then
+$$
+\int_{S(V)} x x^* \otimes \ov{yy^*} d\sigma
+= x \otimes \ov y \int_{S(V)}
+\langle z, \ov x \rangle \langle y, \ov z \rangle d\sigma(z)
+$$
+In a basis we have $x = (x_j)$, $y = (y_j)$ and $z = (z_j)$, so
+$$
+\langle z, \ov x \rangle \langle y, \ov z \rangle
+= \sum z_j \ov x_j \sum \ov z_k y_k
+= \sum z_j \ov z_k \ov x_j y_k
+$$
+and $z_j \ov z_k = (a_j + ib_j)(a_k - ib_k) = a_ja_k + b_j b_k + i(- a_jb_k +
+b_j a_k)$, which integrates to $0$ unless $j = k$, where we get $C$, so this
+integral evaluates to $C \langle y, \ov x \rangle x \otimes \ov y$.
+If we take $xx^* \otimes yy^*$ we just get zero.
+I don't see how this helps.
+
+
+\paragraph{A quantum of help}
+
+Quantum theory people really like this stuff and they have some papers and
+books where they ``explain'' what they're doing.
+After staring at those for a little while I think I can say this:
+The way to interpret
+$$
+\int_{S(V)} (v \otimes v^*)^{\otimes n} \, d\sigma(v)
+$$
+is to say that it is equivalent to give a linear map $f : V \to V$ and to give
+an element $\lambda \in V^* \otimes \ov V^*$ because of the isomorphism from
+the inner product $V \to \ov V^*$.
+The above should then be interpreted as the linear morphism
+$\pi : V^{\otimes n} \to V^{\otimes n}$
+that corresponds to the linear functional
+$$
+\lambda(x_1 \otimes \cdots \otimes x_n
+\otimes
+\ov y_1 \otimes \cdots \otimes \ov y_n)
+=
+\int_{S(V)} \prod_{j=1}^n
+\langle x_j, \ov v \rangle \langle v , \ov y_j \rangle \, d\sigma(v)
+$$
+under the induced inner product $V^{\otimes n} \to \ov V^{\otimes n}$.
+
+The quantum people say that this $\pi$ now commutes with all $U(V)^{\otimes n}$,
+so it has to be proportional to the projection onto an irreducible
+subrepresentation of $V^{\otimes n}$.
+It also fixes $\Sym^n V$, so it has to project onto that.
+Then we find the exact factor by some kind of magic.
+
+Once we've done this we still have to prove that
+$$
+f\biggl(
+\int_{S(V)} (v \otimes v^*)^{\otimes n} \, d\sigma(v)
+\biggr)
+= \int_{S(V)} f(v \otimes \cdots \otimes v) \, (v^*)^{\otimes n} \, d\sigma(v)
+$$
+for a linear map $f : V^{\otimes n} \to V^{\otimes n}$.
+
+
+
+\section{20. November 2022}
+
+Let
+\begin{align*}
+\cc H(V)
+&= \{ \text{germs of smooth Hermitian metrics on $V$ at $0$} \},
+\\
+\cc K(V)
+&= \{ \text{germs of smooth K\"ahler metrics on $V$ at $0$} \}.
+\end{align*}
+We just write $\cc H$ if $V$ is clear from context and will set $V = \kk C^n$.
+Note that $\cc K$ and $\cc H$ are only convex open cones in real vector spaces
+and not full subspaces.
+
+Let $B(V)$ be the real vector space of Hermitian forms on $V$.
+The curvature tensor of a metric defines linear maps
+and a commutative diagram
+$$
+\begin{tikzcd}
+\cc K \ar[d] \ar[r,"\cc R"] & B(\operatorname{Sym}^2 \kk C^n)\ar[d]
+\\
+\cc H \ar[r, "\cc R"] & B(\kk C^n \otimes \kk C^n).
+\end{tikzcd}
+$$
+The horizontal arrows are given evaluating curvature tensors at $0$.
+The first vertical arrow is just the inclusion of K\"ahler metrics into the
+space of Hermitian metrics; the second is given by the pullback by the surjection
+$\kk C^n \otimes \kk C^n \to \operatorname{Sym}^2 \kk C^n$
+given by the symmetrization of a tensor.
+Both vertical arrows are of course injective.
+
+Are the horizontal arrows surjective?
+
+I think we can extend $\cc R$ to germs of smooth Hermitian (``K\"ahler'') forms
+on $V$, first by defining it for nondegenerate forms and then by extending by
+zero to the rest of the space. I'm not sure we need to.
+In any case $\cc R$ is not linear, which defeats the point.
+
+The map $\cc R$ is continuous, so its image is connected.
+Is it open and closed?
+
+Let $H$ be the matrix of a Hermitian metric $h$ in a neighborhood around $0$.
+The Chern connection of $h$ is given by $D' = H^{-1}\partial H$ and its
+curvature form is
+$$
+F = \tfrac i2 \bar\partial(H^{-1}\partial H)
+= - \tfrac i2 H^{-1} \bar\partial H \wedge H^{-1} \partial H
+- \tfrac i2 H^{-1} \partial \bar\partial H.
+$$
+The curvature tensor is then $R(x,\ov y, z, \ov w) = h(F(x, \ov y) z, \ov w)$.
+
+We can pick coordinates such that $H = I_n$ at $0$.
+If $h$ is K\"ahler we can further get $\partial H = 0$ at $0$.
+I guess this means that $H^{-1}\partial \bar\partial H$ always comes from the
+symmetric part?
+Its contribution to the curvature tensor is
+$$
+- \ov w^t \cdot \operatorname{Hess}(H)(x, \ov y) \cdot z,
+$$
+where $\operatorname{Hess}(H)$ is the (block, I guess) matrix whose entries are
+the Hessian matrices of the entries of $H$.
+
+Taking $n = 2$ we have
+$$
+H = \begin{pmatrix}
+a & c
+\\
+\ov c & b
+\end{pmatrix}
+$$
+with $H(0) = I_2$.
+Assuming $h$ is K\"ahler we can arrange that $\partial H(0) = 0$.
+The basis is $(z \otimes z, z \otimes w, w \otimes z, w \otimes w)$.
+We get
+\begin{align*}
+R(z, \ov z, z, \ov z) &= a_{z \ov z}
+\\
+R(z, \ov z, z, \ov w) &= \ov c_{z \ov z}
+\\
+R(z, \ov z, w, \ov z) &= c_{z \ov z}
+\\
+R(z, \ov z, w, \ov w) &= b_{z \ov z}
+\end{align*}
+so the matrix of the curvature tensor is
+$$
+R = \begin{pmatrix}
+a_{z \ov z} & \ov c_{z \ov z} & a_{z \ov w} & \ov c_{z \ov w}
+\\
+c_{z \ov z} & b_{z \ov z} & c_{z \ov w} & b_{z \ov w}
+\\
+a_{w \ov z} & \ov c_{w \ov z} & a_{w \ov w} & \ov c_{w \ov w}
+\\
+c_{w \ov z} & b_{w \ov z} & c_{w \ov w} & b_{w \ov w}
+\end{pmatrix}.
+$$
+Write the metric as
+$$
+\omega
+= \frac i2 \bigl(
+a dz \wedge d\bar z
++ c dw \wedge d \bar z
++ \ov c dz \wedge d\bar w
++ b dw \wedge d\bar w.
+\bigr)
+$$
+The metric is K\"ahler, so $\partial \omega = \bar\partial \omega = 0$.
+This means that
+$$
+a_w = c_{z},
+\quad
+a_{\ov w} = \ov c_{\ov z},
+\quad
+b_z = \ov c_w,
+\quad
+b_{\ov z} = c_{\ov w},
+$$
+so
+$$
+c_{z \ov z} = a_{w \ov z},
+\quad
+\ov c_{w \ov w} = b_{z \ov w},
+\quad
+c_{z \ov w} = a_{w \ov w},
+\quad
+\ov c_{w \ov z} = b_{z \ov z}
+$$
+Then we get
+$$
+R = \begin{pmatrix}
+a_{z \ov z} & a_{z \ov w} & a_{z \ov w} & a_{w \ov w}
+\\
+a_{w \ov z} & a_{w \ov w} & a_{w \ov w} & b_{z \ov w}
+\\
+a_{w \ov z} & a_{w \ov w} & a_{w \ov w} & b_{z \ov w}
+\\
+a_{w \ov w} & b_{w \ov z} & b_{w \ov z} & b_{w \ov w}
+\end{pmatrix},
+$$
+where a bunch of simplifications happen because $a$ is real so $a_{w \ov z} =
+a_{z \ov w}$ and we can ping-pong to $b_{z \ov z} = a_{w \ov w}$.
+This is the pullback of the Hermitian form
+$$
+R = \begin{pmatrix}
+a_{z \ov z} & a_{z \ov w} & a_{w \ov w}
+\\
+a_{w \ov z} & a_{w \ov w} & b_{z \ov w}
+\\
+a_{w \ov w} & b_{w \ov z} & b_{w \ov w}
+\end{pmatrix},
+$$
+on $\Sym^2 \kk C^2$, as expected.
+Note that $a_{w \ov w}$ is real, so not every Hermitian form on
+$\Sym^2 \kk C^2$ comes from a curvature tensor of a K\"ahler metric.
+(Note that $a_{w \ov w} = b_{z \ov z}$ so this matrix is more symmetric in $a$
+and $b$ than it appears.)
+
+
+Suppose we let
+$$
+f(z,w)
+= a_{z \ov z} z \bar z
++ a_{z \ov w} z \ov w
++ a_{w \ov z} w \ov z
++ a_{w \ov w} w \bar w.
+$$
+Then $f(0) = 0$ and $df(0) = 0$ and
+$$
+\operatorname{Hess} f(0)
+= \begin{pmatrix}
+a_{z \ov z} & a_{z \ov w}
+\\
+a_{w \ov z} & a_{w \ov w}
+\end{pmatrix}.
+$$
+We also let
+$$
+g(z,w)
+= a_{w \ov w} z \bar z
++ b_{z \ov w} z \ov w
++ b_{w \ov z} w \ov z
++ b_{w \ov w} w \bar w
+$$
+and
+$$
+h(z,w)
+= h_1 z \bar z
++ h_2 z \ov w
++ h_3 w \ov z
++ h_4 w \bar w.
+$$
+We want
+$$
+a_{w \ov z} \ov z + a_{w \ov w} \bar w
+= f_w = h_z
+= h_1 \ov z + h_2 \ov w,
+$$
+so we set $h_1 = a_{w \ov z}$ and $h_2 = a_{w \ov w}$.
+We also want
+$$
+a_{w \ov w} \ov z + b_{z \ov w} \ov w
+= g_z = \ov h_w
+= \ov h_2 \bar z + \ov h_4 \ov w
+$$
+so $h_4 = b_{z \ov w}$.
+Let's just take $h_3 = \ov h_4$.
+The germ of the K\"ahler metric
+$$
+h(z,w)
+= \begin{pmatrix}
+1 + f(z,w) & h(z,w)
+\\
+\ov{h(z,w)} & 1 + g(z,w)
+\end{pmatrix}
+$$
+then has the curvature tensor $R$ above. That is,
+$$
+\im\bigl(
+\cc R : \cc K(\kk C^2) \to B(\Sym \kk C^2)
+\bigr)
+= \left\{
+R =
+\begin{pmatrix}
+a & b & c
+\\
+\ov b & c & e
+\\
+c & \ov e & f
+\end{pmatrix}
+\biggm|
+\text{$a, c, f \in \kk R$, $b, e \in \kk C$}
+\right\}.
+$$
+The image coincides with the kernel of the linear form
+$\lambda : B(\Sym \kk C^2) \to \kk R$, $\lambda(R) = \im c$, so it is a real
+hypersurface.
+This is a little surprising as $\cc R$ is not linear and $\cc K$ not a linear
+subspace, so a priori there's no reason the image should be a linear subspace.
+
+Let's look at some special cases. If the tensor looks like
+$$
+R =
+\begin{pmatrix}
+a & 0 & c
+\\
+0 & c & 0
+\\
+c & 0 & f
+\end{pmatrix}
+$$
+then
+\begin{align*}
+R(x, \ov x, x, \ov x)
+&= (a x_1^2 + c x_2^2) \ov x_1^2
++ 4 c |x_1|^2 |x_2|^2
++ (c x_1^2 + f x_2^2) \ov x_2^2
+\\
+&= a |x_1|^4 + f |x_2|^4
++ 2 c \bigl(2 |x_1|^2 |x_2|^2 + \Re(x_1^2 \ov x_2^2) \bigr)
+\\
+r(x, \ov y)
+&=
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+a + c & 0 \\ 0 & c + f
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix},
+\\
+s &= a + 2c + f.
+\end{align*}
+For complex numbers we have $|\Re z| \leq |z|$, so we have
+\begin{align*}
+a |x_1|^4 + f |x_2|^4 + 2c |x_1|^2 |x_2|^2
+&\leq R(x, \ov x, x, \ov x)
+\\
+&\leq a |x_1|^4 + f |x_2|^4 + 6c |x_1|^2 |x_2|^2.
+\end{align*}
+If further $x = x_1 = x_2$ then
+$$
+R(x, \ov x, x, \ov x)
+= (a + 6c + f) |x|^4.
+$$
+We can find $a, c, f$ such that $a + 2c + f > 0$ but $a + 6c + f < 0$,
+(like $a = f = 4$, $c = -3$), so positive scalar curvature does not imply
+nonpositive holomorphic sectional curvature in all directions.
+
+Similarly, take $a = 4$, $f = -1$ and $c = -1$. Then $a + 2c + f = 1 > 0$ but
+$$
+r(x, \ov y) =
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+3 & 0 \\ 0 & -2
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix},
+$$
+is neither positive nor negative semidefinite, so positive scalar curvature
+does not imply nonnegative Ricci curvature.
+
+Suppose $a = f = 2$ and $c = -1$. Then
+$$
+r(x, \ov y) =
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+$$
+is positive-definite, but at $x = (x_1, x_1)$ we have
+$$
+R(x, \ov x, x, \ov x) = -4 |x_1|^2
+$$
+so positive Ricci curvature does not imply positive holomorphic sectional
+curvature in all directions.
+
+We have
+$$
+R(x, \ov x, x, \ov x)
+\geq
+a |x_1|^2 + 2c |x_1|^2 |x_2|^2 + f |x_2|^4
+$$
+and the right-hand side is the quadratic form defined by
+$$
+Q = \begin{pmatrix}
+a & c \\ c & f
+\end{pmatrix}
+$$
+This form is positive-definite if and only if
+$$
+0 < \tr Q = a + f
+\qandq
+0 < \det Q = af - c^2.
+$$
+Suppose $c = -f - \epsilon$ with $\epsilon > 0$.
+Then
+$$
+af - c^2
+= af - f^2 - 2f \epsilon - \epsilon^2
+= f(a - f - 2\epsilon) - \epsilon^2.
+$$
+If $a > f$, this is positive for small enough $\epsilon$ (like $a = 10$, $f =
+1$, $\epsilon = 1$).
+But then the Ricci form is
+$$
+r(x, \ov y) =
+\begin{pmatrix}\ov y_1 & \ov y_2 \end{pmatrix}
+\begin{pmatrix}
+a & 0 \\ 0 & -\epsilon
+\end{pmatrix}
+\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+$$
+which is not positive-definite,
+so positive holomorphic sectional curvature does not imply nonnegative Ricci
+curvature.
+
+\section{14. November 2022}
+
+On $k$-forms we have $[L,\Lambda] = (k-n)\id$.
+I want to look at the operators $L\Lambda$ and $\Lambda L$.
+
+There is an orthogonal decomposition
+$$
+\ext{k}V^* = \bigoplus_{j \geq 0} L^{j} P_{k-2j}
+$$
+where $P_{k-2j}$ is the space of primitive $(k-2j)$-forms and we interpret
+negative indexes as meaning the space is zero.
+Let's assume, for our own sanity, that we have $(p,q)$-forms with $p+q = k$.
+Each $P_{k-2j}$ is then the space of primitive $(p-j,q-j)$-forms.
+
+If $u$ is such a form then
+\begin{align*}
+* L\^{j} u
+&= i^{p-q} (-1)^{\binom{k-2j+1}{2}} L\^{n-k+j} u,
+\\
+L * L\^{j} u
+&= (n-k+j+1) i^{p-q} (-1)^{\binom{k-2j+1}{2}} L\^{n-k+j+1} u,
+\\
+\Lambda L\^{j} u
+&= (-1)^k (n-k+j+1) (-1)^k (-1)^{2 \binom{k-2j+1}{2}} L\^{j-1} u
+\\
+&= (n-k+j+1) L\^{j-1} u,
+\\
+\Lambda\^{l} L\^{j} u
+&= \binom{n-k+j+l}{l} L\^{j-l} u.
+\end{align*}
+On those forms we thus have
+\begin{align*}
+L\Lambda(L\^j u)
+&= j (n-k+j+1) L\^j u,
+\\
+\Lambda L (L\^j u)
+&= (j+1) (n-k+j) L\^j u,
+\\
+L\^l \Lambda\^l (L\^j u)
+&= \binom{j}{l} \binom{n-k+j+l}{l} L\^j u.
+\end{align*}
+Both operators thus preserve the orthogonal decomposition.
+Their characteristic polynomials are thus the product of the characteristic
+polynomials of the operator on each factor.
+
+The matrix of $L\Lambda$ is a direct sum of multiples of the identity matrix.
+The dimension of each block is the dimension of the space of primitive
+forms, which is
+$$
+\dim P_{p-j,q-j} = h^{p-j,q-j} - h^{p-j-1,q-j-1}.
+$$
+The characteristic polynomial of $\lambda I$ is
+$$
+p_{\lambda I}(t)
+= \det(t I - \lambda I)
+= (t - \lambda)^n
+$$
+and its minimal polynomial is $\mu_{\lambda I}(t) = t - \lambda$.
+The minimal polynomial of $L\Lambda$ is then
+$$
+\mu(t)
+= \prod_{j=0}^{\min(p,q)} \!\!\! (t - j(n-k+j+1))
+= t \!\!\! \prod_{j=1}^{\min(p,q)} \!\!\! (t - j(n-k+j+1)).
+$$
+Some of these coefficients can be evaluated. For example
+\begin{align*}
+\sum_{j=1}^p j(n-k+j+1)
+&= \sum_{j=1}^p j^2 + (n-k+1) \sum_{j=1}^p j
+\\
+&= \frac{p(p+1)(2p+1)}{6} + (n-k+1) \frac{p(p+1)}{2}
+\\
+&= \frac{p(p+1)(3n-p-3q+4)}{6}.
+\end{align*}
+Vieta's formulas might help in general.
+
+
+There's an increasing filtration
+$$
+0
+\subset F_{-1}
+\subset F_0 = P_{p,q}
+\subset \cdots
+\subset F_p = \ext{p,q} V^*
+$$
+where we assume $p \leq q$ and
+$$
+F_k = \bigoplus_{j=0}^k L^j P_{p-j,q-j}.
+$$
+The operator $L^j\Lambda^j$ maps things to this.
+
+The point of looking at some of this stuff is:
+The minimal polynomial of $L\^l\Lambda\^l$ is $\mu_{L\^l \Lambda\^l}(t) = t f(t)$,
+where $f(0) \not= 0$.
+We then have
+$$
+L\^l \Lambda\^l f(L\^l \Lambda\^l) u = 0
+$$
+for all $u$.
+However $L^l$ is injective, so $f(L\^l \Lambda\^l) u \in \Ker \Lambda\^l =
+F_{l-1}$.
+
+Example: $p = q = 1, k = 2$.
+The minimal polynomial of $L\Lambda$ is
+$$
+\mu_{L\Lambda}(t) = t(t - n).
+$$
+Therefore $L\Lambda u - n u$ is primitive for all $(1,1)$-classes $u$.
+We write
+$$
+u = (u - \tfrac 1n L\Lambda u) + \tfrac 1n L \Lambda u
+$$
+and recognize the primitive decomposition of $u$.
+
+Example: $p = q = 2, k = 4$.
+The minimal polynomials are
+$$
+\mu_{L\Lambda}(t) = t(t - (n-2))(t - (n-1))
+\qandq
+\mu_{L\^2\Lambda\^2}(t) = t(t - \tbinom{n}{2})
+$$
+
+\section{14. November 2022}
+
+$$
+\begin{tikzcd}
+\ext{n-k} V^* \ar[r,"L^k"]  &
+\ext{n+k} V^* \ar[d,"L^j"]
+\\
+\ext{n-k-j} V^* \ar[r,"L^{k+j}"] \ar[u,"L^j"] &
+\ext{n+k+j} V^*
+\end{tikzcd}
+$$
+commutes.
+The horizontal arrows are isomorphisms, the arrow going up is injective and the
+arrow going down is surjective.
+
+Write $\ext{n-k} V^* = \im L^j \oplus \Ker \Lambda^j$.
+Then we can extend the above square into the commutative exact sequences
+$$
+\begin{tikzcd}
+0 \ar[r] &
+\ext{n-k-j} V^* \ar[r,"L^j_1"] \ar[d,"L^{k+j}"] &
+\ext{n-k} V^* \ar[r] \ar[d,"L^{k}"] &
+\Ker \Lambda^j  \ar[r]  &
+0
+\\
+0 &
+\ext{n+k+j} V^* \ar[l] &
+\ext{n+k} V^* \ar[l,"L^j_2"] &
+\Ker L^j_2 \ar[l] &
+0.\ar[l]
+\end{tikzcd}
+$$
+Note that $\Ker L^j$ and $\Ker \Lambda^j$ have the same dimensions because of
+the exact sequences and that $L^k$ and $L^{k+j}$ are isomorphisms.
+
+Define a map $f : \Ker L^j \to \Ker \Lambda^j$ by $x \mapsto \pi((L^k)^{-1} x)$.
+A little diagram chasing shows that $f$ is injective, so $f$ is an isomorphism.
+%Suppose $f(x) = 0$.
+%Then we must have $(L^k)^{-1}x \in \Ker \pi = \im L^j_1$, so there is a $y$ in
+%$\ext{n-k-j}V^*$ such that $L^j_1 y = (L^k)^{-1}x$.
+%Now $L^{k+j} y = L^j_2 L^k L^j_1 y = L^j_2 x = 0$, but $L^{k+j}$ is an
+%isomorphism so $y = 0$.
+%Then $(L^k)^{-1} x = 0$, and $L^k$ is an isomorphism, so $x = 0$ and $f$ is
+%injective and thus an isomorphism.
+
+Then the inverse of $f$, that is,
+$$
+\Ker \Bigl( \Lambda^j : \ext{n-k} V^* \to \ext{n-k-j} V^*\Bigr)
+\stackrel{L^k}{\longrightarrow}
+\Ker\Bigl( L^j : \ext{n+k}V^* \to \ext{n+k+j}V^*\Bigr)
+$$
+is an isomorphism.
+Thus $\Lambda^j x = 0$ for an $(n-k)$-form $x$ if and only if
+$L^{k+j} x = 0$.
+Swapping variables a little, $\Lambda^j x = 0$ for a $k$-form $x$ if and only
+if $L^{n-k+j} x = 0$.
+
+
+\section{13. November 2022}
+
+Let $V$ be a (real, for once) vector space and $g$ an inner product.
+If $dV$ is the volume form that $g$ defines then the Hodge star operator is
+defined by
+$$
+\alpha \wedge * \beta = \langle \alpha, \beta \rangle dV
+$$
+for $p$-forms $\alpha,\beta$.
+
+Write $g$ for all the various induced inner products on the exterior powers of
+$V$ and its dual.
+If $\alpha$ is a $q$-form and $v \in \bigwedge^p V$ is a $p$-blade we define
+the $(q-p)$-form $\iota_v\alpha$ by
+$$
+\iota_v \alpha (v_1, \ldots, v_{q-p})
+:= \alpha(v \wedge v_1 \cdots v_{q-p}).
+$$
+
+The Hodge star is $* \beta = -(-1)^p \iota_{g^{-1}\beta} dV$:
+We have $\alpha \wedge dV = 0$, so
+\begin{align*}
+0 = \iota_{g^{-1}\beta} (\alpha \wedge dV)
+&= (\iota_{g^{-1}\beta} \alpha) \wedge dV
++ (-1)^p \alpha \wedge \iota_{g^{-1}\beta} dV
+\\
+&= \langle \alpha, \beta \rangle dV
++ (-1)^p \alpha \wedge \iota_{g^{-1}\beta} dV.
+\end{align*}
+
+I want to do something with this (or something similar) to prove the
+Bochner--Kodaira--Nakano equation.
+Looking at the proof from agbook we need the commutation relations on Hermitian
+manifolds.
+We have to prove:
+
+Let $h$ be a Hermitian metric on $U \subset \kk C^n$ and write
+$\tau = [\Lambda, \partial \omega]$.
+Then
+$$
+[\bar\partial^*, L] = i(\partial + \tau)
+$$
+on smooth $(p,q)$-forms on $U$.
+
+Proving this also proves the K\"ahler identities, so maybe we should start there.
+Then $\tau = 0$ so we want to prove that
+$$
+[\bar\partial^*, L] = i\partial.
+$$
+
+\begin{proof}
+Let $u$ be a primitive $(p,q)$-form and set $k = p + q$.
+Recall Weil's formula,
+$$
+*(L^{[j]} u)
+= i^{p-q} (-1)^{k(k+1)/2} L^{[n-j-k]} u.
+$$
+Also recall that a $k$-form $u$ is primitive if and only if $L^{n-k+1} u = 0$.
+
+
+We have
+$\bar\partial^* L = - * \partial * L$, and
+$$
+*(L L\^{j}u)
+= (j+1) i^{p-q} (-1)^{\binom{k+1}2} L\^{n-k-j-1} u.
+$$
+Then
+$$
+\partial {*}(L L\^{j}u)
+= (j+1) i^{p-q} (-1)^{\binom{k+1}2} L\^{n-k-j-1} \partial u .
+$$
+
+\begin{lemm}
+If $u$ is a primitive $(p,q)$-form, then $\partial u = v + L w$, where $v$ and
+$w$ are primitive $(p+1,q)$ and $(p,q-1)$-forms.
+\end{lemm}
+
+\begin{proof}
+The claim is equivalent to saying that $\Lambda^2 \partial u = 0$.
+This happens for the $(k+1)$-form $\partial u$ if and only if $L^{n-k+1}
+\partial u = 0$.
+Now $u$ is a primitive $k$-form form, so $L^{n-k+1} u = 0$ and $\omega$ is
+$\partial$-closed so this follows by applying $\partial$.
+\end{proof}
+
+We write $\partial u = v + L w$, where $v$ and $w$ are primitive $(p+1,q)$
+and $(p,q-1)$-forms.
+Then
+\begin{align*}
+*(L\^{n-k-j-1} v)
+&= i^{p-q+1} (-1)^{\binom{k+2}2}
+%L\^{n-(n-k-j-1)-k-1} v
+L\^{j} v,
+\\
+*(L\^{n-k-j-1} Lw)
+&= (n-k-j) {*}(L\^{n-k-j} w)
+\\
+&= (n-k-j) i^{p-q+1} (-1)^{\binom{k}2}
+%L\^{n-(n-k-j)-(k-1)} w
+L\^{j+1} w.
+\end{align*}
+All in all
+\begin{align*}
+\bar\partial^*L u
+&=
+(j+1) i (-1)^{\binom{k+1}2 + k}
+\Bigl(
+(-1)^{\binom{k+2}{2}} L\^{j} v
++ (-1)^{\binom{k}{2}} (n-k-j) L\^{j+1} w
+\Bigr)
+\\
+&=
+(j+1) i
+\bigl(
+L\^{j} v - (n-k-j) L\^{j+1} w
+\bigr).
+\end{align*}
+% k(k+1)/2 + (k+1)(k+2)/2 = (k+1)(2k + 2)/2 = (k+1)^2 = k+1 (mod 2)
+% k(k+1)/2 + k(k-1)/2 = k(2k)/2 = k^2 = k (mod 2)
+
+On the other hand we have $L\bar\partial^* = -L*\partial*$ and
+$$
+\partial * u
+= \partial i^{p-q} (-1)^{\binom{k+1}2} L\^{n-k-j} u
+= i^{p-q} (-1)^{\binom{k+1}2} L\^{n-k-j} \partial u.
+$$
+As before we have $\partial u = v + Lw$ and
+\begin{align*}
+*(L\^{n-k-j} v)
+&= i^{p-q+1} (-1)^{\binom{k+2}2}
+%L\^{n-(n-k-j)-k-1} v
+L\^{j-1} v,
+\\
+*(L\^{n-k-j} Lw)
+&= (n-k-j+1) {*}(L\^{n-k-j+1} w)
+\\
+&= (n-k-j+1) i^{p-q+1} (-1)^{\binom{k}2}
+%L\^{n-(n-k-j+1)-(k-1)} w
+L\^{j} w.
+\end{align*}
+Then
+\begin{align*}
+\bar\partial^* u
+&= i (-1)^{\binom{k+1}2+k}
+\Bigl(
+(-1)^{\binom{k+2}2} L\^{j-1} v
++ (n-k-j+1) (-1)^{\binom{k}2} L\^{j} w
+\Bigr)
+\\
+&=
+i \bigl(
+L\^{j-1} v - (n-k-j+1) L\^{j} w
+\bigr)
+\end{align*}
+and so
+$$
+L \bar\partial^* u
+= i \bigl(
+j L\^{j} v - (n-k-j+1)(j+1) L\^{j+1} w
+\bigr).
+$$
+Put together, this gives
+$$
+\displaylines{
+[\bar\partial^*, L] L\^j u
+=
+(j+1) i (-1)^{k+1}
+\bigl( L\^{j} v - (n-k-j) L\^{j+1} w \bigr)
+\hfill\cr\hfill{}
+-
+i
+\bigl( j L\^{j} v - (n-k-j+1)(j+1) L\^{j+1} w \bigr)
+\cr{}
+\phantom{[\bar\partial^*, L] L\^j u}
+= i (L\^j v + (j+1) L\^{j+1} w)
+\hfill\cr{}
+\phantom{[\bar\partial^*, L] L\^j u}
+= i L\^j (v + L w)
+= i L\^j \partial u
+= i \partial(L\^j u).
+\hfill
+}
+$$
+Therefore $[\bar\partial^*, L] = i\partial$ by linearity.
+\end{proof}
+
+
+I thought I had come up with that and felt very clever, but the same idea is in
+Huybrechts.
+
+If we want to try to do the same on for a Hermitian metric, we get (when
+calculating $\bar\partial^*L (L\^j u)$)
+$$
+\displaylines{
+\partial {*}(L L\^{j}u)
+= (j+1) i^{p-q} (-1)^{\binom{k+1}2}
+\hfill\cr\hfill{}
+\bigl(
+(n-k-j-1) L\^{n-k-j-2} \partial \omega \wedge u
++ L\^{n-k-j-1} \partial u
+\bigr).
+}
+$$
+We have to apply $*$ to this and I don't know how to do that to $\partial
+\omega \wedge u$.
+Actually I don't know how to do it to $\partial u$ by itself either, because we
+have that $L^{n-k+1} u = 0$ but only get
+$$
+0 =
+L^{n-k+1} \partial u
++ (n-k+1) L^{n-k} \partial \omega \wedge u
+= L^{n-k}( L\partial u + (n-k+1) \partial \omega \wedge u)
+$$
+so that sum has to play the role that $\partial u$ played before.
+Before $u$ was a $k$-form and $\partial u$ a $(k+1)$-form, but now we have the
+$(k+3)$-forms $L \partial u$ and $\partial \omega \wedge u$.
+If they were primitive they'd live in the kernel of $L^{n-k-3}$, but we only
+know their sum is in the kernel of $L^{n-k}$, so we should expect a four-term
+expansion instead of a two-term one like before.
+
+On top of that we only have a four-term expansion for
+$$
+L\partial u + (n-k+1) \partial \omega \wedge u
+$$
+but actually have
+$$
+\displaylines{
+L\^{n-k-j-1} \partial u
++ (n-k-j-1) L\^{n-k-j-2} \partial \omega \wedge u
+\hfill\cr\hfill{}
+= L\^{n-k-j-2}\Bigl(
+\frac{1}{n-k-j-1} L \partial u
++ (n-k-j-1) \partial \omega \wedge u
+\Bigr)
+}
+$$
+so after balancing things out we'd have a multiple of $\partial \omega \wedge
+u$ to deal with.
+
+
+\section{11. November 2022}
+
+Recall that if $h$ is a Hermitian metric on $E$, then the curvature form of
+$e^\psi h$ is
+$$
+\frac i2 \Theta_{e^\psi h}
+= - \frac i2 \partial \bar\partial \psi \otimes \id_E
++ \frac i2 \Theta_{h}.
+$$
+Taking $X \subset \kk C^n$ and $h$ flat on $T_X$ we get a Hermitian metric with
+curvature tensor
+$$
+R(\alpha, \ov\beta, \gamma, \ov\delta)
+= -H(\psi)(\alpha, \ov\beta) h(\gamma, \ov\delta),
+$$
+where $H(\psi)$ is the Hessian of $\psi$.
+We'll write $h$ for the conformal metric here and $\omega$ for its K\"ahler
+form (which is not closed if $n > 1$).
+The Ricci forms of the metric are then
+$$
+-n \frac i2 \partial \bar\partial \psi,
+\quad
+-\frac i2 \partial \bar\partial \psi,
+\quad
+- \Delta_{h} \psi \cdot \omega,
+$$
+which are all different.
+They give two different scalar curvatures:
+$$
+-n \Delta \psi
+\qandq
+- \Delta \psi.
+$$
+
+
+\section{9. November 2022}
+
+Is there any nice way of viewing curvature forms on a Hermitian or K\"ahler
+manifold that makes the various Ricci forms pop out?
+
+Let $(X,h)$ be a Hermitian manifold. The curvature form of $h$ is $F \xi = D^2
+\xi$, where $D$ is the Chern connection of $h$.
+This is a $(1,1)$-form that takes values in $\End T_X$, that is, a section of
+$T_X^* \otimes \ov T_X^* \otimes T_X^* \otimes T_X$.
+If $h$ is K\"ahler then we can swap the first and third spaces.
+Using the metric we get an isomorphism
+$$
+\begin{tikzcd}
+T_X^* \otimes \ov T_X^* \otimes T_X^* \otimes T_X
+\ar[r] &
+T_X^* \otimes T_X \otimes T_X^* \otimes T_X.
+\end{tikzcd}
+$$
+On the right-hand side we can pair off $T_X^*$ and $T_X$ in $2 \times 2 = 4$
+different ways and take a trace.
+
+Denoting the traces by $\tau_{jk}$ for $j \in \{1, 3\}$ and $k \in \{2, 4\}$,
+being K\"ahler tells us that $\tau_{12} = \tau_{32}$ and $\tau_{14} = \tau_{34}$.
+Does being K\"ahler imply we can swap the second and fourth places as well?
+It should.
+If so we get $\tau_{12} = \tau_{32} = \tau_{34} = \tau_{14}$.
+
+The $\End T_X$ part of the curvature tensor is Hermitian, which should imply
+some kind of symmetry. (So is the $T_X^* \otimes \ov T_X^*$ part.)
+For the latter, there is a map given by the composite
+$$
+T_X^* \otimes \ov T_X^* \stackrel{\text{conj}}{\longrightarrow}
+\ov T_X^* \otimes T_X^* \stackrel{\text{swap}}{\longrightarrow}
+T_X^* \otimes \ov T_X^*
+$$
+under which the curvature form is invariant
+which should imply that $\tau_{12}$ is real.
+
+\section{8. November 2022}
+
+There was a fun paper on the arXiv today: https://arxiv.org/abs/2211.03469
+
+In it they review a construction of Donaldson.
+Let $(X,\omega)$ be a K\"ahler manifold.
+Then there exists a complex manifold $p : Z \to X$ called the extension of $X$
+such that $p^*[\omega] = 0$.
+It satisfies the universal property that if $f : Y \to X$ is any manifold with
+this property, then $f$ factors through $Y \to Z \to X$.
+
+There are a couple of different constructions of $Z$, one being by looking at
+the extension
+$$
+0 \longrightarrow
+\Omega_X^1 \longrightarrow
+E \stackrel{q}{\longrightarrow}
+\mathcal O_X \longrightarrow 0
+$$
+that $[\omega]$ defines and letting $Z = p^{-1}(1)$.
+This is where the ``extension'' name comes from.
+
+It is conjectured that $T_X$ is nef if and only if $Z_X$ is Stein.
+The paper on the arXiv proves that $T_X$ nef implies $Z_X$ Stein, but has to
+assume that a conjecture of Campana and Peternell is true to do that.
+That $Z_X$ Stein implies $T_X$ nef is apparently wide open (known for curves
+and most projective surfaces).
+
+It's fun to think how far we can get towards doing anything to $\cc O(1) \to
+\kk P(T_X)$ by using the universal property.
+We have the projective bundle $\pi : \kk P(T_X) \to X$ and know that
+$\pi^*[\omega] \not= 0$.
+Then we get an extension $f : Z_{\kk P(T_X)} \to \kk P(T_X)$ and a commutative diagram
+$$
+\begin{tikzcd}
+Z_{\kk P(T_X)}
+\ar[r,"g"] \ar[d,"f"]
+&
+Z_X
+\ar[d,"p"]
+\\
+\kk P(T_X)
+\ar[r, "\pi"]
+&
+X.
+\end{tikzcd}
+$$
+We know that $\pi$ is a fibration and can show that $f$ and $p$ are as well.
+As $dp \circ dg$ is then surjective, this only tells us that $dp$ is
+surjective, which we knew.
+Oh well.
+
+Suppose now that $Z_X$ is Stein.
+The fibers of $g$ are probably an affine manifold, thus Stein.
+There's a paper on the arXiv\footnote{https://arxiv.org/abs/0705.1715}
+that says that
+if in addition $g$ is a fibration and there's a neighborhood $U$ around every
+point in $Z_X$ such that $g^{-1}(U)$ is Stein, then $Z_{\kk P(T_X)}$ is Stein.
+But we don't know if $g$ is a fibration.
+This would also imply that $T_{\kk P(T_X)}$ is nef, which may be suspect.
+
+
+\section{7. November 2022}
+
+If $h$ is a Hermitian metric and $H$ is its matrix in a local frame, then the
+connection and curvature are
+$$
+D's = H^{-1}\partial H \wedge s
+$$
+and
+$$
+F s = - H^{-1} \bar\partial H \wedge H^{-1} \partial H \wedge s
+- H^{-1} \partial \bar\partial H \wedge s.
+$$
+We have $H^{-1} = \adj H / \det H$, so
+$$
+\det(H) D's = \adj(H) \partial H \wedge s
+$$
+and
+$$
+\det(H)^2 Fs
+= - \adj(H) \bar\partial H \wedge \adj(H) \partial H s
+- \det(H) \adj(H) \partial\bar\partial H s.
+$$
+Then
+\begin{align*}
+\det(H)^2 h(Fs, \ov t)
+&= - t^\dagger \! H \adj(H) \bar\partial H \adj(H) \partial H s
+- t^\dagger \! H \det(H) \adj(H) \partial\bar\partial H s
+\\
+&= - \det(H) t^\dagger \bar\partial H \wedge \adj(H) \partial H s
+- \det(H)^2 t^\dagger \partial\bar\partial H s
+\end{align*}
+I don't think this helps. $\det H$ isn't a tensor.
+
+
+\medskip
+
+Let's do something different and find an example of positive hsc metrics whose
+sum isn't like that, in complex dimension 1.
+Let $U$ be a neighborhood around $0 \in \kk C$.
+If $h$ is a Hermitian metric on $U$ then $h(\xi, \ov\eta) = e^\psi \xi \ov\eta$.
+We have
+$$
+\partial h(\xi, \ov\eta)
+= \partial \psi h(\xi, \ov\eta) + h(\partial \xi, \ov\eta)
+= h(\partial \psi \otimes \xi + \partial \xi, \ov\eta)
+$$
+so $D\xi = \partial \psi \otimes \xi + d \xi$.
+Then
+\begin{align*}
+D^2 \xi
+&= \partial \psi \wedge (\partial \psi \otimes \xi + d \xi)
++ d (\partial \psi \otimes \xi + d \xi)
+\\
+&= \partial \psi \wedge \bar\partial \xi
+- \partial \bar\partial \psi \otimes \xi
+- \partial \psi \wedge \bar\partial\xi
+= - \partial \bar\partial \psi \otimes \xi
+\end{align*}
+so the curvature form is $\frac{i}{2} \Theta \xi = - \frac i2 \partial
+\bar\partial \psi \otimes \xi$
+and the curvature tensor is
+$$
+R\Bigl(\frac{\partial}{\partial z},
+\frac{\partial}{\partial \bar z},
+\frac{\partial}{\partial z},
+\frac{\partial}{\partial \bar z}
+\Bigr)
+= - \frac{\partial^2 \psi}{\partial z \partial \bar z} e^\psi.
+$$
+
+Now let $g = e^\psi$ and $h = e^\phi$ be metrics.
+We have
+$$
+\sigma(\xi)
+= D_{g} \xi - D_h \xi
+= (\partial \psi - \partial \phi) \otimes \xi.
+$$
+The quotient metric $q$ is
+$$
+q
+= g (g+h)^{-1} h + h (g+h)^{-1} g
+= \frac{2 e^\psi e^\phi}{e^\psi + e^\phi}.
+$$
+The curvature tensor of the sum is then
+$$
+R_{g+h}
+= R_g + R_h - \sigma^* q
+= - \frac{\partial^2 \psi}{\partial z \partial \bar z} e^\psi
+- \frac{\partial^2 \psi}{\partial z \partial \bar z} e^\psi
+- \Bigl|
+\frac{\partial \psi}{\partial z} - \frac{\partial \phi}{\partial z}
+\Bigr|^2
+\frac{2 e^\psi e^\phi}{e^\psi + e^\phi}.
+$$
+If we pick $\psi$ and $\phi$ such that $\psi(0) = \phi(0) = 0$ this
+simplifies to
+$$
+R_{g+h}
+= - \frac{\partial^2 \psi}{\partial z \partial \bar z}
+- \frac{\partial^2 \psi}{\partial z \partial \bar z}
+- \Bigl|
+\frac{\partial \psi}{\partial z} - \frac{\partial \phi}{\partial z}
+\Bigr|^2
+$$
+there.
+
+Let $f(z) = a_0 (z + \bar z) + \sum_{n \geq 1} a_n z^n \bar z^n$.
+Then
+$$
+\frac{\partial f}{\partial z} = a_0 + o(|z|)
+\qandq
+\frac{\partial^2 f}{\partial z \partial \bar z}
+= a_1 + o(|z|^2),
+$$
+so if $a_1 < 0$ the metric $e^f$ has positive hsc at $0$.
+
+Let's take $\psi(z) = \exp(a_0(z + \bar z) - |z|^2)$ and $\phi(z) = \exp(-
+|z|^2)$, so
+$$
+R_{g+h} = 2 - |a_0|^2
+$$
+at $0$, which can be arbitrarily negative.
+
+
+
+\section{6. November 2022}
+
+Maybe we can recover some of what we want by density arguments.
+Chern connections and curvatures exist for non-degenerate forms, which are
+dense in the space of all forms.
+I think this is generally true:
+
+Let $E \to X$ be a smooth vector bundle with fiber $V$.
+Let $U \subset V$ be a dense open set.
+The set of sections $s$ of $E$ whose values are in $U$ is dense in the space of
+all sections of $E$.
+
+To prove that we should reduce to a product $E = X \times V$ locally, find a
+suitable compact set inside $X$ (one with open interior), and should be able to
+conclude by a norm argument and then glue with a partition of unity.
+
+
+\medskip
+
+Let $\theta(g,h) = g (g+h)^{-1} h + h (g+h)^{-1} g$ for Hermitian forms $g,h$
+with $g+h$ invertible.
+This is a smooth function from a subset of the space of Hermitian forms to
+itself.
+We have $\lim_{g \to 0} \theta(g,h) = 0$.
+I claim that $\lim_{g \to \infty} \theta(g,h) = 2 h$ if $g$ is invertible.
+This is maybe too much. We only use that
+$$
+\lambda g (\lambda g + h)^{-1} h + h (\lambda g + h)^{-1} \lambda g
+= g (g + h/\lambda)^{-1} h + h (g + h / \lambda)^{-1} g
+$$
+and $g + h/\lambda \to g$ so
+$$
+\theta(\lambda g,h)
+\to g g^{-1} h + h g^{-1} g = 2 h.
+$$
+The general limit involves a term $h g^{-1}(\id + g^{-1}h)^{-1}g$ and I don't
+know how to argue that this converges to $h$.
+
+When $g$ is not invertible we can approximate it by things that are, but the
+limit should involve the kernel of $g$.
+We should split $V = \Ker g \oplus V / \Ker g$ and apply the above on $V / \Ker g$.
+Then $\theta(\lambda g, h) \to 2 h_{| \Ker g^\perp}$.
+
+
+
+\medskip
+
+I want to prove that if $g$ has positive hsc and $h$ is any form then
+$e^\lambda g + h$ eventually has positive hsc.
+This is actually the same as proving that $g + h$ has positive hsc for $h$
+small enough.
+But that just follows from the continuity of the curvature tensor.
+
+
+
+\medskip
+
+Let $Y \subset X$ be smooth and let $\mu : \hat X \to X$ be the blowup of $X$
+along $Y$.
+If $h_X$ has positive hsc then $\mu^* h_X$ has positive hsc on $\hat X \setminus E$.
+Over $E$ we have
+$$
+0 \longrightarrow
+T_E \longrightarrow
+T_{\hat X|E} \longrightarrow
+N_{E/\hat X} \longrightarrow
+0
+$$
+and
+the divisor $E$ identifies with the total space of $p:\kk P(N_{Y/X}) \to Y$.
+We then have a short exact sequence
+$$
+0 \longrightarrow
+T_{\kk P(N_{Y/X}/Y)} \longrightarrow
+T_{\kk P(N_{Y/X})} \longrightarrow
+p^* T_{Y} \longrightarrow
+0.
+$$
+Let $b$ be an extension of the Fubini--Study metric on the fibers of $\kk
+P(N_{Y/X})$ to a small relatively compact neighborhood of $E$.
+We consider $h_\lambda = \mu^* h_X + e^{-\lambda} b$ on $\hat X$.
+
+For $\lambda$ small enough this is a metric on $\hat X$ and has positive hsc on
+$\hat X \setminus E$.
+On $T_{\kk P(N_{Y/X}/Y)} = \Ker \mu_*$ the form $\mu^* h_X$ is zero, so
+$h_\lambda$ identifies with the relative Fubini--Study metric there, which has
+positive hsc.
+
+
+
+
+
+
+\section{3. November 2022}
+
+Richard pointed out the example $h(z) = |z|^2$ on the complex plane, which is
+degenerate at $0$ and must have the Chern connection $\frac 1z dz$ outside of
+$0$, which can't be extended to $0$.
+This torpedos the results I thought I had proved and I don't think they can be
+salvaged.
+I'm now confused about what people proved in the Riemannian case.
+
+It might be worth looking into whether we can prove some of the corollaries
+anyway, with nasty local calculations.
+Does a blow-up of positively curved things have positive curvature?
+
+Let $V$ be a vector space. The blow-up of $V$ at $0$ is
+$$
+\hat V = \{ (z, l) \in V \times \kk P(V) \mid z \in l \}
+$$
+equipped with the holomorphic map $\mu : \hat V \to V$ induced by the
+projection $V \times \kk P(V) \to V$.
+We can also identify $\hat V$ with the total space of the line bundle $p : \cc
+O(-1) \to \kk P(V)$.
+
+If $V$ (or, more usefully, a neighborhood of $0$ in $V$) has a metric with
+positive hsc, then $V \times \kk P(V)$ also has such a metric because products
+of manifolds are easy enough to handle.
+So we're asking whether the submanifold $\hat V \subset V \times \kk P(V)$ also
+has such a metric, which is far from automatic.
+
+Let $E = \{0\} \times \kk P(V) = \mu^{-1}(0)$ be the exceptional divisor, and
+let $U = \mu^{-1}(B_\epsilon(0))$ be a tubular neighborhood around it.
+
+Let $U_j = \{ [w] \in \kk P(V) \mid w_j \not= 0 \}$ be one of the standard
+neighborhoods in $\kk P(V)$. The Fubini--Study metric on $U_j$ is
+$$
+h_{FS}(\alpha, \ov\beta; w)
+= \frac{\langle \alpha, \ov\beta \rangle}{1+|w|^2}
+- \frac{\langle \alpha, \ov w \rangle}{1+|w|^2}
+\frac{\langle w, \ov \beta \rangle}{1+|w|^2}
+= -\frac i2 \partial \bar\partial \log(1+|w|^2)(\alpha, \ov\beta).
+$$
+We have
+$$
+\frac i2 \partial \bar\partial |z|^2(\alpha, \ov\beta)
+= \langle \alpha, \ov\beta \rangle,
+$$
+so $\log \bigl( e^{|z|^2} / (1 + |w|^2) \bigr)$ is a potential for a K\"ahler
+metric on $V \times \kk P(V)$.
+We care because if $\theta$ is a bump function supported on $U_\epsilon$, then
+$\log \bigl( \theta(z) e^{|z|^2} / (1 + |w|^2) \bigr)$
+is a potential for a closed $(1,1)$-form that is a K\"ahler metric around $E$.
+
+We're proving that if $h$ is a K\"ahler metric on $E$, then there exists a
+tubular neighborhood $U$ around $E$ and a closed Hermitian form $\tilde h$ on
+$\hat V$ such that $\tilde h$ is a K\"ahler metric on $U$ and its restriction
+to $E$ is equal to $h$.
+This is not automatic; we're showing that the restriction morphism
+$$
+H^{1,1}(\hat V,\kk R) \to H^{1,1}(E, \kk R)
+$$
+is surjective, which it isn't always (take a high-degree hypersurface in three-dimensional projective space).
+
+It would be much better to prove that there exists a K\"ahler metric on $\hat
+V$ that restricts to $h$ on $E$.
+
+
+
+\section{2. November 2022}
+
+If $g$ and $h$ are Hermitian metrics on $X$ then
+\[
+R_{g + h} = R_g + R_h - \sigma^*q,
+\]
+so
+$
+H_{g+h}(\xi) \leq H_g(\xi)|\xi|_g^4 + H_h(\xi) |\xi|_h^4
+$
+on the $(g+h)$-unit sphere $S_{g+h}$.
+If we integrate this over the $(g+h)$-unit sphere we get a multiple of the
+scalar curvature of $g+h$ on the left-hand side.
+The multiple is by a constant $C = C(\dim X)$.
+
+We have
+$$
+\int_{S_g(r)} H_g(\xi) d\mu_r
+= \int_{S_g} H_g(r \eta) d\mu(r \eta)
+= r^{2n+3} \int_{S_g} H_g(\eta) d\mu
+= C r^{2n+3}.
+$$
+Then
+\begin{align*}
+\int_{S_{g+h}} H_{g}(\xi) |\xi|^4_g d\mu
+&= \int_m^M \int_{S_g(r)} H_g(\eta) d\mu_r(\eta) dr
+\\
+&= \int_m^M r^{2n+3} \int_{S_g} H_g(\xi) d\mu(\xi) dr
+\\
+&= C s_g \int_m^M r^{2n+3} dr
+= C s_g \frac{1}{2(n+2)}(M^{2n+4} - m^{2n+4}),
+\end{align*}
+where
+$$
+0 < m := \inf_{S_{g+h}} |\xi|_g \leq M := \sup_{S_{g+h}} |\xi|_g < 1.
+$$
+Note that
+$$
+\inf_{S_{g+h}} |\xi|_h = \sqrt{1-m^2}
+\qandq
+\sup_{S_{g+h}} |\xi|_h = \sqrt{1-M^2}.
+$$
+Integrating $H_h$ over the unit sphere and adding the two then gives
+$$
+2(n+2) s_{g+h}
+\leq
+\bigl(b^{n+2} - a^{n+2}\bigr) s_g
++ \bigl((1-a)^{n+2} - (1-b)^{n+2}\bigr) s_h,
+$$
+where $a = m^2$ and $b = M^2$.
+
+We have
+$$
+\frac{a^n - b^n}{a - b}
+= \sum_{k=0}^{n-1} a^{n-1-k} b^k
+\geq (n-1) b^{n-1},
+$$
+so if both curvatures are negative we get
+\begin{align*}
+\frac{2(n+2)}{n+1} s_{g+h}
+&\leq
+(a-b)(b^{n-1} s_g + (1-a)^{n-1} s_h)
+\\
+&\leq
+(a-b) \min\{1-a, b\}^{n-1}(s_g + s_h).
+\end{align*}
+
+Set
+$$
+f(a, b) = b^n - a^n + (1-a)^n - (1-b)^n.
+$$
+We have $f_a = -n a^{n-1} - n(1-a)^{n-1}$ and $f_b = n b^{n-1} + n(1-b)^{n-1}$
+so the gradiant of $f$ is
+$$
+\nabla f = n \begin{pmatrix}
+- a^{n-1} - (1-a)^{n-1}
+\\
+b^{n-1} + (1-b)^{n-1}
+\end{pmatrix}
+$$
+and Hessian of $f$ is
+$$
+H(f) =
+n(n-1)
+\begin{pmatrix}
+(1-a)^{n-2} - a^{n-2} & 0
+\\
+0 & b^{n-2} - (1-b)^{n-2}
+\end{pmatrix}.
+$$
+The gradient is zero when $a^{n-1} + (1-a)^{n-1} = 0$ and same for $b$. As
+$0 < a, b < 1$, this doesn't happen inside $[0,1] \times [0,1]$.
+We also have the constraint $a \leq b$, and $f(a,a) = 0$.
+Other extrema have to happen on the boundary on that triangle. We have
+$f(0,b) = b^n - (1-b)^n$, which should take its maximum at $f(0,\frac12) =
+1/2^{n-1}$, and $f(a,1) = (1-a)^n - a^n$, which same. So
+$$
+0 \leq f(a,b) \leq \frac 1{2^{n-1}}
+$$
+and both bounds are optimal.
+
+I had already calculated this at some point and gotten the same identities, but
+with the contribution of the second fundamental form written as $\langle
+\sigma(\xi), \ov{\sigma(\eta)} \rangle$ and $|\sigma|^2$.
 
 
 \section{31. October 2022}
@@ -1052,7 +2718,9 @@ where $f := (L\Lambda)^{n-m} + c_{n-1} (L\Lambda)^{n-m-1} + \cdots + c_m \operat
 
 We then have $(L\Lambda)^m f(u) = 0$ for every class $u$. As $L$ is injective, we conclude that $(L\Lambda)^{m-1} f(u)$ is primitive. But $Lv$ is never primitive for a nonzero class $v$, so by induction on $m$ we must in fact have that $f(u)$ is primitive.
 
-Now suppose $u$ is primitive. Then $f(u) = c_m u$, so by rescaling $f$ we obtain a projection operator onto the space of primitive classes. Then the Hodge theorems tell us that
+Now suppose $u$ is primitive.
+Then $f(u) = c_m u$, so by rescaling $f$ we obtain a projection operator onto
+the space of primitive classes. Then the Hodge theorems tell us that
 $$
 u - \frac{1}{c_m} f(u) = Lv
 $$

@@ -736,7 +736,12 @@ The difference $D_1^2 - D_2^2$ thus takes values in $\Ker b$.
 
 
 \begin{prop}
-Let $(E,b_E) \to X$ and $(F,b_F) \to X$ be holomorphic vector bundles with Hermitian forms and let $D_E$ and $D_F$ be Chern connections of $E$ and $F$. Let $f : E \to F$ be a smooth bundle morphism that admits an adjoint $f^\dagger$. Then $D_{\Hom(E,F)}f$ admits an adjoint and $(D_{\Hom(E,F)}f)^\dagger$ and $D_{\Hom(F,E)}f^\dagger$ are both its adjoints.
+\label{prop:hom-adjoint}
+Let $(E,b_E) \to X$ and $(F,b_F) \to X$ be holomorphic vector bundles with
+Hermitian forms and let $D_E$ and $D_F$ be Chern connections of $E$ and $F$.
+Let $f : E \to F$ be a smooth bundle morphism that admits an adjoint
+$f^\dagger$. Then $D_{\Hom(E,F)}f$ admits an adjoint and
+$(D_{\Hom(E,F)}f)^\dagger$ and $D_{\Hom(F,E)}f^\dagger$ are both its adjoints.
 \end{prop}
 
 
@@ -922,25 +927,12 @@ be a short exact sequence of holomorphic bundles over $X$, and let $b_E$ be a sm
 \begin{prop}
 The \emph{second fundamental form} of $S$ in $E$ is
 \[
-\snd(s) := q(D_E(js) - jD_S(s)).
+\snd(s) := q(D_E(js)).
 \]
 It is an element of $\cc A^{1,0}(\Hom(S,Q))$.
-We have
-\[
-\snd(s)
-= q(D_{\Hom(S,E)}j(s))
-= q(D_E(js))
-\]
-for sections $s$ of $S$.
 \end{prop}
 
 \begin{proof}
-As $qj = 0$ it is clear that $b(s) = q(D_E(js))$. We also have
-\[
-D_E(js) = D_{\Hom(S,E)}(j)(s) + j(D_Ss),
-\]
-so $b(s) = q(D_{\Hom(S,E)}(j)(s))$.
-
 As $j$ is holomorphic, we have $D_{\Hom(S,E)}j = D'_{\Hom(S,E)}j$ so $\snd$ has no $(0,1)$-part. It is also clearly $\cc C^\infty$-linear in its tensor field variable. If $f$ is a smooth function, we have
 \[
 D_E(j(fs))
@@ -955,178 +947,15 @@ The second fundamental form admits an adjoint.
 \end{prop}
 
 \begin{proof}
-We have to show that $\snd(s) \in \Ker b_Q$ when $s$ is a section of $\Ker b_S$. If $s$ is such a section, then $js$ is a section of $\Ker b_E$, so $D_E(js)$ is a section of $\Ker b_E$. Then $q(D_E(js))$ is a section of $\Ker b_Q$ by the construction of $b_Q$.
+We have to show that $\snd(s) \in \Ker b_Q$ when $s$ is a section of $\Ker
+b_S$. If $s$ is such a section, then $js$ is a section of $\Ker b_E$, so
+$D_E(js)$ is a section of $\Ker b_E$. Then $q(D_E(js))$ is a section of $\Ker
+b_Q$ by the construction of $b_Q$.
 \end{proof}
 
 
 
-Our goal is to calculate the curvature forms of the sub- and quotient bundles. The first stop on the way is a wildly useful list of formulas from Demailly~{{\cite[Theorem~14.3]{demailly-complex}}}.
-
-
-\begin{prop}
-\label{prop:seq-formulas}
-\begin{alignat*}{2}
-D'_{\Hom(S,E)}j &\sim q^\dagger \circ \snd,
-&
-\qquad
-\bar\partial j &= 0,
-\\
-D'_{\Hom(E, Q)} q &\sim - \snd \circ j^\dagger,
-&
-\bar\partial q &= 0,
-\\
-D'_{\Hom(E,S)} j^\dagger &\sim 0,
-&
-\bar\partial j^\dagger &\sim b^\dagger \circ q,
-\\
-D'_{\Hom(Q,E)} q^\dagger &\sim 0,
-&
-\bar\partial q^\dagger &\sim - j \circ \snd^\dagger,
-\\
-D'_{\Hom(S,Q)} \snd &\sim 0,
-&
-\bar\partial \snd^\dagger &\sim 0.
-\end{alignat*}
-\end{prop}
-
-\begin{proof}
-Let $s$ be a section of $S$. Then
-\[
-j(D_S s) + q^\dagger \snd(s)
-\sim D_E(js)
-= D_{\Hom(S,E)}j (s) + j(D_S s),
-\]
-where the first relation is by definition of $D_S$ and $\snd$, so
-\[
-D_{\Hom(S,E)}j \sim q^\dagger \circ \snd.
-\]
-The morphism $j$ is holomorphic, so $\bar\partial j = 0$. This proves the first line. The third line follows from the first by taking adjoints.
-
-
-For the second line, the morphism $q$ is also holomorphic, so $\bar\partial q = 0$. Taking adjoints, we get that $D'_{\Hom(Q,E)} q^\dagger \sim 0$.
-We have $\id_E \sim j \circ j^\dagger + q^\dagger \circ q$, so
-\begin{align*}
-0
-&= D'_{\End E} \id_E
-\\
-&\sim D'_{\Hom(S,E)} j \circ j^\dagger + j \circ D'_{\Hom(E,S)}j^\dagger
-+ D'_{\Hom(Q,E)}q^\dagger \circ q + q^\dagger D'_{\Hom(E,Q)} q
-\\
-&\sim q^\dagger \circ \snd \circ j^\dagger + q^\dagger \circ D'_{\Hom(E,Q)}q.
-\end{align*}
-Applying $q$, we conclude that $D'_{\Hom(E,Q)}q \sim - \snd \circ j^\dagger$. This proves the second line. Taking adjoints we get the last piece of the fourth line.
-
-Finally we note that
-\begin{align*}
-D'_{\Hom(S,Q)} \snd
-&\sim D'_{\Hom(S,Q)} (q D'_{\Hom(S,E)}j)
-\\
-&\sim - \snd \circ j^\dagger \circ q^\dagger \circ \snd
-+ q^\dagger (D'_{\Hom(S,Q)})^2 j
-\sim 0
-\end{align*}
-as we're dealing with curvature tensors of Hermitian forms which are of type $(1,1)$ up to things that are $\sim 0$. The statement about $\bar\partial \snd^\dagger$ follows by taking adjoints.
-\end{proof}
-
-
-
-\begin{prop}
-Under the smooth splitting $E \to S \oplus Q$ defined by $s \mapsto j^\dagger s \oplus qs$ the Chern connection and curvature form of $E$ are
-\begin{align*}
-D_E s &\sim
-\begin{pmatrix}
-j^\dagger & q
-\end{pmatrix}^\dagger
-\begin{pmatrix}
-D_S & - \snd^\dagger
-\\
-\snd & D_Q
-\end{pmatrix}
-\begin{pmatrix}
-j^\dagger \\ q
-\end{pmatrix}
-(s),
-\\
-D_E^2 s &\sim
-\begin{pmatrix}
-j^\dagger & q
-\end{pmatrix}^\dagger
-\begin{pmatrix}
-D^2_S - \snd^\dagger \wedge \snd & -D'_{\Hom(Q,S)} \snd^\dagger
-\\
-\bar\partial \snd & D^2_Q - \snd \wedge \snd^\dagger
-\end{pmatrix}
-\begin{pmatrix}
-  j^\dagger \\ q
-\end{pmatrix}(s).
-\end{align*}
-\end{prop}
-
-
-\begin{proof}
-Let $s$ be a section of $E$. We write
-\[
-s \sim j (j^\dagger s) + q^\dagger( qs).
-\]
-Then
-\[
-D_E s
-\sim q^\dagger \circ \snd (j^\dagger s)
-+ j \circ D_S( j^\dagger s)
-- j \circ \snd^\dagger (qs)
-+ q^\dagger \circ D_Q (qs).
-\]
-This proves the first statement.
-For each of the terms here, we have
-\begin{align*}
-D_E(q^\dagger \circ \snd (j^\dagger s))
-&\sim -j \circ \snd^\dagger \circ \snd (j^\dagger s)
-+ q^\dagger \circ \bar\partial \snd (j^\dagger s)
-- q^\dagger \circ \snd \circ D_S(j^\dagger s),
-\\
-D_E(j \circ D_S( j^\dagger s))
-&\sim q^\dagger \circ \snd \circ D_S(j^\dagger s)
-+ j \circ D_S^2 (j^\dagger s),
-\\
-D_E(-j \circ \snd^\dagger (qs))
-&\sim - q^\dagger \circ \snd \circ \snd^\dagger (qs)
-- j \circ D'_{\Hom(Q,S)}\snd^\dagger (qs)
-+ j \circ \snd^\dagger \circ D_Q(qs),
-\\
-D_E(q^\dagger \circ D_Q (qs))
-&\sim -j \circ \snd^\dagger \circ D_Q(qs)
-+ q^\dagger \circ D_Q^2 (qs).
-\end{align*}
-Grouping these together by pre- and postfix morphisms, we get
-\begin{align*}
-D_E^2 s
-&\sim j \bigl( D_S^2 - \snd^\dagger \circ \snd \bigr) j^\dagger s
-- j \bigl( D'_{\Hom(Q,S)} \snd^\dagger \bigr) qs
-\\
-&\qquad
-+ q^\dagger \bigl( \bar\partial \snd \bigr) j^\dagger s
-+ q^\dagger \bigl( D^2_Q - \snd \circ \snd^\dagger \bigr) qs
-\\
-&=
-\begin{pmatrix}
-j^\dagger & q
-\end{pmatrix}^\dagger
-\begin{pmatrix}
-D^2_S - \snd^\dagger \wedge \snd & -D'_{\Hom(Q,S)} \snd^\dagger
-\\
-\bar\partial \snd & D^2_Q - \snd \wedge \snd^\dagger
-\end{pmatrix}
-\begin{pmatrix}
-  j^\dagger \\ q
-\end{pmatrix}(s),
-\end{align*}
-which completes the proof.
-\end{proof}
-
-
-
-
-\begin{coro}[Codazzi--Griffiths equations]
+\begin{theo}[Codazzi--Griffiths equations]
 The curvature tensors of $S$ and $Q$ satisfy
 \begin{align*}
 R_S(\alpha, \ov\beta, s, \ov t)
@@ -1137,7 +966,60 @@ R_Q(\alpha, \ov\beta, s, \ov t)
 &= R_E(\alpha, \ov\beta, q^\dagger s, \ov{q^\dagger t})
 + b_S(\snd^\dagger(\ov\beta, s), \ov{\snd^\dagger(\ov\alpha, t)}).
 \end{align*}
-\end{coro}
+\end{theo}
+
+
+
+\begin{proof}
+We only prove the first equation, as that's the one we'll use and the proof of
+the second is very similar, and we're also trying to keep the surface area of
+this proof as small as possible for checking.
+A Chern connection of $h_S$ is
+\[
+D_S s = j^\dagger D_E (js).
+\]
+Then a curvature form of $h_S$ is
+% TODO: How do we get Hom connections? Or metrics on Hom bundles?
+% There is something to show here.
+\begin{align*}
+D^2_S s = j^\dagger D_E(j j^\dagger D_E (js))
+&\sim j^\dagger D_E^2 (js) - j^\dagger D_E ( q^\dagger q D_E (js))
+\\
+&\sim j^\dagger D_E^2 (js) - j^\dagger D_{\Hom(Q,S)} (q^\dagger) \wedge q D_E (js))
+\\
+&= j^\dagger D_E^2 (js) - j^\dagger D_{\Hom(Q,S)} (q^\dagger) \wedge \sigma(s)
+\end{align*}
+because $\id_E \sim jj^\dagger + q^\dagger q$ and $j^\dagger q^\dagger \sim 0$.
+
+Now we have $D_E(js) \sim j(D_s s) + q^\dagger \sigma(s)$ by definition of $D_S$
+and $\sigma$, but also $D_E(js) = D_{\Hom(S,E)}j(s) + j(D_S s)$, so
+$D_{\Hom(S,E)}j(s) \sim q^\dagger \sigma(s)$.
+We also have
+\begin{align*}
+0
+&= D_{\End E} \id_E
+\\
+&\sim D_{\Hom(S,E)} j \circ j^\dagger + j \circ D_{\Hom(E,S)}j^\dagger
++ D_{\Hom(Q,E)}q^\dagger \circ q + q^\dagger D_{\Hom(E,Q)} q
+\\
+&\sim q^\dagger \circ \snd \circ j^\dagger + q^\dagger \circ D_{\Hom(E,Q)}q.
+\end{align*}
+Applying $q$, we conclude that $D_{\Hom(E,Q)}q \sim - \snd \circ j^\dagger$.
+Taking adjoints, which we can because $j$, $q$ and $\sigma$ have adjoints and we
+have Proposition~\ref{prop:hom-adjoint}, we get that
+$D_{\Hom(Q,E)}q^\dagger = - j \sigma^\dagger$. We then arrive at
+$$
+D^2_S s
+= j^\dagger D_E^2 (js) - j^\dagger D_{\Hom(Q,S)} (q^\dagger) \sigma(s)
+\sim j^\dagger D_E^2 (js) + \sigma^\dagger \wedge \sigma(s),
+$$
+which implies what we wanted to show once we apply $b_S$ and note that
+$$
+b_S(\sigma^\dagger \wedge \sigma(\xi, \ov\eta)(s), \ov t)
+= - b_Q(\sigma(\xi) s, \ov{\sigma(\eta) t})
+$$
+for all tangent fields $\xi, \eta$ and sections $s$ and $t$.
+\end{proof}
 
 
 
