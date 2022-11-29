@@ -251,79 +251,83 @@ and thus $\tr(f \circ v \otimes v^*) = h(fv, \ov v)$.
 
 \begin{prop}
 \label{prop:int-id}
-On $\Sym^d V$ we have
+Denote by $\Pi : V^{\otimes d} \to V^{\otimes d}$ the projection onto $\Sym^d V$.
+Then
 $$
 \int_{S(V)} (v \otimes v^*)^{d} d\mu(v)
-= \frac{\Vol(S(V))}{\binom{n+d-1}{d}} \id.
+= \frac{\Vol(S(V))}{\binom{n+d-1}{d}} \Pi.
 $$
 \end{prop}
 
 \begin{proof}
-The integral is well-defined as the integrand is invariant under $S_d$.
-Let's denote the map defined by the integral by $L$.
-If $g \in \End V$ is unitary with respect to $h$ we have
-$h(g x, \ov v) = h(x, \ov{g^{-1} v})$
-and $|\!\det g| = 1$
-so the change of basis formula implies that $L g^d = g^d L$.
-As $\Sym^d V$ is an irreducible representation of the unitary group, this
-implies that $L = \lambda \id$ for some scalar $\lambda$.
-For a unit vector $v$ we have $\tr v \otimes v^* = |v|^2 = 1$
+Let's denote the map defined by the integral by $L$. If $g \in \End V$ is
+unitary with respect to $h$ we have $h(g x, \ov v) = h(x, \ov{g^{-1} v})$ and
+$|\!\det g| = 1$ so the change of basis formula implies that $L g^d = g^d L$.
+The map $L$ is then an interleaving operator of the representation $V^{\otimes d}$
+of the unitary group.
+
+The integral is thus a sum of multiples of the projections onto the irreducible
+factors of $V^{\otimes d}$.
+Note however that the integral takes values in $\Sym^d V$ because the integrand
+is invariant under $S_d$, so $L = \lambda \Pi$ for some scalar $\lambda$.
+For a unit vector $v$ we have $\tr v \otimes v^* = |v|^2 = 1$.
 Taking the trace we then find that $\Vol(S(V)) = \lambda \binom{n+d-1}{d}$,
 which implies the result.
 \end{proof}
 
 
-
 \begin{coro}
 \begin{align*}
-\int_{S(V)} H(v) d\sigma(v)
+\int_{S(V)} H(v) \, d\mu(v)
 &= \frac{\Vol(S(V))}{\binom{n+1}{2}} s.
 \\
-\int_{S(V)} H(v)^2 d\sigma(v)
-&= \frac{2 \Vol(S(V))}{\binom{n+1}{2}}(|R|^2 + s^2).
+\int_{S(V)} H(v)^2 \, d\mu(v)
+&= \frac{\Vol(S(V))}{2\binom{n+1}{2}}(|R|^2 + s^2).
 \end{align*}
 \end{coro}
 
 
 \begin{proof}
-If $f \in \End \Sym^2 V$ then Proposition~\ref{prop:int-id} implies that
+If $f \in \End \Sym^2 V$ then taking the trace of the equation in
+Proposition~\ref{prop:int-id} gives
 $$
-\int_{S(V)} h^{\odot 2}(f(v \odot v), \ov{v \odot v}) d\sigma(v)
+\int_{S(V)} h^{\odot 2}(f(v \odot v), \ov{v \odot v}) \, d\mu(v)
 = \frac{\Vol(S(V))}{\binom{n+1}{2}} \tr f.
 $$
 If $q \in B(\Sym^2)$ is the Hermitian form defined by the curvature tensor $R$,
 then applying this to $f = (h^{\odot 2})^{-1} b$ gives the first equation.
 
-The Frobenius norm of $f$ is $|R|^2 = |f|^2 = \tr(f^\dagger f)$, where
-$f^\dagger$ is the adjoint of $f$ and
+For the second equation,
+we will first show that if $f \in \End V$ then
+$$
+\int_{S(V)} h(fv, \ov v)^2 \, d\mu(v)
+= \frac{\Vol(S(V))}{2\binom{n+1}{2}}
+\bigl( \tr(f^2) + (\tr f)^2 \bigr).
+$$
+The left-hand side is the trace of the integral of $f \otimes f$.
+We have $\Pi_2(x \otimes y) = \frac12(\id + W_{(12)})$,
+where $W_{(12)}$ is the exchange operator $x \otimes y \mapsto y \otimes x$,
+so
+$$
+f \otimes f \circ \Pi_2 (x \otimes y)
+= \tfrac12 (f\otimes f + f\otimes f \circ W_{(12)}) (x \otimes y).
+$$
+We have $\tr (f \otimes f) = (\tr f)^2$ and a short calculation shows that
+$\tr (f \otimes f \circ W_{(12)}) = \tr f^2$, whence the result.
+
+We now apply this again to $f = (h^{\odot 2})^{-1} b$. As $b$ is Hermitian,
+the morphism $f$ is its own adjoint and so $\tr f^2 = |f|^2 = |R|^2$.
 \end{proof}
 
 
-
-\begin{prop}
-If $R$ is an algebraic K\"ahler curvature tensor with $H = 0$ then $R = 0$.
-\end{prop}
-
-\begin{proof}
-If $f$ is an endomorphism of $\Sym^2 V$, then $|f|^2 = \tr f^\dagger f$.
-Then
-\begin{align*}
-\frac{\Vol(S(V))}{\binom{n+1}{2}} |f|^2
-&= \int_{S(V)} h(f^\dagger f(x \odot x), \ov{x \odot x}) d\sigma
-\\
-&= \int_{S(V)} h(f(x \odot x), \ov{f(x \odot x)}) d\sigma
-= \int_{S(V)} |f(x \odot x)|^2 d\sigma.
-\end{align*}
-If $q$ is the Hermitian form that $R$ defines on $\Sym^2 V$ we set $f =
-h^{-1}q$. Then $|f|^2 = |q|^2$ and
-\[
-\frac{\Vol(S(V))}{\binom{n+1}{2}} |q|^2
-= \int_{S(V)} |q(x \odot x, x \odot x)|^2 d\sigma
-= \int_{S(V)} |H(x)|^2 d\sigma.
-\qedhere
-\]
-\end{proof}
-
+I haven't seen the second equation before, but it explains why the holomorphic
+sectional curvature determines the entire curvature tensor; if $H = 0$ we must
+have $|R|^2 = 0$ as well.
+It also shows that knowing a bound on $H$ gives a bound on $R$, which is
+usually observed as a corollary of a polarization identity.
+The polarization identity shows that if $|H|^2 \leq C$ then $|R|^2 \leq
+24 C$ because it involves applying the triangle inequality to a sum of 24 factors.
+We get here that $|R|^2 \leq n(n+1)C$, which is worse!
 
 
 \subsection*{Dominance}
@@ -352,23 +356,18 @@ The Ricci tensor is the trace
 $$
 r(x, \ov y) = \sum_{j = 1}^n R(x, \ov y, e_j, \ov e_j)
 $$
-in an orthonormal basis $(e_j)$, so it is positive-definite if $R$ is Griffiths
-positive.
-
+in an orthonormal basis $(e_j)$, so it is positive-definite.
 The scalar curvature is the trace
 $$
 s = \sum_{j=1}^n r(e_j, \ov e_j)
 $$
-in an orthonormal basis, so it is positive if $r$ is positive.
-
-Suppose finally that $H > 0$.
-If $q$ is the Hermitian form that $R$ defines on $\Sym^2 V$, then
+in an orthonormal basis, so $s > 0$ if $r$ is positive-definite.
+As we saw before we have
 \[
-\frac{\Vol(S(V))}{\binom{n+1}{2}} s
-= \int_{S(V)} q(x \odot x, \ov{x \odot x}) d\sigma
-= \int_{S(V)} H(x) d\sigma.
-\qedhere
+\int_{S(V)} H(v) \, d\mu(v)
+= \frac{\Vol(S(V))}{\binom{n+1}{2}} s
 \]
+so $s > 0$ if $H > 0$.
 \end{proof}
 
 
