@@ -37,6 +37,10 @@
           inherit self tex mkDerivation;
           name = "remark-on-wu";
         };
+        fundamental-theorem-algebra = pkgs.callPackage ./project.nix {
+          inherit self tex mkDerivation;
+          name = "fundamental-theorem-algebra";
+        };
       in {
         packages.default = journal;
 
@@ -46,6 +50,7 @@
         packages.nakano-positive = nakano-positive;
         packages.sgct = sgct;
         packages.wu = wu;
+        packages.fundamental = fundamental-theorem-algebra;
 
         devShell = pkgs.mkShell { buildInputs = [ tex pkgs.zathura ]; };
       });
