@@ -1,0 +1,22 @@
+Proofs:
+
+https://mathoverflow.net/questions/10535/ways-to-prove-the-fundamental-theorem-of-algebra
+
+https://mathscholar.org/2018/09/simple-proofs-the-fundamental-theorem-of-algebra/
+
+http://math.uchicago.edu/~may/REU2014/REUPapers/Steed.pdf
+
+---
+
+If we know that real polynomials factor into products of polynomials of degree
+at most 2, we can consider the real polynomial |p|^2 and write down a complex root of
+one of its factors, which will necessarily be a root of p.
+
+---
+
+There's prior art
+
+    https://www.amazon.com/Fundamental-Theorem-Algebra-Undergraduate-Mathematics/dp/0387946578
+
+but it seems to only collect a couple of proofs and wants to develop the theory
+leading to the proofs.

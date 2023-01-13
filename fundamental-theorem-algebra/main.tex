@@ -1,0 +1,281 @@
+\documentclass[11pt,draft]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem*{theo}{Theorem}
+\newtheorem*{fundamental}{Fundamental theorem of algebra}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\ov#1{\overline{#1}}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{The fundamental theorem of algebra}
+
+\begin{document}
+
+\maketitle
+
+
+
+\begin{fundamental}
+Every nonconstant polynomial over the complex numbers has a root.
+\end{fundamental}
+
+
+
+\section{The roots}
+
+
+Charles Fefferman~\cite{fefferman} offers a rather simple approach to the
+fundamental theorem of algebra.
+Our outline has some quality of life improvements due to Kevin McGerty~\cite{kevin}.
+The same idea is also used in Rudin~\cite[Chapter 8]{rudin1976principles}
+
+\begin{proof}
+Let $p(z) = a_0 + a_1 z + \cdots + a_n z^n$ be a polynomial of degree $n > 1$.
+If we write
+\[
+    p(z) = a_n z^n (1 + a_{n-1}/z + \cdots + a_0/z^n)
+\]
+then we see that $1 + a_{n-1}/z + \cdots + a_0/z^n \to 1$ as $|z| \to \infty$,
+so $|p|$ tends to the same limit as $|a_n z^n|$, which is infinity.
+Thus $|p|$ attains a minimum value $m$, as it will be arbitrarily big outside
+a very large disk but attain a minimum on the inside of that compact set.
+
+Suppose that $m > 0$. If $|p|$ attains $m$ at $z_0$, then $q(z) := p(z-z_0)/m$
+attains its minimum at $0$ and its minimum is $1$, so we may assume the same is
+true for $p$. We then have
+\[
+    p(z) = 1 + b_k z^k + \cdots + b_n z^n,
+\]
+where $b_k \not= 0$.
+Note that $|p|^2$ also attains its minimum at $0$ and that its minimum is $1$.
+Now let $w \in \kk C$ be such that $w^k = -1/b_k$.
+We have
+\begin{align*}
+    |p(tw)|^2
+    &= (1 - t^k + \cdots + b_n w^n t^n)
+    (1 - t^k + \cdots + \ov{b_n}\ov w^n t^n)
+    \\
+    &= 1 - t^k(2 + t q(t))
+\end{align*}
+for some real-valued polynomial $q$ and for real $t$.
+The function $t \mapsto 2 + tq(t)$ is continuous and takes the value $2$ at $0$,
+so it is positive for small $t > 0$.
+But then $|p(tw)|^2 < 1$ for those small $t$, which contradicts $1$ being its
+minimum.
+\end{proof}
+
+
+The main idea of the proof actually goes back to d'Alembert's original
+proof, though it is somewhat hard to follow.
+
+The first point is that $|p|$ must attain its minimum on $\kk C$. Today this
+follows easily from facts about compactness and continuity. This is not limited
+to complex-valued polynomials, as real polynomials also have this property.
+
+The second ingredient is the existence of roots for arbitrary complex numbers,
+which lets us make a change of variables to transform our polynomial into one of
+the form $1 - t^k r(t)$ for a continuous function $r$ that is positive at $0$.
+This is the step that fails for real polynomials; indeed there is no change of
+variables that will achieve this for our best friend $p(x) = 1 + x^2$, which
+\emph{does} attain its global minimum of $1$ at $0$.
+
+
+
+\section{Liouville}
+
+This is likely the proof people have seen of the fundamental theorem of algebra
+if they've seen one at all. It's a staple of introductory complex analysis
+courses. A professor of mine used to say that a good benchmark for whether a
+result in complex analysis was useful was to see whether it could prove the
+fundamental theorem of algebra.
+
+To get here, simply develop the theory of holomorphic functions to the point
+where we get the Cauchy integral formula, prove that holomorphic functions are
+analytic, and prove Liouville's theorem:
+
+\begin{theo}
+A bounded entire function is constant.
+\end{theo}
+
+From there the proof of the fundamental theorem is short.
+
+\begin{proof}
+Assume $p$ is a nonconstant polynomial that has no root.
+Then $1/p$ is a well-defined entire function.
+We know as before that $|p(z)| \to \infty$ as $|z| \to \infty$, so $1/p$ is bounded.
+But then $1/p$ is constant, so $p$ is constant, which is a contradiction.
+\end{proof}
+
+It's perhaps less clear where to pick something to point out that fails in the
+real case here than before.
+The real equivalent of a holomorphic function is perhaps a smooth function,
+which can famously fail to be analytic (hello, partitions of unity!).
+Liouville's theorem also fails for smooth functions, as something like $x
+\mapsto 1/(1+x^2)$ shows.
+
+Obviously we can also prove the fundamental theorem of algebra using results
+that are proved using Liouville's theorem, like the Picard theorems. This feels
+less sporting somehow, so we won't do it.
+
+This proof is by contradiction, but it feels like it should be an example of
+such a proof that goes ``Assume not $X$, then do all the proof and arrive at
+$X$, which is a contradiction'' and could thus be turned into a direct proof.
+The part where that doesn't work is in the growth estimate on $|p(z)|$, which
+goes nowhere if we don't assume $p$ is nonconstant.
+
+
+
+
+\section{Open mapping}
+
+One of the main theorems on holomorphic functions is the open mapping theorem:
+
+\begin{theo}
+Let $U \subset \kk C$ be open and let $f : U \to \kk C$ be holomorphic.
+Assume $f$ is nonconstant.
+Then $f$ is an open map, that is, the image of any open subset under $f$ is open.
+\end{theo}
+
+By my old teacher's remark, this should be enough to prove the fundamental theorem of algebra.
+And along with a helping of topology, it is.
+
+\begin{proof}
+Recall the Riemann sphere $\widehat{\kk C} = \kk C \cup \{\infty\}$.
+Any polynomial $p$ induces a map $p : \widehat{\kk C} \to \widehat{\kk C}$ by setting $p(\infty) = \infty$,
+and this induced map is holomorphic.
+
+Assume $p$ is nonconstant.
+Then the induced map $p$ is open, so the image $p(\widehat{\kk C}) \subset \widehat{\kk C}$ is open.
+That image is also closed, because the source space $\widehat{\kk C}$ is compact and $p$ is
+continuous, and the target space $\widehat{\kk C}$ is Hausdorff.
+The image $p(\widehat{\kk C})$ is thus both open and closed, which means it is
+all of $\widehat{\kk C}$ because that space is connected.
+In particular, $p$ must map some point to zero.
+\end{proof}
+
+We've skipped over many of the details involved, like extending the open mapping
+theorem to complex curves, proving that the induced map on the Riemann sphere is
+holomorphic, and all the topology of the Riemann sphere. In our defence they're
+all standard results in a first course on complex geometry.
+
+This is the first direct proof of the fundamental theorem of algebra we see,
+which is maybe good news for the more logically conservative reader.
+
+The topological results we cite remain true for the extended real line $\kk R \cup \{\infty\}$,
+as does the fact that a polynomial extends to a map of the extended line.
+However, a real polynomial may not be an open map -- the function $x \mapsto x^2$
+maps the open interval $(-1,1)$ to the half-open interval $[0,1)$ -- so the
+proof breaks down there for real polynomials.
+
+
+
+\section{Differential topology}
+
+
+Here's a neat proof that seems to use little else from complex geometry than
+that holomorphic maps are orientation-preserving.
+
+\begin{proof}
+Let $\kk C_n[X]$ be the complex vector space of polynomials of degree $\leq n$.
+There is a holomorphic map
+\[
+    f : \prod_{j=1}^n \kk P(\kk C_1[X])
+    \to \kk P(\kk C_n[X]),
+    \quad
+    ([p_1], \ldots, [p_n]) \mapsto [p_1 \cdots p_n].
+\]
+If $[x_j:y_j]$ are the coordinates of the $j$-th $\kk P(\kk C_1[X])$ factor,
+they correspond to the polynomial $x_j + y_j X$. In the chart where $y_j \not=
+0$ the image of this map thus lands in the chart of $\kk P(\kk C_n[X])$ where
+the coefficient of $X^n$ is nonzero.
+Let $z_j = x_j / y_j$ be the homogeneous coordinates; then
+the differential of this map in those charts is
+\[
+    df_{(z_1, \ldots, z_n)}
+    = \sum_{j=1}^n (z_1 + X) \cdots \widehat{(z_j+X)} \cdots (z_n+X) d z_j.
+\]
+If all the $z_j$ are distinct the differential is injective, and thus
+surjective as the tangent spaces have the same dimensions. The cardinality of
+the fiber at such a point is $|S_n|$,
+where $S_n$ is the symmetric group on $n$ letters.
+
+Now any holomorphic map of positive degree between compact connected complex
+manifolds of the same dimension is surjective: A holomorphic map is
+orientation-preserving, so its degree is exactly equal to the number of points
+in the preimage of a regular value; see Milnor~\cite[Section~5]{milnor}.
+The image therefore contains the set of
+regular values, which is dense by Sard's theorem; again Milnor~\cite[Section~2]{milnor}.
+But the image is also closed as it is the image of a compact set, so it must be
+all of the target manifold.
+\end{proof}
+
+This actually proves directly that any complex polynomial splits into linear
+factors, while most other proofs have to add an extra induction step to conclude
+that.
+
+I don't have a counterexample that shows where this breaks down in the
+real case, but it must be related to orientability. In the real case the
+manifold $\kk P(\kk R_2[X])$ isn't orientable, and neither is its product with
+copies of itself. Therefore we aren't able to conclude the image contains the
+set of regular values of the map, so we don't get surjectivity.
+
+
+It's fun to see that this proof fails in a specific real case.
+(We don't see \emph{why} it fails though.)
+For degree-two real polynomials we have
+\[
+    f : \kk P(\kk R_1[X]) \times \kk P(\kk R_1[X])
+    \to \kk P(\kk R_2[X]),
+    \quad
+    ([p], [q]) \mapsto [p q].
+\]
+Let's write $p = aX + b$ and $q = cX + d$, then
+\[
+    pq = ac X^2 + (ad + bc) X + bd
+\]
+and the discriminant of $pq$ is
+\[
+\Delta(pq)
+= (ad + bc)^2 - 4 ac bd
+= (ad - bc)^2.
+\]
+We can define a kind of discriminant of an element of $\kk P(\kk R_2[X])$ by
+noting that for any degree-two polynomial $p$ we have $\Delta(\lambda p) =
+\lambda^2 \Delta(p)$. Therefore we get a well-defined discriminant up to sign
+$[\Delta(p)]$ of elements in the projective space whose value is either
+negative, zero, or positive.
+
+We conclude from the above that any element in the image of $f$ has zero or
+positive projectivized discriminant.
+However, there are elements in $\kk P(\kk R_2[X])$ whose projectivized
+discriminant is negative, like our best friend $[X^2 + 1]$ whose projectivized
+discriminant is $[\Delta(X^2 + 1)] = [-4] < 0$.
+The map in this case is therefore not surjective.
+
+It's possible to give a much more overkill proof along the same lines by
+invoking Grauert and Remmert's open mapping theorem for finite holomorphic
+morphisms between same-dimensional complex spaces. The proof then follows the
+same lines as the open mapping proof in the one-dimen\-sion\-al case.
+
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+\end{document}
