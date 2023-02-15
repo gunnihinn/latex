@@ -32,7 +32,7 @@
 \newtheorem{question}[theorem]{Question}
 \numberwithin{equation}{section}
 
-\theoremstyle {definition}
+\theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -56,7 +56,7 @@
 \DeclareMathOperator{\stre}{str}
 \DeclareMathOperator{\id}{id}
 
-\title{2-systoles of some Kaehler manifolds with positive scalar curvature}
+\title{2-systoles of some K\"ahler manifolds with positive scalar curvature}
 \author{Hugues Auvray, Thomas Richard}
 \date{}
 
@@ -66,7 +66,7 @@
 \begin{abstract}
     Recent work on Riemannian manifolds with positive scalar curvature suggests that under appropriate topological assumptions a positive lower bound on the scalar curvature can lead to the existence of a topologically non trivial 2-sphere of small area.
 
-    We show here how this can be shown for some Kaehler manifolds.
+    We show here how this can be shown for some K\"ahler manifolds.
 \end{abstract}
 
 In recent years, the study of positive scalar curvature metrics has been revived with a new focus on quantitative results (in constrast with the topological results obtained in the 80's). For instance Bray-Brendle-Neves in dimension 3 and Zhu in dimension at most 7 have shown the following result:
@@ -79,35 +79,35 @@ The proof of this result uses stable minimal hypersurfaces. The theorem is actua
 
 It is at present very unclear how one can generalise the estimate above to other topological contexts: in particular it is currently unknown if a positive scalar curvature metric on $\mathbb{S}^2\times\mathbb{S}^2$ has an upper bound on the systole of one of its factors though something can be said under an extra metric hypothesis (see ...).
 
-Here we show how restricting the investigation to Kaehler manifolds with positive scalar curvature allows to give answers to the question in various topological settings.
+Here we show how restricting the investigation to K\"ahler manifolds with positive scalar curvature allows to give answers to the question in various topological settings.
 
 We will show for instance:
 
 \begin{theorem}\label{thm_prod_proj}
-    Let $X_0$ be a compact Kaehler $n_0$-manifold
+    Let $X_0$ be a compact K\"ahler $n_0$-manifold
     \marginpar{\footnotesize What's a $n_0$-manifold?}
-    with $c_1(X_0)=0$ %and let $\tilde\omega_0$ be a Kaehler ricci flat metric on $X_0$.
+    with $c_1(X_0)=0$ %and let $\tilde\omega_0$ be a K\"ahler ricci flat metric on $X_0$.
     and $X=X_0\times\Pi_{k=1}^N\mathbb{CP}^{n_k}$. %and let $\tilde\omega=\tilde\omega_0+\sum_{k=1}^N \omega_{k}$ where $\omega_k$ is the Fubini-Study metric\footnote{normalised to have sectionnal curvature between $1/4$ and $1$.} on $\mathbb{CP}^{n_k}$.
 
-    Let $\omega$ be any Kaehler metric on $X$ such that :
+    Let $\omega$ be any K\"ahler metric on $X$ such that :
     \[\scal_\omega\geq \sum_{k=1}^N \frac{n_k(n_k+1)}{2}.\]
     Then there exists an homologically non trivial $\mathbb{CP}^1\subset X$ whose area is at most $4\pi$.
 
-    Moreover, if any homologically non trivial $\mathbb{CP}^1\subset X$ has area at least $4\pi$ then $\omega$ is isometric to $\omega_0+\sum_{k=1}^N\omega_k$ for some Ricci flat Kaehler metric $\omega_0$ on $X_0$ and $\omega_k$ the Fubini-Study metric\footnote{normalised to have sectionnal curvature between $1/4$ and $1$.} on $\mathbb{CP}^{n_k}$.
+    Moreover, if any homologically non trivial $\mathbb{CP}^1\subset X$ has area at least $4\pi$ then $\omega$ is isometric to $\omega_0+\sum_{k=1}^N\omega_k$ for some Ricci flat K\"ahler metric $\omega_0$ on $X_0$ and $\omega_k$ the Fubini-Study metric\footnote{normalised to have sectionnal curvature between $1/4$ and $1$.} on $\mathbb{CP}^{n_k}$.
 \end{theorem}
 
 Note that the constant $\sum_{k=1}^N \frac{n_k(n_k+1)}{2}$ is the scalar curvature of $\Pi_{k=1}^N\mathbb{CP}^{n_k}$ endowed with the product of the Fubini-Study metrics on each factor.
 If one denotes by $C_k$ a projective line in the $\mathbb{CP}^{n_k}$ factor, this shows that $\min_k\sys_{[C_k]}(\omega)\leq 4\pi$ with equality if $\omega$ is a product of constant scalar curvature metrics on each of it factors. The statement can actually be made a bit more precise, during the proof we will get:
 \[\sum_{k=1}^N\frac{n_k(n_k+1)}{\sys_{[C_k]}(\omega)}\geq \sum_{k=1}^N \frac{n_k(n_k+1)}{4\pi}\]
 
-The key observation is that the integral of the scalar curvature and the systoles of complex submanifolds can be recovered from cohomological data for Kaehler manifolds.
+The key observation is that the integral of the scalar curvature and the systoles of complex submanifolds can be recovered from cohomological data for K\"ahler manifolds.
 
 
-\section{Systoles of Kaehler manifolds}
+\section{Systoles of K\"ahler manifolds}
 
-The following observation is classic and follows from Wirtinger's inequality and the Kaehler condition:
+The following observation is classic and follows from Wirtinger's inequality and the K\"ahler condition:
 \begin{proposition}
-    Les $(X,\omega)$ be a Kaehler manifold and $Y\subset X$ be a compact complex submanifold. Then for any smooth $\Sigma\in [Y]$, $\mathcal{A}(Y)\leq\mathcal{A}(\Sigma)$.
+    Les $(X,\omega)$ be a K\"ahler manifold and $Y\subset X$ be a compact complex submanifold. Then for any smooth $\Sigma\in [Y]$, $\mathcal{A}(Y)\leq\mathcal{A}(\Sigma)$.
 \end{proposition}
 In particular this implies that $\sys_{[Y]}(\omega)=\mathcal{A}(Y)$ for any compact complex submanifold $Y\subset X$.
 
@@ -120,16 +120,16 @@ Set $S=\sum_{k=1}^N n_k(n_k+1)$.
 We first prove the inequality under a weaker hypothesis on the scalar curvature: a lower bound in average is enough to get the upper bound on one of the systole. We will prove the following:
 \begin{proposition}
     \label{thm_prod_proj_avg}
-    Let $X_0$ be a compact Kaehler $n_0$-manifold with $c_1(X_0)\leq 0$, %and let $\tilde\omega_0$ be a Kaehler ricci flat metric on $X_0$.
+    Let $X_0$ be a compact K\"ahler $n_0$-manifold with $c_1(X_0)\leq 0$, %and let $\tilde\omega_0$ be a K\"ahler ricci flat metric on $X_0$.
     Let $X=X_0\times\Pi_{k=1}^N\mathbb{CP}^{n_k}$ %and let $\tilde\omega=\tilde\omega_0+\sum_{k=1}^N \omega_{k}$ where $\omega_k$ is the Fubini-Study metric on $\mathbb{CP}^{n_k}$.
 
-    Let $\omega$ be any Kaehler metric on $X$ such that:
+    Let $\omega$ be any K\"ahler metric on $X$ such that:
     \[\int_X(\scal_\omega-S)\omega^n\geq 0.\]
     Then:
     \[\sum_{k=1}^N\frac{n_k(n_k+1)}{\sys_{[C_k]}(\omega)}\geq \sum_{k=1}^N \frac{n_k(n_k+1)}{4\pi}\]
     In particular $\min_k \sys_{[C_k]}(\omega) \leq 4\pi$.
 
-    Moreover, if $\sys_{[C_1]}(\omega)=\dots= \sys_{[C_N]}(\omega)=4\pi$ then $c_1(X_0)=0$ and $\omega$ is in the Kaehler class of $\omega_0+\sum_{k=1}^N\omega_k$ for some Ricci flat Kaehler metric $\omega_0$ on $X_0$.
+    Moreover, if $\sys_{[C_1]}(\omega)=\dots= \sys_{[C_N]}(\omega)=4\pi$ then $c_1(X_0)=0$ and $\omega$ is in the K\"ahler class of $\omega_0+\sum_{k=1}^N\omega_k$ for some Ricci flat K\"ahler metric $\omega_0$ on $X_0$.
 \end{proposition}
 
 \begin{proof}
@@ -141,7 +141,7 @@ Let $\rho$ (resp. $\rho_i$) denote the Ricci form of $\omega$ (resp. $\omega_i$)
 \end{align*}
 where $\kappa_0$ is a non-negative (1,1)-form such that $[-\kappa_0]=2\pi c_1(X_0)$.
 
-Let $\eta_0\in H^{1,1}(X_0)$ denote the component of $[\omega]$ in $H^{1,1}(X_0)$. We can then write the cohomology class of the Kaehler form $\omega$ in $H_{\mathbb{R}}^{1,1}(X)=\bigoplus_k H^{1,1}_\mathbb{R}(X_k)$ as  $[\omega]=\eta_0+\sum_{k=1}^Na_k[\omega_k]$ for some reals $a_k>0$. %Since $c_1(X_0)=0$,  Yau's solution to the Calabi conjecture gives us a Ricci flat metric $\omega_0\in\kappa_0$.
+Let $\eta_0\in H^{1,1}(X_0)$ denote the component of $[\omega]$ in $H^{1,1}(X_0)$. We can then write the cohomology class of the K\"ahler form $\omega$ in $H_{\mathbb{R}}^{1,1}(X)=\bigoplus_k H^{1,1}_\mathbb{R}(X_k)$ as  $[\omega]=\eta_0+\sum_{k=1}^Na_k[\omega_k]$ for some reals $a_k>0$. %Since $c_1(X_0)=0$,  Yau's solution to the Calabi conjecture gives us a Ricci flat metric $\omega_0\in\kappa_0$.
 Let $n_0=\dim_\mathbb{C}X_0$ and $n=n_0+n_1+\dots+n_k$. We have:
 \[\rho\wedge\omega^{n-1}=\frac{1}{2n}\scal_\omega\omega^n%\geq \frac{n}{2}\scal_{\tilde\omega}\omega^n.
 \]
@@ -188,7 +188,7 @@ For the last part of the proposition, assume that $\min_k a_k=1$, then since :
 \[\sum_{k=1}^N\left(\frac{n_k(n_k+1)}{a_k}-n_k(n_k+1)\right)\geq 0\] we get that $a_1=\dots=a_N=1$, and thus
 \[[\omega]=[\eta_0]+[\omega_1]+\dots+[\omega_N]=[\omega_0+\omega_1+\dots+\omega_N].\]
 
-Moreover, we also get that $\int_X\kappa_0\wedge\eta_0^{n_0-1}\wedge\omega_1^{n_1}\wedge\dots\wedge\omega_N^{n_N}=0$. Hence $[\kappa_0]=2\pi c_1(X_0)=0$ and by Yau's solution to the Calabi Problem there is a Ricci flat Kaehler metric $\omega_0\in[\eta_0]$. Hence:
+Moreover, we also get that $\int_X\kappa_0\wedge\eta_0^{n_0-1}\wedge\omega_1^{n_1}\wedge\dots\wedge\omega_N^{n_N}=0$. Hence $[\kappa_0]=2\pi c_1(X_0)=0$ and by Yau's solution to the Calabi Problem there is a Ricci flat K\"ahler metric $\omega_0\in[\eta_0]$. Hence:
 \[[\omega]=[\omega_0]+[\omega_1]+\dots+[\omega_N]=[\omega_0+\omega_1+\dots+\omega_N].\]
 
 \end{proof}
@@ -197,28 +197,28 @@ All that remains to be shown is the rigidity.
 \begin{proof}[Proof of Theorem \ref{thm_prod_proj}, rigidity part.]
     Using the same notations as in the previous proof, let $\hat\omega$ be the product metric $\omega_0+\omega_1+\dots+\omega_N$.
 
-    Under the integral bound $\int_X(\scal_\omega-S)\omega^n\geq 0$, we already know that if any non homologically trivial 2-sphere has area at least $4\pi$ then $\omega$ is in the Kaehler class of the product metric $\hat\omega$ and \[\int_X\scal_\omega\omega^n=\int_X S\omega^n=\int_X\scal_{\hat\omega}\omega^n.\]
+    Under the integral bound $\int_X(\scal_\omega-S)\omega^n\geq 0$, we already know that if any non homologically trivial 2-sphere has area at least $4\pi$ then $\omega$ is in the K\"ahler class of the product metric $\hat\omega$ and \[\int_X\scal_\omega\omega^n=\int_X S\omega^n=\int_X\scal_{\hat\omega}\omega^n.\]
 
-    If we furthermore assume the pointwise bound $\scal_\omega\geq\scal_{\hat\omega}$, we get that $\scal_\omega=\scal_{\hat\omega}$. Hence $\omega$ and $\hat\omega$ are two constant scalar curvature metric in the same Kaehler class, by Chen-Tian (?), $\omega$ and the product metric $\hat\omega$ are isometric.
+    If we furthermore assume the pointwise bound $\scal_\omega\geq\scal_{\hat\omega}$, we get that $\scal_\omega=\scal_{\hat\omega}$. Hence $\omega$ and $\hat\omega$ are two constant scalar curvature metric in the same K\"ahler class, by Chen-Tian (?), $\omega$ and the product metric $\hat\omega$ are isometric.
 \end{proof}
 
 
 
 \begin{itemize}
-\item Other $\tilde X$ would be interesting, in particular I would like to know what's going on with compact Kaehler Einstein 4-mfd with positive first Chern class ($\mathbb{CP}^2$ blown up at up to 8 points if I remember correctly). The computation doesn't seem to give anything for $\mathbb{CP}^2$ blown up at a point, if I understand its cohomology and Kaehler cone enough (see next section). The question of of which model metric on $\mathbb{CP}^2$ blown up at a point to compare seems delicate (no KE or cscK metric)...
-\item The few cases known in the Riemannian case suggest that rather than a total control of the topology, the existence of a non-zero degree map from $\tilde X$ to the model space $X$ together with the lower bound on the scalar curvature should be enough. Would this work with a nonzero degree holomorphic map  $\tilde X\to X_0\times\prod_{k=1}^N\mathbb{CP}^{n_k}$ ? (This would handle blow-ups I guess, as long as they have a positive scalar curvature Kaehler metric.)
+\item Other $\tilde X$ would be interesting, in particular I would like to know what's going on with compact K\"ahler Einstein 4-mfd with positive first Chern class ($\mathbb{CP}^2$ blown up at up to 8 points if I remember correctly). The computation doesn't seem to give anything for $\mathbb{CP}^2$ blown up at a point, if I understand its cohomology and K\"ahler cone enough (see next section). The question of of which model metric on $\mathbb{CP}^2$ blown up at a point to compare seems delicate (no KE or cscK metric)...
+\item The few cases known in the Riemannian case suggest that rather than a total control of the topology, the existence of a non-zero degree map from $\tilde X$ to the model space $X$ together with the lower bound on the scalar curvature should be enough. Would this work with a nonzero degree holomorphic map  $\tilde X\to X_0\times\prod_{k=1}^N\mathbb{CP}^{n_k}$ ? (This would handle blow-ups I guess, as long as they have a positive scalar curvature K\"ahler metric.)
 \end{itemize}
 \section{Product of $\mathbb{CP}^n$ and a projective curve of genus at least 2.}
 
 \begin{proposition}
     Let $X=\mathbb{CP}^n\times \Sigma_g$ where $\Sigma_g$ is a smooth projective curve of genus $g\geq 2$, and let $\omega$ be a Kahler metric on $X$ such that $\int_X\scal_\omega\omega^n\geq 0$, then \[\sys_{[C]}(\omega)\leq \frac{n(n+1)}{2(g-1)}\sys_{[\Sigma_g]}(\omega)\] where $C$ is the image of the standard embedding $\mathbb{CP}^1\to\mathbb{CP}^n$.
 
-    Equality is achieved if $\omega$ is in a multiple the Kaehler class of the product metric $\frac{n(n+1)}{2}\omega_{FS}+\omega_h$ where $\omega_{FS}$ is the Fubini-Study metric on $\mathbb{CP}^n$ and $\omega_h$ is the hyperbolic metric on $\Sigma_g$.
+    Equality is achieved if $\omega$ is in a multiple the K\"ahler class of the product metric $\frac{n(n+1)}{2}\omega_{FS}+\omega_h$ where $\omega_{FS}$ is the Fubini-Study metric on $\mathbb{CP}^n$ and $\omega_h$ is the hyperbolic metric on $\Sigma_g$.
 
     If equality is achieved and moreover $\scal_X\geq 0$, then $\scal_X=0$ and $\omega$ is homothetic to $\frac{n(n+1)}{2}\omega_{FS}+\omega_h$.
 \end{proposition}
 \begin{proof}
-    Let $\omega_{FS}$ be the Kaehler form of the Fubini-Study metric on $\mathbb{CP^n}$ and $\omega_h$ be the Kaehler form coming from the hyperbolic metric on $\Sigma_g$.
+    Let $\omega_{FS}$ be the K\"ahler form of the Fubini-Study metric on $\mathbb{CP^n}$ and $\omega_h$ be the K\"ahler form coming from the hyperbolic metric on $\Sigma_g$.
     Then there exists positive reals $a$ and $b$ such that $[\omega]=a[\omega_{FS}]+b[\omega_h]$ in $H^{1,1}(X)$.
 
     The cohomology class of the ricci form of $\omega$ is given by
@@ -242,14 +242,14 @@ All that remains to be shown is the rigidity.
 
     Thus $\sys_{[C]}(\omega)\leq\frac{n(n+1)}{2(g-1)}\sys_{[\Sigma_g]}(\omega)$.
 
-    If one has equality, we get that $a=\frac{n(n+1)}{2}b$ which shows that $[\omega]$ is a multiple of $[\frac{n(n+1)}{2}\omega_{FS}+\omega_h]$ in $H^{1,1}(X)$. If the pointwise condition $\scal_\omega\geq 0$ is satisfied, then we get that $\scal_\omega=0$ and the result follows from uniqueness of cscK metrics in a given Kaehler class.
+    If one has equality, we get that $a=\frac{n(n+1)}{2}b$ which shows that $[\omega]$ is a multiple of $[\frac{n(n+1)}{2}\omega_{FS}+\omega_h]$ in $H^{1,1}(X)$. If the pointwise condition $\scal_\omega\geq 0$ is satisfied, then we get that $\scal_\omega=0$ and the result follows from uniqueness of cscK metrics in a given K\"ahler class.
 \end{proof}
 
 \section{$\mathbb{CP}^2$ blown up at a point.}
 
 Let $X$ be the blow up of $\mathbb{CP}^2$ at a point $p$. Let $\pi:X\to\mathbb{CP}^2$ be the blow up map. Denote by $[\omega_0]$ the pull back of the tautological class of $\mathbb{CP}^2$ and by $[e]$ the class of the exceptional divisor. Note that in $H^2(X)$, $[e]^2=-[\omega_0]^2$ and $[e][\omega_0]=[\omega_0][e]=0$.
 
-Then, by Demailly-Paun I guess ?, the Kaehler cone of $X$ is :
+Then, by Demailly-Paun I guess ?, the K\"ahler cone of $X$ is :
 \[\mathcal{K}(X)=\{a[\omega_0]-b[e]|a>b>0\}\]
 see \url{https://mathoverflow.net/q/96118/8887}, \url{https://mathoverflow.net/q/92660/8887}, \url{https://mathoverflow.net/q/394161/8887}
 Moreover, the first Chern class of $X$ is $c_1(X)=3[\omega_0]-[e]$.
@@ -266,17 +266,17 @@ This is equivalent to:
 Which gives:
 \[\left(b+a+\frac{4}{s_0}\right)\left(b-a-\frac{8}{s_0}\right)\geq\frac{32}{s_0^2} \]
 
-This bounds a bounded region of the Kaehler cone (double check the computation), need to work explicit bounds for $a$ and $b$...
-%The curve with equation $\left(b+a-\tfrac{1}{s_0}\right)\left(b-a+\tfrac{2}{s_0}\right)=\tfrac{5}{4s_0^2}$ is an hyperbola with center $\left(\tfrac{3}{2s_0},-\tfrac{1}{2s_0}\right)$ and asymptotes the lines $b=-a+\tfrac{1}{s_0}$ and $b=a-\tfrac{2}{s_0}$. We see that for $b=a-\tfrac{1}{s_0}$ (which corresponds to a form in the Kaehler cone if $a>\tfrac{1}{s_0}$), the inequality is satisfied for any $a$ big enough. Hence we have no upper bound on $a$ or $b$.
+This bounds a bounded region of the K\"ahler cone (double check the computation), need to work explicit bounds for $a$ and $b$...
+%The curve with equation $\left(b+a-\tfrac{1}{s_0}\right)\left(b-a+\tfrac{2}{s_0}\right)=\tfrac{5}{4s_0^2}$ is an hyperbola with center $\left(\tfrac{3}{2s_0},-\tfrac{1}{2s_0}\right)$ and asymptotes the lines $b=-a+\tfrac{1}{s_0}$ and $b=a-\tfrac{2}{s_0}$. We see that for $b=a-\tfrac{1}{s_0}$ (which corresponds to a form in the K\"ahler cone if $a>\tfrac{1}{s_0}$), the inequality is satisfied for any $a$ big enough. Hence we have no upper bound on $a$ or $b$.
 
 \section{What would a general condition be ?}
 
-Let $X^n$ be a compact Kaehler manifold and $\mathcal{K}(X)\subset H^{1,1}(X,\mathbb{R})$ be its Kaehler cone. Let $c_1$ be its first Chern class. Let \[\mathcal{K}_+(X)=\left\{[\omega]\in\mathcal{K}(X)\middle|\int_X c_1(X)\wedge \omega^{n-1}\geq \int_X\omega^n\right\}.\]
+Let $X^n$ be a compact K\"ahler manifold and $\mathcal{K}(X)\subset H^{1,1}(X,\mathbb{R})$ be its K\"ahler cone. Let $c_1$ be its first Chern class. Let \[\mathcal{K}_+(X)=\left\{[\omega]\in\mathcal{K}(X)\middle|\int_X c_1(X)\wedge \omega^{n-1}\geq \int_X\omega^n\right\}.\]
 Let $\mathcal{P}\subset H_2(X)$ be the set of the homology classes of  all $\mathbb{P}^1 \subset X$.
 
 Set $\sys_2^+(X)=\sup_{[\omega]\in \mathcal{K}_+(X)}\inf_{P\in\mathcal{P}}\int_P\omega$. The question becomes : for which $X$ is $\sys_2^+(X)$ finite ?
 
-Here we asked the question for positive scalar curvature in average. We can ask the same question for pointwise positive scalar curvature, by replacing $\mathcal{K}_+(X)$ be the set $\mathcal{K}_{++}(X)$ of Kaehler classes which can be represented by a metric $\omega$ such that $\rho_\omega\wedge \omega^{n-1}\geq \omega^n$ pointwise. It is unclear to me whether $\mathcal{K}_{++}(X)\neq \mathcal{K}_{+}(X)$.
+Here we asked the question for positive scalar curvature in average. We can ask the same question for pointwise positive scalar curvature, by replacing $\mathcal{K}_+(X)$ be the set $\mathcal{K}_{++}(X)$ of K\"ahler classes which can be represented by a metric $\omega$ such that $\rho_\omega\wedge \omega^{n-1}\geq \omega^n$ pointwise. It is unclear to me whether $\mathcal{K}_{++}(X)\neq \mathcal{K}_{+}(X)$.
 
 \appendix
 \section{Ricci form and scalar curvature.}
@@ -285,7 +285,7 @@ Some facts. Le $g_{FS}$ be the Fubini-Study metric on $\mathbb{CP}^n$ with secti
 
 
 \begin{lemma}
-    Let $(X^n,\omega)$ be a Kaehler manifold with ricci form $\rho$, then $\rho\wedge \omega^{n-1}=\frac{1}{2n}\scal_\omega\omega^n$
+    Let $(X^n,\omega)$ be a K\"ahler manifold with ricci form $\rho$, then $\rho\wedge \omega^{n-1}=\frac{1}{2n}\scal_\omega\omega^n$
 \end{lemma}
 \begin{proof}
     We will prove that for any real $(1,1)$-form $\alpha$,
@@ -294,7 +294,7 @@ Some facts. Le $g_{FS}$ be the Fubini-Study metric on $\mathbb{CP}^n$ with secti
 
     Since $\alpha\mapsto \alpha\wedge\omega^{n-1}$ is linear and $\Lambda^{n,n}X$ is generated by $\omega^n$, there is a linear form $\ell:\Lambda^{1,1}X\to C^{\infty}(X)$ such that $\alpha\wedge\omega^{n-1}=\ell(\alpha)\omega^n$. The symmetries of the problem give that $\ell$ is a multiple of the trace. Evaluating $\ell$ on $\omega$ gives the right factor.
 
-    %This is a purely pointwise statement, thus we can work in $\mathbb{C}^n$ with its standard Kaehler form $\omega=\frac{i}{2}\sum_{k=1}^n dz_k\wedge d\bar z_k$ and write $\alpha=\frac{i}{2}\sum_{k,l}\alpha_{k\bar l}dz^k\wedge d\bar{z}^l$ for some reals $a_{kl}$, recall that $\omega^n=\frac{i^{n}}{2^{n}} n!\bigwedge_kdz^k\wedge d\bar{z}^k$. We also have:
+    %This is a purely pointwise statement, thus we can work in $\mathbb{C}^n$ with its standard K\"ahler form $\omega=\frac{i}{2}\sum_{k=1}^n dz_k\wedge d\bar z_k$ and write $\alpha=\frac{i}{2}\sum_{k,l}\alpha_{k\bar l}dz^k\wedge d\bar{z}^l$ for some reals $a_{kl}$, recall that $\omega^n=\frac{i^{n}}{2^{n}} n!\bigwedge_kdz^k\wedge d\bar{z}^k$. We also have:
     %\[\omega^{n-1}=\frac{i^{n-1}}{2^{n-1}}(n-1)!\sum_{k=1}^n\left(\bigwedge_{l\neq k}dz^l\wedge d\bar{z}^l\right).\]
     %Hence:
     %\[\alpha\wedge\omega^{n-1}=\frac{i^{n}}{2^{n}}(n-1)!\left(\sum_{k=1}^n\alpha_{k\bar k}\right)\left(\bigwedge_{l}dz^l\wedge d\bar{z}^l\right)=\frac{1}{n}\left(\sum_k\alpha_{k\bar k}\right)\omega^n.\]
