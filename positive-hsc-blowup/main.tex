@@ -87,12 +87,12 @@ and projective bundles over bases of positive holomorphic sectional curvature
 (and therefore also bundles of Grassmannians and flag manifolds over similar
 bases).
 Recently Xiaokui Yang~\cite{yang2017rc} proved that such manifolds are
-projective and rationally connected, confirming a conjecture of
-Yau~\cite{yau1993open}.
+projective and rationally connected, answering a question of
+Yau~\cite[Problem~67]{yau1993open}.
 
-A related question of Yau is whether the blowup of a compact K\"ahler manifold
-of positive \hsc{} again has positive \hsc.
-In this note we claim to prove this for the blowup of a point:
+A related question of Yau (again Problem~67) is whether the blowup of a compact
+K\"ahler manifold of positive \hsc{} along a smooth submanifold again has
+positive \hsc. In this note we claim to prove this for the blowup of a point:
 
 \begin{maintheo}
 Let $X$ be a compact K\"ahler manifold of dimension $n > 1$ that admits a
@@ -101,12 +101,15 @@ If $\mu : \blX \to X$ is the blowup of $X$ at a point, then $\blX$ also admits
 a K\"ahler metric of positive \hsc.
 \end{maintheo}
 
-Our approach is one of brute force, essentially the same as that of \'Alvarez
-and her collaborators~\cite{alvarez2018projectivized}. It is known that there
-exists a closed $(1,1)$-form on the blowup that restricts to the Fubini--Study
-metric on the exceptional divisor. We choose local coordinates carefully and
-calculate the curvature of that form plus a multiple of the pullback of the
-original metric on the base.
+Our approach is one of brute force, essentially the same as that of \'Alvarez,
+Heier and Zheng~\cite{alvarez2018projectivized} or Chaturvedi and
+Heier~\cite{chaturvedi2020hermitian} in the cases of projective bundles and
+fiber bundles. It is known that there exists a closed $(1,1)$-form on the
+blowup that restricts to the Fubini--Study metric on the exceptional divisor.
+We choose local coordinates carefully, grit our teeth, and calculate the
+curvature of that form plus a multiple of the pullback of the original metric
+on the base using the classical Codazzi--Griffiths equations for the curvature
+of a subbundle.
 
 
 
@@ -122,17 +125,17 @@ Then $e^t h + b$ is a metric of positive \hsc{} for all $t \gg 0$.
 \begin{proof}
 Chaturvedi and Heier~\cite{chaturvedi2020hermitian} prove this when $h$ and $b$
 are both metrics.
-We will basically just reproduce their proof, which relies on
+We will basically reproduce their proof, which relies on
 Wu's~\cite{wu1973remark} characterization of \hsc:
 $$
 H(x, \xi) = \sup_{f : D \to X} R_{f^*h}(0, \partial/\partial z),
 $$
 where $f : D \to X$ is an embedding of the unit disk that maps
 $0$ to $x$ and $\partial/\partial z$ to $\xi$ at $0$.
-The supremum can always be achieved; for K\"ahler metrics by choosing normal
-coordinates centered at a point such that $\xi$ is a multiple of one of the
-coordinate fields at the center.
-When the supremum is achieved, we have $D_\xi \xi = 0$ at $x$ (by the
+The supremum can always be achieved; for K\"ahler metrics we do this by
+choosing normal coordinates centered at a point such that $\xi$ is a multiple
+of one of the coordinate fields at the center. (Wu handles general Hermitian
+metrics.) When the supremum is achieved, we have $D_\xi \xi = 0$ at $x$ (by the
 Codazzi--Griffiths equations for the curvature of a subbundle).
 
 Let then $f : D \to X$ be an embedding that realizes the \hsc{} of $h$ at
@@ -236,7 +239,7 @@ Let $(0, [w])$ be a point on $E$.
 Let's choose normal coordinates $(x_1,\ldots,x_n)$ centered at $p$.
 There exists $f \in U(n)$ so that $f(w) = (0 \ldots, 0, 1)$, and the
 coordinates obtained by applying $f$ to the old ones are still centered at $p$
-and normal there because $f \in U(n)$.
+and are normal there because $f \in U(n)$.
 Picking the chart $\{(y_1, \ldots, y_n) \in \kk C^n \mid y_n \not= 0 \}$ for
 $\kk P(V)$
 we realize the blowup as
@@ -254,92 +257,8 @@ $V \times \kk P(V)$ to $\bl X$, where $p_j$ are the projections onto the
 factors and $g$ is the Fubini--Study metric.
 
 
-\begin{proof}[Proof for surfaces]
-Let's consider surfaces first to simplify things a little.
-Our local picture is then
-$$
-X
-= \{ (x, y, z) \in \kk C^3
-\mid x = yz \}.
-$$
-The tangent space of $X$ is
-$$
-T_{X} = \ker(dx - z dy - y dz) \subset T_{\kk C^3|X}.
-$$
-We write $\alpha = dx - z dy - y dz$ on $T_{\kk C^3}$.
-Note that $T_X$ is spanned by $u = z e_1 + e_2$ and $v = y e_1 + e_3$ in a
-neighborhood around $E$, where $e_j$ are the coordinate tangent fields on $\kk
-C^3$.
-
-Recall that the curvature of $h_t$ is
-$$
-R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
-= e^t p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
-+ p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
-- |\sigma(\xi)\xi|^2,
-$$
-where $\sigma(\xi)\xi = q(D_{e^th \oplus g,\xi} \xi)$ is the second fundamental
-form and $q$ is the projection to the normal bundle of $X$, and the norm is on
-the quotient bundle.
-
-On $E$, the line $\kk C e_1 \subset T_{\kk C^3}$ is orthogonal to $T_X =
-\ker dx$ with respect to the product metric $e^t h \oplus g$, so it represents
-the normal bundle there.
-We have $D_{e^th \oplus g} = D_h \oplus D_g$.
-If $\xi$ is tangent to $X$ around $E$ we can write $\xi = a u + bv = (az + by)
-e_1 + a e_2 + b e_3$ for holomorphic functions $a$ and $b$. We are only
-interested in checking positivity on a compact set so we may assume that $|a|^2
-+ |b|^2 = 1$ at $(0,0,0)$.
-
-We have
-$$
-p_3^* D_{g,\xi} \xi
-= D_{g,\xi} (be_3)
-= d_\xi b \, e_3 + b D_{g,\xi} e_3,
-$$
-which is a multiple of $e_3$ and thus contributes nothing to the second
-fundamental form.
-We also have
-$$
-p_{12}^* D_{h,\xi}\xi
-= D_{h,\xi}((az + by) e_1 + ae_2)
-= 2ab \, e_1 + d_\xi a \, e_2
-$$
-at $(0,0,0)$ because $D_{h,\xi} e_1 = D_{h,\xi} e_2 = 0$ and $y = z = 0$ there.
-The second fundamental form is then
-$$
-\sigma(\xi)\xi = 2 ab
-$$
-at the origin, and its norm is
-$$
-|\sigma(\xi)\xi|^2
-= 4 |ab|^2 / |e_1|^2
-= e^{-t} 4 |ab|^2.
-$$
-Recall that the Fubini--Study metric has constant \hsc{} 2 and that the norm of
-$e_3$ at the origin is $1$. Then
-\begin{align*}
-R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
-&= e^t p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
-+ p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
-- |\sigma(\xi)\xi|^2
-\\
-&= e^{-t} |a|^4 H_h(e_2)
-+ 2 |b|^4
-- 4 e^{-t} |a|^2|b|^2.
-\end{align*}
-If $b = 0$ at the origin then $a = 1$ so $e^t H_h(e_2) > 0$ for any $t$.
-Otherwise
-$$
-R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \to 2|b|^4 > 0
-$$
-as $t \to \infty$ so $h_t$ has positive \hsc{} at $(0,0,0)$ for all $t$ large
-enough.
-\end{proof}
-
-
 \begin{proof}
-In general the only equations that give us any information at $(0,0)$ are
+The only equations that give us any information at $(0,0)$ are
 $$
 x_j - y_j x_n = 0, \quad j = 1, \ldots, n-1.
 $$
@@ -355,7 +274,7 @@ $$
 \xi_n = \sum_{j=1}^{n-1} y_j e_j + e_n
 $$
 span the intersection of all the kernels, that is, $T_X$.
-Here $e_j$ is the field corresponding to the coordinate $x_j$
+Here $e_j$ is the tangent field corresponding to the coordinate $x_j$
 and $f_k$ the one corresponding to $y_k$.
 Note that the normal bundle at $(0,0)$ is spanned by $(e_1, \ldots, e_{n-1})$.
 
@@ -431,15 +350,37 @@ R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
 - 4 e^{-t} |a_n|^2(1 - |a_n|^2)
 $$
 at the origin.
-If $|a_n| = 1$ we have just $e^{-t} H_h(e_n) > 0$;
-otherwise
+We have to show that this is positive for all $a_n$ with $|a_n| \leq 1$ for $t$
+large enough.
+
+Set $b = \inf_{\kk P(T_X)} H_h > 0$ and let
 $$
-R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \to 2(1 - |a_n|^2)^2 > 0
+f(x) = e^{-t} b x^2 + 2(1-x)^2 - 4e^{-t} x(1-x).
 $$
-as $t \to \infty$,
-so $h_t$ has positive \hsc{} at $(0,0)$ for all $t$ large enough.
+Then $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \geq f(|a_n|^2)$.
+We have
+$$
+f(x) = e^{-t}(b x^2 - 4 x(1-x)) + 2(1-x)^2
+=: e^{-t} p(x) + q(x).
+$$
+Note that $p(1) = b > 0$.
+If $p$ is positive on $[0,1]$ we are done, so we may assume it has a root. Let
+$m = p(\frac12) = b/4-1$ be the minimum of $p$ on $[0,1]$ and let $0 \leq x_0 <
+1$ be the larger root of $p$ on $[0,1]$.
+Then $f(x) > 0$ for $x > x_0$ and $f(x) \geq e^{-t} m + q(x_0)$ for $0 \leq x
+\leq x_0$, as $q$ achieves its maximum at $0$.
+But then $f(x) \geq q(x_0)/2 > 0$ for all $t$ larger than $t_0$ such that
+$e^{t_0}m = -q(x_0)/2$, and as both $m$ and $x_0$ only depend on $b$ this $t_0$
+can be chosen uniformely over the manifold.
 \end{proof}
 
+
+
+It might be possible to extend this approach to cover the blowup of a smooth
+submanifold of a compact K\"ahler manifold of positive \hsc.
+It's not clear to me whether the submanifold can be arbitrary or must also
+be positively curved for the blowup to be positively curved.
+If any enterprising soul takes this on I'd be happy to hear about it.
 
 
 
