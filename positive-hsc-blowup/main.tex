@@ -1,0 +1,452 @@
+\documentclass[10pt,a4paper]{amsart}
+
+\usepackage{lmodern}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{fancyref}
+\usepackage[colorlinks=true]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem*{maintheo}{Theorem}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\<{\langle}
+\def\>{\rangle}
+
+\def\qandq{\quad\text{and}\quad}
+\def\ov#1{\overline{#1}}
+
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+
+\def\hsc{holomorphic sectional curvature}
+\def\bl#1{\widehat{#1}}
+\def\blX{\bl{X}}
+
+\author{Gunnar \TH\'or Magn\'usson}
+\address{Hafnarfj\"or\dh{}ur, Iceland}
+\email{gunnar@magnusson.io}
+\date{\today}
+\title[Positive holomorphic sectional curvature of blowups of points]
+{Positive holomorphic sectional\\curvature of blowups of points}
+
+\hypersetup{
+ pdfauthor={Gunnar Þór Magnússon},
+ pdftitle={Positive holomorphic sectional curvature of blowups of points},
+ pdfkeywords={},
+ pdfsubject={},
+ pdflang={English}}
+
+
+\begin{document}
+
+
+\begin{abstract}
+We show that the blowup of a point on a compact K\"ahler manifold of positive
+holomorphic sectional curvature has positive holomorphic sectional curvature.
+\end{abstract}
+
+\maketitle
+
+
+\section*{Introduction}
+
+Let $X$ be a compact K\"ahler manifold of dimension $n$.
+Let $h$ be a K\"ahler metric on $X$ and denote its curvature tensor by $R$.
+The holomorphic sectional curvature of $h$ is
+$$
+H(\xi)
+= \frac{R(\xi, \ov\xi, \xi, \ov\xi)}{|\xi|^4},
+$$
+where $\xi$ is a nonzero tangent field.
+We say that $h$ has positive holomorphic sectional curvature if $H > 0$ for all
+tangent fields.
+Examples of such metrics are the Fubini--Study metric on projective space,
+the standard metric on a Grassmannian manifold,
+and projective bundles over bases of positive holomorphic sectional curvature
+~\cite{alvarez2018projectivized}
+(and therefore also bundles of Grassmannians and flag manifolds over similar
+bases).
+Recently Xiaokui Yang~\cite{yang2017rc} proved that such manifolds are
+projective and rationally connected, confirming a conjecture of
+Yau~\cite{yau1993open}.
+
+A related question of Yau is whether the blowup of a compact K\"ahler manifold
+of positive \hsc{} again has positive \hsc.
+In this note we claim to prove this for the blowup of a point:
+
+\begin{maintheo}
+Let $X$ be a compact K\"ahler manifold of dimension $n > 1$ that admits a
+K\"ahler metric of positive \hsc.
+If $\mu : \blX \to X$ is the blowup of $X$ at a point, then $\blX$ also admits
+a K\"ahler metric of positive \hsc.
+\end{maintheo}
+
+Our approach is one of brute force, essentially the same as that of \'Alvarez
+and her collaborators~\cite{alvarez2018projectivized}. It is known that there
+exists a closed $(1,1)$-form on the blowup that restricts to the Fubini--Study
+metric on the exceptional divisor. We choose local coordinates carefully and
+calculate the curvature of that form plus a multiple of the pullback of the
+original metric on the base.
+
+
+
+\section{Preliminaries}
+
+\begin{prop}
+\label{prop:positive}
+Let $X$ be a compact K\"ahler manifold and let $h$ be a K\"ahler metric of
+positive \hsc. Let $b$ be a Hermitian form on $X$.
+Then $e^t h + b$ is a metric of positive \hsc{} for all $t \gg 0$.
+\end{prop}
+
+\begin{proof}
+Chaturvedi and Heier~\cite{chaturvedi2020hermitian} prove this when $h$ and $b$
+are both metrics.
+We will basically just reproduce their proof, which relies on
+Wu's~\cite{wu1973remark} characterization of \hsc:
+$$
+H(x, \xi) = \sup_{f : D \to X} R_{f^*h}(0, \partial/\partial z),
+$$
+where $f : D \to X$ is an embedding of the unit disk that maps
+$0$ to $x$ and $\partial/\partial z$ to $\xi$ at $0$.
+The supremum can always be achieved; for K\"ahler metrics by choosing normal
+coordinates centered at a point such that $\xi$ is a multiple of one of the
+coordinate fields at the center.
+When the supremum is achieved, we have $D_\xi \xi = 0$ at $x$ (by the
+Codazzi--Griffiths equations for the curvature of a subbundle).
+
+Let then $f : D \to X$ be an embedding that realizes the \hsc{} of $h$ at
+$(x,\xi)$.
+The curvature of the pullback of $h_t = e^t h + b$ to $D$ is
+\begin{align*}
+R_{f^*h}
+= \partial_z \bar\partial_z \log(e^t |\xi|^2_h + |\xi|^2_b)
+&= \partial_z \frac{e^t \<\xi, \ov{D_\xi\xi}\>_h + \bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
+\\
+&= \frac{e^t H_h(\xi)|\xi|^4_h + e^t \<D_\xi \xi, \ov{D_\xi\xi}\>_h + \partial_\xi\bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
+\\
+&\qquad
+- \frac{e^t \<D_\xi \xi, \ov{\xi}\>_h + \partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
+\frac{e^t \<\xi, \ov{D_\xi\xi}\>_h + \bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}.
+\end{align*}
+We have $D_\xi \xi = 0$ at $x$, so at the origin this simplifies to
+\begin{align*}
+R_{f^*h}
+&= \frac{e^t H_h(\xi)|\xi|^4_h + \partial_\xi\bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
+- \frac{|\, \partial_\xi |\xi|^2_b \,|^2}{(e^t |\xi|^2_h + |\xi|^2_b)^2}
+\\
+&= H_h(\xi) |\xi|^2_h + O(e^{-t})
+\end{align*}
+which is positive for all $t$ large enough since $H_h$ is positive.
+
+The \hsc{} is a smooth function on $\kk P(T_X)$, so if it is positive at a
+point it is positive on a neighborhood of that point.
+As $X$ is compact, we conclude that $h_t$ has positive \hsc{} for all $t \gg 0$.
+\end{proof}
+
+
+\begin{prop}
+\label{prop:fs}
+Let $\mu : \bl X \to X$ be the blowup of $X$ at a point $p$.
+There exists a closed $(1,1)$-form $\beta$ on $X$ whose restriction to
+the exceptional divisor is the Fubini--Study metric.
+\end{prop}
+
+\begin{proof}
+This is proved for blowups of smooth submanifolds in
+Voisin's textbook~\cite{voisin2002theorie}. We can simplify that proof a little
+since we're only blowing up points.
+
+Locally around $p$, which may assume is the origin in a complex vector space
+$V$, the blowup is
+$$
+\bl V
+= \{ (v,[w]) \in V \times \kk P(V) \mid v \in \kk C w \}
+$$
+and $\mu$ is the projection onto the first factor.
+Pick an inner product on $V$ and let $B(r) \subset V$ be a ball of radius $r$
+centered at $0$.
+We pick $r$ so that $B(r)$ fits into the coordinate chart that implicitly lurks
+in the background.
+Let $\psi$ be a bump function supported on that chart that is identically $1$
+on $B(r)$.
+The $(1,1)$-form $\frac i2 \partial\bar\partial \log \|v\|^2$ on $V \setminus
+\{0\}$ descends to $\kk P(V)$ and defines the Fubini--Study metric.
+If $p_j : V \times V \setminus \{0\} \to V$ for $j = 1,2$ are the projections
+onto the first and second factors then
+$\frac i2 \partial \bar\partial (p_1^*\psi \log \|p_2^*v\|^2)$
+defines a closed $(1,1)$-form on $V \times \kk P(V)$ that restricts to the
+pullback of the Fubini--Study metric by $p_2$ on $B(r) \times \kk P(V)$.
+It also extends to the rest of $X$ by zero.
+Its restriction to $\bl V$ is the form we want.
+\end{proof}
+
+
+
+\section{The proof}
+
+Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\kk C} X = n$ that
+admits a metric $h$ of positive \hsc.
+Let $p \in X$ be a point and blow it up to obtain $\mu : \bl X \to X$.
+Let $b$ be the Hermitian form associated to the $(1,1)$-form $\beta$ on $\bl X$
+we constructed in Proposition~\ref{prop:fs}.
+Then $h_t = e^t \mu^*h + b$ is a K\"ahler metric on $\bl X$ for all $t$ large
+enough.
+We are going to show it also eventually has positive \hsc.
+
+It is actually enough to show that $h_t$ has positive \hsc{} on the exceptional
+divisor.
+If it does, then $h_t$ has positive \hsc{} on a neighborhood $U$ around the
+divisor for all $t$ large enough.
+Then Proposition~\ref{prop:positive} shows that $h_t$ also has positive \hsc{}
+on $\bl X \setminus U$ for large enough $t$.
+
+We're going to argue that we can calculate the \hsc{} on the exceptional divisor
+at the center of a well-chosen coordinate chart.
+Recall that locally around $p$ the blowup is
+$$
+\bl V
+= \{ (v,[w]) \in V \times \kk P(V) \mid v \in \kk C w \}.
+$$
+If $f \in \GL V$ then $f$ acts on the blowup by $f(v, [w]) = (f(v), [f(w)])$.
+This is an isomorphism that maps the exceptional divisor to itself, and we can
+map any point on the divisor to any other point.
+
+Let $(0, [w])$ be a point on $E$.
+Let's choose normal coordinates $(x_1,\ldots,x_n)$ centered at $p$.
+There exists $f \in U(n)$ so that $f(w) = (0 \ldots, 0, 1)$, and the
+coordinates obtained by applying $f$ to the old ones are still centered at $p$
+and normal there because $f \in U(n)$.
+Picking the chart $\{(y_1, \ldots, y_n) \in \kk C^n \mid y_n \not= 0 \}$ for
+$\kk P(V)$
+we realize the blowup as
+$$
+\bl X
+= \{ (x,y) \in \kk C^n \times \kk C^{n-1}
+\mid x_j y_k = x_k y_j \text{ for $j,k = 1,\ldots,n$, where $y_n = 1$}  \}.
+$$
+In these coordinates the point we want to calculate the \hsc{} at is $(0,0)$
+and we have $D_{h,\xi} \partial / \partial x_j = 0$ at $0$ for $j = 1, \ldots, n$.
+
+We also note that close to the exceptional divisor, $h_t = e^t \mu^* h + b$ is
+just the restriction of the product metric $e^t p_1^* h \oplus p_2^* g$ on
+$V \times \kk P(V)$ to $\bl X$, where $p_j$ are the projections onto the
+factors and $g$ is the Fubini--Study metric.
+
+
+\begin{proof}[Proof for surfaces]
+Let's consider surfaces first to simplify things a little.
+Our local picture is then
+$$
+X
+= \{ (x, y, z) \in \kk C^3
+\mid x = yz \}.
+$$
+The tangent space of $X$ is
+$$
+T_{X} = \ker(dx - z dy - y dz) \subset T_{\kk C^3|X}.
+$$
+We write $\alpha = dx - z dy - y dz$ on $T_{\kk C^3}$.
+Note that $T_X$ is spanned by $u = z e_1 + e_2$ and $v = y e_1 + e_3$ in a
+neighborhood around $E$, where $e_j$ are the coordinate tangent fields on $\kk
+C^3$.
+
+Recall that the curvature of $h_t$ is
+$$
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
+= e^t p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
++ p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
+- |\sigma(\xi)\xi|^2,
+$$
+where $\sigma(\xi)\xi = q(D_{e^th \oplus g,\xi} \xi)$ is the second fundamental
+form and $q$ is the projection to the normal bundle of $X$, and the norm is on
+the quotient bundle.
+
+On $E$, the line $\kk C e_1 \subset T_{\kk C^3}$ is orthogonal to $T_X =
+\ker dx$ with respect to the product metric $e^t h \oplus g$, so it represents
+the normal bundle there.
+We have $D_{e^th \oplus g} = D_h \oplus D_g$.
+If $\xi$ is tangent to $X$ around $E$ we can write $\xi = a u + bv = (az + by)
+e_1 + a e_2 + b e_3$ for holomorphic functions $a$ and $b$. We are only
+interested in checking positivity on a compact set so we may assume that $|a|^2
++ |b|^2 = 1$ at $(0,0,0)$.
+
+We have
+$$
+p_3^* D_{g,\xi} \xi
+= D_{g,\xi} (be_3)
+= d_\xi b \, e_3 + b D_{g,\xi} e_3,
+$$
+which is a multiple of $e_3$ and thus contributes nothing to the second
+fundamental form.
+We also have
+$$
+p_{12}^* D_{h,\xi}\xi
+= D_{h,\xi}((az + by) e_1 + ae_2)
+= 2ab \, e_1 + d_\xi a \, e_2
+$$
+at $(0,0,0)$ because $D_{h,\xi} e_1 = D_{h,\xi} e_2 = 0$ and $y = z = 0$ there.
+The second fundamental form is then
+$$
+\sigma(\xi)\xi = 2 ab
+$$
+at the origin, and its norm is
+$$
+|\sigma(\xi)\xi|^2
+= 4 |ab|^2 / |e_1|^2
+= e^{-t} 4 |ab|^2.
+$$
+Recall that the Fubini--Study metric has constant \hsc{} 2 and that the norm of
+$e_3$ at the origin is $1$. Then
+\begin{align*}
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
+&= e^t p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
++ p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
+- |\sigma(\xi)\xi|^2
+\\
+&= e^{-t} |a|^4 H_h(e_2)
++ 2 |b|^4
+- 4 e^{-t} |a|^2|b|^2.
+\end{align*}
+If $b = 0$ at the origin then $a = 1$ so $e^t H_h(e_2) > 0$ for any $t$.
+Otherwise
+$$
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \to 2|b|^4 > 0
+$$
+as $t \to \infty$ so $h_t$ has positive \hsc{} at $(0,0,0)$ for all $t$ large
+enough.
+\end{proof}
+
+
+\begin{proof}
+In general the only equations that give us any information at $(0,0)$ are
+$$
+x_j - y_j x_n = 0, \quad j = 1, \ldots, n-1.
+$$
+Their differentials are
+$$
+\alpha_j := dx_j - y_j dx_n - x_n dy_j = 0, \quad j=1,\ldots,n-1
+$$
+and so the tangent fields
+$$
+\xi_j = x_n e_j + f_j,
+\quad j=1,\ldots,n-1,
+\qandq
+\xi_n = \sum_{j=1}^{n-1} y_j e_j + e_n
+$$
+span the intersection of all the kernels, that is, $T_X$.
+Here $e_j$ is the field corresponding to the coordinate $x_j$
+and $f_k$ the one corresponding to $y_k$.
+Note that the normal bundle at $(0,0)$ is spanned by $(e_1, \ldots, e_{n-1})$.
+
+Any holomorphic tangent field $\xi$ near $(0,0)$ can be written as
+$$
+\xi = \sum_{j=1}^n a_j \xi_j
+= \sum_{j=1}^{n-1} (a_j x_n + a_n y_j) e_j + a_j f_j
++ a_n e_n,
+$$
+where the $a_j$ are holomorphic functions.
+We want to check the positivity of the curvature at the origin, which we can do
+on the unit sphere, so we may assume that $\sum_{j=1}^n |a_j|^2 = 1$ there.
+
+Recall that the curvature of $h_t$ is
+$$
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
+= e^t p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
++ p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
+- |\sigma(\xi)\xi|^2,
+$$
+where $\sigma(\xi)\xi = \pi_N(D_{e^th \oplus g,\xi} \xi)$ is the second
+fundamental form, and the norm is on the quotient bundle.
+
+First,
+$$
+e^t p_1^*R_h(\xi, \ov\xi, \xi, \ov\xi)
+= e^{-t} |a_n|^4 H_h(e_n)
+$$
+at the origin. Second,
+$$
+p_2^*R_g(\xi, \ov\xi, \xi, \ov\xi)
+= 2 \biggl(\sum_{j=1}^{n-1} |a_j|^2\biggr)^2
+= 2(1 - |a_n|^2)^2
+$$
+at the origin
+because the Fubini--Study metric has constant \hsc{} 2.
+
+Let's now write $\pi_N$ for the projection onto the orthogonal complement of
+$T_{\blX}$ in $T_{\kk C^n \times \kk C^{n-1}|\blX}$.
+At the origin it is just the projection onto the first $n-1$ coordinates.
+
+Third, then,
+\begin{align*}
+\pi_N(p_1^*D_{h,\xi} \xi)
+&= \sum_{j=1}^{n-1} d_{\xi}(a_j x_n + a_n y_j) \, e_j
+\\
+&= \sum_{j=1}^{n-1} (a_j d_{\xi}x_n + a_n d_{\xi} y_j) \, e_j
+\\
+&= \sum_{j=1}^{n-1} (a_j a_n + a_n a_j ) \, e_j
+= 2 a_n \sum_{j=1}^{n-1} a_j \, e_j
+\end{align*}
+at the origin
+because $D_{h,\xi} e_j = 0$ there by our choice of coordinates.
+
+And fourth,
+$$
+\pi_N(p_2^*D_{g,\xi} \xi)
+= \pi_N \biggl( \sum_{j=1}^{n-1} d_\xi y_j \, f_j + y_j p_2^*D_{g,\xi} f_j \biggr) = 0
+$$
+at the origin.
+The contribution of the second fundamental form to the curvature is then
+$$
+|\sigma(\xi)\xi|^2
+= 4 |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2 |e_j|^2
+= 4 e^{-t} |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2
+= 4 e^{-t} |a_n|^2(1 - |a_n|^2)
+$$
+so finally
+$$
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
+= e^{-t} |a_n|^4 H_h(e_n)
++ 2(1 - |a_n|^2)^2
+- 4 e^{-t} |a_n|^2(1 - |a_n|^2)
+$$
+at the origin.
+If $|a_n| = 1$ we have just $e^{-t} H_h(e_n) > 0$;
+otherwise
+$$
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \to 2(1 - |a_n|^2)^2 > 0
+$$
+as $t \to \infty$,
+so $h_t$ has positive \hsc{} at $(0,0)$ for all $t$ large enough.
+\end{proof}
+
+
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+\end{document}

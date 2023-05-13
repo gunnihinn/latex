@@ -55,6 +55,7 @@
 \DeclareMathOperator{\sys}{sys}
 \DeclareMathOperator{\stre}{str}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Vol}{Vol}
 
 \let\oldmp\marginpar
 \def\marginpar#1{\oldmp{\footnotesize #1}}
@@ -88,14 +89,12 @@ We will show for instance:
 
 \begin{theorem}\label{thm_prod_proj}
 Let $X_0$ be a compact K\"ahler $n_0$-manifold
-\marginpar{GM: What's a $n_0$-manifold?}
 with $c_1(X_0)=0$ %and let $\tilde\omega_0$ be a K\"ahler ricci flat metric on $X_0$.
-and $X=X_0\times\Pi_{k=1}^N\mathbb{CP}^{n_k}$. %and let $\tilde\omega=\tilde\omega_0+\sum_{k=1}^N \omega_{k}$ where $\omega_k$ is the Fubini-Study metric\footnote{normalised to have sectionnal curvature between $1/4$ and $1$.} on $\mathbb{CP}^{n_k}$.
+and let $X=X_0\times\Pi_{k=1}^N\mathbb{CP}^{n_k}$. %and let $\tilde\omega=\tilde\omega_0+\sum_{k=1}^N \omega_{k}$ where $\omega_k$ is the Fubini-Study metric\footnote{normalised to have sectionnal curvature between $1/4$ and $1$.} on $\mathbb{CP}^{n_k}$.
 
 Let $\omega$ be any K\"ahler metric on $X$ such that:
 \[\scal_\omega\geq \sum_{k=1}^N \frac{n_k(n_k+1)}{2}.\]
 Then there exists an homologically non trivial
-\marginpar{GM: Any compact complex submanifold of a compact K\"ahler manifold is homologically nontrivial}
 $\mathbb{CP}^1\subset X$ whose area is at most $4\pi$.
 
 Moreover, if any homologically non trivial $\mathbb{CP}^1\subset X$ has area at least $4\pi$ then $\omega$ is isometric to $\omega_0+\sum_{k=1}^N\omega_k$ for some Ricci flat K\"ahler metric $\omega_0$ on $X_0$ and $\omega_k$ the Fubini-Study metric\footnote{normalised to have sectionnal curvature between $1/4$ and $1$.} on $\mathbb{CP}^{n_k}$.
@@ -111,9 +110,11 @@ The key observation is that the integral of the scalar curvature and the systole
 \section{Systoles of K\"ahler manifolds}
 
 The following observation is classic and follows from Wirtinger's inequality and the K\"ahler condition:
+
 \begin{proposition}
-Les $(X,\omega)$ be a K\"ahler manifold and $Y\subset X$ be a compact complex submanifold. Then for any smooth $\Sigma\in [Y]$, $\mathcal{A}(Y)\leq\mathcal{A}(\Sigma)$.
+Let $(X,\omega)$ be a K\"ahler manifold and $Y\subset X$ be a compact complex submanifold. Then for any smooth $\Sigma\in [Y]$, $\mathcal{A}(Y)\leq\mathcal{A}(\Sigma)$.
 \end{proposition}
+
 In particular this implies that $\sys_{[Y]}(\omega)=\mathcal{A}(Y)$ for any compact complex submanifold $Y\subset X$.
 
 
@@ -146,11 +147,14 @@ Let $\rho$ (resp. $\rho_i$) denote the Ricci form of $\omega$ (resp. $\omega_i$)
 \end{align*}
 where $\kappa_0$ is a non-negative (1,1)-form such that $[-\kappa_0]=2\pi c_1(X_0)$.
 
-Let $\eta_0\in H^{1,1}(X_0)$ denote the component of $[\omega]$ in $H^{1,1}(X_0)$. We can then write the cohomology class of the K\"ahler form $\omega$ in $H_{\mathbb{R}}^{1,1}(X)=\bigoplus_k H^{1,1}_\mathbb{R}(X_k)$ as  $[\omega]=\eta_0+\sum_{k=1}^Na_k[\omega_k]$ for some reals $a_k>0$. %Since $c_1(X_0)=0$,  Yau's solution to the Calabi conjecture gives us a Ricci flat metric $\omega_0\in\kappa_0$.
+Let $\eta_0\in H^{1,1}(X_0)$ denote the component of $[\omega]$ in $H^{1,1}(X_0)$. We can then write the cohomology class of the K\"ahler form $\omega$ in $H_{\mathbb{R}}^{1,1}(X)=\bigoplus_k H^{1,1}_\mathbb{R}(X_k)$ as  $[\omega]=\eta_0+\sum_{k=1}^Na_k[\omega_k]$ for some reals $a_k>0$.
+%Since $c_1(X_0)=0$,  Yau's solution to the Calabi conjecture gives us a Ricci flat metric $\omega_0\in\kappa_0$.
 Let $n_0=\dim_\mathbb{C}X_0$ and $n=n_0+n_1+\dots+n_k$. We have:
-\[\rho\wedge\omega^{n-1}=\frac{1}{2n}\scal_\omega\omega^n%\geq \frac{n}{2}\scal_{\tilde\omega}\omega^n.
+\[
+\rho\wedge\omega^{n-1}
+= \frac{1}{2n}\scal_\omega\omega^n
+%\geq \frac{n}{2}\scal_{\tilde\omega}\omega^n.
 \]
-
 We integrate this inequality over $X$ and use that $\int_X\scal_\omega\geq\int_X\scal_{\tilde\omega}$
 to get:
 \[\int_{X}\rho\wedge\omega^{n-1}=\frac{1}{2n}\int_X\scal_\omega\omega^n\geq\frac{1}{2n}\int_X S\omega^n =\frac{S}{2n}\int_{X}\omega^n.\]
@@ -164,15 +168,23 @@ On the one hand:
 by expanding the $n-$th power and keeping only the multiples of the volume form.
 
 On the other hand:
-\begin{align*}
-\int_{X}&\rho\wedge\omega^{n-1}=
-\int_{X}\left(-\kappa_0+\frac{n_1+1}{2}\omega_1+\dots+\frac{n_N+1}{2}\omega_N\right)\wedge\left(\eta_0+\sum_{k=1}^Na_k\omega_k\right)^{n-1}\\
-\leq &\frac{1}{2}
-\begin{pmatrix}n-1 \\n_0\end{pmatrix}\int_{ X}\left((n_1+1)\omega_1+\dots+(n_N+1)\omega_N\right)\wedge\eta_0^{n_0}\wedge\left(\sum_{k=1}^Na_k\omega_k\right)^{n-n_0-1}\\
-\leq &\frac{1}{2}\begin{pmatrix}n-1 \\n_0\end{pmatrix}\left(\sum_{k=1}^N\frac{(n_k+1)(n-n_0-1)!}{n_1!\dots (n_k-1)!\cdots n_N!}a_1^{n_1}\cdots a_{k}^{n_k-1}\cdots a_N^{n_N}\right)\int_{ X}\eta_0^{n_0}\wedge\dots\wedge\omega_N^{n_N}\\
-\leq &\frac{1}{2}\left(\sum_{k=1}^N\frac{(n_k+1)(n-1)!}{n_0!n_1!\dots (n_k-1)!\cdots n_N!}a_1^{n_1}\cdots a_{k}^{n_k-1}\cdots a_N^{n_N}\right)\int_{ X}\eta_0^{n_0}\wedge\dots\wedge\omega_N^{n_N}
-\end{align*}
-
+$$
+\displaylines{
+\int_{X}\rho\wedge\omega^{n-1}
+=
+\int_{X}\left(-\kappa_0+\frac{n_1+1}{2}\omega_1+\dots+\frac{n_N+1}{2}\omega_N\right)\wedge\left(\eta_0+\sum_{k=1}^Na_k\omega_k\right)^{n-1}
+\cr{}
+\leq \frac{1}{2}
+\begin{pmatrix}n-1 \\n_0\end{pmatrix}\int_{ X}\left((n_1+1)\omega_1+\dots+(n_N+1)\omega_N\right)\wedge\eta_0^{n_0}\wedge\left(\sum_{k=1}^Na_k\omega_k\right)^{n-n_0-1}
+\hfill
+\cr{}
+\leq \frac{1}{2}\begin{pmatrix}n-1 \\n_0\end{pmatrix}\left(\sum_{k=1}^N\frac{(n_k+1)(n-n_0-1)!}{n_1!\dots (n_k-1)!\cdots n_N!}a_1^{n_1}\cdots a_{k}^{n_k-1}\cdots a_N^{n_N}\right)\int_{ X}\eta_0^{n_0}\wedge\dots\wedge\omega_N^{n_N}
+\hfill
+\cr{}
+\leq \frac{1}{2}\left(\sum_{k=1}^N\frac{(n_k+1)(n-1)!}{n_0!n_1!\dots (n_k-1)!\cdots n_N!}a_1^{n_1}\cdots a_{k}^{n_k-1}\cdots a_N^{n_N}\right)\int_{ X}\eta_0^{n_0}\wedge\dots\wedge\omega_N^{n_N}
+\hfill
+}
+$$
 Hence:
 \begin{multline*}
 \frac{1}{2}\left(\sum_{k=1}^N\frac{(n_k+1)(n-1)!}{n_0!n_1!\cdots (n_k-1)!\cdots n_N!}a_1^{n_1}\cdots a_{k}^{n_k-1}\cdots a_N^{n_N}\right)\\ \geq \frac{S}{2n}\frac{n!}{n_0!n_1!\cdots n_N!}a_1^{n_1}\cdots a_N^{n_N}
@@ -213,7 +225,8 @@ If we furthermore assume the pointwise bound $\scal_\omega\geq\scal_{\hat\omega}
 \item Other $\tilde X$ would be interesting, in particular I would like to know what's going on with compact K\"ahler Einstein 4-mfd with positive first Chern class ($\mathbb{CP}^2$ blown up at up to 8 points if I remember correctly). The computation doesn't seem to give anything for $\mathbb{CP}^2$ blown up at a point, if I understand its cohomology and K\"ahler cone enough (see next section). The question of of which model metric on $\mathbb{CP}^2$ blown up at a point to compare seems delicate (no KE or cscK metric)...
 \item The few cases known in the Riemannian case suggest that rather than a total control of the topology, the existence of a non-zero degree map from $\tilde X$ to the model space $X$ together with the lower bound on the scalar curvature should be enough. Would this work with a nonzero degree holomorphic map  $\tilde X\to X_0\times\prod_{k=1}^N\mathbb{CP}^{n_k}$ ? (This would handle blow-ups I guess, as long as they have a positive scalar curvature K\"ahler metric.)
 \end{itemize}
-\section{Product of $\mathbb{CP}^n$ and a projective curve of genus at least 2.}
+
+\section{Product of \texorpdfstring{$\mathbb{CP}^n$}{CPn} and a projective curve of genus at least 2.}
 
 \begin{proposition}
 Let $X=\mathbb{CP}^n\times \Sigma_g$ where $\Sigma_g$ is a smooth projective curve of genus $g\geq 2$, and let $\omega$ be a Kahler metric on $X$ such that $\int_X\scal_\omega\omega^n\geq 0$, then \[\sys_{[C]}(\omega)\leq \frac{n(n+1)}{2(g-1)}\sys_{[\Sigma_g]}(\omega)\] where $C$ is the image of the standard embedding $\mathbb{CP}^1\to\mathbb{CP}^n$.
@@ -250,13 +263,20 @@ Thus $\sys_{[C]}(\omega)\leq\frac{n(n+1)}{2(g-1)}\sys_{[\Sigma_g]}(\omega)$.
 If one has equality, we get that $a=\frac{n(n+1)}{2}b$ which shows that $[\omega]$ is a multiple of $[\frac{n(n+1)}{2}\omega_{FS}+\omega_h]$ in $H^{1,1}(X)$. If the pointwise condition $\scal_\omega\geq 0$ is satisfied, then we get that $\scal_\omega=0$ and the result follows from uniqueness of cscK metrics in a given K\"ahler class.
 \end{proof}
 
-\section{$\mathbb{CP}^2$ blown up at a point.}
+\section{\texorpdfstring{$\mathbb{CP}^2$}{CP2} blown up at a point.}
 
 Let $X$ be the blow up of $\mathbb{CP}^2$ at a point $p$. Let $\pi:X\to\mathbb{CP}^2$ be the blow up map. Denote by $[\omega_0]$ the pull back of the tautological class of $\mathbb{CP}^2$ and by $[e]$ the class of the exceptional divisor. Note that in $H^2(X)$, $[e]^2=-[\omega_0]^2$ and $[e][\omega_0]=[\omega_0][e]=0$.
 
 Then, by Demailly-Paun I guess ?, the K\"ahler cone of $X$ is:
-\[\mathcal{K}(X)=\{a[\omega_0]-b[e]|a>b>0\}\]
-see \url{https://mathoverflow.net/q/96118/8887}, \url{https://mathoverflow.net/q/92660/8887}, \url{https://mathoverflow.net/q/394161/8887}
+\[
+\mathcal{K}(X)=\{a[\omega_0]-b[e]|a>b>0\}
+\]
+see
+\begin{itemize}
+\item \url{https://mathoverflow.net/q/96118/8887},
+\item \url{https://mathoverflow.net/q/92660/8887},
+\item \url{https://mathoverflow.net/q/394161/8887}.
+\end{itemize}
 Moreover, the first Chern class of $X$ is $c_1(X)=3[\omega_0]-[e]$.
 
 Assume $\omega$ is a Kaelher metric on $X$ with Kae0hler class $a[\omega_0]-b[e]$ and scalar curvature bigger than $s_0$. Let $\rho$ is its Ricci form, then:
@@ -283,6 +303,188 @@ Set $\sys_2^+(X)=\sup_{[\omega]\in \mathcal{K}_+(X)}\inf_{P\in\mathcal{P}}\int_P
 
 Here we asked the question for positive scalar curvature in average. We can ask the same question for pointwise positive scalar curvature, by replacing $\mathcal{K}_+(X)$ be the set $\mathcal{K}_{++}(X)$ of K\"ahler classes which can be represented by a metric $\omega$ such that $\rho_\omega\wedge \omega^{n-1}\geq \omega^n$ pointwise. It is unclear to me whether $\mathcal{K}_{++}(X)\neq \mathcal{K}_{+}(X)$.
 
+\subsection{GM thinking out loud}
+
+We've seen we have to avoid blow-ups.
+So let's try to restrict to manifolds whose anticanonical bundle is nef.
+
+\def\^#1{^{[#1]}}
+If $\omega$ is a K\"ahler metric with Ricci form $\rho$ and scalar curvature $s$ we have
+$$
+\int_X s \, \omega\^n
+= \int_X \rho \wedge \omega\^{n-1}
+= c_1(X) \cup [\omega\^{n-1}].
+$$
+The RHS is entirely cohomological.
+If $\omega$ has constant scalar curvature $s_0$ then the left-hand side becomes
+$$
+\int_X s \, \omega\^n
+= s_0 \Vol(X, \omega),
+$$
+which is also cohomological, and in this case the scalar curvature is
+$$
+s_0
+= c_1(X) \cup [\omega\^{n-1}] \bigm/ [\omega\^n].
+$$
+As a function of $\omega$ this probably varies, even on the space of metrics of
+volume one.
+But if $-K_X$ is nef then this is $\geq 0$, so we can define the best possible
+constant scalar curvature as
+$$
+\sigma = \inf_{\omega} c_1(X) \cup \omega\^{n-1} / \omega\^n.
+$$
+This exists and is $\geq 0$ (even $> 0$ if $c_1(X) \not= 0$?).
+We don't want the $\sup$ version because (a) it might not be finite and (b) we want to look at metrics with scalar curvature bigger than this.
+
+So let $\omega$ be some K\"ahler metric of volume one with scalar curvature
+larger than $\sigma$.
+Suppose there is a rational curve $C \subset X$.
+We would like an upper bound on $\int_C \omega$, and possibly that if the bound is achieved then the scalar curvature of $\omega$ equals $\sigma$.
+
+
+Let $(X,h)$ be K\"ahler and $C \subset X$ a curve of genus $g$;
+denote $g = h_{|C}$.
+We know that $s_g \leq s_h$, get
+$$
+2(1-g)
+= \int_C s_g dV_g
+\leq \int_C s_h dV_g.
+$$
+Suppose that $h$ has constant scalar curvature $s_h = s < 0$, then we get
+$$
+2(1-g)
+\leq s \Vol(C,g)
+$$
+or
+$$
+\Vol(C,g)
+\leq \frac{2(g-1)}{|s|}.
+$$
+In particular, if $K_X$ is ample we can pick $h$ to be a K\"ahler--Einstein
+metric, so $r_h = -h$ and $s_h = -n$, and get
+$$
+\Vol(C,g) \leq \frac{2(g-1)}{n}.
+$$
+This isn't true: The restriction of $s_h$ to $C$ isn't the restriction of the function. We have to subtract stuff.
+
+What is true is that $H_g \leq H_h$, and since $C$ is a curve we have $s_g = H_g$.
+We'd get something like
+$$
+2(1-g)
+= \int_C s_g dV_g
+= \int_{\mathbb P(T_C)} H_g(\xi) dV_g
+\leq \int_{\mathbb P(T_C)} H_h(\xi) dV_g,
+$$
+\def\kk#1{\mathbb{#1}}%
+where $\xi$ is (locally) the unique element of $\mathbb P(T_C)$.
+
+At any point $x \in C$ we have an inclusion $T_{C,x} \hookrightarrow T_{X,x}$
+and thus an inclusion $* = \kk P(T_{C,x}) \hookrightarrow \kk P(T_{X,x})$
+which is just to say that we get a section $s : C \to \kk P(T_{X|C})$.
+
+
+
+\subsection*{Negative HSC}
+If $H_h < 0$ and $X$ is compact then $H_h \leq -H_0 < 0$ for some real number $H_0 > 0$
+so we get
+$$
+2(1-g) \leq -H_0 \Vol C
+$$
+and again
+$$
+\Vol C \leq \frac{2(g-1)}{H_0}.
+$$
+In particular, on such a manifold there are no rational or elliptic curves.
+I feel like we knew that already through something like the Schwarz lemma.
+Since $H_h \leq -H_0$ we get $s_h(x) \leq - \binom{n+1}{2} H_0$ at every point
+$x \in X$ and so
+$$
+c_1(X) \cup [\omega^{[n-1]}]
+= \int_X s_h dV_h
+\leq - \binom{n+1}{2} H_0 \Vol(X, \omega)
+$$
+which means
+$$
+\frac{1}{H_0}
+\leq -\binom{n+1}{2} \frac{\Vol(X, \omega)}{c_1(X) \cup [\omega^{[n-1]}]}
+$$
+and thus
+\begin{align*}
+\Vol(C,\omega)
+&\leq - (g-1) (n+1)n
+\frac{\Vol(X, \omega)}{c_1(X) \cup \omega^{[n-1]}}
+\\
+&= (g-1) (n+1)n
+\frac{\Vol(X, \omega)}{c_1(K_X) \cup \omega^{[n-1]}}.
+\end{align*}
+As $K_X$ should be positive in this case, $c_1(X) = c_1(-K_X)$ should be negative,
+so the signs check out.
+Both sides are homogeneous of degree 1 in $\omega$, which is also a nice sanity check.
+
+In general, if $Y \subset X$ is a submanifold we get
+\begin{align*}
+-c_1(Y) \cup \omega^{[\dim Y - 1]}
+&= \int_Y s_{h|Y} dV_{h|Y}
+\\
+&= \int_{S(T_Y)} H dV_{h|Y}
+\leq -H_0 \Vol(S^{\dim Y- 1}) \Vol(Y, h_{|Y})
+\end{align*}
+that is,
+$$
+\Vol(Y, \omega_{|Y})
+\leq \frac{\binom{n+1}{2}}{\Vol(S^{m-1})}
+\frac{c_1(Y) \cup \omega^{[m-1]}}
+{c_1(X) \cup \omega^{[n-1]}} \Vol(X, \omega).
+$$
+The volume is thus bounded by a topological constant.
+
+
+\subsection*{Positive HSC}
+If $H_h > 0$ there is a real number $M > 0$ such that $H_h \leq M$ on $X$.
+We get
+$$
+2(1-g)
+\leq M \Vol C
+$$
+and then
+$$
+\frac{2(1-g)}{M}
+\leq
+\Vol C,
+$$
+which is a lower bound, often negative.
+
+If $H_m$ and $H_M$ are the lower and upper bounds of $H_h$ then we get
+$$
+\binom{n+1}{2} H_m
+\leq \frac{c_1(X) \cup \omega^{[n-1]}}{\Vol(X,\omega)}
+\leq \binom{n+1}{2} H_M
+$$
+similarly to before, but we don't get a cohomological upper bound from this.
+
+
+\subsection*{Cauchy--Schwarz}
+
+\def\<{\langle}
+\def\>{\rangle}
+
+We have $\< s_g, 1 \> = 2(1-g)$ and
+(if $H < 0$) we get
+$s_g^2(x) = H_g^2(x) \leq H_h^2(x)$ so
+$$
+4(g-1)^2 \leq \Vol(C) \int_{\kk P(T_C)} H_h^2(x) dV_g.
+$$
+We can maybe estimate the RHS here again, but we won't get something
+cohomological but an expression involving the curvature tensor norms.
+
+Well, suppose $H \leq H_h < 0$.
+Then $H_h^2 \leq H^2$ so
+$$
+4(g-1)^2 \leq (\Vol C)^2 H^2
+$$
+and we're just back to Cauchy--Schwarz.
+
+
 \appendix
 \section{Ricci form and scalar curvature.}
 
@@ -294,7 +496,6 @@ Let $(X^n,\omega)$ be a K\"ahler manifold with ricci form $\rho$, then $\rho\wed
 \end{lemma}
 \begin{proof}
 We will prove that for any real $(1,1)$-form $\alpha$,
-\marginpar{GM: I mean, you can prove that if you want, but complex geometers know this. A short proof notes that $\alpha \wedge \omega^{n-1} = \Lambda \alpha$, where $\Lambda$ is the adjoint of the Lefschetz operator, and $\Lambda \alpha$ is known to be the trace of $\alpha$ wrt $\omega$.}
 $\alpha\wedge \omega^{n-1}= \tfrac{2}{n}a\omega^n$ where $a$ is the real trace of the symmetric form associated to $\alpha$.
 
 Since $\alpha\mapsto \alpha\wedge\omega^{n-1}$ is linear and $\Lambda^{n,n}X$ is generated by $\omega^n$, there is a linear form $\ell:\Lambda^{1,1}X\to C^{\infty}(X)$ such that $\alpha\wedge\omega^{n-1}=\ell(\alpha)\omega^n$. The symmetries of the problem give that $\ell$ is a multiple of the trace. Evaluating $\ell$ on $\omega$ gives the right factor.

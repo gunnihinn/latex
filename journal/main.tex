@@ -44,8 +44,12 @@
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\Rm}{Rm}
 
 \newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
+
+\def\<{\langle}
+\def\>{\rangle}
 
 \newtheorem{question}{Question}
 
@@ -57,7 +61,1341 @@
 
 \maketitle
 
+\section{11. May 2023}
 
+I don't think the blowup calculation is quite as simple as below.
+It doesn't feel right that we can pick coordinates on the line
+arbitrarily once we've picked them on the plane.
+We probably have to calculate the curvature at $(0,0,[y_0:y_1])$.
+We have to split into two cases depending on the standard charts.
+
+When $y_1 \not=0$ we look at
+$$
+X = \{(x_1,x_2,x_3) \in \kk C^3 \mid x_1 - x_2x_3 = 0 \}
+$$
+and the point we want is $(0,0,z)$.
+
+When $y_0 \not= 0$ we look at
+$$
+X = \{(x_1,x_2,x_3) \in \kk C^3 \mid x_1x_3 - x_2 = 0 \}
+$$
+and the point we want is $(0,0,z)$.
+
+Can we center coordinates on a point in $E$?
+Such a point is
+$$
+(0,0,Z) \in X
+= \{(x,y,Z) \in \kk C^2 \times \kk P^1 \mid xw - zy = 0 \}.
+$$
+The group $\Aut \kk P^1$ acts on the product by
+$$
+f \cdot (x,y,Z) =
+\Bigl(x,y, \frac{aZ + b}{cZ + d}
+\Bigr)?
+$$
+If $Z = [z:w]$ and $w \not= 0$ this corresponds to
+$$
+\frac{az/w + b}{cz/w + d}
+= \frac{az + bw}{cz + dw}
+$$
+and
+$$
+x(cz + dw) - y(az + bw)
+= cxz + dxw - yaz - byw
+\not= 0
+$$
+I think. Like, $(x,y) = (1,1)$ and $[z:w] = [1:1]$ and $a = 2, b = 0, c = 1, d
+= 0$ gives
+$$
+xz - 2yz = -1.
+$$
+Away from $E$ we have $[z:w] = [x:y]$.
+So we must have
+$$
+f \cdot (x,y,Z) = (ax + yb, cx + yd, f(Z)).
+$$
+Then
+$$
+\displaylines{
+(ax + by)(cx + dy) - (cx+dy)(ax + by)
+\hfill\cr\hfill{}
+= ac x^2 + ad xy + bc xy + bd y^2
+- ac x^2 - bc xy - ad xy - bd y^2
+= 0.
+}
+$$
+So $\Aut \kk P^1$ at least acts on $X \setminus E$
+and sends things not in $E$ to things not in $E$.
+It should act on all of $X$ by the same equation above.
+
+We're really just using $\operatorname{GL}_2(\kk C)$ to act on $\kk C^2$ and
+extending the action to $\kk P^1$, and since $\Aut \kk P^1 =
+\operatorname{PGL}_2(\kk C)$ this works.
+The upshot being: if we're on $E$ we can pick coordinates to center the point
+we're on.
+
+\paragraph{Fewer coordinates}
+Let $V$ be a complex vector space of dimension $n > 1$.
+The blowup of $V$ at the origin is
+$$
+X = \{ (v, [w]) \in V \times \kk P(V) \mid v \in \kk C w \}
+$$
+along with the map $\mu : X \to V$ induced by the projection onto the first
+factor. The exceptional divisor is $E := \mu^{-1}(0)$.
+
+The group $\GL V$ acts on $X$ by $f \cdot (v, \ell) = (f(v), f(\ell))$.
+This action is in fact fixed-point free and transitive and maps $E$ to $E$.
+Therefore there exist coordinates centered on any point in $E$; that is,
+local coordinates $(v,w) \in V \times W$ for $V \times \kk P(V)$ such that any
+point $p \in E$ is $(0,0)$.
+
+Really we should take the coordinates on $V$ such that they are normal at $0$
+and construct coordinates for the projective space from them.
+Then appeal to the above to say that the coordinates we pick can center the
+point we care about.
+(Does that actually work? Does that preserve normalness?
+Maybe? The unitary group acts transitively on the sphere, therefore on the
+projective space, so we should be fine.)
+
+
+
+\section{10. May 2023}
+
+I got a rejection letter yesterday with a referee report that pointed out
+something fun: If $g$ and $h$ are K\"ahler metrics we can consider the dual of
+the sum of their duals: $(g^\dagger + h^\dagger)^\dagger$.
+If the metrics have positive hsc (or positive holomorphic bisectional curvature)
+this will too, basically because of Codazzi--Griffiths.
+However, this metric won't generally be K\"ahler.
+
+The upshot is that Hermitian metrics of positive hsc form a connected cone on a
+manifold, like metrics of negative hsc.
+
+\paragraph{Blowing up the plane}
+
+Let $S$ be a compact K\"ahler surface and $p \in S$,
+and let $\mu : X \to S$ be the blowup of $S$ at $p$.
+We claim that if $h_S$ is a K\"ahler metric of positive hsc on $S$,
+then there exists a K\"ahler metric $h_X$ of positive hsc on~$X$.
+
+Let $E \subset X$ be the exceptional divisor.
+Voisin says there exists a line bundle $L \to X$ such that $L$ is trivial outside
+of $E$ and $L_{|E} = \cc O_E(1)$.
+From this we get that there exists a Hermitian form $b$ on $X$ such that
+$b_{|E}$ is the Fubini--Study metric.
+
+We consider a small ball $B \subset \kk C^2$ around $p$ in $S$,
+and choose its coordinates such that they are normal at the center.
+Over this ball the blowup~is%
+$$
+X = \{ (x_1, x_2, [y_0: y_1]) \in B \times \kk P^1
+\mid x_1 y_1 - x_2 y_0 = 0 \}.
+$$
+We pick the ball small enough that $L = p_2^*\cc O_{\kk P^1}(1)$,
+and then $b = p_2^* h_{FS}$.
+We consider the product metric $e^t p_1^*h_S \oplus b$ on $B \times \kk P^1$
+and let $h_t$ be its restriction to $X$.
+Our claim is that $h_t$ is a K\"ahler metric on $X$ with positive hsc for all
+$t$ large enough.
+
+Outside of $B$ there is no problem:
+The space $X \setminus B$ is compact and we can test positivity of $h_t$ on a
+compact sphere bundle, so it'll be positive for $t \gg 0$.
+We can further show that if $h$ has positive hsc and $b$ is a Hermitian form
+then $e^t h + b$ has positive hsc for $t \gg 0$.
+
+On $B$ we note that $h_t$ is a K\"ahler metric for all $t$, because the direct
+sum is a K\"ahler metric that we restrict to a smooth submanifold.
+
+We also note that it is enough to prove that $h_t$ has positive hsc on $E$,
+because the function $x \mapsto \inf_{T_{X,x}} H_{h_t}$ is continuous
+and so $h_t$ will then have positive hsc on a small neighborhood around $E$.
+By shrinking $B$ we can then conclude.
+
+Let then $q \in X$ be a point on $E$, and pick coordinates $x_3$ on $\kk P^1$
+centered on the corresponding point on the projective line (since $q$ is on $E$
+its $(x_1,x_2)$ coordinates are zero).
+Around this point the blowup is then described by
+$$
+X = \{(x_1,x_2,x_3) \in \kk C^3 \mid x_1 - x_2x_3 = 0 \}
+$$
+(or $x_1x_3 - x_2 = 0$ but that case is the same).
+Its tangent space is
+$$
+T_X = \ker(dx_1 - x_3 dx_2 - x_2 dx_1)
+=: \ker \alpha
+\subset T_{\kk C^3|X}.
+$$
+Let $e_j = \partial / \partial x_j$ be the coordinate tangent fields.
+By assumption they are normal at the center.
+We note that $T_X$ is spanned by
+$$
+u = x_3 e_1 + e_2
+\qandq
+v = x_2 e_1 + e_3.
+$$
+The normal bundle to $X$ at the center is spanned by $e_1$.
+The second fundamental form of $X$ at the center is then
+$$
+\sigma(\xi)\xi
+= \alpha(D_\xi \xi) / |e_1|^2_{h_t}
+= e^{-t} dx_1(D_\xi \xi)
+$$
+and the curvature of $h_t$ is
+$$
+R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
+= e^{-t} (d\pi_{12}^* R_{g})(\xi, \ov\xi, \xi, \ov\xi)
++ 2 |d\pi_{3} \, \xi|^4
+- e^{-2t} |dx_1(D_\xi \xi)|^2
+$$
+because the metric on the projective line has constant holomorphic sectional
+curvature $2$.
+Here $\pi_{12}: \kk C^3 \to \kk C^3$ is the projection onto the first two factors
+and $\pi_3$ the projection onto the third.
+
+Write $\xi = a u + b v = (x_3a + x_2b) e_1 + a e_2 + b e_3$ for some
+holomorphic functions $a$ and $b$. As we're testing for positivity we may
+assume that $|a|^2 + |b|^2 = 1$ at the origin.
+We're also going to apply $dx$ so we only care about the $e_1$ factors.
+We have
+\begin{align*}
+dx_1(D_{g,\xi}\xi)
+&= (x_3a + x_2b) d_{e_1}(x_3 a + x_2b)
++ a d_{e_2}(x_3 a + x_2b)
+\\
+&= z^2 a d_{e_1}a + a z d_{e_2} a + ab
+\\
+dx_1(D_{h,\xi}\xi)
+&= b D_{h,e_3}((x_3a + x_2b) e_1 + a e_2 + b e_3)
+= ab
+\end{align*}
+at the origin, and so
+$\alpha(D_{\xi} \xi) = 2 ab + az( z d_{e_1}a + d_{e_2} a)$
+there. Then
+$$
+|\sigma(\xi)\xi|^2
+= e^{-2t} |2ab + az( z d_{e_1}a + d_{e_2} a)|^2
+$$
+and I don't think we can control either $z$ or the derivatives of $a$.
+
+
+\section{9. May 2023}
+
+The more I think about blowups the less I understand.
+Like, for example. If we blow up $Y \subset X$ we get $\mu : \widehat X \to X$
+and and exceptional divisor $E = \mu^{-1}(Y)$ that is isomorphic to $\kk
+P(N_{Y/X}) \to Y$.
+It's also a hypersurface in $\widehat X$, so there is one tangent direction out
+of $E$ in $\widehat X$.
+What on earth does that correspond to in $X$, since we should already have the
+directions tangent to $Y$ and every direction out of it?
+
+What even is the tangent bundle of $\widehat X$?
+Apparently there are short exact sequences
+$$
+0 \to \mu^*\Omega^1_X \to \Omega^1_{\widehat X} \to j_* \Omega^1_{E/Y} \to 0
+$$
+and
+$$
+0 \to T_{\widehat X} \to \mu^* T_X \to j_*T_{E/Y}(E) \to 0
+$$
+where $j : E \hookrightarrow \widehat X$ is the inclusion.
+These are sequences of coherent sheaves, but I still can't figure out how their
+rank adds up over $E$.
+All the objects are smooth varieties, so $T_{\widehat X}$ and $\mu^* T_X$ are
+both honest vector bundles over all of $\widehat X$, \emph{of the same rank}.
+
+
+\paragraph{Example}
+
+Let's blow up the origin in $\kk C^2$.
+This is the subspace
+$$
+X = \{(x,y,[z:w]) \in \kk C^2 \times \kk P^1 \mid xw - yz = 0 \}
+$$
+along with the map $\mu : X \to \kk C^2$ induced by the projection.
+Let's also pick the chart $w \not= 0$ of $\kk P^1$, in which this becomes
+$$
+X = \{(x,y,z) \in \kk C^3 \mid x - yz = 0 \}
+$$
+and $\mu(x,y,z) = (x,y)$.
+The tangent space of $X$ is
+$$
+T_X = \ker (dx - z dy - y dz) \subset T_{\kk C^3}
+$$
+and is spanned by the fields $u = (z,1,0)$ and $v = (y,0,1)$ at all points of $X$.
+
+The differential of $\mu$ is
+$$
+\mu_* = \begin{pmatrix}
+1 & 0 & 0
+\\
+0 & 1 & 0
+\end{pmatrix}
+$$
+and maps the basis of $T_X$ to $\mu_* u = (z,1)$ and $\mu_* v = (y,0)$.
+This is an isomorphism when $y \not= 0$, that is, outside of the exceptional
+divisor $E = \{(0,0,z) \mid z \in \kk C \}$ in $X$.
+On $E$ we have $\mu_* v = 0$.
+
+We have a short exact sequence
+$$
+0 \to T_X \to T_{\kk C^3} \to N_{X/\kk C^3} \to 0
+$$
+over $X$.
+The map to the normal bundle (which is trivial) is just $\alpha = dx - zdy - ydz$.
+Let $g$ and $h$ be metrics on $\kk C^2$ and $\kk P^1$ with Chern connections
+$D_g$ and $D_h$.
+The second fundamental form of $X$ is
+$$
+\sigma(\xi, \eta)
+= \alpha((D_g \oplus D_h)_\xi \eta).
+$$
+The matrix of the product metric on $\kk C^3$ is
+$$
+g \oplus h
+= \begin{pmatrix}
+a & b & 0
+\\
+\ov b & c & 0
+\\
+0 & 0 & h
+\end{pmatrix}.
+$$
+The inverse matrix is
+$$
+g \oplus h
+= g^{-1} \oplus 1/h.
+$$
+The norm of $\alpha$ is then
+$$
+|\alpha|^2
+= |(1,-z)|^2_{g^{-1}} + |y|^2/h.
+$$
+
+If $w = (w_1, w_2, w_3)$ is a tangent field we have
+\begin{align*}
+\<w, \ov u \>
+= (\bar z, 1, 0) \cdot g \cdot (w_1, w_2, w_3)
+&= (\bar z, 1, 0) \cdot (a w_1 + b w_2, \bar b w_1 + c w_2, h w_3)
+\\
+&= a w_1 \bar z + b w_2 \bar z + \bar b w_1 + c w_2
+\\
+&= (a \bar z + \bar b) w_1 + (b \bar z + c) w_2
+\end{align*}
+and
+$$
+\< w, \ov v \>
+= (\bar y, 0, 1) \cdot (a w_1 + b w_2, \bar b w_1 + c w_2, h w_3)
+= \bar y a w_1 + \bar y b w_2 + h w_3.
+$$
+So we need $w$ orthogonal to $(a z + b, \bar b z + c, 0)$ and $(y a, y
+\bar b, h)$ in the standard metric. Take the cross product and get
+$$
+w
+= \begin{pmatrix}
+(\bar b z + c)h
+\\
+- (a z + b) h
+\\
+(a z + b)y\bar b - (\bar b z + c)ya
+\end{pmatrix}
+= \begin{pmatrix}
+(\bar b z + c)h
+\\
+- (a z + b) h
+\\
+(|b|^2 - ac)y
+\end{pmatrix}.
+$$
+This is not holomorphic because $a,b,c,h$ are smooth functions of $(x,y,z)$.
+But it does let us calculate the norm on the normal bundle.
+Actually this is just
+$$
+w = (g^{-1} \oplus 1/h)(1, -\bar z, -\bar y),
+$$
+so $w$ is the unique field such that $(g \oplus h)(w, \ov \xi) = \ov{\alpha(\xi)}$ for all $\xi$.
+
+The projection onto $T_X^\perp \subset T_{\kk C^3}$ is then
+$$
+\xi \mapsto \frac{\< \xi, \ov w \>}{|w|^2} w
+$$
+and the norm of the projection is $|\<\xi, \ov w \>|^2/|w|^2$.
+
+And then we can calculate the contribution of the second fundamental form of $X$
+to the holomorphic sectional curvature; it is
+$$
+-\frac{|\< (D_g \oplus D_h)_\xi \xi, \ov w \>_{g \oplus h}|^2}{|w|^2_{g\oplus h}}
+= -\frac{|\alpha((D_g \oplus D_h)_\xi \xi)|^2}{|w|^2_{g\oplus h}}.
+$$
+where $w$ is as above.
+
+We consider the metrics $e^t g \oplus h$.
+We have $|w|^2_{e^tg \oplus h} = |\alpha|^2_{(e^tg \oplus h)^{-1}}$
+and
+$$
+(e^tg \oplus h)^{-1}
+= e^{-t} g^{-1} \oplus 1/h
+\to 0 \oplus 1/h
+$$
+when $t \to \infty$.
+Then we should have
+$$
+|w|^2_{e^tg \oplus h}
+\to |y|^2/h
+$$
+as $t \to \infty$, and then
+$$
+-\frac{|\< (D_g \oplus D_h)_\xi \xi, \ov w \>_{g \oplus h}|^2}{|w|^2_{g\oplus h}}
+\to -h\frac{|\alpha((D_g \oplus D_h)_\xi \xi)|^2}{|y|^2}
+$$
+as $t \to \infty$.
+
+We of course have
+$$
+|\alpha((D_g \oplus D_h)_\xi \xi)|^2
+\leq |\alpha|^2 |(D_g \oplus D_h)_\xi \xi|^2
+$$
+because of inner products.
+Then we get
+$$
+|\sigma(\xi, \xi)|^2
+\leq |(D_g \oplus D_h)_\xi \xi|^2
+$$
+which will head to $\infty$ with $t$.
+
+Let
+\begin{align*}
+\xi = \theta u + \psi v
+&= \theta (z, 1, 0) + \psi (y, 0, 1)
+\\
+&= (z \theta + y \psi, \theta, 0) + (0, 0, \psi)
+=: \xi' + \xi'',
+\end{align*}
+where $\theta$ and $\psi$ are functions on $X$.
+Then
+$$
+(D_g + D_h)_\xi \xi
+= D_{g,\xi'}\xi' + D_{h,\xi''} \xi''.
+$$
+We have
+$$
+D_{h,\xi''} \xi''
+= \psi d_{e_3} \psi + \psi^2 D_{h,e_3} e_3.
+$$
+Just generally, if $\xi$ and $\eta$ are such that $D_\xi \xi = 0$ at a point $x$
+then
+$$
+D_{f \xi} g \eta = f d_\xi g \, \eta + fg D_\xi \eta = f d_\xi g \, \eta
+$$
+at $x$.
+Suppose we pick coordinates $(x_1,x_2,x_3)$ such that $(e_j = \partial
+/ \partial x_j)$ is a normal frame at $0$. Then
+$$
+D_{h,\xi''} \xi''
+= \psi d_{e_3} \psi
+$$
+at the center, and
+\begin{align*}
+D_{\xi'} \xi'
+&= D_{(z\theta + y\psi)e_1 + \theta e_2}((z\theta + y\psi)e_1 + \theta e_2)
+\\
+&= D_{(z\theta + y\psi)e_1 + \theta e_2}(z\theta + y\psi)e_1
++ D_{(z\theta + y\psi)e_1 + \theta e_2}\theta e_2
+\\
+&= \bigl(
+(z\theta + y\psi)d_{e_1}(z\theta + y\psi)
++ \theta d_{e_2}(z\theta + y\psi)
+\bigr) e_1
+\\
+&\qquad
++ \bigl(
+(z\theta + y\psi)d_{e_1}\theta
++ \theta d_{e_2}\theta
+\bigr) e_2
+\\
+&=
+\theta \psi \, e_1
++ \theta d_{e_2}\theta
+\, e_2
+\end{align*}
+at the center.
+Also there we have
+$$
+\alpha((D_{e^t g} \oplus D_h)_\xi \xi)
+= dx(\theta \psi \, e_1
++ \theta d_{e_2}\theta
+\, e_2)
+= \theta(0) \psi(0)
+$$
+and $|w|^2 = |\alpha|^2 = e^{-t}$.
+It looks like we end up with
+\begin{align*}
+R(\xi, \ov\xi, \xi, \ov\xi)
+&= e^t R_g(\xi', \ov{\xi'}, \xi', \ov{\xi'})
++ R_h(\xi'', \ov{\xi''}, \xi'', \ov{\xi''})
+- e^t |\theta(0) \psi(0)|^2
+\\
+&= e^t R_g(\xi', \ov{\xi'}, \xi', \ov{\xi'})
++ 2 |\psi(0)|^4
+- e^t |\theta(0) \psi(0)|^2.
+\end{align*}
+If $\psi(0) = 0$ then $\theta(0) \not= 0$
+so $\xi'' = 0$ and $\xi' = (0, \theta, 0)$ at $0$, so
+$$
+R(\xi, \ov\xi, \xi, \ov\xi)
+= e^t |\theta(0)|^4 R_g(e_2, \ov{e_2}, e_2, \ov{e_2}).
+$$
+We are checking positivity on a compact ball in $T_{X,0}$, so if $\psi(0) = 0$
+there is some minimum $m > 0$ such that $|\theta(0)| \geq m$. Then
+$$
+R(\xi, \ov\xi, \xi, \ov\xi)
+\geq e^{-t} m^4 c > 0,
+$$
+where $c > 0$ is the infimum of $H_g$ over the unit ball.
+
+If $\psi(0) \not= 0$ we get
+\begin{align*}
+R(\xi, \ov\xi, \xi, \ov\xi)
+&= e^t |\theta(0)|^4 R_g(e_2, \ov{e_2}, e_2, \ov{e_2})
++ 2 |\psi(0)|^4
+- e^t |\theta(0) \psi(0)|^2
+\\
+&\geq
+e^{-t} |\theta(0)|^4 c
++ 2 |\psi(0)|^4
+- e^t |\theta(0) \psi(0)|^2.
+\end{align*}
+Since the RHS goes to $\infty$ for any fixed $\theta$ and $\psi$ as $t \to
+-\infty$ and we're checking positivity on a compact set, there is some $t_0$
+so that this is positive for all $\theta$ and $\psi$ at $0$.
+
+That is, at a given point $x \in X$, we can find $t_x$ so that $e^t \mu^* g + h$
+has positive hsc at $x$ for $t \geq t_x$.
+Since the point is arbitrary and $t_x$ varies continuously with $x$ and the
+underlying manifold is compact, we can do this on the whole of the blowup.
+
+
+
+\section{8. May 2023}
+
+We know that if $X$ has positive hsc then $\kk P(E) \to X$ also does.
+Can we find an example of $X$ that doesn't have positive hsc and where $\kk
+P(E) \to X$ also doesn't?
+Should be enough to take $X$ to be a curve of genus $g \geq 1$.
+
+Somewhat related, suppose that $X$ is compact K\"ahler with positive hsc.
+Let $Y \subset X$ be a subvariety that doesn't have positive hsc.
+Can $\widehat X_Y$ then have positive hsc?
+For example, take $X = \kk P^3$ and $Y = C \subset X$ a curve of genus $g \geq 1$.
+
+
+\paragraph{Projective bundle}
+
+If $E \to X$ is a vector bundle of rank $r$, then
+$$
+H^*(\kk P(E))
+= H^*(X)[h] / (h^{r} + c_1 h^{r-1} + \cdots + c_{r} ),
+$$
+where $c_j$ are the Chern classes of $E$ and $h = c_1(\cc O_{\kk P(E)}(1))$.
+
+We have the Euler sequence
+$$
+0
+\to \cc O_{\kk P(E)}
+\to p^*E \otimes \cc O_{\kk P(E)}(1)
+\to T_{\kk P(E)/X}
+\to 0
+$$
+and the sequence
+$$
+0
+\to T_{\kk P(E)/X}
+\to T_{\kk P(E)}
+\to p^* T_X
+\to 0.
+$$
+The total Chern class $c$ satisfies $c(E) = c(S) c(Q)$ for an exact sequence $0
+\to S \to E \to Q \to 0$.
+We get
+$$
+c(T_{\kk P(E)}) = c(T_{\kk P(E)/X}) \cdot p^* c(T_X)
+$$
+and
+$$
+c(p^*E \otimes \cc O_{\kk P(E)}(1))
+= c(T_{\kk P(E)/X}).
+$$
+For the first Chern class this gives
+$$
+c_1(T_{\kk P(E)})
+= c_1(T_{\kk P(E)/X}) + p^* c_1(X)
+$$
+and
+$$
+p^*c_1(E) + h
+= c_1(T_{\kk P(E)/X})
+$$
+so
+$$
+c_1(T_{\kk P(E)})
+= p^*c_1(E) + h + p^* c_1(X).
+$$
+The $(1,1)$-classes on $\kk P(E)$ are $p^* \omega + \lambda h$, where $\omega$
+is a $(1,1)$-class on $X$.
+
+Suppose now that $X$ is a curve of genus $g$. Then we have
+\begin{align*}
+c_1(T_{\kk P(E)}) \cdot (p^* \omega + \lambda h)
+&= (p^*c_1(E) + h + p^* c_1(X))(p^* \omega + \lambda h)
+\\
+&= \lambda c_1(E) + \lambda c_1(X) + \omega
+\\
+&= \lambda c_1(E) + \lambda (1-g) + \omega.
+\end{align*}
+We can pick $\omega$ of volume one, $\lambda = 1$ and $E$ flat.
+Then this equals $-g$ which is negative as soon as $g > 1$.
+Then $\kk P(E) \to X$ doesn't have a metric of positive hsc.
+
+
+
+\paragraph{Thoughts on lifts}
+
+Let $\pi : X \to B$ be a family of compact manifolds.
+We suppose we have a K\"ahler metric $h_B$ on $B$ and a family of K\"ahler
+metrics $h_{X/B}$ on the fibers of $\pi$.
+To get a Hermitian metric $h$ on $X$ we need a splitting $T_X = T_{X/B} \oplus
+\pi^* T_B$.
+
+If the family $h_{X/B}$ extends to a metric $h$ on $X$ we get this splitting in
+the usual way.
+Here it's easy to see when the resulting metric is K\"ahler.
+
+Another way is to fabricate smooth lifts $\beta : \pi^*T_B \to T_X$.
+Then we split a section $\xi$ of $T_X$ as
+$$
+\xi \mapsto (\xi - \beta \pi_* \xi) \oplus \pi_* \xi.
+$$
+When is the metric we get this way K\"ahler?
+Can we calculate its curvature tensor?
+
+In the case we care about we expect to have nonzero holomorphic tangent fields
+on the fibers. That means the lift won't be unique.
+Or even well-defined?
+
+
+\section{7. May 2023}
+
+\'Alvarez--Heier--Zheng mention that it should be true that if $\pi : X \to B$
+is a holomorphic family with $X$ compact, and if the base and fibers have
+metrics with positive hsc, then $X$ should have a metric with positive hsc.
+I assume they mean that $X \to B$ should be locally trivial, and thus have a
+single fiber~$F$?
+(No: Chaturvedi and Heier prove this for an honest family.
+They can't produce a K\"ahler metric on the total space though.)
+
+Suppose we have a locally trivial family $\pi : X \to B$ with fiber $F$ and
+everything compact.
+Let $h_F$ and $h_B$ be K\"ahler metrics on $F$ and $B$.
+Can we use Siu's harmonic lifts to split $T_X$?
+
+In this case the Kodaira--Spencer morphism $\rho = 0$
+so we'd be trying to lift a section $\xi$ of $T_B$ to a section $\hat \xi$ of
+$T_X$ such that $[\partial \hat\xi_{|F}] = 0$
+and so that $\hat \xi_{|F}$ is harmonic with respect to $h_F$.
+
+\section{5. May 2023}
+
+We can use Wu's method to prove that $h_t := e^t h + b$ has positive (negative)
+hsc for $t \gg 0$ at a point if $h$ does so and $b$ is a Hermitian form:
+Pick $f : D \to X$ that realizes the hsc of $h$ at a point, then the
+contributions of $\nabla_\xi \xi$ to $R_{h}$ are zero.
+Use Taylor expansion to show that then
+$$
+R_{h_t}
+\geq R_{h_t} - \| \nabla \xi \|^2
+= - \partial^2 \log \|\xi\|^2
+= e^t R_h + O(1).
+$$
+
+I'm not sure we can use the same to prove that $b + h$ has positive hsc at a
+point if $b = 0$ at that point and $h$ has positive hsc.
+Might need a version of that weird lemma for that.
+Also not sure that is true as written.
+
+
+\begin{prop}
+Let $X$ be a complex manifold.
+Let $h$ be a Hermitian metric on $X$ that has positive holomorphic sectional curvature at a point $x$.
+Let $b$ be a Hermitian form on $X$.
+Then $h_t := e^t h + b$ is a Hermitian metric and has positive holomorphic
+sectional curvature at $x$ for all large $t$.
+\end{prop}
+
+\begin{proof}
+We are going to use Wu's characterization of the holomorphic sectional
+curvature (hsc) of a metric.
+Recall that if $L \subset E$ is a sub-line bundle in a vector bundle with a
+metric $h_E$, then the curvature of the induced metric $h_L$ is
+$$
+R_L = R_{E|L} - \sigma^* h_{E/L},
+$$
+where $h_{E/L}$ is the induced metric on the quotient bundle,
+$\sigma(s, \xi) = q(D_{E,\xi}s)$ is the second fundamental form,
+and $q : E \to E/L$ is the quotient map.
+Wu shows that equality $R_L = R_E$ can be attained at a point for some
+holomorphic embedding $f : D \to T_X$.
+If $\xi = f_*(\partial / \partial z)$ is a nowhere zero local section of $f(T_D)
+\subset T_X$ then the orthogonal projection onto $f(T_D)^\perp$ is
+$$
+\eta \mapsto \eta - \frac{\< \eta, \ov\xi \>}{|\xi|^2} \xi.
+$$
+Equality above is thus attained exactly when
+$D_{E,\xi}\xi = \lambda \xi$ at the point.
+
+First note that $h_t$ is clearly a Hermitian metric at $x$ for all $t$ large
+enough.
+Then let $f : D \to X$ be such that it realizes the hsc of $h$ at $x = f(0)$
+and let $\xi = f_*(\partial / \partial z)$.
+We have
+$$
+\Bigl|
+\frac{\partial}{\partial z}
+\Bigr|_{f^*h_t}^2
+= | \xi |^2_{h_t}
+= e^t | \xi |^2_h + b(\xi, \ov \xi).
+$$
+The curvature of $f^*h_t$ at $0$ is then
+$$
+\displaylines{
+- \frac{\partial^2}{\partial z \partial \bar z}
+\log \Bigl|
+\frac{\partial}{\partial z}
+\Bigr|_{f^*h_t}^2
+= e^t \frac{R_h(\xi, \ov\xi, \xi, \ov\xi)}{|\xi|_h^2}
+- e^t \frac{h(D_\xi \xi, \ov{D_\xi \xi})}{|\xi|_h^2}
+\hfill\cr\hfill{}
++ e^t \frac{h(D_\xi \xi, \ov \xi) h(\xi, \ov{D_\xi \xi})}{|\xi|_h^4}
+- \frac{\partial}{\partial z}
+\frac{\frac{\partial}{\partial \bar z} b(\xi, \ov\xi)}
+{e^t |\xi|^2_h + b(\xi,\ov\xi)}
+\cr{}
+\hphantom{
+- \frac{\partial^2}{\partial z \partial \bar z}
+\log \Bigl|
+\frac{\partial}{\partial z}
+\Bigr|_{f^*h_t}^2
+}
+= e^t \frac{R_h(\xi, \ov\xi, \xi, \ov\xi)}{|\xi|_h^2}
++ O(1)
+\hfill
+}
+$$
+because $D_\xi \xi = \lambda \xi$ at $x = f(0)$.
+By hypothesis $R_h(\xi, \ov\xi, \xi, \ov\xi) > 0$ so the curvature is positive
+at $0$ for $t$ large enough.
+By Wu the hsc of $h_t$ at $x$ is the supremum over all $f : D \to T_X$ as above,
+which is then positive.
+\end{proof}
+
+
+\begin{exam}
+Consider the disc $D$ and $h = e^{a |z|^2}$.
+The curvature of $h$ at $0$ is
+$$
+- \frac{\partial^2}{\partial z \partial \bar z} a |z|^2
+= -a
+$$
+so it is positive if $a < 0$.
+Let $b(z) = t |z|^2$ so $b(0) = 0$ and consider $h + b$.
+For small $|z|$ this is still a metric on $D$ because $h(0) = 1$.
+Its curvature is
+\begin{align*}
+- \frac{\partial^2}{\partial z \partial \bar z}\log ( e^{a |z|^2} + t|z|^2 )
+&= -\frac{\partial}{\partial z} \frac{az e^{a|z|^2} + t z}{ e^{a |z|^2} + t|z|^2 }
+\\
+&= -\frac{a e^{a|z|^2} + a^2 |z|^2 e^{a|z|^2} + t}{ e^{a |z|^2} + t|z|^2 }
++ \frac{|a z e^{a|z|^2} + t z|^2}{(e^{a |z|^2} + t|z|^2)^2}.
+\end{align*}
+At $0$ this is equal to $-a-t$, so if $t > -a$ the curvature of $h + b$ is
+negative at~$0$.%
+\end{exam}
+
+
+Maybe the example suggests we can't use
+Wu to prove that a blowup has positive hsc?
+The old papers estimate $R$ on a direct sum and conclude from there, which
+isn't really something we can do with Wu.
+
+
+\paragraph{Blowing up the plane}
+
+The blowup of the origin in $\kk C^2$ is the submanifold
+$$
+X
+= \{ y z = x w \mid (x, y) \in \kk C^2, \ [z,w] \in \kk P^1 \}
+\subset \kk C^2 \times \kk P^1
+$$
+along with the map $\mu : X \to \kk C^2$ induced by the projection.
+There is a short exact sequence
+$$
+0 \to T_X \to T_{\kk C^2} \oplus T_{\kk P^1} \to Q \to 0,
+$$
+where $Q$ is a line bundle.
+Let $h_1, h_2$ be the metrics on $\kk C^2$ and $\kk P^1$ and $h_t = e^t h_1 + h_2$.
+The norm on $Q$ is
+$$
+\|x\|_Q = \inf_{q v = x} \| v \|_{h_t}.
+$$
+Because $X$ is a hypersurface there is a local holomorphic function $f : \kk
+C^2 \times \kk P^1 \to \kk C$ such that $X = f^{-1}(0)$ ($f = yz - xw$).
+The second fundamental form is
+$$
+\sigma(\xi, \eta)
+= f_*(D_{1,\xi} \eta' + D_{2,\xi} \eta'').
+$$
+The curvature tensor of $h_t = e^t h_1 + h_2$ restricted to $X$ is
+\begin{align*}
+R_{h_t}(\xi)
+&= e^t R_1(\xi) + R_2(\xi) - \|\sigma(\xi, \xi)\|_Q^2
+\\
+&\geq e^t R_1(\xi) + R_2(\xi) - \|D_{1,\xi}\xi + D_{2,\xi} \xi\|_{h_t}^2
+\\
+&= e^t R_1(\xi) + R_2(\xi) -
+e^t \|D_{1,\xi}\xi\|_{h_1}^2 - \| D_{2,\xi} \xi\|_{h_2}^2
+\end{align*}
+
+
+\section{4. May 2023}
+
+Locally we write $h = e^f h_{\text{std}}$ for a metric on a curve (note that
+Demailly writes $e^{-f}$ which flips the curvature sign).
+The curvature of this metric is
+$$
+R = -\frac{1}{e^f} \frac{\partial^2 f}{\partial z \partial \bar z}.
+$$
+The curvature is positive at a point if $-f$ is psh at the point and negative
+if $f$ is psh.
+
+If $f$ and $g$ are psh and $h_f = e^f$ and $h_g = e^g$ then $h_f + h_g = e^f +
+e^g = e^{\log(e^f + e^g)}$.
+One of the things Demailly proves in his book in the chapter on psh functions
+is that $\log(e^f + e^g)$ is psh if $f$ and $g$ are psh.
+This implies Wu's result that the sum of metrics of negative hsc has negative hsc.
+It should also imply that a fibration with a negative hsc base and fibers has
+negative hsc.
+
+If $-f$ and $-g$ are psh we can say that
+$$
+\log(e^{-f} + e^{-g})
+= \log \frac{e^f + e^g}{e^f e^g}
+= \log (e^f + e^g) - f - g
+$$
+is psh.
+This only gives a lower negative bound on the curvature of $h_f + h_g$,
+which makes sense because we know the sum of positive hsc metric is not
+necessarily positive hsc (see
+Section~\ref{sum-of-positive-hsc-is-not-positive-hsc}).
+
+We can split our blowup of a positive hsc manifold into three cases, depending
+on the behavior of $f : D \to \widehat X$ and $\xi := f_*\partial / \partial z$:
+\begin{enumerate}
+\item
+$\mu_* \xi \not= 0$ on $f(D)$
+
+\item
+$\mu_* \xi = 0$ on $f(D)$
+
+\item
+$\mu_* \xi \not= 0$ on $f(D \setminus \{0\})$ but $\mu_* \xi = 0$ at $f(0)$
+\end{enumerate}
+We've already handled case 1.
+In case 2 the only thing we can look at is $b_E$, which we know to be positive there.
+That leaves case 3.
+
+Write $f^*\mu^*h_X = e^g h_{\text{std}}$ on $D$, where $g : D \to \kk R \cup
+\{+\infty\}$.
+Then $-g$ is smooth and psh on $D \setminus \{0\}$, and bounded from above near
+$0$, so $-g$ is psh on $D$.
+Similarly we can write $f^* b_E = e^{\theta} h_{\text{std}}$ for $\theta$
+smooth on $D$ and we may shrink $D$ so that $-\theta$ is psh.
+We don't necessarily want to prove that the sum is psh at $0$, but that we can
+modify $f$ so it sends $(\partial/\partial z, 0)$ to a multiple of $(\xi, x)$ and
+somehow make the pullback by that $f$ psh at $0$.
+
+
+\paragraph{Prior art}
+The papers by Cheung and Chaturvedi (I think?) that prove that fibrations have
+negative or positive hsc use the same technique.
+They both prove:
+
+(a) If $h_1$ has positive (negative) hsc then $e^t h_1 + h_2$ has positive
+(negative) hsc for $t \gg 0$.
+
+(b) If $R$ is a curvature tensor on $V$ and $V = S \oplus Q$ and its hsc is
+positive (negative) on $S$ and $Q$ and we have a standard bound on $|R|$, then
+under some conditions on the min/max of hsc and $|R|$ the tensor has positive
+(negative) hsc on all of $V$.
+
+So going far away enough gives a sign on hsc, and if we can check the sign on a
+splitting we may get lucky.
+This is basically what we came up with too, so we're in good company.
+
+Their proofs are all coordinates and no hope.
+Might be fun to redo in a simpler way.
+
+
+
+\section{3. May 2023}
+
+Wu proved that if $(X,h)$ is a Hermitian manifold, we can define the
+holomorphic sectional curvature of $X$ at a tangent field $\xi \in T_{X,x}$
+$$
+H(\xi) = \sup_{f:D\to X}\frac{i}{2\pi}\Theta_{f^*h}(0),
+$$
+where $f : (D,0) \to (X,x)$ is a holomorphic map such that
+$f_*\frac{\partial}{\partial z} = \xi$.
+
+The proof is pretty direct.
+Because of Codazzi--Griffiths we have $\text{RHS} \leq H(\xi)$.
+Because normal coordinates exist and we can pick (a multiple of) $\xi$ to be
+one of the frame elements we can shove a small disc into $X$ in the right way.
+
+Can we use this to prove that a blow-up of a manifold with positive hsc has
+positive hsc?
+
+The difficulty there (for me) is working with the global structure of the blowup.
+It looks like this should let us only think about the (tangent space of the)
+blowup point by point.
+Handling a metric that's a sum of two other things should be simpler in
+dimension one.
+The strategy would be to prove that $h_t = e^t \mu^* h_X + h_{E}$ is positive
+for all $t \gg 0$ at every point of $\kk P(T_{\widehat X})$, and conclude by
+compactness.
+
+If $h$ is a metric on $D$ we can write $h = e^g \frac i2 dz \wedge d\bar z$.
+Now let $h$ be a metric on $X$ of dimension $n$ and let $f : D \to X$ be an embedding.
+We get a metric $f^*h$ on $D$.
+What is $g$?
+Well,
+$$
+f^*h\Bigl(\frac{\partial}{\partial z},\ov{\frac{\partial}{\partial z}}\Bigr)
+= h\Bigl(f_*\frac{\partial}{\partial z}, \ov{f_*\frac{\partial}{\partial z}}\Bigr)
+$$
+so
+$$
+g = \log \Bigl\|f_*\frac{\partial}{\partial z}\Bigr\|_h^2.
+$$
+In our case we have $h_t = e^t \mu^*h_X + b_E$ and
+$$
+\Bigl\|f_*\frac{\partial}{\partial z}\Bigr\|_{f^*h}^2
+= e^t\|\mu_*\xi\|_{h_X}^2 + \|\xi\|^2_{b_E},
+$$
+where $\xi := f_*\frac{\partial}{\partial z}$.
+Note that the latter term can be zero or negative.
+We get
+$$
+\Theta
+= \frac{e^t\|\mu_*\xi\|_{h_X,z\bar z}^2 + \|\xi\|^2_{b_E,z \bar z} }
+{e^t\|\mu_*\xi\|_{h_X}^2 + \|\xi\|^2_{b_E}}
+- \frac{e^t\|\mu_*\xi\|_{h_X,z}^2 + \|\xi\|^2_{b_E,z} }
+{e^t\|\mu_*\xi\|_{h_X}^2 + \|\xi\|^2_{b_E}}
+\frac{e^t\|\mu_*\xi\|_{h_X,\bar z}^2 + \|\xi\|^2_{b_E, \bar z} }
+{ e^t\|\mu_*\xi\|_{h_X}^2 + \|\xi\|^2_{b_E} }
+.
+$$
+If $\mu_*\xi \not= 0$ we can write
+\begin{align*}
+\frac{1}{ e^t\|\mu_*\xi\|_{h_X}^2 + \|\xi\|^2_{b_E} }
+&= \frac{1}{e^t\|\mu_*\xi\|_{h_X}^2}
+\frac{1}{1 + \|\xi\|^2_{b_E} / e^t\|\mu_*\xi\|_{h_X}^2}
+\\
+&= \frac{1}{e^t\|\mu_*\xi\|_{h_X}^2}
+\sum_{n \geq 0} (-1)^n \bigl(
+\|\xi\|^2_{b_E} / e^t\|\mu_*\xi\|_{h_X}^2
+\bigr)^n
+\end{align*}
+and so
+$$
+\Theta
+= \mu^*R_{h_X}(\xi, \ov \xi, \xi, \ov \xi) + O(e^{-t})
+$$
+which is positive for all $t \gg 0$ because $\mu^*R_{h_X}(\xi, \ov \xi, \xi,
+\ov \xi) > 0$.
+If $\mu_*\xi = 0$ we get
+\begin{align*}
+\Theta
+&= \frac{e^t\|\mu_*\xi\|_{h_X,z\bar z}^2 + \|\xi\|^2_{b_E,z \bar z} }
+{\|\xi\|^2_{b_E}}
+- \frac{e^t\|\mu_*\xi\|_{h_X,z}^2 + \|\xi\|^2_{b_E,z} }{\|\xi\|^2_{b_E}}
+\frac{e^t\|\mu_*\xi\|_{h_X,\bar z}^2 + \|\xi\|^2_{b_E,\bar z} }{\|\xi\|^2_{b_E}}
+\\
+&=\frac{e^t}{\|\xi\|^2_{b_E}}
+(\|\mu_*\xi\|_{h_X,z\bar z}^2 - \|\mu_*\xi\|_{h_X,z}^2 \|\mu_*\xi\|_{h_X,\bar z}^2 )
++
+\frac{\|\xi\|^2_{b_E,z}}{\|\xi\|^2_{b_E}}
+- \frac{\|\xi\|^2_{b_E,z} }{\|\xi\|^2_{b_E}}
+\frac{\|\xi\|^2_{b_E,\bar z} }{\|\xi\|^2_{b_E}}
+\\
+&=
+\frac{e^t}{\|\xi\|^2_{b_E}}\mu^*R_{h_X}(\xi, \ov \xi, \xi, \ov \xi)
++ R_{b_E}(\xi, \ov \xi, \xi, \ov \xi)
+> 0
+\end{align*}
+for all $t$ because $\mu^*R_{h_X} \geq 0$, and $\|\xi\|^2_{b_E} > 0$ and
+$R_{b_E}(\xi, \ov \xi, \xi, \ov \xi) > 0$ because we are
+on the exceptional divisor.
+
+I'm not sure the identification with $\mu^*R_{h_X}(\xi, \ov \xi, \xi, \ov \xi)$
+makes sense.
+We can arrange for $f$ to be such that $\mu_*f_*\partial / \partial z \not= 0$
+when $z \not= 0$ (I'm fairly sure; check Wu's construction).
+Then $f^*\mu^*h_X$ is a singular metric on the line bundle $T_D$ with a
+singularity at $0$ and if we deconstruct $f^*h_t$ we end up trying to assign a
+value to the curvature current at $0$.
+
+\section{2. May 2023}
+
+Let $M = \{ (x,y,z) \in \kk R^3 \mid x, y, z > 0,\ xyz = 1\}$ be a hyperbola.
+Its tangent space is given by $\ker(yz dx + xz dy + xy dz = dx/x + dy/y + dz/z)$.
+
+Let $X = (x_1, x_2, x_3)$ and $Y = (y_1, y_2, y_3)$ be tangent fields at $(x,y,z)$.
+The second fundamental form at $(x,y,z)$ is
+$$
+\alpha(X,Y)
+= (d_X Y)^\perp
+= \< d_X Y, n  \> n / |n|^2,
+$$
+where $n = (1/x,1/y,1/z)$.
+The curvature tensor of $M$ is then
+$$
+R(X,Y,Z,W)
+= \< d_X Z, n \> \<n, d_Y W \> / |n|^2
+- \< d_Y Z, n\> \<n, d_X W \> / |n|^2.
+$$
+We have
+$$
+\displaylines{
+d_X Y
+= (d_X y_1, d_X y_2, d_X y_3)
+\hfill\cr\hfill{}
+= \Bigl(
+x_1 \frac{\partial y_1}{\partial x}
++ x_2 \frac{\partial y_1}{\partial y}
++ x_3 \frac{\partial y_1}{\partial z},
+x_1 \frac{\partial y_2}{\partial x}
++ x_2 \frac{\partial y_2}{\partial y}
++ x_3 \frac{\partial y_2}{\partial z},
+x_1 \frac{\partial y_3}{\partial x}
++ x_2 \frac{\partial y_3}{\partial y}
++ x_3 \frac{\partial y_3}{\partial z}
+\Bigr)
+}
+$$
+so
+$$
+\displaylines{
+\< d_X Y, n \>
+=
+\frac{x_1}{x} \frac{\partial y_1}{\partial x}
++ \frac{x_2}{x} \frac{\partial y_1}{\partial y}
++ \frac{x_3}{x} \frac{\partial y_1}{\partial z}
++ \frac{x_1}{y} \frac{\partial y_2}{\partial x}
++ \frac{x_2}{y} \frac{\partial y_2}{\partial y}
++ \frac{x_3}{y} \frac{\partial y_2}{\partial z}
+\hfill\cr\hfill{}
++ \frac{x_1}{z} \frac{\partial y_3}{\partial x}
++ \frac{x_2}{z} \frac{\partial y_3}{\partial y}
++ \frac{x_3}{z} \frac{\partial y_3}{\partial z}
+}
+$$
+Don't we only have to calculate this for two vectors?
+Two such are $X = (x, 0, -z)$ and $Y = (0, y, -z)$.
+Have
+$$
+\< d_X X, n \> = 0,
+\quad
+\< d_Y Y, n \> = 0,
+\quad
+\< d_X Y, n \> = - 1,
+$$
+so
+$$
+R(X,Y,X,Y)
+= -\frac{1}{|n|^2}
+= -\frac{1}{(x^2y^2 + x^2z^2 + y^2z^2)}.
+$$
+
+
+\section{1. May 2023}
+
+I've wondered for a while whether I can fix my degenerate paper with a density
+argument.
+The connection and curvature constructions work for non-degenerate forms, and
+we get a Codazzi--Griffiths theorem for those.
+Non-degenerate forms are dense in the space of all forms.
+Can we take a limit and conclude what we want?
+
+Uhh... maybe?
+Our goal is to prove a theorem like ``the blow-up of a manifold with positive
+hsc has positive hsc''.
+An approximation argument needs some way of controlling the lower bound on the hsc of the metrics that participate in the limit.
+I don't think we have one.
+
+As we all know, $\int H = s/n(n-1)$, and $\int s = c_1 \omega\^{n-1}$.
+If $m \leq H \leq M$ we then get
+$$
+m \Vol X \leq \frac{c_1 \omega\^{n-1}}{n(n-1)} \leq M \Vol X.
+$$
+This gives an upper bound on $m$ (which is itself only useful if $m \geq 0$,
+which is what we're trying to prove) while we need a lower bound.
+
+We also have
+$$
+\int H^2 \cong |R|^2 + 4|r|^2 + s^2,
+$$
+which doesn't help with getting a lower bound on $H$.
+
+
+
+\paragraph{Something else}
+
+We have something like
+$$
+B(x,y)
+= \tfrac14(R(x + y) + R(x + iy) + R(x - y) + R(x - iy))
+- R(x) - R(y),
+$$
+where $R(x) = R(x, \ov x, x, \ov x)$.
+Suppose $m \leq H \leq M$.
+This doesn't give a useful bound on $B$.
+I think there is one thought? In a paper from Hasset and some other people on negative $T_X$?
+
+
+
+\section{29. April 2023}
+
+Let $X = C \times C$ be the product of a curve with itself.
+The curve has a class $h$ such that $\int_C h = 1$.
+The K\"ahler cone of $X$ is then
+$$
+\cc K
+= \{ (x,y) \mid x, y > 0 \}.
+$$
+The volume of a class $\omega = \omega(x,y) = x h_1 + y h_2$ is $xy$,
+so the volume-one classes form a component of the hyperbola $xy = 1$.
+
+At $\omega$ the primitive classes are multiples of $yh_1 - xh_2$.
+The norm of that class is
+$$
+- (yh_1 - xh_2)^2 = 2xy.
+$$
+I think it follows that the volume form from the Riemannian metric at $\omega$
+is just $2$ times the usual one.
+In particular the set of classes of volume one has infinite volume.
+
+This is maybe not surprising.
+That set is one-dimensional so volume coincides with length,
+and we already know that the Riemannian metric is complete here, so the boundary of the cone is infinitely far away.
+
+\section{27. April 2023}
+
+I'm not sure we can detect non-cscK metrics with the norm of hsc.
+(Or even at all for that matter.)
+If we can do anything at all we should already be able to do that with
+\begin{align*}
+|R|^2 \omega\^{n}
+&= (2c_2 - c_1^2) \omega\^{n-2} + s^2 \omega\^n,
+\\
+|r|^2 \omega\^{n}
+&= -c_1^2 \omega\^{n-2} + s^2 \omega\^n,
+\end{align*}
+the Cauchy--Schwarz type inequalities
+\begin{align*}
+	n^4 s^2 &\leq |R|^2,
+	\\
+	n^2 s^2 &\leq |r|^2,
+\end{align*}
+and the basic estimate
+$$
+(c_1 \omega\^{n-1})^2 \leq
+\Vol X \int_X s^2 \omega\^n.
+$$
+Plugging this into the above we get
+\begin{align*}
+0 &\leq (2c_2 - c_1^2) \omega\^{n-2} + (c_1 \omega\^{n-1})^2 / \Vol X,
+\\
+0 &\leq -c_1^2 \omega\^{n-2} + (c_1 \omega\^{n-1})^2 / \Vol X.
+\end{align*}
+Both of these should hold if there exists a cscK metric in $[\omega]$.
+If we can find $X$ and $\omega$ such that either of these is negative,
+we conclude that there is no cscK metric in $[\omega]$.
+
+The factor $(c_1 \omega\^{n-1})^2 / \Vol X$ is the square of a real number,
+so it's never negative.
+The closer $c_1$ comes to being a multiple of $\omega$ the more negative $-c_1^2\omega\^{n-2}$ is.
+But if $c_1 = t \omega$ then
+$$
+c_1 \omega\^{n-1} = tn \omega\^n
+\qandq
+c_1^2 \omega\^{n-2} = t^2 \tbinom{n}{2} \omega\^n
+$$
+so
+$$
+- c_1^2 \omega\^{n-2} + (c_1\omega\^{n-1})^2 / \Vol X
+= t^2 \bigl(n^2 - \tbinom{n}{2}\bigr)
+= \tfrac12 t^2 n \geq 0.
+$$
+We can always write $c_1 = t\omega + u$, where $u$ is primitive, and reduce to
+this situation (at best; generally we'll get an extra $|u|^2$ term).
+
+If $X$ is a surface then $\int_X c_2 = e(X)$, the Euler number of $X$.
+We then get
+$$
+\int_X (2c_2 - c_1^2) + \Bigl(\int_X c_1\omega\Bigr)^2/\Vol X
+= 2 e(X) + t^2.
+$$
+By scaling $\omega$ we can make $t \to 0$.
+
+Maybe look at $X = \kk P^1 \times C$, where $C$ is a curve of genus $g \gg 0$?
+It'll have Euler characteristic $e(X) = e(\kk P^1) e(C) = 4(1-g)$.
+Let $h = c_1(\mathcal O(1))$ and $k = c_1(L)$, where $L \to C$ is an ample generator.
+K\"ahler classes on $X$ are $\omega = ah + bk$ with $a, b > 0$.
+We have $c_2(X) = -hk$ and $c_1(X) = h - k$.
+\begin{align*}
+\omega\^2 &=\tfrac12 (ah + bk)^2 = ab \, hk,
+\\
+c_1 \omega &= (h-k)(ah + bk) = (b - a) hk = \frac{b-a}{ab} \omega\^2
+\\
+c_1^2 &= (h-k)^2 = -2 hk = \frac{-2}{ab} \omega\^2.
+\end{align*}
+Note that $\int_{\kk P^1} h = 2$ and $\int_{C} k = 2g-2$, so $\Vol X = 4ab(g-1)$.
+Now
+$$
+\int_X(2c_2 - c_1^2) + (c_1 \omega)^2 / \Vol X
+= -8(g-1) + 8(g-1) + \frac{(b-a)^2}{a^2} 4ab(g-1)
+$$
+which is always nonnegative.
+
+
+\section{24. April 2023}
+
+A couple of weeks old by now but no matter.
+We know that
+$$
+\frac{1}{\Vol(S(T_V))} \int_{S(V)} H(\xi)^2 \, d\sigma(\xi)
+= \frac{|R|^2 + 4|r|^2 + s^2}{\binom{n+1}{2}\binom{n+3}{2}}
+$$
+for a K\"ahler curvature tensor $R$ on $V$.
+Then
+\begin{align*}
+0
+\leq \operatorname{Var}(H)
+&=
+\frac{|R|^2 + 4|r|^2 + s^2}{\binom{n+1}{2}\binom{n+3}{2}}
+- \frac{s^2}{\binom{n+1}{2}^2}
+\\
+&= \frac{1}{\binom{n+1}{2}^2\binom{n+3}{2}}
+\left(
+\tbinom{n+1}{2} |R|^2
++ 4\tbinom{n+1}{2} |r|^2
++ \tbinom{n+1}{2} s^2
+- \tbinom{n+3}{2} s^2
+\right).
+\end{align*}
+We have
+$$
+\tbinom{n+1}{2}
+- \tbinom{n+3}{2}
+= -2n - 3
+$$
+so equivalently
+$$
+0 \leq
+\tbinom{n+1}{2} |R|^2
++ 4\tbinom{n+1}{2} |r|^2
+- (2n+3) s^2.
+$$
+We know that
+\begin{align*}
+|R|^2 \omega\^{n}
+&= (2c_2 - c_1^2) \omega\^{n-2} + s^2 \omega\^n,
+\\
+|r|^2 \omega\^{n}
+&= -c_1^2 \omega\^{n-2} + s^2 \omega\^n,
+\end{align*}
+so we get
+$$
+0
+\leq
+\tbinom{n+1}{2} (2c_2 - 5c_1^2) \omega\^{n-2}
++ \tfrac12 (n-1)(5n+6) s^2 \, \omega\^n.
+$$
+If there exists a constant scalar curvature metric in $[\omega]$ its scalar
+curvature is $s = c_1 \omega\^{n-1} / \omega\^n$.
+Then we get the cohomological inequality
+$$
+0
+\leq
+\tbinom{n+1}{2}
+\Vol X
+\int_X (2c_2 - 5c_1^2) \, \omega\^{n-2}
++ \tfrac12 (n-1)(5n+6)
+\left(
+\int_X c_1 \omega\^{n-1}
+\right)^2.
+$$
+Are there any Fano manifolds that don't satisfy this inequality?
+Does it follow obviously from stability?
+
+In $L^2$ we have
+$$
+\int_X s^2 \omega\^n
+= \< s, 1 \>^2 \leq |s|^2 \Vol X^2
+= (c_1 \omega\^{n-1})^2 \Vol X^2
+$$
+with equality iff $s$ is constant.
+We get cohomological upper bounds on the $L^2$ norms of $R$ and $r$.
+
+
+\section{12. April 2023}
+
+The Riemann curvature tensor on a manifold $(M,g)$ is
+$$
+\Rm(u,v) z = \nabla_u \nabla_v z - \nabla_v \nabla_u z - \nabla_{[u,v]} z,
+$$
+where $\nabla$ is the Levi-Civita connection.
+We write
+$$
+R(u,v,z,w) = \< \Rm(u,v)z, w \>
+$$
+for its contraction against the metric.
+The curvature tensor has the algebraic symmetries
+\begin{align*}
+&R(u,v,z,w) = - R(v,u,z,w)
+\\
+&R(u,v,z,w) = - R(u,v,w,z)
+\\
+&R(u,v,z,w) = R(z,w,u,v)
+\\
+&R(u,v,z,w) + R(u,z,w,v) + R(u,w,v,z) = 0.
+\end{align*}
+The first three together say that $R$ is a symmetric bilinear form on
+$\ext{2}{T_M}$.
+The fourth one, the first Bianchi identity, is something else.
+
+The scalar curvature $s$ of $R$ is its trace against the metric $\wedge^2 g$.
+It can also be written as
+$$
+s = C \int_{S(\ext{2}T_M)} R(\alpha, \alpha) \; d\sigma(\alpha),
+$$
+where $\alpha \in S(\ext{2}T_M)$ and $C$ is a constant I don't remember.
+Can we compare this with
+$$
+\int_{S(T_M)} \int_{S(T_M)} R(u,v,u,v) \; d\sigma(u) d\mu(v) ?
+$$
+We have a map $T_M \times T_M \to \ext{1}T_M$ given by $(u,v) \mapsto u \wedge v$.
+It's neither surjective nor injective, so maybe not a big help.
 
 
 
@@ -1336,6 +2674,7 @@ This would also imply that $T_{\kk P(T_X)}$ is nef, which may be suspect.
 
 
 \section{7. November 2022}
+\label{sum-of-positive-hsc-is-not-positive-hsc}
 
 If $h$ is a Hermitian metric and $H$ is its matrix in a local frame, then the
 connection and curvature are
