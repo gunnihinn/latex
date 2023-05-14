@@ -71,8 +71,11 @@ holomorphic sectional curvature has positive holomorphic sectional curvature.
 \section*{Introduction}
 
 Let $X$ be a compact K\"ahler manifold of dimension $n$.
-Let $h$ be a K\"ahler metric on $X$ and denote its curvature tensor by $R$.
-The holomorphic sectional curvature of $h$ is
+Let $h$ be a K\"ahler metric on $X$.
+We write $D$ for its Chern connection and
+$R(\alpha,\ov\beta,\gamma,\ov\delta) = h(\frac i2
+D^2_{\smash{\alpha,\ov\beta}}\gamma, \ov\delta)$ for its curvature tensor. The
+holomorphic sectional curvature of $h$ is
 $$
 H(\xi)
 = \frac{R(\xi, \ov\xi, \xi, \ov\xi)}{|\xi|^4},
@@ -80,15 +83,16 @@ $$
 where $\xi$ is a nonzero tangent field.
 We say that $h$ has positive holomorphic sectional curvature if $H > 0$ for all
 tangent fields.
-Examples of such metrics are the Fubini--Study metric on projective space,
-the standard metric on a Grassmannian manifold,
+Examples of manifolds that carry such metrics are the complex projective space
+with its Fubini--Study metric, the standard metric on a Grassmannian manifold,
 and projective bundles over bases of positive holomorphic sectional curvature
 ~\cite{alvarez2018projectivized}
 (and therefore also bundles of Grassmannians and flag manifolds over similar
 bases).
-Recently Xiaokui Yang~\cite{yang2017rc} proved that such manifolds are
-projective and rationally connected, answering a question of
-Yau~\cite[Problem~67]{yau1993open}.
+Tsukamoto~\cite{tsukamoto1957kahlerian} showed that manifolds that admit such
+metrics are simply connected, and recently Xiaokui Yang~\cite{yang2017rc}
+proved that such manifolds are projective and rationally connected, answering a
+question of Yau~\cite[Problem~67]{yau1993open}.
 
 A related question of Yau (again Problem~67) is whether the blowup of a compact
 K\"ahler manifold of positive \hsc{} along a smooth submanifold again has
@@ -101,7 +105,13 @@ If $\mu : \blX \to X$ is the blowup of $X$ at a point, then $\blX$ also admits
 a K\"ahler metric of positive \hsc.
 \end{maintheo}
 
-Our approach is one of brute force, essentially the same as that of \'Alvarez,
+In particular, this shows that del~Pezzo surfaces, which are blowups of the
+complex projective plane in at most 9 points, admit K\"ahler metrics of
+positive \hsc.
+
+Our approach is one of brute force, essentially the same as that of
+\'Alvarez~\cite{alvarez2016positive},
+\'Alvarez,
 Heier and Zheng~\cite{alvarez2018projectivized} or Chaturvedi and
 Heier~\cite{chaturvedi2020hermitian} in the cases of projective bundles and
 fiber bundles. It is known that there exists a closed $(1,1)$-form on the
@@ -166,6 +176,23 @@ The \hsc{} is a smooth function on $\kk P(T_X)$, so if it is positive at a
 point it is positive on a neighborhood of that point.
 As $X$ is compact, we conclude that $h_t$ has positive \hsc{} for all $t \gg 0$.
 \end{proof}
+
+
+When $h$ and $b$ are both metrics there is a quicker proof:
+Using the Codazzi--Griffits equations and the short exact sequence $0 \to T_X
+\to T_X \oplus T_X \to T_X \to 0$ we calculate the curvature of $e^t h+b$ to be
+$$
+R(\xi, \ov\xi, \xi, \ov\xi)
+= e^t R_h(\xi, \ov\xi, \xi, \ov\xi) + R_b(\xi, \ov\xi, \xi, \ov\xi)
+- |\sigma(\xi)\xi|^2_{Q,t},
+$$
+where $\sigma(\xi)\xi = D_{h,\xi}\xi - D_{b,\xi} \xi$ is the second fundamental
+form and the norm is on the ``quotient'' bundle.
+If we simultaneously diagonalize the Hermitian forms at a point we see that
+$|\eta|^2_{Q,t} \to 0$ when $t \to \infty$ for any fixed tangent field $\eta$.
+Then the \hsc{} of $e^t h + b$ is positive for all $t$ large enough (or
+negative, if $h$ has negative curvature).
+
 
 
 \begin{prop}
@@ -378,8 +405,14 @@ can be chosen uniformely over the manifold.
 
 It might be possible to extend this approach to cover the blowup of a smooth
 submanifold of a compact K\"ahler manifold of positive \hsc.
-It's not clear to me whether the submanifold can be arbitrary or must also
-be positively curved for the blowup to be positively curved.
+The problem I see is that the blowup along a submanifold $Y \subset X$ is
+constructed by picking local coordinates $(z_1,\ldots,z_n)$ such that $Y = \{z
+\mid z_{k+1} = \cdots = z_n = 0\}$,
+and the standard method of producing normal coordinates centered at a point
+(see for example Zheng~\cite{zheng2000complex})
+does not preserve these equations.
+Our trick here thus does not carry through verbatim and there might be extra
+difficulties involved in the curvature calculations.
 If any enterprising soul takes this on I'd be happy to hear about it.
 
 
