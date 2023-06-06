@@ -16,6 +16,7 @@
 \newtheorem{prop}[theo]{Proposition}
 \newtheorem{lemm}[theo]{Lemma}
 \newtheorem*{maintheo}{Theorem}
+\newtheorem*{claim}{Claim}
 
 \allowdisplaybreaks
 
@@ -48,6 +49,7 @@
 \def\hsc{holomorphic sectional curvature}
 \def\bl#1{\widehat{#1}}
 \def\blX{\bl{X}}
+\def\eps{\varepsilon}
 
 \author{Gunnar \TH\'or Magn\'usson}
 \address{Hafnarfj\"or\dh{}ur, Iceland}
@@ -136,7 +138,7 @@ of a subbundle.
 \label{prop:positive}
 Let $X$ be a compact K\"ahler manifold and let $h$ be a K\"ahler metric of
 positive \hsc. Let $b$ be a Hermitian form on $X$.
-Then $e^t h + b$ is a metric of positive \hsc{} for all $t \gg 0$.
+Then $h + e^{-t} b$ is a metric of positive \hsc{} for all $t \gg 0$.
 \end{prop}
 
 \begin{proof}
@@ -160,20 +162,20 @@ $(x,\xi)$.
 The curvature of the pullback of $h_t = e^t h + b$ to $D$ is
 \begin{align*}
 R_{f^*h}
-= \partial_z \bar\partial_z \log(e^t |\xi|^2_h + |\xi|^2_b)
-&= \partial_z \frac{e^t \<\xi, \ov{D_\xi\xi}\>_h + \bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
+= \partial_z \bar\partial_z \log(|\xi|^2_h + e^{-t} |\xi|^2_b)
+&= \partial_z \frac{\<\xi, \ov{D_\xi\xi}\>_h + e^{-t} \bar\partial_\xi |\xi|^2_b}{|\xi|^2_h + e^{-t} |\xi|^2_b}
 \\
-&= \frac{e^t H_h(\xi)|\xi|^4_h + e^t \<D_\xi \xi, \ov{D_\xi\xi}\>_h + \partial_\xi\bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
+&= \frac{H_h(\xi)|\xi|^4_h + \<D_\xi \xi, \ov{D_\xi\xi}\>_h + e^{-t} \partial_\xi\bar\partial_\xi |\xi|^2_b}{|\xi|^2_h + e^{-t} |\xi|^2_b}
 \\
 &\qquad
-- \frac{e^t \<D_\xi \xi, \ov{\xi}\>_h + \partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
-\frac{e^t \<\xi, \ov{D_\xi\xi}\>_h + \bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}.
+- \frac{\<D_\xi \xi, \ov{\xi}\>_h + e^{-t} \partial_\xi |\xi|^2_b}{|\xi|^2_h + e^{-t} |\xi|^2_b}
+\frac{\<\xi, \ov{D_\xi\xi}\>_h + e^{-t} \bar\partial_\xi |\xi|^2_b}{|\xi|^2_h + e^{-t} |\xi|^2_b}.
 \end{align*}
 We have $D_\xi \xi = 0$ at $x$, so at the origin this simplifies to
 \begin{align*}
 R_{f^*h}
-&= \frac{e^t H_h(\xi)|\xi|^4_h + \partial_\xi\bar\partial_\xi |\xi|^2_b}{e^t |\xi|^2_h + |\xi|^2_b}
-- \frac{|\, \partial_\xi |\xi|^2_b \,|^2}{(e^t |\xi|^2_h + |\xi|^2_b)^2}
+&= \frac{H_h(\xi)|\xi|^4_h + e^{-t} \partial_\xi\bar\partial_\xi |\xi|^2_b}{|\xi|^2_h + e^{-t} |\xi|^2_b}
+- \frac{|\, \partial_\xi |\xi|^2_b \,|^2}{(|\xi|^2_h + e^{-t} |\xi|^2_b)^2}
 \\
 &= H_h(\xi) |\xi|^2_h + O(e^{-t})
 \end{align*}
@@ -187,18 +189,18 @@ As $X$ is compact, we conclude that $h_t$ has positive \hsc{} for all $t \gg 0$.
 
 When $h$ and $b$ are both metrics there is a quicker proof:
 Using the Codazzi--Griffits equations and the short exact sequence $0 \to T_X
-\to T_X \oplus T_X \to T_X \to 0$ we calculate the curvature of $e^t h+b$ to be
+\to T_X \oplus T_X \to T_X \to 0$ we calculate the curvature of $h+e^{-t} b$ to be
 $$
 R(\xi, \ov\xi, \xi, \ov\xi)
-= e^t R_h(\xi, \ov\xi, \xi, \ov\xi) + R_b(\xi, \ov\xi, \xi, \ov\xi)
+= R_h(\xi, \ov\xi, \xi, \ov\xi)
++ e^{-t} R_b(\xi, \ov\xi, \xi, \ov\xi)
 - |\sigma(\xi)\xi|^2_{Q,t},
 $$
 where $\sigma(\xi)\xi = D_{h,\xi}\xi - D_{b,\xi} \xi$ is the second fundamental
 form and the norm is on the ``quotient'' bundle.
 If we simultaneously diagonalize the Hermitian forms at a point we see that
-$|\eta|^2_{Q,t} \to |\eta|^2_b$ when $t \to \infty$ for any fixed tangent field
-$\eta$. Then the \hsc{} of $e^t h + b$ is positive for all $t$ large enough (or
-negative, if $h$ has negative curvature).
+$|\eta|^2_{Q,t} \to 0$ when $t \to \infty$ for any fixed tangent field
+$\eta$. Then the \hsc{} of $h + e^{-t} b$ is positive for all $t$ large enough.
 
 
 
@@ -247,19 +249,19 @@ admits a metric $h$ of positive \hsc.
 Let $p \in X$ be a point and blow it up to obtain $\mu : \bl X \to X$.
 Let $b$ be the Hermitian form associated to the $(1,1)$-form $\beta$ on $\bl X$
 we constructed in Proposition~\ref{prop:fs}.
-Then $h_t = e^t \mu^*h + b$ is a K\"ahler metric on $\bl X$ for all $t$ large
+Then $h_t = \mu^*h + e^{-t} b$ is a K\"ahler metric on $\bl X$ for all $t$ large
 enough.
-We are going to show it also eventually has positive \hsc.
-
-It is actually enough to show that $h_t$ has positive \hsc{} on the exceptional
-divisor.
-(FIXME: Need more than positive; need bounded away from $0$.)
-If it does, then $h_t$ has positive \hsc{} on a neighborhood $U$ around the
+We are going to show it also eventually has positive \hsc{} by showing
+that it has positive \hsc{} on a neighborhood $U$ around the exceptional
 divisor for all $t$ large enough.
 Then Proposition~\ref{prop:positive} shows that $h_t$ also has positive \hsc{}
 on $\bl X \setminus U$ for large enough $t$.
 
-We're going to argue that we can calculate the \hsc{} on the exceptional divisor
+For this we're going to show that $h_t$ has positive \hsc{} on a neighborhood
+around any point on $E$ for all large enough $t$.
+The compactness of the exceptional divisor then lets us conclude.
+
+We're going to calculate the \hsc{} on the exceptional divisor
 at the center of a well-chosen coordinate chart.
 Recall that locally around $p$ the blowup is
 $$
@@ -286,14 +288,14 @@ $$
 In these coordinates the point we want to calculate the \hsc{} at is $(0,0)$
 and we have $D_{h,\xi} \partial / \partial x_j = 0$ at $0$ for $j = 1, \ldots, n$.
 
-We also note that close to the exceptional divisor, $h_t = e^t \mu^* h + b$ is
-just the restriction of the product metric $e^t p_1^* h \oplus p_2^* g$ on
+We also note that close to the exceptional divisor, $h_t = \mu^* h + e^{-t} b$ is
+just the restriction of the product metric $p_1^* h \oplus e^{-t} p_2^* g$ on
 $V \times \kk P(V)$ to $\bl X$, where $p_j$ are the projections onto the
 factors and $g$ is the Fubini--Study metric.
 
 
 \begin{lemm}
-The metric $h_t = e^t \mu^*h + b$ has positive \hsc{} on $E$ for all $t$.
+The metric $h_t = \mu^*h + e^{-t} b$ has positive \hsc{} on $E$ for all $t$.
 \end{lemm}
 
 \begin{proof}
@@ -331,17 +333,17 @@ on the unit sphere, so we may assume that $\sum_{j=1}^n |a_j|^2 = 1$ there.
 Recall that the curvature of $h_t$ is
 $$
 R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
-= e^t p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
-+ p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
+= p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
++ e^{-t} p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
 - |\sigma(\xi)\xi|^2,
 $$
-where $\sigma(\xi)\xi = \pi_N(D_{e^th \oplus g,\xi} \xi)$ is the second
+where $\sigma(\xi)\xi = \pi_N(D_{h \oplus e^{-t} g,\xi} \xi)$ is the second
 fundamental form, and the norm is on the quotient bundle.
 
 First,
 $$
-e^t p_1^*R_h(\xi, \ov\xi, \xi, \ov\xi)
-= e^{-t} |a_n|^4 H_h(e_n)
+p_1^*R_h(\xi, \ov\xi, \xi, \ov\xi)
+= |a_n|^4 H_h(e_n)
 $$
 at the origin. Second,
 $$
@@ -379,58 +381,53 @@ The contribution of the second fundamental form to the curvature is then
 $$
 |\sigma(\xi)\xi|^2
 = 4 |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2 |e_j|^2
-= 4 e^{-t} |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2
-= 4 e^{-t} |a_n|^2(1 - |a_n|^2)
+= 4 |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2
+= 4 |a_n|^2(1 - |a_n|^2)
 $$
 so finally
-$$
+\begin{align*}
 R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
-= e^{-t} |a_n|^4 H_h(e_n)
-+ 2(1 - |a_n|^2)^2
-- 4 e^{-t} |a_n|^2(1 - |a_n|^2)
-$$
+= |a_n|^4 H_h(e_n)
++ e^{-t} 2(1 - |a_n|^2)^2
+- 4 |a_n|^2(1 - |a_n|^2).
+\end{align*}
 at the origin.
 We want to show that this is positive for all $a_n$ with $|a_n| \leq 1$.
 
 Set $m = \inf_{\kk P(T_X)} H_h > 0$ and let
 $$
-f_t(x) = e^{-t} m x^2 + 2(1-x)^2 - 4e^{-t} x(1-x).
+f_t(x) = m x^2 + 2 e^{-t} (1-x)^2 - 4x(1-x).
 $$
 Then $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \geq f(|a_n|^2)$.
 We have
 $$
 f_t(x)
-= (m e^{-t} + 4e^{-t} + 2)x^2 - 4(e^{-t} + 1)x + 2.
+= (m + 4 + 2e^{-t})x^2 - 4(e^{-t} + 1)x + 2e^{-t}.
 $$
 As a polynomial in $x$ the coefficient of $x^2$ of $f_t$ is positive.
 Now
 $$
 f_t'(x)
-= 2(m e^{-t} + 4e^{-t} + 2)x - 4(e^{-t} + 1)
+= 2(m + 4 + 2e^{-t})x - 4(e^{-t} + 1)
 $$
 so $f_t'(x_0(t)) = 0$ when
 $$
-x_0(t) = \frac{2(e^{-t} + 1)}{m e^{-t} + 4e^{-t} + 2}.
+x_0(t) = \frac{2(e^{-t} + 1)}{m + 4 + 2e^{-t}}.
 $$
 At $x_0(t)$, where $f_t$ achieves its global minimum, we have
 $$
 f_t(x_0(t))
 =
-2 - 2 \frac{(e^{-t} + 1)^2}{m e^{-t} + 4e^{-t} + 2}.
-$$
-At last
-$$
-\frac{\partial}{\partial t} f_t(x_0(t))
-= -2 \frac{2e^{-t}(e^{-t}+1)(m e^{-t} + 4e^{-t} + 2) + (e^{-t}+1)^2(me^{-t}+4e^{-t})}{(m e^{-t} + 4e^{-t} + 2)^2}
-< 0,
+4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
+- 4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
++ 2e^{-t}
+= 2e^{-t} > 0
 $$
 so $f_t(x_0(t))$ is strictly decreasing in $t$ and tends to $0$ as $t \to
 \infty$, so $f_t(x) \geq f_t(x_0(t)) > 0$ for all $x \in [0,1]$ and all $t \in
 \kk R$.
 \end{proof}
 
-In fact, as long as $m + 4 > 0$ the \hsc{} of $h_t$ will be positive on $E$ for
-all $t$.
 
 
 
@@ -449,1126 +446,30 @@ with general Hermitian metrics.
 If any enterprising soul takes this on I'd be happy to hear about it.
 
 
-For any Hermitian metric $h$ and holomorphic tangent field $\xi$ we have
-$$
-- \frac{1}{|\xi|^2} \log |\xi|^2
-= H(\xi)
-- \frac{1}{|\xi|^2} \biggl(
-\frac{|D_\xi \xi|^2}{|\xi|^2}
-- \frac{\<D_\xi \xi, \ov \xi\>}{|\xi|^4}
-\biggr)
-\leq H(\xi)
-$$
-by Cauchy--Schwarz.
-
-
-\begin{prop}
-Let $h$ be a K\"ahler metric of positive \hsc{} on $B(r)$.
-Then
-$$
-h_t(\xi, \ov\eta)
-= e^t h(\xi, \ov\eta) + \tfrac i2 \partial \bar\partial \log |z|^2(\xi, \ov\eta)
-$$
-has positive \hsc{} on $B(r) \setminus\{0\}$ for $t \geq t_0$.
-\end{prop}
-
-Let $B(r)$ be a small ball around $p$.
-On $B(r) \setminus \{0\} =: B^*(r)$
-the metric $h_t$ identifies with
-\begin{align*}
-h_t(\xi, \ov\eta)
-&= e^t h(\xi, \ov\eta) + \tfrac i2 \partial \bar\partial \log |z|^2(\xi, \ov\eta)
-\\
-&= e^t h(\xi, \ov\eta)
-+ \frac{\<\xi, \ov\eta\>}{|z|^2}
-- \frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov\eta\>}{|z|^2}.
-\end{align*}
-If we denote by $b$ the form on the right-hand side we have $b(\xi, \ov z) = 0$
-for all $\xi$ and $b \geq 0$ by Cauchy--Schwarz.
-The form $h_t$ is then a K\"ahler metric for all $t$.
-
-
-Actually, note that
-\begin{align*}
-\partial b(\xi, \ov\eta)
-&= \frac{\<\partial \xi, \ov\eta\>}{|z|^2}
-{-} \frac{\<dz, \ov z\>}{|z|^2} \frac{\<\xi, \ov\eta\>}{|z|^2}
-{-} \frac{\<\partial \xi, \ov z\>}{|z|^2} \frac{\<z, \ov\eta\>}{|z|^2}
-{-} \frac{\<\xi, \ov z\>}{|z|^2} \frac{\<dz, \ov\eta\>}{|z|^2}
-{+} 2\frac{\<dz, \ov z\>}{|z|^2} \frac{\<\xi, \ov z\>}{|z|^2} \frac{\<z, \ov\eta\>}{|z|^2}
-\\
-&= b(\partial \xi, \ov\eta)
-- b\biggl(\frac{\<dz, \ov z\>}{|z|^2} \xi, \ov\eta\biggr)
-- b\biggl(\frac{\<\xi, \ov z\>}{|z|^2} dz, \ov\eta\biggr)
-\end{align*}
-so
-$$
-D\xi := d \xi
-- \frac{\<dz, \ov z\>}{|z|^2} \xi
-- \frac{\<\xi, \ov z\>}{|z|^2} dz
-$$
-is \emph{a} Chern connection for $b$.
-Then
-\begin{align*}
-\bar\partial D \xi
-&= \bar\partial \biggl(
-d \xi
-- \frac{\<dz, \ov z\>}{|z|^2} \xi
-- \frac{\<\xi, \ov z\>}{|z|^2} dz
-\biggr)
-\\
-&= \frac{\<dz, \ov{d\bar z}\>}{|z|^2} \xi
-+ \frac{\<z, \ov{d\bar z}\>}{|z|^2} \frac{\<dz, \ov z\>}{|z|^2} \xi
-- \frac{\<\xi, \ov{d\bar z}\>}{|z|^2} dz
-+ \frac{\<z, \ov{d\bar z}\>}{|z|^2} \frac{\<\xi, \ov z\>}{|z|^2} dz
-\\
-&= b(dz, \ov{d\bar z}) \xi - b(\xi, \ov{d\bar z}) dz
-\end{align*}
-is \emph{a} curvature form for $b$, and
-$$
-R(\alpha,\ov\beta,\gamma,\ov\delta)
-= b(D^2_{\alpha,\ov\beta} \gamma, \ov\delta)
-= b(\alpha, \ov\beta) b(\gamma, \ov\delta)
-+ b(\gamma, \ov\beta) b(\alpha, \ov\delta)
-$$
-is the curvature tensor of any Chern connection of $b$.
-Note that $R(\alpha,\ov\alpha,\alpha,\ov\alpha) = 2 b(\alpha,\ov\alpha)^2 \geq 0$
-and explodes as $z \to 0$.
-Degenerate geometry then gives
-$$
-R_t = e^t R_h + R_b - \sigma^* q_t,
-$$
-where $\sigma = D_h - D_b$ and $q_t$ is the quotient form.
-For $x > 0$ and $y \geq 0$ we have
-$$
-\frac{e^t x y}{e^t x + y} \to y,
-\quad
-t \to \infty,
-$$
-so by simultaneously diagonalizing $h$ and $b$ we see that $q_t \to b$ as $t
-\to \infty$.
-We have $\sigma(\xi, \xi) = A_h(\xi) \xi + 2\frac{\<\xi, \ov z\>}{|z|^2} \xi$,
-where $A_h$ is a local matrix for $D_h$.
-Then
-$$
-\frac{|\sigma(\xi, \xi)|_{q_t}^2}{|\xi|_t^4}
-\leq \frac{|\sigma(\xi, \xi)|_{t}^2}{|\xi|_t^4}
-\leq
-\frac{|A_h(\xi) \xi|^2_{q_t}}{(e^t |\xi|^2_h + |\xi|^2_b)^2}
-+ 4\frac{|\xi|^2}{|z|^2}
-\frac{|\xi|^2_{q_t}}{(e^t |\xi|^2_h + |\xi|^2_b)^2}
-$$
-for all $\xi$ and $t$.
-
-Take $t_0$ large enough so that $|q_t - b| \leq 1$ for $t \geq t_0$.
-Then the first term is bounded by some constant $C$ for all $\xi$ and $t \geq
-t_0$. The term $|\xi|^2_{q_t} / (e^t |\xi|_h^2 + |\xi|^2_b)$ is then also
-bounded by a constant (say $C$) for all $\xi$ and $t \geq t_0$, and
-so is $1/(|z|^2 |\xi|^2_b)$, (say $C$ again). Then
-$$
-\frac{|\sigma(\xi, \xi)|_{q_t}^2}{|\xi|_t^4}
-\leq
-\frac{K}{e^t}
-+ \frac{M |\xi|^2}{|z|^2(e^t|\xi|_h^2 + |\xi|_b^2)}
-$$
-for all $t \geq t_0$ and some constants $K$ and $M$.
-We need to analyze the other terms and see if they can beat the one
-that explodes at $0$.
-The only one that might is
-$$
-\frac{R_b(\xi,\ov\xi,\xi,\ov\xi)}{|\xi|_t^4}
-= \frac{2 |\xi|_b^4}{|\xi|_t^4}
-= \frac{2}{(1 + e^t |\xi|_h^2/|\xi|_b^2)^2}
-\to 2
-$$
-as $z \to 0$ for fixed $t$. So that doesn't help
-
-Write $z = r \theta$ with $|\theta| = 1$. Then
-$$
-|\xi|^2_b = \frac{|\xi|^2}{r^2} - \frac{|\<\xi, \ov\theta\>|^2}{r^2}.
-$$
-
-OK, so these estimates.
-We have
-$$
-b(\xi,\ov\xi) \leq \frac{2|\xi|^2}{|z|^2}
-$$
-by Cauchy--Schwarz. Then $|z|^2 b$ is bounded.
-I don't think that $|z|^2 b(\xi, \ov\xi)$ has a limit as $z \to 0$:
-Take $\xi = (1, 0, \ldots, 0)$ and $z = (z, 0, \ldots, 0)$ on the one hand and
-$z = (0, z, 0, \ldots, 0)$ on the other.
-Along one direction we get the limit $0$ and along the other we get $1$.
-This could be a problem.
-Is
-$$
-\lim_{z \to 0} \frac{|\<\xi, \ov z\>|^2}{|z|^2}
-$$
-anything?
-If it is shouldn't it just be the derivative of $|\<\xi, \ov z\>|^2$?
-You know, the complex linear one it doesn't have?
-OK. So. Let
-$$
-f(r,\theta) = r^2|\<\xi, \ov{\theta}\>|^2
-$$
-for $\theta \in S(V)$. Then
-$$
-\frac{f(r, \theta)}{r^2} \to |\<\xi, \ov{\theta}\>|^2
-$$
-as $r \to 0$, and the RHS can be anything between $0$ and $|\xi|$.
-
-Have to justify the limit $q_t \to b$ more, show that it can be done uniformely.
-Probably test the difference on the unit sphere.
-
-
-Suppose we picked $U$ so that the coordinates are normal with respect to $h$ at
-$0$.
-Then
-$$
-h(\xi,\ov\eta)
-= \<\xi, \ov\eta\>
-- \sum_{j,k,l,m} R_{jklm} \xi_j \ov{\eta}_k z_l \ov z_m
-+ O(|z|^3)
-$$
-for $\xi = \sum_j \xi_j e_j$ and $\eta = \sum_k \eta_k e_k$.
-
-Let
-$$
-p :=
-\p \bp \log(|z|^2 + \epsilon)
-= \p \frac{\<z, \ov{dz} \>}{|z|^2 + \epsilon}
-= \frac{\<dz, \ov{dz} \>}{|z|^2 + \epsilon}
-- \frac{\<dz, z \>}{|z|^2 + \epsilon}
-\frac{\<z, \ov{dz} \>}{|z|^2 + \epsilon}
-$$
-Then
-$$
-p(\xi,\ov\xi)
-= \frac{1}{|z|^2 + \epsilon}
-\biggl(
-|\xi|^2
-- \frac{|\<\xi, \ov z\>|^2}{|z|^2 + \epsilon}
-\biggr)
-\geq
-\frac{1}{|z|^2 + \epsilon}
-\biggl(
-|\xi|^2
-- \frac{|\xi|^2 |z|^2}{|z|^2 + \epsilon}
-\biggr)
-=
-\frac{\epsilon |\xi|^2}{(|z|^2 + \epsilon)^2}
-$$
-so $p$ is a Hermitian metric on $V$.
-It doesn't give a metric on $\kk P(V)$ though because it's not invariant
-under scaling.
-We only have $p_\epsilon(\lambda z) = p_{\epsilon/\lambda}(z)$.
-Any homogeneous function is zero at $0$, so we can't get a metric on $\kk P(V)$
-this way.
-
-Have
-$$
-\log |\xi|^2_t
-= t + \log\biggl(
-|\xi|^2_h
-+ e^{-t} \frac{|\xi|^2}{|z|^2}
-- e^{-t} \frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov\xi\>}{|z|^2}
-\biggr).
-$$
-We have
-$$
-\frac{\<\xi, \ov\eta\>}{|z|^2}
-- \frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov \eta\>}{|z|^2}
-= \frac{1}{|z|^2} \< P_z\xi, \ov{P_z\eta} \>,
-$$
-where $P_z : \kk C^n \to \kk C^n$ is the orthogonal projection onto $(\kk
-C z)^\perp$.
-Can also write $P_z(\xi) = \xi - \frac{\<\xi, \ov z\>}{|z|^2} z$,
-which leads back where we were.
-Then
-$$
-\<\xi, \ov\eta\>_t
-= \<\xi, \ov\eta\>_h
-+ \frac{e^{-t}}{|z|^2} \< P_z \xi, \ov{P_z \eta} \>.
-$$
-
-Morally, if we look at the matrices:
-$H_t = O(1/|z|^2)$, so $H_t^{-1} = O(|z|^2)$.
-$\partial H_t = O(1/|z|^3)$ and $\partial\bar\partial H_t = O(1/|z|^4)$
-so $R_t=O(1/|z|^2)$.
-I don't get how Hitchin makes this work.
-
-
-\subsection*{Degenerate}
-
-Hello, darkness, my old friend:
-\begin{align*}
-b(\xi,\ov\eta)
-&= \frac{\<\xi, \ov\eta\>}{|z|^2}
-- \frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov\eta\>}{|z|^2}.
-\\
-\partial_\nu b(\xi, \ov\eta)
-&= \frac{\<d_\nu \xi, \ov\eta\>}{|z|^2}
-- \frac{\<\xi, \ov\eta\>}{|z|^2}
-\frac{\<\nu, \ov z\>}{|z|^2}
-- \frac{\<d_\nu \xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov\eta\>}{|z|^2}
-\\
-&\quad
-+
-\frac{\<\nu, \ov z\>}{|z|^2}
-\frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov\eta\>}{|z|^2}
-+ \frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<z, \ov\eta\>}{|z|^2}
-\frac{\<\nu, \ov z\>}{|z|^2}
-- \frac{\<\xi, \ov z\>}{|z|^2}
-\frac{\<\nu, \ov\eta\>}{|z|^2}
-\\
-&= b(d_\nu \xi, \ov\eta)
-- b\biggl(\frac{\<\nu, \ov z\>}{|z|^2} \xi , \ov\eta\biggr)
-- b\biggl(\frac{\<\xi, \ov z\>}{|z|^2} \nu , \ov\eta\biggr)
-\\
-&= b\biggl(d_\nu \xi
-- \frac{\<\nu, \ov z\>}{|z|^2} \xi
-- \frac{\<\xi, \ov z\>}{|z|^2} \nu
-, \ov\eta
-\biggr)
-\end{align*}
-for all holomorphic $\xi, \eta, \nu$, so
-$$
-D_\nu \xi := d_\nu \xi
-- \frac{\<\nu, \ov z\>}{|z|^2} \xi
-- \frac{\<\xi, \ov z\>}{|z|^2} \nu
-$$
-is a ``Chern connection'' for $b$.
-We can add $\alpha(\nu) z$ to it for any 1-form $\alpha$ and get another
-``Chern connection''.
-We then also get a ``curvature tensor'' (this time in quotes because we don't
-have a metric, but this tensor is unique)
-$$
-R(\alpha,\ov\beta,\gamma,\ov\delta)
-= b(\alpha,\ov\beta) b(\gamma, \ov\delta)
-+ b(\alpha,\ov\delta) b(\gamma, \ov\beta)
-$$
-that satisfies $R(\alpha,\ov\alpha,\alpha,\ov\alpha) = 2b(\alpha,\ov\alpha)^2$.
-If $\pi : V \setminus \{ 0 \} \to \kk P(V)$ is the projection then $b$ is just
-$\pi^*h_{FS}$, and we have $R_b = \pi^* R_{FS}$.
-But even if this works you're no better off because you get terms involving $b$
-and the second fundamental form, both of which blow up at $0$.
-
-
-\subsection*{Maybe just calculate things?}
-
-Let $(z,w)$ be the coordinates on the product.
-Near $z = 0$ we have $w = (z_1, \ldots, z_{n-1})$.
-If $\xi$ is as before we write $\xi = \xi' + \xi''$ and get
-$$
-\<\xi, \ov\eta\>_t
-= \<\xi', \ov{\eta'} \>_h
-+ e^{-t} \frac{\<\xi'', \ov{\eta''} \>}{1 + |z|^2 - |z_n|^2}
-- e^{-t} \frac{\<\xi'', \ov{z'} \>}{1 + |z|^2 - |z_n|^2}
-\frac{\<z', \ov{\eta''} \>}{1 + |z|^2 - |z_n|^2}.
-$$
-But remember that our frame is
-$$
-\xi_j = z_n e_j + f_j,
-\quad j=1,\ldots,n-1,
-\qandq
-\xi_n = \sum_{j=1}^{n-1} z_j e_j + e_n
-$$
-outside of $z = 0$.
-For $j, k < n$ we have
-\begin{align*}
-\< \xi_j, \ov{\xi_k} \>_t
-&= |z_n|^2 h_{jk}
-+ e^{-t} \frac{\delta_{jk}}{1 + |z|^2 - |z_n|^2}
-- e^{-t} \frac{\ov z_j z_k}{(1 + |z|^2 - |z_n|^2)^2},
-\quad
-j, k < n
-\\
-\< \xi_j, \ov{\xi_n} \>_t
-&= z_n \biggl(
-\sum_{k=1}^{n-1} \ov z_k h_{jk} + h_{jn}
-\biggr),
-\quad j < n
-\\
-\< \xi_n, \ov{\xi_n} \>_t
-&= \biggl(
-\sum_{j,k=1}^{n-1} z_j \ov z_k h_{jk}
-+ \sum_{j}^{n-1} z_j h_{jn}
-+ \sum_{k}^{n-1} \ov z_j h_{nk}
-+ h_{nn}
-\biggr).
-\end{align*}
-At least this frame is orthogonal at $z = 0$.
-
-Note that $z$ are normal coordinates for $h$ at $0$, so
-$$
-h_{jk}
-= \delta_{jk} - R_{jklm} z_l \ov z_m + O(|z|^3).
-$$
-Up to order 2 we then have
-\begin{align*}
-\< \xi_j, \ov{\xi_k} \>_t
-&= |z_n|^2 \delta_{jk}
-+ e^{-t}(1 - |z|^2 + |z_n|^2) \delta_{jk}
-- e^{-t}\ov z_j z_k ,
-\quad
-j, k < n
-\\
-\< \xi_j, \ov{\xi_n} \>_t
-&= z_n \ov z_j,
-\quad j < n
-\\
-\< \xi_n, \ov{\xi_n} \>_t
-&=
-1 + |z|^2 - |z_n|^2 - \sum_{lm} R_{nnlm} z_l \ov z_m
-.
-\end{align*}
-because
-$$
-\frac{1}{(1+|z|^2-|z_n|^2)}
-= \sum_{k \geq 0} (-1)^k (|z|^2 - |z_n|^2)^k
-= 1 - |z|^2 + |z_n|^2 + O(|z|^3)
-$$
-for $|z|^2 - |z_n|^2 < 1$.
-This is almost diagonal.
-It gets us the curvature tensor in a neighborhood of $0$.
-
-We have to try to do like Hitchin does to invert this.
-Set $z' = (z_1,\ldots,z_{n-1},0)$. Let
-$$
-P(z) = z - \frac{\< z, \ov{z'} \>}{1 + |z'|^2} z'.
-$$
-Then
-\begin{align*}
-P^2(z)
-&= z - \frac{\< z, \ov{z'} \>}{1 + |z'|^2} z'
-- \frac{\< z - \frac{\< z, \ov{z'} \>}{1 + |z'|^2} z', \ov{z'} \>}{1 + |z'|^2} z'
-\\
-&= z - \frac{\< z, \ov{z'} \>}{1 + |z'|^2} z'
-- \frac{\< z, \ov{z'} \>}{1 + |z'|^2} z'
-+ \frac{\< z, \ov{z'} \>}{1 + |z'|^2} \frac{\< z', \ov{z'} \>}{1 + |z'|^2} z'
-\\
-&= z - 2 \frac{\< z, \ov{z'} \>}{1 + |z'|^2} z'
-+ \frac{\< z, \ov{z'} \>}{1 + |z'|^2} \frac{|z'|^2}{1 + |z'|^2} z'
-= P(z)
-- \frac{\< z, \ov{z'} \>}{(1 + |z'|^2)^2} z'
-\end{align*}
-and $\ov{P^t} = P$.
-So $P$ is not quite a projection, but it is invertible in places because
-$$
-v = \frac{(1 + |z'|^2)^2}{\< v, \ov{z'} \>}
-(Pv - P^2 v)
-$$
-for $v$ such that $v_n = 0$ and $\<v, \ov{z'}\> \not= 0$.
-We have
-$
-b(\xi, \ov\eta) = \< P_z \xi, \ov{P_z \eta} \> / (1+|z'|^2)
-$
-so the matrix of $h_t$ in our frame is
-$$
-H_t = A + \frac{e^{-t}}{1 + |z'|^2} P_z
-$$
-where
-$$
-A = \begin{pmatrix}
-a_{11} & 0  & \cdots & z_1 \ov z_n
-\\
-0 & a_{22} & \cdots & z_2 \ov z_n
-\\
-\vdots & \ddots & \cdots & \vdots
-\\
-z_n \ov z_1 & \cdots & z_n \ov z_{n-1} & a_{nn}
-\end{pmatrix},
-$$
-where $a_{jj} = |z_n|^2$ and
-$a_{nn} = 1 + |z|^2 - |z_n|^2 - \sum_{lm} R_{nnlm} z_l \ov z_m$.
-Can we invert $A$ (when that's possible)?
-After one row operation we get
-$$
-A_1 =
-\left(
-\begin{array}{cccc|cccc}
-a_{11} & 0 & \cdots & z_1 \ov z_n
-&
-1 & 0 & \cdots & 0
-\\
-0 & a_{22} & \cdots & z_2 \ov z_n
-&
-0 & 1 & \cdots & 0
-\\
-\vdots & \ddots & \cdots & \vdots
-\\
-0 & \cdots & z_{n} \ov z_{n-1} & a_{nn} - \frac{|z_1 z_n|^2}{a_{11}}
-&
-- \frac{z_n \ov z_1}{a_{11}} & 0 & \cdots & 1
-\end{array}
-\right)
-$$
-so after $n-1$ row operations we have
-$$
-A' =
-\left(
-\begin{array}{cccc|cccc}
-a_{11} & 0 & \cdots & z_1 \ov z_n
-&
-1 & 0 & \cdots & 0
-\\
-0 & a_{22} & \cdots & z_2 \ov z_n
-&
-0 & 1 & \cdots & 0
-\\
-\vdots & \ddots & \cdots & \vdots
-\\
-0 & \cdots & 0 & a_{nn} - |z_n|^2 \sum_{j=1}^{n-1} \frac{|z_j|^2}{a_{jj}}
-&
--\frac{z_n \ov z_1}{a_{11}} & \cdots & -\frac{z_{n} \ov z_{n-1}}{a_{n-1,n-1}} & 1
-\end{array}
-\right).
-$$
-Let's set $b = a_{nn} - |z_n|^2 \sum_{j=1}^{n-1} \frac{|z_j|^2}{a_{jj}}$.
-Continuing on we get
-$$
-A'' =
-\left(
-\begin{array}{cccc|cccc}
-a_{11} &  & &
-&
-1 + \frac{|z_1z_n|^2}{a_{11} b} &
-\frac{|z_n|^2 z_2 \ov z_1}{a_{22} b} &
-\cdots &
-- \frac{z_1 \ov z_n}{b}
-\\
- & a_{22} & &
-&
-\frac{|z_n|^2 z_2 \ov z_1}{a_{11}b} &
-1 + \frac{|z_n|^2|z_2|^2}{a_{22} b} &
-\cdots &
--\frac{z_2 \ov z_n}{b}
-\\
-  & & \ddots & &
-\\
- & &  & b
-&
--\frac{z_n \ov z_1}{a_{11}} &
-\cdots &
--\frac{z_{n} \ov z_{n-1}}{a_{n-1,n-1}} &
-1
-\end{array}
-\right).
-$$
-Finally
-$$
-A^{-1} =
-\left(
-\begin{array}{cccc}
-\frac{1}{a_{11}} + \frac{|z_1z_n|^2}{a_{11}^2 b} &
-\frac{|z_n|^2 z_1 \ov z_2}{a_{11} a_{22} b} & \cdots &
-- \frac{z_1 \ov z_n}{a_{11} b}
-\\
-\frac{|z_n|^2 z_2 \ov z_1}{a_{11} a_{22} b} &
-\frac{1}{a_{22}} + \frac{|z_n|^2|z_2|^2}{a_{22}^2 b} & \cdots &
--\frac{z_2 \ov z_n}{a_{22} b}
-\\
-& & \ddots &
-\\
--\frac{z_n \ov z_1}{a_{11}b} & \cdots &
--\frac{z_{n} \ov z_{n-1}}{a_{n-1,n-1}b} &
-\frac 1b
-\end{array}
-\right).
-$$
-Thankfully we should only need to write this as $I + B z + O(|z^2|)$
-if we're going to calculate $R_h = R_0 + O(|z|)$.
-We have $a_{jj} = e^{-t} + O(|z|^2)$ for $j < n$ and $a_{nn} = 1 + O(|z|^2)$,
-so $b = 1 + e^{t}|z|^2 + O(|z|^3)$.
-Let's write
-$q(z) = |z|^2 - |z_n|^2$,
-$p_j(z) = 1 - q(z) - |z_j|^2$
-and $p_n(z) = 1 + q(z)$.
-Then
-\begin{align*}
-H_t
-&= \begin{pmatrix}
-e^{-t} p_1(z) + |z_n|^2 &
-0 &
-\cdots &
-z_1 \ov z_n
-\\
-0 &
-e^{-t} p_2(z) + |z_n|^2 &
-\cdots &
-z_2 \ov z_n
-\\
-\vdots & \cdots & \ddots & \vdots
-\\
-\ov z_1 z_n &
-\cdots &
-\ov z_{n-1} z_{n} &
-p_n(z) - \sum\limits_{lm} R_{nnlm} z_l \ov z_m
-\end{pmatrix}
-\\
-H_t^{-1} &=
-\begin{pmatrix}
-e^t & & &
-\\
-& e^t & &
-\\
-& & \ddots &
-\\
-& & & 1
-\end{pmatrix}
-+ O(|z|^2)
-=: C + O(|z|^2).
-\end{align*}
-Can write
-$$
-\displaylines{
-H_t =
-A + e^{-t} B
-=
-\begin{pmatrix}
-|z_n|^2 & 0 & \cdots & z_n \ov z_1
-\\
-0 & |z_n|^2 & \cdots & z_n \ov z_2
-\\
-& & \ddots &
-\\
-\ov z_n z_1 & \cdots & \ov z_n z_{n-1} &
-1 + |z|^2 - |z_n|^2 - \sum\limits_{lm} R_{nnlm} z_l \ov z_m
-\end{pmatrix}
-\hfill\cr\hfill{}
-+ e^{-t}
-\begin{pmatrix}
-p_1 & & &
-\\
-& p_2 & &
-\\
-& & \ddots &
-\\
-& & & 0
-\end{pmatrix}.
-}
-$$
-Then
-\begin{align*}
-\Theta_t
-&= H^{-1} \partial H \wedge H^{-1} \bar\partial H
-- H^{-1} \partial \bar\partial H
-\\
-&= C(\partial A + e^{-t} \partial B) \wedge
-C (\bar\partial A + e^{-t} \bar\partial B)
-- C (\partial\bar\partial A + e^{-t} \partial\bar\partial B)
-\\
-&= C\partial A \wedge C \bar\partial A
-- C \partial\bar\partial A
-+ e^{-t}(
-C \partial A \wedge C \bar\partial B
-+ C \partial B \wedge C \bar\partial A
-)
-\\
-&\qquad
-+ e^{-2t} C\partial B \wedge C \bar\partial B
-- e^{-t} C\partial\bar\partial B
-\\
-&= C\partial A \wedge C \bar\partial A
-- C \partial\bar\partial A
-+ C \partial A \wedge \bar\partial B
-+ \partial B \wedge C \bar\partial A
-\\
-&\qquad
-+ \partial B \wedge \bar\partial B
-- \partial\bar\partial B.
-\end{align*}
-The form $e^t C \partial B$ is fixed and $O(|z|)$, so we can control it near $0$.
-However we need to look at $C \partial A \wedge C \bar\partial A$.
-We also have
-$$
-- C \partial\bar\partial A - e^{-t} C \partial\bar\partial B
-= - C \partial\bar\partial A - \partial\bar\partial B
-$$
-because $e^{-t} C B = B$.
-Have
-$$
-\partial\bar\partial A
-=
-\begin{pmatrix}
-dz_n d\bar z_n & 0 & \cdots & dz_n d\bar z_1
-\\
-0 & dz_n d\bar z_n & \cdots & dz_n d\bar z_2
-\\
-& & \ddots &
-\\
-dz_1 d\bar z_n & \cdots & d z_{n-1} d\bar z_n &
-dzd\bar z - dz_n d\bar z_n - \sum\limits_{lm} R_{nnlm} d z_l d\bar z_m
-\end{pmatrix}
-$$
-so for $\xi = \sum_j a_j \partial/\partial z_j$ we have
-$$
-\tfrac i2 \partial\bar\partial A(\xi,\ov\xi,\xi,\ov\xi)
-=
-\ov\xi^t \begin{pmatrix}
-|a_n|^2 & 0 & \cdots & a_n \bar a_1
-\\
-0 & |a_n|^2 & \cdots & a_n \bar a_2
-\\
-& & \ddots &
-\\
-a_1 \bar a_n & \cdots & a_{n-1} \bar a_n &
-|a|^2 - |a_n|^2 - \sum\limits_{lm} R_{nnlm} a_l \bar a_m
-\end{pmatrix}
-\xi.
-$$
-We forgot to multiply by $C$. Adding that we get
-$e^{t}$ terms everywhere except in the bottom row
-(where we should get $1/b$; have to check that better).
-Denote the matrix by $D$.
-Then
-$$
-D \xi
-= \begin{pmatrix}
-2 e^t |a_n|^2 a_1
-\\
-2 e^t |a_n|^2 a_2
-\\
-\vdots
-\\
-a_n \Bigl(
-2(|a|^2 - |a_n|^2)
-- \sum_{lm} R_{nnlm} a_l \bar a_m
-\Bigr)
-\end{pmatrix}
-$$
-because your matrix should be transposed,
-so
-$$
-\tfrac i2 C \partial\bar\partial A(\xi,\ov\xi,\xi,\ov\xi)
-= |a_n|^2\Bigl(
-2(1+e^{t})(|a|^2 - |a_n|^2)
-- \sum_{lm} R_{nnlm} a_l \bar a_m
-\Bigr).
-$$
-Still need to calculate the contributions of
-$\partial B \wedge \bar\partial B - \partial\bar\partial B$
-and $C\partial A \wedge C \bar\partial A$.
-
-I think we need to pay a little more attention to the exponential terms to
-be able to argue they behave as we want in the limit.
-We have
-$$
-a_j = |z_n|^2 + e^{-t} f_j(z),
-$$
-where
-$$
-f_j(z) = \frac{1}{1 + |z|^2 - |z_n|^2} - \frac{|z_j|^2}{(1+|z|^2-|z_n|^2)^2}.
-$$
-Note that $a_j(0) = e^{-t} > 0$ for all $t$.
-We set $b = a_{nn} - |z_n|^2 \sum_{j=1}^{n-1} |z_j|^2/a_{jj}$.
-I don't think that simplifies much.
-
-Try inverting
-$$
-B = \begin{pmatrix}
-g_1 & \frac{z_2 \bar z_1}{1+|z'|^2} & \cdots & 0
-\\
-\frac{z_1 \bar z_2}{1+|z'|^2} & g_2 & \cdots & 0
-\\
-\vdots & \ddots & \cdots & \vdots
-\\
-0 & \cdots & 0 & e^t(1+|z'|^2)
-\end{pmatrix}
-$$
-where $g_j(z) = 1 - \frac{|z_j|^2}{1+|z'|^2}$
-near $0$.
-(We take the constant $1$ from the matrix of $h$ and add it to the other.)
-Write $B$ as
-$$
-\def\foo#1{#1}
-\begin{pmatrix}
-1 & & &
-\\
-& 1 & &
-\\
-& & \ddots &
-\\
-& & & e^t(1+|z'|^2)
-\end{pmatrix}
--
-\frac{1}{1+|z'|^2}
-\begin{pmatrix}
-\foo{|z_1|^2} & \foo{z_2 \bar z_1} & \cdots & 0
-\\
-\foo{z_1 \bar z_2} & \foo{|z_2|^2} & \cdots & 0
-\\
-\vdots & \cdots & \ddots & \vdots
-\\
-0 & 0 & 0 & 0
-\end{pmatrix}
-=: J -
-\frac{C}{1+|z'|^2} .
-$$
-For $|z| < 1$ we can invert this as
-$$
-B^{-1}
-= \sum_{k \geq 0} \frac{1}{(1+|z'|^2)^k} (J^{-1} C)^k J^{-1}
-= \sum_{k \geq 0} \frac{1}{(1+|z'|^2)^k} C^k J^{-1}.
-$$
-To the second order
-$$
-\frac{1}{1+|z'|^2} = 1 - |z'|^2
-$$
-so if we want we can approximate $B^{-1} = J^{-1} + C$.
-Let's set
-$$
-A =
-\begin{pmatrix}
-|z_n|^2 & 0 & \cdots & \bar z_1 z_n
-\\
-0 & |z_n|^2 & \cdots & \bar z_2 z_n
-\\
-\vdots & \cdots & \ddots & \vdots
-\\
-z_1 \bar z_n & z_2 \bar z_n & \cdots & |z'|^2
-- \sum\limits_{lm} R_{nnlm} z_l \bar z_m
-\end{pmatrix}
-$$
-so $H_t = A + \frac{e^{-t}}{1+|z'|^2} B$.
-We want to invert this near $0$.
-Let's write
-$$
-H_t = \frac{e^{-t}}{1+|z'|^2} B (I + e^t(1+|z'|^2) B^{-1}A)
-$$
-and get for $z$ in some ball that depends on $t$
-$$
-H_t^{-1}
-= e^t(1+|z'|^2)
-\sum_{k \geq 0} (-1)^k e^{tk} (1+|z'|^2)^k (B^{-1}A)^k B^{-1}.
-$$
-But as $t\to\infty$ this ball gets smaller and the limit is just the origin.
-Moving the exponential factor around doesn't solve the problem because
-we'll still have $e^t B^{-1}A$.
-Maybe don't try to write the series?
-Set $H_t = \frac{e^{-t}}{1+|z'|^2} B K_t$
-with $K_t = I + e^t(1+|z'|^2) B^{-1}A$
-and get $H_t^{-1} = e^t(1+|z'|^2) K_t^{-1} B^{-1}$.
-The inverse of $J$ involves an $e^{-t}$ term which might help with $K_t$:
-$$
-K_t = I + e^t(1+|z'|^2) B^{-1}A
-= I + e^t(1+|z'|^2) \sum_{k \geq 0} \frac{1}{(1+|z'|^2)^k} C^k J^{-1}.
-$$
-But no, that term only affects the bottom row of $C^k$; the others pick up an
-$e^t$ term.
-Try to calculate through and see if everything ends up OK?
-
-
-
-\subsection*{Surfaces}
-
-Set $n = 2$ and get
-$$
-H_t =
-\begin{pmatrix}
-|w|^2 h_{11} + e^{-t} f(z)&
-w(\bar z h_{11} + h_{12})
-\\
-\bar w(z h_{11} + h_{21})
-&
-|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22}
-\end{pmatrix},
-$$
-where $f(z) = \frac{1}{1+|z|^2} - \frac{|z|^2}{(1+|z|^2)^2}$.
-Then
-\begin{align*}
-\det H_t
-&=
-(|w|^2 h_{11} + e^{-t} f(z))
-(|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22})
-\\
-&\qquad
-- w(\bar z h_{11} + h_{12})
-\bar w(z h_{11} + h_{21})
-\\
-&=
-|w|^2 h_{11}
-(z h_{12} + \bar z h_{21} + h_{22})
-+ e^{-t} f(z)
-(|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22})
-\\
-&\qquad
-- |w|^2
-(
-\bar z h_{11} h_{21}
-+ z h_{11} h_{12}
-+ h_{12} h_{21}
-)
-\\
-&=
-|w|^2 \det H
-+ e^{-t} f(z)
-(|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22})
-\end{align*}
-so
-\begin{align*}
-H_t^{-1}
-&= \frac{1}{\det H_t}
-\begin{pmatrix}
-|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22}
-&
-- w(\bar z h_{11} + h_{12})
-\\
-- \bar w(z h_{11} + h_{21})
-&
-|w|^2 h_{11} + e^{-t} f(z)
-\end{pmatrix}
-\\
-&= \frac{1}{\det H_t} (\operatorname{Adj} H' + e^{-t} \operatorname{Adj} D).
-\end{align*}
-We should be able to write $H_t = H' + e^{-t} D = \ov M^t H M + e^{-t} D$.
-Then
-$$
-\displaylines{
-H_t^{-1} \partial H_t \wedge H_t^{-1} \bar\partial H_t
-- H_t^{-1} \partial\bar\partial H_t
-\hfill\cr\qquad{}
-= \frac{1}{\det H_t}
-(\Adj H' + e^{-t} \Adj D)
-(\p H' + e^{-t} \p D)
-\hfill\cr\hfill{}
-\wedge
-\frac{1}{\det H_t}
-(\Adj H' + e^{-t} \Adj D)
-(\bp H' + e^{-t} \bp D)
-\cr\hfill{}
-- \frac{1}{\det H_t}
-(\Adj H' + e^{-t} \Adj D)
-(\p\bp H' + e^{-t} \p\bp D)
-\cr\qquad{}
-= \frac{1}{\det H_t}
-(e^{-t} \Adj H' \p D + \Adj H' \p H' + e^{-t} \Adj D \p H')
-\hfill\cr\hfill{}
-\wedge
-\frac{1}{\det H_t}
-(e^{-t} \Adj H' \bp D + \Adj H' \bp H' + e^{-t} \Adj D \bp H')
-\cr\hfill{}
-- \frac{1}{\det H_t}
-(\Adj H' \p\bp H' + \Adj H' \p\bp D + e^{-t} \Adj D \p\bp H')
-}
-$$
-because $\operatorname{Adj} D D = 0$.
-We have $\det H_t = \det H(|w|^2 + \text{stuff})$
-and
-$$
-\Adj H' = \Adj M \Adj H \Adj \ov M^t.
-$$
-Then
-\begin{align*}
-\Adj \ov M^t
-\p D
-&= \begin{pmatrix}
-e^{-t} \p f & 0
-\\
-0 & 0
-\end{pmatrix}
-\\
-\Adj H \Adj \ov M^t \p D
-&=
-\begin{pmatrix}
-(|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22})
-e^{-t} \p f & 0
-\\
-0 & 0
-\end{pmatrix}
-\\
-\Adj H' \p D
-&=
-\begin{pmatrix}
-(|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22})
-e^{-t} \p f & 0
-\\
-0 & 0
-\end{pmatrix}.
-\end{align*}
-I'm not sure this was any quicker than just calculating directly.
-For small enough $z,w$ the function
-$g := |z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22} \not= 0$
-because $h_{22} \not= 0$ so we get
-\begin{align*}
-\frac{1}{\det H_t} \Adj H' \p D
-&= \frac{1}{ge^{-t}f (1 + |w|^2 \det H/(gfe^t))} \begin{pmatrix}
-g e^{-t} \p f & 0
-\\
-0 & 0
-\end{pmatrix}
-\\
-&= \frac{1}{(1 + |w|^2 \det H/(gfe^t))} \begin{pmatrix}
-\p f / f & 0
-\\
-0 & 0
-\end{pmatrix}.
-\end{align*}
-Similarly we get
-$$
-\frac{1}{\det H_t} \Adj H' \bp D
-= \frac{1}{(1 + |w|^2 \det H/(gfe^t))} \begin{pmatrix}
-\bp f / f & 0
-\\
-0 & 0
-\end{pmatrix}.
-$$
-
-We have
-$$
-H_t = \ov M^t H M
-+ \begin{pmatrix} e^{-t} f(z) \\ 0 \end{pmatrix}
-\begin{pmatrix} 1 & 0 \end{pmatrix}
-=: \ov M^t H M + u v^t
-$$
-with $M = \begin{pmatrix} w & 0 \\ z & 1 \end{pmatrix}$
-so the matrix determinant lemma says that
-\begin{align*}
-\det H_t
-&= \det(\ov M^t H M)
-+ v^t \operatorname{Adj} (\ov M^t H M) u
-\\
-&= |w|^2 \det H
-+ e^{-t} f(z)
-(|z|^2 h_{11} + z h_{12} + \bar z h_{21} + h_{22}).
-\end{align*}
-
-
-\subsection*{Decreasing Wu}
-
-Maybe try Wu and show that what we get is strictly decreasing in $t$ for any
-small $z$ and tends to $0$?
-
-If $\xi = (a\ b)$ then
-$$
-|
-\xi
-|^2_t
-= |M \xi|^2 + e^{-t} |a|^2 f(z)
-$$
-so
-$$
-\bar\partial_{\bar \xi} \log |\xi|^2_t
-= \frac{\< M\xi, \ov{D_{\xi}(M\xi)}\>}{|\xi|^2_t}
-+ e^{-t} \frac{a \ov{\partial_\xi a} f + |a|^2 \bar\partial_{\bar\xi} f}{|\xi|^2_t}
-$$
-and
-\begin{align*}
--\frac{1}{|\xi|^2_t}
-\partial_\xi \bar\partial_{\bar \xi} \log |\xi|^2_t
-&=
-\frac{R(\xi, \ov\xi, M\xi, \ov{M\xi})}{|\xi|^4_t}
-\\
-&\qquad
-- \frac{\< D_\xi(M\xi), \ov{D_{\xi}(M\xi)}\>}{|\xi|^4_t}
-+ \frac{\partial_\xi |\xi|^2_t}{|\xi|^2_t}
-\frac{\< M\xi, \ov{D_{\xi}(M\xi)}\>}{|\xi|^4_t}
-\\
-&\qquad
-- e^{-t} \frac{|\partial_\xi a|^2 f}{|\xi|^4_t}
-+ e^{-t} \frac{a \ov{\partial_\xi a} f}{|\xi|^4_t}
-\frac{\partial_\xi |\xi|^2_t}{|\xi|^2_t}
-\\
-&\qquad
-- e^{-t} \frac{\partial_\xi a \, \bar a \bar\partial_{\bar\xi} f}{|\xi|^4_t}
-- e^{-t} \frac{|a|^2 \partial_\xi \bar\partial_{\bar\xi} f}{|\xi|^4_t}
-+ e^{-t} \frac{|a|^2 \bar\partial_{\bar\xi} f}{|\xi|^4_t}
-\frac{\partial_\xi |\xi|^2_t}{|\xi|^2_t}
-\\
-&=
-\frac{R(\xi, \ov\xi, M\xi, \ov{M\xi})}{|\xi|^4_t}
-\\
-&\qquad
-- \frac{\< D_\xi(M\xi), \ov{D_{\xi}(M\xi)}\>}{|\xi|^4_t}
-+ \frac{\< D_\xi(M\xi), \ov{M\xi}\>}{|\xi|^4_t}
-\frac{\< M\xi, \ov{D_{\xi}(M\xi)}\>}{|\xi|^2_t}
-\\
-&\qquad
-+
-%\frac{\partial_\xi |\xi|^2_t}{|\xi|^2_t}
-e^{-t} \frac{\p_\xi a \, \bar a f}{|\xi|_t^2}
-\frac{\< M\xi, \ov{D_{\xi}(M\xi)}\>}{|\xi|^4_t}
-+ e^{-t} \frac{|a|^2 \p_\xi f}{|\xi|_t^2}
-\frac{\< M\xi, \ov{D_{\xi}(M\xi)}\>}{|\xi|^4_t}
-\\
-&\qquad
-- e^{-t} \frac{|\partial_\xi a|^2 f}{|\xi|^4_t}
-+ e^{-t} \frac{a \ov{\partial_\xi a} f}{|\xi|^4_t}
-\frac{\partial_\xi |\xi|^2_t}{|\xi|^2_t}
-\\
-&\qquad
-- e^{-t} \frac{\partial_\xi a \, \bar a \bar\partial_{\bar\xi} f}{|\xi|^4_t}
-- e^{-t} \frac{|a|^2 \partial_\xi \bar\partial_{\bar\xi} f}{|\xi|^4_t}
-+ e^{-t} \frac{|a|^2 \bar\partial_{\bar\xi} f}{|\xi|^4_t}
-\frac{\partial_\xi |\xi|^2_t}{|\xi|^2_t}
-\end{align*}
-so I think we get
-$$
-\displaylines{
--\frac{1}{|\xi|^2_t}
-\partial_\xi \bar\partial_{\bar \xi} \log |\xi|^2_t
-= \frac{R(\xi, \ov\xi, M\xi, \ov{M\xi})}{|\xi|^4_t}
-\hfill\cr\hfill{}
-- \frac{1}{|\xi|^4_t}
-\biggl(
-|D_\xi(M\xi)|^2
-- \frac{|\< D_\xi(M\xi), \ov{M\xi}\>|^2}{|\xi|^2_t}
-\biggr)
-+ e^{-t} K
-}
-$$
-over some compact set around $0$ that only depends on the local coordinates.
-If $M\xi \not= 0$ we have
-\begin{align*}
-q_t(\xi)
-:= |D_\xi(M\xi)|^2
-- \frac{|\< D_\xi(M\xi), \ov{M\xi}\>|^2}{|\xi|^2_t}
-&\geq
-|D_\xi(M\xi)|^2
-- \frac{|D_\xi(M\xi)|^2 |M\xi|^2}{|\xi|^2_t}
-\\
-&=
-|D_\xi(M\xi)|^2
-- \frac{|D_\xi(M\xi)|^2}{1 + e^{-t}|a|^2f/|M\xi|^2}
-\\
-&= |D_\xi(M\xi)|^2 \frac{|a|^2f}{e^t |M\xi|^2 + |a|^2f}
-\geq 0
-\end{align*}
-for all $t$, and if $M\xi = 0$ at a point we just get $q_t(\xi) = |D_\xi(M\xi)|^2
-\geq 0$. Note that $M$ is invertible for $w \not= 0$, but we can't control
-$q_t(\xi)$ uniformely as $w \to 0$.
-This doesn't doom us because we want to take sup of the LHS above, but it's
-not great.
 
 
 
 \subsection*{A surface, local description}
 
-Have $\blX = \{(z_1,z_2,z_3) \mid z_1 - z_2 z_3 = 0\}$.
+Have $\blX = \{(x,y,z) \mid x - y z = 0\}$.
 The tangent space of $\blX$ is spanned by
 $$
-\xi_1 = z_3 e_1 + e_2,
+\xi_1 = z e_x + e_y,
 \quad
-\xi_2 = z_2 e_1 + e_3.
+\xi_2 = y e_x + e_z.
 $$
 The FS metric is
 $$
-g(z_3)
-= \frac{\xi_3 \ov\eta_3}{1 + |z_3|^2}
-- \frac{\xi_3 \ov \eta_3 |z_3|^2}{(1 + |z_3|^2)^2}
-= \frac{\xi_3 \ov\eta_3}{(1 + |z_3|^2)^2}.
+g(z)
+= \frac{\xi_3 \ov\eta_3}{1 + |z|^2}
+- \frac{\xi_3 \ov \eta_3 |z|^2}{(1 + |z|^2)^2}
+= \frac{\xi_3 \ov\eta_3}{(1 + |z|^2)^2}.
 $$
 Its Chern connection is
 $$
 D_\xi \eta_3
-= d_\xi \eta_3 - \frac{\xi_3 \ov z_3}{1 + |z_3|^2} \eta_3
-- \frac{\eta_3 \ov z_3}{1 + |z_3|^2} \xi_3.
+= d_\xi \eta_3 - \frac{\xi_3 \ov z}{1 + |z|^2} \eta_3
+- \frac{\eta_3 \ov z}{1 + |z|^2} \xi_3.
 $$
 Let $D_h = d + A$.
 The second fundamental form is
@@ -1577,53 +478,8 @@ $$
 = \pi(D_{h,\xi} \eta \oplus D_{g,\xi} \eta),
 $$
 where $\pi$ is the orthogonal projection onto the normal bundle.
-The tangent bundle of $\blX$ is $\ker \lambda$, where
-$\lambda = dz_1 - z_3 dz_2 - z_2 dz_3$.
-We note that $\xi_3 = e_1$ is never in $\ker \lambda$.
-The orthogonal projection onto the complementary bundle is then
-$$
-\xi \mapsto \frac{\<\xi, e_1\>_t}{|e_1|^2_t} e_1.
-$$
-Setting $\xi = a\xi_1 + b\xi_2$ the nonzero contribution comes from
-$$
-D_{h} \xi
-= D ( (a z_3 + b z_2) e_1 + a e_2)
-= d(a z_3 + b z_2) e_1 + (a z_3 + b z_2) D e_1 + a D e_2.
-$$
-
-The nonzero contribution is
-$$
-\sigma(\xi_2, \xi_2)
-= \pi(D_{g,\xi_2} \xi_2)
-= \pi(D_{g,e_3} e_3)
-= - \frac{2 \ov z_3}{1 + |z_3|^2} e_3
-$$
-so
-$$
-|\sigma(\xi_2, \xi_2)|^2
-= \frac{4 |z_3|^2}{(1+|z_3|^2)^4}.
-$$
-For $\xi = a \xi_1 + b \xi_2$ we get
-$$
-H_t(\xi)
-= \frac{e^t R_h(\xi')}{|\xi|_t^4}
-+ \frac{2 |b|^4 |e_3|^4}{|\xi|^4_t}
-- \frac{4 |b|^4 |z_3|^2}{(1+|z_3|^2)^4|\xi|_t^4}
-$$
-where $\xi' = (bz_2 + az_3) e_1 + be_2$.
-Now,
-$$
-2|e_3|^4 - 4 \frac{|z_3|^2}{(1+|z_3|^2)^2}|e_3|^2
-= 2|e_3|^2
-\frac{1 - 2|z_3|^2}{(1+|z_3|^2)^2}
-$$
-is positive for all $|z_3| < 1/\sqrt 2$.
-Because $h$ has positive \hsc{}, we find that $H_t > 0$ for all $t$ and
-small enough $z$.
-
-
-
-\subsection*{Yet another curvature calculation}
+The tangent bundle of $\blX$ is $\ker \alpha$, where
+$\alpha = dx - z dy - y dz$.
 
 Let $u = (z, 1, 0)$ and $v = (y, 0, 1)$ and let $S = \kk C u + \kk C v \subset
 \kk C^3$.
@@ -1636,6 +492,73 @@ is exact.
 This gives an isomorphism $\kk C^3 / S \cong \kk C$.
 We have $\alpha = dx - z dy - y dz$, so the
 quotient map is given by $Q = (1, -z, -y)$.
+We should probably just write this as
+$$
+0 \longrightarrow
+\kk C^2 \stackrel{M}{\longrightarrow }
+\kk C^3 \stackrel{Q}{\longrightarrow}
+\kk C \longrightarrow 0
+$$
+where
+$$
+M = \begin{pmatrix}
+z & y
+\\
+1 & 0
+\\
+0 & 1
+\end{pmatrix}
+\qandq
+Q = \begin{pmatrix}
+1 & -z & -y
+\end{pmatrix}.
+$$
+If $\xi = a u + b v = (az + by, a, b)$ then $\pi_{12}(\xi) = (az + by, a)$ and
+$\pi_3(\xi) = b$. The curvature tensor is then
+$$
+\displaylines{
+R_t(\xi,\ov\xi,\xi,\ov\xi)
+\geq m |(az + by, a)|^4_h
++ \frac{e^{-t} |b|^4}{(1+|z|^2)^2}
+\hfill\cr\noalign{\vskip-6pt}\hfill{}
+- |a^2 \sigma(u,u) + 2ab \sigma(u, v) + b^2 \sigma(v,v)|_q^2.
+}
+$$
+The last term is the norm of a quadratic form
+$$
+\tau(a,b)
+=
+\begin{pmatrix} a & b \end{pmatrix}
+\begin{pmatrix}
+\sigma(u,u) & \sigma(u,v)
+\\
+\sigma(u,v) & \sigma(v,v)
+\end{pmatrix}
+\begin{pmatrix} a \\ b \end{pmatrix}
+$$
+whose coefficients are $\cc C^\infty$ functions.
+Now
+\begin{align*}
+\sigma(u,u)
+= q(D_u u)
+= q(d_u z \, e_1 + z D_u e_1 + D_u e_2)
+= q(z D_u e_1 + D_u e_2)
+\end{align*}
+so we get $\sigma(u,u)(0) = 0$ because we chose normal coordinates.
+Similarly we have $\sigma(v,v)(0) = 0$ and
+$$
+\sigma(u,v)(0)
+= q(d_u y \, e_1 + y D_u e_1 + D_u e_3)
+= q(z d_{e_1} y \, e_1 + d_{e_2} y \, e_1)
+= 1.
+$$
+Expanding we get
+\begin{align*}
+|(az + by, a)|^4_h
+&= (|(az + by, a)|_h^2)^2
+\\
+&= (|az+by|^2 h_{11} + (az+by)\bar a h_{12} + a\ov{(az+by)}h_{21} + |a|^2 h_{22})^2
+\end{align*}
 
 We have a Hermitian metric on $\kk C^3$ given by
 $$
@@ -1665,15 +588,168 @@ h^{21} - \bar z h^{22}
 \\
 -e^t \bar y/\theta
 \end{pmatrix}
-= h^{11} - \bar z h^{12} - z h^{21} + |z|^2 h^{22} + e^t |y|^2 \theta,
+= h^{11} - \bar z h^{12} - z h^{21} + |z|^2 h^{22} + e^t |y|^2 / \theta,
 \end{align*}
 or
 $$
 h_Q
-= \frac{1}{h^{11} - \bar z h^{12} - z h^{21} + |z|^2 h^{22} + e^t |y|^2 \theta}.
+= \frac{1}{h^{11} - \bar z h^{12} - z h^{21} + |z|^2 h^{22} + e^t |y|^2 / \theta}.
 $$
+This is actually just $1 / |\ov Q^t|^2_{H^{-1}}$.
+What's hard is to see that this behaves OK in the limit without going through
+all the calculations.
+For $z = 0$ the $h$ terms are $h^{11}$, which is $1$ at $y = 0$.
+For $(y,z)$ in a small ball $B(r)$ we then have
+$$
+h^{11} - \bar z h^{12} - z h^{21} + |z|^2 h^{22} + e^t |y|^2 / \theta
+\geq 1 - \varepsilon + e^t |y|^2,
+$$
+so
+$$
+h_Q \leq \frac{1}{1 - \epsilon + e^t|y|^2}.
+$$
+We can also pick $r$ so that
+$$
+|(az + by, a)|_h^2 \geq |a|^2 - \varepsilon
+$$
+on $B(r)$, as $h(0,0)$ is the standard inner product. We're now at
+\begin{align*}
+R_t &\geq
+m (|a|^4 - 2\varepsilon|a|^2 + \varepsilon^2)
++ \frac{e^{-t}|b|^4}{(1-|z|^2)^2}
+- 2 \frac{2 |a|^2|b|^2}{1 - \varepsilon + e^t |y|^2}
+\\
+&\geq
+m (|a|^4 - 2\varepsilon|a|^2 + \varepsilon^2)
++ \frac{e^{-t}|b|^4}{(1-r^2)^2}
+- \frac{4 |a|^2|b|^2}{1 - \varepsilon}
+\end{align*}
+Let
+$$
+p(x,y)
+= m(x^2 - 2\varepsilon x + \varepsilon^2)
++ \frac{e^{-t}y^2}{(1-r^2)^2}
+- \frac{4xy}{1 - \varepsilon}.
+$$
+The gradient of $p$ is
+$$
+\nabla p
+= \begin{pmatrix}
+2mx - 2 m \varepsilon - \frac{4y}{1-\varepsilon}
+\\
+\frac{2e^{-t}y}{(1-r^2)^2} - \frac{4x}{1-\varepsilon}
+\end{pmatrix},
+\quad
+H =
+\begin{pmatrix}
+2m & - \frac{4}{1-\eps}
+\\
+-\frac{4}{1-\eps} & \frac{2e^{-t}}{(1-r^2)^2}
+\end{pmatrix}.
+$$
+The Hessian is constant; its determinant is
+$$
+\det H
+= \frac{2me^{-t}}{(1-r^2)^2} - \frac{16}{(1-\eps)^2}
+$$
+which is negative for $t$ large enough, so the extremal points become saddle points.
+We want to consider positive $x,y$, so may want to look at the Lagrange function
+$$
+p(x,y) - \lambda xy.
+$$
+Its gradient is
+$$
+\begin{pmatrix}
+2mx - 2 m \varepsilon - \frac{4y}{1-\varepsilon} - \lambda y
+\\
+\frac{2e^{-t}y}{(1-r^2)^2} - \frac{4x}{1-\varepsilon} - \lambda x
+\\
+xy
+\end{pmatrix}.
+$$
+If $x = 0$ we get $y = 0$ (from the second equation) and $2m\eps = 0$, so
+we don't have an extremal point.
+If $y = 0$ we likewise get $x = 0$.
+We have $p(0,y) = e^{-t}y^2 / (1-r^2)^2 > 0$ and $p(x,0) = m(x-\eps)^2 \geq 0$.
+
+
+This is zero when
+\begin{align*}
+2mx - 2 m\varepsilon - \frac{4y}{1-\varepsilon} &= 0,
+\\
+\frac{2e^{-t}y}{(1-r^2)^2} - \frac{4x}{1-\varepsilon} &= 0,
+\end{align*}
+that is when
+\begin{align*}
+mx - \frac{2y}{1-\varepsilon} &= m\varepsilon,
+\\
+\frac{e^{-t}y}{(1-r^2)^2} &= \frac{2x}{1-\varepsilon},
+\end{align*}
+or
+$$
+x = \frac{(1-\epsilon)e^{-t}}{2(1-r^2)^2} y
+\qandq
+\biggl(\frac{m(1-\epsilon)e^{-t}}{2(1-r^2)^2}
+- \frac{2}{1-\epsilon}\biggr)y = m\epsilon.
+$$
+In any case this fixes $x$ and $y$, and since $p$ is a parabola this point is a
+global minimum.
+The negative term in our setup is
+$$
+\frac{4xy}{1-\epsilon}
+= \frac{2 e^{-t}}{(1-r^2)^2}y^2
+$$
+which gives
+$$
+R_t \geq
+m\biggl(
+\frac{(1-\epsilon)e^{-t}}{2(1-r^2)^2} y
+- \varepsilon
+\biggr)^2
+- \frac{e^{-t}y^2}{(1-r^2)^2}.
+$$
+We have
+$$
+\frac{m(1-\epsilon)e^{-t}}{2(1-r^2)^2}
+- \frac{2}{1-\epsilon}
+= \frac{me^{-t}(1-\eps)^2 - 4(1-r^2)^2}{2(1-r^2)^2(1-\eps)}
+$$
+so
+$$
+y = \frac{2 m \eps (1-r^2)^2 (1-\eps)}{m e^{-t} (1 - \eps)^2 - 4(1-r^2)^2}.
+$$
+Then
+$$
+\frac{(1-\epsilon)e^{-t}}{2(1-r^2)^2} y
+=
+\frac{m e^{-t} \eps (1-\eps)^2}{m e^{-t} (1 - \eps)^2 - 4(1-r^2)^2}
+$$
+so
+$$
+\frac{(1-\epsilon)e^{-t}}{2(1-r^2)^2} y - \eps
+=
+\frac{4(1-r^2)^2 \eps}{m e^{-t} (1 - \eps)^2 - 4(1-r^2)^2}.
+$$
+Now
+\begin{align*}
+\frac{e^{-t}y^2}{(1-r^2)^2}
+&= \frac{e^{-t}}{(1-r^2)^2}
+\biggl(
+\frac{2 m \eps (1-r^2)^2 (1-\eps)}{m e^{-t} (1 - \eps)^2 - 4(1-r^2)^2}
+\biggr)^2
+\\
+&=
+\frac{4 m^2 e^{-t} \eps^2 (1-r^2)^2 (1-\eps)^2}
+{(m e^{-t} (1 - \eps)^2 - 4(1-r^2)^2)^2}
+\end{align*}
+
+
+
+When $y \not= 0$ then $h_Q \to 0$ as $t \to \infty$, but when $y = 0$ it doesn't.
+So it actually gets better the farther away from $E$ we get?
 Note that $h^{11} = h_{22} / \det J$, $h^{22} = h_{11} / \det J$,
 $h^{12} = -h_{12} / \det J$ and $h^{21} = -h_{21} / \det J$.
+
 The metric on $S$ is
 \begin{align*}
 H_S
@@ -1789,49 +865,6 @@ neighborhood of it for all large $t$.
 
 
 
-In general, if $Z = \{x \in X \mid f(x) = 0\}$ for a holomorphic $f : X \to \kk
-C^m$, then $df : T_X \to f^* T_{\kk C^m}$ descends to an isomorphism $N_{Z/X} \cong
-T_{\kk C^m}$.
-Given a metric on $X$
-and a section $\xi$ of $T_Z$ we have $df(\xi) = 0$ so
-$$
-0 = D(df(\xi))
-= D(df)(\xi) + df(D\xi).
-$$
-For the second fundamental form we then have
-$$
-|\sigma(\xi)\eta|^2
-= |df(D_\xi \eta)|^2
-= |D_\xi(df)(\eta)|^2.
-$$
-Now $D(df)$ is a perfectly good, fixed element of $\Hom(T_Z^{\otimes 2},
-N_{Z/X})$.
-Then
-$$
-|D_\xi(df)(\eta)|^2
-\leq |D(df)|^2 |\xi|^2 |\eta|^2
-$$
-for all $\xi$ and $\eta$ over some compact ball.
-In our case, $D$ does not depend on $t$, but the norm of $D(df)$ does.
-That norm is a function of the metric on $T_Z^{\otimes 2}$ and $N_{Z/X}$.
-I think the former should be $O(e^{2t})$ and the latter converges to some fixed
-Hermitian form as $t \to \infty$. Then
-$$
-|D(df)|^2
-= \tr\bigl(
-h_{T^{\otimes 2}}^{-1} \circ
-\ov{(D(df))^*} \circ
-h_{N} \circ D(df)
-\bigr)
-= O(e^{-2t})
-$$
-so we finally get
-$$
-\frac{|\sigma(\xi)\xi|^2}{|\xi|^4} = O(e^{-2t})
-$$
-which converges faster to $0$ than our other positive terms, and we win.
-
-We don't really need the gymnastics at the beginning.
 If $\sigma = q \circ D$ is the second fundamental form of any embedding we have
 $$
 \sigma(a \xi, b \eta)
@@ -1840,14 +873,38 @@ $$
 = ab \sigma(\xi, \eta)
 $$
 so it is a tensor.
-
-We use that $|f\xi| \leq |f||\xi|$, which is true for the $\ell_2$-operator norm,
-and then we want to conclude by knowing things about the Hilbert--Schmidt norm.
-But we have
+If $(\xi_j)$ is a holomorphic frame for $T_Z$ and $(a_j)$ are holomorphic
+functions and $\xi = \sum_j a_j \xi_j$ we get
 $$
-|f|_2 \leq |f|_{HS}
+\sigma(\xi, \xi)
+= \sum_{j,k} a_j a_k \, \sigma(\xi_j, \xi_k).
 $$
-so that's OK.
+Then
+$$
+|\sigma(\xi, \xi)|_{Q,t}
+\leq \sum_{j,k} |a_j||a_k| \, |\sigma(\xi_j, \xi_k)|_{Q,t}.
+$$
+We claim that $f_{jk}(v, t) := |\sigma(\xi_j, \xi_k)|_{Q,t}$ is a smooth
+nonnegative function such that $f(0, t) = 1$ and $f(v, t) \to 0$ as $t \to
+\infty$ for $v$ not in $E$.
+Then $f_{jk} \leq f := \max(f_{jk})$ so
+$$
+|\sigma(\xi, \xi)|_{Q,t} \leq |a|^2 f(v,t) .
+$$
+Recall that $\xi_j = x_n e_j + f_j$ for $j = 1, \ldots, n-1$ and
+$\xi_n = \sum_{j=1}^{n-1} y_j e_j + e_n$.
+Then
+\begin{align*}
+\pi_V(\xi)
+&= \sum_{j=1}^{n-1} a_j x_n e_j + \sum_{k=1}^{n-1} a_n y_k e_k + a_n e_n
+= \sum_{j=1}^{n-1} (a_j x_n + a_n y_j) e_j + a_n e_n,
+\\
+\pi_{\kk P(V)}(\xi)
+&= \sum_{j=1}^{n-1} a_j f_j.
+\end{align*}
+I don't think we can (want to?) say much more than that $|\pi_V(\xi)|^2$ and
+$|\pi_{\kk P(V)}(\xi)|^2$ are degree-two homogeneous polynomials in $a$
+(over $\cc C^\infty$).
 
 We have to prove our estimate for the quotient norm because what I wrote is true
 for a sum of metrics on the same space, which is not what we have.
@@ -1865,7 +922,8 @@ $$
 H_Q = \ov{(\ov Q \ov{H^{-1}} Q^t)^{-1}}.
 $$
 Our $H = J \oplus e^{-t} K$ so $H^{-1} = J^{-1} \oplus e^{t} K^{-1}$.
-Write $Q = Q_1 \oplus Q_2$ and get
+Write $Q = ( Q_1 \ Q_2)$, where $Q_1$ is a $n \times (n - 1)$ matrix and $Q_2$ is
+a $(n-1) \times (n-1)$ matrix and get
 $$
 \ov{Q} \ov{H^{-1}} Q^t
 =
@@ -1891,11 +949,30 @@ H_Q
 (Q_1 J^{-1} \ov{Q_1^t}
 + e^{t} Q_2 K^{-1} \ov{Q_2^t})^{-1}.
 $$
-Say $V$ has dimension $n + m$ and $S$ has dimension $n$.
-Then $Q$ is an $m \times (n+m)$ matrix that we write as a direct sum of
-the $m \times n$ matrix $Q_1$ and the $m \times m$ matrix $Q_2$.
-The dimension at least check out.
-In our case we have
+
+\begin{claim}
+On $x_n \not= 0$ we have $|\xi|_{H_Q} \to 0$ as $t \to \infty$ for any $\xi$.
+\end{claim}
+
+\begin{proof}
+We can prove the statement pointwise, so pick a point.
+The matrices $J^{-1}$ and $K^{-1}$ are Hermitian positive definite, so
+$Q_1J^{-1} \ov{Q_1^t}$ and $Q_2 K^{-1} \ov{Q_2^t}$ are Hermitian positive
+semidefinite.
+By hypothesis, the matrix $Q_1J^{-1} \ov{Q_1^t} + e^{t} Q_2 K^{-1} \ov{Q_2^t}$ is
+also invertible for any $t$.
+If we fix a $t_0$, we can simultaneously diagonalize that matrix and, say,
+$Q_1J^{-1} \ov{Q_1^t}$. Then the third matrix, the difference of the other two,
+is also diagonal.
+We may thus assume that $H_Q$ is a diagonal matrix whose entries are of the form
+$1/(a_j + e^t b_j)$, where $a_j + e^t b_j > 0$ for all $j$.
+The claim follows if $b_j > 0$ for all $j$.
+By inspection we in fact have $Q_2 = -x_n I_{n-1}$.
+Then $Q_2 K^{-1} \ov{Q_2^t} = |x_n|^2 K^{-1}$ is positive definite if $x_n
+\not= 0$, in which case $b_j > 0$ for all $j$.
+\end{proof}
+
+We have
 $$
 Q_1 =
 \begin{pmatrix}
@@ -1964,17 +1041,539 @@ We have to figure out what $e^t | \, \cdot \, |^2_{\Hom}$ tends to as $t \to
 We should have
 \begin{align*}
 H_{\Hom}
-&= H_t^\vee \otimes H_t^\vee \otimes H_Q
-\\
-&= (J^\vee \oplus e^{t} K^\vee) \otimes
-(J^\vee \oplus e^{t} K^\vee) \otimes
-(Q_1 J^{-1} \ov{Q_1^t} + e^{t} Q_2 K^{-1} \ov{Q_2^t})^{-1}
+= H_t^\vee \otimes H_t^\vee \otimes H_Q.
 \end{align*}
-so when $t \to \infty$ this tends to
+Again diagonalizing $J$ and $K$ at a point, this becomes
 $$
-\frac{1}{|x_n|^2} K^\vee \otimes K^\vee \otimes K
+H_{\Hom}
+= (A^{-1} + e^{t} B^{-1}) \otimes
+(A^{-1} + e^{t} B^{-1}) \otimes
+(A \otimes e^t B)
 $$
-which, once again, blows up as $x \to 0$.
+
+
+\section{Let's just blow up projective space}
+
+In local coordinates the Chern connection of the Fubini--Study metric is
+$$
+D_\xi \eta
+= d_\xi \eta
+- \frac{\<\xi, \bar z\>}{1+|z|^2} \eta
+- \frac{\<\eta, \bar z\>}{1+|z|^2}.
+$$
+We have
+$$
+\xi_j = x_ne_j + f_j, \quad j=1,\ldots,n-1
+\qandq
+\xi_n = \sum_{j=1}^{n-1} y_j e_j + e_n,
+$$
+and these are all in the kernel of $\alpha_j = dx_j - y_j dx_n - x_n dy_j$.
+
+Then
+$$
+D_{\xi_j} \xi_k
+= x_n^2 D_{e_j} e_k + D_{f_j} f_k
+= -x_n^2
+\biggl(
+\frac{\bar x_j}{1+|x|^2} e_k
++ \frac{\bar x_k}{1+|x|^2} e_j
+\biggr)
++ \frac{\bar y_j}{1+|y|^2} f_k + \frac{\bar y_k}{1+|y|^2} f_j
+$$
+and
+$$
+\alpha_l(D_{\xi_j}\xi_k)
+= -x_n^2
+\frac{\bar x_j \delta_{kl} + \bar x_k \delta_{jl}}{1+|x|^2}
+- \frac{\bar y_j \delta_{kl} + \bar y_k \delta_{jl}}{1+|y|^2}
+$$
+for $j,k,l = 1, \ldots, n-1$.
+We have $x_j = y_j x_n$ for $j=1,\ldots,n-1$, which gives
+\begin{align*}
+\alpha_l(D_{\xi_j}\xi_k)
+&= -x_n^2
+\frac{\bar y_j \bar x_n \delta_{kl} + \bar y_k \bar x_n \delta_{jl}}{1+|y|^2+|x_n|^2}
+- \frac{\bar y_j \delta_{kl} + \bar y_k \delta_{jl}}{1+|y|^2}
+\\
+&= -
+\biggl(
+\frac{x_n |x_n|^2}{1+|y|^2+|x_n|^2}
++ \frac{1}{1+|y|^2}
+\biggr)(\bar y_j \delta_{kl} + \bar y_k \delta_{jl})
+\end{align*}
+If we try to estimate the norm on the quotient by the one upstairs, we
+should look at
+$$
+D_{\xi_j} \xi_k
+=  -x_n^2
+\biggl(
+\frac{\bar y_j \bar x_n}{1+|y|^2+|x_n|^2} e_k
++ \frac{\bar y_k \bar x_n}{1+|y|^2+|x_n|^2} e_j
+\biggr)
++ \frac{\bar y_j}{1+|y|^2} f_k + \frac{\bar y_k}{1+|y|^2} f_j.
+$$
+We could get rid of the $f_j$ and $f_k$ terms by subtracting $\bar y_j / (1+|y|^2) \xi_k$.
+But if anything we should subtract $-y_j|x_n|^2/(1+|y|^2+|x_n|^2) \xi_k$ to get
+rid of the $e_k$ terms to end up only with things whose norm goes to zero.
+We get
+\begin{align*}
+D_{\xi_j} \xi_k
+&\cong
+\biggl(
+\frac{1}{1+|y|^2}
++ \frac{|x_n|^2}{1+|y|^2+|x_n|^2}
+\biggr)
+\bar y_j f_k
++ \biggl(
+\frac{1}{1+|y|^2}
++ \frac{|x_n|^2}{1+|y|^2+|x_n|^2}
+\biggr)
+\bar y_k
+f_j
+\\
+&= T(y,x_n) (\bar y_j f_k + \bar y_k f_j),
+\end{align*}
+where
+$$
+T(y,x_n) =
+\frac{1}{1+|y|^2}
++ \frac{|x_n|^2}{1+|y|^2+|x_n|^2}.
+$$
+Then
+\begin{align*}
+|\sigma(\xi_j,\xi_k)|
+&\leq Te^{-t}\biggl(
+\frac{|y_j|^2}{1+|y|^2}
+- \frac{|y_j|^2|y_k|^2}{(1{+}|y|^2)^2}
++ 2\frac{|y_j|^2 |y_k|^2}{(1{+}|y|^2)^2}
++ \frac{|y_k|^2}{1{+}|y|^2}
+- \frac{|y_j|^2|y_k|^2}{(1{+}|y|^2)^2}
+\biggr)^{\mkern-6mu 1/2}
+\\
+&=
+Te^{-t}\biggl(
+\frac{|y_j|^2 + |y_k|^2}{1+|y|^2}
+\biggr)^{\mkern-6mu 1/2}
+\end{align*}
+if I've calculated the FS metric correctly.
+Also
+\begin{align*}
+D_{\xi_j} \xi_n
+&= e_j
++ \sum_{k=1}^{n-1} y_k D_{\xi_j} e_k
++ D_{\xi_j} e_n
+\\
+&= e_j
++ \sum_{k=1}^{n-1} x_n y_k D_{e_j} e_k
++ x_n D_{e_j} e_n
+\\
+&= e_j
+- \sum_{k=1}^{n-1}
+\frac{x_n y_k \bar x_j}{1+|x|^2} e_k
+- \sum_{k=1}^{n-1}
+\frac{x_n y_k \bar x_k}{1+|x|^2} e_j
+- \frac{x_n \bar x_j}{1+|x|^2} e_n
+- \frac{|x_n|^2}{1+|x|^2} e_j
+\\
+&= e_j
+- \frac{x_n\bar x_j}{1+|x|^2} \xi_n
+- \frac{|y|^2 \bar x_n + \bar x_n}{1+|x|^2}
+x_n e_j
+\\
+&\cong
+e_j + \frac{(1 + |y|^2)\bar x_n}{1+|y|^2+|x_n|^2} f_j
+=: e_j + \bar x_n S(y,x_n) f_j.
+\end{align*}
+If we instead try to absorb the $f_j$ into the $e_j$ we get
+\begin{align*}
+D_{\xi_j} \xi_k
+&\cong
+-x_n \biggl(
+\frac{|x_n|^2}{1+|y|^2+|x_n|^2}
++ \frac{1}{1+|y|^2}
+\biggr)
+\bigl(
+\bar y_k e_j
++ \bar y_j e_k
+\bigr),
+& j&=1,\ldots,n-1.
+\\
+D_{\xi_j} \xi_n
+&\cong
+\frac{|x_n|^4}{1+|y|^2+|x_n|^2} e_j,
+& j&=1,\ldots,n-1.
+\\
+D_{\xi_n} \xi_n &\cong 0.
+\end{align*}
+
+Let $\xi = \sum_{j=1}^n a_j \xi_j$. Then
+\begin{align*}
+D_\xi \xi
+&= \sum_k d_\xi a_k \xi_k + a_k D_\xi \xi_k
+\\
+&\cong \sum_{j,k} a_j a_k D_{\xi_j} \xi_k
+\\
+&\cong \sum_{j,k=1}^{n-1} a_j a_k T (\bar y_j f_k + \bar y_k f_j)
++ 2 \sum_{j=1}^{n-1} a_j a_n (e_j + \bar x_n S f_j)
+\\
+&= 2 a_n \sum_{j=1}^{n-1} a_j e_j
++ 2 a_n \bar x_n \sum_{j=1}^{n-1} a_j S f_j
++ 2 T \<a, \bar y\> \sum_{j=1}^{n-1} a_j f_j
+\\
+&= 2 a_n \sum_{j=1}^{n-1} a_j e_j
++ 2 (a_n \bar x_n S + T \<a, \bar y\>) \sum_{j=1}^{n-1} a_j f_j
+\end{align*}
+so
+$$
+|\sigma(\xi,\xi)|^2
+\leq 4 |a_n|^2 |(a', 0)|^2_{e}
++ 4e^{-t} |a_n \bar x_n S + T \<a', \bar y\>|^2 |a'|^2_f.
+$$
+where $a' := (a_1, \ldots, a_{n-1})$.
+We could write that inner product as $|\<a, \ov{(Ty, Sx_n)}\>|^2$.
+Recall that $\xi_j = x_n e_j + f_j$ and $\xi_n = \sum_j y_j e_j + e_n$.
+Then
+$$
+|\xi|^2_e
+= \biggl|
+\sum_{j=1}^{n-1} (a_j x_n + a_n y_j) e_j
++ a_n e_n
+\biggr|^2_e
+= \bigl| x_n (a',0) + a_n (y,1) \bigr|^2_e
+$$
+and
+$|\xi|^2_f = |a'|^2_f$. The curvature tensor is then at least
+$$
+2 |\xi|_e^4
+- 4 |a_n|^2 |(a', 0)|^2_{e}
++ 2 e^{-t} (|a'|^2_f
+- 2 |a_n \bar x_n S + T \<a', \bar y\>|^2) |a'|^2_f.
+$$
+We have $T\<a', \bar y\>(0) = 0$ and $\bar x_n S(0) = 0$.
+Also $|\xi|^4_e(0) = |a_n|^4$.
+Now
+$$
+\displaylines{
+|\xi|^2_e
+= \sum_{j,k}^{n-1} (a_j x_n + a_n y_j)\ov{(a_k x_n + a_n y_k)}
+\<e_j, \bar e_k\>_e
++ \sum_{j}^{n-1} (a_j x_n + a_n y_j)\bar a_n \<e_j, \bar e_n\>_e
+\hfill\cr\hfill{}
++ \sum_{j}^{n-1} a_n \ov{(a_j x_n + a_n y_j)} \<e_n, \bar e_j\>_e
++ |a_n|^2 |e_n|^2_e.
+}
+$$
+Meanwhile
+$$
+|(a',0)|^2_e
+= \sum_{j,k=1}^{n-1} a_j \bar a_k \<e_j, \bar e_k\>_e.
+$$
+
+
+
+
+And
+\begin{align*}
+\alpha_l(D_{\xi_j} \xi_n)
+&= \delta_{jl}
+- \frac{x_n y_l \bar x_j}{1+|x|^2}
+- \sum_{k=1}^{n-1} \frac{x_n y_k \bar x_k}{1+|x|^2} \delta_{jl}
++ \frac{y_l x_n \bar x_j}{1+|x|^2}
+- \frac{|x_n|^2}{1+|x|^2} \delta_{jl}
+\\
+&=
+\biggl(
+1 - \frac{|x_n|^2}{1+|x|^2}
+\biggr)
+\delta_{jl}
+- \frac{x_n}{1+|x|^2}
+\sum_{k=1}^{n-1} y_k \bar x_k
+\,
+\delta_{jl}
+\\
+&=
+\biggl(
+1 - \frac{|x_n|^2 + |x_n|^2 |y|^2}{1+|y|^2+|x_n|^2}
+\biggr)
+\delta_{jl}
+=
+\frac{1 + |y|^2 - |x_n|^2 |y|^2}{1+|y|^2+|x_n|^2}
+\delta_{jl}
+\end{align*}
+for $j,l = 1,\ldots,n-1$.
+I am compelled to also calculate
+\begin{align*}
+D_{\xi_n} \xi_j
+&= e_j + x_n D_{\xi_n} e_j
+= e_j + x_n \sum_{k=1}^{n-1} y_k D_{e_k} e_j + D_{e_n} e_j
+\\
+&=
+e_j - \sum_{k=1}^{n-1}
+\frac{x_n y_k \bar x_k}{1+|x|^2} e_j
++ \frac{x_n y_k\bar x_j}{1+|x|^2} e_k
+- \frac{|x_n|^2}{1+|x|^2} e_j
+- \frac{x_n \bar x_j}{1+|x|^2} e_n
+\end{align*}
+and note that
+\begin{align*}
+\alpha_l(D_{\xi_n} \xi_j)
+&= \delta_{jl}
+- \sum_{k=1}^{n-1}
+\frac{x_n y_k \bar x_k}{1+|x|^2} \delta_{jl}
+- \frac{x_n y_l\bar x_j}{1+|x|^2}
+- \frac{|x_n|^2}{1+|x|^2} \delta_{jl}
++ \frac{y_l x_n \bar x_j}{1+|x|^2}
+= \alpha_l(D_{\xi_j} \xi_n)
+\end{align*}
+as it should, which is a nice sanity check.
+Finally
+write $\pi_e$ for the projection onto $\kk C^n$
+and $\pi_f$ for the projection onto $\kk C^{n-1}$.
+Because $\pi_e \xi_n = \xi_n$ we get
+$$
+D_{\xi_n} \xi_n
+= d_{\xi_n} \xi_n - 2 \frac{\<\xi_n, \bar x\>}{1+|x|^2} \xi_n
+= - 2 \frac{\<\xi_n, \bar x\>}{1+|x|^2} \xi_n
+$$
+so $\alpha_l(D_{\xi_n} \xi_n) = 0$ for all $l$.
+
+Now let $\xi = \sum_{j=1}^n a_j \xi_j$. Then
+$$
+\sigma(\xi,\xi)
+= \sum_{j,k=1}^n a_j a_k \sigma(\xi_j, \xi_k)
+= \biggl(
+\sum_{j,k=1}^n a_j a_k \, \alpha_l(D_{\xi_j} \xi_k)
+\biggr)_{l=1,\ldots,n-1}.
+$$
+For a fixed $l$ we have
+$$
+\displaylines{
+\sum_{j,k=1}^n a_j a_k \, \alpha_l(D_{\xi_j} \xi_k)
+=
+\sum_{j,k=1}^{n-1} a_j a_k \biggl(
+\frac{x_n |x_n|^2}{1+|y|^2+|x_n|^2}
++ \frac{1}{1+|y|^2}
+\biggr)(\bar y_j \delta_{kl} + \bar y_k \delta_{jl})
+\hfill\cr\hfill{}
++ 2 \sum_{j=1}^{n-1} a_j a_n
+\frac{1 + |y|^2 - |x_n|^2 |y|^2}{1+|y|^2+|x_n|^2}
+\delta_{jl}
+\cr\hfill{}
+=
+2 \biggl(
+\frac{x_n |x_n|^2}{1+|y|^2+|x_n|^2}
++ \frac{1}{1+|y|^2}
+\biggr)
+\sum_{j=1}^{n-1} a_l a_j \bar y_j
++ 2
+\frac{1 + |y|^2 - |x_n|^2 |y|^2}{1+|y|^2+|x_n|^2}
+a_l a_n.
+}
+$$
+If we want to try big-O things again this is just $2 a_l a_n + O(|z|)$.
+
+Our problem is to calculate the inner product on the quotient space,
+which involves inverting the Fubini--Study matrix.
+If not we're left with calculating
+$$
+|\sigma(\xi,\xi)|^2
+= \sum_{l,m=1}^{n-1}
+\sum_{j,k=1}^n
+\sum_{p,q=1}^n
+a_j a_k \bar a_p \bar a_q
+\alpha_l(D_{\xi_j}\xi_k)
+\ov{\alpha_m(D_{\xi_p} \xi_q)}
+h_{Q,lm}
+$$
+
+
+\subsection*{Bravely retreating to the projective plane}
+
+\def\foo#1{\frac{#1}{1+|x|^2}}
+
+Set $n = 2$ so we can invert everything by hand.
+The Fubini--Study matrix is
+$$
+\frac{1}{1+|x|^2}
+\begin{pmatrix}
+1 - \foo{|x_1|^2} & -\foo{x_2 \bar x_1}
+\\
+- \foo{x_1 \bar x_2} & 1 - \foo{|x_2|^2}
+\end{pmatrix}.
+$$
+Its determinant is
+$$
+\frac{1}{(1+|x|^2)^2}
+\det(I_2 - \bar x x^t / (1+|x|^2))
+= \frac{1}{(1+|x|^2)^2}
+(1 - |x|^2 / (1+|x|^2))
+= \frac{1}{(1+|x|^2)^3}
+$$
+and its inverse is
+$$
+(1+|x|^2)^3
+\begin{pmatrix}
+1 - \foo{|x_2|^2} & \foo{x_2 \bar x_1}
+\\
+\foo{x_1 \bar x_2} & 1 - \foo{|x_1|^2}
+\end{pmatrix}.
+$$
+The metric on the quotient is then
+the inverse of
+$$
+\displaylines{
+(1+|x|^2)^3
+\begin{pmatrix}
+1 & -y & -x_2
+\end{pmatrix}
+\begin{pmatrix}
+1 - \foo{|x_2|^2} & \foo{x_2 \bar x_1} & 0
+\\
+\foo{x_1 \bar x_2} & 1 - \foo{|x_1|^2} & 0
+\\
+0 & 0 & e^{t} \frac{(1+|y|^2)^2}{(1+|x|^2)^3}
+\end{pmatrix}
+\begin{pmatrix}
+1 \\ -\bar y \\ -\bar x_2
+\end{pmatrix}
+\hfill\cr\hfill{}
+=
+(1+|x|^2)^3
+\begin{pmatrix}
+1 & -y & -x_2
+\end{pmatrix}
+\begin{pmatrix}
+1 - \foo{|x_2|^2} - \foo{\bar y x_2 \bar x_1}
+\\
+\foo{x_1 \bar x_2} - \bar y + \foo{\bar y |x_1|^2}
+\\
+-e^{t} \frac{\bar x_2(1+|y|^2)^2}{(1+|x|^2)^3}
+\end{pmatrix}
+\cr\hfill{}
+=
+(1+|x|^2)^3
+\!
+\biggl(
+1
+- \foo{|x_2|^2}
+- \foo{\bar y x_2 \bar x_1}
+- \foo{y x_1 \bar x_2}
++ |y|^2
+- \foo{|y|^2 |x_1|^2}
++ e^{t} \frac{|x_2|^2(1+|y|^2)^2}{(1+|x|^2)^3}
+\biggr)
+\cr\hfill{}
+=
+(1+|x|^2)^3\biggl(
+\frac{1 + |x_1|^2}{1+|x|^2}
++ |y|^2 \frac{1 + |x_2|^2}{1+|x|^2}
+- \foo{\bar y x_2 \bar x_1}
+- \foo{y x_1 \bar x_2}
++ e^{t} \frac{|x_2|^2(1+|y|^2)^2}{(1+|x|^2)^3}
+\biggr)
+\cr\hfill{}
+=
+(1+|x|^2)^2\biggl(
+1 + |x_1|^2
++ |y|^2(1 + |x_2|^2)
+- \bar y x_2 \bar x_1
+- y x_1 \bar x_2
++ e^{t} \frac{|x_2|^2(1+|y|^2)^2}{(1+|x|^2)^2}
+\biggr).
+}
+$$
+Using $x_1 = x_2 y$ we get
+$$
+\displaylines{
+(1+|x|^2)^2\biggl(
+1
++ |y|^2 (1 + 2 |x_2|^2)
+- (y^2 + \bar y^2)|x_2|^2
++ e^{t} \frac{|x_2|^2(1+|y|^2)^2}{(1+|x|^2)^2}
+\biggr).}
+$$
+
+We only have $\alpha = dx_1 - y dx_2 - x_2 dy$ so
+\begin{align*}
+\sigma(\xi,\xi)
+&= a_1^2 \sigma(\xi_1, \xi_1)
++ 2 a_1 a_2 \sigma(\xi_1, \xi_2)
+\\
+&= - 2 a_1^2 \biggl(
+\frac{x_2^2 \bar x_1}{1+|x|^2}
++ \frac{\bar y}{1+|y|^2}
+\biggr)
++ 2 a_1 a_2 \biggl(
+1 - \frac{|x_2|^2}{1+|x|^2}
+- \frac{\bar x_1 x_2 y}{1+|x|^2}
+\biggr).
+\end{align*}
+We should use that $x_1 = x_2 y$ somewhere.
+Then $|x|^2 = |x_2|^2(1 + |y|^2)$
+and
+$$
+\sigma(\xi,\xi)
+= - 2 a_1^2 \biggl(
+\frac{|x_2|^2 x_2}{1+|x_2|^2(1+|y|^2)}
++ \frac{1}{1+|y|^2}
+\biggr) \bar y
++
+\frac{2 a_1 a_2 }{1+|x_2|^2(1+|y|^2)}
+.
+$$
+We also have $\pi_e(\xi) = (a_1 x_2 + a_2 y) e_1 + a_2 e_2$
+and $\pi_f(\xi) = a_1$.
+
+We'll switch to $x = x_2$ now.
+The curvature tensor is
+\begin{align*}
+R_t(\xi,\ov\xi,\xi,\ov\xi)
+&= 2 |\pi_e(\xi)|^4_e
++ 2 |\pi_f(\xi)|^4_e
+- |\sigma(\xi,\xi)|^2_{q,t}
+\\
+&= 2|(a_1 x + a_2 y) e_1 + a_2 e_2|^4_e
++ 2 e^{-t} \frac{|a_1|^4}{(1+|y|^2)^2}
+\cr
+&\qquad
+- \biggl|2 a_1^2 \biggl(
+\frac{|x|^2 x}{1+|x|^2(1+|y|^2)}
++ \frac{1}{1+|y|^2}
+\biggr) \bar y
+-
+\frac{2 a_1 a_2 }{1+|x|^2(1+|y|^2)}
+\biggr|^2
+\!\!
+/ h_{q,t}.
+\end{align*}
+Suppose $a_2 = 0$, we get
+\begin{align*}
+R_t(\xi,\ov\xi,\xi,\ov\xi)
+&= \frac{2|x|^2 (1 + |y|^2)^2}{(1+|x|^2+|y|^2)^4} |a_1|^4
++  \frac{2 e^{-t}}{(1+|y|^2)^2} |a_1|^4
+\cr
+&\qquad
+- 4 \biggl|
+\frac{|x|^2 x}{1+|x|^2(1+|y|^2)}
++ \frac{1}{1+|y|^2}
+\biggr|^2 |y|^2 |a_1|^4
+/ h_{q,t}.
+\end{align*}
+The function $h_{q}(x,y,t)$ is of the form $h_q(x,y,t) = p(x,y) + e^t r(x,y)$,
+where $p$ and $r$ are polynomials where $p(0,0) = 1$ and $r(0,0) = 0$.
+The whole expression is then of the form
+$$
+R_1(x,y) + e^{-t} R_2(y) - \frac{P(x,y)}{Q(x,y) + e^t S(x,y)}
+$$
+for rational functions $R_1$, $R_2$ and polynomials $P,Q,S$ such that
+$R_1(0,0) = 0$, $R_2(0) = 1$, $P(0,0) = 0$, $Q(0,0) = 1$ and $S(0,y) = 0$.
+All of these are positive around $(0,0)$. Multiplying out we have to check the
+positivity of
+$$
+R_1 Q + e^t R_1 S + e^{-t} R_2 Q + R_2 S - P
+$$
+around $0$ for all $t$.
+At $0$ this equals $e^{-t}$.
 
 
 
