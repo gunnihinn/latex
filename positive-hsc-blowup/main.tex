@@ -394,11 +394,11 @@ R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
 at the origin.
 We want to show that this is positive for all $a_n$ with $|a_n| \leq 1$.
 
-Set $m = \inf_{\kk P(T_X)} H_h > 0$ and let
+Set $m = H_h(e_n) > 0$ and let
 $$
 f_t(x) = m x^2 + 2 e^{-t} (1-x)^2 - 4x(1-x).
 $$
-Then $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) \geq f(|a_n|^2)$.
+Then $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) = f(|a_n|^2)$.
 We have
 $$
 f_t(x)
@@ -415,17 +415,19 @@ $$
 x_0(t) = \frac{2(e^{-t} + 1)}{m + 4 + 2e^{-t}}.
 $$
 At $x_0(t)$, where $f_t$ achieves its global minimum, we have
-$$
+\begin{align*}
 f_t(x_0(t))
-=
+&=
 4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
-- 4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
+- 8 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
 + 2e^{-t}
-= 2e^{-t} > 0
-$$
-so $f_t(x_0(t))$ is strictly decreasing in $t$ and tends to $0$ as $t \to
-\infty$, so $f_t(x) \geq f_t(x_0(t)) > 0$ for all $x \in [0,1]$ and all $t \in
-\kk R$.
+\\
+&= 2e^{-t}
+- 4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
+= \frac{2me^{-t} - 4}{m + 4 + 2e^{-t}}.
+\end{align*}
+This is negative when $me^{-t} < 2$.
+For $t$ large enough we thus get negative \hsc{} in some directions at the origin.
 \end{proof}
 
 
@@ -1176,13 +1178,13 @@ D_{\xi_j} \xi_n
 - \frac{|x_n|^2}{1+|x|^2} e_j
 \\
 &= e_j
-- \frac{x_n\bar x_j}{1+|x|^2} \xi_n
-- \frac{|y|^2 \bar x_n + \bar x_n}{1+|x|^2}
-x_n e_j
+- \frac{x_n\bar x_j}{1+|y|^2+|x_n|^2} \xi_n
+- \frac{\<y, \bar x\> x_n}{1+|y|^2+|x_n|^2} e_j
+- \frac{|x_n|^2}{1+|y|^2+|x_n|^2} e_j
 \\
 &\cong
-e_j + \frac{(1 + |y|^2)\bar x_n}{1+|y|^2+|x_n|^2} f_j
-=: e_j + \bar x_n S(y,x_n) f_j.
+e_j
+- \frac{\<(y, 1), \bar x\> x_n}{1+|y|^2+|x_n|^2} e_j.
 \end{align*}
 If we instead try to absorb the $f_j$ into the $e_j$ we get
 \begin{align*}
@@ -1200,7 +1202,7 @@ D_{\xi_j} \xi_k
 \\
 D_{\xi_j} \xi_n
 &\cong
-\frac{|x_n|^4}{1+|y|^2+|x_n|^2} e_j,
+\biggl(1 - \frac{\<(y, 1), \bar x\> x_n}{1+|y|^2+|x_n|^2}\biggr) e_j,
 & j&=1,\ldots,n-1.
 \\
 D_{\xi_n} \xi_n &\cong 0.
@@ -1213,24 +1215,29 @@ D_\xi \xi
 \\
 &\cong \sum_{j,k} a_j a_k D_{\xi_j} \xi_k
 \\
-&\cong \sum_{j,k=1}^{n-1} a_j a_k T (\bar y_j f_k + \bar y_k f_j)
-+ 2 \sum_{j=1}^{n-1} a_j a_n (e_j + \bar x_n S f_j)
+&\cong \sum_{j,k=1}^{n-1} a_j a_k A (\bar y_j e_k + \bar y_k e_j)
++ 2 \sum_{j=1}^{n-1} a_j a_n B e_j
 \\
-&= 2 a_n \sum_{j=1}^{n-1} a_j e_j
-+ 2 a_n \bar x_n \sum_{j=1}^{n-1} a_j S f_j
-+ 2 T \<a, \bar y\> \sum_{j=1}^{n-1} a_j f_j
+&\cong
+2 A \sum_{j,k=1}^{n-1} a_j a_k \bar y_j e_k
++ 2 B \sum_{j=1}^{n-1} a_j a_n e_j
 \\
-&= 2 a_n \sum_{j=1}^{n-1} a_j e_j
-+ 2 (a_n \bar x_n S + T \<a, \bar y\>) \sum_{j=1}^{n-1} a_j f_j
+&\cong
+2 A \sum_{j=1}^{n-1} a_j \bar y_j \sum_{k=1}^{n-1} a_k e_k
++ 2 B \sum_{k=1}^{n-1} a_k a_n e_k
+\\
+&\cong
+2
+\sum_{k=1}^{n-1}
+\bigl(A \<a', \bar y\> a_k + B a_k a_n \bigr) e_k
 \end{align*}
 so
 $$
 |\sigma(\xi,\xi)|^2
-\leq 4 |a_n|^2 |(a', 0)|^2_{e}
-+ 4e^{-t} |a_n \bar x_n S + T \<a', \bar y\>|^2 |a'|^2_f.
+\leq 4 \biggl|
+\sum_{k=1}^{n-1} \bigl(A \<a', \bar y\> a_k + B a_k a_n \bigr) e_k
+\biggr|^2_e.
 $$
-where $a' := (a_1, \ldots, a_{n-1})$.
-We could write that inner product as $|\<a, \ov{(Ty, Sx_n)}\>|^2$.
 Recall that $\xi_j = x_n e_j + f_j$ and $\xi_n = \sum_j y_j e_j + e_n$.
 Then
 $$
@@ -1239,35 +1246,134 @@ $$
 \sum_{j=1}^{n-1} (a_j x_n + a_n y_j) e_j
 + a_n e_n
 \biggr|^2_e
-= \bigl| x_n (a',0) + a_n (y,1) \bigr|^2_e
 $$
 and
 $|\xi|^2_f = |a'|^2_f$. The curvature tensor is then at least
 $$
-2 |\xi|_e^4
-- 4 |a_n|^2 |(a', 0)|^2_{e}
-+ 2 e^{-t} (|a'|^2_f
-- 2 |a_n \bar x_n S + T \<a', \bar y\>|^2) |a'|^2_f.
+R_t(\xi,\ov\xi,\xi,\ov\xi)
+\geq 2 |\xi|_e^4
++ 2 e^{-t} |a'|^4_f
+- 4\biggl|
+\sum_{k=1}^{n-1} \bigl(A \<a', \bar y\> a_k + B a_k a_n \bigr) e_k
+\biggr|^2_e,
 $$
-We have $T\<a', \bar y\>(0) = 0$ and $\bar x_n S(0) = 0$.
-Also $|\xi|^4_e(0) = |a_n|^4$.
-Now
+where $a' = (a_1, \ldots, a_{n-1})$ and
+$$
+A = -x_n \biggl(
+\frac{|x_n|^2}{1+|y|^2+|x_n|^2}
++ \frac{1}{1+|y|^2}
+\biggr)
+\qandq
+B = 1 - \frac{\<(y, 1), \bar x\> x_n}{1+|y|^2+|x_n|^2}.
+$$
+At the origin the RHS is equal to
+$$
+2 |a_n|^4
++ 2 e^{-t} (|a|^2-|a_n|^2)^2
+- 4 |a_n|^2(|a|^2 - |a_n|^2)
+$$
+which is the bound we got on the exceptional divisor and was, amazingly,
+bounded below by $2e^{-t}$.
+We really have to calculate the first or second order terms here and show
+that they are positive around $0$.
+
+Sigh.
+$$
+|\xi|^2_e
+= |a_n|^2 + \sum_{j=1}^{n-1} |a_j x_n + a_n y_j|^2 + O(|z|^3)
+$$
+so
+$$
+|\xi|^4_e
+= |a_n|^4 + 2 |a_n|^2 \sum_{j=1}^{n-1} |a_j x_n + a_n y_j|^2 + O(|z|^4).
+$$
+Also
+$$
+|a'|^4_f = (|a|^2-|a_n|^2 + O(|z|^2))^2
+= |a|^2-|a_n|^2 + O(|z|^2).
+$$
+Meanwhile $A = -x_n + O(|z|^3)$ and $B = 1 + O(|z|^3)$ so
+\begin{align*}
+\biggl|
+\sum_{k=1}^{n-1} \bigl(A \<a', \bar y\> a_k + B a_k a_n \bigr) e_k
+\biggr|^2_e
+&= |A\<a', \bar y\> + Ba_n|^2(|a|^2-|a_n|^2 + O(|z|^2))
+\\
+&= |a_n|^2(|a|^2 - |a_n|^2) + O(|z|^3).
+\end{align*}
+Then
 $$
 \displaylines{
-|\xi|^2_e
-= \sum_{j,k}^{n-1} (a_j x_n + a_n y_j)\ov{(a_k x_n + a_n y_k)}
-\<e_j, \bar e_k\>_e
-+ \sum_{j}^{n-1} (a_j x_n + a_n y_j)\bar a_n \<e_j, \bar e_n\>_e
+R_t \geq 2|a_n|^4 + 2e^{-t} (|a|^2-|a_n|^2)^2 - 4 |a_n|^2(|a|^2 - |a_n|^2)
 \hfill\cr\hfill{}
-+ \sum_{j}^{n-1} a_n \ov{(a_j x_n + a_n y_j)} \<e_n, \bar e_j\>_e
-+ |a_n|^2 |e_n|^2_e.
++ 2 |a_n|^2 \sum_{j=1}^{n-1}|a_j x_n + a_n y_j|^2
++ e^{-t}O(|z|^2)
++ O(|z|^3).
 }
 $$
-Meanwhile
+We know the first three terms are $\geq e^{-t}$.
+We need to expand $|a'|_f^4$ to one more power.
+To the second order
+\begin{align*}
+|a'|_f^2
+&= \frac{1}{1+|y|^2}\biggl(
+|a'|^2 - \frac{|\<a', \bar y\>|^2}{1+|y|^2}
+\biggr)
+\\
+&= \frac{1}{(1+|y|^2)^2}\bigl(
+|a'|^2 + |a'|^2|y|^2 - |\<a', \bar y\>|^2
+\bigr)
+\\
+&=
+|a'|^2 - |a'|^2|y|^2 - |\<a', \bar y\>|^2
+\end{align*}
+because
+$
+1/(1+|y|^2)^2 = 1 - 2|y|^2
+$
+so
+\begin{align*}
+|a'|_f^4
+&= (|a'|^2 - |\<a', \bar y\>|^2
+- |a'|^2 |y|^2)^2
+\\
+&= (|a|^2-|a_n|^2)^2
+- 2 (|a|^2-|a_n|^2)( |\<a', \bar y\>|^2 + |y|^2).
+\end{align*}
+
+It might be worth writing these as inner products in $a$. For example
 $$
-|(a',0)|^2_e
-= \sum_{j,k=1}^{n-1} a_j \bar a_k \<e_j, \bar e_k\>_e.
+\pi_e(\xi) = x_n a + a_n (y, 1)
 $$
+and the contribution of the second fundamental form is the norm of
+$$
+(A \<a', \bar y\> + B a_n) a
+$$
+that is,
+$$
+|A \<a', \bar y\> + B a_n|^2 \, |a|^2_e.
+$$
+We have
+$$
+|x_n a + a_n (y, 1)|^4_e
+= (|x_n|^2 |a|^2_e
++ x_n \bar a_n \<a, \ov{(y,1)} \>_e
++ a_n \bar x_n \<(y,1), \bar a \>_e
++ |a_n|^2 |(y,1)|^2_e)^2.
+$$
+If we fix a point to look at and make a change to an orthonormal basis via
+a unitary matrix $U$ we're looking at
+$$
+\biggl(\sum_{j=1}^{n-1} |a_jx_n + a_n y_j|^2 + |a_n|^2\biggr)^2
+- 2 \sum_{j=1}^{n-1} |A\<a',\bar y\> + B a_n|^2 |a_j|^2
+$$
+I want to just argue that if we have
+$$
+\biggl(\sum_{j=1}^{n-1} |f_j a_j + g_j a_n|^2 + |a_n|^2\biggr)^2
+- 2 \sum_{j=1}^{n-1} |h a_n|^2 |a_j|^2
+$$
+where $f_j$, $g_j$ and $h$ are smooth functions such that $f_j(0) = g_j(0) = 0$
+and $h(0) = 1$ then the above is positive for all $a$ for small enough $z$.
 
 
 
