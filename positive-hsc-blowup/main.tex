@@ -70,9 +70,9 @@
 
 
 \begin{abstract}
-We fail to show that the blowup of a point on a compact K\"ahler manifold of
-positive holomorphic sectional curvature has positive holomorphic sectional
-curvature.
+We show that a K\"ahler metric of the form $\mu^*h + e^{-t} b$ on the blowup
+of a point of a K\"ahler manifold of positive holomorphic sectional curvature
+is not positively curved on the exceptional divisor.
 \end{abstract}
 
 \maketitle
@@ -107,15 +107,17 @@ question of Yau~\cite[Problem~67]{yau1993open}.
 A related question of Yau (again Problem~67) is whether the blowup of a compact
 K\"ahler manifold of positive \hsc{} along a smooth submanifold again has
 positive \hsc.
-This is open, even for complex surfaces.
-It is expected to be true, as by now we expect projective and rationally
-connected manifolds to carry metrics of positive \hsc{}. In this note we
+This is open; even for complex surfaces it is not known whether del~Pezzo
+surfaces admit positively curved metrics (aside from the del~Pezzo surfaces of
+degrees 8 and 9, where the nontrivial one admits such a metric because it's
+also a Hirzebruch surface and thus a projectivized bundle). In this note we
 explain that the brute force approach to this problem does not work.
 
 Prior art in this direction has focused on showing that projective bundles
 over manifolds with positive \hsc{} are also positive, along with more
 general fibrations with positively curved fibers and base.
 The common thread in the papers of
+Hitchin~\cite{hitchin1975curvature},
 \'Alvarez~\cite{alvarez2016positive},
 \'Alvarez,
 Heier and Zheng~\cite{alvarez2018projectivized} or Chaturvedi and
@@ -142,7 +144,7 @@ admits a metric $h$ of positive \hsc.
 \begin{prop}
 \label{prop:fs}
 Let $\mu : \bl X \to X$ be the blowup of $X$ at a point $p$.
-There exists a closed $(1,1)$-form $\beta$ on $X$ whose restriction to
+There exists a closed $(1,1)$-form $\beta$ on $\blX$ whose restriction to
 the exceptional divisor is the Fubini--Study metric.
 \end{prop}
 
@@ -183,6 +185,11 @@ Let $b$ be the Hermitian form associated to the $(1,1)$-form $\beta$ on $\bl X$
 we constructed in Proposition~\ref{prop:fs}.
 Then $h_t = \mu^*h + e^{-t} b$ is a K\"ahler metric on $\bl X$ for all $t$ large
 enough.
+If we can show that it has positive \hsc{} on a neighborhood around the
+exceptional divisor for all $t \geq t_0$ then we can conclude that it eventually
+has positive \hsc{} on all of $\blX$ by using Wu's~\cite{wu1973remark}
+characterization of the \hsc{} to show positivity outside of that neighborhood
+for $t$ large enough.
 
 
 Recall that locally around $p$ the blowup is
@@ -192,7 +199,7 @@ $$
 $$
 If $f \in \GL V$ then $f$ acts on the blowup by $f(v, [w]) = (f(v), [f(w)])$.
 This is an isomorphism that maps the exceptional divisor to itself, and we can
-map any point on the divisor to any other point.
+map any point on the divisor to any other point on it.
 Let $(0, [w])$ be a point on $E$.
 Let's choose normal coordinates $(x_1,\ldots,x_n)$ centered at $p$.
 There exists $f \in U(n)$ so that $f(w) = (0 \ldots, 0, 1)$, and the
@@ -233,7 +240,8 @@ are a basis for
 the intersection of all the kernels, that is, $T_{\blX}$.
 Here $e_j$ is the tangent field corresponding to the coordinate $x_j$
 and $f_k$ the one corresponding to $y_k$.
-Note that the normal bundle at $(0,0)$ is spanned by $(e_1, \ldots, e_{n-1})$.
+Note that the orthogonal complement of $T_{\blX}$ at $(0,0)$ is spanned by
+$(e_1, \ldots, e_{n-1})$.
 
 Any holomorphic tangent field $\xi$ near $(0,0)$ can be written as
 $$
@@ -275,8 +283,7 @@ At the origin it is just the projection onto the first $n-1$ coordinates.
 Third, then,
 \begin{align*}
 \pi_N(p_1^*D_{h,\xi} \xi)
-&= \sum_{j=1}^{n-1} d_{\xi}(a_j x_n + a_n y_j) \, e_j
-\\
+= \sum_{j=1}^{n-1} d_{\xi}(a_j x_n + a_n y_j) \, e_j
 &= \sum_{j=1}^{n-1} (a_j d_{\xi}x_n + a_n d_{\xi} y_j) \, e_j
 \\
 &= \sum_{j=1}^{n-1} (a_j a_n + a_n a_j ) \, e_j
@@ -290,13 +297,13 @@ $$
 = \pi_N \biggl( \sum_{j=1}^{n-1} d_\xi y_j \, f_j + y_j p_2^*D_{g,\xi} f_j \biggr) = 0
 $$
 at the origin.
-The contribution of the second fundamental form to the curvature is then
+The second fundamental form then contributes
 $$
 |\sigma(\xi)\xi|^2
 = 4 |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2 |e_j|^2
-= 4 |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2
 = 4 |a_n|^2(1 - |a_n|^2)
 $$
+to the curvature
 so finally
 \begin{align*}
 R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
@@ -307,40 +314,37 @@ R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
 at the origin.
 We would like this to be positive for all $a_n$ with $|a_n| \leq 1$.
 
-Set $m = H_h(e_n) > 0$ and let
-$$
-f_t(x) = m x^2 + 2 e^{-t} (1-x)^2 - 4x(1-x).
-$$
-Then $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) = f(|a_n|^2)$.
-We have
-$$
-f_t(x)
-= (m + 4 + 2e^{-t})x^2 - 4(e^{-t} + 1)x + 2e^{-t}.
-$$
-As a polynomial in $x$ the coefficient of $x^2$ of $f_t$ is positive.
+Set $m = H_h(e_n) > 0$ and define a second-degree polynomial by
+\begin{align*}
+p_t(x)
+&= m x^2 + 2 e^{-t} (1-x)^2 - 4x(1-x)
+\\
+&= (m + 4 + 2e^{-t})x^2 - 4(1 + e^{-t})x + 2e^{-t}
+\end{align*}
+so $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) = f_t(|a_n|^2)$.
 Now
 $$
-f_t'(x)
-= 2(m + 4 + 2e^{-t})x - 4(e^{-t} + 1)
+p_t'(x)
+= 2(m+4+2e^{-t})x - 4(1 + e^{-t})
 $$
-so $f_t'(x_0(t)) = 0$ when
+is zero at
 $$
-x_0(t) = \frac{2(e^{-t} + 1)}{m + 4 + 2e^{-t}}.
+x_t = \frac{2(1 + e^{-t})}{m + 4 + 2e^{-t}}
 $$
-At $x_0(t)$, where $f_t$ achieves its global minimum, we have
+which is in $[0,1]$ for all $t$ and $m > 0$, so
 \begin{align*}
-f_t(x_0(t))
-&=
-4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
-- 8 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
+p_t(x_t)
+&= \frac{4(1 + e^{-t})^2}{m + 4 + 2e^{-t}}
+- 4\frac{2(1 + e^{-t})^2}{m + 4 + 2e^{-t}}
 + 2e^{-t}
-\\
-&= 2e^{-t}
-- 4 \frac{(e^{-t} + 1)^2}{m + 4 + 2e^{-t}}
-= \frac{2me^{-t} - 4}{m + 4 + 2e^{-t}}.
+=
+2\biggl(
+e^{-t}
+- \frac{(1 + e^{-t})^2}{m + 4 + 2e^{-t}}
+\biggr).
 \end{align*}
-This is negative when $me^{-t} < 2$.
-For $t$ large enough we thus get negative \hsc{} in some directions at the origin.
+When $t \to \infty$ this tends to $-2/(m+4) < 0$, so for $t$ large enough we
+get negative \hsc{} in some directions at the origin.
 
 
 
