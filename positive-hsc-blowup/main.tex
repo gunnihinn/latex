@@ -312,39 +312,21 @@ R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
 - 4 |a_n|^2(1 - |a_n|^2).
 \end{align*}
 at the origin.
-We would like this to be positive for all $a_n$ with $|a_n| \leq 1$.
+We would like this to be positive for all $a_n$ with $|a_n| \leq 1$ for all
+$t$ large enough.
+But note that the limit as $t \to \infty$ is
+$$
+|a_n|^2 (|a_n|^2 (H_h(e_n) + 4) - 4)
+$$
+which is negative for $|a_n|^2 < 4/(4 + H_h(e_N))$, so for $t$ large enough we
+get negative \hsc{} in some directions.\footnote{%
+We can be more precise: Consider the polynomial $p_t(x) = H_h(e_n) x^2
++ 2e^{-t}(1-x)^2 - 4x(1-x)$ so that
+$R_{h_t}(\xi,\ov\xi,\xi,\ov\xi) = p_t(|a_n|^2)$.
+Its global minimum is
+$2e^{-t} - 2(1+e^{-t})^2/(H_h(e_n)+4+2e^{-t})$ which is negative for all large enough $t$.
+}%
 
-Set $m = H_h(e_n) > 0$ and define a second-degree polynomial by
-\begin{align*}
-p_t(x)
-&= m x^2 + 2 e^{-t} (1-x)^2 - 4x(1-x)
-\\
-&= (m + 4 + 2e^{-t})x^2 - 4(1 + e^{-t})x + 2e^{-t}
-\end{align*}
-so $R_{h_t}(\xi, \ov\xi, \xi, \ov\xi) = f_t(|a_n|^2)$.
-Now
-$$
-p_t'(x)
-= 2(m+4+2e^{-t})x - 4(1 + e^{-t})
-$$
-is zero at
-$$
-x_t = \frac{2(1 + e^{-t})}{m + 4 + 2e^{-t}}
-$$
-which is in $[0,1]$ for all $t$ and $m > 0$, so
-\begin{align*}
-p_t(x_t)
-&= \frac{4(1 + e^{-t})^2}{m + 4 + 2e^{-t}}
-- 4\frac{2(1 + e^{-t})^2}{m + 4 + 2e^{-t}}
-+ 2e^{-t}
-=
-2\biggl(
-e^{-t}
-- \frac{(1 + e^{-t})^2}{m + 4 + 2e^{-t}}
-\biggr).
-\end{align*}
-When $t \to \infty$ this tends to $-2/(m+4) < 0$, so for $t$ large enough we
-get negative \hsc{} in some directions at the origin.
 
 
 

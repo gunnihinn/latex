@@ -32,6 +32,9 @@
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
 
+\def\<{\langle}
+\def\>{\rangle}
+
 \DeclareMathOperator{\Span}{span}
 \DeclareMathOperator{\Ric}{Ric}
 \DeclareMathOperator{\Gr}{Gr}
@@ -82,10 +85,8 @@ Our main result is a version of the Codazzi--Griffiths equations for curvatures
 of sub- and quotient bundles in that setting.
 Those equation can then be used to study the curvature tensors of
 honest Hermitian metrics built up from simpler forms.
-As applications we prove that the total space of a Grassmannian bundle admits a
-metric of positive holomorphic sectional curvature if its compact base does,
-and that the blow-up of a compact manifold of positive holomorphic sectional
-curvature along a proper complex submanifold is again positively curved.
+As an application we prove that the total space of a Grassmannian bundle admits a
+metric of positive holomorphic sectional curvature if its compact base does.
 \end{abstract}
 
 
@@ -122,11 +123,28 @@ If we had the equivalent of Chern connections and curvature forms for arbitrary 
 0 \ar[r] & E \ar[r] & E\oplus E \ar[r] &  E \ar[r] & 0,
 \end{tikzcd}
 \]
-where the metrics on the bundles are (in order) $h_1 + h_2$, $h_1 \oplus h_2$, and the induced metric on the ``quotient''; see \cite[Chapter~7, Exercise~6]{zheng2000complex}.
+where the metrics on the bundles are (in order) $h_1 + h_2$, $h_1 \oplus h_2$,
+and the induced metric on the ``quotient''; see \cite[Chapter~7,
+Exercise~6]{zheng2000complex}.
 
-In this note, we fill in the details of this sketch. In section~\ref{sec:degenerate-chern-connections} we show that a holomorphic vector bundle $E \to X$ with a smooth Hermitian form $b$ admits a Chern connection. Such a connection is not unique when the form is degenerate, but we can always get rid of the ambiguity between different choices of connections by applying the form $b$, as the difference of two such connections must take values in its kernel. This yields a unique curvature \emph{tensor} for such a form. We then prove the Codazzi--Griffiths equations hold in this setting and calculate what they imply for sums of Hermitian forms.
+Unfortunately it is not possible to do what we described here for arbitrary
+Hermitian forms, as they may not admit such Chern connections.
+In the special case where the kernel of the Hermitian form is a holomorphic
+bundle, though, we can proceed.
+This is enough for some applications.
 
-As a first application, in section~\ref{sec:grassmannian-bundles} we
+In this note, we fill in the details of this sketch. In
+section~\ref{sec:degenerate-chern-connections} we show that a holomorphic
+vector bundle $E \to X$ with a smooth Hermitian form $b$ whose kernel
+is a holomorphic bundle admits a Chern
+connection. Such a connection is not unique when the form is degenerate, but we
+can always get rid of the ambiguity between different choices of connections by
+applying the form $b$, as the difference of two such connections must take
+values in its kernel. This yields a unique curvature \emph{tensor} for such a
+form. We then prove the Codazzi--Griffiths equations hold in this setting and
+calculate what they imply for sums of Hermitian forms.
+
+As an application, in section~\ref{sec:grassmannian-bundles} we
 recover a result of Chaturvedi and Heier~\cite{chaturvedi2020hermitian}, and
 then dot some i's and cross some t's from works of
 \'Alvarez~\cite{alvarez2016positive} and \'Alvarez, Heier and
@@ -139,13 +157,6 @@ general case of Grassmannian bundles without mention of an underlying vector
 bundle, and as a corollary conclude that bundles of flag manifolds admit
 metrics of positive holomorphic sectional curvature once the base manifold
 does.
-
-By repeating the same arguments in a slightly different setting in
-section~\ref{sec:blow-ups-positive}, we then show that the blow-up of a compact
-manifold of positive holomorphic sectional curvature along a proper complex
-submanifold again has positive holomorphic sectional curvature.
-This answers a question of Yau~\cite[Problem~67]{yau1993open} and provides a
-number of new examples of such manifolds, like del Pezzo surfaces.
 
 To do this, we require a degenerate analogue of many statements about adjoints,
 orthogonal subspaces and induced inner products that are classical in the
@@ -163,12 +174,15 @@ this note also serves as an advertisement for the merits of the connection
 approach.
 
 There is some prior art on degenerate metrics in Riemannian geometry; see for example \cite{bel1975degenerate,stoica2011cartan,stoica2014singular}.
-The very quick version seems to be that one can define a Levi-Civita connection for such an object and thus a curvature tensor, but neither will generally be unique.
-This nicely mirrors what we find here.
+The very quick version seems to be that one can define a Levi-Civita connection
+for such an object and thus a curvature tensor, but neither will generally be
+unique. This nicely mirrors what we find here.
 
 
-We finish this introduction by noting that we think the technical results developed here on general Hermitian forms are only interesting when applied to the study of honest Hermitian metrics, and do not have merit on their own.
-Some examples may explain this opinion:
+We finish this introduction by noting that we think the technical results
+developed here on general Hermitian forms are only interesting when applied to
+the study of honest Hermitian metrics, and do not have merit on their own. Some
+examples may explain this opinion:
 
 
 \begin{exam}
@@ -208,17 +222,6 @@ non-degenerate form of mixed signature will not be strongly elliptic
 dz_1 \wedge d \bar z_1 - \smash{\frac i2} dz_2 \wedge d\bar z_2$ the kernel of
 the Laplacian is infinite-dimensional)
 so the Hodge isomorphism theorem fails, and with it go most of the tools and techniques developed over the last hundred years or so.
-
-We'll finish with one final example we don't have any applications in mind for, but find amusing in its inaccessibility.
-
-\begin{exam}
-Let $(E,h) \to X$ be a holomorphic vector bundle with a Hermitian metric $h$. The curvature tensor of the metric,
-\[
-  R(\alpha, \ov\beta, s, \ov t)
-  = h(\tfrac i2 \Theta_{\alpha, \ov\beta}s, \ov t),
-\]
-defines a Hermitian form on $E \otimes T_{X}$ that is usually not positive-definite. Good luck saying anything about its curvature tensor.
-\end{exam}
 
 
 
@@ -591,97 +594,81 @@ the right-hand side.
 
 
 
-Let $E \to X$ be a holomorphic vector bundle with a smooth Hermitian form $b$. We say that a connection $D$ on $E$ is \emph{compatible with $b$} if
+Let $E \to X$ be a holomorphic vector bundle with a smooth Hermitian form $b$.
+We say that a connection $D$ on $E$ is \emph{compatible with $b$} if
 \[
 d b(s, \ov t) = b(Ds, \ov t) + b(s, \ov{Dt})
 \]
-for all sections $s, t$ of $E$. By composing a connection with the projection onto $(1,0)$- or $(0,1)$-forms, we get the $(1,0)$- and $(0,1)$-parts of the connection.
+for all sections $s, t$ of $E$. By composing a connection with the projection
+onto $(1,0)$- or $(0,1)$-forms, we get the $(1,0)$- and $(0,1)$-parts of the
+connection.
 
-We denote by $\cc A^k(E)$ and $\cc A^{p,q}(E)$ the spaces of smooth $k$- and $(p,q)$-forms with values in $E$.
-Sometimes we'll write $\cc A^k(\cc F)$, where $\cc F \subset E$ is a smooth subsheaf, by which we mean sections of $\cc A^k(E)$ that take values in $\cc F$.
+We denote by $\cc A^k(E)$ and $\cc A^{p,q}(E)$ the spaces of smooth $k$- and
+$(p,q)$-forms with values in $E$. Sometimes we'll write $\cc A^k(\cc F)$, where
+$\cc F \subset E$ is a smooth subsheaf, by which we mean sections of $\cc
+A^k(E)$ that take values in $\cc F$.
+
+Such a connection does not exist for every Hermitian form.
+We thank Richard L\"ark\"ang for bringing this example to our attention
+when we claimed to have proved an existance result in an earlier version
+of this paper.
+
+\begin{exam}
+Let $h(z) = |z|^2$ be a Hermitian metric on the trivial line bundle over $\kk
+C$.
+If $h$ had a Chern connection it would necessarily be
+$$
+D s = ds + \frac{s}{z}
+$$
+as we can check on $\kk C \setminus \{0\}$.
+But this connection does not extend to all of $\kk C$.
+\end{exam}
+
+Note that in this example $h = f^* h_{\text{std}}$ where $f(z) = z^2$,
+so we can not expect that arbitrary pullbacks of forms with connections
+themselves have connections.
+
+We will call a connection $D$ that's compatible with $b$ and has $D^{0,1} =
+\bar\partial$ a \emph{Chern connection} of $b$. If $b$ has a nontrivial kernel,
+such a connection is not unique if it exists at all.
+We do get a limited existence result.
 
 
 \begin{prop}
-Let $E \to X$ be a holomorphic vector bundle and let $b$ be a smooth Hermitian form on $E$. Then there exists a connection $D$ on $E$ that's compatible with $b$ and has $D^{0,1} = \bar\partial$.
+Let $E \to X$ be a holomorphic vector bundle and let $b$ be a smooth Hermitian
+form on $E$.
+If $S := \ker b \subset E$ is a holomorphic subbundle, then $b$ admits a Chern
+connection.
 \end{prop}
 
 
 \begin{proof}
-The plan is to construct a connection locally on trivializing neighborhoods of $E$ and to glue the pieces together with a partition of unity.
-
-Let $s$ be a smooth section of $E$ over a neighborhood $U$. We want to solve the equation
-\begin{equation}
-\label{eq:conn}
-\partial_\alpha b(s, \ov t)
-= b(A(\alpha), \ov t),
-\end{equation}
-where $\alpha \in \cc C^\infty(U, T_X)$, $t \in \cc C^\infty(U, E)$ and $A \in \cc A^{1,0}(U, E)$, where the last space is the one of smooth $(1,0)$-forms with values in $E$. Consider the short exact sequence
-\[
-\begin{tikzcd}
-0 \ar[r] &
-\Ker b \ar[r] &
-E \ar[r,"b"] &
-\im b \ar[r] &
-0,
-\end{tikzcd}
-\]
-and tensor it by the vector bundle $\Omega^1_X$ to obtain
-\[
-\begin{tikzcd}
-0 \ar[r] &
-\Omega^1_X \otimes \Ker b \ar[r] &
-\Omega^1_X \otimes E \ar[r,"\id \otimes b"] &
-\Omega^1_X \otimes \im b \ar[r] &
-0.
-\end{tikzcd}
-\]
-We claim that $\alpha \otimes t \mapsto \partial_\alpha b(s, \ov t)$ is a smooth section of $\Omega^1_X \otimes \im b$. By the above, this is true if it is zero on the sheaf generated by sections of the form $\alpha \otimes t$, where $t \in \Ker b$. But for such a section we have $b(s, \ov t) = 0$ on $U$, so $\partial_\alpha b(s, \ov t) = 0$. By taking a small enough neighborhood so the sheaf morphism above is surjective, or noting that the sheaves are ones of smooth modules which are fine, we obtain a section $A_s \in \cc C^\infty(U, \Omega_X^1 \otimes E)$ such that \eqref{eq:conn} holds for any $\alpha$ and $t$.
-
-Suppose now that there exists a holomorphic frame $(e_1, \ldots, e_r)$ of $E$ over $U$. Such a frame exists over a small enough neighborhood around any point. Let $A_1, \ldots, A_r$ be the sections we just found for $e_1, \ldots, e_r$. Any section $s \in \cc C^\infty(U, E)$ can be written as $s = \sum_j f_j e_j$ for smooth functions $f_j$ on $U$. We define
-\[
-D s := \sum_{j=1}^r df_j \otimes e_j + f_j A_j
-\]
-on $U$. We claim that $D$ is a connection on $E$ over $U$ that is compatible with $b$ and whose $(0,1)$-part is $\bar\partial$.
-
-This object $D$ is a $1$-form with values in $E$ by construction of the $A_j$. If $s$ is a section of $E$ and $f$ a smooth function, we write $s = \sum_j f_j e_j$. Then
-\begin{align*}
-D(fs)
-&= \sum d(f f_j) \otimes e_j + f f_j A_j
-\\
-&= \sum df \otimes f_j e_j + f df \otimes e_j + f f_j A_j
-= df \otimes s + f Ds,
-\end{align*}
-so $D$ is a connection on $E$. The forms $A_j$ are $(1,0)$-forms by construction, so the $(0,1)$-part of $Ds$ is $\sum_j \bar\partial f_j e_j = \bar\partial s$.
-
-Finally, let $f$ and $g$ be smooth functions. We have
-\begin{align*}
-d b(fe_j, \ov{ge_k})
-&= d\bigl(f \ov g b(e_j, \ov e_k) \bigr)
-\\
-&= df \cdot \ov g b(e_j, \ov e_k)
-+ f dg \cdot b(e_j, \ov e_k)
-+ \partial b(e_j, \ov e_k)
-+ \ov{\partial b(e_k, \ov e_j)}
-\\
-&= b(df \otimes e_j, \ov{ge_k})
-+ b(f e_j, \ov{dg \otimes e_k})
-+ b(A_j, \ov e_k)
-+ b(e_j, \ov{A_k})
-\\
-&= b(D(f e_j), \ov{ge_k}) + b(f e_j, \ov{D(g e_k)}).
-\end{align*}
-For smooth sections $s = \sum f_j e_j$ and $t = \sum g_k e_k$ we deduce from the above and linearity that $D$ is compatible with $b$ over the neighborhood $U$.
-
-We now cover $X$ by neighborhoods $U_\mu$ as above and construct connections $D_\mu$ on each $U_\mu$. We then take a partition of unity $(\phi_\mu)$ relative to this covering, and define a connection $D$ on $E$ by setting
-\[
-D s = \sum_\mu D_\mu(\phi_\mu s).
-\]
-This defines a connection on $E$ that's compatible with $b$ and whose $(0,1)$-part is $\bar\partial$.
+By our hypothesis the quotient $Q = E / S$ is a holomorphic vector bundle,
+and the form $b$ descends to a nondegenerate Hermitian form $\hat b$ on $Q$.
+Any nondegenerate Hermitian form admits a Chern connection $\widehat D$ by the
+usual construction of such a connection for a positive-definite form.
+The pullback of $\widehat D$ to $Q$ is then a Chern connection for $b$.
 \end{proof}
 
+There is of course no reason the kernel of an arbitrary smooth Hermitian form
+be a holomorphic bundle even if its rank is constant.
+However some forms of interest arrise as the pullbacks of honest Hermitian
+metrics by holomorphic submersions, and this existence proposition applies to
+them.
+As an example one can consider a vector space $V$ and its projective space
+$\pi : V \setminus \{0\} \to \kk P(V)$.
+One can work out that the pullback of the Fubini--Study metric to $V \setminus
+\{0\}$ is a Hermitian form whose kernel is one-dimensional and admits the
+Chern connection
+$$
+D_\eta \xi = d_\eta \xi
+- \frac{\<\eta, \bar v\>}{|v|^2} \xi
+- \frac{\<\xi, \bar v\>}{|v|^2} \eta,
+$$
+which is the pullback of the Chern connection of the Fubini--Study metric
+on any standard coordinate chart.
 
 
-We will call a connection $D$ that's compatible with $b$ and has $D^{0,1} = \bar\partial$ a \emph{Chern connection} of $b$. If $b$ has a nontrivial kernel, such a connection is not unique.
 
 
 \begin{prop}
@@ -1377,73 +1364,6 @@ whose fibers are Grassmannians.
 Continuing this process we end up with a sequence $X \to X_{1} \to \cdots \to X_{k} \to B$ of fibrations with Grassmannian fibers, and Theorem~\ref{thm:holomorphic-sectional-positive} applies to each step in turn.
 \end{proof}
 
-
-
-
-\section{Blow-ups of positive holomorphic sectional curvature}
-\label{sec:blow-ups-positive}
-
-
-By essentially repeating the arguments of the previous section we can prove that blow-ups of compact manifolds with positive holomorphic sectional curvature have positive holomorphic sectional curvature.
-This answers a question of Yau~\cite[Problem~67]{yau1993open}
-and provides a number of new examples of manifolds with positive holomorphic sectional curvature.
-For example, this shows that del Pezzo surfaces (blow-ups of $\kk P^2$ in up to eight points, plus $\kk P^1 \times \kk P^1$) admit such metrics.
-
-
-\begin{theo}
-Let $X$ be a compact complex manifold that admits a metric with positive holomorphic sectional curvature, and let $Y \subset X$ be a proper submanifold.
-Then the blow-up of $X$ along $Y$ admits a metric with positive holomorphic sectional curvature.
-If the metric on $X$ was \kahler{}, then the metric on the blow-up will be \kahler{}.
-\end{theo}
-
-\begin{proof}
-We denote the blow-up of $X$ along $Y$ by $\mu : \hat X \to X$.
-We write $E = \mu^{-1}(Y)$ for the exceptional divisor.
-
-Let $h_{X}$ be a positively curved metric on $X$.
-The standard construction of a \kahler{} metric on $\hat X$ \cite[Proposition~3.24]{voisin2002theorie} shows that there exists a smooth Hermitian form $h_{E}$ on $\hat X$ whose \kahler{} form is closed and whose restriction to any fiber of $T_{\kk P(N_{Y/X})/Y}$ is the usual Fubini--Study metric.
-We consider the Hermitian form $h_{\lambda} = e^{\lambda} \mu^{*} h_{X} + h_{E}$, which we may assume is a Hermitian metric for all $\lambda > 1$.
-If $h_{X}$ is \kahler{} this metric is clearly \kahler{} as well.
-
-Its curvature tensor is
-\[
-  R_{\lambda} = e^{\lambda} \mu^{*} R_{X} + R_{E} - \sigma^{*} q_{\lambda},
-\]
-where $q$ is the ``quotient'' form and $\sigma$ is the second fundamental form of the sum.
-As in Lemma~\ref{lemm:limit-form} before we know that $q_{\lambda}$ tends to a Hermitian form $q_{\infty}$ as $\lambda \to \infty$.
-By  the proof of Theorem~\ref{thm:holomorphic-sectional-positive} we know that
-$h_{\lambda}$ will eventually have positive holomorphic sectional curvature at
-any unit-length tangent vector $\xi$ for which $\mu_{*}\xi \not= 0$.
-
-Outside of $E$ the map $\mu : \hat X \to X$ is an isomorphism, so $\Ker \mu_* = 0$ there.
-Over $E$ we have a short exact sequence
-\[
-0 \longrightarrow
-T_E \longrightarrow
-T_{\hat X} \longrightarrow
-N_{E/\hat X} \longrightarrow
-0
-\]
-and $\mu^*h_X$ is nonzero on $N_{E/\hat X}$.
-The exceptional divisor identifies with the total space of the projective
-bundle $\mu : \kk P(N_{Y/X}) \to Y$, so we have an exact sequence
-\[
-0 \longrightarrow
-T_{\kk P(N_{Y/X})/Y} \longrightarrow
-T_E \longrightarrow
-\mu^* T_Y \longrightarrow
-0
-\]
-and the kernel of $\mu_{*}$ is exactly the relative tangent bundle $T_{\kk
-P(N_{Y/X})/Y}$ over $E$.
-
-Given a nonzero tangent vector $\xi$ in $T_{\kk P(N_{Y/X})/Y}$, we can find a
-local orthonormal frame of the relevant fiber of $\kk P(N_{Y/X})$ such that
-$\xi$ is a multiple of one of the frame elements.
-As in the proof of Theorem~\ref{thm:holomorphic-sectional-positive} this implies that $\sigma^{*}q_{\lambda}(\xi, \ov\xi, \xi, \ov\xi) = 0$ at the center of the frame, where we then have
-$R_{\lambda}(\xi,\ov\xi,\xi,\ov\xi) = R_{E}(\xi,\ov\xi,\xi,\ov\xi) > 0$.
-We conclude as before by compactness of the sphere bundle and by taking $\lambda$ large enough.
-\end{proof}
 
 
 
