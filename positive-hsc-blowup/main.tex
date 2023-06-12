@@ -78,8 +78,7 @@ We calculate the curvature tensor of this metric on the exceptional divisor
 and show that its holomorphic sectional curvature is negative in some
 directions for all small enough $t$, which torpedos a natural approach to
 showing that blowups of manifolds of positive holomorphic sectional curvature
-have positive curvature. As very slight penance, we show that the blowup of a
-manifold of positive \hsc{} has a metric of positive scalar curvature.
+have positive curvature.
 \end{abstract}
 
 \maketitle
@@ -123,6 +122,7 @@ over manifolds with positive \hsc{} are also positive, along with more
 general fibrations with positively curved fibers and base.
 The common thread in the papers of
 Hitchin~\cite{hitchin1975curvature},
+Sung~\cite{sung1997kahler},
 \'Alvarez~\cite{alvarez2016positive},
 \'Alvarez,
 Heier and Zheng~\cite{alvarez2018projectivized} or Chaturvedi and
@@ -130,16 +130,13 @@ Heier~\cite{chaturvedi2020hermitian}
 is to consider metrics of the form $\mu^* h + t b$, where $h$ is a metric
 on the base and $b$ a fiberwise metric on the fibers and show they have
 positive curvature for small enough $t$.
-In this note we try this approach for the blowup of a point and show that
-the resulting metric does not have positive \hsc{} on the exceptional divisor.
+In this note we try this approach for the blowup of a point.
+We calculate the full curvature tensor of $h_t$ on a point on the exceptional
+divisor and show that the metric
+does not have positive \hsc{} there, no matter what metric $h$ we started with.
 This of course doesn't mean the blowup doesn't have positive \hsc{}, only that
 the most straightforward method of constructing a metric on it fails to show that.
 
-In the course of our investigation we calculate the full curvature tensor of
-the metric on the exceptional divisor, and can also express its Ricci tensor
-and scalar curvature there.
-This lets us prove that the blowup of a manifold of negative \hsc{} admits a
-metric of negative scalar curvature.
 
 
 
@@ -259,6 +256,12 @@ $$
 $$
 where the $a_j$ are holomorphic functions.
 
+While writing out the curvature tensor it will be useful to have the
+semipositive Hermitian form $\tau(a, \bar b) = \<a, \bar b\> - a_n \bar b_n$
+at hand.
+This is the pullback of the standard inner product by the projection onto the
+subspace spanned by the first $n-1$ basis elements.
+
 \begin{prop}
 Let
 $\alpha = \sum_j a_j \xi_j$,
@@ -266,7 +269,6 @@ $\beta = \sum_k b_k \xi_k$,
 $\gamma = \sum_l c_l \xi_l$
 and $\delta = \sum_m d_m \xi_m$
 be holomorphic tangent fields close to $(0,0)$.
-Let $\tau(a, \bar b) := \< a, \bar b \> - a_n b_n$.
 The curvature of $h_t$ at the origin is
 $$
 \displaylines{
@@ -428,15 +430,26 @@ which is negative for all small $t$.
 \end{proof}
 
 
+This corollary shows that \emph{no} metric of the form $\mu^* h + tb$ can have
+positive \hsc{} when $h$ does, so we can't prove that the blowup carries such
+a metric in this way.
+Note however that the blowup of the projective plane at a single point
+is a Hirzebruch surface, thus a projective bundle, and thus carries
+a metric of positive \hsc{}.
+
 
 
 
 \begin{coro}
+Let
+$\alpha = \sum_j a_j \xi_j$,
+$\beta = \sum_k b_k \xi_k$
+be holomorphic tangent fields close to $(0,0)$.
 The Ricci tensor of $h_t$ is
 $$
-r_t(a, \bar b)
+r_t(\alpha, \ov\beta)
 = H_h(e_n) a_n \bar b_n
-+ (n + 1) \tau(a, \bar b)
++ (n-1) \tau(a, \bar b)
 - (n-1) a_n \bar b_n / t
 $$
 at the origin.
@@ -471,7 +484,7 @@ Together we get
 \[
 r_t(a, \bar b)
 = H_h(e_n) a_n \bar b_n
-+ (n + 1) \tau(a, \bar b)
++ (n-1) \tau(a, \bar b)
 - (n-1) a_n \bar b_n / t.
 \qedhere
 \]
@@ -486,221 +499,25 @@ The scalar curvature of $h_t$ is
 $$
 s_t
 = H_h(e_n)
-+ n(n-1) / t
++ (n-1)(n-2) / t
 $$
 at the origin.
 \end{coro}
 
-If $H_h > 0$ this is bounded away from zero for all $t$ small enough.
-By the same argument Hitchin makes we conclude that if $h$ has positive
-\hsc{} then so does its blowup at a point (and thus its blowup at
-a finite number of distinct points).
-
-
-
-
-\section{More wrongs}
-
-Look at $\kk P^2$ blown up in a point.
-Have $(x_1,x_2,y)$ local coordinates.
-Blowup is $Z = \{x_1 = x_2 y\}$.
-Its tangent space is the kernel of $dx_1 - y dx_2 - x_2 dy$, spanned by
-$$
-\xi_1 = y e_1 + e_2,
-\quad
-\xi_2 = x_2 e_1 + e_3.
-$$
-Fubini--Study on the standard coordinate chart in $n$-dimensional space is
-$$
-\<u, \bar v\>_{FS}
-= \frac{\<u, \bar v\>}{1+r^2}
-- \frac{\<u, \bar z\>}{1+r^2}\frac{\<z, \bar v\>}{1+r^2}.
-$$
-If $u = u_1 \xi_1 + u_2 \xi_2 = (u_1 y + u_2 x_2) e_1 + u_1 e_2 + u_2 e_3$ and
-$v = v_1 \xi_1 + v_2 \xi_2 = (v_1 y + v_2 x_2) e_1 + v_1 e_2 + v_2 e_3$ the
-metric on $Z$ is
-\begin{align*}
-h_t(u, \bar v)
-&= \frac{(u_1 y + u_2 x)\ov{(v_1 y + v_2 x)} + u_1 \bar v_1}{1 + r^2}
-\\
-&\qquad
-- |x|^2 \frac{((u_1y + u_2x) \bar y + u_1)}{1+r^2}
-\frac{(y\ov{(v_1 y + v_2 x)} + \bar v_1)}{1+r^2}
-+ t \frac{u_2 \bar v_2}{(1+|y|^2)^2}
-\\
-&= \frac{
-u_1 \bar v_1 |y|^2
-+ u_1 \bar v_2 y \bar x
-+ u_2 \bar v_1 x \bar y
-+ u_2 \bar v_2 |x|^2
-+ u_1 \bar v_1}{1 + r^2}
-\\
-&\qquad
-- |x|^2 \frac{(u_1 |y|^2 + u_2 x \bar y + u_1)}{1+r^2}
-\frac{(\bar v_1 |y|^2 + \bar v_2 y \bar x + \bar v_1)}{1+r^2}
-+ t \frac{u_2 \bar v_2}{(1+|y|^2)^2}
-\\
-&= \frac{
-u_1 \bar v_1 |y|^2
-+ u_1 \bar v_2 y \bar x
-+ u_2 \bar v_1 x \bar y
-+ u_2 \bar v_2 |x|^2
-+ u_1 \bar v_1}{1 + r^2}
-\\
-&\quad
-- |x|^2
-\frac{
-u_1 \bar v_1 (1{+}|y|^2)^2
-+ u_1 \bar v_2 (1{+}|y|^2) y \bar x
-+ u_2 \bar v_1 (1{+}|y|^2) x \bar y
-+ u_2 \bar v_2 |x|^2 |y|^2
-}{(1+r^2)^2}
-\\
-&\quad
-+ t \frac{u_2 \bar v_2}{(1+|y|^2)^2}
-\end{align*}
-where $r^2 = |x|^2 + |x|^2|y|^2 = |x|^2(1+|y|^2)$.
-
-In matrix form this is
-$$
-H_t = \begin{pmatrix}
-\frac{1 + |y|^2}{1+r^2} - \frac{|x|^2(1+|y|^2)^2}{(1+r^2)^2} &
-\frac{y \bar x}{1+r^2} - \frac{y \bar x|x|^2(1+|y|^2)}{(1+r^2)^2}
-\\
-\frac{x \bar y}{1+r^2} - \frac{x \bar y|x|^2(1+|y|^2)}{(1+r^2)^2} &
-\frac{|x|^2}{1+r^2} - \frac{|x|^4|y|^2}{(1+r^2)^2} + \frac{t}{(1+|y|^2)^2}
-\end{pmatrix}
-$$
-We have
-$$
-\frac{1}{1+r^2} - \frac{|x|^2(1+|y|^2)}{(1+r^2)^2}
-= \frac{1}{1+r^2} - \frac{r^2}{(1+r^2)^2}
-= \frac{1}{(1+r^2)^2}
-$$
-so we get
-$$
-H_t = \begin{pmatrix}
-\frac{1 + |y|^2}{(1+r^2)^2} &
-\frac{y \bar x}{(1+r^2)^2}
-\\
-\frac{x \bar y}{(1+r^2)^2} &
-\frac{|x|^2(1+|x|^2)}{(1+r^2)^2} + \frac{t}{(1+|y|^2)^2}
-\end{pmatrix}
-$$
-
-Have $(1+x^2)^2 = 1 + 2x^2 + x^4$ so up to $x^4$ we get
-$$
-\frac{1}{(1+x^2)^2} = 1 - 2x^2 - x^4 + 4x^4 = 1 - 2x^2 + 3x^4.
-$$
-Actually only need up to $x^2$ at the origin.
-Get
-$$
-H_t
-=
-\begin{pmatrix}
-1 + |y|^2 - 2|x|^2 &
-y \bar x
-\\
-x \bar y &
-|x|^2 + t - 2t|y|^2
-\end{pmatrix}.
-$$
-Then
-\begin{align*}
-\partial H_t
-& =
-\begin{pmatrix}
--2 \bar x dx + \bar y dy &
-\bar x dy
-\\
-\bar y dx &
-\bar x dx - 2t \bar y dy
-\end{pmatrix},
-\\
-\bp H_t
-& =
-\begin{pmatrix}
--2 x d\bar x + y d\bar y &
-x d\bar y
-\\
-y d\bar x &
-x d\bar x - 2t y d\bar y
-\end{pmatrix},
-\\
-\p \bp H_t
-& =
-\begin{pmatrix}
--2 dx d\bar x + dy d\bar y &
-dx d\bar y
-\\
-dy d\bar x &
-dx d\bar x - 2t dy d\bar y
-\end{pmatrix},
-\end{align*}
-and at the origin $\p H_t = 0$ and
-$H_t = \bigl( \begin{smallmatrix} 1 & 0 \\ 0 & t\end{smallmatrix}\bigr)$ so
-$$
-R_t =
-\begin{pmatrix}
-2 dx d\bar x - dy d\bar y &
--dx d\bar y
-\\
--dy d\bar x &
--dx d\bar x + 2t dy d\bar y
-\end{pmatrix}
-$$
-at the origin.
-Evaluating the forms at $u$ we get
-$$
-\begin{pmatrix}
-2 |u_1|^2 - |u_2|^2 &
--u_1 \bar u_2
-\\
--u_2 \bar u_1 &
--|u_1|^2 + 2t |u_2|^2
-\end{pmatrix}.
-$$
-Then
-\begin{align*}
-H_t(u)
-&= \frac{
-|u_1|^2(2|u_1|^2 - |u_2|^2)
-- |u_1|^2 |u_2|^2
-- |u_1|^2 |u_2|^2
-+ |u_2|^2(-|u_1|^2 + 2t |u_2|^2)
-}
-{(|u_1|^2 + t |u_2|^2)^2}
-\\
-&= \frac{2 |u_1|^4 - 4 |u_1|^2 |u_2|^2 + 2t |u_2|^4}
-{(|u_1|^2 + t |u_2|^2)^2}
-\end{align*}
-at the origin.
-If we take $u$ with $|u_1|^2 = |u_2|^2 = \frac12$ we get
-$$
-H_t(u)
-= \frac{\frac12 - 1 + \frac t2}{(\frac12 + \frac t2)^2}
-= 2 \frac{t-1}{(t+1)^2}
-$$
-which is negative for any $t < 1$.
-We have $H_t(1,0) = 2$ for all $t$, so the \hsc{} is positive in some directions.
-
-
-The Ricci tensor is
-\begin{align*}
-r_t(u,\bar v)
-&= R_t(u, \bar v, e_1, e_1) + R_t(u,\bar v, e_2, e_2) / t
-\\
-&= 2 u_1 \bar v_1 - u_2 \bar v_2 + (-u_1 \bar v_1 + 2t u_2 \bar v_2)/t
-\\
-&= (2-1/t) u_1 \bar v_1 + u_2 \bar v_2
-\end{align*}
-and has mixed sign for small enough $t$,
-so the scalar curvature is
-$$
-s_t
-= (2-1/t) + 1/t = 2.
-$$
-Notably this is positive for $t > 0$, which we expect by Hitchin and Sung.
+This is the same as Hitchin gets for the scalar curvature if we take his
+expressions for $R_0$ and $R_1$ in \cite[Lemmas~5.15 and
+5.16]{hitchin1975curvature} and evaluate them at $r = 0$, which is
+a nice sanity check.
+With more work I think we could recover Hitchin's full results.
+The trick is to estimate the contribution of the second fundamental form
+to the curvature tensor near the origin.
+Using the relations $\xi_j = x_n e_j + f_j = 0$ in the quotient bundle we can
+shift contributions from the $f_j$ to the $e_j$, which then gives us an upper
+bound on the norm on the quotient bundle by the one on the product in terms
+of a norm that doesn't vary with $t$.
+This turns out to be rather handy for calculations.
+However, we don't expect to have anything to add to Hitchin's results and
+have already gotten what we came for.
 
 
 
