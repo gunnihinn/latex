@@ -14,6 +14,7 @@
 
 \newtheorem{theo}{Theorem}
 \newtheorem{prop}[theo]{Proposition}
+\newtheorem{coro}[theo]{Corollary}
 \newtheorem{lemm}[theo]{Lemma}
 \newtheorem*{maintheo}{Theorem}
 \newtheorem*{claim}{Claim}
@@ -55,12 +56,11 @@
 \address{Hafnarfj\"or\dh{}ur, Iceland}
 \email{gunnar@magnusson.io}
 \date{\today}
-\title[Failing at blowups]
-{How to fail to prove that blowups have\\positive holomorphic sectional curvature}
+\title{On the curvature of the blowup of a point}
 
 \hypersetup{
  pdfauthor={Gunnar Þór Magnússon},
- pdftitle={Positive holomorphic sectional curvature of blowups of points},
+ pdftitle={On the curvature of the blowup of a point},
  pdfkeywords={},
  pdfsubject={},
  pdflang={English}}
@@ -70,9 +70,16 @@
 
 
 \begin{abstract}
-We show that a K\"ahler metric of the form $\mu^*h + e^{-t} b$ on the blowup
-of a point of a K\"ahler manifold of positive holomorphic sectional curvature
-is not positively curved on the exceptional divisor.
+We consider the blowup of a point of a compact K\"ahler manifold and a metric
+of the form $\mu^*h + t b$ on it, where $h$ is a K\"ahler metric on the
+original manifold and $b$ is Hermitian form that looks like the
+Fubini--Study metric near the exceptional divisor.
+We calculate the curvature tensor of this metric on the exceptional divisor
+and show that its holomorphic sectional curvature is negative in some
+directions for all small enough $t$, which torpedos a natural approach to
+showing that blowups of manifolds of positive holomorphic sectional curvature
+have positive curvature. As very slight penance, we show that the blowup of a
+manifold of positive \hsc{} has a metric of positive scalar curvature.
 \end{abstract}
 
 \maketitle
@@ -95,10 +102,8 @@ We say that $h$ has positive holomorphic sectional curvature if $H > 0$ for all
 tangent fields.
 Examples of manifolds that carry such metrics are the complex projective space
 with its Fubini--Study metric, the standard metric on a Grassmannian manifold,
-and projective bundles over bases of positive holomorphic sectional curvature
-~\cite{alvarez2018projectivized}
-(and therefore also bundles of Grassmannians and flag manifolds over similar
-bases).
+and projectivized bundles over bases of positive holomorphic sectional curvature
+~\cite{alvarez2018projectivized}.
 Tsukamoto~\cite{tsukamoto1957kahlerian} showed that manifolds that admit such
 metrics are simply connected, and recently Xiaokui Yang~\cite{yang2017rc}
 proved that such manifolds are projective and rationally connected, answering a
@@ -122,23 +127,27 @@ Hitchin~\cite{hitchin1975curvature},
 \'Alvarez,
 Heier and Zheng~\cite{alvarez2018projectivized} or Chaturvedi and
 Heier~\cite{chaturvedi2020hermitian}
-is to consider metrics of the form $\mu^* h + e^{-t} b$, where $h$ is a metric
+is to consider metrics of the form $\mu^* h + t b$, where $h$ is a metric
 on the base and $b$ a fiberwise metric on the fibers and show they have
-positive curvature for large enough $t$.
+positive curvature for small enough $t$.
 In this note we try this approach for the blowup of a point and show that
 the resulting metric does not have positive \hsc{} on the exceptional divisor.
-
 This of course doesn't mean the blowup doesn't have positive \hsc{}, only that
 the most straightforward method of constructing a metric on it fails to show that.
+
+In the course of our investigation we calculate the full curvature tensor of
+the metric on the exceptional divisor, and can also express its Ricci tensor
+and scalar curvature there.
+This lets us prove that the blowup of a manifold of negative \hsc{} admits a
+metric of negative scalar curvature.
 
 
 
 
 \section{Our wrongs}
 
-Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\kk C} X = n$ that
-admits a metric $h$ of positive \hsc.
-
+Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\kk C} X = n$
+and let $h$ be a K\"ahler metric on it.
 
 
 \begin{prop}
@@ -150,8 +159,11 @@ the exceptional divisor is the Fubini--Study metric.
 
 \begin{proof}
 This is proved for blowups of smooth submanifolds in
-Voisin's textbook~\cite{voisin2002theorie}. We can simplify that proof a little
-since we're only blowing up points.
+Voisin's textbook~\cite{voisin2002theorie}.
+We can simplify that proof a little since we're only blowing up points.
+In that case the statement goes back at least to Kodaira's proof of the
+embedding theorem.
+
 
 Locally around $p$, which may assume is the origin in a complex vector space
 $V$, the blowup is
@@ -183,14 +195,10 @@ Its restriction to $\bl V$ is the form we want.
 Let $p \in X$ be a point and blow it up to obtain $\mu : \bl X \to X$.
 Let $b$ be the Hermitian form associated to the $(1,1)$-form $\beta$ on $\bl X$
 we constructed in Proposition~\ref{prop:fs}.
-Then $h_t = \mu^*h + e^{-t} b$ is a K\"ahler metric on $\bl X$ for all $t$ large
+Then $h_t = \mu^*h + t b$ is a K\"ahler metric on $\bl X$ for all $t$ small
 enough.
-If we can show that it has positive \hsc{} on a neighborhood around the
-exceptional divisor for all $t \geq t_0$ then we can conclude that it eventually
-has positive \hsc{} on all of $\blX$ by using Wu's~\cite{wu1973remark}
-characterization of the \hsc{} to show positivity outside of that neighborhood
-for $t$ large enough.
-
+We're going to calculate its curvature tensor at a point on the exceptional
+divisor.
 
 Recall that locally around $p$ the blowup is
 $$
@@ -216,10 +224,10 @@ $$
 In these coordinates the point we want to calculate the \hsc{} at is $(0,0)$
 and we have $D_{h,\xi} \partial / \partial x_j = 0$ at $0$ for $j = 1, \ldots, n$.
 
-We also note that close to the exceptional divisor, $h_t = \mu^* h + e^{-t} b$ is
-just the restriction of the product metric $p_1^* h \oplus e^{-t} p_2^* g$ on
+We also note that close to the exceptional divisor, $h_t = \mu^* h + t b$ is
+just the restriction of the product metric $p_1^* h \oplus t p_2^* b$ on
 $V \times \kk P(V)$ to $\bl X$, where $p_j$ are the projections onto the
-factors and $g$ is the Fubini--Study metric.
+factors and $b$ is the Fubini--Study metric.
 
 The only equations that give us any information at $(0,0)$ are
 $$
@@ -237,95 +245,462 @@ $$
 \xi_n = \sum_{j=1}^{n-1} y_j e_j + e_n
 $$
 are a basis for
-the intersection of all the kernels, that is, $T_{\blX}$.
+the intersection of all the kernels of the differentials, that is, of $T_{\blX}$.
 Here $e_j$ is the tangent field corresponding to the coordinate $x_j$
 and $f_k$ the one corresponding to $y_k$.
-Note that the orthogonal complement of $T_{\blX}$ at $(0,0)$ is spanned by
+Note that the orthogonal complement of $T_{\smash{\blX}}$ at $(0,0)$ is spanned by
 $(e_1, \ldots, e_{n-1})$.
-
-Any holomorphic tangent field $\xi$ near $(0,0)$ can be written as
+Any holomorphic tangent field $\xi$ on $\blX$ near $(0,0)$ can be written as
 $$
 \xi = \sum_{j=1}^n a_j \xi_j
-= \sum_{j=1}^{n-1} (a_j x_n + a_n y_j) e_j + a_j f_j
+= \sum_{j=1}^{n-1} (a_j x_n + a_n y_j)  e_j
++ \sum_{j=1}^{n-1} a_j f_j
 + a_n e_n,
 $$
 where the $a_j$ are holomorphic functions.
-We want to check the positivity of the curvature at the origin, which we can do
-on the unit sphere, so we may assume that $\sum_{j=1}^n |a_j|^2 = 1$ there.
 
+\begin{prop}
+Let
+$\alpha = \sum_j a_j \xi_j$,
+$\beta = \sum_k b_k \xi_k$,
+$\gamma = \sum_l c_l \xi_l$
+and $\delta = \sum_m d_m \xi_m$
+be holomorphic tangent fields close to $(0,0)$.
+Let $\tau(a, \bar b) := \< a, \bar b \> - a_n b_n$.
+The curvature of $h_t$ at the origin is
+$$
+\displaylines{
+R_{h_t}(\alpha, \ov\beta, \gamma, \ov\delta)
+= H_h(e_n) a_n \bar b_n c_n \bar d_n
++ t \bigl(
+\tau(a, \bar b) \tau(c, \bar d) + \tau(a, \bar d) \tau(c, \bar b)
+\bigr)
+\hfill\cr\hfill{}
+- a_n \bar b_n \tau(c, \bar d)
+- a_n \bar d_n \tau(c, \bar b)
+- c_n \bar b_n \tau(a, \bar d)
+- c_n \bar d_n \tau(a, \bar b).
+}
+$$
+\end{prop}
+
+\begin{proof}
 Recall that the curvature of $h_t$ is
 $$
-R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
-= p_1^* R_h(\xi, \ov\xi, \xi, \ov\xi)
-+ e^{-t} p_2^* R_g(\xi, \ov\xi, \xi, \ov\xi)
-- |\sigma(\xi)\xi|^2,
+R_{h_t}(\alpha, \ov\beta, \gamma, \ov\delta)
+= p_1^* R_h(\alpha, \ov\beta, \gamma, \ov\delta)
++ t p_2^* R_b(\alpha, \ov\beta, \gamma, \ov\delta)
+- \<\sigma(\alpha, \gamma), \ov{\sigma(\beta, \delta)}\>,
 $$
-where $\sigma(\xi)\xi = \pi_N(D_{h \oplus e^{-t} g,\xi} \xi)$ is the second
-fundamental form, and the norm is on the quotient bundle.
+where $\sigma(\alpha, \beta) = \pi_N(D_{h \oplus e^{-t} b,\alpha} \beta)$ is
+the second fundamental form, and the inner product is on the orthogonal complement
+of the tangent bundle.
 
 First,
 $$
-p_1^*R_h(\xi, \ov\xi, \xi, \ov\xi)
-= |a_n|^4 H_h(e_n)
+p_1^*R_h(\alpha, \ov\beta, \gamma, \ov\delta)
+= H_h(e_n) a_n \bar b_n c_n \bar d_n
 $$
 at the origin. Second,
-$$
-p_2^*R_g(\xi, \ov\xi, \xi, \ov\xi)
-= 2 \biggl(\sum_{j=1}^{n-1} |a_j|^2\biggr)^2
-= 2(1 - |a_n|^2)^2
-$$
+\begin{align*}
+p_2^*R_b(\alpha, \ov\beta, \gamma, \ov\delta)
+&= \< p_2(\alpha), \ov{p_2(\beta)} \>_b
+\< p_2(\gamma), \ov{p_2(\delta)} \>_b
++ \< p_2(\alpha), \ov{p_2(\delta)} \>_b
+\< p_2(\gamma), \ov{p_2(\beta)} \>_b
+\\
+&= \tau(a, \bar b) \tau(c, \bar d) + \tau(a, \bar d) \tau(c, \bar b)
+\end{align*}
 at the origin
-because the Fubini--Study metric has constant \hsc{} 2.
+because the Fubini--Study metric has constant \hsc{} 2
+and $\tau$ is just the inner product on $\kk C^{n-1}$ extended to $\kk C^n$.
 
 Let's now write $\pi_N$ for the projection onto the orthogonal complement of
 $T_{\smash{\blX}}$ in $T_{\smash{\kk C^n \times \kk C^{n-1}|\blX}}$.
 At the origin it is just the projection onto the first $n-1$ coordinates.
 Third, then,
-\begin{align*}
-\pi_N(p_1^*D_{h,\xi} \xi)
-= \sum_{j=1}^{n-1} d_{\xi}(a_j x_n + a_n y_j) \, e_j
-&= \sum_{j=1}^{n-1} (a_j d_{\xi}x_n + a_n d_{\xi} y_j) \, e_j
-\\
-&= \sum_{j=1}^{n-1} (a_j a_n + a_n a_j ) \, e_j
-= 2 a_n \sum_{j=1}^{n-1} a_j \, e_j
-\end{align*}
-at the origin
-because $D_{h,\xi} e_j = 0$ there by our choice of coordinates.
+$$
+\pi_N(D_{h_t,\alpha} \gamma)
+= \pi_N\biggl(
+\sum_{j=1}^{n} d_{\alpha} c_j \, \xi_j
++ \sum_{j=1}^n c_j D_{\alpha} \xi_j
+\biggr).
+$$
+Note that $\pi_N(\xi_j) = 0$ for $j=1,\ldots,n$ so the first term from that sum
+is zero. The second term is
+$$
+\pi_N(D_{\alpha} \xi_j)
+= \pi_N(D_{\alpha}(x_n e_j + f_j))
+= a_n e_j + x_n D_{\alpha} e_j
+= a_n e_j
+$$
+for $j=1,\ldots,n-1$ at the origin because $D_{\alpha} e_j = 0$ there.
+We also have
+$$
+\pi_N(D_{\alpha} \xi_n)
+= \pi_N\biggl(
+\sum_{k=1}^{n-1} d_{\alpha} y_k \, e_k + y_k D_{\alpha} e_k
++ D_{\alpha} e_n
+\biggr)
+= \sum_{k=1}^{n-1} a_k e_k
+$$
+at the origin.
+Together we get
+$$
+\sum_{j=1}^n c_j \pi_N(D_{\alpha} \xi_j)
+= \sum_{j=1}^{n-1} c_j a_n e_j + c_n \sum_{j=1}^{n-1} e_j
+= \sum_{j=1}^{n-1} (a_n c_j + c_n a_j) e_j.
+$$
 And fourth,
 $$
-\pi_N(p_2^*D_{g,\xi} \xi)
-= \pi_N \biggl( \sum_{j=1}^{n-1} d_\xi y_j \, f_j + y_j p_2^*D_{g,\xi} f_j \biggr) = 0
+\pi_N(p_2^*D_{g,\alpha} \gamma)
+= \pi_N \biggl(
+\sum_{j=1}^{n-1} d_\alpha c_j \, f_j
++ c_j p_2^*D_{g,\alpha} f_j \biggr) = 0
+$$
+at the origin because there the argument to $\pi_N$ takes values in the bundle
+spanned by the $f_j$.
+The second fundamental form then contributes
+\begin{align*}
+\<\sigma(\alpha, \gamma), \ov{\sigma(\beta, \delta)}\>
+&=
+\sum_{j=1}^{n-1} (a_n c_j + c_n a_j) (\bar b_n \bar d_j + \bar d_n \bar b_j)
+\\
+&= a_n \bar b_n \tau(c, \bar d)
++ a_n \bar d_n \tau(c, \bar b)
++ c_n \bar b_n \tau(a, \bar d)
++ c_n \bar d_n \tau(a, \bar b)
+\end{align*}
+to the curvature. Putting all of this together we get the result.
+\end{proof}
+
+A fairly natural strategy to proving that the blowup of a point of a manifold
+that has a metric with positive \hsc{} is also positively curved is to
+show that $h_t$ has positive \hsc{} on a neighborhood around the exceptional
+divisor for all small enough $t$. Then we could conclude that the blowup has
+positive \hsc{} by using Wu's~\cite{wu1973remark} characterization of the
+\hsc{} to show positivity outside of that neighborhood for $t$ small enough.
+The following corollary shows this strategy cannot work.
+
+
+\begin{coro}
+The holomorphic sectional curvature of $h_t$ is negative in
+some tangent directions at the origin for all small enough $t$.
+\end{coro}
+
+\begin{proof}
+Let $\xi = \sum_j a_j \xi_j$ be a holomorphic tangent field.
+Note that $|\xi_j|_{h_t}^2 = t$ for $j = 1, \ldots, n-1$ and $|\xi_n|_{h_t}^2 = 1$
+at the origin.
+We have
+\begin{align*}
+H_{h_t}(\xi)
+&= \frac{|a_n|^4 H_h(e_n)
++ 2t \tau(a, \bar a)^2
+- 4 |a_n|^2 \tau(a, \bar a)}{(t \tau(a, \bar a) + |a_n|^2)^2}
+\\
+&= \frac{|a_n|^4 H_h(e_n)
++ 2t (|a|^2 - |a_n|^2)^2
+- 4 |a_n|^2 (|a|^2 - |a_n|^2)}{(t (|a|^2 - |a_n|^2) + |a_n|^2)^2}.
+\end{align*}
+First suppose that $H_h(e_n) < 0$. Picking $a$ with $|a_n| = 1$ we have
+$\tau(a, \bar a) = 0$ so $H_{h_t}(\xi) = H_h(e_n) < 0$.
+
+Then suppose that $H_h(e_n) \geq 0$.
+We may assume that $|a| = 1$ when checking for positivity and focus only on
+the numerator. We're then left considering the positivity of the polynomial
+\begin{align*}
+p_t(x)
+&= H_h(e_n) x^2 + 2t(1-x)^2 - 4x(1-x)
+\\
+&= (H_h(e_n) + 2t + 4) x^2 - 4(1 - t) x + 2t
+\end{align*}
+for $0 \leq x \leq 1$.
+Its critical point is
+$$
+x_t = \frac{2(1-t)}{H_h(e_n) + 2t + 4}
+$$
+where its value is
+$$
+p_t(x_t) = -\frac{4(1-t)^2}{H_h(e_n) + 2t + 4} + 2t,
+$$
+which is negative for all small $t$.
+\end{proof}
+
+
+
+
+
+\begin{coro}
+The Ricci tensor of $h_t$ is
+$$
+r_t(a, \bar b)
+= H_h(e_n) a_n \bar b_n
++ (n + 1) \tau(a, \bar b)
+- (n-1) a_n \bar b_n / t
 $$
 at the origin.
-The second fundamental form then contributes
+\end{coro}
+
+\begin{proof}
+The tangent fields that correspond to
+$v_j = (\delta_{1j}/\sqrt t, \ldots, \delta_{n-1,j}/\sqrt t, \delta_{nj})$ are
+orthonormal at the origin.
+If $\xi$ and $\eta$ are the fields corresponding to $(a_j)$ and $(b_j)$ we
+first have
 $$
-|\sigma(\xi)\xi|^2
-= 4 |a_n|^2 \sum_{j=1}^{n-1} |a_j|^2 |e_j|^2
-= 4 |a_n|^2(1 - |a_n|^2)
+\sum_{j=1}^n H_h(e_n) a_n \bar b_n \delta_{jn} = H_h(e_n) a_n \bar b_n,
 $$
-to the curvature
-so finally
+and then
+$$
+\sum_{j=1}^n
+\tau(a, \bar b) \tau(v_j, \bar v_j) + \tau(a, \bar v_j) \tau(v_j, \bar b)
+= n \tau(a, \bar b) / t.
+$$
+The second fundamental form contributes
+$$
+\sum_{j=1}^n
+a_n \bar b_n \tau(v_j, \bar v_j)
++ a_n \delta_{jn} \tau(v_j, \bar b)
++ \delta_{jn} \bar b_n \tau(a, \bar v_j)
++ \delta_{jn}^2 \tau(a, \bar b)
+= (n-1) a_n \bar b_n / t + \tau(a, \bar b)
+$$
+because $\tau(a, \bar v_n) = 0$.
+Together we get
+\[
+r_t(a, \bar b)
+= H_h(e_n) a_n \bar b_n
++ (n + 1) \tau(a, \bar b)
+- (n-1) a_n \bar b_n / t.
+\qedhere
+\]
+\end{proof}
+
+We see that the Ricci tensor can also be negative in some directions for $t$
+large enough, but is positive in other directions for all $t$.
+
+
+\begin{coro}
+The scalar curvature of $h_t$ is
+$$
+s_t
+= H_h(e_n)
++ n(n-1) / t
+$$
+at the origin.
+\end{coro}
+
+If $H_h > 0$ this is bounded away from zero for all $t$ small enough.
+By the same argument Hitchin makes we conclude that if $h$ has positive
+\hsc{} then so does its blowup at a point (and thus its blowup at
+a finite number of distinct points).
+
+
+
+
+\section{More wrongs}
+
+Look at $\kk P^2$ blown up in a point.
+Have $(x_1,x_2,y)$ local coordinates.
+Blowup is $Z = \{x_1 = x_2 y\}$.
+Its tangent space is the kernel of $dx_1 - y dx_2 - x_2 dy$, spanned by
+$$
+\xi_1 = y e_1 + e_2,
+\quad
+\xi_2 = x_2 e_1 + e_3.
+$$
+Fubini--Study on the standard coordinate chart in $n$-dimensional space is
+$$
+\<u, \bar v\>_{FS}
+= \frac{\<u, \bar v\>}{1+r^2}
+- \frac{\<u, \bar z\>}{1+r^2}\frac{\<z, \bar v\>}{1+r^2}.
+$$
+If $u = u_1 \xi_1 + u_2 \xi_2 = (u_1 y + u_2 x_2) e_1 + u_1 e_2 + u_2 e_3$ and
+$v = v_1 \xi_1 + v_2 \xi_2 = (v_1 y + v_2 x_2) e_1 + v_1 e_2 + v_2 e_3$ the
+metric on $Z$ is
 \begin{align*}
-R_{h_t}(\xi, \ov\xi, \xi, \ov\xi)
-= |a_n|^4 H_h(e_n)
-+ e^{-t} 2(1 - |a_n|^2)^2
-- 4 |a_n|^2(1 - |a_n|^2).
+h_t(u, \bar v)
+&= \frac{(u_1 y + u_2 x)\ov{(v_1 y + v_2 x)} + u_1 \bar v_1}{1 + r^2}
+\\
+&\qquad
+- |x|^2 \frac{((u_1y + u_2x) \bar y + u_1)}{1+r^2}
+\frac{(y\ov{(v_1 y + v_2 x)} + \bar v_1)}{1+r^2}
++ t \frac{u_2 \bar v_2}{(1+|y|^2)^2}
+\\
+&= \frac{
+u_1 \bar v_1 |y|^2
++ u_1 \bar v_2 y \bar x
++ u_2 \bar v_1 x \bar y
++ u_2 \bar v_2 |x|^2
++ u_1 \bar v_1}{1 + r^2}
+\\
+&\qquad
+- |x|^2 \frac{(u_1 |y|^2 + u_2 x \bar y + u_1)}{1+r^2}
+\frac{(\bar v_1 |y|^2 + \bar v_2 y \bar x + \bar v_1)}{1+r^2}
++ t \frac{u_2 \bar v_2}{(1+|y|^2)^2}
+\\
+&= \frac{
+u_1 \bar v_1 |y|^2
++ u_1 \bar v_2 y \bar x
++ u_2 \bar v_1 x \bar y
++ u_2 \bar v_2 |x|^2
++ u_1 \bar v_1}{1 + r^2}
+\\
+&\quad
+- |x|^2
+\frac{
+u_1 \bar v_1 (1{+}|y|^2)^2
++ u_1 \bar v_2 (1{+}|y|^2) y \bar x
++ u_2 \bar v_1 (1{+}|y|^2) x \bar y
++ u_2 \bar v_2 |x|^2 |y|^2
+}{(1+r^2)^2}
+\\
+&\quad
++ t \frac{u_2 \bar v_2}{(1+|y|^2)^2}
+\end{align*}
+where $r^2 = |x|^2 + |x|^2|y|^2 = |x|^2(1+|y|^2)$.
+
+In matrix form this is
+$$
+H_t = \begin{pmatrix}
+\frac{1 + |y|^2}{1+r^2} - \frac{|x|^2(1+|y|^2)^2}{(1+r^2)^2} &
+\frac{y \bar x}{1+r^2} - \frac{y \bar x|x|^2(1+|y|^2)}{(1+r^2)^2}
+\\
+\frac{x \bar y}{1+r^2} - \frac{x \bar y|x|^2(1+|y|^2)}{(1+r^2)^2} &
+\frac{|x|^2}{1+r^2} - \frac{|x|^4|y|^2}{(1+r^2)^2} + \frac{t}{(1+|y|^2)^2}
+\end{pmatrix}
+$$
+We have
+$$
+\frac{1}{1+r^2} - \frac{|x|^2(1+|y|^2)}{(1+r^2)^2}
+= \frac{1}{1+r^2} - \frac{r^2}{(1+r^2)^2}
+= \frac{1}{(1+r^2)^2}
+$$
+so we get
+$$
+H_t = \begin{pmatrix}
+\frac{1 + |y|^2}{(1+r^2)^2} &
+\frac{y \bar x}{(1+r^2)^2}
+\\
+\frac{x \bar y}{(1+r^2)^2} &
+\frac{|x|^2(1+|x|^2)}{(1+r^2)^2} + \frac{t}{(1+|y|^2)^2}
+\end{pmatrix}
+$$
+
+Have $(1+x^2)^2 = 1 + 2x^2 + x^4$ so up to $x^4$ we get
+$$
+\frac{1}{(1+x^2)^2} = 1 - 2x^2 - x^4 + 4x^4 = 1 - 2x^2 + 3x^4.
+$$
+Actually only need up to $x^2$ at the origin.
+Get
+$$
+H_t
+=
+\begin{pmatrix}
+1 + |y|^2 - 2|x|^2 &
+y \bar x
+\\
+x \bar y &
+|x|^2 + t - 2t|y|^2
+\end{pmatrix}.
+$$
+Then
+\begin{align*}
+\partial H_t
+& =
+\begin{pmatrix}
+-2 \bar x dx + \bar y dy &
+\bar x dy
+\\
+\bar y dx &
+\bar x dx - 2t \bar y dy
+\end{pmatrix},
+\\
+\bp H_t
+& =
+\begin{pmatrix}
+-2 x d\bar x + y d\bar y &
+x d\bar y
+\\
+y d\bar x &
+x d\bar x - 2t y d\bar y
+\end{pmatrix},
+\\
+\p \bp H_t
+& =
+\begin{pmatrix}
+-2 dx d\bar x + dy d\bar y &
+dx d\bar y
+\\
+dy d\bar x &
+dx d\bar x - 2t dy d\bar y
+\end{pmatrix},
+\end{align*}
+and at the origin $\p H_t = 0$ and
+$H_t = \bigl( \begin{smallmatrix} 1 & 0 \\ 0 & t\end{smallmatrix}\bigr)$ so
+$$
+R_t =
+\begin{pmatrix}
+2 dx d\bar x - dy d\bar y &
+-dx d\bar y
+\\
+-dy d\bar x &
+-dx d\bar x + 2t dy d\bar y
+\end{pmatrix}
+$$
+at the origin.
+Evaluating the forms at $u$ we get
+$$
+\begin{pmatrix}
+2 |u_1|^2 - |u_2|^2 &
+-u_1 \bar u_2
+\\
+-u_2 \bar u_1 &
+-|u_1|^2 + 2t |u_2|^2
+\end{pmatrix}.
+$$
+Then
+\begin{align*}
+H_t(u)
+&= \frac{
+|u_1|^2(2|u_1|^2 - |u_2|^2)
+- |u_1|^2 |u_2|^2
+- |u_1|^2 |u_2|^2
++ |u_2|^2(-|u_1|^2 + 2t |u_2|^2)
+}
+{(|u_1|^2 + t |u_2|^2)^2}
+\\
+&= \frac{2 |u_1|^4 - 4 |u_1|^2 |u_2|^2 + 2t |u_2|^4}
+{(|u_1|^2 + t |u_2|^2)^2}
 \end{align*}
 at the origin.
-We would like this to be positive for all $a_n$ with $|a_n| \leq 1$ for all
-$t$ large enough.
-But note that the limit as $t \to \infty$ is
+If we take $u$ with $|u_1|^2 = |u_2|^2 = \frac12$ we get
 $$
-|a_n|^2 (|a_n|^2 (H_h(e_n) + 4) - 4)
+H_t(u)
+= \frac{\frac12 - 1 + \frac t2}{(\frac12 + \frac t2)^2}
+= 2 \frac{t-1}{(t+1)^2}
 $$
-which is negative for $|a_n|^2 < 4/(4 + H_h(e_N))$, so for $t$ large enough we
-get negative \hsc{} in some directions.\footnote{%
-We can be more precise: Consider the polynomial $p_t(x) = H_h(e_n) x^2
-+ 2e^{-t}(1-x)^2 - 4x(1-x)$ so that
-$R_{h_t}(\xi,\ov\xi,\xi,\ov\xi) = p_t(|a_n|^2)$.
-Its global minimum is
-$2e^{-t} - 2(1+e^{-t})^2/(H_h(e_n)+4+2e^{-t})$ which is negative for all large enough $t$.
-}%
+which is negative for any $t < 1$.
+We have $H_t(1,0) = 2$ for all $t$, so the \hsc{} is positive in some directions.
+
+
+The Ricci tensor is
+\begin{align*}
+r_t(u,\bar v)
+&= R_t(u, \bar v, e_1, e_1) + R_t(u,\bar v, e_2, e_2) / t
+\\
+&= 2 u_1 \bar v_1 - u_2 \bar v_2 + (-u_1 \bar v_1 + 2t u_2 \bar v_2)/t
+\\
+&= (2-1/t) u_1 \bar v_1 + u_2 \bar v_2
+\end{align*}
+and has mixed sign for small enough $t$,
+so the scalar curvature is
+$$
+s_t
+= (2-1/t) + 1/t = 2.
+$$
+Notably this is positive for $t > 0$, which we expect by Hitchin and Sung.
 
 
 
