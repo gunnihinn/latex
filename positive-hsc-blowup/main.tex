@@ -26,6 +26,12 @@
 
 \def\<{\langle}
 \def\>{\rangle}
+\def\fs{b}
+
+\def\ton{a}
+\def\ttw{b}
+\def\tth{c}
+\def\tfo{d}
 
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
@@ -71,8 +77,8 @@
 
 \begin{abstract}
 We consider the blowup of a point of a compact K\"ahler manifold and a metric
-of the form $\mu^*h + t b$ on it, where $h$ is a K\"ahler metric on the
-original manifold and $b$ is Hermitian form that looks like the
+of the form $\mu^*h + t \fs$ on it, where $h$ is a K\"ahler metric on the
+original manifold and $\fs$ is Hermitian form that looks like the
 Fubini--Study metric near the exceptional divisor.
 We calculate the curvature tensor of this metric on the exceptional divisor
 and show that its holomorphic sectional curvature is negative in some
@@ -127,8 +133,8 @@ Sung~\cite{sung1997kahler},
 \'Alvarez,
 Heier and Zheng~\cite{alvarez2018projectivized} or Chaturvedi and
 Heier~\cite{chaturvedi2020hermitian}
-is to consider metrics of the form $\mu^* h + t b$, where $h$ is a metric
-on the base and $b$ a fiberwise metric on the fibers and show they have
+is to consider metrics of the form $\mu^* h + t \fs$, where $h$ is a metric
+on the base and $\fs$ a fiberwise metric on the fibers and show they have
 positive curvature for small enough $t$.
 In this note we try this approach for the blowup of a point.
 We calculate the full curvature tensor of $h_t$ on a point on the exceptional
@@ -190,9 +196,9 @@ Its restriction to $\bl V$ is the form we want.
 
 
 Let $p \in X$ be a point and blow it up to obtain $\mu : \bl X \to X$.
-Let $b$ be the Hermitian form associated to the $(1,1)$-form $\beta$ on $\bl X$
+Let $\fs$ be the Hermitian form associated to the $(1,1)$-form $\beta$ on $\bl X$
 we constructed in Proposition~\ref{prop:fs}.
-Then $h_t = \mu^*h + t b$ is a K\"ahler metric on $\bl X$ for all $t$ small
+Then $h_t = \mu^*h + t \fs$ is a K\"ahler metric on $\bl X$ for all $t$ small
 enough.
 We're going to calculate its curvature tensor at a point on the exceptional
 divisor.
@@ -221,10 +227,10 @@ $$
 In these coordinates the point we want to calculate the \hsc{} at is $(0,0)$
 and we have $D_{h,\xi} \partial / \partial x_j = 0$ at $0$ for $j = 1, \ldots, n$.
 
-We also note that close to the exceptional divisor, $h_t = \mu^* h + t b$ is
-just the restriction of the product metric $p_1^* h \oplus t p_2^* b$ on
+We also note that close to the exceptional divisor, $h_t = \mu^* h + t \fs$ is
+just the restriction of the product metric $p_1^* h \oplus t p_2^* \fs$ on
 $V \times \kk P(V)$ to $\bl X$, where $p_j$ are the projections onto the
-factors and $b$ is the Fubini--Study metric.
+factors and $\fs$ is the Fubini--Study metric.
 
 The only equations that give us any information at $(0,0)$ are
 $$
@@ -249,39 +255,39 @@ Note that the orthogonal complement of $T_{\smash{\blX}}$ at $(0,0)$ is spanned 
 $(e_1, \ldots, e_{n-1})$.
 Any holomorphic tangent field $\xi$ on $\blX$ near $(0,0)$ can be written as
 $$
-\xi = \sum_{j=1}^n a_j \xi_j
-= \sum_{j=1}^{n-1} (a_j x_n + a_n y_j)  e_j
-+ \sum_{j=1}^{n-1} a_j f_j
-+ a_n e_n,
+\xi = \sum_{j=1}^n \ton_j \xi_j
+= \sum_{j=1}^{n-1} (\ton_j x_n + \ton_n y_j)  e_j
++ \sum_{j=1}^{n-1} \ton_j f_j
++ \ton_n e_n,
 $$
-where the $a_j$ are holomorphic functions.
+where the $\ton_j$ are holomorphic functions.
 
 While writing out the curvature tensor it will be useful to have the
-semipositive Hermitian form $\tau(a, \bar b) = \<a, \bar b\> - a_n \bar b_n$
+semipositive Hermitian form $\tau(\ton, \bar \ttw) = \<\ton, \bar \ttw\> - \ton_n \bar \ttw_n$
 at hand.
 This is the pullback of the standard inner product by the projection onto the
 subspace spanned by the first $n-1$ basis elements.
 
 \begin{prop}
 Let
-$\alpha = \sum_j a_j \xi_j$,
-$\beta = \sum_k b_k \xi_k$,
-$\gamma = \sum_l c_l \xi_l$
-and $\delta = \sum_m d_m \xi_m$
+$\alpha = \sum_j \ton_j \xi_j$,
+$\beta = \sum_k \ttw_k \xi_k$,
+$\gamma = \sum_l \tth_l \xi_l$
+and $\delta = \sum_m \tfo_m \xi_m$
 be holomorphic tangent fields close to $(0,0)$.
 The curvature of $h_t$ at the origin is
 $$
 \displaylines{
 R_{h_t}(\alpha, \ov\beta, \gamma, \ov\delta)
-= H_h(e_n) a_n \bar b_n c_n \bar d_n
+= H_h(e_n) \ton_n \bar \ttw_n \tth_n \bar \tfo_n
 + t \bigl(
-\tau(a, \bar b) \tau(c, \bar d) + \tau(a, \bar d) \tau(c, \bar b)
+\tau(\ton, \bar \ttw) \tau(\tth, \bar \tfo) + \tau(\ton, \bar \tfo) \tau(\tth, \bar \ttw)
 \bigr)
 \hfill\cr\hfill{}
-- a_n \bar b_n \tau(c, \bar d)
-- a_n \bar d_n \tau(c, \bar b)
-- c_n \bar b_n \tau(a, \bar d)
-- c_n \bar d_n \tau(a, \bar b).
+- \ton_n \bar \ttw_n \tau(\tth, \bar \tfo)
+- \ton_n \bar \tfo_n \tau(\tth, \bar \ttw)
+- \tth_n \bar \ttw_n \tau(\ton, \bar \tfo)
+- \tth_n \bar \tfo_n \tau(\ton, \bar \ttw).
 }
 $$
 \end{prop}
@@ -294,14 +300,14 @@ R_{h_t}(\alpha, \ov\beta, \gamma, \ov\delta)
 + t p_2^* R_b(\alpha, \ov\beta, \gamma, \ov\delta)
 - \<\sigma(\alpha, \gamma), \ov{\sigma(\beta, \delta)}\>,
 $$
-where $\sigma(\alpha, \beta) = \pi_N(D_{h \oplus e^{-t} b,\alpha} \beta)$ is
+where $\sigma(\alpha, \beta) = \pi_N(D_{h \oplus t \fs,\alpha} \beta)$ is
 the second fundamental form, and the inner product is on the orthogonal complement
 of the tangent bundle.
 
 First,
 $$
 p_1^*R_h(\alpha, \ov\beta, \gamma, \ov\delta)
-= H_h(e_n) a_n \bar b_n c_n \bar d_n
+= H_h(e_n) \ton_n \bar \ttw_n \tth_n \bar \tfo_n
 $$
 at the origin. Second,
 \begin{align*}
@@ -311,7 +317,7 @@ p_2^*R_b(\alpha, \ov\beta, \gamma, \ov\delta)
 + \< p_2(\alpha), \ov{p_2(\delta)} \>_b
 \< p_2(\gamma), \ov{p_2(\beta)} \>_b
 \\
-&= \tau(a, \bar b) \tau(c, \bar d) + \tau(a, \bar d) \tau(c, \bar b)
+&= \tau(\ton, \bar \ttw) \tau(\tth, \bar \tfo) + \tau(\ton, \bar \tfo) \tau(\tth, \bar \ttw)
 \end{align*}
 at the origin
 because the Fubini--Study metric has constant \hsc{} 2
@@ -324,8 +330,8 @@ Third, then,
 $$
 \pi_N(D_{h_t,\alpha} \gamma)
 = \pi_N\biggl(
-\sum_{j=1}^{n} d_{\alpha} c_j \, \xi_j
-+ \sum_{j=1}^n c_j D_{\alpha} \xi_j
+\sum_{j=1}^{n} \tfo_{\alpha} \tth_j \, \xi_j
++ \sum_{j=1}^n \tth_j D_{\alpha} \xi_j
 \biggr).
 $$
 Note that $\pi_N(\xi_j) = 0$ for $j=1,\ldots,n$ so the first term from that sum
@@ -333,32 +339,32 @@ is zero. The second term is
 $$
 \pi_N(D_{\alpha} \xi_j)
 = \pi_N(D_{\alpha}(x_n e_j + f_j))
-= a_n e_j + x_n D_{\alpha} e_j
-= a_n e_j
+= \ton_n e_j + x_n D_{\alpha} e_j
+= \ton_n e_j
 $$
 for $j=1,\ldots,n-1$ at the origin because $D_{\alpha} e_j = 0$ there.
 We also have
 $$
 \pi_N(D_{\alpha} \xi_n)
 = \pi_N\biggl(
-\sum_{k=1}^{n-1} d_{\alpha} y_k \, e_k + y_k D_{\alpha} e_k
+\sum_{k=1}^{n-1} \tfo_{\alpha} y_k \, e_k + y_k D_{\alpha} e_k
 + D_{\alpha} e_n
 \biggr)
-= \sum_{k=1}^{n-1} a_k e_k
+= \sum_{k=1}^{n-1} \ton_k e_k
 $$
 at the origin.
 Together we get
 $$
-\sum_{j=1}^n c_j \pi_N(D_{\alpha} \xi_j)
-= \sum_{j=1}^{n-1} c_j a_n e_j + c_n \sum_{j=1}^{n-1} e_j
-= \sum_{j=1}^{n-1} (a_n c_j + c_n a_j) e_j.
+\sum_{j=1}^n \tth_j \pi_N(D_{\alpha} \xi_j)
+= \sum_{j=1}^{n-1} \tth_j \ton_n e_j + \tth_n \sum_{j=1}^{n-1} e_j
+= \sum_{j=1}^{n-1} (\ton_n \tth_j + \tth_n \ton_j) e_j.
 $$
 And fourth,
 $$
 \pi_N(p_2^*D_{g,\alpha} \gamma)
 = \pi_N \biggl(
-\sum_{j=1}^{n-1} d_\alpha c_j \, f_j
-+ c_j p_2^*D_{g,\alpha} f_j \biggr) = 0
+\sum_{j=1}^{n-1} \tfo_\alpha \tth_j \, f_j
++ \tth_j p_2^*D_{g,\alpha} f_j \biggr) = 0
 $$
 at the origin because there the argument to $\pi_N$ takes values in the bundle
 spanned by the $f_j$.
@@ -366,12 +372,12 @@ The second fundamental form then contributes
 \begin{align*}
 \<\sigma(\alpha, \gamma), \ov{\sigma(\beta, \delta)}\>
 &=
-\sum_{j=1}^{n-1} (a_n c_j + c_n a_j) (\bar b_n \bar d_j + \bar d_n \bar b_j)
+\sum_{j=1}^{n-1} (\ton_n \tth_j + \tth_n \ton_j) (\bar \ttw_n \bar \tfo_j + \bar \tfo_n \bar \ttw_j)
 \\
-&= a_n \bar b_n \tau(c, \bar d)
-+ a_n \bar d_n \tau(c, \bar b)
-+ c_n \bar b_n \tau(a, \bar d)
-+ c_n \bar d_n \tau(a, \bar b)
+&= \ton_n \bar \ttw_n \tau(\tth, \bar \tfo)
++ \ton_n \bar \tfo_n \tau(\tth, \bar \ttw)
++ \tth_n \bar \ttw_n \tau(\ton, \bar \tfo)
++ \tth_n \bar \tfo_n \tau(\ton, \bar \ttw)
 \end{align*}
 to the curvature. Putting all of this together we get the result.
 \end{proof}
@@ -391,25 +397,25 @@ some tangent directions at the origin for all small enough $t$.
 \end{coro}
 
 \begin{proof}
-Let $\xi = \sum_j a_j \xi_j$ be a holomorphic tangent field.
+Let $\xi = \sum_j \ton_j \xi_j$ be a holomorphic tangent field.
 Note that $|\xi_j|_{h_t}^2 = t$ for $j = 1, \ldots, n-1$ and $|\xi_n|_{h_t}^2 = 1$
 at the origin.
 We have
 \begin{align*}
 H_{h_t}(\xi)
-&= \frac{|a_n|^4 H_h(e_n)
-+ 2t \tau(a, \bar a)^2
-- 4 |a_n|^2 \tau(a, \bar a)}{(t \tau(a, \bar a) + |a_n|^2)^2}
+&= \frac{|\ton_n|^4 H_h(e_n)
++ 2t \tau(\ton, \bar \ton)^2
+- 4 |\ton_n|^2 \tau(\ton, \bar \ton)}{(t \tau(\ton, \bar \ton) + |\ton_n|^2)^2}
 \\
-&= \frac{|a_n|^4 H_h(e_n)
-+ 2t (|a|^2 - |a_n|^2)^2
-- 4 |a_n|^2 (|a|^2 - |a_n|^2)}{(t (|a|^2 - |a_n|^2) + |a_n|^2)^2}.
+&= \frac{|\ton_n|^4 H_h(e_n)
++ 2t (|\ton|^2 - |\ton_n|^2)^2
+- 4 |\ton_n|^2 (|\ton|^2 - |\ton_n|^2)}{(t (|\ton|^2 - |\ton_n|^2) + |\ton_n|^2)^2}.
 \end{align*}
-First suppose that $H_h(e_n) < 0$. Picking $a$ with $|a_n| = 1$ we have
-$\tau(a, \bar a) = 0$ so $H_{h_t}(\xi) = H_h(e_n) < 0$.
+First suppose that $H_h(e_n) < 0$. Picking $\ton$ with $|\ton_n| = 1$ we have
+$\tau(\ton, \bar \ton) = 0$ so $H_{h_t}(\xi) = H_h(e_n) < 0$.
 
 Then suppose that $H_h(e_n) \geq 0$.
-We may assume that $|a| = 1$ when checking for positivity and focus only on
+We may assume that $|\ton| = 1$ when checking for positivity and focus only on
 the numerator. We're then left considering the positivity of the polynomial
 \begin{align*}
 p_t(x)
@@ -442,15 +448,15 @@ a metric of positive \hsc{}.
 
 \begin{coro}
 Let
-$\alpha = \sum_j a_j \xi_j$,
-$\beta = \sum_k b_k \xi_k$
+$\alpha = \sum_j \ton_j \xi_j$,
+$\beta = \sum_k \ttw_k \xi_k$
 be holomorphic tangent fields close to $(0,0)$.
 The Ricci tensor of $h_t$ is
 $$
 r_t(\alpha, \ov\beta)
-= H_h(e_n) a_n \bar b_n
-+ (n-1) \tau(a, \bar b)
-- (n-1) a_n \bar b_n / t
+= H_h(e_n) \ton_n \bar \ttw_n
++ (n-1) \tau(\ton, \bar \ttw)
+- (n-1) \ton_n \bar \ttw_n / t
 $$
 at the origin.
 \end{coro}
@@ -459,33 +465,33 @@ at the origin.
 The tangent fields that correspond to
 $v_j = (\delta_{1j}/\sqrt t, \ldots, \delta_{n-1,j}/\sqrt t, \delta_{nj})$ are
 orthonormal at the origin.
-If $\xi$ and $\eta$ are the fields corresponding to $(a_j)$ and $(b_j)$ we
+If $\xi$ and $\eta$ are the fields corresponding to $(\ton_j)$ and $(\ttw_j)$ we
 first have
 $$
-\sum_{j=1}^n H_h(e_n) a_n \bar b_n \delta_{jn} = H_h(e_n) a_n \bar b_n,
+\sum_{j=1}^n H_h(e_n) \ton_n \bar \ttw_n \delta_{jn} = H_h(e_n) \ton_n \bar \ttw_n,
 $$
 and then
 $$
 \sum_{j=1}^n
-\tau(a, \bar b) \tau(v_j, \bar v_j) + \tau(a, \bar v_j) \tau(v_j, \bar b)
-= n \tau(a, \bar b) / t.
+\tau(\ton, \bar \ttw) \tau(v_j, \bar v_j) + \tau(\ton, \bar v_j) \tau(v_j, \bar \ttw)
+= n \tau(\ton, \bar \ttw) / t.
 $$
 The second fundamental form contributes
 $$
 \sum_{j=1}^n
-a_n \bar b_n \tau(v_j, \bar v_j)
-+ a_n \delta_{jn} \tau(v_j, \bar b)
-+ \delta_{jn} \bar b_n \tau(a, \bar v_j)
-+ \delta_{jn}^2 \tau(a, \bar b)
-= (n-1) a_n \bar b_n / t + \tau(a, \bar b)
+\ton_n \bar \ttw_n \tau(v_j, \bar v_j)
++ \ton_n \delta_{jn} \tau(v_j, \bar \ttw)
++ \delta_{jn} \bar \ttw_n \tau(\ton, \bar v_j)
++ \delta_{jn}^2 \tau(\ton, \bar \ttw)
+= (n-1) \ton_n \bar \ttw_n / t + \tau(\ton, \bar \ttw)
 $$
-because $\tau(a, \bar v_n) = 0$.
+because $\tau(\ton, \bar v_n) = 0$.
 Together we get
 \[
-r_t(a, \bar b)
-= H_h(e_n) a_n \bar b_n
-+ (n-1) \tau(a, \bar b)
-- (n-1) a_n \bar b_n / t.
+r_t(\ton, \bar \ttw)
+= H_h(e_n) \ton_n \bar \ttw_n
++ (n-1) \tau(\ton, \bar \ttw)
+- (n-1) \ton_n \bar \ttw_n / t.
 \qedhere
 \]
 \end{proof}
