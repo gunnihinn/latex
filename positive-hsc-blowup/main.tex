@@ -28,10 +28,10 @@
 \def\>{\rangle}
 \def\fs{b}
 
-\def\ton{a}
-\def\ttw{b}
-\def\tth{c}
-\def\tfo{d}
+\def\ton{\alpha}
+\def\ttw{\beta}
+\def\tth{\gamma}
+\def\tfo{\delta}
 
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
@@ -263,10 +263,9 @@ $$
 where the $\ton_j$ are holomorphic functions.
 
 While writing out the curvature tensor it will be useful to have the
-semipositive Hermitian form $\tau(\ton, \bar \ttw) = \<\ton, \bar \ttw\> - \ton_n \bar \ttw_n$
-at hand.
-This is the pullback of the standard inner product by the projection onto the
-subspace spanned by the first $n-1$ basis elements.
+semipositive Hermitian form $\tau(\ton, \bar \ttw) = \<\ton, \bar \ttw\> -
+\ton_n \bar \ttw_n$ at hand. This is the pullback of the standard inner product
+by the projection onto the subspace spanned by the first $n-1$ basis elements.
 
 \begin{prop}
 Let
@@ -478,12 +477,15 @@ $$
 $$
 The second fundamental form contributes
 $$
+\displaylines{
 \sum_{j=1}^n
 \ton_n \bar \ttw_n \tau(v_j, \bar v_j)
 + \ton_n \delta_{jn} \tau(v_j, \bar \ttw)
 + \delta_{jn} \bar \ttw_n \tau(\ton, \bar v_j)
 + \delta_{jn}^2 \tau(\ton, \bar \ttw)
+\hfill\cr\noalign{\vskip-10pt}\hfill{}
 = (n-1) \ton_n \bar \ttw_n / t + \tau(\ton, \bar \ttw)
+}
 $$
 because $\tau(\ton, \bar v_n) = 0$.
 Together we get
