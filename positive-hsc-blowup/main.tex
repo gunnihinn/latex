@@ -23,6 +23,7 @@
 
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
+\def\CC{\mathbf{C}}
 
 \def\<{\langle}
 \def\>{\rangle}
@@ -36,6 +37,7 @@
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
 
+\def\d{\mathrm{d}}
 \def\p{\partial}
 \def\bp{\bar\partial}
 
@@ -149,7 +151,7 @@ the most straightforward method of constructing a metric on it fails to show tha
 
 \section{Our wrongs}
 
-Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\kk C} X = n$
+Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\CC} X = n$
 and let $h$ be a K\"ahler metric on it.
 
 
@@ -172,7 +174,7 @@ Locally around $p$, which may assume is the origin in a complex vector space
 $V$, the blowup is
 $$
 \bl V
-= \{ (v,[w]) \in V \times \kk P(V) \mid v \in \kk C w \}
+= \{ (v,[w]) \in V \times \kk P(V) \mid v \in \CC w \}
 $$
 and $\mu$ is the projection onto the first factor.
 Pick an inner product on $V$ and let $B(r) \subset V$ be a ball of radius $r$
@@ -206,7 +208,7 @@ divisor.
 Recall that locally around $p$ the blowup is
 $$
 \bl V
-= \{ (v,[w]) \in V \times \kk P(V) \mid v \in \kk C w \}.
+= \{ (v,[w]) \in V \times \kk P(V) \mid v \in \CC w \}.
 $$
 If $f \in \GL V$ then $f$ acts on the blowup by $f(v, [w]) = (f(v), [f(w)])$.
 This is an isomorphism that maps the exceptional divisor to itself, and we can
@@ -216,12 +218,12 @@ Let's choose normal coordinates $(x_1,\ldots,x_n)$ centered at $p$.
 There exists $f \in U(n)$ so that $f(w) = (0 \ldots, 0, 1)$, and the
 coordinates obtained by applying $f$ to the old ones are still centered at $p$
 and are normal there because $f \in U(n)$.
-Picking the chart $\{(y_1, \ldots, y_n) \in \kk C^n \mid y_n \not= 0 \}$ for
+Picking the chart $\{(y_1, \ldots, y_n) \in \CC^n \mid y_n \not= 0 \}$ for
 $\kk P(V)$
 we realize the blowup as
 $$
 \bl X
-= \{ (x,y) \in \kk C^n \times \kk C^{n-1}
+= \{ (x,y) \in \CC^n \times \CC^{n-1}
 \mid x_j y_k = x_k y_j \text{ for $j,k = 1,\ldots,n$, where $y_n = 1$}  \}.
 $$
 In these coordinates the point we want to calculate the \hsc{} at is $(0,0)$
@@ -320,10 +322,10 @@ p_2^*R_b(\alpha, \ov\beta, \gamma, \ov\delta)
 \end{align*}
 at the origin
 because the Fubini--Study metric has constant \hsc{} 2
-and $\tau$ is just the inner product on $\kk C^{n-1}$ extended to $\kk C^n$.
+and $\tau$ is just the inner product on $\CC^{n-1}$ extended to $\CC^n$.
 
 Let's now write $\pi_N$ for the projection onto the orthogonal complement of
-$T_{\smash{\blX}}$ in $T_{\smash{\kk C^n \times \kk C^{n-1}|\blX}}$.
+$T_{\smash{\blX}}$ in $T_{\smash{\CC^n \times \CC^{n-1}|\blX}}$.
 At the origin it is just the projection onto the first $n-1$ coordinates.
 Third, then,
 $$
