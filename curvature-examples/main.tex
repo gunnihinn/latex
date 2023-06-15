@@ -23,7 +23,7 @@
 
 \def\ov#1{\overline{#1}}
 \def\qandq{\quad\text{and}\quad}
-\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\kk}[1]{\mathbf{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
 
 \DeclareMathOperator{\Sym}{Sym}
@@ -114,7 +114,7 @@ It is also folklore that all of the reverse relations in the diagram fail (see
 again \cite{zheng2000complex}). Some do not hold by general considerations; for
 example Hirzebruch surfaces
 again carry a metric of positive holomorphic sectional curvature but not one of
-positive Griffiths curvature, for otherwise they would be $\kk P^2$ by the
+positive Griffiths curvature, for otherwise they would be $\kk P^2$ by
 Siu--Yau's solution of the Frankel conjecture~\cite{siu1980compact} and, lo,
 they are not.
 
@@ -124,6 +124,7 @@ In this note we work out local examples that show that the reverse of any known
 positivity implication fails.
 As other people have noted it would be nice to have compact examples of these
 failures but it is fairly difficult to get one's hands on those.
+Suggestions are welcome.
 
 
 
@@ -203,13 +204,6 @@ $$
 is an algebraic K\"ahler curvature tensor.
 \end{proof}
 
-As an aside, this proposition explains why we only ever talk about Griffits
-positivity of K\"ahler metrics.
-A Hermitian metric is Nakano positive if its curvature tensor is
-positive-definite as a Hermitian form on $V \otimes V$.
-Therefore a K\"ahler metric is never Nakano positive when
-$\ker \Pi_2 = \bigwedge^{2} V$ is nontrivial, which happens for every space of
-dimension greater than one.
 
 
 
@@ -375,8 +369,8 @@ $$
 on $\Sym^2 \kk C^2$, as expected.
 Note that $a_{w \ov w}$ is real, so not every Hermitian form on
 $\Sym^2 \kk C^2$ comes from a curvature tensor of a K\"ahler metric.
-(Note that $a_{w \ov w} = b_{z \ov z}$ so this matrix is more symmetric in $a$
-and $b$ than it appears.)
+(Note also that $a_{w \ov w} = b_{z \ov z}$ so this matrix is more symmetric in
+$a$ and $b$ than it appears.)
 
 
 We will conclude the proof by taking the above Hermitian matrix as given and
@@ -619,9 +613,10 @@ Griffiths-positive metric.
 We do not know of an example that shows that $H < 0 \not\to r < 0$ \emph{for
 the given metric}.
 By Wu--Yau--Tosatti--Yang it is probably difficult to find one.
+Broder~\cite{broder} has a variety of examples of compact manifolds where $r <
+0 \not\to H<0$.
 
-
-\bibliographystyle{plain}
+\bibliographystyle{plainurl}
 \bibliography{main}
 
 
