@@ -25,14 +25,10 @@
 \def\<{\langle}
 \def\>{\rangle}
 \def\ov#1{\overline{#1}}
-\def\qandq{\quad\text{and}\quad}
-\newcommand{\kk}[1]{\mathbb{#1}}
-\newcommand{\cc}[1]{\mathcal{#1}}
 \def\CC{\mathbf{C}}
 \def\d{\,d}
 
 \DeclareMathOperator{\Sym}{Sym}
-\DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\id}{Id}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\Vol}{Vol}
@@ -191,6 +187,10 @@ such a tensor is positive if its Hermitian form on $\Sym^2 V$ is
 positive-definite.
 However such a metric would also be Griffiths-positive, so Siu and Yau's
 theorem would imply that the underlying space is a projective space.
+This should offer something different from Demailly's
+$m$-positivity~\cite[Chapter~7, Definition~6.5]{agbook} that might be
+interesting in the negatively curved case.
+
 
 
 \section{Projection formula}
@@ -206,8 +206,8 @@ If $L : W \to Z$ is a linear map then $L \int_X f(v) \d\mu(v) = \int_X Lf(v)
 d\mu(v)$, because that holds at every step of the definition of the integral of
 a measurable function.
 This implies the integral is independent of the choice of basis.
-It also implies that if $f : V \to V$ is continuous then the trace commutes
-with the integral.
+It also implies that if $f : \End V \to \End V$ is continuous then the trace
+commutes with the integral.
 
 Let's suppose $V$ is equipped with a Hermitian inner product $h$
 and let's write $d\mu$ for the induced volume form on the unit sphere $S(V)$ in
@@ -252,8 +252,9 @@ which implies the result.
 \section{K\"ahler metrics}
 
 We work locally on the manifold $X$ and will write $V = T_{X,x}$.
-We suppose here that $h$ is a K\"ahler metric, which just means that we have a Hermitian inner product on $V$, but that the associated algebraic curvature tensor $R$ arises as
-the pullback of a tensor in $B(\Sym^2 V)$.
+We suppose here that $h$ is a K\"ahler metric, which just means that we have a
+Hermitian inner product on $V$, and that the associated algebraic curvature
+tensor $R$ arises as the pullback of a tensor in $B(\Sym^2 V)$.
 
 \begin{coro}
 $$
@@ -461,7 +462,7 @@ We now suppose only that $h$ is a Hermitian metric, which again gives a
 Hermitian inner product on $V$, but now consider an arbitrary algebraic
 Hermitian curvature tensor $R$ on $V \otimes V$.
 Recall that such a tensor has three Ricci tensors $r_1, r_2, r_3$ (technically
-four, but two are conjugate to each other and the other two are Hermitian) and two
+four, but two of those are conjugate to each other) and two
 scalar curvatures $s_1$ and $s_2$.
 
 \begin{coro}
@@ -661,10 +662,12 @@ R_{(\wedge^2 V, \Sym^2V)} & 0
 \end{pmatrix}.
 $$
 We also see that $s_1 = -s_2$, and that $r_1 + r_2 + r_2^\dagger + r_3 = 0$.
-It's not clear that there is further water to be squeezed from this stone.
+It's interesting that we could have scalar curvatures of differing sign
+associated to the same connection, but apart from that
+it's not clear that there is further water to be squeezed from this stone.
 
 
-\bibliographystyle{plain}
+\bibliographystyle{plainurl}
 \bibliography{main}
 
 \end{document}

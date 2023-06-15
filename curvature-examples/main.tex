@@ -45,24 +45,18 @@
 
 \begin{abstract}
 Let $R$ be the curvature tensor of a K\"ahler metric, and let $H$, $r$ and $s$
-be its holomorphic sectional, Ricci and scalar curvatures. We show that
-$$
-\frac{1}{\Vol S(V)} \int_{S(V)}
-\!\!\!\!
-H(v)^2 \, d\mu(v)
-= \frac{6}{\binom{n+3}{4}} \bigl(
-|R|^2 + 2 |r|^2 + s^2
-\bigr),
-$$
-where $S(V)$ is the unit sphere.
-We also work out local examples that illustrate the folklore that the reverse
-implications between the positivity of the various curvature tensors of
-K\"ahler metrics all fail.
+be its holomorphic sectional, Ricci and scalar curvatures.
+A K\"ahler metric has a curvature tensor, which yields the holomorphic sectional
+curvature, the Ricci tensor and the scalar curvature of the metric.
+It is well-known that the positivity of some of these tensors implies the
+positivity of others.
+We work out local examples that illustrate the folklore that the reverse
+implications between the positivity of these various tensors of all fail.
 \end{abstract}
 
 \maketitle
 
-\section{Introduction}
+\section*{Introduction}
 
 It is well-known that the curvature properties of K\"ahler metrics ``flow
 downward''.
@@ -97,9 +91,8 @@ H \ar[dr] & & r \ar[dl]
 & s &
 \end{tikzcd}
 $$
-where an arrow $\alpha \to \beta$ means that $\alpha$ dominates $\beta$.
-This is well-known (see for example \cite{zheng2000complex}) but we give a
-quick proof in Proposition~\ref{prop:dominance}.
+where an arrow $\alpha \to \beta$ means that $\alpha$ dominates $\beta$
+(see for example \cite{zheng2000complex}).
 
 The witches of the field know that neither $H$ nor $r$ dominates the other.
 The best evidence for this seems to be indirect.
@@ -131,10 +124,6 @@ In this note we work out local examples that show that the reverse of any known
 positivity implication fails.
 As other people have noted it would be nice to have compact examples of these
 failures but it is fairly difficult to get one's hands on those.
-Along the way we discuss some basic properties of algebraic curvature tensors
-and give a representation-theoretic derivation of some integrals of the
-holomorphic sectional curvature over the unit sphere, which give a new proof
-that the holomorphic sectional curvature determines the whole curvature tensor.
 
 
 
@@ -218,487 +207,11 @@ As an aside, this proposition explains why we only ever talk about Griffits
 positivity of K\"ahler metrics.
 A Hermitian metric is Nakano positive if its curvature tensor is
 positive-definite as a Hermitian form on $V \otimes V$.
-kernel is never positive-definite.
-Therefore a K\"ahler metric is never Nakano positive when $\pi$ is not
-injective, which happens when
-$n^2 = \dim V \otimes V > \dim \Sym^2 V = \binom {n+1}2$,
-that is, when $n > 1$.
-
-There should then be a notion of positivity for K\"ahler curvature tensors that
-interpolates between Griffiths positivity and Nakano positivity and is perhaps
-more geometrically motivated than Griffiths positivity, where we would say that
-such a tensor is positive if its Hermitian form on $\Sym^2 V$ is
-positive-definite.
-In light of Siu and Yau's theorem any compact K\"ahler manifold that
-admits a metric so positive is just projective space, so we don't need to think
-about it anymore.
+Therefore a K\"ahler metric is never Nakano positive when
+$\ker \Pi_2 = \bigwedge^{2} V$ is nontrivial, which happens for every space of
+dimension greater than one.
 
 
-
-\subsection*{Holomorphic sectional curvature determines the whole tensor}
-
-It is well-known that the holomorphic sectional curvature of a K\"ahler metric
-determines the whole curvature tensor (\cite{zheng2000complex}, again) and that
-its average over the unit sphere is a multiple of the scalar curvature~
-\cite{berger1965varietes,zheng2000complex,diverio2020kobayashi}.
-The proofs of this in the litarature are somewhat mysterious;
-the first proceeds by algebraic manipulations that are not explained or
-motivated and only seem justified post-hoc by virtue of giving the right answer;
-the second is by a brute force integration that seems to imply the result is
-due to the seeming coincidence that integrating $|z_j^4|$ and $|z_j|^2 |z_k|^2$
-over the sphere gives the same result up to a factor of 2.
-We intend to show that both results flow from the same representation-theoretic
-source.
-
-
-Our starting point there involves vector-valued integration, so let's recall
-some basic facts.
-Let $V$ and $W$ be finite-dimensional complex vector spaces equipped with their
-Lebesgue measures.
-If $f : V \to W$ is a continuous function and $X \subset V$ a measurable subset
-we define $\int_X f(v) d\mu(v) \in W$ to be the vector we get after picking
-bases and integrating coordinate by coordinate.
-If $L : W \to Z$ is a linear map then $L \int_X f(v) d\mu(v) = \int_X Lf(v)
-d\mu(v)$, because that holds at every step of the definition of the integral of
-a measurable function.
-This implies the integral is well-defined, as it behaves correctly with respect
-to a change of bases.
-It also implies that if $f : V \to V$ is continuous then the trace commutes
-with the integral.
-
-Let's suppose $V$ is equipped with a Hermitian inner product $h$
-and let's write $d\mu$ for the induced volume form on the unit sphere $S(V)$ in
-$V$. For $v \in V$ we define $v \otimes v^*$ to be the linear map
-$h^*(\ov v) v = x \mapsto h(x, \ov v) v$.
-Note that if $f \in \End V$ then $f \circ v \otimes v^* = h^*(\ov v) f(v)$
-and thus $\tr(f \circ v \otimes v^*) = h(fv, \ov v)$.
-The following is known to quantum information theorists; see
-\cite{harrow2013church} and \cite[Chapter~7]{watrous2018theory}.
-
-\begin{prop}
-\label{prop:int-id}
-Denote by $\Pi_d : V^{\otimes d} \to V^{\otimes d}$ the projection onto $\Sym^d V$.
-Then
-$$
-\frac{1}{\Vol S(V)}
-\int_{S(V)} (v \otimes v^*)^{d} d\mu(v)
-= \frac{1}{\binom{n+d-1}{d}} \Pi_d.
-$$
-\end{prop}
-
-\begin{proof}
-Let's denote the map defined by the integral by $L$. If $g \in \End V$ is
-unitary with respect to $h$ we have $h(g x, \ov v) = h(x, \ov{g^{-1} v})$ and
-$|\!\det g| = 1$ so the change of basis formula implies that $L g^d = g^d L$.
-The map $L$ is then an interleaving operator of the representation $V^{\otimes d}$
-of the unitary group.
-
-The integral is thus a sum of multiples of the projections onto the irreducible
-factors of $V^{\otimes d}$.
-Note however that the integral takes values in $\Sym^d V$ because the integrand
-is invariant under $S_d$, so $L = \lambda \Pi_d$ for some scalar $\lambda$.
-For a unit vector $v$ we have $\tr v \otimes v^* = |v|^2 = 1$.
-Taking the trace we then find that $1 = \lambda \binom{n+d-1}{d}$,
-which implies the result.
-\end{proof}
-
-
-\begin{coro}
-\begin{align*}
-\frac{1}{\Vol S(V)} \int_{S(V)}
-\!\!\!
-H(v) \, d\mu(v)
-&= \frac{1}{\binom{n+1}{2}} s.
-\\
-\frac{1}{\Vol S(V)} \int_{S(V)}
-\!\!\!
-H(v)^2 \, d\mu(v)
-&=
-\frac{6}{\binom{n+3}4} (|R|^2 + 2|r|^2 + s^2).
-\end{align*}
-\end{coro}
-
-
-\begin{proof}
-If $f \in \End V^{\otimes 2}$ is symmetric then taking the trace of the
-equation in Proposition~\ref{prop:int-id} for $d = 2$ gives
-$$
-\frac{1}{\Vol S(V)}
-\int_{S(V)} h^{\otimes 2}(f(v \otimes v), \ov{v \otimes v}) \, d\mu(v)
-= \frac{1}{\binom{n+1}{2}} \tr f.
-$$
-If $q \in B(\Sym^2)$ is the Hermitian form defined by the curvature tensor $R$,
-then applying this to $f = (h^{\otimes 2})^{-1} \Pi_2^* b$ gives the first
-equation.
-
-For the second equation, we consider $f \otimes f \in \End V^{\otimes 4}$ where
-$f$ is as before and get that
-$$
-\frac{1}{\Vol S(V)}
-\int_{S(V)} h^{\otimes 2}(f(v \otimes v), \ov{v \otimes v})^2 \, d\mu(v)
-= \frac{1}{\binom{n+3}{4}}
-\tr (f \circ \Pi_4).
-$$
-We know that $\Pi_d = \sum_{\sigma \in S_d} W_\sigma$, where $S_d$ is the
-symmetric group on $d$ letters and $W_\sigma(v_1 \otimes \cdots \otimes v_d) =
-v_{\sigma(1)} \otimes \cdots \otimes v_{\sigma(d)}$.
-We note that $W_{\sigma\rho} = W_\sigma W_\rho$.
-The group $S_4$ is generated by
-$\sigma = (1 \  2)$ and
-$\rho = (1 \  2 \  3 \  4)$, explicitly as%
-\def\ze#1{{\color{red}#1}}
-\def\on#1{{\color{blue}#1}}
-\def\tw#1{{\color{brown}#1}}
-\def\th#1{{\color{violet}#1}}
-\begin{align*}
-\ze{(1\;2\;3\;4)} &= e
-	     &
-\on{(2\;3\;4\;1)} &= \rho
-	     &
-\tw{(3\;4\;1\;2)} &= \rho \rho
-	     &
-\th{(4\;1\;2\;3)} &= \rho \rho \rho
-\\
-\ze{(2\;1\;3\;4)} &= \sigma
-	     &
-\on{(1\;3\;4\;2)} &= \rho\sigma
-	     &
-\tw{(2\;4\;1\;3)} &= \rho \sigma \rho
-	     &
-\th{(4\;2\;1\;3)} &= \rho \rho \rho\sigma
-\\
-\ze{(1\;3\;2\;4)} &= \rho \rho \rho \sigma \rho
-	     &
-\on{(3\;2\;4\;1)} &= \sigma\rho
-	     &
-\tw{(4\;3\;1\;2)} &= \sigma\rho \rho
-	     &
-\th{(4\;1\;3\;2)} &= \rho \rho \sigma \rho
-\\
-\ze{(1\;2\;4\;3)} &= \rho \rho \sigma \rho \rho
-	     &
-\on{(3\;1\;4\;2)} &= \sigma \rho \sigma
-	     &
-\tw{(3\;4\;2\;1)} &= \rho \rho\sigma
-	     &
-\th{(3\;1\;2\;4)} &= \rho \sigma \rho \rho
-\\
-\ze{(2\;1\;4\;3)} &= \rho \rho \sigma \rho \rho \sigma
-		  &
-\th{(3\;2\;1\;4)} &= \rho \sigma \rho \rho \sigma
-	     &
-\tw{(1\;4\;2\;3)} &=  \rho\sigma \rho \sigma
-	     &
-\th{(1\;4\;3\;2)} &= \sigma \rho \rho \sigma \rho
-\\
-\ze{(2\;3\;1\;4)} &= \rho \rho \rho \sigma \rho \sigma
-	     &
-\th{(2\;4\;3\;1)} &= \sigma \rho \rho \sigma \rho \sigma
-	     &
-\tw{(4\;3\;2\;1)} &= \sigma \rho \rho \sigma
-	     &
-\th{(4\;2\;3\;1)} &= \rho \rho \sigma \rho\sigma
-\end{align*}
-as the reader can have fun verifying (or write a program to generate these, as
-I did).
-We have colored the elements of $S_4$ by the number of times $\rho$ appears
-in their expressions modulo 4, foreshadowingly.
-As $f$ is symmetric we have $f \otimes f \circ W_{\sigma} = f \otimes f$
-so we only need to figure out what the traces of $f \otimes f \circ W_{\rho^k}$
-are for $k = 1, 2, 3$ because even I can tell that
-$\tr(f \otimes f \circ W_{e}) = (\tr f)^2$.
-
-To do this we pick a basis $(e_j)$ of $V$ and denote by $(e_j
-\otimes e_k \otimes e_l \otimes e_m)$ the induced basis of $V^{\otimes 4}$.
-Denote by $f_{jk,lm}$ the coefficients of the matrix of $f$ in the
-corresponding basis $(e_j \otimes e_k)$ of $V^{\otimes 2}$, so the matrix of
-$f \otimes f$ has the coefficients $f_{jk,lm} f_{pq,rs}$.
-Using Einstein notation we then have
-\begin{align*}
-\tr(f \otimes f \circ W_{\rho})
-&= f_{kp,jk} f_{qj,pq}
-\\
-&= (\tr_{14} f)_{pj} (\tr_{14} f)_{jp}
-= \ov{(\tr_{14} f)_{jp}} (\tr_{14} f)_{jp}
-= |\! \tr_{14} f|^2,
-\\
-\tr(f \otimes f \circ W_{\rho^2})
-&= f_{pq,jk} f_{jk,pq}
-= \ov f_{\! jk,pq} f_{jk,pq}
-= |f|^2,
-\\
-\tr(f \otimes f \circ W_{\rho^3})
-&= f_{qj,jk} f_{kp,pq}
-\\
-&= (\tr_{23} f)_{qk} (\tr_{23} f)_{kq}
-= \ov{(\tr_{23} f)_{kq}} (\tr_{23} f)_{kq}
-= |\! \tr_{23} f|^2,
-\end{align*}
-where $\tr_{jk} : \End V^{\otimes 4} \to \End V^{\otimes 2}$ is the partial
-trace in $j$ and $k$ and the equalities involving conjugations hold because
-$f^\dagger = f$. As $f$ is symmetric the partial traces $\tr_{jk} f$ are all
-equal to $h^{-1} r$.
-
-Looking at the generator table above, we see that after discarding $\sigma$
-the term $|f|^2 = |R|^2$ appears 6 times, as does the term $(\tr f)^2 = s^2$,
-and that $|\!\tr_{jk} f|^2 = |r|^2$ appears $4 + 8 = 2 \cdot 6$ times.
-\end{proof}
-
-If we just have $f \in \End V^{\otimes 2}$ with $f$ Hermitian (that is, $f$ comes
-from a Hermitian curvature tensor $R$) we get the 24 traces
-\begin{align*}
-\tr(f \otimes f \circ W_{(jklm)})
-&= f_{jk,jk} f_{lm,lm}
-= \ov{\tr \tr_{13} f} \tr \tr_{13} f
-= (\tr f)^2,
-\\
-\tr(f \otimes f \circ W_{(jkml)})
-&= f_{jk,jk} f_{ml,lm}
-= \ov{\tr \tr_{13} f} \tr \tr_{14} f
-= \tr(\tr_{14} f) \, \tr f,
-\\
-\tr(f \otimes f \circ W_{(jlkm)})
-&= f_{jl,jk} f_{km,lm}
-= \ov{(\tr_{13} f)_{kl}} (\tr_{24} f)_{kl}
-= \langle \tr_{24} f, \ov{\tr_{13} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(jlmk)})
-&= f_{jl,jk} f_{mk,lm}
-= \ov{(\tr_{13} f)_{kl}} (\tr_{14} f)_{kl}
-= \langle \tr_{14} f, \ov{\tr_{13} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(jmkl)})
-&= f_{jm,jk} f_{kl,lm}
-= \ov{(\tr_{13} f)_{km}} (\tr_{23} f)_{km}
-= \langle \tr_{23} f, \ov{\tr_{13} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(jmlk)})
-&= f_{jm,jk} f_{lk,lm}
-= \ov{(\tr_{13} f)_{km}} (\tr_{13} f)_{km}
-= |\!\tr_{13} f|^2,
-\\
-\tr(f \otimes f \circ W_{(kjlm)})
-&= f_{kj,jk} f_{lm,lm}
-= \ov{\tr \tr_{14} f} \tr \tr_{13} f
-= \tr(\tr_{14}f) \, \tr f,
-\\
-\tr(f \otimes f \circ W_{(kjml)})
-&= f_{kj,jk} f_{ml,lm}
-= \ov{\tr \tr_{14} f} \tr \tr_{14} f
-= \tr(\tr_{14} f)^2,
-\\
-\tr(f \otimes f \circ W_{(kljm)})
-&= f_{kl,jk} f_{jm,lm}
-= \ov{(\tr_{23} f)_{jl}} (\tr_{24} f)_{jl}
-= \langle \tr_{24} f, \ov{\tr_{23} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(klmj)})
-&= f_{kl,jk} f_{mj,lm}
-= \ov{(\tr_{23} f)_{jl}} (\tr_{14} f)_{jl}
-= \langle \tr_{14} f, \ov{\tr_{23} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(kmjl)})
-&= f_{km,jk} f_{jl,lm}
-= \ov{(\tr_{23} f)_{jm}} (\tr_{23} f)_{jm}
-= |\! \tr_{23} f|^2,
-\\
-\tr(f \otimes f \circ W_{(kmlj)})
-&= f_{km,jk} f_{lj,lm}
-= \ov{(\tr_{23} f)_{jm}} (\tr_{13} f)_{jm}
-= \langle \tr_{13} f, \ov{\tr_{23} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(ljkm)})
-&= f_{lj,jk} f_{km,lm}
-= \ov{(\tr_{14} f)_{kl}} (\tr_{24} f)_{kl}
-= \langle \tr_{24} f, \ov{\tr_{14} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(ljmk)})
-&= f_{lj,jk} f_{mk,lm}
-= \ov{(\tr_{14} f)_{kl}} (\tr_{14} f)_{kl}
-= |\! \tr_{14} f|^2,
-\\
-\tr(f \otimes f \circ W_{(lkjm)})
-&= f_{lk,jk} f_{jm,lm}
-= \ov{(\tr_{24} f)_{jl}} (\tr_{24} f)_{jl}
-= |\! \tr_{24} f|^2,
-\\
-\tr(f \otimes f \circ W_{(lkmj)})
-&= f_{lk,jk} f_{mj,lm}
-= \ov{(\tr_{24} f)_{jl}} (\tr_{14} f)_{jl}
-= \langle \tr_{14} f, \ov{\tr_{24} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(lmjk)})
-&= f_{lm,jk} f_{jk,lm}
-= \ov{f_{jk,lm}} f_{jk,lm}
-= |f|^2,
-\\
-\tr(f \otimes f \circ W_{(lmkj)})
-&= f_{lm,jk} f_{kj,lm}
-= \ov{f_{jk,lm}} f_{kj,lm}
-= \langle f \circ W_{(12)}, \ov f \rangle ,
-\\
-\tr(f \otimes f \circ W_{(mjkl)})
-&= f_{mj,jk} f_{kl,lm}
-= \ov{(\tr_{14} f)_{km}} (\tr_{23} f)_{km}
-= \langle \tr_{23} f, \ov{\tr_{14} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(mjlk)})
-&= f_{mj,jk} f_{lk,lm}
-= \ov{(\tr_{14} f)_{km}} (\tr_{13} f)_{km}
-= \langle \tr_{13} f, \ov{\tr_{14} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(mkjl)})
-&= f_{mk,jk} f_{jl,lm}
-= \ov{(\tr_{24} f)_{jm}} (\tr_{23} f)_{jm}
-= \langle \tr_{23} f, \ov{\tr_{24} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(mklj)})
-&= f_{mk,jk} f_{lj,lm}
-= \ov{(\tr_{24} f)_{jm}} (\tr_{13} f)_{jm}
-= \langle \tr_{13} f, \ov{\tr_{24} f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(mljk)})
-&= f_{ml,jk} f_{jk,lm}
-= \ov{f_{jk,ml}} f_{jk,lm}
-= \langle f, \ov{W_{(12)} \circ f} \rangle,
-\\
-\tr(f \otimes f \circ W_{(mlkj)})
-&= f_{ml,jk} f_{kj,lm}
-= \ov{f_{jk,ml}} f_{kj,lm}
-= \langle f \circ W_{(12)}, \ov{W_{(12)} \circ f} \rangle.
-\end{align*}
-The sum of the 16 different $\langle \tr_{jk} f, \ov{\tr_{ml} f} \rangle$
-factors is $|\!\tr_{13} f + \tr_{14} f + \tr_{23} f + \tr_{24} f|^2$.
-Note that as $f$ is Hermitian we have
-$$
-(\tr_{13} f)^\dagger = \tr_{13} f,
-\quad
-(\tr_{14} f)^\dagger = \tr_{23} f,
-\quad
-(\tr_{24} f)^\dagger = \tr_{24} f.
-$$
-The sum of the 4 different total trace factors is likewise
-$(\tr f + \tr(\tr_{14} f))^2$ (as the total traces as real because $f$ is
-Hermitian).
-
-\def\<{\langle}
-\def\>{\rangle}
-Write $\sigma = W_{(12)} \in \End V^{\otimes 2}$.
-Clearly $\sigma^2 = \id$ so its eigenvalues are $1$ and $-1$, and in fact
-the splitting $V^{\otimes 2} = \Sym^2 V \oplus \bigwedge^2 V$
-is according to the eigenspaces of $\sigma$,
-which acts as $\id$ on $\Sym^2V$ and $-\id$ on $\bigwedge^2 V$.
-Writing $\sigma$ out according to this splitting we have
-$$
-\sigma = \begin{pmatrix}
-\id & 0
-\\
-0 & -\id
-\end{pmatrix}
-$$
-from which it is clear that $\sigma^\dagger = \sigma$.
-Because of this and $\sigma^2 = \id$ we get
-$$
-\< f \sigma, \ov g \> = \<f, \ov{g\sigma}\>,
-\quad
-\< \sigma f , \ov g \> = \<f, \ov{\sigma g}\>,
-\quad
-\< \sigma f, \ov{\sigma g} \> = \<f, \ov g\>.
-$$
-Note that $\Pi_2 = \frac12(\id + \sigma)$.
-For any $f \in \End V^{\otimes 2}$ its symmetric part is $\Pi_2 \circ f \circ
-\Pi_2$ and
-$$
-\Pi_2 \circ f \circ \Pi_2
-= \tfrac14 (\id + \sigma) f (\id + \sigma)
-= \tfrac14 (f + f \sigma + \sigma f + \sigma f \sigma).
-$$
-Then
-\begin{align*}
-16 |\Pi_2 \circ f \circ \Pi_2|^2
-&= |f|^2
-+ \< f, f \sigma \>
-+ \< f, \sigma f \>
-+ \< f, \sigma f \sigma \>
-\\
-&\qquad
-+ \< f \sigma, f \>
-+ \< f \sigma, f \sigma \>
-+ \< f \sigma, \sigma f \>
-+ \< f \sigma, \sigma f \sigma \>
-\\
-&\qquad
-+ \< \sigma f, f \>
-+ \< \sigma f, f \sigma \>
-+ \< \sigma f, \sigma f \>
-+ \< \sigma f, \sigma f \sigma \>
-\\
-&\qquad
-+ \< \sigma f \sigma, f \>
-+ \< \sigma f \sigma, f \sigma \>
-+ \< \sigma f \sigma, \sigma f \>
-+ \< \sigma f \sigma, \sigma f \sigma \>
-\\
-&= |f|^2
-+ \< f \sigma, f \>
-+ \< \sigma f, f \>
-+ \< \sigma f \sigma, f \>
-\\
-&\qquad
-+ \< f \sigma, f \>
-+ |f|^2
-+ \< \sigma f \sigma, f \>
-+ \< \sigma f , f \>
-\\
-&\qquad
-+ \< \sigma f, f \>
-+ \< \sigma f \sigma, f \>
-+ |f|^2
-+ \< f\sigma , f \>
-\\
-&\qquad
-+ \< \sigma f \sigma, f \>
-+ \< \sigma f, f \>
-+ \< f \sigma, f \>
-+ |f|^2
-\\
-&= 4(|f|^2
-+ \< f \sigma, f \>
-+ \< \sigma f, f \>
-+ \< \sigma f \sigma, f \>).
-\end{align*}
-Then finally
-$$
-\frac{1}{\Vol S(V)}
-\int_{S(V)}
-\!\!\!
-H(v)^2 \, d\mu(v)
-= \frac{1}{\binom{n+3}{4}}
-\bigl(
-4 |R_{\Sym^2 V}|^2
-% One pair of these are equal
-+ |r_1 + r_2 + r_3 + r_4|^2
-+ (s_1 + s_2)^2
-\bigr),
-$$
-where
-$R_{\Sym^2 V} = \Pi_2 \circ R \circ \Pi_2$,
-$r_j$ are the Ricci tensors of $R$ and $s_j$ are its scalar curvatures.
-
-
-
-The equation for the $L^2$-norm of $H$ now gives an alternate reason for why
-$H$ determines the whole curvature tensor.
-It also shows that knowing a bound on $H$ gives a bound on $R$, which is
-usually observed as a corollary of a polarization identity.
-The polarization identity shows that if $|H|^2 \leq C$ then $|R|^2 \leq
-24 C$ because it involves applying the triangle inequality to a sum of 24 factors.
-We get here that $|R|^2 \leq 6\binom{n+3}{4} C$, which is arbitrarily worse!
-
-
-\subsection*{Dominance}
-
-The following statement is classical but quickly proved now that we're here.
 
 \begin{prop}
 \label{prop:dominance}
@@ -714,31 +227,18 @@ H \ar[dr] & & r \ar[dl]
 $$
 \end{prop}
 
-\begin{proof}
-We prove the statements under the assumption that the tensors are positive.
-The proofs for semipositivity and (semi)negativity are the same.
-
-If $R$ is Griffiths positive, then by definition $R(x, \ov x, y, \ov y) > 0$
-for all nonzero $x, y$. Then $R(x, \ov x, x, \ov x) > 0$ so $H(x) > 0$.
-The Ricci tensor is the trace
+This is both well-known and mostly easily proved by taking traces in an
+orthonormal basis.
+The trickiest impliciation is to show that $H \to s$.
+Berger~\cite{berger1965varietes} gave the original proof by showing that
 $$
-r(x, \ov y) = \sum_{j = 1}^n R(x, \ov y, e_j, \ov e_j)
-$$
-in an orthonormal basis $(e_j)$, so it is positive-definite.
-The scalar curvature is the trace
-$$
-s = \sum_{j=1}^n r(e_j, \ov e_j)
-$$
-in an orthonormal basis, so $s > 0$ if $r$ is positive-definite.
-As we saw before we have
-\[
-\frac{1}{\Vol S(V)}
-\int_{S(V)} H(v) \, d\mu(v)
+\frac{1}{\Vol S^{2n-1}} \int_{S^{2n-1}} \!\!\! H(v) \, d\sigma(v)
 = \frac{1}{\binom{n+1}{2}} s
-\]
-so $s > 0$ if $H > 0$.
-\end{proof}
-
+$$
+by writing $v = \sum_{j=1}^n v_j e_j$ in an orthonormal basis $(e_j)$,
+expanding the curvature tensor $R(v, \bar v, v, \bar v)$, and integrating
+polynomials in $v_j$ over the sphere. (The reader who wants to try their
+hand at this can see Folland~\cite{folland} for the last part.)
 
 
 \section{Examples of non-dominance in dimension two}
