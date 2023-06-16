@@ -27,6 +27,7 @@
 \def\ov#1{\overline{#1}}
 \def\CC{\mathbf{C}}
 \def\d{\,d}
+\def\herm{\mathbf{H}}
 
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\id}{Id}
@@ -48,7 +49,9 @@
 We calculate the $L^2$-norm of the holomorphic sectional curvature of a
 K\"ahler metric by representation-theoretic means. This yields a new proof that
 the holomorphic sectional curvature determines the whole curvature tensor.
-We then investigate what the holomorphic sectional curvature of a Hermitian metric determines.
+We then investigate what the holomorphic sectional curvature of a Hermitian
+metric determines and calculate the $L^2$-norm of the holomorphic bisectional
+curvature.
 \end{abstract}
 
 \maketitle
@@ -86,18 +89,35 @@ $$
 \frac{1}{\Vol S(V)} \int_{S(V)} (v \otimes v^*)^{\otimes d} \d\sigma
 = \frac{1}{\binom{n+d-1}{d}} \Pi_{d},
 $$
-where $V$ is an $n$-dimensional complex vector space and $\Pi_{d} : V^{\otimes d} \to V^{\otimes d}$ is the projection onto the subspace of symmetric $d$-tensors.
-Berger's scalar curvature identity is an immediate consequence of this identity, and it and some routine linear algebra let us also evaluate the $L^2$ norm of the holomorphic scalar curvature and see that
+where $V$ is an $n$-dimensional complex vector space, $\Pi_{d} : V^{\otimes
+d} \to V^{\otimes d}$ is the projection onto the subspace of symmetric
+$d$-tensors and $v^* := u \mapsto h(u, \bar v)$.
+Berger's scalar curvature identity is an immediate consequence of this
+identity, and it and some routine linear algebra let us also evaluate the $L^2$
+norm of the holomorphic sectional curvature and see that
 $$
 \frac{1}{\Vol S(T_{X,x})} \int_{S(T_{X,x})}
 \!\!\!
 H(\xi)^2 \d\sigma
 = \frac{|R|^2 + 4|r|^2 + s^2}{\binom{n+1}{2}\binom{n+3}{2}},
 $$
-where $r$ is the Ricci-tensor of $h$, which neatly explains why the holomorphic sectional curvature determines the whole tensor.
+where $r$ is the Ricci-tensor of $h$, which neatly explains why the holomorphic
+sectional curvature determines the whole tensor.
 
-Slightly more bookkeeping lets us also consider the same integrals for the curvature tensors of Hermitian metrics.
-There it is no longer true that the holomorphic sectional curvature determines the whole tensor, but we can say what it does determine, which turns out to be essentially the ``symmetric'' part of the tensor when viewed as a Hermitian form on $V^{\otimes 2} = \bigwedge^{2} V \oplus \Sym^2 V$.
+Slightly more bookkeeping lets us also consider the same integrals for the
+curvature tensors of Hermitian metrics. There it is no longer true that the
+holomorphic sectional curvature determines the whole tensor, but we can say
+what it does determine, which turns out to be essentially the ``symmetric''
+part of the tensor when viewed as a Hermitian form on $V^{\otimes 2} =
+\bigwedge^{2} V \oplus \Sym^2 V$.
+As an application we then calculate the $L^2$-norm of the holomorphic
+bisectional curvature of a K\"ahler metric.
+
+
+\subsection*{Acknowledgements}
+
+Many thanks to Kyle Broder for his excellent comments on an earlier version of
+this note and for several references to the literature.
 
 \section{Algebraic curvature tensors}
 
@@ -115,8 +135,8 @@ $R(x, \ov y, z, \ov w) = R(z, \ov y, x, \ov w)$
 A nice alternate reference for what we discuss here is
 \cite{algebraic-kahler-curvature}.
 
-We write $B(V)$ for the real vector space of Hermitian forms on $V$.
-The curvature tensor of a Hermitian metric is then just a member of $B(V
+We write $\herm(V)$ for the real vector space of Hermitian forms on $V$.
+The curvature tensor of a Hermitian metric is then just a member of $\herm(V
 \otimes V)$. We call such an element an \emph{algebraic Hermitian curvature
 tensor}, and one that satisfies the additional symmetry of a K\"ahler curvature
 tensor an \emph{algebraic K\"ahler curvature tensor}.
@@ -145,13 +165,13 @@ As the field $\CC$ has characteristic zero these spaces are isomorphic,
 so the difference between them isn't very important to us.
 
 \begin{prop}
-A tensor $R \in B(V \otimes V)$ is an algebraic K\"ahler curvature tensor
-if and only if there exists an element $\hat R \in B(\Sym^2 V)$ such that $R =
+A tensor $R \in \herm(V \otimes V)$ is an algebraic K\"ahler curvature tensor
+if and only if there exists an element $\hat R \in \herm(\Sym^2 V)$ such that $R =
 \Pi_2^* \hat R$.
 \end{prop}
 
 \begin{proof}
-Suppose $R \in B(V \otimes V)$ is an algebraic K\"ahler curvature tensor.
+Suppose $R \in \herm(V \otimes V)$ is an algebraic K\"ahler curvature tensor.
 We define
 $$
 \hat R(x \odot z, \ov{y \odot w})
@@ -159,7 +179,7 @@ $$
 $$
 which is well-defined because $R$ is K\"ahler, and we have $R = \Pi_2^* \hat R$.
 
-Conversely, let $\hat R \in B(\Sym^2 V)$, and define $R = \Pi_2^* \hat R$.
+Conversely, let $\hat R \in \herm(\Sym^2 V)$, and define $R = \Pi_2^* \hat R$.
 Then
 $$
 R(x, \ov y, z, \ov w)
@@ -186,10 +206,10 @@ more geometrically motivated than Griffiths positivity, where we would say that
 such a tensor is positive if its Hermitian form on $\Sym^2 V$ is
 positive-definite.
 However such a metric would also be Griffiths-positive, so Siu and Yau's
-theorem would imply that the underlying space is a projective space.
-This should offer something different from Demailly's
-$m$-positivity~\cite[Chapter~7, Definition~6.5]{agbook} that might be
-interesting in the negatively curved case.
+theorem would imply that the underlying space is a projective space. This
+should offer something different from $m$-positivity (see~\cite[Chapter~7,
+Definition~6.5]{agbook}) that might be interesting in the negatively curved
+case.
 
 
 
@@ -254,7 +274,9 @@ which implies the result.
 We work locally on the manifold $X$ and will write $V = T_{X,x}$.
 We suppose here that $h$ is a K\"ahler metric, which just means that we have a
 Hermitian inner product on $V$, and that the associated algebraic curvature
-tensor $R$ arises as the pullback of a tensor in $B(\Sym^2 V)$.
+tensor $R$ arises as the pullback of a tensor in $\herm(\Sym^2 V)$.
+(In particular our results also apply to K\"ahler-like metrics; see
+\cite{yang2016curvature}.)
 
 \begin{coro}
 $$
@@ -276,7 +298,7 @@ $$
 h^{\otimes 2}(f(v \otimes v), \ov{v \otimes v}) \d\mu(v)
 = \frac{1}{\binom{n+1}{2}} \tr(f \circ \Pi_2).
 $$
-If $q \in B(\Sym^2)$ is the Hermitian form defined by the curvature tensor $R$,
+If $q \in \herm(\Sym^2)$ is the Hermitian form defined by the curvature tensor $R$,
 we apply this to $f = (h^{\otimes 2})^{-1} \Pi_2^* q$.
 As $\Pi_2^2 = \Pi_2$ the result follows.
 \end{proof}
@@ -451,8 +473,9 @@ and the result follows after we notice that
 
 These formulas let us calculate the variance of the holomorphic sectional
 curvature over the unit sphere.
-It would be nice if we could show that this variance decreases under something
-like the K\"ahler--Ricci flow but the calculations needed seem nightmarish.
+When the manifold is compact and the metric has constant scalar curvature this
+yields a Chern class inequality, but it seems to be worse than existing similar
+inequalities.
 
 
 \section{Hermitian metrics}
@@ -461,9 +484,25 @@ We still work locally on the manifold $X$ and still write $V = T_X$.
 We now suppose only that $h$ is a Hermitian metric, which again gives a
 Hermitian inner product on $V$, but now consider an arbitrary algebraic
 Hermitian curvature tensor $R$ on $V \otimes V$.
-Recall that such a tensor has three Ricci tensors $r_1, r_2, r_3$ (technically
-four, but two of those are conjugate to each other) and two
-scalar curvatures $s_1$ and $s_2$.
+Recall that such a tensor has four Ricci tensors
+\begin{align*}
+r_1(u, \bar v) &= \sum_{j=1}^n R(e_j, \bar e_j, u, \bar v),
+	       &
+r_2(u, \bar v) &= \sum_{j=1}^n R(e_j, u, \bar v, \bar e_j),
+\\
+r_3(u, \bar v) &= \sum_{j=1}^n R(u, \bar v, e_j, \bar e_j),
+	       &
+r_4(u, \bar v) &= \sum_{j=1}^n R(u, e_j, \bar e_j, \bar v),
+\end{align*}
+where $(e_j)$ is an orthonormal basis.
+Note that $r_1$ and $r_3$ are Hermitian tensors, and
+$\ov{r_2(u, \bar v)} = r_4(v, \bar u)$.
+We then get two real-valued scalar curvatures
+\begin{align*}
+s_1 = \sum_{j,k=1}^n R(e_j, \bar e_j, e_k, \bar e_k),
+\quad
+s_2 = \sum_{j,k=1}^n R(e_j, e_k, \bar e_k, \bar e_j).
+\end{align*}
 
 \begin{coro}
 $$
@@ -498,6 +537,7 @@ R_{\wedge^2 V} & R_{(\Sym^2V, \wedge^2 V)}
 R_{(\wedge^2 V, \Sym^2V)} & R_{\Sym^2 V}
 \end{pmatrix}.
 $$
+We write $r^\dagger$ for the adjoint of $r$.
 
 \begin{coro}
 $$
@@ -507,7 +547,7 @@ H(v)^2  \d\mu(v)
 = \frac{
 \bigl(
 4 |R_{\Sym^2 V}|^2
-+ |r_1 + r_2 + r_2^\dagger + r_3|^2
++ |r_1 + r_2 + r_3 + r_4|^2
 + (s_1 + s_2)^2
 \bigr)
 }{4! \binom{n+3}{4}}.
@@ -527,8 +567,8 @@ $$
 \quad
 (\tr_{24} f)^\dagger = \tr_{24} f
 $$
-and the three Ricci forms of $R$ are $r_1 = \tr_{13} f$, $r_2 = \tr_{14} f$ and
-$r_3 = \tr_{24} f$.
+and the four Ricci forms of $R$ are $r_1 = \tr_{13} f$, $r_2 = \tr_{14} f$,
+$r_3 = \tr_{24} f$ and $r_4 = \tr_{23} f$.
 This gives the middle factor above.
 
 The sum of the 4 different total trace factors is likewise
@@ -641,7 +681,7 @@ H(v)^2 \, d\mu(v)
 \bigl(
 4 |R_{\Sym^2 V}|^2
 % One pair of these are equal
-+ |r_1 + r_2 + r_2^\dagger + r_3|^2
++ |r_1 + r_2 + r_3 + r_4|^2
 + (s_1 + s_2)^2
 \bigr)
 }{4! \binom{n+3}{4}}
@@ -661,10 +701,123 @@ R_{\wedge^2 V} & R_{(\Sym^2V, \wedge^2 V)}
 R_{(\wedge^2 V, \Sym^2V)} & 0
 \end{pmatrix}.
 $$
-We also see that $s_1 = -s_2$, and that $r_1 + r_2 + r_2^\dagger + r_3 = 0$.
+We also see that $s_1 = -s_2$, and that $r_1 + r_2 + r_3 + r_4 = 0$.
 It's interesting that we could have scalar curvatures of differing sign
-associated to the same connection, but apart from that
-it's not clear that there is further water to be squeezed from this stone.
+associated to the same connection (Balas~\cite{balas1985compact} already noted
+that $s_1 + s_2 = 0$ in this case), but apart from that it's not clear that
+there is further water to be squeezed from this stone.
+
+
+\section{Holomorphic bisectional curvature}
+
+The holomorphic bisectional curvature of a K\"ahler metric $h$ with curvature
+tensor $R$ is
+$$
+B(\xi,\eta) = \frac{R(\xi, \ov\xi, \eta, \ov\eta)}{|\xi|^2 |\eta|^2}.
+$$
+Berger noted that it dominates the Ricci curvature by calculating
+$$
+\frac{1}{\Vol S(T_X)} \int_{S(T_X)} \!\!\! B(\xi, \eta) \, d\sigma(\xi)
+= \frac{1}{n} r(\eta, \ov\eta).
+$$
+Kyle Broder asked if we could calculate the $L^2$-norm of the holomorphic
+bisectional curvature using these methods, and we can.
+
+
+\begin{coro}
+$$
+\frac{1}{\Vol S(V)^2}
+\int_{S(V)^2} \!\!\! B(u, v)^2 \, d\sigma(u) d\sigma(v)
+= \frac{|R|^2 + (n+2)|r|^2}{4\binom{n+1}{2}^2}.
+$$
+\end{coro}
+
+\begin{proof}
+This amounts to calculating
+$$
+\frac{1}{\Vol S(V)^2}
+\int_{S(V)^2} \!\!\! R(u, \bar u, v, \bar v)^2 \, d\sigma(u) d\sigma(v)
+$$
+for an algebraic K\"ahler curvature tensor $R$.
+Fix $v$ and let
+$$
+T_v(a, \bar b, c, \bar d) = R(a, \bar b, v, \bar v) R(c, \bar d, v, \bar v).
+$$
+Then $T_v$ is an algebraic curvature tensor, that is, a Hermitian form on
+$\bigwedge^2 V$.
+It does not have the symmetries of a K\"ahler curvature tensor, but we have
+$$
+\displaylines{
+\frac{1}{\Vol S(V)^2}
+\int_{S(V)^2} R(u, \bar u, v, \bar v)^2 \, d\sigma(u) d\sigma(v)
+\hfill\cr\hfill{}
+= \frac{1}{\Vol S(V)} \int_{S(V)}
+\biggl(
+\frac{1}{\Vol S(V)} \int_{S(V)}
+T_v(u, \bar u, u, \bar u) d\sigma(u)
+\biggr)
+d\sigma(v).
+}
+$$
+As we know,
+$$
+\frac{1}{\Vol S(V)} \int_{S(V)} T_v(u, \bar u, u, \bar u) d\sigma(u)
+= \frac{1}{\binom{n+1}{2}} \frac{s_1(T_v) + s_2(T_v)}{2}.
+$$
+In an orthonormal basis $(e_j)$ we have
+\begin{align*}
+s_1(T_v) &= \sum_{j,k=1}^n T_v(e_j, \bar e_j, e_k, \bar e_k)
+= \sum_{j,k=1}^n R(e_j, \bar e_j, v, \bar v) R(e_k, \bar e_k, v, \bar v)
+= r(v, \bar v)^2,
+\\
+s_2(T_v) &= \sum_{j,k=1}^n T_v(e_j, \bar e_k, e_k, \bar e_j)
+= \sum_{j,k=1}^n |R(e_j, \bar e_k, v, \bar v)|^2.
+\end{align*}
+Now
+$$
+\frac{1}{\Vol S(V)} \int_{S(V)} r(v,\bar v)^2 d\sigma(v)
+= \frac{|r|^2}{n}
+$$
+by standard linear algebra.
+Playing the same game again with
+$$
+U(a, \bar b, c, \bar d)
+= \sum_{j,k=1}^n R(e_j, \bar e_k, a, \bar b) R(e_k, \bar e_j, c, \bar d)
+$$
+we get
+$$
+\frac{1}{\Vol S(V)} \int_{S(V)} s_2(T_v) d\sigma(v)
+= \frac{1}{\binom{n+1}{2}} \frac{s_1(U) + s_2(U)}{2}
+$$
+and
+\begin{align*}
+s_1(U)
+&= \sum_{j,k,l,m=1}^n
+R(e_j, \bar e_k, e_l, \bar e_l) R(e_k, \bar e_j, e_m, \bar e_m)
+= \sum_{j,k=1}^n
+|r(e_j, \bar e_k)|^2
+= |r|^2
+\\
+s_2(U) &= \sum_{j,k,l,m=1}^n
+R(e_j, \bar e_k, e_l, \bar e_m) R(e_k, \bar e_j, e_m, \bar e_l)
+= |R|^2.
+\end{align*}
+All together we get
+\begin{align*}
+\frac{1}{\Vol S(V)^2}
+\int_{S(V)^2} B(u,v)^2 \, d\sigma(u) d\sigma(v)
+= \frac{1}{2\binom{n+1}{2}}
+\biggl(
+\frac{|r|^2}{n}
++ \frac{1}{2\binom{n+1}{2}}
+\biggl(
+|r|^2
++ |R|^2
+\biggr)
+\end{align*}
+which simplifies to what we claimed.
+\end{proof}
+
 
 
 \bibliographystyle{plainurl}
