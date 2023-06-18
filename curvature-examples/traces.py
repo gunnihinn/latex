@@ -100,6 +100,8 @@ if __name__ == "__main__":
         end.partial_trace()
         j, k, l, m = p
         print(
-            # "\\tr(f \circ W_{{({t})}}) = f_{{{j}{k},jk}} f_{{{l}{m},lm}} &= {e}\n\\\\".format(
-            "\\tr(f \circ W_{{({t})}})".format(t="".join(p), j=j, k=k, l=l, m=m, e=end)
+            "\\tr(f \circ W_{{({t})}}) = f_{{{j}{k},jk}} f_{{{l}{m},lm}} &= {e}\n\\\\".format(
+                t="".join(p), j=j, k=k, l=l, m=m, e=end
+            )
+            # "\\tr(f \circ W_{{({t})}})".format(t="".join(p), j=j, k=k, l=l, m=m, e=end)
         )
