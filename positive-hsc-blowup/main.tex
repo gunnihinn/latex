@@ -102,7 +102,7 @@ D^2_{\smash{\alpha,\ov\beta}}\gamma, \ov\delta)$ for its curvature tensor. The
 holomorphic sectional curvature of $h$ is
 $$
 H(\xi)
-= \frac{R(\xi, \ov\xi, \xi, \ov\xi)}{|\xi|^4},
+= R(\xi, \ov\xi, \xi, \ov\xi)/|\xi|^4,
 $$
 where $\xi$ is a nonzero tangent field.
 We say that $h$ has positive holomorphic sectional curvature if $H > 0$ for all
@@ -149,7 +149,7 @@ the most straightforward method of constructing a metric on it fails to show tha
 
 
 
-\section{Our wrongs}
+\section{Curvature}
 
 Let $X$ be a compact K\"ahler manifold of dimension $\dim_{\CC} X = n$
 and let $h$ be a K\"ahler metric on it.
@@ -402,16 +402,12 @@ Let $\xi = \sum_j \ton_j \xi_j$ be a holomorphic tangent field.
 Note that $|\xi_j|_{h_t}^2 = t$ for $j = 1, \ldots, n-1$ and $|\xi_n|_{h_t}^2 = 1$
 at the origin.
 We have
-\begin{align*}
+$$
 H_{h_t}(\xi)
-&= \frac{|\ton_n|^4 H_h(e_n)
+= \frac{|\ton_n|^4 H_h(e_n)
 + 2t \tau(\ton, \bar \ton)^2
-- 4 |\ton_n|^2 \tau(\ton, \bar \ton)}{(t \tau(\ton, \bar \ton) + |\ton_n|^2)^2}
-\\
-&= \frac{|\ton_n|^4 H_h(e_n)
-+ 2t (|\ton|^2 - |\ton_n|^2)^2
-- 4 |\ton_n|^2 (|\ton|^2 - |\ton_n|^2)}{(t (|\ton|^2 - |\ton_n|^2) + |\ton_n|^2)^2}.
-\end{align*}
+- 4 |\ton_n|^2 \tau(\ton, \bar \ton)}{(t \tau(\ton, \bar \ton) + |\ton_n|^2)^2}.
+$$
 First suppose that $H_h(e_n) < 0$. Picking $\ton$ with $|\ton_n| = 1$ we have
 $\tau(\ton, \bar \ton) = 0$ so $H_{h_t}(\xi) = H_h(e_n) < 0$.
 
