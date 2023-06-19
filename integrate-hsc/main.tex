@@ -20,8 +20,9 @@
 \newtheorem{coro}[theo]{Corollary}
 \theoremstyle{definition}
 \newtheorem{exam}[theo]{Example}
-\newtheorem{rema}{Remark}
+\newtheorem*{rema}{Remark}
 
+\def\^#1{^{[#1]}}
 \def\<{\langle}
 \def\>{\rangle}
 \def\ov#1{\overline{#1}}
@@ -471,11 +472,53 @@ and the result follows after we notice that
 \).
 \end{proof}
 
+
+\begin{rema}
 These formulas let us calculate the variance of the holomorphic sectional
 curvature over the unit sphere.
-When the manifold is compact and the metric has constant scalar curvature this
-yields a Chern class inequality, but it seems to be worse than existing similar
-inequalities.
+Recall that if $c_j$ are the Chern forms of the metric $h$, $\omega$ is its
+K\"ahler form, and $\omega\^k := \omega^k/k!$ we have
+\begin{align*}
+|r|^2 \omega\^n
+&= -c_1^2 \wedge \omega\^{n-2} + s^2 \omega\^n,
+\\
+|R|^2 \omega\^n
+&= (2c_2 - c_1^2) \wedge \omega\^{n-2} + |c_1|^2 \omega\^n
+= 2(c_2 - c_1^2) \wedge \omega\^{n-2} + s^2\omega\^n.
+\end{align*}
+Then we get
+$$
+0 \leq \operatorname{Var} H \, \omega\^n
+= \frac{2(c_2-3c_1^2)\wedge \omega\^{n-2} + 6 s^2 \omega\^n}{\binom{n+1}2\binom{n+3}2}
+- \frac{s^2 \omega\^n}{\binom{n+1}{2}^2}
+$$
+and after some calculations end up with
+$$
+0 \leq
+(c_2-3c_1^2)\wedge \omega\^{n-2}
++ \frac{(5n+6)(n-1)}{2n(n+1)} s^2 \omega\^n.
+$$
+When $s = 0$ we get $\int_X c_2 \wedge \omega\^{n-2} \geq \int_X 3c_1^2 \wedge
+\omega\^{n-2}$ with equality if and only if $h$ is flat.
+This makes for a fairly poor detector of zero scalar curvature metrics.
+It is known that if a complex surface admits a K\"ahler metric of zero scalar
+curvature then the surface is either flat, a K3 surface, or the blowup of a
+rational surface, and it is not known whether the last type carries such a metric \cite{pedersen1990kahler}.
+
+On the projective plane blown up in $d$ distinct points we have $c_1^2 = 9 -
+d$ and $c_2 = 3$, so $c_2 > 3c_1^2$ if and only if $3 > 27 - 3d$ or $d > 8$.
+For $d \leq 8$ there is thus no K\"ahler metric of zero scalar curvature on
+the surface.
+But we already knew this since those are just del~Pezzo surfaces, whose $c_1$ is
+positive, so no K\"ahler metric can have zero scalar curvature on those.
+
+On a Hirzebruch surface blown up in $d$ distinct points we have $c_1^2 = 8 -
+d$ and $c_2 = 4$, so $c_2 > 3 c_1^2$ if and only if $4 > 24 - 3d$ or $d > 6$.
+For $d \leq 6$ there is thus no K\"ahler metric of zero scalar curvature on
+the surface.
+But again the resulting surface still has positive $c_1$, so this is not news.
+\end{rema}
+
 
 
 \section{Hermitian metrics}
