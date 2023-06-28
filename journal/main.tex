@@ -14,6 +14,7 @@
 \usepackage{amsthm}
 
 \usepackage{tikz-cd}
+\usepackage{color}
 
 \newtheorem{theo}{Theorem}
 \newtheorem{prop}[theo]{Proposition}
@@ -30,6 +31,9 @@
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
 
+\def\lit#1#2{\bgroup\color{#1} #2\egroup}
+
+\DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\pr}{pr}
 \DeclareMathOperator{\Span}{span}
 \DeclareMathOperator{\Gr}{Gr}
@@ -60,6 +64,839 @@
 \begin{document}
 
 \maketitle
+
+\section{28. June 2023}
+
+Let $R$ be the curvature tensor of a K\"ahler metric on a surface and $(e_1,
+\ldots, e_2)$ a local orthonormal basis of $T_X$.
+Let $v = x_1 e_1 + x_2 e_2$.
+Then
+$$
+\displaylines{
+R(v, \bar v, v, \bar v)
+= \sum_{jklm} x_j \bar x_k x_l \bar x_m R_{jklm}
+\hfill\cr{}
+\phantom{R(v, \bar v, v, \bar v)}
+= |x_1|^4 R_{1111} + |x_2|^4 R_{2222}
+\hfill\cr\hfill{}
++ x_1 \bar x_2 |x_2|^2 (R_{1222} + R_{2212})
++ x_2 \bar x_1 |x_2|^2 (R_{2122} + R_{2221})
+\cr\hfill{}
++ |x_1|^2 |x_2|^2 (R_{1122} + R_{2211})
++ x_1^2 \bar x_2^2 R_{1212}
++ x_2^2 \bar x_1^2 R_{2121}
+\cr\hfill{}
++ x_1 \bar x_2 |x_1|^2 (R_{1112} + R_{1211})
++ x_2 \bar x_1 |x_1|^2 (R_{2111} + R_{1121})
+\cr{}
+\phantom{R(v, \bar v, v, \bar v)}
+= |x_1|^4 R_{1111} + |x_2|^4 R_{2222}
+\hfill\cr\hfill{}
++ 2 x_1 \bar x_2 |x_2|^2 R_{1222}
++ 2 x_2 \bar x_1 |x_2|^2 R_{2122}
++ 2 |x_1|^2 |x_2|^2 R_{1122}
+\cr\hfill{}
++ x_1^2 \bar x_2^2 R_{1212}
++ x_2^2 \bar x_1^2 R_{2121}
+\cr\hfill{}
++ x_1 \bar x_2 |x_1|^2 (R_{1112} + R_{1211})
++ x_2 \bar x_1 |x_1|^2 (R_{2111} + R_{1121}).
+}
+$$
+
+
+
+
+\section{27. June 2023}
+
+\begin{question}
+Let $(E,h) \to (X,\omega)$ be a Hermitian vector bundle.
+Suppose $(E,h)$ is (uniformely) RC-positive.
+Is $s_k(E^\vee, h^\vee) \wedge \omega\^{n-k} \geq 0$ for all $k$?
+\end{question}
+
+Recall that $(E,h)$ with curvature tensor $R$ is \emph{RC-positive} at $x$ if
+for any nonzero section $s$ of $E$ there exists a tangent field $\xi$ such that
+$$
+R(\xi, \ov\xi, s, \bar s) > 0.
+$$
+It is uniformely RC-positive if there exists a tangent field $\xi$ such that
+$$
+R(\xi, \ov\xi, s, \bar s) > 0
+$$
+for any nonzero section $s$.
+If $\omega$ has postive HSC then $T_X$ is uniformely RC-positive.
+
+Yang has proved that if $X$ is projective and rationally connected, then
+$\cc O_{T_X^\vee}(-1)$ is uniformely RC-positive.
+
+If $(L,h)$ is a line bundle, then $L$ is RC-positive if and only if $\frac
+i{2\pi} \Theta_{L,h}$ has at least one positive eigenvalue at every point.
+A line bundle is also RC-positive if and only if it is uniformely RC-positive.
+
+Clearly there's no guarantee that $c_1(L,h) \wedge \omega\^{n-1}$ is positive
+if $L$ is RC-positive, because we only know one eigenvalue is positive.
+On page 337 of The Book J-P constructs a different Hermitian metric $\omega_t$
+on $X$ such that the eigenvalues of $\frac{i}{2\pi}\Theta_{L,h}$ with respect
+to $\omega_t$ are $1$ and $-t \leq \gamma_j \leq 1$ for $j
+= 1, \ldots, n-1$. For that metric we have
+$$
+c_1(L,h_t) \wedge \omega_t\^{n-1} \geq (1-(n-1)t) \omega_t\^n
+$$
+which is positive for $t$ small enough.
+
+
+Let $U$ be a chart of $X$ with coordinates $(z_1, \ldots, z_n)$.
+Let $(e_1, \ldots, e_r)$ be a local frame of $E$.
+The curvature form of $\cc O_{E^\vee}(-1)$ is
+$$
+\Theta(\xi \otimes s, \ov{\xi \otimes s})
+= \omega_{FS}(s, \bar s) + \frac{R(\xi, \ov\xi, s, \bar s)}{|s|^2}
+$$
+
+
+\section{26. June 2023}
+
+Let $R$ be the curvature tensor of a K\"ahler metric and let $R_{jklm}$ be
+its components in a normal frame $(e_j)$.
+We have $R(a, \bar b, c, \bar d) = \ov{R(b, \bar a, d, \bar c)}$
+and $R(a, \bar b, c, \bar d) = R(c, \bar b, a, \bar d) = R(a, \bar d, c, \bar b)$.
+
+\begin{prop}
+Suppose $H > 0$. If $B(u,v) < 0$ then
+$$
+B(u,v)^2 < H(u) H(v).
+$$
+\end{prop}
+
+\begin{proof}
+We'll write $R(u) := R(u, \bar u, u, \bar u)$.
+Let's inspect $R(u + t \lambda v)$ for $t \in \kk R$ and $|\lambda| = 1$.
+This equals
+$$
+\displaylines{
+R(u + t \lambda v)
+= R(u)
++ t^4 R(v)
+\hfill\cr\hfill{}
++ t(\bar \lambda R(u,\bar u,u,\bar v)
++ \lambda R(u, \bar u, v, \bar u)
++ \bar\lambda R(u, \bar v, u, \bar u)
++ \lambda R(v, \bar u, u, \bar u))
+\cr\hfill{}
++ t^2(R(u, \bar u, v, \bar v)
++ \bar \lambda^2 R(u, \bar v, u, \bar v)
++ \lambda^2 R(v, \bar u, v, \bar u)
++ R(v, \bar v, u, \bar u))
+\cr\hfill{}
++ t^3(\bar \lambda R(u, \bar v, v, \bar v)
++ \lambda R(v, \bar u, v, \bar v)
++ \bar\lambda R(v, \bar v, u, \bar v)
++ \lambda R(v, \bar v, v, \bar u))
+\cr\hfill{}
+= R(u)
++ t^4 R(v)
++ 2t(\bar \lambda R(u, \bar u, u, \bar v) + \lambda R(u, \bar u, v, \bar u))
+\hfill\cr\hfill{}
++ t^2(2 R(u, \bar u, v, \bar v)
++ \bar \lambda^2 R(u, \bar v, u, \bar v)
++ \lambda^2 R(v, \bar u, v, \bar u))
+\cr\hfill{}
++ 2 t^3(\bar \lambda R(u, \bar v, v, \bar v)
++ \lambda R(v, \bar u, v, \bar v)).
+}
+$$
+Then we get
+$$
+\displaylines{
+R(u + t v) + R(u - t v)
+= 2 R(u) + 2 t^4 R(v)
+\hfill\cr\hfill{}
++ t^2(
+4 R(u, \bar u, v, \bar v)
++ 2 R(u, \bar v, u, \bar v)
++ 2 R(v, \bar u, v, \bar u)),
+\cr{}
+R(u + t i v) + R(u - t i v)
+= 2 R(u) + 2 t^4 R(v)
+\hfill\cr\hfill{}
++ t^2(
+4 R(u, \bar u, v, \bar v)
+- 2 R(u, \bar v, u, \bar v)
+- 2 R(v, \bar u, v, \bar u)),
+}
+$$
+so
+$$
+\displaylines{
+R(u + t v) + R(u - t v)
++ R(u + t i v) + R(u - t i v)
+\hfill\cr\hfill{}
+= 4(R(u) + t^4 R(v) + 2 t^2 R(u, \bar u, v, \bar v)).
+}
+$$
+If $H > 0$
+the RHS is a quadratic polynomial in $t^2$ with $R(u) > 0$ and $R(v) > 0$
+Its critical point is where
+$4t^3 R(v) + 4t R(u, \bar u, v, \bar v) = 4t(t^2 R(v) + R(u, \bar u, v, \bar v)) = 0$, or where
+$t^2 = -R(u, \bar u, v, \bar v) / R(v)$. There we find
+\begin{align*}
+0 &<
+R(u)
++ \frac{R(u, \bar u, v, \bar v)^2}{R(v)^2} R(v)
+- 2 \frac{R(u, \bar u, v, \bar v)}{R(v)} R(u, \bar u, v, \bar v)
+\\
+&= \frac{R(u) R(v) - R(u, \bar u, v, \bar v)^2}{R(v)},
+\end{align*}
+or
+$
+R(u, \bar u, v, \bar v)^2 < R(u, \bar u, u, \bar u) R(v, \bar v, v, \bar v)
+$.
+Dividing by norms we find
+$$
+B(u,v)^2 < H(u) H(v).
+$$
+When $H < 0$ we find the same after some sign checking.
+\end{proof}
+
+Now recall that
+$s = \sum_{jk} R(e_j, \bar e_j, e_k, \bar e_k) = \sum_{jk} B(e_j, e_k)$.
+Then
+$$
+s > \sum_j H(e_j) - \frac12 \sum_{j \not= k} \sqrt{H(e_j) H(e_k)}.
+$$
+Set $x_j = \sqrt{H(e_j)}$.
+Then we have
+\begin{align*}
+\sum_j x_j^2 - \frac12 \sum_{j \not= k} x_j x_k
+&= \sum_j x_j^2 - \biggl(\sum_{jk} x_j x_k - \sum_{j} x_j^2\biggr)
+\\
+&= 2 \sum_j x_j^2 - \biggl(\sum_j x_j \biggr)^2
+= 2 |x|^2 - \<x, (1, \ldots, 1) \>^2.
+\end{align*}
+We only have $\<x, (1, \ldots, 1) \>^2 \leq n |x|^2$, so
+$s > (2-n) |x|^2$.
+
+\section{23. June 2023}
+
+Can we stare at $n = 2$ and see what, if anything, positive hsc gives us?
+Write
+$$
+\frac i2 \Theta
+= \Theta_{11} \frac i2 dz_1 \wedge d\bar z_1
++ \Theta_{12} \frac i2 dz_1 \wedge d\bar z_2
++ \Theta_{21} \frac i2 dz_2 \wedge d\bar z_1
++ \Theta_{22} \frac i2 dz_2 \wedge d\bar z_2,
+$$
+where $\Theta_{jk} \in \End T_X$.
+As $\frac i2 \Theta$ is Hermitian then $\Theta_{11}$ and $\Theta_{22}$ are
+Hermitian and $\Theta_{12}^\dagger = \Theta_{21}$.
+We have:
+\begin{align*}
+\Theta_{11} &=
+\begin{pmatrix}
+R_{1111} & \color{red}{{R_{1112}}}
+\\
+\color{green}{R_{1121}} & \color{blue}{R_{1122}}
+\end{pmatrix}
+= \begin{pmatrix}
+x & a
+\\
+\bar a & z
+\end{pmatrix}
+	    &
+\Theta_{12} &=
+\begin{pmatrix}
+\color{red}{{R_{1211}}} & R_{1212}
+\\
+\color{blue}{R_{1221}} & \color{brown}{R_{1222}}
+\end{pmatrix}
+= \begin{pmatrix}
+a & c
+\\
+z & b
+\end{pmatrix}
+\\
+\Theta_{21} &=
+\begin{pmatrix}
+\color{green}{R_{2111}} & \color{blue}{R_{2112}}
+\\
+R_{2121} & \color{orange}{R_{2122}}
+\end{pmatrix}
+= \begin{pmatrix}
+\bar a & z
+\\
+\bar c & \bar b
+\end{pmatrix}
+	    &
+\Theta_{22} &=
+\begin{pmatrix}
+\color{blue}{R_{2112}} & \color{brown}{R_{2212}}
+\\
+\color{orange}{R_{2221}} & R_{2222}
+\end{pmatrix}
+= \begin{pmatrix}
+z & b
+\\
+\bar b & y
+\end{pmatrix}
+\end{align*}
+where $x,y,z$ are real and $a, b, c$ are complex.
+The metric is K\"ahler, so entries of the same non-black color are the same.
+There are more relations, like ${\color{green} R_{1121}} =
+\ov{\color{red}{R_{1112}}}$,
+${\color{brown} R_{2212}} = \ov{\color{orange} R_{2221}}$
+and $\ov{R_{2121}} = R_{1212}$.
+
+If $(e_1 \odot e_1, \sqrt 2 e_1 \odot e_2, e_2 \odot e_2)$ is an
+orthonormal basis of $\Sym^2 V$ the curvature matrix becomes
+\def\sq{{\sqrt 2}}
+$$
+\displaylines{
+\begin{pmatrix}
+R_{1111} & \frac{\sq}2(R_{1112} + R_{1211}) & \sq R_{1212}
+\\
+\frac{\sq}2(R_{1121} + R_{2111}) &
+\frac12(R_{1122} {+} R_{2112} {+} R_{2211} {+} R_{1221}) &
+\frac{\sq}2(R_{1222} + R_{2212})
+\\
+\sq R_{2121} &
+\frac{\sq}2(R_{2122} + R_{2221}) &
+R_{2222}
+\end{pmatrix}
+\hfill\cr\hfill{}
+= \begin{pmatrix}
+R_{1111} & \sq R_{1112} & \sq R_{1212}
+\\
+\sq R_{1121} &
+2 R_{1122} &
+\sq R_{1222}
+\\
+\sq R_{2121} &
+\sq R_{2122} &
+R_{2222}
+\end{pmatrix}
+\cr\hfill{}
+= \begin{pmatrix}
+x & \sq a & \sq c
+\\
+\sq \bar a &
+2 z &
+\sq b
+\\
+\sq \bar c &
+\sq \bar b &
+y
+\end{pmatrix}.
+}
+$$
+The trace of this is $s$.
+The coefficient of $t^2$ in the characteristic polynomial of this matrix is
+$$
+\displaylines{
+2 (yz - |b|^2)
++ (xy - 2 |c|^2)
++ 2 (xz - |a|^2)
+= xy + 2 xz + 2 yz
+- 2(|a|^2 + |b|^2 + |c|^2).
+}
+$$
+The basis for $V \otimes V$ is $(e_1 \otimes e_1, e_1
+\otimes e_2, e_2 \otimes e_1, e_2 \otimes e_2)$ and the matrix of the curvature
+tensor in that basis is
+$$
+\begin{pmatrix}
+R_{1111} & \lit{red}{R_{1112}} & \lit{red}{R_{1211}} & R_{1212}
+\\
+\lit{green}{R_{1121}} & \lit{blue}{R_{1122}} & \lit{blue}{R_{1221}} & \lit{brown}{R_{1222}}
+\\
+\lit{green}{R_{2111}} & \lit{blue}{R_{2112}} & \lit{blue}{R_{2211}} & \lit{brown}{R_{2212}}
+\\
+R_{2121} & \lit{orange}{R_{2122}} & \lit{orange}{R_{2221}} & R_{2222}
+\end{pmatrix}
+= \left(
+\begin{array}{c|c}
+\Theta_{11} & \Theta_{12} \\\hline
+\Theta_{21} & \Theta_{22}
+\end{array}
+\right)
+$$
+The decomposition into $\Theta_{jk}$ is just by the decomposition of $V \otimes
+V$, a space of dimension $n^2$, into $4 = n^2 = 2 \cdot 2$ pieces.
+In general we have $\Theta_{jk}$ for $j,k = 1, \ldots, n$, so $n^2$ total of those,
+and each one has $n^2$ entries, for a total of $n^4$ matrix entries.
+The curvature tensor operates on a space of dimension $\dim V \times V = n^2$
+and so is a Hermitian matrix of dimension $n^2 \times n^2 = n^4$.
+
+In any case we get
+\begin{align*}
+\biggl(\tr \frac i2 \Theta\biggr)^2
+&= 2\tr \Theta_{11} \tr \Theta_{22} - 2\tr \Theta_{12} \tr \Theta_{21}
+\\
+&= 2(x + z)(z + y) - 2|a + b|^2
+\end{align*}
+and
+\begin{align*}
+\smash{\tr \biggl(\frac i2 \Theta\biggr)^2}
+&= 2 \tr(\Theta_{11} \Theta_{22})
+- 2 \tr(\Theta_{12} \Theta_{21})
+\\
+&= 2(xz + a \bar b + b \bar a + yz) - 2(|a|^2 + |b|^2 + |c|^2 + z^2)
+\\
+&= 2\bigl(
+xz + yz - z^2 - |a - b|^2 - |c|^2
+\bigr)
+\end{align*}
+modulo $(\frac i2)^2 dz_1 \wedge d\bar z_1 \wedge dz_2 \wedge d\bar z_2$.
+Then
+\begin{align*}
+\smash{\tr \biggl(\frac i2 \Theta \!\biggr)^2}
+\!\!\!
+- \biggl(\!\tr \frac i2 \Theta\!\biggr)^2
+\!\!\!
+&= 2\bigl(
+(x {+} z)(z {+} y) {-} |a {+} b|^2
+{-} xz {-} yz {+} z^2 {+} |a {-} b|^2 {+} |c|^2
+\bigr)
+\\
+&=
+ 2\bigl(
+xy + 2z^2 - 4 \re(a \bar b) + |c|^2
+\bigr)
+\end{align*}
+If $\xi = u e_1 + v e_2$ with $|\xi|^2 = 1$ then
+\begin{align*}
+\frac i2 \Theta_{\xi,\ov\xi}
+&= |u|^2 \Theta_{11} + u \bar v \Theta_{12} + v \bar u \Theta_{21} + |v|^2 \Theta_{22}
+\\
+&=
+|u|^2 \begin{pmatrix}
+x & a
+\\
+\bar a & z
+\end{pmatrix}
++ u \bar v
+\begin{pmatrix}
+a & c
+\\
+z & b
+\end{pmatrix}
++ v \bar u
+\begin{pmatrix}
+\bar a & z
+\\
+\bar c & \bar b
+\end{pmatrix}
++ |v|^2
+\begin{pmatrix}
+z & b
+\\
+\bar b & y
+\end{pmatrix}
+\end{align*}
+so
+\def\v{
+\begin{pmatrix}
+u \\ v
+\end{pmatrix}
+}
+\def\bv{
+\begin{pmatrix}
+\bar u & \bar v
+\end{pmatrix}
+}
+$$
+\displaylines{
+H(\xi)
+=
+|u|^2 \bv \begin{pmatrix}
+x & a
+\\
+\bar a & z
+\end{pmatrix} \v
++ u \bar v \bv
+\begin{pmatrix}
+a & c
+\\
+z & b
+\end{pmatrix}
+\v
+\hfill\cr\hfill{}
++ v \bar u
+\bv
+\begin{pmatrix}
+\bar a & z
+\\
+\bar c & \bar b
+\end{pmatrix}
+\v
++ |v|^2
+\bv
+\begin{pmatrix}
+z & b
+\\
+\bar b & y
+\end{pmatrix}
+\v.
+}
+$$
+Suppose $H > 0$.
+Then $H(e_1) = R_{1111} = x > 0$ and $H(e_2) = R_{2222} = y > 0$.
+
+Sympy says the HSC is
+$$
+\displaylines{
+H(u, v)
+=
+a |u|^2 u \bar v
++ a |u|^2 v \bar{u}
++ \bar{a} |u|^2 u \bar{v}
++ \bar{a} |u|^2 v \bar{u}
+\hfill\cr\hfill{}
++ b |v|^2 u \bar{v}
++ b |v|^2 v \bar{u}
++ \bar{b} |v|^2 u \bar{v}
++ \bar{b} |v|^2 v \bar{u}
+\cr\hfill{}
++ c |u|^2 |v|^2
++ \bar{c} |u|^2 |v|^2
++ |u|^4 x
++ u^{2} \bar{v}^{2} z
+\cr\hfill{}
++ 2 |u|^2 |v|^2 z
++ \bar{u}^{2} v^{2} z
++ |v|^4 y
+\cr
+\phantom{H(u,v)}{}
+= 4 |u|^2 \re(u \bar v) \re a
++ 4 |v|^2 \re(u \bar v) \re b
++ 2 |u|^2 |v|^2 \re c
+\hfill\cr\hfill{}
++ |u|^4 x + 2 (|u|^2 |v|^2 + \re(u^2 \bar v^2)) z + |v|^4 z.
+}
+$$
+Recall that $\re(u \bar v) = |u+v|^2 - |u|^2 - |v|^2$.
+
+Challenge: Prove that $\Lambda c_1 = x + 2z + y > 0$ if $H > 0$ without
+integrating over the sphere.
+
+Pick $u, v$ such that $\re(u \bar v) = 0$, which means $v = t i u$ for $t$
+real. Then we get
+$$
+0 < H(1, ti) =
+x
++ 2 t^2 z
++ t^4 y
+$$
+for all $t$.
+The derivative of this is $4tz + 4t^3y = 4t(z + t^2y)$ which is zero at $t = 0$
+and $t^2 = -z/y$, where we get $x$ and $x - z^2/y$, so we need $xy > z^2$ to be positive.
+We should similarly get
+$$
+0 < H(ti, 1) = t^4 x + 2t^2 z + y.
+$$
+Picking $v = tu$ we get
+$$
+0 < H(1, t)
+= 4 t \re a + 4 t^3 \re b + x + 6 t^2 z + t^4 y.
+$$
+We can't solve the derivative of this exactly (at least in a way that's
+useful to us).
+We can say that
+$$
+-4t(\re a + t^2 \re b) < x + 6 t^2 z + t^4 y
+$$
+for all $t$.
+The RHS hs a minimum when $12 tz + 4 t^3 y = 0$, or when
+$t(4z + t^2 y) = 0$, which happens when $t^2 = -y/4z$. Then
+$$
+x + 6 t^2 z + t^4 y
+= x - \frac{y}{2} \Bigl(\frac{y^2}{8z^2} - 3\Bigr)
+$$
+and
+$$
+\frac{y}{z}\Bigl( \re a - \frac{y}{4z} \re b\Bigr).
+$$
+Maybe pick $v = \lambda t u$ such that $\re(u^2 \bar v^2) = 0$, that is,
+so that $\re(\lambda^2) = 0$. Let $\lambda$ be a square root of $i$.
+Then $\re(u \bar v) = t |u|^2 \re(\bar \lambda) = t |u|^2 / \sqrt 2$.
+Also $|v|^2 = t^2 |u|^2$. Get
+$$
+0 < H(1,t \lambda)
+= \frac{4 \re a}{\sqrt 2} t
++ \frac{4 \re b}{\sqrt 2} t^3
++ x
++ 4 t^2 z
++ t^4 y.
+$$
+If $t = -1/\sqrt 2$ we get
+% s_1 = x + 2z + y - 2 re a - 2 re b
+$$
+0 <
+- 2 \re a
+- \re b
++ x
++ 2 z
++ y/2.
+$$
+
+
+
+\section{22. June 2023}
+
+On Math.SE\footnote{https://mathoverflow.net/q/426177/4054}%
+someone asks:
+
+If $E \to X$ is a holomorphic vector bundle over a compact K\"ahler manifold
+then $\kk P(E) \to X$ is K\"ahler.
+Does this also hold if $\pi : Y \to X$ is only a projective bundle?
+
+Jason Starr comments: Yes.
+Consider $\cc R^0 \pi_* K_{Y/X}^{\vee} \to X$.
+This is a holomorphic vector bundle on $X$.
+There is a closed embedding
+$$
+Y \to \kk P(\cc R^0\pi_* K_{Y/X}^{\vee}).
+$$
+Therefore $Y$ is K\"ahler.
+
+That sounds like something that would be fun to fill in the details of.
+The fibers of the bundle (which we'll call $E$) are
+$E_x = H^0(\kk P(T_{X,x}), \cc O(1))$.
+If we just have a vector space $V$ then $\cc O(1) \to \kk P(V)$ is very ample.
+An embedding is given explicitly by
+$$
+\kk P(V) \to \kk P(H^0(\kk P(V), O(1))) = \kk P(V^*),
+\quad
+[v] \mapsto H_v = \{\lambda \in V^* \mid \lambda(v) = 0\}.
+$$
+
+
+
+\subsection*{Some positivity}
+
+Let $(E,h) \to (X,\omega)$ be a Hermitian vector bundle over a
+projective manifold.
+The bundle $E$ is nef if $\cc O(1) \to \kk P(E^\vee)$ is nef.
+It is pseudoeffective if $\cc O(1) \to \kk P(E^\vee)$ is pseudoeffective
+and an additional technical condition holds.
+
+Suppose that $c_1(E,h) \wedge \omega\^{n-1} > 0$.
+Is that enough for $E$ to be nef or $\cc O(1)$ to be psef?
+On a projective manifold the psef cone is dual to the cone of movable curves,
+which consists of $\mu_*(\omega^{n-1})$, where $\mu : \tilde X \to X$ is a
+modification and $\omega$ is a K\"ahler metric on $\tilde X$.
+If we ignore the modification, we end up calculating
+$c_1(\cc O(1)) \wedge \omega_1^{n+r-1}$ for a K\"ahler metric $\omega_1$
+on $\kk P(E^\vee)$.
+These ``should be'' $\omega_1 = x c_1(\cc O(1)) + y \pi^* \omega_2$.
+Applying Newton and pushing everything down we should get
+$$
+\displaylines{
+\int_{\kk P(E^\vee)} c_1(\cc O(1)) \wedge \omega_1^{n+r-2}
+\hfill\cr\hfill{}
+= \sum_{j=0}^{n+r-2} \binom{n+r-1}{j} x^j y^{n+r-2-j}
+\int_{\kk P(E^\vee)} c_1(\cc O(1))^{j+1} \wedge \pi^*\omega_2^{n+r-2-j}
+\cr\hfill{}
+= \sum_{j=r-2}^{n+r-2} \binom{n+r-1}{j} x^j y^{n+r-2-j}
+\int_{X} s_{j+2-r}(E^\vee,h^\vee) \wedge \omega_2^{n+r-2-j}
+\cr\hfill{}
+% k = j - r + 2
+% j = k + r - 2
+= \sum_{k=0}^{n} \binom{n+r-1}{k+r-2} x^{k+r-2} y^{n-k}
+\int_{X} s_{k}(E^\vee,h^\vee) \wedge \omega_2^{n-k}.
+}
+$$
+% j+1 = r-1+k
+% k = j + 2 - r
+% j = r-2 => k = 0
+% j = r-1 => k = 1
+%...
+% j = n+r-2 => k = n
+We want this to be $\geq 0$ for all $x,y$.
+Then we need $\int_X s_k(E^\vee) \wedge \omega^{n-k} \geq 0$ for all $k$ and
+all K\"ahler metrics $\omega$.
+That's only known for Griffiths (semi)positive bundles $(E,h)$.
+We would have to extend something like Fulton--Lazarsfeld to psef bundles
+to get what we want.
+
+For $n = r = 2$ we're asking that $\int_X s_1(E^\vee, h^\vee) \wedge \omega_2
+\geq 0$ and $\int_X s_2(E^\vee) \geq 0$.
+Since $s_1(E^\vee, h^\vee) = c_1(E,h)$ we can get the first part from the
+condition we stated.
+We have $s_2(E^\vee) = c_1(E)^2 - c_2(E)$, which we have to guarantee to be
+positive through other means.
+
+Well. We have said there exists a metric $\omega_1$ such that
+$c_1(T_X,\omega_1) \wedge \omega_1 > 0$.
+Given an arbitrary $\omega_2$, do we necessarily have $c_1(T_X,\omega_1) \wedge
+\omega_2 \geq 0$?
+For the actual surfaces we're looking at, yes, by inspection.
+Also this condition just says we have positive scalar curvature, which
+all the blowups have.
+
+I think the above just says that if $\cc O(1)$ is psef then the Segre classes
+have nonnegative intersection with any K\"ahler class.
+
+
+\section{21. June 2023}
+
+I got a message from Matsumura about my curvature calculation.
+He suspects that a Hirzebruch surface blown up in enough points does not
+have positive HSC.
+He didn't explain exactly why, but reading some of his work I suspect he
+thinks that positive HSC implies pseudoeffective $T_X$, and he and some
+collaborators have found that Hirzebruch surfaces blown up in more than 4 points
+do not have pseudoeffective $T_X$.
+
+\begin{question}
+Let $X$ be a compact K\"ahler manifold with a metric $h$ of positive HSC
+(thus $X$ is actually projective and rationally connected by Yang).
+Is $T_X$ pseudoeffective?
+If $X$ is projective, rationally connected and has pseudoeffective $T_X$,
+then does $X$ have a metric with positive HSC?
+\end{question}
+
+I have no idea.
+
+A projective manifold $X$ is \emph{rationally connected} if for all points
+$p,q \in X$ there is a map $f : \kk P^1 \to X$ such that $p, q \in f(\kk P^1)$.
+
+Let $p \in X$ and $\xi \in T_{X,p}$ be nonzero.
+Let $\gamma : I \to X$ be a curve such that $\gamma(0) = p$ and $\gamma'(0) = \xi$.
+For any $t$ there is a rational curve $C_t \subset X$ such that $p \in C_t$ and $\gamma(t) \in C_t$.
+Is this going in the direction of a Wu-type criterion?
+Or a Kobayashi-type metric?
+
+
+If $X$ is projective and $E \to X$ is a vector bundle then $E$ is psef
+is $\cc O_{\kk P(E)}(1)$ is psef and the union of all curves $C$
+with $\cc O(1) \cdot C < 0$ does not project onto $X$.
+For the tangent bundle, let $U$ be a coordinate neighborhood.
+Then $T_X = \kk C^n \times U$ and $\kk P(T_X) = \kk P(\kk C^n) \times U$.
+The bundle $\cc O(-1)$ is locally generated by the Euler section $\xi$.
+
+If $h$ is a metric with $H \leq c < 0$ and $C \subset X$ is a curve we get
+$$
+2(1-g)
+= \int_C R_{C} dV
+\leq \int_C H dV
+\leq c \Vol C
+$$
+by Codazzi--Griffiths and Gauss--Bonnet.
+There's no similar inequality for $H \geq c > 0$.
+We only get
+$$
+2(1-g)
+= \int_C R_C dV
+\leq \int_C H dV
+= \int_C H(\xi) |\xi|.
+$$
+
+
+
+
+\section{19. June 2023}
+
+I was reading J-P's note on the Kobayashi--L\"ubke inequality and still have no
+idea what he's doing in the calculations for a K\"ahler metric.
+It looks like he calculates that
+\begin{align*}
+2(nc_1(h)^2 - 2(n{+}1) c_2(h)) \omega\^{n-2}
+&= (-s^2 -|r|^2 + (n{+}1)|r|^2 - (n{+}1)|R|^2) \omega\^n
+\\
+&= (n|r|^2 - s^2 - (n+1)|R|^2) \omega\^n
+\end{align*}
+for any K\"ahler metric $\omega$, where $c_j(h)$ are the Chern forms,
+$R$ the curvature tensor, $r$ the Ricci tensor and $s$ the scalar curvature.
+Then if $\omega$ is K\"ahler--Einstein so $r = \lambda \omega$ we get $s =
+\lambda n$ so $n |r|^2 - s^2 = n \lambda^2 n - (\lambda n)^2 = 0$ and
+$$
+2(nc_1(h)^2 - 2(n{+}1) c_2(h)) \omega\^{n-2}
+= -(n+1)|R|^2 \omega\^n \leq 0
+$$
+without doing any of the pages of calculations J-P does.
+
+At some point I calculated that
+$$
+(2c_2(h) -c_1^2(h)) \omega\^{n-2}
+= (|R|^2 - |r_3|^2) \omega\^n
+$$
+for the curvature tensor of a Hermitian metric, where $r_3$ is one of the Ricci
+tensors. For a K\"ahler metric we only have one Ricci tensor.
+I don't think we can get to J-P's result this way.
+The version with the $n$ and $n+1$ factors on the Chern forms does not follow
+from this one, so something must be going on.
+
+\def\fip{\frac{i}{2\pi}}
+\def\tip{\tfrac{i}{2\pi}}
+
+So let
+$\frac{i}{2\pi} \Theta
+= \sum_{l,m} \Theta_{lm} \frac{i}{2\pi} dz_l \wedge d\bar z_m
+= \sum_{j,k,l,m} \Theta_{jklm} \frac{i}{2\pi} dz_l \wedge d\bar z_m$
+be the curvature form of a K\"ahler metric $h$.
+We have $\ov{\Theta_{lm}}^t = \Theta_{ml}$ because the curvature form is real.
+The first Chern form is
+$$
+c_1(T_X,h)
+= \sum_{lm} \tr\Theta_{lm} \fip dz_l \wedge d\bar z_m
+= \sum_{lm} \sum_{j} \Theta_{jjlm} \fip dz_l \wedge d\bar z_m
+$$
+so
+$$
+c_1(T_X,h)^2
+= \sum_{jklm} \tr\Theta_{jk} \tr \Theta_{lm}
+\biggl(\fip\biggr)^2
+dz_j \wedge d\bar z_k \wedge d z_l \wedge d \bar z_m
+$$
+and the second Chern form is
+$$
+c_2(T_X,h)
+=
+\frac12 \sum_{jk} \sum_{lm}
+\tr(\Theta_{jk} \Theta_{lm})
+\biggl(\fip\biggr)^2
+dz_j \wedge d\bar z_k \wedge d z_l \wedge d \bar z_m.
+$$
+If we diagonalize $h$ at a point we then get
+\begin{align*}
+c_1(T_X,h)^2 \wedge \omega\^{n-2}
+&= \sum_{jk} (\tr \Theta_{jj} \tr \Theta_{kk} - \tr \Theta_{jk} \tr \Theta_{kj})
+\omega\^n
+= (s^2 - |r|^2) \omega\^n,
+\\
+c_2(T_X,h) \wedge \omega\^{n-2}
+&= \frac12 \sum_{jk} (\tr(\Theta_{jj} \Theta_{kk}) - \tr(\Theta_{jk}\Theta_{kj}))
+\omega\^n
+\\
+&= \frac12 \sum_{jk} \tr(\Theta_{jj} \Theta_{kk}) \omega\^n - \frac12 |R|^2 \omega\^n.
+\end{align*}
+Now
+$$
+\tr(\Theta_{jj} \Theta_{kk})
+= \tr\biggl(\sum_{m}\Theta_{jjlm} \Theta_{kkmp}\biggr)_{lp}
+= \sum_{lm} \Theta_{jjlm} \Theta_{kkml}
+$$
+so
+$$
+\sum_{jk} \tr(\Theta_{jj} \Theta_{kk})
+= \sum_{jklm} \Theta_{jjlm} \ov{\Theta_{kklm}}
+= \tr \Theta_{lm} \ov{\tr \Theta_{lm}}^t
+= |r|^2
+$$
+and thus
+$$
+c_2(T_X,h) \wedge \omega\^{n-2}
+= \frac12 (|r|^2 - |R|^2)\omega\^n.
+$$
+Together we get
+$$
+(2c_2(T_X,h) - c_1(T_X,h)^2) \omega\^{n-2}
+= (s^2 - |R|^2) \omega\^n.
+$$
+
+
 
 \section{11. May 2023}
 
@@ -2023,7 +2860,7 @@ R(x, \ov x, x, \ov x)
 + (c x_1^2 + f x_2^2) \ov x_2^2
 \\
 &= a |x_1|^4 + f |x_2|^4
-+ 2 c \bigl(2 |x_1|^2 |x_2|^2 + \Re(x_1^2 \ov x_2^2) \bigr)
++ 2 c \bigl(2 |x_1|^2 |x_2|^2 + \re(x_1^2 \ov x_2^2) \bigr)
 \\
 r(x, \ov y)
 &=
@@ -2035,7 +2872,7 @@ a + c & 0 \\ 0 & c + f
 \\
 s &= a + 2c + f.
 \end{align*}
-For complex numbers we have $|\Re z| \leq |z|$, so we have
+For complex numbers we have $|\re z| \leq |z|$, so we have
 \begin{align*}
 a |x_1|^4 + f |x_2|^4 + 2c |x_1|^2 |x_2|^2
 &\leq R(x, \ov x, x, \ov x)
