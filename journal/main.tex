@@ -91,10 +91,10 @@ R(v, \bar v, v, \bar v)
 \cr{}
 \phantom{R(v, \bar v, v, \bar v)}
 = |x_1|^4 R_{1111} + |x_2|^4 R_{2222}
++ 2 |x_1|^2 |x_2|^2 R_{1122}
 \hfill\cr\hfill{}
 + 2 x_1 \bar x_2 |x_2|^2 R_{1222}
 + 2 x_2 \bar x_1 |x_2|^2 R_{2122}
-+ 2 |x_1|^2 |x_2|^2 R_{1122}
 \cr\hfill{}
 + x_1^2 \bar x_2^2 R_{1212}
 + x_2^2 \bar x_1^2 R_{2121}
@@ -103,6 +103,42 @@ R(v, \bar v, v, \bar v)
 + x_2 \bar x_1 |x_1|^2 (R_{2111} + R_{1121}).
 }
 $$
+If we write this in $x,y,z,a,b,c$ and $\xi = (u,v)$ we get
+$$
+\displaylines{
+R(\xi, \bar\xi, \xi, \bar\xi)
+= |u|^4 x + 2|u|^2 |v|^2 z + |v|^4 y
++ 2 u \bar v |v|^2 b
++ 2 v \bar u |v|^2 \bar b
+\hfill\cr\hfill{}
++ u^2 \bar v^2 c
++ v^2 \bar u^2 \bar c
++ 2 u \bar v |u|^2 \re a
++ 2 v \bar u |u|^2 \re a
+}
+$$
+
+
+As before we have
+$$
+\displaylines{
+H(e_j + e_k) + H(e_j - e_k) + H(e_j + i e_k) + H(e_j - i e_k)
+= H(e_j) + H(e_k) + 2 B(e_j, e_k)
+}
+$$
+for $j \not= k$.
+If $H \geq 0$ we get
+\begin{align*}
+0
+&\leq \sum_{j\not=k} H(e_j) + H(e_k) + 2 B(e_j, e_k)
+\\
+&= \sum_{j,k} H(e_j) + H(e_k) + 2 B(e_j, e_k)
+- 4 \sum_{j} H(e_j)
+\\
+&= 2n \sum_j H(e_j) + 2 s - 4 \sum_j H(e_j)
+= 2s + 2(n-2) \sum H(e_j).
+\end{align*}
+So for a surface we get $2s \geq 0$.
 
 
 
@@ -171,59 +207,59 @@ $$
 
 \begin{proof}
 We'll write $R(u) := R(u, \bar u, u, \bar u)$.
-Let's inspect $R(u + t \lambda v)$ for $t \in \kk R$ and $|\lambda| = 1$.
+Let's inspect $R(u + t v)$ for $t \in \kk C$.
 This equals
 $$
 \displaylines{
-R(u + t \lambda v)
+R(u + t v)
+= R(u)
++ |t|^4 R(v)
+\hfill\cr\hfill{}
++ t( R(v, \bar u, u, \bar u) + R(u, \bar u, v, \bar u))
++ \bar t( R(u,\bar u,u,\bar v) + \bar R(u, \bar v, u, \bar u))
+\cr\hfill{}
++ t^2 R(v, \bar u, v, \bar u)
++ |t|^2 (R(u, \bar u, v, \bar v) + R(v, \bar v, u, \bar u))
++ \bar t^2 R(u, \bar v, u, \bar v)
+\cr\hfill{}
++ |t|^2 t (
+R(v, \bar u, v, \bar v) + R(v, \bar v, v, \bar u)
+)
++ |t|^2 \bar t(
+R(u, \bar v, v, \bar v) + R(v, \bar v, u, \bar v)
+)
+\cr{}
+\phantom{R(u + tv)}
 = R(u)
 + t^4 R(v)
++ 2 |t|^2 R(u, \bar u, v, \bar v)
 \hfill\cr\hfill{}
-+ t(\bar \lambda R(u,\bar u,u,\bar v)
-+ \lambda R(u, \bar u, v, \bar u)
-+ \bar\lambda R(u, \bar v, u, \bar u)
-+ \lambda R(v, \bar u, u, \bar u))
++ 2t R(u, \bar u, v, \bar u)
++ 2 \bar t R(u,\bar u,u,\bar v)
 \cr\hfill{}
-+ t^2(R(u, \bar u, v, \bar v)
-+ \bar \lambda^2 R(u, \bar v, u, \bar v)
-+ \lambda^2 R(v, \bar u, v, \bar u)
-+ R(v, \bar v, u, \bar u))
++ t^2 R(v, \bar u, v, \bar u)
++ \bar t^2 R(u, \bar v, u, \bar v)
 \cr\hfill{}
-+ t^3(\bar \lambda R(u, \bar v, v, \bar v)
-+ \lambda R(v, \bar u, v, \bar v)
-+ \bar\lambda R(v, \bar v, u, \bar v)
-+ \lambda R(v, \bar v, v, \bar u))
-\cr\hfill{}
-= R(u)
-+ t^4 R(v)
-+ 2t(\bar \lambda R(u, \bar u, u, \bar v) + \lambda R(u, \bar u, v, \bar u))
-\hfill\cr\hfill{}
-+ t^2(2 R(u, \bar u, v, \bar v)
-+ \bar \lambda^2 R(u, \bar v, u, \bar v)
-+ \lambda^2 R(v, \bar u, v, \bar u))
-\cr\hfill{}
-+ 2 t^3(\bar \lambda R(u, \bar v, v, \bar v)
-+ \lambda R(v, \bar u, v, \bar v)).
++ 2 |t|^2 t R(v, \bar u, v, \bar v)
++ 2 |t|^2 \bar t R(u, \bar v, v, \bar v).
 }
 $$
 Then we get
 $$
 \displaylines{
 R(u + t v) + R(u - t v)
-= 2 R(u) + 2 t^4 R(v)
+= 2 R(u) + 2 |t|^4 R(v)
++ 4 |t|^2 R(u, \bar u, v, \bar v)
 \hfill\cr\hfill{}
-+ t^2(
-4 R(u, \bar u, v, \bar v)
-+ 2 R(u, \bar v, u, \bar v)
-+ 2 R(v, \bar u, v, \bar u)),
++ 2 t^2 R(v, \bar u, v, \bar u)
++ 2 \bar t^2 R(u, \bar v, u, \bar v)
 \cr{}
 R(u + t i v) + R(u - t i v)
-= 2 R(u) + 2 t^4 R(v)
+= 2 R(u) + 2 |t|^4 R(v)
++ 4 |t|^2 R(u, \bar u, v, \bar v)
 \hfill\cr\hfill{}
-+ t^2(
-4 R(u, \bar u, v, \bar v)
-- 2 R(u, \bar v, u, \bar v)
-- 2 R(v, \bar u, v, \bar u)),
+- 2 t^2 R(v, \bar u, v, \bar u)
+- 2 \bar t^2 R(u, \bar v, u, \bar v)
 }
 $$
 so
@@ -232,14 +268,12 @@ $$
 R(u + t v) + R(u - t v)
 + R(u + t i v) + R(u - t i v)
 \hfill\cr\hfill{}
-= 4(R(u) + t^4 R(v) + 2 t^2 R(u, \bar u, v, \bar v)).
+= 4(R(u) + |t|^4 R(v) + 2 |t|^2 R(u, \bar u, v, \bar v)).
 }
 $$
-If $H > 0$
-the RHS is a quadratic polynomial in $t^2$ with $R(u) > 0$ and $R(v) > 0$
+The RHS is a quadratic polynomial in $|t|^2$.
 Its critical point is where
-$4t^3 R(v) + 4t R(u, \bar u, v, \bar v) = 4t(t^2 R(v) + R(u, \bar u, v, \bar v)) = 0$, or where
-$t^2 = -R(u, \bar u, v, \bar v) / R(v)$. There we find
+$|t|^2 = -R(u, \bar u, v, \bar v) / R(v)$. There we find
 \begin{align*}
 0 &<
 R(u)
