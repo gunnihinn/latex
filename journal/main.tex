@@ -23,6 +23,7 @@
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
 \newtheorem{exam}[theo]{Example}
+\newtheorem{cexam}[theo]{Counterexample}
 
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
@@ -34,6 +35,7 @@
 \def\lit#1#2{\bgroup\color{#1} #2\egroup}
 
 \DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Hess}{Hess}
 \DeclareMathOperator{\pr}{pr}
 \DeclareMathOperator{\Span}{span}
 \DeclareMathOperator{\Gr}{Gr}
@@ -54,16 +56,592 @@
 
 \def\<{\langle}
 \def\>{\rangle}
+\def\d{\mathrm{d}}
 
 \newtheorem{question}{Question}
 
 \author{Gunnar Þór Magnússon}
 \date{\today}
-\title{Blog}
+\title{Journal}
 
 \begin{document}
 
 \maketitle
+
+\section{14. July 2023}
+
+\subsection*{Curvature tensor decomposition}
+
+Let
+$$
+R = \begin{pmatrix}
+x & a & a & c
+\\
+\bar a & z & z & b
+\\
+\bar a & z & z & b
+\\
+\bar c & \bar b & \bar b & y
+\end{pmatrix}
+$$
+be an algebraic K\"ahler curvature tensor on a surface.
+Let's calculate its $R = S + P + W$ decomposition.
+Here $S = \<R, h \odot h \> / |h \odot h|^2 h \odot h$ is the orthogonal
+projection onto the line of tensors of constant HSC.
+We then project $R - S$ onto the subspace of tensors of the form $\tau \odot h$
+to get $P$, and then have $W = R - S - P$.
+Is it obvious from this that $r(W) = 0$?
+
+The scalar curvature is $s = x + 2z + y$ and the Ricci tensor is
+$$
+r = \begin{pmatrix}
+x + z & a + b
+\\
+\bar a + \bar b & z + y
+\end{pmatrix}.
+$$
+We have
+$$
+S = \frac{s}{6}(\<\alpha, \ov \beta\> \<\gamma, \ov \delta\>
++ \<\alpha, \ov \delta\> \<\gamma, \ov \beta\>)
+= \frac{s}{6}
+\begin{pmatrix}
+2 & 0 & 0 & 0
+\\
+0 & 1 & 1 & 0
+\\
+0 & 1 & 1 & 0
+\\
+0 & 0 & 0 & 2
+\end{pmatrix}.
+$$
+The traceless Ricci tensor is
+$$
+\hat r
+= r(\alpha, \ov\beta) - \frac{s}{2} \<\alpha, \ov\beta\>
+= \begin{pmatrix}
+\frac12 x - \frac12 y & a + b
+\\
+\bar a + \bar b & \frac12 y - \frac12 x
+\end{pmatrix}
+$$
+so
+$$
+P = \frac12
+\begin{pmatrix}
+x-y & a+b & a+b & 0
+\\
+\bar a + \bar b & 0 & 0 & a+b
+\\
+\bar a + \bar b & 0 & 0 & a+b
+\\
+0 & \bar a+\bar b & \bar a+\bar b & y-x
+\end{pmatrix}.
+$$
+Then the Weyl tensor is
+$$
+W\! = R - S - P
+= \frac16 \! \begin{pmatrix}
+x + y - 4z & 3(a - b) & 3(a - b) & 6c
+\\
+3(\bar a - \bar b) & 4z - x - y & 4z - x - y & 3(b - a)
+\\
+3(\bar a - \bar b) & 4z - x - y & 4z - x - y & 3(b - a)
+\\
+6 \bar c & 3(\bar b - \bar a) & 3(\bar b - \bar a) & x + y - 4z
+\end{pmatrix}
+$$
+and its Ricci tensor is $r(W) = 0$.
+
+We have $H(S) = s$ by construction, and
+$$
+H(P)(\alpha)
+= \hat r(\alpha, \ov\alpha) / |\alpha|^2
+= \frac{r(\alpha, \ov\alpha)}{|\alpha|^2} - \frac{s}{n}.
+$$
+Because $s(P) = 0$ this is not positive.
+We then have
+$$
+H(W)(\alpha)
+= H(R)(\alpha)
+- \frac{r(\alpha, \ov\alpha)}{|\alpha|^2}
+- \frac{n-1}{n} s.
+$$
+
+
+\section{13. July 2023}
+
+\subsection*{Bounds on HSC}
+
+Zhang defines
+$$
+\mu(\alpha)
+= \inf \Bigl\{ \sup_X H_\omega \mid \omega \in \alpha \Bigr\}
+$$
+for a K\"ahler class $\alpha$ on a compact K\"ahler manifold $X$.
+We can also define
+$$
+\nu(\alpha)
+= \sup \Bigl\{ \inf_X H_\omega \mid \omega \in \alpha \Bigr\}.
+$$
+Both of these are well-defined:
+
+Clearly $\mu(\alpha) < +\infty$ and $-\infty < \nu(\alpha)$ by picking
+any K\"ahler metric in $\alpha$.
+Recall that
+$$
+\frac{s}{\binom{n+1}{2}} = \int_{S^{2n-1}} H(x) \, d\sigma(x),
+$$
+where $d\sigma$ is the Lebesgue measure on the sphere of unit volume
+and thus
+$$
+\inf_X H_\omega
+\leq \frac{s}{\binom{n+1}{2}}
+\leq \sup_X H_\omega.
+$$
+We also have
+$$
+\int_X s \, \omega\^n
+= c_1(X) \cup \alpha\^{n-1}
+$$
+and so
+$$
+\inf_X H_\omega
+\leq \frac{1}{\binom{n+1}{2}} \frac{c_1(X) \cup \alpha\^{n-1}}{\alpha\^n}
+\leq \sup_X H_\omega
+$$
+which implies
+$$
+\nu(\alpha)
+\leq \frac{1}{\binom{n+1}{2}} \frac{c_1(X) \cup \alpha\^{n-1}}{\alpha\^n}
+\leq \mu(\alpha).
+$$
+
+If there exists a metric of positive HSC in $\alpha$ we have $0 < \nu(\alpha)$.
+Similarly if there exists a metric of negative HSC in $\alpha$ we have
+$\mu(\alpha) < 0$.
+
+
+\subsection*{New proof that HSC dominates scalar curvature}
+
+Let $R$ be the curvature tensor of a K\"ahler metric at the center
+of a normal coordinate frame.
+Recall that we call such a tensor an algebraic K\"ahler curvature tensor.
+Let $(e_1,\ldots,e_n)$ be the associated orthonormal basis at the origin.
+We write $H(R)$ and $s(R)$ for the holomorphic sectional and scalar
+curvatures of $R$ if we need to specify the tensor.
+For $\theta_1, \ldots, \theta_n \in \kk R$ we let
+$$
+\phi(z)
+:= \phi(\theta_1, \ldots, \theta_n, z)
+= (e^{i\theta_1} z_1, \ldots, e^{i\theta_n} z_n)
+$$
+and we set
+$$
+\widehat R(x, \bar y, z, \bar w)
+= \frac{1}{(2\pi)^n} \int_{(S^1)^n}
+\phi^* R(x, \bar y, z, \bar w) \, \d\theta_1 \cdots \d\theta_n.
+$$
+
+\begin{prop}
+\begin{enumerate}
+\item
+We have
+$$
+\widehat R_{jklm} =
+\begin{cases}
+R_{jklm} & \text{if $j=k$ and $l=m$ or $j=m$ and $k=l$},
+\\
+0 & \text{otherwise.}
+\end{cases}
+$$
+
+\item
+$\widehat R$ is an algebraic K\"ahler curvature tensor.
+
+\item
+$\widehat{\widehat R} = \widehat R$.
+
+\item
+$s(\widehat{R}) = s(R)$.
+
+\item
+If $H(R) > 0$ then $H(\widehat R) > 0$.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+For vectors $x=\sum_j x_j e_j$, $y = \sum_k y_k e_k$, $z = \sum_l z_l e_l$,
+$w = \sum_m w_m e_m$ we have
+$$
+\phi^*R(x, \bar y, z, \bar w)
+= \sum_{jklm} e^{i(\theta_j-\theta_k+\theta_l-\theta_m)}
+x_j \bar y_k z_l \bar w_m R_{jklm}
+$$
+and so by integrating we see that
+$\widehat R_{jklm} = R_{jklm}$ if $j=k$ and $l=m$ or $j=m$ and $k=l$ and
+$\widehat R_{jklm} = 0$ otherwise.
+This proves point 1.
+
+Points 2, 3 and 4 are direct consequences of point 1.
+
+If $H(R) > 0$ we have
+$$
+\phi^*R(x, \bar x, x, \bar x)
+= R(\phi^* x, \ov{\phi^* x}, \phi^* x, \ov{\phi^* x}) > 0
+$$
+so the integrands that define $\widehat R$ are positive, so $\widehat R(x, \bar
+x, x, \bar x) > 0$.
+\end{proof}
+
+If we denote by $\cc H$ the set of K\"ahler curvature tensors that have positive
+holomorphic sectional curvature it is clear that $\cc H$ is an open connected
+cone in the space of K\"ahler curvature tensors.
+The projection map $R \mapsto \widehat R$ maps this cone to itself in a way
+that preserves the scalar curvature.
+The map does not necessarily preserve the Ricci tensor $r(R)$, as we can verify
+by checking the case $n = 2$ by hand.
+We have $|\widehat R| \leq |R|$ and $|r(\widehat R)| \leq |r(R)|$.
+
+
+\begin{prop}
+Suppose $H(R) > 0$. Then $s(R) > 0$.
+\end{prop}
+
+\begin{proof}
+By the above we may replace $R$ with $\widehat R$.
+Set $v = \sum_{j=1}^n e_j$. Then
+\begin{align*}
+0 < R(v, \bar v, v, \bar v)
+&= \sum_{jklm} R_{jklm}
+\\
+&=
+\sum_j R_{jjjj}
++ \sum_{j\not=l} R_{jjll} + R_{jllj} + R_{ljjl} + R_{lljj}
+\\
+&=
+\sum_j R_{jjjj}
++ 4 \sum_{j\not=l} R_{jjll}
+\end{align*}
+by the K\"ahler curvature tensor symmetries
+and thus
+\[
+0 < R(v, \bar v, v, \bar v) + \sum_j R_{jjjj}
+= 2 \sum_{jk} R_{jjkk}
+= 2s.
+\qedhere
+\]
+\end{proof}
+
+The projection map also preserves negative holomorphic sectional curvature.
+We thus get that $H < 0$ implies $s < 0$ in the same way as above.
+
+
+\section{12. July 2023}
+
+Zhen says that
+\begin{align*}
+c_1^2 \wedge \omega\^{n-2} &= \frac{1}{\pi^2} ( s^2 - |r|^2 ) \omega\^n,
+\\
+c_2 \wedge \omega\^{n-2} &= \frac{1}{2 \pi^2} (s^2 - 2 |r|^2 + |R|^2) \omega\^n
+\end{align*}
+modulo that his $s$ seems to be our $2s$.
+Is his $r$ our $r$?
+This gives
+$$
+(c_1^2 - 2 c_2) \wedge \omega\^{n-2}
+= \frac{1}{\pi^2} (|r|^2 - |R|^2) \omega\^n,
+$$
+which is what we got back in the day when proving Kobayashi--L\"ubke.
+
+For a metric on a surface with $a = b = 0$ we have $|r|^2 = (x+z)^2 + (y+z)^2
+= x^2 + 2z^2 + y^2 + 2xz + 2yz$
+and $|R|^2 = x^2 + 4z^2 + y^2 + 2|c|^2$.
+Then
+$$
+c_1^2 - 2 c_2
+= 2(xz + yz - z^2 - |c|^2).
+$$
+If $z < 0$ this is all negative.
+If anything we might be able to prove the opposite of what we want as
+$$
+2 c_2 - c_1^2
+= 2(|c|^2 + (z - x - y)z).
+$$
+I'm not sure this will be positive for all configurations.
+We can take $c = 0$, $x = y = 1$ and $z = \epsilon$, then this will be negative.
+
+
+\begin{cexam}
+Changing tacks a bit we have $s_2 = c_1^2 - c_2$.
+Then
+$$
+2 s_2
+= 2 c_1^2 - 2 c_2
+= \frac{1}{\pi^2} (s^2 - |R|^2) \omega\^2,
+$$
+which is actually what we've been trying to prove the positivity of.
+Take $a,b,c = 0$, $x = y = 2$ and $z = -1+\epsilon$. Then
+$$
+H(u,v) = 2 |u|^4 - 4(1-\epsilon) |u|^2|v|^2 + 2|v|^4
+= 2 (|u|^2 - |v|^2)^2 + 4 \epsilon |u|^2|v|^2
+$$
+is positive for any $\epsilon > 0$.
+We have $s = 2 + 2 + 2(\epsilon - 1) = 2(1 + \epsilon)$ and
+$|R|^2 = 8 + 4(1-\epsilon)^2$ so
+\begin{align*}
+s^2 - |R|^2
+= 4 (1 + \epsilon)^2
+- 8 - 4(1 - \epsilon)^2
+&= 4((1 + \epsilon^2) - (1 - \epsilon)^2) - 8
+\\
+&= 8(\epsilon - 1)
+\end{align*}
+which can have any sign.
+Therefore the second Segre form of a surface with $H > 0$ is not necessarily
+positive pointwise.
+\end{cexam}
+
+\begin{cexam}
+Next door is the Miyaoka--Yau inequality which in our context is that
+$$
+0 \leq 3 c_2 - c_1^2
+= \frac{1}{2\pi^2}(s^2 - 4 |r|^2 + 3 |R|^2).
+$$
+This becomes
+$$
+\displaylines{
+(x + 2z + y)^2
+- 4( (x+z)^2 + (y+z)^2 )
++ 3 x^2 + 3 y^2 + 12 z^2 + 6 |c|^2
+\hfill\cr\hfill{}
+=
+2xy
+- 4(x+y)z
++ 8 z^2
++ 6 |c|^2.
+}
+$$
+Write $p(x,y,z) = xy - 2(x+y)z + 4z^2$.
+We have $x,y > 0$ so when $z \leq 0$ the polynomial $p$ is positive.
+The critial point of $p$ as a function of $z$ is when
+$4z = x+y$ where we get
+\begin{align*}
+p(x,y,(x+y)/4)
+= xy - (x+y)^2/2 + (x+y)^2/4
+= xy - (x+y)^2/4.
+\end{align*}
+This can be negative: $xy$ is linear in $x$ but the negative
+part quadratic.
+Thus: Miyaoka--Yau does \emph{not} hold pointwise for a K\"ahler surface with
+$H > 0$ (or even necessarily $B > 0$, where it holds in cohomology because such
+a surface is $\kk P^2$).
+\end{cexam}
+
+
+\section{4. July 2023}
+
+I have a plan:
+Find $c > 0$ so that $c^2 B(u,v)^2 \leq H(u) H(v)$ when $H > 0$.
+Then
+$$
+\displaylines{
+0 \leq ((H(u) H(v))^{1/2} + c B(u,v)) ((H(u) H(v))^{1/2} - c B(u,v))
+\hfill\cr\hfill{}
+= H(u) H(v) - c^2 B(u,v)^2.
+}
+$$
+Integrate over the sphere and clear denominators to get
+$$
+0 \leq 4 s^2 - c^2 |R|^2 - c^2 (n+2)|r|^2.
+$$
+Then $0 < 4 s^2 - c^2 |R|^2$ because we can't have $|r|^2 = 0$.
+
+Before I wrote this down I honestly expected to get more.
+
+In any case, I claim that $c = 1/4$ works when $B(u,v) \leq 0$.
+What about when $B(u,v) > 0$?
+
+We have $\partial_u \bar\partial_v R(w,\bar w, w, \bar w)
+= 4 R(u, \bar v, w, \bar w)$.
+When $B(u,v) > 0$ this gives $\partial_u \bar\partial_u R(v) = 4 B(u, v) > 0$.
+I'm not sure that helps.
+This is used in various places by taking $w$ to be where $H$ attains a minimum.
+The second derivative test then gives the positivity of the Hessian of $H$ at $w$,
+implying the HBS is positive (or negative if we're looking at the maximum) at $w$.
+
+There is a decomposition $R = S + P + W$, where
+\begin{align*}
+S &= \frac{s}{2(n+1)}
+\bigl(h(x, \bar y) h(z, \bar w) + h(x, \bar w) h(z, \bar y)\bigr)
+\\
+P &= \frac{1}{n+2}\bigl(
+h(x, \bar y) \hat r(z, \bar w)
++ h(z, \bar w) \hat r(x, \bar y)
++ h(x, \bar w) \hat r(z, \bar y)
++ h(z, \bar y) \hat r(x, \bar w)
+\bigr)
+\end{align*}
+where $\hat r = r(z, \bar w) - \frac{s}{2n} h(z, \bar w)$
+and $W = R - S - P$.
+
+We have $S(x) = \frac{s}{n+1} |x|^4$, so if $s > 0$ then $S$ has positive HSC.
+Also
+$$
+S(x,y)
+= \frac{s}{2(n+1)} (|x|^2 |y|^2 + |\<x, y\>|^2)
+$$
+so
+$$
+S(x,y)^2
+= \frac{s^2}{4(n+1)^2}(|x|^2 |y|^2 + |\<x, y\>|^2)^2
+\leq \frac{s^2}{(n+1)^2}|x|^4 |y|^4
+= H(x) H(y).
+$$
+Therefore $c = 1$ works for $S$.
+
+Next we'll look at $P$.
+There
+$$
+P(x) =
+\frac{4}{n+2}
+|x|^2 \Bigl(r(x, \bar x) - \frac{s}{2n} |x|^2\Bigr).
+$$
+This may not be positive if $s > 0$. In any case
+$$
+P(x,y) =
+\frac{1}{n+2}\bigl(
+|x|^2 \hat r(y, \bar y)
++ |y|^2 \hat r(x, \bar x)
++ \<x, \bar y\> \hat r(x, \bar y)
++ \<y, \bar x\> \hat r(y, \bar x)
+\bigr)
+$$
+so
+$$
+P(x,y)^2 =
+\frac{16}{(n+2)^2} |\<x, \bar y\>|^2
+\Bigl| r(x, \bar y) - \frac{s}{2n} \<x, \bar y\> \Bigr|^2.
+$$
+We of course have $|\<x, \bar y\>|^2 \leq |x|^2 |y|^2$.
+
+Suppose $B(u,v) > 0$.
+We may assume $u = e_1$ and $|v| = 1$.
+Then
+$
+B(u,v) = R(e_1, \bar e_1, v, \bar v)
+$.
+We also have $B(u,v) > 0$ for any nearby $v$.
+Write $v = \sum_j v_j$ so
+$$
+R(e_1, \bar e_1, v, \bar v)
+= \sum_{jk} v_j \bar v_k R_{11jk}.
+$$
+This defines a Hermitian form $b(v,\bar w) = \sum_{jk} R_{11jk} v_j \bar w_k$.
+We know it is positive-definite for $w$ near $v_0$.
+There's no Cauchy--Schwarz argument becaues that doesn't give us $H(v)$ at the end.
+
+Look at $p(x) = ax^2 + 4bx + c$ with $a,b,c > 0$.
+Have $p'(x) = 2ax + 4b$ which is zero when $x = - 2b / a$.
+There we have
+$p(-2b/a) = 4b^2/a - 8b^2 / 2a + c = c - 4b^2 / a$.
+Applying this blindly to the polynomial we had earlier we get
+$$
+p(-4B(u,v)/H(v))
+= H(u) - 4 B(u,v)^2 / H(v)
+= \frac{H(u)H(v) - 4B(u,v)^2}{H(v)}.
+$$
+
+
+Anyway.
+Yashan Zhang (https://arxiv.org/pdf/1803.06093.pdf) proves things
+about manifolds with almost nonnegative HSC, including a Chern class inequality.
+He uses a calculation of Royden and Yau's solution to construct metrics that
+converge to nice things in cohomology.
+The result from Royden he uses is this:
+
+\begin{prop}[Royden]
+Suppose $h$ is a K\"ahler metric with $0 < H \leq A$.
+For any K\"ahler metric $g$ we have
+$$
+\tr_g R_h \leq A (\tr_g h)^2,
+$$
+where $R_h$ is the curvature tensor of $h$.
+\end{prop}
+
+For the inequality he then notes that
+$$
+(2(n+1)c_2 - n c_1^2) \wedge \omega\^{n-2}
+\geq - \frac{n+2}{4\pi^2} \int_X | r + \omega |^2_\omega \omega\^n
+$$
+by standard Chern--Weil calculations.
+He then constructs a sequence of metrics $\omega_j$ such that
+$$
+[\omega_{j}] \to 2 \pi c_1(X)
+\qandq
+\int_X |r_j + \omega_j|^2_{\omega_j} \omega_j\^n \to 0.
+$$
+This clearly proves Miyaoka--Yau.
+
+We have
+$$
+|r|^2 \omega\^n
+= - c_1^2 \wedge \omega\^n
++ s^2 \omega\^n
+$$
+so $c_1^2 \wedge \omega\^{n-2} = (s^2 - |r|^2) \omega\^n$.
+Generally $s^2 \leq n |r|^2$.
+We'd like to somehow show that the mass of $R$ concentrates around $s$.
+
+
+\section{1. July 2023}
+
+Zheng calculates that
+$$
+s_2(T_X,\omega) \wedge \omega\^{n-2}
+= \frac{1}{\pi^2} \Bigl(
+\frac{s^2}{8} - |R|^2
+\Bigr) \omega\^n.
+$$
+There's also an orthogonal decomposition
+$$
+R = S + P + W,
+$$
+where $S$ is the scalar part of $R$, $P$ is the traceless Ricci part, and
+$W$ is the Weyl tensor.
+Does having postive HSC somehow make $|R|^2$ small?
+
+And what if we calculate
+$$
+(\sqrt{H(u) H(v)} + B(u,v))(\sqrt{H(u) H(v)} - B(u,v))
+?
+$$
+We know $H(u) H(v) + 4 B(u,v) > 0$ if $B(u,v) < 0$.
+We have some bound $H(u) H(v) - b B(u,v) > 0$ if $B(u,v) > 0$.
+Is $b = 1$?
+In any case,
+$$
+\displaylines{
+(H(u) H(v) + x B(u,v)) (H(u) H(v) - y B(u,v))
+\hfill\cr\hfill{}
+= H(u)^2 H(v)^2 + (x - y) H(u) H(v) B(u,v) - xy B(u,v)^2
+}
+$$
+and integrating this over $S^2$ we get (picking $x,y$ so the LHS is $\geq 0$)
+$$
+0 \leq
+\biggl(\frac{|R|^2 + 4|r|^2 + s^2}{\binom{n+1}{2}\binom{n+3}{2}}\biggr)^2
++ (x-y) \frac{s^2}{\binom{n+1}{2}^2} \frac{s}{n^2}
+- xy \frac{|R|^2 + (n+2)|r|^2}{4 \binom{n+1}{2}^2}
+$$
+because $\int_{v \in S} B(u,v) d\sigma(v) = r / n$.
+Multiplying through we get
+$$
+0 \leq
+\frac{(|R|^2 + 4|r|^2 + s^2)^2}{\binom{n+3}{2}^2}
++ (x-y) \frac{s^3}{n^2}
+- xy \frac{|R|^2 + (n+2)|r|^2}{4}
+$$
 
 \section{28. June 2023}
 
@@ -82,7 +660,7 @@ R(v, \bar v, v, \bar v)
 + x_1 \bar x_2 |x_2|^2 (R_{1222} + R_{2212})
 + x_2 \bar x_1 |x_2|^2 (R_{2122} + R_{2221})
 \cr\hfill{}
-+ |x_1|^2 |x_2|^2 (R_{1122} + R_{2211})
++ |x_1|^2 |x_2|^2 (R_{1122} + R_{1221} + R_{2112} + R_{2211})
 + x_1^2 \bar x_2^2 R_{1212}
 + x_2^2 \bar x_1^2 R_{2121}
 \cr\hfill{}
@@ -91,7 +669,7 @@ R(v, \bar v, v, \bar v)
 \cr{}
 \phantom{R(v, \bar v, v, \bar v)}
 = |x_1|^4 R_{1111} + |x_2|^4 R_{2222}
-+ 2 |x_1|^2 |x_2|^2 R_{1122}
++ 4 |x_1|^2 |x_2|^2 R_{1122}
 \hfill\cr\hfill{}
 + 2 x_1 \bar x_2 |x_2|^2 R_{1222}
 + 2 x_2 \bar x_1 |x_2|^2 R_{2122}
@@ -107,38 +685,58 @@ If we write this in $x,y,z,a,b,c$ and $\xi = (u,v)$ we get
 $$
 \displaylines{
 R(\xi, \bar\xi, \xi, \bar\xi)
-= |u|^4 x + 2|u|^2 |v|^2 z + |v|^4 y
+= |u|^4 x + 4|u|^2 |v|^2 z + |v|^4 y
 + 2 u \bar v |v|^2 b
 + 2 v \bar u |v|^2 \bar b
 \hfill\cr\hfill{}
 + u^2 \bar v^2 c
 + v^2 \bar u^2 \bar c
-+ 2 u \bar v |u|^2 \re a
-+ 2 v \bar u |u|^2 \re a
++ 2 u \bar v |u|^2 a
++ 2 v \bar u |u|^2 \bar a
+\cr{}
+\phantom{R(\xi, \bar\xi, \xi, \bar\xi)}
+= |u|^4 x + 4|u|^2 |v|^2 z + |v|^4 y
+\hfill\cr\hfill{}
++ 4 |u|^2 \re( u \bar v a)
++ 4 |v|^2 \re( u \bar v b)
++ 2 \re(u^2 \bar v^2 c)
 }
 $$
-
-
-As before we have
+We would somehow like to get the second Segre form
+$$
+s_2
+= 2(xy + 2z^2 - 4 \re(a \bar b) + |c|^2).
+$$
+Note that
 $$
 \displaylines{
-H(e_j + e_k) + H(e_j - e_k) + H(e_j + i e_k) + H(e_j - i e_k)
-= H(e_j) + H(e_k) + 2 B(e_j, e_k)
+R(1,1) + R(1,-1) + R(1,i) + R(1,-i)
+= 4x + 16z + 4y
 }
 $$
-for $j \not= k$.
-If $H \geq 0$ we get
+so
+$$
+\frac{R(1,1) + R(1,-1) + R(1,i) + R(1,-i)}{4}
++ R(1,0) + R(0,1)
+= 2 s
+$$
+on a surface.
+
+We also have $4 B(u,v)^2 \leq H(u) H(v)$ if $B(u,v) < 0$.
+Then we get
 \begin{align*}
-0
-&\leq \sum_{j\not=k} H(e_j) + H(e_k) + 2 B(e_j, e_k)
+s
+= \sum_{jk} B(e_j, e_k)
+&= \sum_{j} H(e_j) + \sum_{j\not=k} B(e_j,e_k)
 \\
-&= \sum_{j,k} H(e_j) + H(e_k) + 2 B(e_j, e_k)
-- 4 \sum_{j} H(e_j)
-\\
-&= 2n \sum_j H(e_j) + 2 s - 4 \sum_j H(e_j)
-= 2s + 2(n-2) \sum H(e_j).
+&> \sum_{j} H(e_j) - \sum_{j\not=k} \sqrt{H(e_j) H(e_k)}/2.
 \end{align*}
-So for a surface we get $2s \geq 0$.
+If we set $x_j = H(e_j)$ and $x = (x_1, \ldots, x_n)$ this is just
+$$
+s > |x|^2 - (\<x, (1, \ldots, 1)\>^2 - |x|^2)/2
+\geq \frac{(3 - n)|x|^2}{2}
+$$
+so we get positive scalar curvature when $H > 0$ for $n \leq 3$.
 
 
 
@@ -201,7 +799,7 @@ and $R(a, \bar b, c, \bar d) = R(c, \bar b, a, \bar d) = R(a, \bar d, c, \bar b)
 \begin{prop}
 Suppose $H > 0$. If $B(u,v) < 0$ then
 $$
-B(u,v)^2 < H(u) H(v).
+4 B(u,v)^2 < H(u) H(v).
 $$
 \end{prop}
 
@@ -219,8 +817,9 @@ R(u + t v)
 + \bar t( R(u,\bar u,u,\bar v) + \bar R(u, \bar v, u, \bar u))
 \cr\hfill{}
 + t^2 R(v, \bar u, v, \bar u)
-+ |t|^2 (R(u, \bar u, v, \bar v) + R(v, \bar v, u, \bar u))
 + \bar t^2 R(u, \bar v, u, \bar v)
+\cr\hfill{}
++ |t|^2 (R(u, \bar u, v, \bar v) + R(u, \bar v, v, \bar u) + R(v, \bar u, u, \bar v) + R(v, \bar v, u, \bar u))
 \cr\hfill{}
 + |t|^2 t (
 R(v, \bar u, v, \bar v) + R(v, \bar v, v, \bar u)
@@ -232,7 +831,7 @@ R(u, \bar v, v, \bar v) + R(v, \bar v, u, \bar v)
 \phantom{R(u + tv)}
 = R(u)
 + t^4 R(v)
-+ 2 |t|^2 R(u, \bar u, v, \bar v)
++ 4 |t|^2 R(u, \bar u, v, \bar v)
 \hfill\cr\hfill{}
 + 2t R(u, \bar u, v, \bar u)
 + 2 \bar t R(u,\bar u,u,\bar v)
@@ -249,14 +848,14 @@ $$
 \displaylines{
 R(u + t v) + R(u - t v)
 = 2 R(u) + 2 |t|^4 R(v)
-+ 4 |t|^2 R(u, \bar u, v, \bar v)
++ 8 |t|^2 R(u, \bar u, v, \bar v)
 \hfill\cr\hfill{}
 + 2 t^2 R(v, \bar u, v, \bar u)
 + 2 \bar t^2 R(u, \bar v, u, \bar v)
 \cr{}
 R(u + t i v) + R(u - t i v)
 = 2 R(u) + 2 |t|^4 R(v)
-+ 4 |t|^2 R(u, \bar u, v, \bar v)
++ 8 |t|^2 R(u, \bar u, v, \bar v)
 \hfill\cr\hfill{}
 - 2 t^2 R(v, \bar u, v, \bar u)
 - 2 \bar t^2 R(u, \bar v, u, \bar v)
@@ -268,27 +867,27 @@ $$
 R(u + t v) + R(u - t v)
 + R(u + t i v) + R(u - t i v)
 \hfill\cr\hfill{}
-= 4(R(u) + |t|^4 R(v) + 2 |t|^2 R(u, \bar u, v, \bar v)).
+= 4(R(u) + |t|^4 R(v) + 4 |t|^2 R(u, \bar u, v, \bar v)).
 }
 $$
 The RHS is a quadratic polynomial in $|t|^2$.
 Its critical point is where
-$|t|^2 = -R(u, \bar u, v, \bar v) / R(v)$. There we find
+$|t|^2 = -2 R(u, \bar u, v, \bar v) / R(v)$. There we find
 \begin{align*}
 0 &<
 R(u)
-+ \frac{R(u, \bar u, v, \bar v)^2}{R(v)^2} R(v)
-- 2 \frac{R(u, \bar u, v, \bar v)}{R(v)} R(u, \bar u, v, \bar v)
++ 4 \frac{R(u, \bar u, v, \bar v)^2}{R(v)^2} R(v)
+- 8 \frac{R(u, \bar u, v, \bar v)}{R(v)} R(u, \bar u, v, \bar v)
 \\
-&= \frac{R(u) R(v) - R(u, \bar u, v, \bar v)^2}{R(v)},
+&= \frac{R(u) R(v) - 4 R(u, \bar u, v, \bar v)^2}{R(v)},
 \end{align*}
 or
 $
-R(u, \bar u, v, \bar v)^2 < R(u, \bar u, u, \bar u) R(v, \bar v, v, \bar v)
+4 R(u, \bar u, v, \bar v)^2 < R(u, \bar u, u, \bar u) R(v, \bar v, v, \bar v)
 $.
 Dividing by norms we find
 $$
-B(u,v)^2 < H(u) H(v).
+4 B(u,v)^2 < H(u) H(v).
 $$
 When $H < 0$ we find the same after some sign checking.
 \end{proof}
