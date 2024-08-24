@@ -58,6 +58,8 @@
 \def\>{\rangle}
 \def\d{\mathrm{d}}
 
+\def\curv{\frac i{2\pi}\Theta}
+
 \newtheorem{question}{Question}
 
 \author{Gunnar Þór Magnússon}
@@ -67,6 +69,570 @@
 \begin{document}
 
 \maketitle
+
+\section{12. August 2024}
+
+Let $(X, \omega)$ be a Hermitian manifold and $(E,h) \to X$ be a Hermitian
+bundle with curvature form $\Theta$.
+We have $\bar\partial \Theta = \Theta \bar\partial$.
+Does this define a linear map
+$$
+H^{p,q}(X, E) \to H^{p+1,q+1}(X, E),
+\quad
+[s] \mapsto [\Theta s]
+?
+$$
+If $\bar\partial s = 0$ then $\bar\partial \Theta s = \Theta \bar\partial s = 0$.
+Suppose that $s = \bar\partial t$.
+Then $\Theta s = \Theta \bar\partial t = \bar\partial \Theta t$, so this does
+define a linear map between the Dolbeault cohomology groups.
+Can we say anything about the map?
+
+If $(E, h)$ is positive, is the map surjective?
+
+The Bochner--Kodaira--Nakano identity is
+$$
+\Delta'' = \Delta' + [i\Theta, \Lambda]
+$$
+and entails the a priori inequality
+$$
+\|D''u\|^2 + \|\delta u\|^2 \geq \int_X \langle [i\Theta,\Lambda] u, u \rangle dV
+$$
+for any element $u$ of $\cc C^{p,q}(X,E)$.
+If $u$ is harmonic we in particular get
+$$
+\int_X \langle [i\Theta,\Lambda] u, u \rangle dV \leq 0,
+$$
+which is the starting point for vanishing theorems that try to prove
+$[i\Theta,\Lambda]$ is a positive operator.
+
+Recall: $H^{p,q}(\mathbb P(V), \cc O(k))$ vanish in a lot of cases, except for
+$(p,0)$, $(p,n)$ and $(p,p)$.
+Then
+$$
+0 = H^{p,n-1}(\mathbb P(V), \cc O(k)) 
+\to H^{p+1,n}(\mathbb P(V), \cc O(k)) \not= 0
+$$
+cannot be surjective.
+Likewise
+$$
+0 \not= H^{p,0}(\mathbb P(V), \cc O(k)) 
+\to H^{p+1,1}(\mathbb P(V), \cc O(k)) = 0
+$$
+cannot be injective.
+
+Does the map depend on the connection?
+If we pick another Hermitian metric on $E$ do we get the same map?
+Yes: See Huybrechts, Chapter 4.\footnote{Or Donaldson https://doi.org/10.1090/bull/1748}
+This seems to be the Atiyah class.
+It can be defined as the Dolbeault representative
+$$
+\alpha(E) = [i\Theta_{E,h}] \in H^1(X, \Omega^1 \otimes \End E)
+= H^{1,1}(X, \End E)
+$$
+or as the class corresponding to the extension
+$$
+0 \longrightarrow \Omega^1 \otimes E
+\longrightarrow J^1(E)
+\longrightarrow E
+\longrightarrow 0
+$$
+of the jet bundle $J^1(E)$.
+The bundle $E$ admits a holomorphic connection if and only if $\alpha(E) = 0$.
+The map we were looking at is then just the cup product with $\alpha(E)$.
+The Atiyah class generates the Chern classes of $E$; in particular $\tr
+\alpha(E) = c_1(E)$.
+
+
+\section{10. July 2024}
+
+Schumacher has a new paper calculating a curvature tensor.
+His setup is this:
+Let $\pi : \cc X \to S$ be a family of compact K\"ahler manifolds, and
+let $\cc E \to \cc X$ be a Hermitian vector bundle.
+Suppose $\cc X$ admits a relative K\"aher form $\omega_{\cc X/S}$.
+Then $\cc R^q \pi_* \Omega_{\cc X/S}^p \otimes \cc E \to S$ admits a Hermitian
+metric over the locus where it is a vector bundle, and Schumacher calculates
+its curvature tensor using his usual methods.
+
+The fiber of that bundle over a point is $H^{p,q}(X_s, \cc E_{|X_s})$, and has
+a Hermitian metric given by
+$$
+\< \sigma, \ov\tau \>
+= \int_{X_s} \< \sigma(x), \ov{\tau(x)} \> \omega\^n_{\cc X/S|X_s},
+$$
+where the pointwise inner product is the one induced by $\omega$ and the metric
+on $\cc E$.
+Taking derivatives of this should involve Gauss--Manin, but the closedness of
+$\omega$ should just collapse that to taking the derivative of the pointwise
+inner product.
+
+\section{6. June 2024}
+
+Let $(E,h) \to X$ be a Hermitian vector bundle over a complex manifold and let
+$\frac i{2\pi}\Theta$ be its curvature form.
+The Bianchi identity says that $\bar\partial  \curv = \curv \bar\partial$, so
+$\curv \wedge \sigma$ is $\bar\partial$-closed when $\sigma$ is.
+In particular we get a smooth resolution
+$$
+0 \to \Omega^p_X \otimes E
+\to \ext{p,0} T_X^* \otimes E
+\to \ext{p+1,2} T_X^* \otimes E
+\to \cdots
+$$
+of $\Omega^p_X \otimes E$, where the nontrivial maps are 
+$\sigma \mapsto \bar\partial\curv \wedge \sigma$.
+The cohomology of this complex is then $H^q(X, \Omega^p \otimes E)$.
+Maybe this is (more? at all?) interesting when we already know those groups are
+zero.
+Suppose for example that $\sigma$ is an $E$-valued $(p+k, q+2k)$-form such that
+$\bar\partial \sigma = 0$. Then $[\sigma]$ represents a cohomology class in $H^q(X, \Omega^p \otimes E)$.
+If that is zero we can write $\sigma = \bar\partial\curv \eta$.
+What then?
+
+
+\section{22. April 2024}
+
+Surely we can calculate the values of $\pi$ for $p$-norms.
+The unit circle for a $p$-norm is $U_p = \{ (x,y) \mid |x|^p + |y|^p = 1\}$.
+Note that $\kk Z_2 \times \kk Z_2$ acts on this, so we can restrict to the
+segment where $x \geq 0, y \geq 0$.
+There we have $y = (1 - x^p)^{1/p}$ so $f(x) = (x, (1-x^p)^{1/p})$ is a
+parametrization of the segment for $0 \leq x \leq 1$.
+% e^{1/p log(1-x^p)}
+% 1/p * (-px^{p-1})/(1-x^p) (1 - x^p)^{1/p}
+We have
+$$
+f'(x)
+= \bigl( 1, -x^{p-1} (1-x^p)^{1/p-1} \bigr)
+$$
+and so
+$$
+\| f'(x) \|^p
+= 1 + x^{p(p-1)} (1-x^p)^{1-p}.
+$$
+Sanity check: $p = 2$ gives
+$$
+\|f'(x)\|^2
+= 1 + \frac{x^2}{1-x^2}
+= \frac{1}{1-x^2}
+$$
+which doesn't look right, it blows up as $x \to 1$.
+
+
+\section{21. April 2024}
+
+Some people have calculated the values of $\pi$ for $p$-norms and found that
+$\pi$ is the minimum value of $\pi_p$ (corresponding to $p = 2$).
+Let's calculate $\pi$ for the norm defined by taking our closed unit ball to be
+the ellipse
+$$
+E_a = \{ (x,y) \mid (x/a)^2 + y^2 \leq 1 \}.
+$$
+If $v \in \kk R^2$ then 
+$$
+\| v \| 
+= \inf \{ r > 0 \mid v \in r E_a \}
+= 1 / \sup \{ r > 0 \mid rv \in E_a \}.
+$$
+The unit circle is parametrized by $f(\theta) = (a\cos \theta, \sin \theta)$
+for $0 \leq \theta \leq 2\pi$.
+The derivative is $f'(\theta) = (-a\sin\theta, \cos\theta)$.
+We have
+$$
+(a \sin\theta/a)^2 + \cos^2 \theta
+= \sin^2 \theta + \cos^2 \theta = 1
+$$
+so we just have $\|f'(\theta)\| = 1$ and get $2\pi$ for the circumference.
+The diameter of $E_a$ is
+$$
+d(E_a) = \sup_{v,w \in E_a} \| v - w \| = 2
+$$
+so we just get $\pi$ again.
+
+
+The morning after: This is maybe not that surprising since an ellipse is the
+image of the unit circle under a linear isomorphism, and we end up defining the
+pullback norm, so we get an isometry.
+
+
+\section{2. April 2024}
+
+\begin{prop}
+Let $\pi : X \to B$ be a fiber bundle of smooth manifolds with fiber $F$.
+If $F$ and $B$ are compact, then so is $X$.
+\end{prop}
+
+\begin{proof}
+Let $S$ be an infinite set in $X$
+and let's show that it contains a limit point.
+Since $X$ is a metric space this is equivalent to compactness.
+
+If $\pi(S)$ is finite, then the preimage of some point $b$ in it contains an
+infinite number of points of $S$. But $\pi^{-1}(b) = F$ is compact, so $S \cap
+\pi^{-1}(b)$ contains a limit point and we are done.
+
+If $\pi(S)$ is infinite, then $\pi(S)$ has a limit point $b$ because $B$ is
+compact.
+Using open balls centered on $b$ we can find open sets $b \in V
+\subset U$ such that $\ov V \subset U$ is compact and $\pi^{-1}(U) \cong U
+\times F$.
+Then $V$ contains an infinite number of points of $\pi(S)$, so $S
+\cap \pi^{-1}(\ov V)$ is infinite.
+But $\pi^{-1}(\ov V) \cong \ov V \times F$ is compact, so 
+$S \cap \pi^{-1}(\ov V)$ contains a limit point.
+\end{proof}
+
+We're really saying that the fiber bundle map of a bundle with compact fiber is
+proper.
+
+
+\section{30. March 2024}
+
+Let $U \subset \kk C^n$ and $D \subset \kk C^m$ be open pseudoconvex domains,
+and let $\phi$ be a plurisubharmonic function defined on the closure of $U
+\times D$.
+We have an infinite-rank trivial holomorphic vector bundle $E$ over $U$ whose
+fiber at $t \in U$ is
+\[
+E_t = \biggl\{
+f \in O(D) 
+\Bigm|
+\int_{D} |f(z)|^2 e^{-\phi(t, z)} d\lambda(z) < \infty
+\biggr\}
+\]
+and we clearly get a Hermitian metric on this bundle.
+Apparently it is a theorem of Berndtsson that this metric has Nakano positive curvature.
+Is that not trivial?
+Given local holomorphic sections $f,g$ of the bundle we have
+$$
+\frac{d}{dt} \< f, \bar g \>
+= - \int_D f(z) \ov{g(z)} \frac{\partial \phi}{\partial t} e^{-\phi(t,z)} d\lambda
+= \biggl\< -f \frac{\partial \phi}{\partial t} dt , \bar g \biggr\>
+$$
+so the curvature form ends up being
+$$
+\Theta =
+\frac{\partial^2 \phi}{\partial t \partial \bar t}  \,
+\frac i2 dt \wedge d\bar t
+$$
+which seems to be the whole content of Berndtsson's theorem.
+
+\section{5. March 2024}
+
+Let $X$ be a K\"ahler manifold with a metric $g$ and curvature tensor $R$.
+We can view $R$ as a Hermitian form on $T_X^{\odot 2}$.
+What on Earth is that geometrically?
+
+Zooming in, let $V$ be a complex vector space of dimension $n$. What does
+$V^{\odot 2}$ represent? Does having a Hermitian form on it mean anything more
+than having one does in general?
+
+We have $V^{\otimes 2} = V^{\odot 2} \oplus \bigwedge{}^{\!\!2}\, V$.
+The elements of $\bigwedge{}^{\!\!2}\, V$ can be viewed as bivectors, or
+representing linear combinations of two-planes in $V$.
+What is $V^{\otimes 2}$ even, other than an algebraic gadget?
+
+If $b : V \times V \to W$ is a bilinear map there is a unique linear map $\hat
+b : V^{\otimes 2} \to W$ such that $b = \hat b \circ \pi$, where $\pi : V \times
+V \to V^{\otimes 2}$ is the natural projection.
+There's a similar characterization of $\bigwedge{}^{\!\!2}\, V$ with
+alternating maps, which is not the one we mean when we talk about two-planes.
+So maybe this is a dead end if we want geometric insight.
+
+If $v,w \in V$ then $v \wedge w \in \bigwedge{}^{\!\!2}\, V$ is an oriented
+two-plane.
+Does $v \odot w$ represent a plane but without some information?
+Have 
+$\dim \bigwedge{}^{\!\!2}\, V = \binom{\dim V}{2}$
+and
+$$
+\dim V^{\odot 2} 
+= n^2 - \binom{n}{2}
+= \frac{2 n - n (n - 1)}{2}
+= \frac{n^2 + n}{2}
+= \binom{n+1}{2}
+$$
+so it's a bigger space and should have more information.
+Have
+$$
+\dim V^{\odot 2} - \dim \bigwedge{}^{\!\!2}\, V 
+= \frac{(n+1)n - n(n-1)}{2}
+= n.
+$$
+Where do we get $n$ extra things from?
+
+
+\section{15. February 2024}
+
+I was talking to Aby about $\pi$ yesterday and we talked about how it was
+defined as the ratio of the circumpherence of a circle to its diameter.
+And then I wondered, how do we see that is well-defined?
+Some of the more obvious ways I thought of to define $\pi$ seemed circular.
+Looking on Wikipedia it seems that Weierstrass has a pretty good definition of
+$\pi$.
+
+Let $C(p, r)$ be a circle centered at $p = (x_0, y_0)$ and of radius $r$.
+Then we want to investigate the quantity $L(C) / 2r$.
+Translations are isometries, so we may assume that $p = 0$.
+If $(x,y)$ is on $C$ and $y > 0$ then $y(x) = \sqrt{r^2 - x^2}$.
+Then
+$$
+\frac{y}{x} = \frac{-2x}{2\sqrt{r^2 - x^2}}
+$$
+so
+$$
+L(C) = 2 \int_{-r}^r \sqrt{1 + \frac{x^2}{r^2 - x^2}} dx
+= 2 \int_{-r}^r \sqrt{\frac{r^2}{r^2 - x^2}} dx
+= 2r \int_{-1}^1 \frac{dt}{\sqrt{1 - t^2}},
+$$
+from which we see that $L(C(p,r)) / 2r = \int_{-1}^1 \frac{dt}{\sqrt{1 - t^2}}$
+is independent of $p$ or $r$.
+It is thus some real constant, that we will conspire to call $\pi$.
+
+I had wondered about showing invariance under $r$ by approximating the circle
+by an $n$-gon from within or without, but think I'd need to show that
+$n \sin(1/n) \to 1$ to do that, and what is $\sin$ even if we don't know what
+$\pi$ is?
+
+
+\section{22. January 2024}
+
+Let's prove the harmonic series $\sum_{n \geq 1} 1/n$ diverges.
+
+If $n \leq x \leq n+1$ then $1/(n+1) \leq 1/x \leq 1/n$.
+Therefore
+$$
+\sum_{n = 1}^\infty \frac 1n
+\geq \sum_{n=1}^\infty \int_n^{n+1} \frac{dx}{x}
+= \int_1^\infty \frac{dx}{x}
+= \lim_{x \to \infty} \log x
+= \infty.
+$$
+Well, that was easy.
+
+
+Suppose that $(a_n)$ is a series of positive real numbers such that $a_n \to 0$.
+Doesn't $\sum_n (-1)^n a_n$ then converge?
+
+
+\section{8. January 2024}
+
+\subsection*{Polynomials on the disk}
+
+Someone on math.SE has a problem.\footnote{https://math.stackexchange.com/questions/4835369}
+Let $p,q,r$ be complex polynomials.
+Suppose that:
+\begin{enumerate}
+\item
+$|q(z)| \geq |r(z)|$ on $\ov{D}$.
+
+\item
+$|p(z)|^2 = |q(z)|^2 - |r(z)|^2$ on $\partial D$.
+
+\item
+$p$ and $q$ have no zeros on $\ov{D}$.
+
+\item
+$|p(z)|^2 \leq |q(z)|^2 - |r(z)|^2$ on $D$.
+\end{enumerate}
+We want to conclude that $|p(z)|^2 = |q(z)|^2 - |r(z)|^2$ on $\ov{D}$.
+
+
+Conrad points out that if $Q$ is arbitrary and nonvanishing, and we pick
+$a,b$ such that $|a|^2 + |b|^2 = 1$, then $P = aQ$ and $R = bQ$ work.
+From there we see that replacing $R$ with $z^n R$ gives counterexamples.
+
+
+Let $f = p/q$ and $g = r/q$, so $|f|^2 + |g|^2 = 1$ on $D$ if the conclusion holds.
+We have
+$$
+\partial \bar\partial \log(|f|^2 + |g|^2)
+=
+\frac{|f g' - g f'|^2}{(|f|^2 + |g|^2)^2}
+$$
+so if the conclusion holds we have $fg' = gf'$ on $\ov D$.
+Then $f'/f = g'/g$ on $\ov D$, which holds if and only if $f = c g$.
+Then $|g|^2 = 1/(1+|c|^2)$, so $g$ is constant.
+Thus $r = bq$ and $p = aq$ for $a,b$ with $|a|^2 + |b|^2 = 1$.
+
+Now.
+Suppose we only know that $|f|^2 + |g|^2 \leq 1$ on $\ov D$ and $|f|^2 + |g|^2
+= 1$ on $\partial D$.
+Then both $f$ and $g$ have no zeros in $D$, because otherwise they would be
+constant.
+Let $0 < m_f = \inf_{D}|f(z)|$.
+
+
+Let's set $f = P/Q$ and $g = R/Q$. These are both holomorphic functions on the
+closed disk, as $Q$ has no zeros there. We also have $|f|^2 + |g|^2 \leq 1$ on
+the disk, with equality on its boundary by hypothesis. Since $P$ has no zeros
+inside the disk, neither does $f$. The closed disk is compact, so $|f|$
+achieves its minimum at some point $z_0 \in \overline{\mathbb{D}}$. If $z_0 \in
+\mathbb{D}$, then $f$ is constant by the minimum modulus principle.
+Suppose then that $z_0 \in \mathbb{T}$.
+Then $|g(z)|^2 = 1 - |f(z)|^2 \leq 1 - |f(z_0)|^2$ for all $z \in \mathbb{T}$.
+$$
+1 = |f(z)|^2 + |g(z)|^2
+\geq |f(z_0)|^2 + |g(z)|^2
+$$
+
+Conrad asks: If $f,g$ are holomorphic on $\ov D$, have no zeros there, and
+satisfy $|f|^2 + |g|^2 \leq 1$ with equality on $\partial D$, then do we have
+equality on all of $D$?
+The same trick as before doesn't work because a holomorphic function on $\ov D$
+that has no zeros and maps the unit circle to itself is constant (see
+Wikipedia, Blaschke products).
+
+Could we have $|f|^2 + |g|^2 = 1$ somewhere inside $D$?
+
+Let $\phi : \ov D \to \kk R$ be a positive smooth function.
+Under what conditions on $\phi$ does there exist a holomorphic function
+$f : \ov D \to \kk C$ such that $|f|^2 = \phi$?
+$\phi$ must be psh, as $\partial \bar\partial |f|^2 = |f'|^2 \geq 0$.
+
+$|f|^2$ must achieve its min $m_f$ and max $M_f$ on the unit circle.
+Let $m(f) = \{ z \in \partial D \mid |f(z)|^2 = m_f\}$
+and $M(f) = \{ z \in \partial D \mid |f(z)|^2 = M_f\}$.
+Both are discrete nonempty sets.
+Note that $m(f) = M(g)$ and $M(f) = m(g)$.
+
+For $z$ with $|z| = 1$ and $c \in \kk C$:
+\begin{align*}
+|f/g - c z|^2
+&= |f/g|^2 - 2 \operatorname{Re} (czf(z)/g(z)) + |c|^2
+\end{align*}
+If we can find $c$ such that $|f/g - cz| < |f/g|$ for $|z| = 1$ then
+we get a contradiction by Rouch\'e.
+
+
+Suppose that $h := f/g$ is not constant.
+Then it is a well-defined holomorphic function on $\ov D$ that has no zeros.
+For any small $t \in \kk C$, there exists a $z \in \partial D$ such that
+$|f(z)/g(z) - tz| = |f(z)/g(z)|$; otherwise the functions $f/g$ and $tz$ have
+the same number of zeros in $D$ by Rouch\'e.
+For any $z$ with $|z| = 1$ we have
+$$
+|h(z)| = \frac{|f(z)|}{\sqrt{1 - |f(z)|^2}}
+= \frac{\sqrt{1 - |g(z)|^2}}{|g(z)|}.
+$$
+In particular we get
+$$
+\frac{m_f}{\sqrt{1-m_f^2}}
+\leq |h|
+\leq
+\frac{M_f}{\sqrt{1 - M_f^2}}
+$$
+on $\partial D$.
+
+Have
+$$
+|h(z)| = |h(z) - tz + tz| \leq |h(z) - tz| + |tz|
+$$
+with equality at a point iff $h(z) - tz = c tz$ with $c$ real.
+
+
+\section{27. November 2023}
+
+\subsection*{Inner products that are not}
+
+If $V$ is a vector space (let's suppose it real to avoid conjugations) then an
+inner product on $V$ is a bilinear map $g : V \otimes V \to \kk R$ such that
+\begin{align*}
+	g(v, v) &\geq 0,
+	\\
+	g(u, v) &= g(v, u),
+	\\
+	g(v, v) &= 0 \text{ if and only if $v = 0$}.
+\end{align*}
+A non-example of an inner product is the map $(f, g) \mapsto f \cdot g$ where
+$f,g \in C(X, \kk R)$ for some topological space $X$.
+However this is only a non-example because it takes values in $C(X, \kk R)$
+instead of $\kk R$; it satisfies the other requirements.
+
+Write $R = C(X, \kk R)$. 
+Then $R$ is a commutative ring that contains $\kk R$ as a subfield via the
+injection $c \mapsto (x \mapsto c)$.
+The ring $R$ has a partial order defined by $f \preceq g$ if $f(x) \leq g(x)$
+for all $x$:
+\begin{itemize}
+\item
+We have $f \preceq f$ for all $f$.
+
+\item
+If $f \preceq g$ and $g \preceq f$ then $f = g$.
+
+\item
+If $f \preceq g$ and $g \preceq h$ then $f \preceq h$.
+\end{itemize}
+This really amounts to there being a family of ring homomorphism $(e_x)_{x \in
+X} : R \to \kk R$ that satisfy that if $e_x(f) = 0$ for all $x$ then $f = 0$
+(and possibly some other conditions?) and us using those to define the partial
+order.
+
+Now let $M$ be a module over $R$.
+An inner module product on $M$ is a linear map $q \in M \otimes_R M \to R$ such
+that
+\begin{align*}
+	0 &\preceq q(s, s),
+	\\
+	q(t, s) &= q(s, t),
+	\\
+	q(s, s) &= 0 \text{ if and only if $s = 0$}.
+\end{align*}
+We denote the associated module norm by $n(s) = \sqrt{q(s, s)}$, which is
+an element of $R$.
+If $f \in R$ we have $n(fs) = |f| \, n(s)$.
+The usual proof of Cauchy--Schwarz works out in this case, so we get all the
+basics.
+
+
+\section{22. November 2023}
+
+\subsection*{Does the sup norm come from an inner product?}
+
+I'm sure this is a stupid question, but if $X$ is a compact metric space
+and $C(X)$ is the Banach space of continuous real-valued functions on $X$
+with the sup norm, then why is it not a Hilbert space with
+\[
+\< f, g \> = \sup_{x \in X} f(x) g(x) ?
+\]
+This would also work for $\ell^\infty$ where we would have
+\[
+\< x, y \> = \sup_n x_n y_n
+\]
+for $x = (x_n)$ and $y = (y_n)$.
+
+A norm comes from an inner product if and only if it satisfies
+\[
+2(\|x\|^2 + \|y\|^2) = \|x+y\|^2 + \|x-y\|^2
+\]
+for all $x,y$.
+Let $x = (1,1,0,\ldots)$ and $y = (1,-1,0,\ldots)$, so $\|x\| = \|y\| = 1$.
+Then the LHS is $2 \cdot (1 + 1) = 4$ while the RHS is
+$2^2 + 2^2 = 8$, so on $\ell^\infty$ this doesn't work.
+
+We have
+\[
+\<\lambda x, y\>
+= \sup_n (\lambda x_n) y_n
+= \lambda \sup_n x_n y_n
+= \lambda \<x, y\>
+\]
+and $\<x, y\> = \<y, x\>$.
+Also $\<x, x\> = \sup_n x_n^2 = (\sup_n x_n)^2 = \| x \|^2 \geq 0$.
+So far so good.
+However
+\begin{align*}
+\<x + y, z\>
+= \sup_n (x_n + y_n) z_n
+&= \sup_n (x_n z_n + y_n z_n)
+\\
+&\leq \sup_n x_n z_n + \sup_n y_n z_n
+= \< x, z \> + \< y, z \>
+\end{align*}
+and equality does not hold in general.
+
 
 \section{14. July 2023}
 

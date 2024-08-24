@@ -18,6 +18,7 @@
 \newtheorem{prop}[theo]{Proposition}
 \newtheorem{lemm}[theo]{Lemma}
 \newtheorem{coro}[theo]{Corollary}
+\newtheorem*{coro*}{Corollary}
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
 \newtheorem{exam}[theo]{Example}
@@ -442,10 +443,32 @@ If $(E/F)$ is finite, $E$ will be called a \emph{finite extension}.
 \label{theo:si}
 If $F, B, E$ are three fields such that $F \subset B \subset E$, then
 \[
-(E/F) = (B/F) (E/B).
+(E/F) = (B/F) \, (E/B).
 \]
 \end{theo}
 
+
+Let $A_1, A_2, \ldots, A_r$ be elements of $E$ which are linearly independent with respect to $B$ and let $C_1, C_2, \ldots, C_s$ be elements of $B$ which are independent with respect to $F$.
+Then the products $C_i A_j$ where $i = 1,2,\ldots, s$ and $j=1,2,\ldots,r$ are elements of $E$ which are independent with respect to $F$.
+For if $\sum_{i,j} a_{ij} C_i A_j = 0$, then
+$\sum_j (\sum_i a_{ij} C_i) A_j$ is a linear combination of the $A_j$ with coefficients in $B$ and because the $A_j$ were independent with respect to $B$ we have $\sum_i a_{ij} C_i = 0$ for each $j$.
+The independence of $C_i$ with respect to $F$ then requires that each $a_{ij} = 0$.
+Since there are $r \cdot s$ elements $C_i A_j$ we have shown that for each $r \leq (E/B)$ and $s \leq (B/F)$ the degree $(E/F) \geq r \cdot s$.
+Therefore, $(E/F) \leq (B/F) (E/B)$.
+If one of the latter numbers is infinite, the theorem follows.
+If both $(E/B)$ and $(B/F)$ are finite, say $r$ and $s$ respectively, we may suppose that the $A_j$ and the $C_i$ are generating systems of $E$ an $B$ respectively, and we show that the set of products $C_i A_j$ is a generating system of $E$ over $F$.
+Each $A \in E$ can be expressed linearly in terms of the $A_j$ with coefficients in $B$.
+Thus, $A = \sum B_j A_j$
+Moreover, each $B_j$ being an element of $B$ can be expressed linearly with coefficients in $F$ in terms of the $C_i$, i.e., $B_j = \sum a_{ij} C_i$, $j=1,2,\ldots,r$.
+Thus, $A = \sum a_{ij} C_i A_j$ and the $C_iA_j$ for an independent generating systme of $E$ over $F$.
+
+
+\begin{coro*}
+If $F \subset F_1 \subset F_2 \subset \cdots \subset F_n$, then 
+\[
+(F_n/F) = (F_1/F) \cdot (F_2/F_1) \, \cdots \, (F_n/F_{n-1}).
+\]
+\end{coro*}
 
 
 \end{document}
