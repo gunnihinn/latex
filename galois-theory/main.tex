@@ -1,0 +1,451 @@
+\documentclass[11pt]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+\newtheorem*{rema}{Remark}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\ov#1{\overline{#1}}
+
+\def\CC{\mathbf{C}}
+\def\EE{\mathcal{E}}
+\def\FF{\mathcal{F}}
+\def\NN{\mathbf{N}}
+\def\RR{\mathbf{R}}
+\def\QQ{\mathbf{Q}}
+\def\ZZ{\mathbf{Z}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\ord}{ord}
+
+\def\h#1#2{
+\if#11{\section{#2}}
+\else{\subsection{#2}}
+\fi
+}
+
+\author{Emil Artin}
+\date{\today}
+\title{Galois theory}
+
+\begin{document}
+
+\maketitle
+
+
+
+\h1{Linear algebra}
+
+
+\h2{Fields}
+
+
+A field is a set of elements in which a pair of operations called multiplication and addition is defined analogous to the operations of multiplication and addition in the real number system (which is itself an example of a field).
+In each field $F$ there exist unique elements called 0 and 1 which, under the opreations of addition and multiplication, behave with respect to all the other elements of $F$ exactly as their correspondents in the real number sysem.
+In two respects, the analogy is not complete: 1) multiplication is not assumed to be commutative in every field, and 2) a field may have only a finite number of elements.
+
+More exactly, a field is a set of elements which, under the above mentioned operation of addition, forms an additive abelian group and for which the elements, exclusive of zero, form a multiplicative group and, finally, in which the two group operations are connected by the distributive law.
+Furthermore, the prodct of 0 and any element is defined to be 0.
+
+If multiplication in the field is commutative, then the field is called a commutative field.
+
+
+\h2{Vector spaces}
+
+If $V$ is an additive abelian group with elements $A$, $B$, $\ldots$, $F$ a field with elements $a$, $b$, $\ldots$, and if for each $a \in F$ and $A \in V$ the product $aA$ denotes an element of $V$, then $V$ is called a \emph{(left) vector space over $F$} if the following assumptions hold:
+
+\begin{enumerate}
+\item
+a(A + B) = aA + aB
+
+\item
+(a + b)A = aA + bA
+
+\item
+a(bA) = (ab) A
+
+\item
+1A = A
+\end{enumerate}
+
+The reader may readily verify that if $V$ is a vector space over $F$, then $oA = 0$ and $a0 = 0$ where $o$ is the zero element of $F$ and $0$ that of $V$.
+For example, the first relation follows from the equations:
+\[
+aA = (a + o)A = aA + oA
+\]
+
+Sometimes product between elements of $F$ and $V$ are written in the form $Aa$ in which case $V$ is called a \emph{right vector space over $F$} to distinguish it from the previous case where multiplication by field elements is from the left.
+If, in the discussion, left and right vector spaces do not occur simultaneously, we shall simply use the term ``vector space''.
+
+
+\h2{Homogeneous linear equations}
+
+If in a field $F$, $a_{ij}$, $i = 1,2,\ldots,m$, $j = 1,2,\ldots,n$ are $m \cdot n$ elements, it is frequently necessary to know conditions guaranteeing the existence of elements in $F$ such that the following equations are satisfied:
+\begin{equation}
+\label{eq:on}
+\begin{aligned}
+a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n &= 0,
+\\
+\vdots &
+\\
+a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n &= 0.
+\end{aligned}
+\end{equation}
+The reader will recall that such equations are called \emph{linear homogeneous equations}, and a set of elements $x_1, x_2, \ldots, x_n$ of $F$, for which all the above equations are true, is called a solution of the system.
+If not all of the elements $x_1, x_2, \ldots, x_n$ are $0$ the solution is called \emph{non-trivial}; otherwise it is called \emph{trivial}.
+
+
+\begin{theo}
+\label{theo:on}
+A system of linear homogeneous equations always as a non-trivial solution if the number of unknowns exceeds the number of equations.
+\end{theo}
+
+
+The proof of this follows the method familiar to most high school students, namely, successive elimination of unknowns.
+If no equations in $n > 0$ variables are prescribed, then our unknowns are unrestricted and we may set them all $= 1$.
+
+We shall proceed by complete induction.
+Let us suppose that each system of $k$ equations in more than $k$ unknowns has a non-trivial solution when $k < m$.
+In the system of equations~\eqref{eq:on} we assume that $n > m$, and denote the expression $a_{i1} x_1 + \ldots + a_{in} x_n$ by $L_i$, $i = 1,2,\ldots,m$.
+We seek elements $x_1, \ldots, x_n$ not all $0$ such that $L_1 = L_2 = \cdots = L_m = 0$.
+If $a_{ij} = 0$ for each $i$ and $j$, then any choice of $x_1, \ldots, x_n$ will serve as a solution.
+If not all $a_{ij}$ are 0, then we may assume that $a_{11} \not= 0$, for the order in which the equations are written or in which the unknowns are numbered has no influence on the existence of non-existence of a simultaneous solution.
+We can find a non-trivial solution to our given system of equations, if and only if we can find a non-trivial soltution to the following system:
+\begin{align*}
+L_1 &= 0
+\\
+L_2 - a_{21} a_{11}^{-1} L_1 &= 0
+\\
+\cdots &
+\\
+L_m - a_{m1} a_{11}^{-1} L_1 &= 0
+\end{align*}
+For, if $x_1, \ldots, x_n$ is a solution of these latter equations then, since $L_1 = 0$, the second term in each of the remaining equations is 0 and, hence, $L_2 = L_3 = \cdots = L_m = 0$.
+Conversely, if \eqref{eq:on} is satisfied, then the new system is clearly satisfied.
+The reader will notice that the new system was set up in such a way as to ``eliminate'' $x_1$ from the last $m-1$ equations.
+Furthermore, if a non-trivial solution of the last $m-1$ equations, when viewed as equations in $x_2, \ldots, x_n$, exists then taking $x_1 = -a_{11}^{-1}(a_{12} x_2 + a_{13} x_3 + \cdots + a_{1n} x_n)$ would give us a solution to the whole system.
+However, the last $m-1$ equations have a solution by our inductive assumption, from which the theorem follows.
+
+
+\begin{rema}
+If the linear homogeneous equations had been written in the form $\sum x_j a_{ij} = 0$, $j = 1, 2, \ldots, n$, the above theorem would still hold and with the same proof although with the order in which terms are written changed in a few instances.
+\end{rema}
+
+
+
+\h2{Dependence and independence of vectors}
+
+In a vector space $V$ over a field $F$, the vectors $A_1, \ldots, A_n$ are called \emph{dependent} if there exist elements $x_1, \ldots, x_n$, not all $0$, of $F$ such that $x_1 A_1 + x_2 A_2 + \cdots + x_n A_n = 0$.
+If the vectors $A_1, \ldots A_n$ are not dependent, they are called \emph{independent}.
+
+The \emph{dimension} of a vector space $V$ over a field $F$ is the maximum number of independent elements in $V$. Thus, the dimension of $V$ is $n$ if there are $n$ independent elements in $V$, but no set of more than $n$ independent elements.
+
+A system $A_1, \ldots, A_m$ of elements in $V$ is called a \emph{generating system} of $V$ if each elment $A$ of $V$ can be expressed linearly in terms of $A_1, \ldots, A_m$, i.e., $A = \sum_{i = 1}^m a_i A_i$ for a suitable choice of $a_i$, $i = 1,\ldots, m$, in $F$.
+
+
+\begin{theo}
+\label{theo:tw}
+In any generating system the maximum number of independent vectors is equal to the dimension of the vector space.
+\end{theo}
+
+Let $A_1, \ldots, A_m$ be a generating system of a vector space $V$ of dimension $n$.
+Let $r$ be the maximum number of independent elements in the generating system.
+By a suitable reordering of the generators we may assume $A_1, \dots, A_r$ independent.
+By the definition of dimension it follows that $r \leq n$.
+For each $j$, $A_1, \ldots, A_r, A_{r+j}$ are dependent, and in the relation
+\[
+a_1 A_1 + a_2 A_2 + \cdots + a_r A_r + a_{r+j} A_{r+j} = 0
+\]
+expressing this, $a_{r+j} \not=0$, for the contrary would assert the dependence of $A_1, \ldots, A_r$.
+Thus,
+\[
+A_{r+j} = -a_{r+j}^{-1}(a_1 A_1 + a_2 A_2 + \cdots + a_r A_r).
+\]
+It follows that $A_1, \ldots, A_r$ is also a generating system since in the linear relation for any element of $V$ the terms involving $A_{r+j}$, $j\not=0$, can all be replaced by linear expressions in $A_1, \ldots, A_r$.
+
+Now, let $B_1, \ldots B_t$ be any system of vectors in $V$ where $t > r$, then there exists $a_{ij}$ such that $B_j = \sum_{i=1}^r a_{ij} A_i$, $j=1,2,\dots,t$, since the $A_i$'s form a generating system.
+If we can show that $B_1, \ldots, B_t$ are dependent, this will give us $r \geq n$, and the theorem will follow from this together with the previous inequality $r \leq n$.
+Thus, we must exhibit the existence of a non-trivial solution of $F$ of the equation
+\[
+x_1 B_1 + x_2 B_2 + \cdots + x_t B_t = 0.
+\]
+To this end, it will be sufficient to choose the $x_i$'s so as to satisfy the linear equations $\sum_{j=1}^t x_j a_{ij} = 0$, $i = 1,2,\dots,r$, since these expressions will be the coefficients of $A_i$ when in $\sum_{j=1}^t x_j B_j$ the $B_j$'s are replaced by $\sum_{i=1}^r a_{ij} A_i$ and terms are collected.
+A solution to the equations $\sum_{j=1}^t x_j a_{ij} = 0$, $i = 1,2,\ldots,r$ always exists by Theorem~\ref{theo:on}.
+
+
+\begin{rema}
+Any $n$ independent vectors $A_1, \ldots, A_n$ in an $n$ dimensional vector space form a generating system.
+For any vector $A$, the vectors $A, A_1, \ldots, A_n$ are dependent and the coefficient of $A$, in the dependence relation, cannot be zero.
+Solving for $A$ in terms of $A_1, \ldots, A_n$, exhibits $A_1, \ldots, A_n$ as a generating system.
+\end{rema}
+
+
+A subset of a vector space is called a \emph{subspace} if it is a subgroup of the vector space and if, in addition, the multiplication of any element in the subset by any element in the field is also in the subset.
+If $A_1, \ldots, a_n$ are elements on a vector space $V$, then the set of all elements of the form $a_1 A_1 + \ldots + a_n A_n$ clearly forms a subspace of $V$.
+It is also evident, from the definition of dimension, that the dimension of any subspace never exceeds the dimension of the whole vector space.
+
+An $s$-tuple of elements $(a_1, \ldots, a_s)$ in a field $F$ will be called a \emph{row vector}.
+The totality of such $s$-tuple for a vector space if we define
+
+$\alpha$)
+$(a_1, a_2, \ldots, a_s) = (b_1, b_2, \ldots, b_s)$ if and only if $a_i = b_i$, $i = 1, \ldots, s$,
+
+$\beta$)
+$(a_1, a_2, \ldots, a_s) + (b_1, b_2, \ldots, b_s)
+= (a_1 + b_1, a_2 + b_2, \ldots, a_s + b_2)$,
+
+$\gamma$)
+$b (a_1, a_2, \ldots, a_s) = (ba_1, ba_2, \ldots, ba_s)$, for $b$ an element of $F$.
+
+When the $s$-tuples are written vertically,
+\[
+\begin{pmatrix}
+a_1 \\ \vdots \\ a_s
+\end{pmatrix}
+\]
+they will be called \emph{column vectors}.
+
+
+\begin{theo}
+\label{theo:th}
+The row (column) vector space $F^n$ of all $n$-tuples from a field $F$ is a vector space of dimension $n$ over $F$.
+\end{theo}
+
+The $n$ elements
+\begin{align*}
+\eps_1 &= (1, 0, 0, \ldots, 0)
+\\
+\eps_2 &= (0, 1, 0, \ldots, 0)
+\\
+       & \vdots 
+\\
+\eps_n &= (0, 0, 0, \ldots, 1)
+\end{align*}
+are independent and generate $F^n$.
+Both remarks follow from the relation $(a_1, a_2, \ldots, a_n) = \sum a_i \eps_i$.
+
+
+We call a rectangular array
+\[
+\begin{pmatrix}
+a_{11} & a_{12} & \ldots & a_{1n}
+\\
+a_{21} & a_{22} & \ldots & a_{2n}
+\\
+\vdots & \vdots & \ddots & \vdots
+\\
+a_{m1} & a_{m2} & \ldots & a_{mn}
+\end{pmatrix}
+\]
+of elements of a field $F$ a \emph{matrix}.
+By the \emph{right row rank} of a matrix, we mean the maximum number of independent row vectors among the rows $(a_{i1}, \ldots, a_{in})$ of the matrix when multiplication by field elements is from the right.
+Similarly, we define left row rank, right column rank and left column rank.
+
+
+\begin{theo}
+\label{theo:fo}
+In any matrix the right column rank equals the left row rank and the left rolumn rank equals the right row rank.
+If the field is commutative, these four numbers are equal to each other and are called the rank of the matrix.
+\end{theo}
+
+
+Call the column vectors of the matrix $C_1, \ldots, C_n$ and the row vectors $R_1, \ldots, R_m$.
+The column vector $0$ is
+\[
+\begin{pmatrix}
+0 \\ 0 \\ \vdots \\ 0
+\end{pmatrix}
+\]
+and any dependence $C_1 x_1 + C_2 x_2 + \cdots + C_n x_n = 0$ is equivalent to a solution of the equations
+\begin{equation}
+\label{eq:Don}
+\begin{aligned}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= 0
+\\
+\vdots &
+\\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= 0.
+\end{aligned}
+\end{equation}
+Any change in the order in which the rows of the matrix are written gives rise to the same system of equations and, hence, does not change the column rank of the matrix, but also does not change the row rank since the changed matrix would have the same set of row vectors.
+Call $c$ the right column rank and $r$ the left row rank of the matrix.
+By the above remarks we may assume that the first $r$ rows are independent row vectors.
+The row vector space generated by all the rows of the matrix has, by Theorem~\ref{theo:on}, the dimension $r$ and is even generated by the first $r$ rows.
+Thus, each row after the $r^{\text{th}}$ is linearly expressable in terms of the first $r$ rows.
+Consequently, any solution of the first $r$ equations in \eqref{eq:Don} will be a solution of the entire system since any of the last $n-r$ equations is obtainable as a linear combination of the first $r$.
+Conversely, any solution of \eqref{eq:Don} will also be a solution of the first $r$ equations.
+This means that the matrix
+\[
+\begin{pmatrix}
+a_{11} & a_{12} & \ldots & a_{1n}
+\\
+a_{21} & a_{22} & \ldots & a_{2n}
+\\
+\vdots & \vdots & \ddots & \vdots
+\\
+a_{r1} & a_{r2} & \ldots & a_{rn}
+\end{pmatrix}
+\]
+consisting of the first $r$ rows of the original matrix has the same right column rank as the original.
+It also has the same left row rank since the $r$ rows were chosen independent.
+But the column rank of the amputated matrix cannot exceed $r$ by Theorem~\ref{theo:th}.
+Hence, $c \leq r$.
+Similarly, calling $c'$ the left column rank and $r'$ the right column rank, $c' \leq r'$.
+
+If we form the transpose of the original matrix, that is, replace rows by columns and columns by rows, then the left row rank of the transposed matrix equals the left column rank of the original.
+If then to the transposed matrix we apply the above considerations we arrive at $r \leq c$ and $r' \leq c'$.
+
+
+
+\h2{Non-homogeneous linear equations}
+
+The system of non-homogeneous linear equations
+\begin{equation}
+\label{eq:Etw}
+\begin{aligned}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1
+\\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &= b_2
+\\
+\vdots &
+\\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
+\end{aligned}
+\end{equation}
+has a solution if and only if the column vector
+\[
+\begin{pmatrix}
+b_1 \\ \vdots \\ b_m
+\end{pmatrix}
+\]
+lies in the space generated by the vectors
+\[
+\begin{pmatrix}
+a_{11} \\ \vdots \\ a_{m1}
+\end{pmatrix}
+, \ldots, 
+\begin{pmatrix}
+a_{1n} \\ \vdots \\ a_{mn}
+\end{pmatrix}.
+\]
+This means that there is a solution if and only if the right column rank of the matrix
+\[
+\begin{pmatrix}
+a_{11} & \cdots & a_{1n}
+\\
+\vdots & \ddots & \vdots
+\\
+a_{m1} & \cdots & a_{mn}
+\end{pmatrix}
+\]
+is the same as the right column rank of the augmented matrix
+\[
+\begin{pmatrix}
+a_{11} & \cdots & a_{1n} & b_1
+\\
+\vdots & \ddots & \vdots & \vdots
+\\
+a_{m1} & \cdots & a_{mn} & b_m
+\end{pmatrix}
+\]
+since the vector space generated by the original matrix must be the same as the vector space generated by the augmented matrix and in either case the dimension is the same as the rank of the matrix by Theorem~\ref{theo:tw}.
+
+By Theorem~\ref{theo:fo}, this means that the row ranks are equal.
+Conversely, if the row rank of the augmented matrix is the same as the row rank of the original matrix, the column ranks will be the same and the equations will have a solution.
+
+If the equations~\eqref{eq:Etw} have a solution, then any relation among the rows of the original matrix subsists among the rows of the augmented matrix.
+For equations~\eqref{eq:Etw} this merely means that like combinations of equals are equal.
+Conversely, if each relation which subsists between the rows of the augmented matrix, then the row rank of the augmented matrix is the same as the row rank of the original matrix.
+\emph{In terms of the equations this means that there will exist a solution if and only if the equations are consistent, i.e., if and only if any dependence betwee the left hand sides of the equations also holds between the right sides.}
+
+
+\begin{theo}
+\label{theo:fi}
+If in equations~\eqref{eq:Etw} $m = n$, there exists a unique solution if and only if the corresponding homogeneous equations
+\begin{align*}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= 0
+\\
+\vdots &
+\\
+a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n &= 0
+\end{align*}
+have only the trivial solution.
+\end{theo}
+
+
+If they have only the trivial solution, then the column vectors are independent.
+It follows that the original $n$ equations in $n$ unknowns will have a unique solution if they have any solution, since the difference, term by term, of two distinct solutions would be a non-trivial solution of the homogeneous equations.
+A solution would exist since the $n$ independent column vectors form a generating system for the $n$-dimensional space of column vectors.
+
+Conversely, let us suppose our equations have one and only one solution.
+In this case, the homogeneous equations added term by term to a solution of the original equations would yield a new solution to the original equations.
+Hence, the homogeneous equations have only the trivial solution.
+
+
+\h2{Determinants}
+
+The theory of determinants that we shall develop in this chapter is not need\-ed in Galois theory.
+\marginpar{\tiny{Scribe: Then we'll defer typing it. It's long.}}
+The reader may, therefore, omit this section if he so desires.%
+\footnote{Of the preceding theory only Theorem~\ref{theo:on}, for homogeneous equatoins and the notion of linear dependence are assumed known.}
+
+
+
+
+\h1{Field theory}
+
+
+\h2{Extension fields}
+
+If $E$ is a field and $F$ a subset of $E$ which, under the operations of addition and multiplication in $E$, itself forms a field, that is, if $F$ is a subfield of $E$, then we shall call $E$ an \emph{extension} of $F$.
+The relation of being an extension of $F$ will be briefly designated by $F \subset E$.
+If $\alpha, \beta, \gamma, \ldots$ are elements of $E$, then by $F(\alpha, \beta, \gamma, \ldots)$ we shall mean the set of elements in $E$ which can be expressed as quotients of polynomials in $\alpha, \beta, \gamma, \ldots$ with coefficients in $F$.
+It is clear that $F(\alpha, \beta, \gamma, \ldots)$ is a field and is the smallest extension of $F$ which contains the elements $\alpha, \beta, \gamma, \ldots$.
+We shall call $F(\alpha, \beta, \gamma, \ldots)$ the field obtained after the \emph{adjunction} of the elements $\alpha, \beta, \gamma, \ldots$ to $F$, or the field \emph{generated} out of $F$ by the elements $\alpha, \beta, \gamma, \ldots$.
+In the sequel all fields will be assumed commutative.
+
+If $F \subset E$, then ignoring the operation of multiplication defined between the elements of $E$, we may consider $E$ as a vector space over $F$.
+By the \emph{degree} of $E$ over $F$, written $(E/F)$, we shall mean the dimension of the vector space $E$ over $F$.
+If $(E/F)$ is finite, $E$ will be called a \emph{finite extension}.
+
+
+\begin{theo}
+\label{theo:si}
+If $F, B, E$ are three fields such that $F \subset B \subset E$, then
+\[
+(E/F) = (B/F) (E/B).
+\]
+\end{theo}
+
+
+
+\end{document}
