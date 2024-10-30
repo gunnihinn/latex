@@ -1,0 +1,561 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{tikz-cd}
+\usepackage{color}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{ques}[theo]{Question}
+\newtheorem{exam}[theo]{Example}
+\newtheorem{cexam}[theo]{Counterexample}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\lra{\longrightarrow}
+\def\^#1{^{[#1]}}
+\def\qandq{\quad\text{and}\quad}
+\def\ov#1{\overline{#1}}
+\def\rank{\operatorname{rank}}
+
+\def\reg#1{#1_{\text{reg}}}
+\def\sing#1{#1_{\text{sing}}}
+
+
+\def\lit#1#2{\bgroup\color{#1} #2\egroup}
+
+\def\eps{\varepsilon}
+
+\def\pd{\operatorname{pd}}
+\def\NN{\mathbf{N}}
+\def\ZZ{\mathbf{Z}}
+\def\QQ{\mathbf{Q}}
+\def\RR{\mathbf{R}}
+\def\CC{\mathbf{C}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Hess}{Hess}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\Rm}{Rm}
+
+\newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
+
+% Projective spaces
+\newcommand{\PC}[1]{\PP(\CC^{#1})}
+\newcommand{\PV}[1]{\PP(#1)}
+
+\def\<{\langle}
+\def\>{\rangle}
+\def\d{\mathrm{d}}
+
+\def\curv{\frac i{2\pi}\Theta}
+
+\newtheorem{question}{Question}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{Direct images of K\"ahler classes}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Injectivity of pullbacks}
+
+\begin{prop}
+Let $f : X \to Y$ be a smooth map between compact smooth manifolds and let $k = \dim X - \dim Y$.
+If there exists $x \in H^k(X)$ such that $f_* x \not= 0$, then $f^* : H^*(Y) \to H^*(X)$ is injective.
+\end{prop}
+
+\begin{proof}
+We have
+\[
+f_*(x \cup f^*y) = f_*x \cup y
+\]
+in cohomology.
+For $x$ as in the statement and $y$ such that $f^*y = 0$ we get $f_* x \cup y = 0$.
+Because $f_* x$ has degree zero we then get $y = 0$.
+\end{proof}
+
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact K\"ahler manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler metric on $X$.
+Then the current $f_*\omega^{k}$ is a positive constant.
+\end{prop}
+
+\begin{proof}
+The form $\omega^k$ is smooth and closed, so $f_*\omega^k$ is a dimension-zero current on $Y$ such that $d f_*\omega^k = 0$.
+Then $\< f_*\omega^k, d\alpha \> = \< df_*\omega^k, \alpha \> = 0$ for any $(2\dim Y-1)$-form $\alpha$.
+Let $dV$ be a volume form of volume 1 on $Y$ and set $c = \< f_*\omega^k ,dV\>$.
+If $\eta$ is any top-degree form on $Y$ we note that
+\[
+\int_Y (\eta - x dV) = 0,
+\]
+where $x = \int_Y \eta$.
+Then $\eta - x dV = d\alpha$ for some form $\alpha$, and
+\[
+\< f_*\omega^k, \eta \>
+= \< f_*\omega^k, x dV + d\alpha \>
+= cx
+= \< c, \eta \>.
+\]
+Since $\eta$ was arbitrary we have $f_*\omega^k = c$.
+Now
+\[
+c = \< f_*\omega^k, dV \>
+= \< \omega^k, f^*dV \>
+= \int_X \omega^k \wedge f^*dV 
+> 0
+\]
+because the integrand is positive on the dense open set where $f$ is a submersion.
+\end{proof}
+
+\begin{coro}
+Let $f : X \to Y$ be a surjective holomorphic map between compact complex manifolds with $X$ K\"ahler.
+Then $f^*$ is injective.
+\end{coro}
+
+
+
+\section{Direct images}
+
+Demailly--Paun~\cite[Theorem 4.5(iii)]{demailly2004numerical} proved the following for a compact K\"ahler manifold $X$:
+
+\begin{theo}
+A class $\alpha$ is nef if and only if $\int_Z \alpha \cup \omega^{p-1} \geq 0$ for every analytic set $Z \subset X$ of dimension $p$ and every K\"ahler class $\omega$.
+\end{theo}
+
+Changing the $\geq 0$ to $> 0$ does not characterize K\"ahler classes:
+
+\begin{exam}
+There exists a projective surface $X$ with strictly nef divisor $D$ (so $D \cdot C > 0$ for all curves $C$) but $D^2 = 0$.\footnote{\url{https://mathoverflow.net/q/481104/4054}}
+Then $c_1(D)$ is nef but not K\"ahler.
+If $\omega$ is any K\"ahler class on $X$ we must have $\int_X c_1(D) \cup \omega > 0$, because otherwise we would get $c_1(D) = 0$ by Hodge--Riemann.
+\end{exam}
+
+
+
+
+
+\begin{prop}
+Let $f : X \to Y$ be surjective and set $k = \dim X - \dim Y$.
+\begin{enumerate}
+\item
+If $\mu$ is nef on $X$ then $f_* \mu^{k+1}$ is nef on $Y$.
+
+\item
+If $\omega$ is a K\"ahler metric on $X$ then $f_*\omega^{k+1}$ is a K\"ahler current on $Y$.
+
+\item
+If $\omega$ is a K\"ahler class on $X$ then $\int_C f_*\omega^{k+1} > 0$ for any analytic set $C \subset Y$ of dimension $1$.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+(1)
+Let $Z \subset Y$ be analytic of dimension $p$.
+Let $\eta$ be a K\"ahler class on $Y$.
+Then
+\[
+\int_Z f_*\mu^{k+1} \cup \eta^{p-1}
+= \int_{f^{-1}(Z)} \mu^{k+1} \cup f^*\eta^{p-1}.
+\]
+Let $\omega$ be a K\"ahler class on $X$ and $\eps > 0$.
+Since $\mu$ is nef the class $\mu + \eps \omega$ is K\"ahler for all $\eps > 0$.
+Since $f^*\eta$ is nef on $X$ we have
+\[
+0 \leq \int_{f^{-1}(Z)} (\mu + \eps\omega)^{k+1} \cup f^*\eta^{p-1}.
+\]
+Then
+\[
+\int_Z f_*\mu^{k+1} \cup \eta^{p-1}
+= \lim_{\eps \to 0} \int_{f^{-1}(Z)} (\mu + \eps\omega)^{k+1} \cup f^*\eta^{p-1}
+\geq 0.
+\]
+
+(2)
+The form $\omega^{k+1}$ is strongly positive and $d$-closed, so $f_*\omega^{k+1}$ is positive and closed.
+Let $\eta$ be a Hermitian metric on $Y$.
+By compactness we have $\omega \geq t f^*\eta$ on $X$ for all $t > 0$ small enough.
+Then $\omega^{k+1} - t \omega^k \wedge f^*\eta$ is strongly positive for all small $t$, and thus
+\[
+f_*\omega^{k+1} - t f_*\omega^k \eta \geq 0
+\]
+for small enough $t$.
+
+(3)
+The set $f^{-1}(C)$ is analytic of dimension $k+1$ and
+\[
+\int_C f_*\omega^{k+1}
+= \int_{f^{-1}(C)} \omega^{k+1} > 0.
+\qedhere
+\]
+\end{proof}
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between projective manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler class on $X$.
+If $\omega \in H^2(X,\QQ)$ then $f_*\omega^{k+1}$ is K\"ahler.
+\end{prop}
+
+\begin{proof}
+Being K\"ahler is invariant under scaling by positive constants so we may assume $\omega \in H^2(X,\ZZ)$ and that $\omega = c_1(L)$, where $L \to X$ is a very ample line bundle.
+Let $Z \subset Y$ be an irreducible analytic set of dimension $p$.
+We will prove that the $p$-th power of $f_*\omega^{k+1}$ has positive integral over $Z$ by induction on $p$.
+The case $p = 1$ is already handled, so suppose $p > 1$.
+
+Now $f^{-1}(Z)$ is an analytic set of dimension $p+k$ and the projection formula gives
+\[
+\int_Z (f_*\omega^{k+1})^p
+= \int_{f^{-1}(Z)} \omega^{k+1} \cup f^*(f_*\omega^{k+1})^{p-1}.
+\]
+Let $H$ be a hyperplane defined by a section of $L$ such that no irreducible component of $f^{-1}(Z)$ is contained in $H$.
+Then $f^{-1}(Z) \cap H$ has dimension $p+k-1$ and $f(f^{-1}(Z) \cap H)$ has dimension $p-1$, and 
+\begin{align*}
+\int_{f^{-1}(Z)} \omega^{k+1} \cup f^*(f_*\omega^{k+1})^{p-1}
+&= \int_{f^{-1}(Z) \cap H} \omega^{k} \cup f^*(f_*\omega^{k+1})^{p-1}
+\\
+&= f_*\omega^{k} \int_{f(f^{-1}(Z) \cap H)} (f_*\omega^{k+1})^{p-1}
+> 0
+\end{align*}
+by the projection formula and induction.
+\end{proof}
+
+
+Direct images by blowups should send K\"ahler classes to K\"ahler classes.
+For points we see this from the description of the cohomology ring of the blowup.
+
+Hironaka proved (in our case) that any surjective $f : X \to Y$ can be factored as
+\[
+\begin{tikzcd}
+X \times_Y Y' \ar[d,"g"] \ar[r,"\mu"] &
+X \ar[d,"f"]
+\\
+Y' \ar[r,"\pi"] &
+Y
+\end{tikzcd}
+\]
+where $\pi$ is a blowup and $g$ is flat.
+Presumably $\mu$ is a blowup as well.
+We take $\omega$ K\"ahler on $X$.
+There should be a K\"ahler class $\omega'$ on $X \times_Y X'$ such that $\mu_*\omega' = \omega$, and then $f_*\omega^{k+1} = \pi_* g_* (\omega')^{k+1}$.
+If we can prove $g_* (\omega')^{k+1}$ is K\"ahler, then the pushforward by the blowup should be K\"ahler, and then so is $f_*\omega^{k+1}$.
+
+How does it help to know that our morphism is flat?
+
+
+
+\subsection*{Skoda}
+
+Try Skoda's extension theorem:
+
+
+\begin{theo}
+Let $E \subset X$ be a closed pluripolar sem and let $\Theta$ be a closed positive current on $X \setminus E$ such that the coefficients $\Theta_{IJ}$ of $\Theta$ are measures with locally finite mass near $E$.
+Then the trivial extension $\tilde \Theta$ obtained by extending the measures $\Theta_{IJ}$ by $0$ on $E$ is still closed on $X$.
+\end{theo}
+
+
+If $T$ is a closed positive current of dimension $(p,p)$, the \emph{trace measure} of $T$ with respect to a Hermitian metric $\omega$ is
+\[
+\sigma_T = \frac{1}{2^p} T \wedge \omega\^p.
+\]
+The \emph{mass measure} $\|T\| = \sum_{I,J} |T_{IJ}|$ of a positive current is dominated by $C \sigma_\omega(T)$, where $C > 0$ is some constant independent of $T$.
+
+
+Let $\alpha$ be a smooth $(k+1,k+1)$-form on $X$.
+If $f$ is a fibration on $X \setminus Z \to Y \setminus f(Z)$ then $T = f_*\alpha$ is a closed smooth positive form $\beta$ there and $f(Z)$ is analytic and in particular pluripolar.
+If $\omega$ is some Hermitian metric on $Y$ then
+\[
+\sigma_{\beta} = \frac{1}{2^p} \< \alpha, f^* \omega\^{m-1} \>
+\]
+has finite mass on all of $Y$, so the coefficients of $\beta$ have finite mass on $Y \setminus f(Z)$.
+Then the trivial extension $\tilde\beta$ is also closed and positive on $Y$.
+It is also nef, and $[\tilde\beta]^m > 0$ by integration over the dense open set where $\tilde\beta = \beta$ is a K\"ahler form.
+We have
+\[
+f_*\alpha = \tilde\beta + \mathbf{1}_{f(Z)} f_* \alpha.
+\]
+Since $f_*\alpha$ and $\tilde\beta$ are nef then so is $\tilde\beta + t \mathbf{1}_{f(Z)} f_*\alpha$ for any $0 \leq t \leq 1$.
+
+The current $\mathbf{1}_{f(Z)} f_* \alpha$ has bidimension $(m-1,m-1)$ like $f_*\alpha$ and $\tilde\beta$.
+If such a current is supported on a set of dimension $< m-1$ it is zero, so this current is nonzero only on the irreducible components of $f(Z)$ of dimension $m-1$.
+If $W_1, \ldots, W_k$ are those components we have
+\[
+\mathbf{1}_{f(Z)} f_* \alpha
+= \sum_{j=1}^k \mathbf{1}_{W_j} f_*\alpha.
+\]
+Those components should form the image of the set where $df$ has rank $m-1$.
+
+
+Let $Z_r(f) = \{ x \in X \mid \rank df \leq r \}$.
+Each of these is closed and $Z_0 \subset \cdots \subset Z_m = X$.
+Hartshone, Proposition III.10.6, says that for algebraic morphisms of finite type we have $\dim f(Z_r) \leq r$.
+The argument probably goes through for analytic maps.
+The proof of his Proposition III.10.4 is probably interesting too.
+
+In particular $f(Z_0)$, where $f_*\alpha = 0$, is just some points.
+Then $f(Z_1)$ is a curve in $Y$.
+We already know things are positive on curves.
+Pick an irreducible component $W$ of $f(Z_r)$ of dimension $r$.
+Look at $f^{-1}(W) \subset Z_r$; it has dimension $k+r$, and $\dim(X_y \cap f^{-1}(W)) \leq k$ for every $y$.
+Also $\dim f^{-1}(W) \cap Z_{r-1} \leq k+r-1$.
+So $\rank df = r$ on a dense open set $U \subset f^{-1}(W)$.
+Then $f : U \to f(U) \subset W$ is a submersion (?), and $f(U) \subset W$ is open and dense?
+
+Want: If $Z \subset Y$ is analytic of dimension $p$, there exists a dense open set $U \subset f^{-1}(Z)$ that is smooth, $f(U) \subset Z$ is dense, and $f : U \to f(U)$ is a submersion.
+
+
+Want to set $U = f^{-1}(Z) \setminus Z_{p-1}$.
+Possibly also take away the singular locus of $f^{-1}(Z)$.
+This should take away at most a hypersurface in the analytic set, so we are left with a smooth space of dimension $p$.
+Would like to see that $df$ has rank $p$ on $U$.
+Maybe take $V = Z \setminus f(Z_{p-1})$ open and dense and $U = f^{-1}(V)$ open.
+Set $W = f^{-1}(Z)$.
+Have
+\[
+\begin{tikzcd}
+& & 0 \ar[d] & & 
+\\
+& & T_{X/Y|W} \ar[d] & &
+\\
+0 \ar[r] &
+T_W \ar[r] &
+T_{X|W} \ar[d] \ar[r] &
+\cc I_W \ar[r] &
+0
+\\
+& & f^*T_{Y|W} \ar[d] & &
+\\
+& & 0 & & 
+\end{tikzcd}
+\]
+
+
+If we have that we still need to check that the current plays nicely with restrictions.
+
+We have $T_W \subset T_Y$ and $T_{f^{-1}(W)} \subset T_X$ (modulo singular weirdness).
+Have a square
+\[
+\begin{tikzcd}
+T_{f^{-1}(W)} \ar[r] \ar[d,"df"] &
+T_X \ar[d,"df"] \\
+T_{W} \ar[r] &
+T_Y
+\end{tikzcd}
+\]
+that gives
+\[
+\begin{tikzcd}
+\ext r T_{f^{-1}(W)} \ar[r] \ar[d,"\wedge^r df"] &
+\ext r T_X \ar[d,"\wedge^r df"] \\
+\ext r T_{W} \ar[r] &
+\ext r T_Y.
+\end{tikzcd}
+\]
+How can we justify that $\ext r T_W \cap \Img \wedge^r df \not= \varnothing$ on an open set?
+These are basically just two lines in $\PP(\ext r T_Y)$.
+
+I have the same question about a submersion, though, so clearly I don't understand something here.
+Well: If
+\[
+0 \lra S \lra V \lra Q \lra 0
+\]
+is a short exact sequence of vector spaces then
+\[
+0 \lra \ext{1} S \wedge \ext\bullet V \lra \ext\bullet V \lra \ext\bullet Q \lra 0
+\]
+is also exact, so $df$ being surjective implies $\wedge^r df$ is surjective.
+When everything is smooth we also just restrict $f$ to $f^{-1}(W) \to W$, which is still a submersion by the above.
+
+
+
+\subsection*{Complex analytic geometry}
+
+
+\begin{defi}
+An analytic set is a subset $Z \subset X$ such that for every $x \in Z$ there exists an open set $U \subset X$ containing $x$ and holomorphic functions $f_1, \ldots, f_p \in H^0(U, \cc O_X)$ such that
+\[
+Z \cap U = \bigcap_{j=1}^p \{ z \in U \mid f_j(z) = 0 \}.
+\]
+\end{defi}
+
+\begin{defi}
+A map $f : Z \to W$ between analytic sets is holomorphic if it is locally the restriction of a holomorphic map $X \to W$.
+\end{defi}
+
+Holomorphic functions $f : Z \to \CC$ on an analytic set form a sheaf $\cc O_Z$.
+We have an exact sequence
+\[
+0 \lra \cc I_Z \lra \cc O_{X|Z} \lra \cc O_Z \lra 0,
+\]
+where $\cc I_Z = \{ f \in \cc O_{X|Z} \mid f_{|Z} = 0 \}$.
+
+A \emph{complex space} is a ringed space that is locally modelled on analytic sets.
+
+
+If $f : X \to Y$ is a holomorphic map and $Z \subset Y$ is analytic then $f^{-1}(Z) \subset X$ is analytic.
+
+If $Z$ is analytic the sets $Z_{\text{reg}}$ and $Z_{\text{sing}}$ of smooth and singular points are open and analytic, respectively.
+The regular points are dense.
+
+If $f : X \to Y$ is proper and $Z \subset X$ is analytic then $f(Z)$ is analytic.
+
+
+Let $f : X \to Y$ be surjective, proper and flat, and set $k = \dim X - \dim Y$.
+Let $W \subset Y$ be an irreducible analytic set of dimension $p$.
+Then $Z = f^{-1}(W)$ is an analytic set of dimension $p+k$.
+The map $f : Z \to W$ is surjective and proper.
+It won't be flat, so it won't automatically be open.
+But actually I only need:
+
+\begin{lemm}
+Let $f : X \to Y$ be a proper surjective morphism of complex spaces.
+If $U = X \setminus Z$ is an open set, where $Z \subset X$ is analytic, then $f(U) \subset Y$ is open.
+\end{lemm}
+
+\begin{proof}
+Since $Z$ is analytic and $f$ is proper the set $f(Z)$ is analytic.
+Now
+\(
+Y \setminus f(U)
+= f(X \setminus U)
+= f(Z)
+\)
+is closed, so $f(U)$ is open.
+\end{proof}
+
+
+\begin{theo}
+Let $f : X \to Y$ be a surjective holomorphic map between compact K\"ahler manifolds.
+Set $k = \dim X - \dim Y$.
+If $\omega$ is a K\"ahler class on $X$, then $f_*\omega^{k+1}$ is a K\"ahler class on $Y$.
+\end{theo}
+
+
+\begin{proof}
+First note the claim is true when $f$ is a surjective submersion with compact fibers (between spaces that are not necessarily compact).
+Then we can pick a K\"ahler metric and integrate a power of it over the fibers of $f$ and get a K\"ahler metric on $Y$ in the right class.
+We will prove the general claim by reducing to this situation on dense open subsets of our spaces.
+
+Let $W \subset Y$ be an irreducible analytic set of dimension $p$.
+We will show that $\int_W (f_*\omega^{k+1})^p > 0$, thus proving that the class is K\"ahler by Demailly--Paun~\cite{demailly2004numerical}.
+
+\subsubsection*{Push-pull}
+
+First note that $Z := f^{-1}(W)$ is an analytic set in $X$.
+We write $g : Z \to W$ for the restriction of $f$ to $Z$.
+It is a proper surjective morphism of complex spaces.
+If we write $j_Z : Z \to X$ and $j_W : W \to Y$ for the inclusions we have a commutative square
+\[
+\begin{tikzcd}
+Z \ar[r,"j_Z"] \ar[d,"g"] &
+X \ar[d,"f"]
+\\
+W \ar[r,"j_W"] &
+Y.
+\end{tikzcd}
+\]
+Need to justify that $[g_*(\omega^{k+1})_{|Z}] = [f_*\omega^{k+1}]_{|W}$.
+This is apparently true:
+\begin{itemize}
+\item
+\url{https://mathoverflow.net/q/386052/4054}
+
+\item
+\url{https://mathoverflow.net/q/244844/4054}
+
+\item
+\url{https://mathoverflow.net/q/22869/4054}
+\end{itemize}
+
+
+\subsubsection*{Restricting to open dense submanifolds}
+
+The set $W_{\text{reg}} \subset W$ is open and dense, so the image $g^{-1}(W_{\text{reg}}) \subset Z$ is open.
+Its complement is $W \setminus W_{\text{reg}} = W_{\text{sing}}$, which is analytic.
+Then 
+\[
+g^{-1}(W_{\text{reg}}) 
+= g^{-1}(W) \setminus g^{-1}(W_{\text{sing}})
+= Z \setminus g^{-1}(W_{\text{sing}})
+\]
+is the complement of an analytic set, and is thus dense.
+Then the set $U := g^{-1}(W_{\text{reg}}) \cap Z_{\text{reg}}$ is open and dense, and its complement is
+\[
+Z \setminus \bigl( g^{-1}(W_{\text{reg}}) \cap Z_{\text{reg}} \bigr)
+= g^{-1}(W_{\text{sing}})
+\cup Z_{\text{sing}},
+\]
+which is the union of two analytic sets and thus analytic.
+It follows that $V := g(U) \subset W_{\text{reg}}$ is open and dense, and $g : U \to V$ is surjective between smooth open sets.
+
+\subsubsection*{Restricting to a submersion}
+
+We can now look at
+\[
+N = 
+\biggl\{
+x \in U 
+\Bigm| \det \Bigl( dg_x : T_{U,x} \to g^*T_{V,x} \Bigr) = 0 
+\biggr\},
+\]
+which is the analytic set where $g$ is not a submersion.
+Once again $U \setminus N$ is open and so is $V \setminus g(N)$, and both are dense, and $g : U \setminus N \to V \setminus g(N)$ is a surjective submersion.
+Then, finally,
+\begin{align*}
+\int_W [f_*\omega^{k+1}]_{|W}^{p+1}
+&= \int_W [g_*(\omega^{k+1})_{|Z}]^{p+1}
+\\
+&= \int_{V \setminus g(N)} [g_*(\omega^{k+1})_{|Z}]^{p+1}
+= \int_{V \setminus g(N)} (g_*\omega^{k+1})^{p+1} > 0
+\end{align*}
+because $g_*\omega^{k+1}$ is a K\"ahler form on $V \setminus g(N)$. 
+\end{proof}
+
+
+This still has a problem:
+We need to know that $\omega_{|Z}$ contains a K\"ahler form.
+This also appears to be surmountable.
+
+
+
+\bibliographystyle{alpha}
+\bibliography{main}
+
+\end{document}
