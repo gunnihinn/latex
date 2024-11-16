@@ -1,0 +1,561 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{tikz-cd}
+\usepackage{color}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{e}{Exercise}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{ques}[theo]{Question}
+\newtheorem{exam}[theo]{Example}
+\newtheorem{cexam}[theo]{Counterexample}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\qandq{\quad\text{and}\quad}
+\def\ov#1{\overline{#1}}
+\def\empty{\varnothing}
+
+\newcommand{\cat}[1]{\mathsf{#1}}
+\def\psh{\cat{PSh}}
+\def\sh{\cat{Sh}}
+
+\def\NN{\mathbf{N}}
+\def\ZZ{\mathbf{Z}}
+\def\QQ{\mathbf{Q}}
+\def\RR{\mathbf{R}}
+\def\CC{\mathbf{C}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\et}{Et}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Hess}{Hess}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\Spec}{Spec}
+
+% Projective spaces
+\newcommand{\PC}[1]{\PP(\CC^{#1})}
+\newcommand{\PV}[1]{\PP(#1)}
+
+\def\<{\langle}
+\def\>{\rangle}
+\def\d{\mathrm{d}}
+
+\newcommand{\ff}[1]{\mathfrak{#1}}
+
+
+\author{Gunnar \TH\'or Magn\'usson}
+\date{\today}
+\title{Constructing some non-K\"ahler metrics}
+
+\begin{document}
+
+\maketitle
+
+
+
+
+\section{Metrics induced by covering bundles}
+
+
+\begin{prop}
+Let $X$ be a K\"ahler manifold and let
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+E \ar[r,"q"] &
+T_X \ar[r] &
+0
+\end{tikzcd}
+\]
+a short exact sequence of vector bundles.
+There exists a Hermitian metric on $E$ such that the induced metric on $X$ is K\"ahler if and only if $Dq = \theta \otimes f$, where $\theta$ is a smooth $(1,0)$-form and $f$ is a smooth section of $\Hom(E,T_X)$.
+\end{prop}
+
+
+
+\begin{proof}
+Being a K\"ahler metric is a local property, so we fix a point $x \in X$ and consider a coordinate neighborhood of it.
+By shrinking the neighborhood we can find a local frame $(s_1, \ldots, s_r)$ of $E$ that is normal at $x$ and such that the $q(s_j)$ span $T_X$.
+Write
+\[
+q(s_j) = \sum_{k=1}^n q_{kj} \frac{\partial}{\partial z_k}
+\]
+for holomorphic functions $q_{kj}$.
+For sections $s,t$ of $E$ we have
+\[
+\tau(q(s), q(t))
+= q(D_{E,q(s)} t) - q(D_{E,q(t)} s) - [q(s), q(t)].
+\]
+Since we picked our frame to be normal we have $D_{E,q(s_j)} s_k = 0$ at $x$ for all $j,k$.
+Therefore
+\begin{align*}
+\tau(q(s_j), q(s_k))
+&= [q(s_j), q(s_k)]
+\\
+&= \sum_{l,m=1}^n 
+\biggl[
+q_{lj} \frac{\partial}{\partial z_l},
+q_{mk} \frac{\partial}{\partial z_m}
+\biggr]
+\\
+&= \sum_{l,m=1}^n 
+q_{lj} \frac{\partial q_{km}}{\partial z_l} \frac{\partial}{\partial z_m}
+- q_{mk} \frac{\partial q_{jl}}{\partial z_m} \frac{\partial}{\partial z_l}
++ q_{lj} q_{mk} 
+\biggl[
+\frac{\partial}{\partial z_l},
+\frac{\partial}{\partial z_m}
+\biggr]
+\\
+&= \sum_{l,m=1}^n 
+\biggl(
+q_{mj} \frac{\partial q_{lk}}{\partial z_m}
+- q_{mk} \frac{\partial q_{lj}}{\partial z_m}
+\biggr)
+\frac{\partial}{\partial z_l}
+\end{align*}
+at $x$.
+Then the metric on $X$ is K\"ahler at $x$ if and only if
+\[
+\sum_{m=1}^n q_{mj} \frac{\partial q_{lk}}{\partial z_m}
+= \sum_{m=1}^n q_{mk} \frac{\partial q_{lj}}{\partial z_m}
+\]
+for all $j,k = 1,\ldots,r$ and $l = 1,\ldots,n$.
+This means that
+\[
+D_{\Hom(E,T_X),q(s_j)} q = D_{\Hom(E,T_X),q(s_k)} q
+\]
+for all $j,k = 1,\ldots,r$.
+That is, the image of 
+\[
+T_X \to \Hom(E,T_X),
+\quad
+\xi \mapsto D_\xi q
+\]
+is at most a line, which happens exactly when we can then write $Dq = \theta \otimes f$ for a $(1,0)$-form $\theta$ and a morphism $f : E \to T_X$.
+\end{proof}
+
+
+\begin{proof}[Another attempt]
+For any section $s$ of $E$ we have 
+\[
+D_X q(s)
+= D_{\Hom}q(s) + q(D_E s)
+= - b j^\dagger(s) + q(D_E s).
+\]
+The metric on $X$ is K\"ahler at at point $x$ if and only if there exists normal coordinates $(z_1,\ldots,z_n)$ centered at $x$.
+Given any coordinate system we can find a normal frame $(e_1,\ldots,e_r)$ for $E$ at $x$.
+Writing $s = \sum s_l e_l$ we see that
+\[
+D_E s 
+= \sum ds_l \otimes e_l + s_l \otimes D_E e_l
+= \sum ds_l \otimes e_l
+\]
+at the center.
+Write $q(e_k) = \sum_l q_{lk} \partial / \partial z_l$.
+Then
+\[
+D_X q(e_k)
+= \sum_l \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
+\]
+and
+\[
+b j^\dagger(e_k)
+= \sum_l \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
+\]
+at $x$.
+Let $s$ be in $S$ and write $j(s) = \sum s_k e_k$.
+Then
+\[
+b(s)
+= \sum_{k,l} s_k \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
+\]
+at $x$, which is holomorphic there.
+
+so
+\[
+\tau(\xi, \eta)
+= - b_{\xi} j^\dagger(t)
++ b_{\eta} j^\dagger(s)
++ q(D_{E,\xi} t)
+- q(D_{E,\eta} s)
+- [\xi, \eta].
+\]
+
+Note that $bj^\dagger$ is a tensor in $s$.
+So is $\tau$, so by linearity 
+\[
+\rho(s,t)
+= q(D_{E,q(s)} t)
+- q(D_{E,q(t)} s)
+- [q(s), q(t)]
+\]
+is a tensor in $s$ and $t$, as the reader can also check directly for their amusement.
+If $s \in \Ker q = S$ we get
+\[
+\rho(s, t)
+= q(D_{E,q(s)} t)
+- q(D_{E,q(t)} s)
+- [q(s), q(t)]
+= - q(D_{E,q(t)} s)
+= - b_{q(t)} s,
+\]
+where $b \in \cc A^{1,0}(\Hom(S,T_X))$ is the second fundamental form.
+If $t$ is also in $S$ we get $\rho(s,t) = 0$.
+If $q^\dagger$ is the adjoint of $q$ we have
+\[
+\tau(\xi, \eta) = \rho(q^\dagger \xi, q^\dagger \eta).
+\]
+Then the metric on $X$ is K\"ahler if and only if $\rho$ decomposes as
+\[
+\rho = \begin{pmatrix}
+0 & b
+\\
+-b & 0
+\end{pmatrix}
+\]
+according to the smooth splitting $E = S \oplus T_X$.
+
+The terms $D_{\Hom,\xi}q (t) - D_{\Hom,\eta}q (s)$ and $q(D_{E,\xi} t) - q(D_{E,\eta} s) - [\xi, \eta]$ are both tensors in $s$ and $t$, so we get
+\[
+\tau(\xi, \eta)
+= D_{\Hom,\xi}q (t) 
+- D_{\Hom,\eta}q (s) 
+- [\xi, \eta]
+\]
+at the center of a normal coordinate frame on $E$.
+The metric on $X$ is K\"ahler there if and only if
+\[
+D_{\Hom,\xi}q (t) 
+- D_{\Hom,\eta}q (s) 
+= [\xi, \eta]
+\]
+there.
+If $t \in \Ker q = S$ we then get
+\[
+b_\xi(t) 
+= - D_{\Hom, \xi} q(t)
+= 0
+\]
+for any $\xi$, so $b(t) = 0$.
+Then the second fundamental form $b = 0$, so the sequence splits.
+\end{proof}
+
+
+\section{Misc}
+
+
+There is a smooth section $\eta$ of $T_X$ such that
+\[
+D_\xi q = \omega(\xi, \bar\eta) f
+\]
+for all $\xi$, where $\omega$ is the K\"ahler metric on $X$.
+We can apply $\omega$ and write
+\[
+\omega \circ D_\xi q \in \cc A^{1,1}(S).
+\]
+
+We do have $Dq = - b \circ j^\dagger$, so this does say something about the second fundamental form.
+
+
+\begin{exam}
+It would have been neat if the induced metric being K\"ahler meant that the short exact sequence splits.
+This is not true:
+Consider an elliptic curve $C$ and extensions
+\[
+\begin{tikzcd}
+0 \ar[r] &
+\CC \ar[r] &
+E \ar[r] &
+T_C \ar[r] &
+0
+\end{tikzcd}
+\]
+of the trivial line bundle by $T_C$.
+These are classified by 
+\[
+H^1(C, \Hom(\CC, T_C)) = H^{1,1}(C,\CC)
+\]
+which has dimension $1$, so there are nonsplit such extensions.
+However any metric on $F$ induces a K\"ahler metric on $C$ for dimension reasons, so the fundamental form decomposes.
+
+This is not an accident of complex dimension one:
+If $X = \prod_n C$ and $\pi_j : X \to C$ are the projections we get an extension
+\[
+\begin{tikzcd}
+0 \ar[r] &
+\CC^n \ar[r] &
+\prod_{j=1}^n \pi_j^*E \ar[r] &
+T_X \ar[r] &
+0
+\end{tikzcd}
+\]
+and a metric on the middle term that induces a K\"ahler metric on $X$.
+\end{exam}
+
+
+Let $X$ be a K\"ahler manifold and suppose there is an exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+E \ar[r,"q"] &
+T_X \ar[r] &
+0
+\end{tikzcd}
+\]
+where $(E,h)$ is flat.
+Then the second fundamental form $b = Dq \circ j \in \cc A^{1,0}(\Hom(S,T_X))$ is holomorphic, and thus parallel.
+Suppose also the induced metric on $X$ is K\"ahler.
+Then $b = Dq \circ j = \theta \otimes fj$.
+
+
+
+
+\begin{exam}
+Let $X$ be a compact K\"ahler manifold and suppose there is an exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+V \otimes L \ar[r,"q"] &
+T_X \ar[r] &
+0,
+\end{tikzcd}
+\]
+where $L \to X$ is a line bundle and $V$ is a fixed finite-dimensional vector space.
+Fix some inner product on $V$ and a Hermitian metric on $L$.
+Consider a local section $s$ of $V \otimes L$.
+Since $V$ is flat we can find a parallel frame $(v_j)$ of it, and write $s = \sum v_j \otimes s_j$, where $s_j$ are local sections of $L$.
+Then
+\[
+Ds = \sum v_j \otimes D_L s_j.
+\]
+\end{exam}
+
+
+Maybe stop the local work here.
+If the metric is K\"ahler the second fundamental form is $b = \theta \otimes f$.
+Then what?
+
+
+
+Its adjoint is $b^\dagger = \ov\theta \otimes f^\dagger$.
+We get
+\[
+b \wedge b^\dagger
+= \theta \wedge \ov\theta \otimes f f^\dagger
+\]
+and
+\[
+\tr b \wedge b^\dagger \wedge \omega^{n-1}
+= |\theta|^2 |f|^2 \omega^n.
+\]
+
+
+\section{Some non-K\"ahler metrics on projective varieties}
+
+Let $X$ be a projective manifold of dimension $\dim_{\CC} X = n$.
+Let $L \to X$ be an ample line bundle and $h$ a positively curved metric on $L$.
+Since $L$ is ample there is a $k_0$ such that $T_X \otimes kL$ is globally generated for $k \geq k_0$.
+We may also suppose $kL$ is very ample for $k \geq k_0$.
+Then there is a surjective map
+\[
+H^0(X, T_X \otimes kL) 
+\longrightarrow T_X \otimes kL
+\]
+and thus a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r] &
+H^0(X, T_X \otimes kL) \otimes -kL \ar[r,"q"] &
+T_X \ar[r] &
+0.
+\end{tikzcd}
+\]
+If we fix some Hermitian metric $\omega$ on $X$ we get an $L^2$-inner product on the global sections of $T_X \otimes kL$, so we have a Hermitian metric on the middle bundle.
+It induces another Hermitian metric $\omega_{h,k}$ on $X$.
+
+
+
+\begin{prop}
+The metric $\omega_{h,k}$ is not K\"ahler.
+\end{prop}
+
+\begin{proof}
+The bundle $T_X \otimes kL$ is globally generated.
+Let $(e_1, \ldots, e_r)$ be a basis of $H^0(X,T_X \otimes kL)$.
+The $L^2$-metric defines a flat Hermitian metric on the associated trivial bundle and the sections $e_j$ are parallel with respect to the Chern connection of the metric.
+
+Let $U$ be a coordinate neighborhood that trivializes $kL$ by a section $s$, and $\tau$ be a section of $-kL$ such that $\tau(s) = 1$ on $U$.
+Any local section of $H^0(X, T_X \otimes kL) \otimes -kL$ can we written as $v = \sum f_j e_j \otimes \tau$, where $f_j$ are holomorphic.
+For these we have
+\[
+D_E\Bigl( \sum f_j e_j \otimes \tau \Bigr)
+= \sum d f_j \otimes e_j \otimes \tau + f_j e_j \otimes D_{-kL} \tau.
+\]
+Generally if $f : E \to Q$ is a map we have
+\[
+D_Q(f(e))
+= D_{\Hom}f(e) + f(D_E e).
+\]
+If $g$ is a smooth function we then get
+\begin{align*}
+D_{\Hom}f(ge)
+&= D_Q(f(ge)) - f(D_E(ge))
+\\
+&= dg \otimes f(e) + g D_Q(f(e)) - gd \otimes f(e) - g f(D_E(e))
+\\
+&= g \bigl( D_Q(f(e)) - f(D_E(e)) \bigr)
+= g D_{\Hom} f(e).
+\end{align*}
+Therefore
+\[
+D_{\Hom}q \biggl( \sum_j f_j e_j \otimes \tau \biggr)
+= \sum_j f_j \bigl( D_X q(e_j \otimes \tau)
+- q(e_j \otimes D_{-kL}\tau) \bigr).
+\]
+Note that we can write $D_{-kL}\tau = \sigma \otimes \tau$ for a $(1,0)$-form $\sigma$.
+So in fact
+\[
+D_{\Hom}q \Bigl( \sum_j f_j e_j \otimes \tau \Bigr)
+= \sum_j f_j D_X q(e_j \otimes \tau)
+- \sigma \otimes q\Bigl(\sum_j f_j e_j \otimes \tau\Bigr).
+\]
+Taking our section to be in $\Ker q$ we then get
+\[
+b\Bigl( \sum_j f_j e_j \otimes \tau \Bigr)
+= \sum_j f_j D_X q(e_j \otimes \tau).
+\]
+
+
+
+If $e_j \in H^0(X,T_X \otimes kL)$ we can write
+\[
+e_{j|U} = \sum_k g_{kj} \frac{\partial}{\partial z_k} \otimes s
+\]
+for holomorphic functions $g_{kj}$.
+Once restricted to $U$ we then have
+\[
+q\Bigl(\sum_{j} f_j e_{j} \otimes \tau \Bigr) 
+= \sum_{j,k} f_j g_{kj} \frac{\partial}{\partial z_k}.
+\]
+For the Chern connection of the metric on $X$ we then get
+\[
+D_X q\Bigl(\sum_{j} f_j e_{j} \otimes \tau \Bigr) 
+= \sum_{j,k} g_{kj} df_j \frac{\partial}{\partial z_k}
++ \sum_{j,k} f_j dg_{kj} \frac{\partial}{\partial z_k}
++ \sum_{j,k} f_j g_{kj} D\frac{\partial}{\partial z_k}.
+\]
+Meanwhile,
+\[
+q D_E\Bigl( \sum f_j e_j \otimes \tau \Bigr)
+= \sum_{j,k} g_{jk} d f_j \frac{\partial}{\partial z_k}
++ f_j g_{kj} (D \tau)(s) \frac{\partial}{\partial z_k} .
+\]
+
+
+Note that $\eta \mapsto \tau(D_\tau s)$ is a linear functional.
+If $\eta$ is in its kernel we get
+\[
+D_{\Hom,\eta}q ( e_j \otimes \tau )
+= \sum_{k} D_{X,\eta}\Bigl(g_{kj} \frac{\partial}{\partial z_k}\Bigr).
+\]
+If now $\nu$ is not in its kernel we have
+\[
+D_{\Hom,\nu}q ( e_j \otimes \tau )
+= \sum_{k} D_{X,\nu}\Bigl(g_{kj} \frac{\partial}{\partial z_k}\Bigr)
++ g_{jk} \tau(D_\nu s) \frac{\partial}{\partial z_k}.
+\]
+For any $\xi$ we can then write
+\[
+\xi = \frac{\tau(D_\xi s)}{\tau(D_\nu s)} \nu
++ \biggl(\xi - \frac{\tau(D_\xi s)}{\tau(D_\nu s)} \nu \biggr)
+\in \cc O \nu \oplus \Ker \tau(Ds).
+\]
+Then
+\[
+D_{\Hom,\xi} q(e_j \otimes \tau)
+= \frac{\tau(D_\xi s)}{\tau(D_\nu s)} D_{\Hom,\nu} q(e_j \otimes \tau)
++
+\]
+If our metric is K\"ahler then these two are the same up to some multiple, which we may take to be $1$ after scaling $\eta$.
+If so we have
+\[
+\sum_{k} D_{X,\nu-\eta}\Bigl(g_{kj} \frac{\partial}{\partial z_k}\Bigr)
++ g_{jk} \tau(D_\nu s) \frac{\partial}{\partial z_k}
+= 0
+\]
+and so we also have
+\[
+D_{X,\eta} q(e_j \otimes \tau)
+= \sum_{k} D_{X,\eta}\Bigl(g_{kj} \frac{\partial}{\partial z_k}\Bigr)
+= 0
+\]
+for any $\eta$ in the kernel of $\tau(D s)$.
+
+If $\xi \in T_X$ then $\xi = q(\sum_j f_j e_j \otimes \tau)$ for some holomorphic $f_j$.
+Then
+\[
+D \xi 
+= D \sum_j f_j q(e_j \otimes \tau)
+= \sum_j df_j \otimes q(e_j \otimes \tau)
++ f_j D q(e_j \otimes \tau),
+\]
+so taking $\eta = q(\sum_j h_j e_j \otimes \tau)$ in the kernel we get
+\[
+0 
+= \tau(\xi,\eta) 
+= D_\eta \xi - D_\xi \eta - [\xi, \eta]
+= \sum_{j=1}^r h_j D_\xi q(e_j \otimes \tau).
+\]
+I feel like once $r = \dim H^0(X, T_X \otimes kL) > 2n$ this gives too many equations for the $D_\xi q(e_j \otimes \tau)$ to satisfy, so it should force $D_\xi q(e_j \otimes t) = 0$ for all $j$.
+Then our metric would have to be flat, which doesn't make sense unless we're on a torus.
+
+If $\lambda$ is a linear form and $\lambda(v) \not= 0$ then for any other $w$ we can write
+\[
+w = \frac{\lambda(w)}{\lambda(v)} v
++ \biggl( w - \frac{\lambda(w)}{\lambda(v)} v \biggr)
+\in \CC v \oplus \Ker \lambda.
+\]
+\end{proof}
+
+
+
+
+\end{document}
