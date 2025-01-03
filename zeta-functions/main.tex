@@ -1,0 +1,198 @@
+\documentclass[10pt]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage[colorlinks=true, citecolor=red]{hyperref}
+\usepackage{url}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem*{lemm}{Lemma}
+\newtheorem{coro}{Corollary}
+\newtheorem*{coro*}{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+\newtheorem*{rema}{Remark}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\ov#1{\overline{#1}}
+
+\def\ldb{[\mkern-2mu[}
+\def\rdb{]\mkern-2mu]}
+\def\ldp{(\mkern-2.5mu(}
+\def\rdp{)\mkern-2.5mu)}
+
+\def\NN{\mathbf{N}}
+\def\ZZ{\mathbf{Z}}
+\def\QQ{\mathbf{Q}}
+\def\RR{\mathbf{R}}
+\def\CC{\mathbf{C}}
+\def\HH{\mathbf{H}}
+\def\FF{\mathbf{F}}
+
+\DeclareMathOperator{\chr}{char}
+\DeclareMathOperator{\Gal}{Gal}
+
+\def\qw#1{`#1'}
+
+\author{Alan David Thomas}
+\date{\today}
+\title{Zeta functions: an introduction\\to algebraic geometry}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Introduction}
+
+The aim of this book is to explain the development of the statements and proofs of the Weil conjectures from the analogous results for the Riemann zeta functions, at the same time describing the transformation of classical algebraic number theory and algebraic geometry into the language of schemes.
+In order to motivate the cohomological aspects and in particular the idea of an \'etale map, a certain amount of classical algebraic geometry (over the complex numbers) and associated complex manifold theory is included, not only to provide an insight to the more abstract methods, but also to be used in the various comparison techniques.
+
+All these methods and results are contained in existing literature, which to the non-expert may seem both impenetrable and disjointed.
+This text is designed to be read by any mathematician who is conversant with the basics of commutative algebra, as in Atiyah \& Macdonald~\cite{bib:17}, field and Galois theory, as in Winter~\cite{bib:217}, and who has some familiarity with manifolds and algebraic topology (see for example Matsushima~\cite{bib:138} and Spanier~\cite{bib:183}) and categories as in Mitchell~\cite{bib:141}.
+
+It would be impossible to cover the contents of this book with full details in a small number of pages, and so footnotes have been included to give explicit references to the relevant information.
+I have tried to choose the facts which have been included to give the reader the flavour of the subject.
+Following these footnotes, the reader will soon realize the volume of mathematics which has been omitted:
+I should like to think that the value of this book lies as much in what is omitted as in what is included.
+The decision on the precise contents was a most difficult one.
+Probably the most important omissions are the details and precise statement of the Riemann--Roch theorem and its implications in the context of these notes.
+The reason for not including this is that, in order to convey the full weight of this theorem, one would have to discuss Jacobians in more detail, and the associated K-theories, characteristic classes and index theorems which would have been impossible in the short number of pages.
+This possibly will be the contents of a companion volume.
+
+We start with Riemann's zeta function and its properties, especially those which express number theoretic properties of the ring of integers (which after all was the reason Riemann introduced it).
+This immediately generalises to the zeta-function of an algebraic number field, which contains similar information about the field, or more precisely, about its ring of (algebraic) integers.
+
+Next we discuss the contents of Artin's thesis in which he generalises these classical ideas, replacing by the euclidean domain $\FF_p[X]$ of polynomials over the finite field of order $p$, and considering quadratic extensions of the associated field of fractions.
+This analogous situation has much in common with the classical case and there is a natural definition of a zeta-function.
+Artin observed in the many cases he calculated that the analogue of the Riemann hypothesis was true.
+
+In order to present these two parallel theories in a unified way, we introduce (real) valuations, global fields and the associated functional analysis of ad\`eles and id\`eles.
+
+In Chapter~\ref{ch:6} we show how a global field of non-zero characteristic can be interpreted geometrically as a curve over a finite field.
+This then provides a link between number theory and geometry.
+Replacing the finite field by the field of complex numbers we have the classical algebraic theory, and from this the analytic theory, of Riemann surfaces, which we discuss in Chapter~\ref{ch:7}.
+The analytic theory of course depends on using the \qw{usual} or \qw{strong} topology on the field of complex numbers which is not defined algebraically.
+We find ourselves in the position of being able to prove certain algebraic/geometric results analytically but not algebraically, which is unsatisfactory for two reasons.
+Firstly for aesthetic reasons, algebraic results should have algebraic proofs, and secondly, such analytic methods do not generalise to the study of curves over other fields.
+In this context, the Appendix~\ref{ch:7.8} is of great significance, as it contains the essential ideas behind the effectiveness and importance of the \'etale topology, and the importance of elliptic curves or more generally abelian and Jacobian varieties, which we discuss in Chapter~\ref{ch:8}.
+This Chapter ends with Hasse's proof of the Riemann hypothesis for curves of genus $1$.
+
+Historically, this places us at around 1936, when the curve is still identified with its field of functions and is of no geometrical significance.
+In order to prove the Riemann hypothesis for global fields of non-zero characteristic, Weil introduced (geometrically) products of curves which lead on to the abstract theory of algebraic varieties over arbitrary fields.
+
+Chapter~\ref{ch:9} starts with the definition of an affine variety, and the concept of smoothness is shown to be an appropriate generalisation of integral closure.
+In order to piece together affine varieties to obtain the general variety, we introduce the language of sheaves, first used for this purpose by Serre~\cite{bib:166}.
+This is unfortunately rather technical, but simultaneously enables us to define the concept of a manifold, complex manifold and variety (and, in Chapter~\ref{ch:12}, of a scheme).
+In \S\ref{ch:9.11} we describe briefly the properties of cycles on a variety, whose importance becomes apparent in Chapter~\ref{ch:10}.
+At this point we are in a position to state the Weil conjectures, all of which have now been proved using \'etale topology and cohomology (the fundamental properties of which are contained in the 1583 pages of SGA~4, see \cite{bib:14}).
+
+Besides stating these conjectures, Weil suggested that they should admit a cohomological proof and outlined the lines such a proof might take.
+Such a cohomology appeared around 1959/60 and gradually the various necessary properties were established.
+Working analytically, Dwork proved the first of these conjectures (rationality) in 1960, and in 1962 Lubkin proved cohomologically all the conjectures (except the Riemann hypothesis) under certain restrictions, although his proof referred to other theorems which had themselves not been proved.
+
+In order to motivate these cohomological attacks on the problems, we describe in Chapter~\ref{ch:10} how one can prove the analogous conjectures (except the Riemann hypothesis) for smooth complex varieties, by giving them the usual topology and then applying \v{C}ech cohomology methods.
+The fundamental result is the Lefschetz fixed point theorem, which connects the number of fixed points of a continuous map with its effect in cohomology, and which is used along with properties of cycles and their cohomological invariants.
+
+Chapter~\ref{ch:10} continues this analogy by showing that the statement and proof of the Riemann hypothesis is quite a different problem, needing the force of Hodge theory of harmonic integrals to finally overcome it.
+
+Hopefully by now the reader has reached Chapter~\ref{ch:10}, in which the language of schemes, Grothendieck topologies and \'etale maps are introduced, motivated by the earlier chapters, and we finish with a brief account of the proofs of the Weil conjectures.
+
+Looking back, the reader should then realise that the Riemann hypothesis and the Weil conjectures, apart from being of intrinsic interest and direct application, have generated through the attempts at their verification a considerable amount of other mathematics which we would perhaps otherwise not have discovered.
+
+To some extent then, this book is like a jigsaw puzzle.
+At first selected pieces fit together.
+As one progresses one finds individual pieces which do not seem to belong anywhere, but the further one goes, the more important these pieces become, until finally they all fit together to form the overall picture.
+Of course one might say this is not the way to present a mathematical topic; a mathematical treatise should be linearly ordered.
+While this is possible even desirable for \qw{elementary} branches (i.e.,~those using a small vocabulary), it would seem to be impossible for the contents of these notes, if one wishes to provide the motivation and intuition.
+The ordering here is loosely based on the chronology of the subject.
+Certain questions may be partially answered in one section, only to be resurrected in a later section and tackled again with the aid of techniques developed in the meantime.
+One final comment: because of this approach, this book should not be read once!
+
+
+\subsection*{Notation}
+
+The notation used in this book is either standard or explained in the text, in which case the reader is referred to the index.
+The symbols $\NN, \ZZ, \QQ, \RR, \CC$ and $\HH$ denote (respectively) the natural, integral, rational, real, complex and quaternionic numbers, and $S^n$ denotes the $n$-sphere.
+
+All rings are assumed to be commutative with an identity unless otherwise stated.
+For any ring $R$ we write $R[X]$ and $R(X)$ for the rings of polynomial and rational functions of $X$ over $R$, and $R\ldb X \rdb$ and $R\ldp X \rdp)$ for the rings of power and (finite) Laurent series.
+If $S$ is a subset of $R$, $\langle S \rangle$ denotes the ideal it generates.
+
+For any field $K$ we write $\chr K$ for its characteristic, $K^a$ for its algebraic closure and $K^*$, $\mu(K)$, $\mu_n(K)$ for the groups of units, roots of unity, $n$-th roots of unity in $K$, and $\Gal L/K$ for the Galois group of the normal extension $L/K$.
+$\FF_q$ denotes the finite field of order $q$.
+
+Indexing sets, especially for $\sum$, $\prod$, $\varinjlim$ and $\varprojlim$ are often omitted when they are obvious or irrelevant from the context.
+
+
+
+\section{Dirichlet series}
+\label{ch:1}
+
+\section{Classical number theory}
+\label{ch:2}
+
+\section{Artin's thesis}
+\label{ch:3}
+
+\section{Valuation theory}
+\label{ch:4}
+
+\section{Global fields}
+\label{ch:5}
+
+\section{Algebraic curves}
+\label{ch:6}
+
+\section{Riemann surfaces}
+\label{ch:7}
+
+\subsection{Appendix: The fundamental group}
+\label{ch:7.8}
+
+\section{Elliptic curves}
+\label{ch:8}
+
+\section{Varieties}
+\label{ch:9}
+
+\subsection{Cycles}
+\label{ch:9.11}
+
+
+\section{Complex manifolds}
+\label{ch:10}
+
+\section{Hodge theory}
+\label{ch:11}
+
+\section{Schemes}
+\label{ch:12}
+
+
+
+
+
+\bibliographystyle{plainurl}
+\bibliography{main}
+
+
+\end{document}
