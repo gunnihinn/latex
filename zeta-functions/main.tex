@@ -53,6 +53,7 @@
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\re}{Re}
+\newcommand{\tri}{\mathbin{\triangleleft}}
 
 \def\qw#1{`#1'}
 
@@ -69,15 +70,15 @@
 \def\fnonze{See Sansone and Gerretsen, vol. 1 \cite{bib:162}, \S3.11.1, p.156.}
 \def\fnonon{In his proof of the prime number theorem (see Riemann~\cite{bib:155} p.148), Riemann says of the function $\xi(t) = \Gamma(s) (s-1) \zeta(s) \pi^{-t/2}$ where $s = \frac12 + it$ ``Man findet nun in der That etwa so viel reele Wurzeln innerhalb dieser Genzen und es ist sehr wahrscheinlich dass alle Wurzeln reell sind. Hiervon w\"are allerdings eine strenge Beweis zu wanschen; ich habe indess die Aufsuchung desselben nach einigen fl\"uchtigen vergeblichen Veruschen vorl\"aufig bei Seite gelassen, da er f\"ur n\"achsten Zweck meiner Untersuchung entbehrlich sind.''}
 \def\fnontw{See Hardy and Wright \cite{bib:86}, Chapter 17 for further details and examples.}
-\def\fnonth{}
-\def\fnonfo{}
-\def\fnonfi{}
-\def\fnonsi{}
-\def\fnonse{}
-\def\fnonei{}
-\def\fnonni{}
+\def\fnonth{For the definition and properties of integral closure, see Atiyah and Macdonald \cite{bib:17}, Chapter 5, pp.59--73.}
+\def\fnonfo{See Cohn \cite{bib:36}, Theorem 3, p.96 for example.}
+\def\fnonfi{See Cohn \cite{bib:36}, Chapter 6, \S9, p.110, or Niven and Zuckermann \cite{bib:148}, Chapter 7, in particular \S7.8, pp.175--179.}
+\def\fnonsi{See Atiyah and Macdonald \cite{bib:17}, Chapter 8, pp.93--98.}
+\def\fnonse{This zeta function was introduced by Dedekind in 1871 (see Dedekind \cite{bib:37}), who proved convergence in $H_1$. Landau proved that $\zeta$ extends to a meromorphic function in the half plane $H_a$ where $a = 1 - \deg(K / \QQ)^{-1}$ (see Landau \cite{bib:116}), and Hecke finally proved the extension to $\CC$, see Hecke \cite{bib:94}. See Narkiewicz \cite{bib:146}, Chapter VII, Prop. 7.1, p.293 and Theorem 7.1, p.296.}
+\def\fnonei{See Narkiewicz \cite{bib:146}, Chapter VI, Prop. 7.1, p.293. The class number relation was first proved by Dedekind (see Dedekind \cite{bib:37}).}
+\def\fnonni{This was first proved by Hecke in Hecke \cite{bib:94}.}
 
-\def\fntwze{}
+\def\fntwze{See Ribenboim \cite{bib:154}, pp.97--98.}
 \def\fntwon{}
 \def\fntwtw{}
 \def\fntwth{}
@@ -378,6 +379,212 @@ The Dirichlet series in \eqref{1.3.9} is absolutely convergent in $H_2$.
 
 \section{Classical number theory}
 \label{ch:2}
+
+Let $\ZZ$ denote the integers, and $\QQ$ the rationals (its field of fractions).
+If $K$ is a finite algebraic extension of $\QQ$, then the integral closure\footnote{\fnonth} of $\ZZ$ in $K$, denoted by $A$, is called the \emph{ring of integers} of $K$.
+Such rings have many properties in common with the ring $\ZZ$, as we now indicate.
+Various proofs and definitions have been omitted, but will be given in more generality.
+
+We start by remarking that if $r = \dim K/\QQ$, then $A$ is a free abelian group of rank $r$.
+
+
+\subsection{Units}
+\label{ch:2.1}
+
+Let $U$ denote the group of units in $A$.
+The subgroup of elements of finite order is clearly $\mu(K)$, the group of roots of unity in $K$, which is a finite cyclic group.
+The quotient $U / \mu(K)$ is a free abelian group.
+Now there are precisely $r$ isomorphisms of $K$ into $\CC$, of which say $r_1$ map into $\RR$, and the remainder occur in $r_2$ conjugate pairs, so that $r = r_1 + 2 r_2$.
+The rank of $U / \mu(K)$ is $r_1 + r_2 - 1$.
+Putting these results together we have \emph{Dirichlet's Unit Theorem}.
+
+
+\begin{theo}
+\label{2.1.1}
+\[
+U \cong \ZZ^{r_1 + r_2 - 1} + \mu(K).
+\]
+\end{theo}
+
+A unit which forms part of a basis for the free part of $U$ is called a \emph{fundamental unit}.
+
+In the case that $K = \QQ(\sqrt d)$, where $d \in \ZZ$ is square-free, the group $U$ is easy to describe.
+If the group of roots of unity in $\QQ(\sqrt d)$ has order $m$, then $\QQ(\sqrt d)$ contains a subfield isomorphic with $\QQ(\omega)$, where $\omega = \exp(2 \pi i / m)$.
+Since $\det \QQ(\omega) / \QQ = \phi(m)$, where $\phi$ is the Euler function, and $\deg \QQ(\sqrt d) / \QQ = 2$, we must have $\phi(m) = 1$ or $2$, which can only happen if $m = 1,2,3,4$ or $6$.
+Since $-1 \in U$, and $(-1)^2 = 1$, $m$ is necessarily even.
+In fact one can show\footnote{\fnonfo} that $m = 2$ except when $d = 1$ ($m = 4$) or $d = -3$ ($m = 6$).
+
+If $d > 0$, then $r_1 = 2, r_2 = 0$ so $U$ has rank $1$.
+If $d < 0$, then $r_1 = 0, r_2 = 1$ so $U$ is finite and cyclic.
+
+
+\begin{exam}
+\label{2.1.2}
+If $K = \QQ(\sqrt 2)$, then $\mu(K) = \{-1,1\}$ so $U \cong \ZZ \oplus \ZZ / 2 \ZZ$.
+A fundamental unit is $1 + \sqrt 2$, so any unit is uniquely expressible in the form $\pm(1 + \sqrt 2)^n$ for some $n \in \ZZ$.
+\end{exam}
+
+
+\begin{exam}
+\label{2.1.3}
+If $K = \QQ(\sqrt{94})$, the only fundamental units are the numbers $\pm 2143295 \pm 221064 \sqrt{94}$.
+\end{exam}
+
+There is no formula for the fundamental units even in the quadratic case.
+They may be obtained by means of continued fractions.\footnote{\fnonfi}
+
+
+\begin{exam}
+For $p$ a prime integer, let $\omega = \exp(2 \pi i / p)$, and $K = \QQ(\omega)$.
+The ring of integers $A$ is $\ZZ[\omega]$ and $r_1 = 0, r_2 = (p-1)/2$ for $p \geq 5$.
+The element $\xi_t = \omega^t + \omega^{-t} = 2\cos(2 \pi t / p)$ for $t \in \ZZ$ is a unit.
+In general a fundamental set of units is not known.
+\end{exam}
+
+
+\subsection{Ideal theory}
+\label{ch:2.2}
+
+The ring $A$ is Noetherian, and every non-zero prime ideal is maximal.
+Since $A$ is by definition integrally closed, $A$ is\footnote{\fnonsi} a \emph{Dedekind domain}, and so every non-zero ideal is uniquely expressible as a product of prime ideals.
+This is the analogue of unique factorization.
+However, in general not every ideal is principal, and the \emph{ideal class group} measures this deficiency.
+This group is trivial if and only if $A$ is a principal ideal domain.
+In general (and this is an important result) this group is finite.
+Its order is usually denoted by $h = h(K)$, and is called the \emph{class-number} of $K$.
+
+If $I$ is a non-zero ideal of $A$, then the quotient ring $A / I$ is finite.
+Let $N(I)$ denote its order, which is called the \emph{norm} of $I$.
+The norm is multiplicative, i.e., $N(IJ) = N(I) N(J)$.
+Moreover, for any positive integer $n$, the set $\{ I \tri A \mid N(I) = n\}$ is finite.
+
+
+\subsection[The zeta function of K]{The zeta function of $K$}
+\label{ch:2.3}
+
+Let $\zeta(z,K)$ denote the Dirichlet series
+\begin{equation}
+\label{2.3.1}
+\sum_{I \tri A, I\not=0} \frac{1}{N(I)^z}
+= \sum_n \biggl(
+\sum_{I \tri A, N(I)=n} \frac{1}{n^z}
+\biggr).
+\end{equation}
+
+By analogy with the classical case, there is the following proposition:\footnote{\fnonse}
+
+
+\begin{prop}
+\label{2.3.2}
+The Dirichlet series $\zeta(z,K)$ converges absolutely in $H_1$, and extends to a meromorphic function on the complex plane with a simple pole at $z = 1$.
+The infinite product
+\begin{equation}
+\label{2.3.2.1}
+\prod_{P \in \max(A)} \frac{1}{1 - N(P)^{-z}}
+= \prod_n\biggl(
+\prod_{P \in \max(A), N(P)=n} \frac{1}{1-n^{-z}}
+\biggr)
+\end{equation}
+converges in $H_1$ to $\zeta(z,K)$.
+Moreover, this infinite product converges absolutely in $H_1$, uniformly on compact subsets.
+\end{prop}
+
+
+As in \ref{1.3.2} the proof of \ref{2.3.2} depends essentially on unique factorisation.
+
+
+\begin{rema}
+\label{2.3.3}
+If $P$ is a maximal ideal of $A$, then $N(P)$ is a power of the prime $p$, where $p$ generates the ideal $\ZZ \cap P$ in $\ZZ$.
+Thus the infinite product \eqref{2.3.2.1} is indexed by prime powers.
+\end{rema}
+
+The following theorem\footnote{\fnonei} relates the behaviour of $\zeta(z,K)$ near its pole to the field $K$.
+
+
+\begin{theo}
+\label{2.3.4}
+The residue of $\zeta(z,K)$ at the pole $z = 1$ is
+\begin{equation}
+\label{2.3.4.1}
+\frac{2^{r_1} (2\pi)^{r_2} h R}{|\mu(K)| \sqrt D}
+\end{equation}
+where $h$ is the class number, $r_1$ and $r_2$ are as defined in \ref{ch:2.1}, $D$ is the discriminant and $R$ the regulator of $K$.
+\end{theo}
+
+This theorem and the two previous propositions indicate how the analytic properties of $\zeta(z,K)$ capture algebraic properties of $K$ and its ring of integers.
+Other Dirichlet series and meromorphic functions may be obtained from $\zeta(z,K)$ as in \S\ref{ch:1.3}.
+
+
+\subsection{The functional equation}
+\label{ch:2.4}
+
+It may be shown that the $\zeta$-function of $K$ satisfies\footnote{\fnonni} the functional equation:
+\begin{equation}
+\label{2.4.1}
+\zeta(z,K)
+= |D|^{1/2 - z}
+\biggl(
+\frac{\pi^{z-1/2} \Gamma(1/2 - z/2)}{\Gamma(z/2)}
+\biggr)^{r_1}
+\biggl(
+\frac{(2\pi)^{2z-1} \Gamma(1-z)}{\Gamma(z)}
+\biggr)^{r_2}
+\zeta(1-z, K).
+\end{equation}
+
+It follows from \ref{2.3.2} as for $\zeta(z)$ that $\zeta(z,K)$ does not vanish for $z \in H_1$.
+Since $\Gamma(z)$ does not vanish anywhere, has simple poles at the non-positive integers but no other poles, we deduce:
+
+\begin{lemm}
+\label{2.4.2}
+The zeros of $\zeta(z,K)$ in the region $\{z \mid \re z < 0 \}$ can be described as follows:
+\begin{enumerate}
+\item
+if $r_2\not=0$ then for any $m \in \NN$, $z = -2m$ is a zero with multiplicity $r_1 + r_2$ and $z = 1-2m$ is a zero with multiplicity $r_2$;
+
+\item
+if $r_2 = 0$, then for any $m \in \NN$, $z = -2m$ is a zero with multiplicity $r_1$;
+
+\item
+there are no other zeros in this region.
+\end{enumerate}
+\end{lemm}
+
+
+
+\begin{coro}
+\label{2.4.3}
+The zeta function of $K$ determines $r_1, r_2, \dim K/\QQ$ and $|D|$.
+\end{coro}
+
+\begin{proof}
+From \ref{2.4.2} we see that $r_1$ and $r_2$ are determined by the multiplicities of the zeros of the zeta function in the region $\{ z \mid \re z < 0 \}$, and so $\dim K/\QQ = r_1 + 2r_2$ is determined.
+Substituting these values in equation \eqref{2.4.1} enables $|D|$ to be determined.
+\end{proof}
+
+
+\begin{coro}
+\label{2.4.4}
+For quadratic fields $K$, the zeta function determines $K$.
+\end{coro}
+
+\begin{proof}
+Suppose $K = \QQ(\sqrt d)$, where $d$ is a square free integer.
+Then\footnote{\fntwze} we have $D = d$ if $d \equiv 1 \mod 4$, but $D = 4d$ if $d \not\equiv 1 \mod 4$, and so
+\[
+d = \begin{cases}
+(-1)^{1+r_1} |D| & \text{if $|D| \equiv 1 \mod 4$},
+\\
+(-1)^{1+r_1} |D|/4 & \text{if $|D| \not\equiv 1 \mod 4$}.
+\end{cases}
+\qedhere
+\]
+\end{proof}
+
+
+
+
 
 \section{Artin's thesis}
 \label{ch:3}
