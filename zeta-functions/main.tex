@@ -15,15 +15,19 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 
-\newtheorem{theo}{Theorem}
+\author{Alan David Thomas}
+\date{\today}
+\title{Zeta functions: an introduction\\to algebraic geometry}
+
+\newtheorem{theo}{Theorem}[subsection]
 \newtheorem{prop}[theo]{Proposition}
-\newtheorem*{lemm}{Lemma}
-\newtheorem{coro}{Corollary}
-\newtheorem*{coro*}{Corollary}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\newtheorem{rh}[theo]{The Riemann Hypothesis}
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
 \newtheorem{exam}[theo]{Example}
-\newtheorem*{rema}{Remark}
+\newtheorem{rema}[theo]{Remark}
 
 \newcommand{\kk}[1]{\mathbb{#1}}
 \newcommand{\cc}[1]{\mathcal{#1}}
@@ -48,12 +52,52 @@
 
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\re}{Re}
 
 \def\qw#1{`#1'}
 
-\author{Alan David Thomas}
-\date{\today}
-\title{Zeta functions: an introduction\\to algebraic geometry}
+\def\fnon{See Cashwell and Everett~\cite{bib:31}, Gilmer~\cite{bib:63}.}
+\def\fntw{See Sansone and Gerretsen, vol. 1~\cite{bib:162}, \S7.2.1, p.353.}
+\def\fnth{Ibid., \S7.1.3, p.351.}
+\def\fnfo{Ibid., \S7.1.2, p.351.}
+\def\fnfi{Two holomorphic functions defined in half-planes are \emph{equivalent} if they agree in some half-plane, and a \emph{germ} is an equivalence class.}
+\def\fnsi{This may be proved directly, as in Hardy \& Wright~\cite{bib:86}, \S17.1, p.245.}
+\def\fnse{See Titchmarsh~\cite{bib:194}, \S9.42, p.300.}
+\def\fnei{See Titchmarsh~\cite{bib:195}, Theorem 2.1, p.13.}
+\def\fnni{Ibid., pp.1,2, or Hardy \& Wright~\cite{bib:86}, Theorem 280, p.246.}
+
+\def\fnonze{See Sansone and Gerretsen, vol. 1 \cite{bib:162}, \S3.11.1, p.156.}
+\def\fnonon{In his proof of the prime number theorem (see Riemann~\cite{bib:155} p.148), Riemann says of the function $\xi(t) = \Gamma(s) (s-1) \zeta(s) \pi^{-t/2}$ where $s = \frac12 + it$ ``Man findet nun in der That etwa so viel reele Wurzeln innerhalb dieser Genzen und es ist sehr wahrscheinlich dass alle Wurzeln reell sind. Hiervon w\"are allerdings eine strenge Beweis zu wanschen; ich habe indess die Aufsuchung desselben nach einigen fl\"uchtigen vergeblichen Veruschen vorl\"aufig bei Seite gelassen, da er f\"ur n\"achsten Zweck meiner Untersuchung entbehrlich sind.''}
+\def\fnontw{See Hardy and Wright \cite{bib:86}, Chapter 17 for further details and examples.}
+\def\fnonth{}
+\def\fnonfo{}
+\def\fnonfi{}
+\def\fnonsi{}
+\def\fnonse{}
+\def\fnonei{}
+\def\fnonni{}
+
+\def\fntwze{}
+\def\fntwon{}
+\def\fntwtw{}
+\def\fntwth{}
+\def\fntwfo{}
+\def\fntwfi{}
+\def\fntwsi{}
+\def\fntwse{}
+\def\fntwei{}
+\def\fntwni{}
+
+\def\fnthze{}
+\def\fnthon{}
+\def\fnthtw{}
+\def\fnthth{}
+\def\fnthfo{}
+\def\fnthfi{}
+\def\fnthsi{}
+\def\fnthse{}
+\def\fnthei{}
+\def\fnthni{}
 
 
 \begin{document}
@@ -146,6 +190,191 @@ Indexing sets, especially for $\sum$, $\prod$, $\varinjlim$ and $\varprojlim$ ar
 
 \section{Dirichlet series}
 \label{ch:1}
+
+\subsection{Dirichlet series}
+\label{ch:1.1}
+
+Let $\Omega$ denote the set of functions from $\NN$ to $\CC$.
+If we define addition of such functions componentwise, and multiplication by the formula
+\[
+\alpha \cdot \beta(n)
+= \sum_{ij=n} \alpha(i) \beta(j)
+\quad
+\text{for $\alpha,\beta \in \Omega$}
+\]
+then $\Omega$ is a commutative ring with $1$, which is called the \emph{ring of Dirichlet series} (over $\CC$).
+(It is also called the ring of arithmetic functions; it is a unique factorisation domain, being isomorphic with a ring of power series.\footnote{\fnon})
+If $\alpha$ is a Dirichlet series, we define its \emph{derivative} $\alpha' \in \Omega$ by the formula
+\[
+\alpha'(n) = -\alpha(n) \log n.
+\]
+The function $d : \Omega \to \Omega$, $\alpha \mapsto \alpha'$, is called \emph{differentiation}.
+
+If $z$ is a complex number, let $\alpha_S(z)$ denote the series $\sum_n \alpha(n) / n^z$ and if this series is convergent, let $\widehat \alpha(z)$ denote its sum.
+
+By abuse of notation, we shall identify $\alpha$ with $\alpha_S$.
+
+
+\subsection{Convergence of Dirichlet series}
+\label{ch:1.2}
+
+For any real number $r$, let $H_r$ denote the open half-plane $\{ z \in \CC \mid \re z > r \}$.
+Suppose that $\alpha$ is a Dirichlet series and $z_0$ is a complex number such that $\alpha_S(z_0)$ converges.
+Let $r_0 = \re z_0$.
+The series $\alpha_S(z)$ converges\footnote{\fntw} for any $z \in H_{r_0}$, and converges uniformly\footnote{\fnth} in any compact subspace of $H_{r_0}$.
+Since the function $1/n^z$ is holomorphic in the complex plane, it follows that $\widehat\alpha(z)$ is holomorphic in $H_{r_0}$.
+In, in addition, there is a complex number $z_1$ such that $\alpha_S(z_1)$ converges absolutely, then\footnote{\fnfo} $\alpha_S(z)$ converges absolutely for any $z \in H_{r_1}$ where $r_1 = \re z_1$.
+
+Let $\Omega_a = \{ \alpha \in \Omega \mid \text{$\exists z \in \CC$ such that $\alpha_S(z)$ converges absolutely} \}$.
+This is a subring of $\Omega$, called the \emph{ring of absolutely convergent Dirichlet series}.
+Let $\Omega_0$ be the ring of (germs of)\footnote{\fnfi} holomorphic functions defined in some open half-plane, and let $j : \Omega_a \to \Omega_0$ be the function $j(\alpha) = \widehat\alpha$.
+This function is a homomorphism, and it commutes with differentiation.
+In fact it is a monomorphism, and the proof\footnote{\fnsi} depends on the following lemma\footnote{\fnse}:
+
+
+\begin{lemm}
+\label{1.2.1}
+Let $x,c$ be positive real numbers.
+Then
+\[
+\frac{1}{2\pi i} \int_{c - i \infty}^{c + i\infty} \frac{x^z}{z} dz
+= \begin{cases}
+1 & \text{if $x < 1$}
+\\
+0 & \text{if $x > 1$}.
+\end{cases}
+\]
+\end{lemm}
+
+
+Suppose then that $\widehat\alpha$ is absolutely convergent in $H_r$, and let $x,c$ be positive real numbers such that $c > r$ and $x$ is non-integral.
+We see that
+\[
+\int_{c - i\infty}^{c + i\infty} \frac{\widehat\alpha(z) x^z}{z} dz
+= \int_{c - i\infty}^{c + i\infty} \sum_n \frac{\widehat\alpha(n) x^z}{z n^z} dz
+= \sum_n \alpha(n) \int_{c - i\infty}^{c + i\infty} \frac{(x/n)^z}{z} dz,
+\]
+the interchange of integration and summation being possible since the series $\alpha_S(z)$ is uniformly convergent.
+Thus applying \ref{1.2.1} we obtain the equation
+\[
+\frac{1}{2\pi i} 
+\int_{c-i\infty}^{c+i\infty} \frac{\widehat\alpha(z) x^z}{z} dz
+= \sum_n^{[x]} \alpha(n),
+\]
+which is called \emph{Perron's formula}.
+This formula shows that the holomorphic function $\widehat\alpha$ determines the arithmetic function $\alpha$, so that $j : \Omega_a \to \Omega_0$ is indeed injective.
+If $f$ is a function holomorphic in some half plane and $f = j(\alpha)$ for some (unique) $\alpha$, then we say that $\alpha$ is the \emph{Dirichlet series of $f$}.
+
+
+\subsection{Examples of Dirichlet series}
+\label{ch:1.3}
+
+The canonical example of a Dirichlet series is the Riemann zeta-function.
+This has Dirichlet series $\sum 1/n^z$, and is denoted by $\zeta(z)$.
+This Dirichlet series converges absolutely in $H_1$, but does not converge at $z = 1$.
+It is well-known\footnote{\fnei} that the $\zeta$-function extends to a meromorphic function on the complex plane with a simple pole (residue 1) at $z = 1$.
+It satisfies the \emph{functional equation}:
+\begin{equation}
+\label{1.3.1}
+\zeta(z) = 2 (2\pi)^{z-1} \Gamma(1-z) \sin(\pi z/2) \zeta(1-z),
+\end{equation}
+which by means of the equations
+\begin{align*}
+\Gamma(z) \Gamma(1-z)
+&= \pi \operatorname{cosec} (\pi z),
+\\
+\Gamma(z) \gamma(z + \tfrac 12) 
+&= 2^{1-2z} \pi^{1/2} \Gamma(2z)
+\end{align*}
+may be rewritten
+\[
+\pi^{-z/2} \Gamma(z/2) \zeta(z)
+= \pi^{-(1-z)/2} \Gamma((1-z)/2) \zeta(1-z).
+\]
+The following proposition is generic in these notes\footnote{\fnni}.
+
+
+\begin{prop}
+\label{1.3.2}
+For $z \in H_1$, the infinite product
+\begin{equation}
+\label{1.3.2.1}
+\prod_{p \in \NN,\text{ $p$ prime}}
+\frac{1}{1-p^{-z}}
+\end{equation}
+converges to $\zeta(z)$.
+Moreover, this infinite product converges absolutely in $H_1$, and uniformly on compact sets.
+\end{prop}
+
+The fact that the value of this infinite product is $\zeta(z)$ is essentially that (formally)
+\[
+\prod_{p \in \NN,\text{ $p$ prime}}
+\frac{1}{1-p^{-z}}
+= \prod_{p \in \NN,\text{ $p$ prime}}
+\sum_{k=1}^\infty p^{-kz}
+= \sum_{n=1}^\infty n^{-z}
+\]
+since every positive integer is uniquely expressible as a product of positive prime integers.
+To convert this into an analytic argument, one has to work with finite sets of primes and take the limit.
+This proposition is thus an analytic statement of unique factorisation in the ring of integers.
+
+
+\begin{coro}
+\label{1.3.3}
+The set of prime integers is infinite.
+\end{coro}
+
+\begin{proof}
+If there were only a finite set of primes, then the product \eqref{1.3.2.1} would be a finite product of functions, each holomorphic in $H_0$, and so would define a holomorphic continuation of the $\zeta$-function to $H_0$, which is impossible because of the pole at $z = 1$.
+\end{proof}
+
+
+Since $(1-p^{-z})^{-1}$ does not vanish in $H_1$, it follows from Hurwitz's theorem\footnote{\fnonze} and \ref{1.3.2} that the $\zeta$-function has no zeros in $H_1$.
+From the functional equation~\eqref{1.3.1}, it follows that the only zeros of the $\zeta$-function in the region $\{ z \mid \re z < 0 \}$ are the zeros of $\sin(\pi z / 2)$ which occur at the points $z = -2k$ for $k \in \NN$.
+These zeros are called the \emph{trivial zeros}.
+The remaining zeros thus lie in the \qw{critical strip} $\{z \in \CC \mid 0 \leq \re z \leq 1 \}$, and are called the \qw{non-trivial zeros}.
+
+
+\begin{rh}
+\label{1.3.4}
+The zeros in the critical strip all lie on the line $\re z = \frac12$.
+\end{rh}
+
+
+Since first stated by Riemann\footnote{\fnonon}, mathematicians throughout the world have been unable to prove or disprove the validity of this hypothesis.
+
+Many important examples of Dirichlet series are obtained from the $\zeta$ function, and reflect various arithmetic properties of the integers, for example:
+\begin{equation}
+\label{1.3.5}
+\zeta^{-1}(z) = \sum \mu(n) / n^z,
+\end{equation}
+where $\mu$ is the M\"oebius function, i.e., $\mu(1) = 1$, $\mu(n) = 0$ if $n$ is not square-free, and $\mu(n) = (-1)^k$ if $n$ is the product of $k$ distinct primes;
+\begin{equation}
+\label{1.3.6}
+\zeta^2(s) = \sum d(n) / n^z,
+\end{equation}
+where $d$ is the divisor function, i.e., $d(n)$ is the number of positive divisors of $n$;
+\begin{align}
+\label{1.3.7}
+\zeta'(z) &= \sum -\log n / n^z
+\quad\text{(cf. \ref{ch:1.1})};
+\\
+\label{1.3.8}
+\zeta'(z) / \zeta(z) &= \sum \Lambda(n) / n^z,
+\end{align}
+where $\Lambda(n) = \log n$ if $n$ is a power of the prime $p$ and $0$ otherwise;
+\begin{equation}
+\label{1.3.9}
+\zeta(z-1)/\zeta(z) = \sum \phi(n) / n^z,
+\end{equation}
+where $\phi$ is the Euler function.
+
+In all the above examples\footnote{\fnontw} except \eqref{1.3.9}, The Dirichlet series are absolutely convergent in $H_1$.
+The Dirichlet series in \eqref{1.3.9} is absolutely convergent in $H_2$.
+
+
+
+
 
 \section{Classical number theory}
 \label{ch:2}
