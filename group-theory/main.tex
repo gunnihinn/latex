@@ -1,0 +1,678 @@
+\documentclass[11pt]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\oint#1#2{(#1, #2)}
+\def\cint#1#2{[#1, #2]}
+\def\coint#1#2{[#1, #2)}
+\def\ocint#1#2{(#1, #2]}
+
+\def\ov#1{\overline{#1}}
+
+\def\grp{\mathsf{Grp}}
+\def\set{\mathsf{Set}}
+\def\CC{\mathbf{C}}
+\def\EE{\mathcal{E}}
+\def\FF{\mathcal{F}}
+\def\NN{\mathbf{N}}
+\def\RR{\mathbf{R}}
+\def\QQ{\mathbf{Q}}
+\def\ZZ{\mathbf{Z}}
+
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\ke}{Ker}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{The things I remember about group theory}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Definition and general properties}
+
+The orbital bombardment definition of a group is the one from category theory:
+
+\begin{defi}
+A \emph{group} is a category with one object whose arrows are all isomorphisms.
+\end{defi}
+
+Unpacking this leads to the usual definition given to undergraduates (at least
+when the category in question is backed by sets):
+
+\begin{defi}
+A \emph{group} is a nonempty set $G$ with a binary operation $\cdot$ that satisfy the following axioms:
+\begin{enumerate}
+\item
+There exists an element $e$ such that $e \cdot g = g \cdot e$ for all $g \in G$.
+
+\item
+For every element $g$ there exists an element $g^{-1}$ such that $g \cdot g^{-1} = g^{-1} \cdot g = e$.
+
+\item
+The binary operation is associative: For all elements $g_1, g_2, g_3$ we have $g_1 \cdot (g_2 \cdot g_3) = (g_1 \cdot g_2) \cdot g_3$.
+\end{enumerate}
+\end{defi}
+
+The element $e$ is called the \emph{neutral} element of the group.
+An element $g^{-1}$ is called the \emph{inverse} of $g$.
+Before looking at some examples let's establish the uniqueness of some elements
+here.
+
+
+\begin{prop}
+The neutral element of a group is unique.
+\end{prop}
+
+\begin{proof}
+Let $e_1$ and $e_2$ be two neutral elements of a group.
+Then
+$e_1 = e_1 \cdot e_2 = e_2$
+by the axioms for neutral elements.
+\end{proof}
+
+
+\begin{prop}
+The inverse of an element is unique.
+\end{prop}
+
+\begin{proof}
+Let $h_1$ and $h_2$ be two inverses of $g$.
+Then
+$h_1 g = e = h_2 g$
+and multiplying this on the right by, say, $h_1$ gives $h_1 = h_2$.
+\end{proof}
+
+\begin{prop}
+The inverse of $g \cdot h$ is $h^{-1} \cdot g^{-1}$.
+\end{prop}
+
+\begin{proof}
+We have $(h^{-1} \cdot g^{-1}) \cdot (g \cdot h) = e$ and
+$(g \cdot h) \cdot (h^{-1} \cdot g^{-1}) = e$ by associativity,
+so the result holds by uniqueness of the inverse.
+\end{proof}
+
+
+
+\paragraph{Commutative groups}
+
+Many familiar objects are groups, like the numbers $\ZZ$, $\QQ$, $\RR$ and
+$\CC$ under addition.
+So are the quotients $\ZZ / n \ZZ$ for $n > 1$ or $\QQ / \ZZ$ or $\RR / \QQ$.
+These are all \emph{commutative}, meaning that $g \cdot h = h \cdot g$ for all
+elements $g,h$ in the group.
+We usually write $+$ for the binary operation in a commutative group.
+
+\paragraph{Noncommutative groups}
+
+Some more examples are matrix groups, like $\GL_n(\RR)$, where
+the operation is matrix multiplication.
+These are noncommutative.
+So are the finite permutation groups $S_n$, which are the groups of
+permutations of a finite set of size $n$.
+In general the group $\operatorname{Aut} X$ of bijective functions $X \to X$ of
+any set $X$ is a noncommutative group under function composition.
+
+We often skip writing out a symbol for the binary operation of a noncommutative
+group and just write $gh$ instead of $g \cdot h$.
+This is called multiplicative notation, in contrast to the additive notation
+used for commutative groups.
+
+
+\begin{defi}
+A subset $H \subset G$ is a \emph{subgroup} of $G$ if it is a group with the
+binary operation of $G$.
+\end{defi}
+
+In any group $G$ the neutral element $\{ e \}$ is a subgroup.
+So is the whole group $G$.
+There may not be any others, even if the group is larger, like in $\ZZ / p \ZZ$
+where $p$ is prime.
+There may also be lots others, like in a permutation group where we can look at
+the permutations that fix some set of elements.
+
+
+\begin{defi}
+A \emph{morphism} of groups is a function $f : G \to H$ such that
+$f(g \cdot h) = f(g) \cdot f(h)$ for all elements $g,h \in G$.
+\end{defi}
+
+
+Some useful facts about morphisms are easy to establish:
+
+
+\begin{prop}
+If $f : G \to H$ is a morphism then $f(e) = e$.
+\end{prop}
+
+\begin{proof}
+We have $e^2 = e$ so
+$f(e) = f(e^2) = f(e)^2$.
+Multiplying both sides by $f(e)^{-1}$ gives $f(e) = e$.
+\end{proof}
+
+We apologize for the notational abuse above.
+We should have written $e_G$ and $e_H$ to distinguish between the neutral elements of each group.
+The reader will just have to get used to this.
+No one writes these out.
+
+
+\begin{prop}
+If $f : G \to H$ is a morphism and $g \in G$ then $f(g^{-1}) = f(g)^{-1}$.
+\end{prop}
+
+\begin{proof}
+We have 
+\begin{align*}
+e &= f(e) = f(g g^{-1}) = f(g) f(g^{-1}),
+\\
+e &= f(e) = f(g^{-1} g) = f(g^{-1}) f(g)
+\end{align*}
+and conclude by the uniqueness of the inverse of an element.
+\end{proof}
+
+
+\begin{prop}
+Let $f : G \to H$ be a morphism.
+\begin{itemize}
+\item
+If $N \subset G$ is a subgroup, then $f(N) \subset H$ is a subgroup.
+
+\item
+If $N \subset H$ is a subgroup, then $f^{-1}(N) \subset G$ is a subgroup.
+\end{itemize}
+\end{prop}
+
+\begin{proof}
+The first property follows directly from the defining property of a morphism.
+
+For the second, let $x,y \in N$ and let $z,w$ be such that $f(z) = x$ and $f(w)
+= y$.
+Then $f(zw) = f(z) f(w) = xy \in N$, so $zw \in f^{-1}(N)$.
+We also have $f(e) = e$ so $e \in f^{-1}(N)$.
+If $f(z) = x$ then $f(z^{-1}) = f(z)^{-1} = x^{-1} \in N$ so $z^{-1} \in
+f^{-1}(N)$.
+\end{proof}
+
+
+
+We could also have defined morphisms as functors between categories of one object.
+A morphism is injective, surjective, an isomorphism if it is those things as a
+function.
+Given a morphism $f : G \to H$ we define its kernel as
+$$
+\ke f = \{ g \in G \mid f(g) = e \}
+$$
+and its image as
+$$
+\im f = \{ f(g) \mid g \in G \}.
+$$
+These are subgroups of $G$ and $H$, respectively.
+A morphism is injective if and only if $\ke f = 1$ and surjective if and only
+if $\im f = H$.
+Here we have written $1$ for the group that contains one element, which is
+unique up to isomorphism.
+
+
+\begin{theo}[Caley]
+Any group is isomorphic to a subgroup of a permutation group.
+\end{theo}
+
+\begin{proof}
+Let $G$ be a group and consider the permutation group $\aut G$.
+An element $g$ of $G$ acts on $G$ by $g \cdot h = gh$ and thus defines an
+element of $\aut G$; this in turn defines a function $j : G \to \aut G$.
+If $g_1, g_2$ are in $G$ and $h$ is also in $G$ then we have
+$$
+j(g_1 g_2)(h)
+= (g_1 g_2) h
+= g_1 (g_2 h)
+= j(g_1)(j(g_2)(h))
+= j(g_1) j(g_2) (h)
+$$
+so $j$ is a group morphism. If $j(g_1) = j(g_2)$ then $g_1 = g_1 e = j(g_1)(e)
+= j(g_2)(e) = g_2 e = g_2$, so $j$ is injective.
+\end{proof}
+
+
+\begin{defi}
+If $H$ is a subgroup of a group $G$ we call the sets
+$$
+gH = \{ gh \mid h \in H \},
+$$
+where $g$ varies over $G$, the \emph{left cosets} of $H$.
+The \emph{right cosets} of $H$ are the sets $Hg = \{ hg \mid h \in H \}$.
+The \emph{index} of $H$ in $G$, written $|G : H|$, is the number of left cosets
+of $H$ in $G$.
+\end{defi}
+
+The left and right coset of an element are isomorphic as sets; the map
+$$
+gH \longrightarrow Hg,
+\quad
+x \mapsto g^{-1} x g
+$$
+is an isomorphism.
+They may not be equal.
+TODO: Find example.
+
+
+\begin{theo}[Lagrange]
+Let $H \subset G$ be a group and a subgroup.
+The left cosets of $H$ define a partition of $G$ into disjoint subsets that are
+all isomorphic.
+In particular,
+$$
+|G| = |G : H| \, |H|.
+$$
+\end{theo}
+
+\begin{proof}
+Consider the left cosets of $H$ in $G$; that is, the sets $g H$ where $g$
+varies over the elements of $G$.
+Clearly $G = \bigcup_{g \in G} gH$ so they cover all of $G$.
+
+We'll now show that the cosets are disjoint.
+Suppose $g_1 H \cap g_2 H \not= \varnothing$.
+Then there exist $h_1$ and $h_2$ in $H$ such that $g_1 h_1 = g_2 h_2$.
+Then $g_1 = g_2 (h_2 h_1^{-1})$, so $g_1 H \subset g_2 H$.
+Similarly we get $g_2 H \subset g_1 H$, so $g_1 H = g_2 H$.
+
+Now note that if $gH$ is a coset, then $f : H \to gH$ given by $f(h) = gh$ is
+an isomorphism of sets:
+If $f(h_1) = f(h_2)$ then we multiply by $g^{-1}$ and find $h_1 = h_2$, so $f$ is injective.
+If $gh \in gH$ then $gh = f(h)$, so $f$ is surjective.
+\end{proof}
+
+
+Lagrange's theorem helps restrict the possible subgroups of a group.
+Consider for example the group $\ZZ / p \ZZ$, where $p$ is prime.
+Its order is $p$, so from Lagrange's theorem any of its subgroups must have
+order 1 or $p$, so its only subgroups are the trivial group 1 and itself.
+
+Likewise the group $S_n$ of permutations of a set of size $n$ has order $n!$,
+so we might expect it to have lots of subgroups.
+Looking at the subgroups that permute $n$ elements but fix $k$ of them we find
+subgroups of order $(n-k)!$ for $k = 0, \ldots, n$.
+It's less clear if $S_n$ has a subgroup of order $k$ for $k = 2, \ldots, n-1$.
+Lagrange's theorem only says they might exist, not that they do.
+
+
+
+\paragraph{Quotients}
+
+We have kernels and images and would like to have cokernels.
+For that we need to be able to take quotients.
+That doesn't always work in groups.
+
+Let $H \subset G$ be a group and a subgroup.
+A way to start to define a quotient of $G$ by $H$ is to note that $H$ defines
+an equivalence relation on $G$ by $x \sim y$ if and only if $x^{-1}y$ is in
+$H$.
+This is equivalent to saying that $x H = y H$, that is, that $x$ and $y$ define
+the same left coset of $H$.
+This is indeed an equivalence relation:
+\begin{itemize}
+\item
+$x \sim x$ because $x^{-1} x = e \in H$.
+
+\item
+If $x \sim y$ then $x^{-1} y \in H$, which is a subgroup so the inverse
+$(x^{-1} y)^{-1} = y^{-1} x \in H$, which means that $y \sim x$.
+
+\item
+If $x \sim y$ and $y \sim z$ then $x^{-1}y \in H$ and $y^{-1} z \in H$, so
+because $H$ is a group we get $x^{-1} z = x^{-1} y y^{-1} z \in H$.
+\end{itemize}
+We can then form the set-theoretic quotient $G/H$ by this relation and get the
+projection map $\pi : G \to G/H$ that sends an element to its equivalence class.
+
+
+
+\begin{theo}
+Let $H \subset G$ be a group and a subgroup.
+The following are equivalent:
+\begin{itemize}
+\item
+The set $G / H$ can be given a group structure that makes $\pi : G \to G/H$
+into a morphism.
+
+\item
+The subgroup $H$ satisfies $g^{-1} H g = H$ for all $g$ in $G$.
+\end{itemize}
+\end{theo}
+
+\begin{proof}
+If $\pi$ is a morphism
+and $h$ is in $H$ then we must have
+$$
+\pi(g) 
+= \pi(eg)
+= \pi(e) \pi(g)
+= \pi(h) \pi(g)
+= \pi(hg)
+$$
+for any $g$ in $G$.
+Multiplying by $\pi(g)^{-1} = \pi(g^{-1})$ we get
+$$
+\pi(e) = \pi(g^{-1} h g),
+$$
+which must be true for all $h \in H$ and all $g \in G$.
+That is, the group $H$ must satisfy $g^{-1} H g = H$ for any $g$ in $G$.
+
+
+Suppose then that $H$ satisfies this condition.
+Let $x$ and $y$ be elements of $G/H$.
+Pick some $g_x$ and $g_y$ in $G$ such that $\pi(g_x) = x$ and $\pi(g_y) = y$.
+Then we want
+$$
+xy = \pi(g_x) \pi(g_y) = \pi(g_x g_y)
+$$
+to hold.
+This has to work independently of the elements $g_x$ and $g_y$ we picked.
+Let then $h_x$ and $h_y$ be some elements of $H$.
+Then we have
+$$
+\pi(g_x h_x g_y h_y)
+= \pi(g_x h_x g_y)
+= \pi(g_x g_y (g_y^{-1} h_x g_y))
+= \pi(g_x g_y)
+$$
+because $g_y^{-1} h_x g_y \in H$ by hypothesis.
+\end{proof}
+
+
+\begin{defi}
+A subgroup $H \subset G$ that satisfies $g^{-1} H g = H$ for all $g \in G$
+is called a \emph{normal subgroup}, denoted $H \triangleleft G$.
+\end{defi}
+
+
+John Baez has a neat way of looking at what this condition means.\footnote{https://math.ucr.edu/home/baez/normal.html}
+Briefly, the operation $x \mapsto g^{-1} x g$ is a kind of coordinate or
+point-of-view change.
+A subgroup is then normal if it looks the same from everywhere,
+or if no particular choice was made when defining it.
+This immediately leads to an example of a nonnormal subgroup by defining one by
+making an arbitrary choice:
+
+
+\begin{exam}
+Consider $S_3$, the group of permutations on $X = \{1,2,3\}$.
+Consider also $H \subset S_3$ defined as the group of permutations of $X$ that
+fix the element $3$, arbitrarily.
+This is a subgroup of $S_3$, isomorphic to $S_2$.
+Let $g$ be the element of $S_3$ that swaps 3 and 2.
+Let $h$ be the element of $H$ that swaps 2 and 1.
+Then $g^{-1} h g$ is the element of $S_3$ that swaps 1 and 3, which is not in $H$.
+Therefore $H$ is not a normal subgroup.
+% 123
+% 132 g
+% 312 hg
+% 321 g^{-1}hg
+
+In contrast, consider the element $h$ that maps 1 to 2, 2 to 3 and 3 to 1 and
+the subgroup $N = \{e, h, h^2\}$ generated by it.
+This subgroup is invariant under conjugation by the other elements of $S_3$,
+which swap some pair of elements, so it is normal.
+\end{exam}
+
+
+TODO: Examine the failure for non-normal subgroups.
+Doing that for $S_3$ involves looking at $6 \cdot 6 = 36$ products.
+We can do it, just not tonight.
+
+
+\begin{theo}[Universal property of quotients]
+Let $H \triangleleft G$ be a normal subgroup and $f : G \to N$ a morphism.
+If $H \subset \ke f$ then there exists a unique morphism $g : G/H \to N$ such
+that the diagram
+$$
+\begin{tikzcd}
+G \ar[d,"\pi"] \ar[dr,"f"] & 
+\\
+G/H \ar[r,"g"] & N
+\end{tikzcd}
+$$
+commutes.
+\end{theo}
+
+\begin{proof}
+We propose to define $g : G/H \to N$ by $g(x) = f(y)$, where $y$ is an element
+of $G$ such that $\pi(y) = x$.
+If $h \in H$ then $\pi(yh) = x$ as well and $f(yh) = f(y) f(h) = f(y)$ by
+hypothesis, so this defines a map.
+
+If $x_1, x_2$ are in $G/H$ and $y_1, y_2$ map to them under $\pi$, then
+$$
+g(x_1 x_2)
+= f(y_1 y_2)
+= f(y_1) f(y_2)
+= g(x_2) g(x_2)
+$$
+so $g$ is a morphism.
+
+Suppose now that $g' : G/H \to N$ is another morphism that fits into this diagram.
+Let $x \in G/H$ and let $y$ map to it.
+Then
+$
+g'(x) = f(y) = g(x)
+$
+so $g' = g$.
+\end{proof}
+
+
+
+
+
+\paragraph{Kernels and normal subgroups}
+
+There is a close relationship between kernels of morphisms and normal subgroups.
+So close that they are actually the same:
+
+\begin{prop}
+Let $f : G \to H$ be a morphism.
+Then $\ke f \triangleleft G$.
+\end{prop}
+
+\begin{proof}
+Let $h \in \ke f$ and $g \in G$. Then
+\begin{equation*}
+f(g^{-1} h g)
+= f(g)^{-1} f(h) f(g)
+= f(g)^{-1} f(g)
+= e.
+\qedhere
+\end{equation*}
+\end{proof}
+
+Conversely, if $H \triangleleft G$ then $H = \ke \pi$, where $\pi : G \to G/H$
+is the quotient morphism.
+
+
+\begin{theo}[First isomorphism theorem]
+Let $f : G \to H$ be a morphism.
+Then $\im f \cong G / \ke f$.
+\end{theo}
+
+\begin{proof}
+We have a quotient morphism $\pi : G \to G / \ke f$ and a surjective morphism
+$f : G \to \im f$ that is constant on the fibers of $\pi$.
+The universal property of quotients gives a morphism $g$
+$$
+\begin{tikzcd}
+G \ar[d,"\pi"] \ar[dr,"f"] & 
+\\
+G/\ke f \ar[r,"g"] & \im f
+\end{tikzcd}
+$$
+such that the above diagram commutes.
+As $f$ is surjective then so is $g$.
+Suppose that $g(x) = e$ and let $y \in G$ be such that $\pi(y) = x$.
+Then $f(y) = e$, so $y \in \ke f$, and $x = e$, so $g$ is injective.
+\end{proof}
+
+
+
+
+\paragraph{More categories}
+
+Groups with their morphisms form a category $\grp$.
+It contains an initial and terminal object; the group $1$.
+Products exist in this category:
+
+\begin{prop}
+Let $I$ be an index set and $(G_i)_{i \in I}$ a family of groups indexed by $I$.
+There exists a group $\prod_{i \in I}G_i$ that is the category theoretic
+product of the $(G_i)$.
+\end{prop}
+
+\begin{proof}
+We define $\prod_{i \in I} G_i$ as a set in the usual way and define its binary
+operation component-wise.
+The identity element is $\prod_{i \in I} e_{G_i}$, and the inverse of an
+element $\prod g_i$ is $\prod g_i^{-1}$.
+There are clearly morphisms $\pi_j : \prod G_i \to G_j$ for every $j \in I$.
+
+Now let $H$ be a group and $f_i : H \to G_i$ a family of morphisms indexed by $I$.
+We define a morphism $f : H \to \prod G_i$ by $f(h) = \prod f_i(h)$.
+This makes the necessary diagram commute.
+If $f' : H \to \prod G_i$ is another such morphism we have $\pi_j f' = \pi_j f$
+for all $j$, so $f' = f$ because both are based on sets.
+\end{proof}
+
+There is a forgetful functor $\grp \to \set$ that sends a group to its
+underlying set.
+It has an adjoint $\set \to \grp$ that sends a set to the \emph{free group}
+generated by the set:
+
+\begin{defi}
+Let $X$ be a set. The \emph{free group} generated by $X$ is the group
+$\prod_{x \in X} \ZZ$.
+\end{defi}
+
+
+
+\section{Permutations}
+
+
+Let's focus on the permutation groups of finite sets.
+The group $S_n$ is defined as the group of permutations of a set of $n$ elements.
+It doesn't matter which set:
+
+\begin{prop}
+Let $X$ and $Y$ be sets of $n$ elements and $f : X \to Y$ a bijection.
+Then $\aut X \cong \aut Y$.
+\end{prop}
+
+\begin{proof}
+The pullback $f^{-1} : \aut Y \to \aut X$ is a group isomorphism.
+\end{proof}
+
+We very often consider the set $\{1, \ldots, n\}$ and its permutations, as it
+is both right there and useful in applications.
+
+
+\begin{prop}
+$$
+|S_n| = n!
+$$
+\end{prop}
+
+
+\begin{proof}
+Clearly $|S_1| = 1$.
+For $n > 1$ we consider the subgroup $H \subset S_n$ of permutations that fix
+the element $n$, which is isomorphic to $S_{n-1}$.
+By considering the elements that swap $n$ and $k$ for $k = 1, \ldots, n$ we see
+that $H$ has at least $n$ left cosets.
+Now let $g$ be such that $g H \not= H$, which entails $n \not= g(n)$.
+Combining $g$ with the permutation that swaps $g(n)$ and $n$ we then obtain a permutation that fixes $n$, or an element of $H$.
+Thus any left coset of $H$ is conjugate to one of the above and we have exactly
+$n$ cosets.
+Therefore
+$|S_n| = n \, |S_{n-1}|$ and we conclude by induction.
+\end{proof}
+
+
+
+\begin{theo}
+If $n > 1$ there exists a nontrivial morphism $\sgn : S_n \to \ZZ^\times$.
+\end{theo}
+
+\begin{proof}
+Let $\{1, \ldots, n\}$ be a set of $n$ elements that $S_n$ acts on
+and consider the $\ZZ$-module $\ZZ^{n}$.
+Each element of $S_n$ defines an automorphism of this module by permuting the
+basis elements.
+We thus get an embedding $S_n \to \GL_n(\ZZ)$, and the determinant gives a
+group morphism $\GL_n(\ZZ) \to \ZZ^\times$.
+
+Consider now the element that swaps $1$ and $2$.
+Its image under this embedding is the automorphism given by the matrix
+$$
+\begin{pmatrix}
+0 & 1
+\\
+1 & 0
+\end{pmatrix}
+\oplus I_{n-2},
+$$
+whose determinant is $-1$, so the morphism is nontrivial.
+\end{proof}
+
+
+\begin{defi}
+The \emph{even} permutations on $n$ are $A_n := \ke(\sgn : S_n \to \ZZ^\times)$.
+The \emph{odd} permutations on $n$ are the nontrivial coset of $A_n$.
+\end{defi}
+
+
+
+The even permutations are a normal subgroup of $S_n$.
+They're often the only normal subgroup.
+That makes Caley's theorem, that every group embeds in a permutation group,
+perhaps less interesting since it often can't embed as a normal subgroup just
+for degree reasons.
+
+
+
+\section{Classification of commutative groups}
+
+\section{Sylow theorems}
+
+
+
+\end{document}

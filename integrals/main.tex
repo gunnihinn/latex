@@ -1,0 +1,738 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{tikz-cd}
+\usepackage{color}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem*{e}{Exercise}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{ques}[theo]{Question}
+\newtheorem{exam}[theo]{Example}
+\newtheorem{cexam}[theo]{Counterexample}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\qandq{\quad\text{and}\quad}
+\def\ov#1{\overline{#1}}
+\def\empty{\varnothing}
+
+\newcommand{\cat}[1]{\mathsf{#1}}
+
+\def\eps{\varepsilon}
+\def\NN{\mathbf{N}}
+\def\ZZ{\mathbf{Z}}
+\def\QQ{\mathbf{Q}}
+\def\RR{\mathbf{R}}
+\def\CC{\mathbf{C}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+
+\def\<{\langle}
+\def\>{\rangle}
+\def\d{\mathrm{d}}
+
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{Integrals}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Introduction}
+
+Let's define a bunch of different integrals and talk about them.
+
+
+\section{What do we want?}
+
+The most basic task of an integral is to measure the volume of objects in Euclidean space.
+Suppose we have some way $V$ of doing this to elements of the set of subsets of $\RR^n$.
+Then $V$ is a function that assigns to a subset $X \subset \RR^n$ a real number $V(X)$.
+We have some idea of how a volume function should behave based on our experience of the world around us:
+\begin{itemize}
+\item
+If we scale our subset by a real number the volume should scale with it, so $V(\lambda X) = \lambda V(X)$, at least for positive $\lambda$.
+
+\item
+The volume of disjoint sets should be the sum of their volumes, so if $X \cap Y = \empty$ then $V(X \cup Y) = V(X) + V(Y)$.
+\end{itemize}
+
+This is heading into measure theory.
+
+
+\section{What do we want from a function integral?}
+
+If we have a function $f : I \to \RR$ we would like to measure the area under the graph of the function.
+The area is a real number, so we're asking for a function $\cc F(I) \to \RR$ from the set of functions on $I$ to the real numbers.
+This function should satisfy a couple of properties to match our intuition for how areas work:
+
+If $\lambda$ is a real number, then the area under $\lambda f$ is the area under $f$ scaled by $\lambda$.
+Our function should then commute with multiplication by scalars.
+
+If $f$ and $g$ are functions, then by drawing some pictures we can see that the area under $f+g$ should be the sum of the areas under $f$ and $g$.
+
+Together these say that we're looking for a linear function from the real vector space $\cc F(I)$ to $\RR$.
+Alternatively, we're looking for an element of the dual space $\cc F(I)^*$.
+An arbitrary element of the dual space isn't quite what we're looking for:
+Then we could pick the zero map, and it doesn't seem right to assign an area of zero to every function.
+It also feels like the area under a positive function should be positive.
+Also, it's probably too much to ask to be able to assign an area to every function $I \to \RR$.
+There are quite a lot of functions in there, and practically we care about a restricted subset of those, for example functions that are piecewise continuous.
+
+To narrow this down a little further, we note that there is one class of functions where we can definitely say what we expect to get: step functions.
+If $I$ is an interval and $a < b$ are points in $I$, then
+\[
+f(x) = \begin{cases}
+c & \text{if $a \leq x \leq b$}
+\\
+0 & \text{otherwise}
+\end{cases}
+\]
+is a step function.
+Its graph is a rectangle with a base of length $b - a$ and height $c$, whose area is then $c(b - a)$ by elementary geometry.
+We have skipped over that $c$ may be negative, but we could then arrive at the same conclusion by considering the negative of the area of $-f$.
+Some notation will help.
+If $A \subset I$ then we define the indicator function of the set by
+\[
+\chi_A(x) = \begin{cases}
+1 & \text{if $x \in A$}
+\\
+0 & \text{otherwise.}
+\end{cases}
+\]
+Our step functions are then of the form $c \chi_J$ for half-open intervals $J = [a,b) \subset I$.
+We are ready for a definition.
+
+
+\begin{defi}
+An \emph{integral} on an interval $I$ is a subspace $\cc M(I) \subset \cc F(I)$ of ``integrable'' functions and a linear map $\int_I : \cc M(I) \to \RR$.
+The subspace $\cc M(I)$ must contain the indicator functions of intervals, and the linear map must satisfy
+\[
+\int_I \chi_{J} = b - a
+\]
+for any interval $J = [a,b)$.
+\end{defi}
+
+Let's denote by $\cc S(I)$ the subspace generated by indicator functions.
+Its elements are finite linear combinations $f = \sum_{i=1}^n \lambda_i \chi_{J_i}$ of indicator functions, called \emph{step} functions.
+Our first result is that there is a unique integral on $\cc S(I)$ for any interval $I$.
+
+
+The point of using finite unions of half-open intervals $[a,b)$ is that they are stable under set difference and intersections.
+However we lose something: we can write $\chi_{[a,b)}$ as $\chi_{[a,c)} + \chi_{[c,b)}$.
+
+
+\begin{lemm}
+A step function can be written as
+\[
+f = \sum_{i=1}^n v_i \chi_{A_i},
+\]
+where each $A_i$ is a finite union of disjoint intervals, the $A_i$ are pairwise disjoint, and the $v_i$ are pairwise distinct.
+This decomposition is unique up to permutation of the $v_i$ and $A_i$.
+\end{lemm}
+
+\begin{proof}
+Let $f = \sum_{i=1}^n \lambda_i \chi_{J_i}$ be a step function.
+We define sets
+\[
+K_{ij} = \begin{cases}
+J_i \cap J_j & i \not= j,
+\\
+J_i \setminus \bigcup_{j\not=i} J_j & i = j,
+\end{cases}
+\]
+that are disjoint unions of half-open intervals.
+If $x_{ij} \in K_{ij}$ we set $v_{ij} = f(x_{ij})$ and $x_{ij} = 0$ if $K_{ij} = \empty$ and see that
+\[
+f = \sum_{i,j=1}^n v_{ij} \chi_{K_{ij}}.
+\]
+Some of the $v_{ij}$ may be equal; we take the union of the corresponding $K_{ij}$ to replace them with a single entry in the sum and get the claimed representation.
+
+Suppose now that
+\[
+f = \sum_{i=1}^n v_i \chi_{A_i}
+= \sum_{j=1}^m w_j \chi_{B_j}
+\]
+are two such representations of $f$.
+Picking $x \in A_j$ we see that there must be a $B_{\sigma(j)}$ such that $x \in B_{\sigma(j)}$.
+This set is the same one for every $x \in A_j$ because $v_j = f(x) = w_{\sigma(j)}$.
+Therefore $n \leq m$ and $j \mapsto \sigma(j)$ is injective.
+Similarly we see that $m \leq n$ so $\sigma$ is a permutation.
+\end{proof}
+
+
+
+\begin{lemm}
+If
+\[
+f = \sum_{i=1}^n v_i \chi_{J_i}
+\]
+is a step function where the $J_i$ are not necessarily disjoint, and $\sum_{j=1}^m w_j \chi_{K_j}$ is a decomposition where the $K_j$ are disjoint, then $\int_I f = \int_I \sum_{j=1}^m \chi_{K_j}$.
+\end{lemm}
+
+\begin{proof}
+Todo.
+\end{proof}
+
+
+
+\begin{proof}
+We proceed by induction on the number of vectors in a linear combination.
+To be precise, our induction hypothesis is:
+
+$P(n)$: For any interval $J \subset I$ and $n > 0$, if $\sum_{i=1}^n v_j \chi_{I_j} = 0$ with $I_j \subset J$, then $v_j = 0$ for $j=1,\ldots,n$.
+
+We first note that $P(1)$ is true:
+If $J$ is any nonempty interval and $v \chi_{J} = 0$ then $v = 0$.
+
+Now suppose that $P(n-1)$ holds.
+Let $\sum_{j=1}^n v_j \chi_{I_j} = 0$ be a linear combination and pick some $k$.
+Then $f = \sum_{j\not=k} v_j \chi_{I_j}$ is a step function such that $f = -v_k \chi_{I_k}$.
+Restricting $f$ to $I_k$ we see that $\sum_{j\not=k} (v_j + v_k) \chi_{I_j \cap I_k} = 0$, so $v_j = -v_k$ for all $j\not=k$ such that $I_j \cap I_k \not= \empty$ by $P(n-1)$.
+
+Our $k$ was arbitrary, so we see that if $I_j \cap I_k \not= \empty$ for any $j,k$ then $v_j = -v_k$.
+Suppose now that there is a $k$ such that $I_k \not= I$.
+If $I_j \cap I_k = \empty$ for every other $j$, then we have $v_k = 0$ by evaluation at a point in $I_k$ and $v_j = 0$ for all other $j$ by $P(n-1)$.
+Otherwise we must have $I_k \subset \bigcup_{j\not=k} I_j$, because if not there is a point only in $I_k$ from which we get $v_k = 0$.
+\end{proof}
+
+
+\begin{theo}
+Let $I$ be an interval.
+There exists a unique integral on $\cc S(I)$ such that
+\[
+\int_I \chi_{J} = b - a
+\]
+for any interval $J = [a,b]$.
+\end{theo}
+
+\begin{proof}
+An element of $\cc S(I)$ can be written as $f = \sum_{i=1}^n \lambda_i \chi_{J_i}$ for intervals $J_i = [a_i,b_i)$.
+If our integral is linear we then necessarily have
+\[
+\int_I f = \sum_{i=1}^n \lambda_i (b_i - a_i).
+\]
+Any two integrals that agree on indicator functions $\chi_J$ then agree on step functions.
+
+The problem is that we don't have a basis for $\cc S(I)$, only generators, and we could just as well have written $f = \sum_{j=1}^m \mu_j \chi_{K_j}$ for some other $\mu_j$ and intervals $K_j = [c_j,d_j)$.
+We need to show that $\int_I f$ does not depend on how we write $f$ as a linear combination of indicator functions.
+
+
+Note that if $f$ is a step function then $f(I)$ is a finite set:
+If $f = \sum_{i=1}^n \lambda_i \chi_{J_i}$ then $f(x) = \sum_{i=1}^n \lambda_i \chi_{J_i}(x)$ and as $\chi_{J_i}(x) \in \{0,1\}$ this can only take a finite number of values.
+Let then $f(I) = \{v_1, \ldots, v_m\}$ and let $K_l = \{x \in I \mid f(x) = v_l \}$.
+Then $K_l$ are unions of half-open intervals, $K_l \cap K_p = \empty$ when $l \not= p$, and $f = \sum_{l=1}^m v_l \chi_{K_l}$.
+
+
+We now proceed by induction on the number of values $f$ can take.
+If $f$ only takes one value it is simply a constant function $\lambda \chi_I$.
+Suppose that also $f = \sum_{i=1}^n \lambda_i \chi_{U_i}$ with $U_i \subset I$ open.
+Then the $U_i$ cover $I$, since $f$ is constant.
+Suppose that $U_k \not= I$.
+For $x \in U_k$ and $y \in I \setminus U_k$ we then get
+\[
+\lambda_k + \sum_{i\not=k} \lambda_i \chi_{U_i}(x) = \lambda
+\qandq
+\sum_{i\not=k} \lambda_i \chi_{U_i}(y) = \lambda
+\]
+so
+\[
+\lambda_k = \sum_{i\not=k} \lambda_i\bigl(\chi_{U_i}(y) - \chi_{U_i}(x)\bigr).
+\]
+Since $\lambda_k \not= 0$ there must be one $U_l$ with $l \not= k$ such that $\chi_{U_l}(x) \not= \chi_{U_l}(y)$.
+Then $U_l \not= I$.
+
+$f = a \chi_U + b \chi_V$.
+$x \in U \cap V$, $y \in U \setminus V$.
+$\lambda = a + b$, $\lambda = a$.
+
+We may order the $J_i$ such that $a \in J_1, \ldots, J_k$ but $a \not\in J_{k+1}, \ldots, n$ and that $J_1 \subset J_2 \subset \cdots \subset J_k$.
+Let $c \geq a$ be such that $[a,c]$ is a connected component of $\bigcap_{i=1}^k J_i$.
+Evaluating at $a$ we get $\sum_{i=1}^k \lambda_i = \lambda$.
+
+and that there is a $k$ such that $J_k \not= I$.
+For $x$ in $I$ we have
+\[
+\sum_{i=1}^n \lambda_i \chi_{J_i}(x) = \lambda.
+\]
+For $x \in I \setminus J_i$ we then also have $\sum_{i=1}^n \lambda_i \chi_{J_i}(x) = \lambda$, but here $\chi_{J_k}(x) = 0$.
+Since the $J_i$ are closed and cover $I$ there is some $J_l$ such that $J_i \cap J_l \not= \empty$.
+
+in which case we necessarily have $\int_I f = \lambda (b - a)$.
+\end{proof}
+
+This needs to be proved!
+This note is about the many other integrals that come with intermediate spaces $\cc S(I) \subset \cc M(I) \subset \cc F(X)$.
+
+
+Some facts are immediate from the definition:
+If $J \cap K = \empty$ then $\chi_{J \cup K} = \chi_J + \chi_K$, so $\int_I \chi_{J \cup K} = \int_I \chi_J + \int_I \chi_K$.
+Therefore 
+\[
+\int_I \chi_{[a,b]} = 
+\int_I \chi_{(a,b]} = 
+\int_I \chi_{[a,b)} = 
+\int_I \chi_{(a,b)}
+\]
+for all $a < b$, because $\int_{I} \chi_{[b,b]} = b - b = 0$.
+
+TODO: Need to know that if $f \leq g$ for step functions then $\int_I f \leq \int_I g$ for the Darboux integral.
+
+Say how this works under restriction.
+
+Say what we'd like to be true under limits.
+
+I must be completely out of touch by now because the definition I think makes the most sense is to put
+\[
+\int_I f
+= \sup_{s \leq f} \int_I s,
+\]
+where $s \in \cc S(I)$ when $f \geq 0$ and partition a general $f$ into $f^+ - f^-$, and declare $\cc M(I)$ to be the space of functions for which the integral is finite.
+This is the Lebesgue integral.
+
+
+\section{Riemann}
+
+\href{https://en.wikipedia.org/wiki/Riemann_integral}{wikipedia}
+
+
+We pick an interval $I \subset \RR$ once and for all and look for functions $f : I \to \RR$ to integrate.
+We are going to integrate the function by sampling it at given points and try to approximate its area by small rectangles around each point.
+There are a lot of choices involved that we have to account for at the end.
+The first one is a partition of the interval.
+
+\begin{defi}
+A \emph{partition} of an interval $I$ with endpoints $a < b$ is a sequence $P = (t_1, \ldots, t_n)$ of points in $I$ such that
+\[
+a = t_1 < t_2 \cdots < t_n = b.
+\]
+A \emph{tagged partition} of $I$ is a partition $P$ along with points $x = (x_j)$ such that $t_j < x_j < t_{j+1}$.
+\end{defi}
+
+Given a tagged partition $(P,x)$ of $I$ we approximate $f$ by the step function
+\[
+A(f, P, x) = \sum_{j=1}^{n-1} f(x_j) \chi_{(t_j, t_{j+1})}
+\]
+and hope that the integrals of these functions, which are
+\[
+\int_I A(f,P,x) = \sum_{j=1}^{n-1} f(x_j) (t_{j+1} - t_j),
+\]
+converge to something that we'll call the integral of $f$ as we take smaller and smaller partitions.
+Here smaller and smaller means that the mesh size $\mu(P) = \max |t_{j+1}-t_j|$ gets smaller.
+The actual definition is:
+
+
+\begin{defi}
+A function $f : I \to \RR$ is Riemann integrable with integral $\int_I f$ if for every $\eps > 0$ there exists a $\delta > 0$ such that for every tagged partition $(P,x)$ with mesh size $\mu(P) < \delta$ we have
+\[
+\biggl|
+\int_I f - \int_I A(f,P,x)
+\biggr|
+< \eps.
+\]
+\end{defi}
+
+For this to be a good definition of an integral we need to verify that it is a linear functional and integrates step functions correctly.
+
+
+\begin{prop}
+The integral is a linear functional:
+\begin{itemize}
+\item
+If $f$ is integrable and $\lambda \in \RR$ then so is $\lambda f$ and $\int_I \lambda f = \lambda \int_I f$.
+
+\item
+If $f$ and $g$ are integrable then so is $f + g$ and $\int_I f + g = \int_I f + \int_I g$.
+\end{itemize}
+\end{prop}
+
+\begin{proof}
+Let $\eps > 0$ and find $\delta > 0$ such that for every tagged partition $(P,x)$ with mesh size $\mu(P) < \delta$ we have
+\[
+\biggl|\int_I f - \int_I A(f, P, x) \biggr| < \eps.
+\]
+By inspection $A(f,P,x)$ is linear in $f$, so $A(\lambda f, P, x) = \lambda A(f,P,x)$.
+Then $\lambda \int_I f$ satisfies
+\[
+\biggl|\lambda \int_I f - \int_I A(\lambda f, P, x) \biggr| < |\lambda| \eps
+\]
+for any tagged partition $(P,x)$ with mesh $\mu(P) < \delta$, so $\lambda f$ is integrable with integral $\lambda \int_I f$.
+
+The second point goes very similarly since $A(f+g,P,x) = A(f,P,x) + A(g,P,x)$.
+Given a tagged partition with the right mesh size we note that
+$$
+\displaylines{
+\biggl|\int_I f + \int_I g - \int_I A(f + g, P, x) \biggr|
+\hfill\cr\hfill{}
+\leq 
+\biggl|\int_I f - \int_I A(f, P, x) \biggr|
++
+\biggl|\int_I g - \int_I A(g, P, x) \biggr|
+< 2 \eps
+}
+$$
+by the triangle inequality, so $f + g$ is integrable with integral $\int_I f + \int_I g$.
+\end{proof}
+
+
+\begin{prop}
+If $J \subset I$ is an interval with endpoints $a < b$ then the indicator function $\chi_J$ is integrable and $\int_I \chi_J = b - a$.
+\end{prop}
+
+\begin{proof}
+Let $\eps > 0$ and let $(P,x)$ be a tagged partition.
+If $J = (a,b)$ we let $l$ be the smallest index such that $a \leq t_l$ and $m$ the largest index such that $t_m \leq b$.
+Then we get at most four cases for the integral of $A(\chi_J, P, x)$:
+\[
+\int_I A(\chi_J, P, x)
+= \begin{cases}
+t_m - t_l & \text{if $x_{l-1} \not\in J$ and $x_{m} \not\in J$,}
+\\
+t_{m+1} - t_l & \text{if $x_{l-1} \not\in J$ and $x_{m} \in J$,}
+\\
+t_m - t_{l-1} & \text{if $x_{l-1} \in J$ and $x_{m} \not\in J$,}
+\\
+t_{m+1} - t_{l-1} & \text{if $x_{l-1} \in J$ and $x_{m} \in J$.}
+\end{cases}
+\]
+Some of these cases may not occur; for example if $a$ is also an endpoint of $I$ the cases with $t_{l-1}$ are missing.
+Going one by one we see that
+\begin{align*}
+|b - a - (t_m - t_l)|
+&\leq |b - t_m| + |t_l - a|
+< 2 \mu(P),
+\\
+|b - a - (t_{m+1} - t_l)|
+&\leq |b - t_{m+1}| + |t_l - a|
+\\
+&\leq |b - t_{m}| + |t_{m+1} - t_m| + |t_l - a|
+< 3 \mu(P),
+\\
+|b - a - (t_{m} - t_{l-1})|
+&\leq |b - t_{m}| + |t_{l-1} - a|
+\\
+&\leq |b - t_{m}| + |t_{l} - t_{l-1}| + |t_l - a|
+< 3 \mu(P),
+\\
+|b - a - (t_{m+1} - t_{l-1})|
+&\leq |b - t_{m+1}| + |t_{l-1} - a|
+\\
+&\leq |b - t_{m+1}| + |t_{m+1} - t_m| + |t_{l} - t_{l-1}| + |t_l - a|
+\\
+&< 4 \mu(P).
+\end{align*}
+Therefore $|(b - a) - \int_I A(\chi_I, P, x)| < 4\mu(P)$ for any tagged partition, so we can take $\mu(P) < \eps / 4$ and conclude.
+\end{proof}
+
+
+All right.
+We now have an integral.
+What can we integrate?
+How about polynomials?
+How about the polynomial $p(x) = x$ over some interval $[a,b]$?
+We invite the reader to try that.
+It is doable if tedious for certain partitions whose mesh size tends to zero, like equally spaced ones of $n$ points.
+For arbitrary partitions there doesn't seem to be any way to directly evaluate the sums involved; we'd have to come up with comparison theorems showing that we can refine partitions into ones where we can evaluate the sum.
+
+That sounds like a lot of work so we'll try something else.
+First we establish a class of integrable functions that contains almost everything we're interested in integrating anyway.\footnote{I'm a differential geometer, so functions are smooth or they don't exist.}
+Then we prove the fundamental theorem of calculus, which gives us a practical tool for solving integrals, the tool being to stare at the integrand until we see a primitive function for it.
+Proving both of these is not a lot of work, surprisingly given how difficult it is to integrate a specific function from the definition, and they give us an interface we can use instead of relying on the definition itself.
+
+
+
+
+\begin{prop}
+If $I$ is closed and bounded and $f : I \to \RR$ is continuous then it is Riemann integrable.
+\end{prop}
+
+\begin{proof}
+Consider partitions $P$ with $\mu(P) < \delta$ for some given $\delta$.
+Since $f$ is continuous it attains its infimum and supremum on any given closed and bounded interval.
+For any partition $P$ there then exist tags $x_L$ and $x_U$ such that
+\[
+A(f, P, x_L) \leq A(f, P, x) \leq A(f, P, X_U)
+\]
+for any other tag $x$.
+
+Since $f$ is continuous and $I$ is closed and bounded then $f$ is uniformely continuous.
+For any $\eps > 0$ there exists a $\delta > 0$ such that $|f(x) - f(y)| < \eps$ for any $x,y \in I$ with $|x - y| < \delta$.
+Then $|f(x_{L,j}) - f(x_{U,j})| < \eps$ for partitions $P$ with $\mu(P) < \delta$, so 
+\begin{align*}
+\biggl|\int_I A(f,P,x_L) - \int_I A(f,P,X_U)\biggr|
+&= \biggl|
+\sum_{j=1}^{n-1} (f(x_{L,j}) - f(x_{U,j})) (t_{j+1} - t_j)
+\biggr|
+\\
+&\leq 
+\sum_{j=1}^{n-1} |f(x_{L,j}) - f(x_{U,j})| (t_{j+1} - t_j)
+\\
+&\leq (b-a) \eps
+\end{align*}
+We also have
+\[
+(b-a) \inf f 
+\leq \int_X A(f,P,x_L)
+\leq \int_X A(f,P,x_U)
+\leq (b-a) \sup f 
+\]
+for any partition $P$.
+Therefore the numbers
+\[
+L(\eps) = \inf_{\mu(P) < \delta} \int_I A(f,P,X_L)
+\qandq
+U(\eps) = \sup_{\mu(P) < \delta} \int_I A(f,P,X_U)
+\]
+both exist for any $\eps$ and $L(\eps) \leq U(\eps)$, and the above shows that $U(\eps) - L(\eps) < (b-a)\eps$.
+Therefore $L(\eps)$ and $U(\eps)$ both converge to a limit $s$ as $\eps \to 0$.
+Applying the triangle inequality then shows that $| \int_I A(f,P,x) - s | < C \eps$ for any partition $P$ with $\mu(P) < \delta$, so $s$ is the integral of $f$ over $I$.
+\end{proof}
+
+
+
+\begin{prop}
+If $f : I \to \RR$ is differentiable then
+\[
+\int_I f' = f(b) - f(a).
+\]
+\end{prop}
+
+
+\begin{proof}
+Since $f$ is differentiable its derivative $f'$ is continuous, and thus integrable.
+Let $\eps > 0$ and consider a partition $P$.
+For every $j$ there exists a $t_j \leq x_j \leq t_{j+1}$ such that $f(t_{j+1}) - f(t_j) = f'(x_j)$ by the intermediate value theorem, which defines a tag $x$ of $P$.
+Then we have
+\[
+\int_I A(f', P, x)
+= \sum_{j=1}^{n-1} f(t_{j+1}) - f(t_j)
+= f(b) - f(a).
+\]
+This is independent of the mesh size, which we may take as small as we want.
+For any $\delta > 0$ we can thus find a tagged partition $(P,x)$ such that $|\int_I A(f',P,x) - (f(b) - f(a))| = 0 < \eps$, which proves the result since $f'$ is integrable.
+\end{proof}
+
+
+It is now considerably easier to integrate polynomials.
+
+\begin{coro}
+\[
+\int_{[a,b]} x^n = \frac{b^{n+1} - a^{n+1}}{n+1}.
+\]
+\end{coro}
+
+\begin{proof}
+$(x^{n+1})' = (n+1) x^n$.
+\end{proof}
+
+
+
+From this it is a short way to the integration by parts and change of variable theorems, which are the workhorses of integration.
+
+
+\begin{prop}
+If $f,g$ are differentiable functions on an interval $I$ then
+\[
+\int_I f' g = f(b)g(b) - f(a)g(a) - \int_I f g'.
+\]
+\end{prop}
+
+\begin{proof}
+The function $fg$ is differentiable and we integrate $(fg)'$.
+\end{proof}
+
+
+\begin{prop}
+If $f,g$ are differentiable and $g$ is monotone then
+\[
+\int_I f'(g) g' = \int_{g(I)} f'.
+\]
+\end{prop}
+
+\begin{proof}
+We have $(f(g))' = f'(g) g'$ so
+\[
+\int_I f'(g) g'
+= f(g(b)) - f(g(a))
+= \int_{g(I)} f'.
+\qedhere
+\]
+\end{proof}
+
+
+
+There are limits to the Riemann integral.\footnote{Ha-ha.}
+Most of the things we care to integrate as geometers or analysts are integrable, but some things we might want to integrate as probability theorists are not.
+A basic example is the indicator function of rational numbers.
+
+\begin{prop}
+The function $\chi_{\QQ}$ is not Riemann integrable over $[0,1]$.
+\end{prop}
+
+\begin{proof}
+Let $P$ be a partition of $[0,1]$.
+We can tag it in two ways, with rational points $x$ and irrational points $y$.
+Then $A(\chi_{\QQ}, P, x) = 1$ while $A(\chi_{\QQ}, P, y) = 0$ so the integrals of step function approximations cannot converge as $\mu(P)$ tends to $0$.
+\end{proof}
+
+To overcome this defect people have sought to modify the Riemann integral enlarge the space of functions that can be integrated.
+This evolutionary line includes the Henstock--Kurzweil, Lebesgue and Riemann--Stieltjes integrals.
+When writing the introduction to these notes I thought that once we've decided what the integrals of step functions should be we should obviously define the integral of a general function to be the supremum of integrals of step functions bounded above by that function.
+This turns out to be the Lebesgue integral, so maybe we can find a fairly painless way to it.
+
+Another objection people have had to the Riemann integral is that it is cumbersome to define and difficult to use in practise.
+The Darboux and Henstock--Kurzweil integrals are reactions to this.
+Personally I'm mostly concerned with integrating smooth functions, for which the Riemann integral is fine.
+After writing this section I also didn't find the integral particularly difficult to use.
+From my undergraduate studies I remember a lot of fiddling with partitions when defining the integral, but I think we have successfully avoided those, mostly by our notation for the step functions $A(f,P,x)$.
+It's true that I wouldn't wish upon my enemies to integrate even polynomials using the definition, but we also saw that it's straightforward to establish that continuous functions are integrable and the fundamental theorem of calculus, from which the dark arts of integration flow.
+
+The proof is in the pudding, though, so we should press on to define these other integrals.
+Maybe we will in fact find them easier to know.
+
+
+\section{Darboux}
+
+\href{https://en.wikipedia.org/wiki/Darboux_integral}{wikipedia}
+
+The Darboux integral works very similarly to the Riemann integral.
+Its one simplification is that it avoids assigning tags to a partition.
+Instead it yields lower and upper bounds for the integral of a function, and we declare a function integrable if those bounds converge to the same number as the partitions get finer and finer.
+
+For the details we again pick and interval $I \subset \RR$ and look for functions $f : I \to \RR$ to integrate.
+We again consider a partition $P$ of $I$, but this time define two step functions
+\begin{align*}
+L(f,P) = \sum_{j=1}^{n-1} m_j \chi_{[t_j, t_{j+1}]}
+\qandq
+U(f,P) = \sum_{j=1}^{n-1} M_j \chi_{[t_j, t_{j+1}]},
+\end{align*}
+where
+\[
+m_j = \inf_{t_j \leq x \leq t_{j+1}} f(x)
+\qandq
+M_j = \sup_{t_j \leq x \leq t_{j+1}} f(x)
+\]
+are the lower and upper bounds on the function on each partition interval.
+By definition we have $L(f,P) \leq U(f,P)$ and $L(f,P)(x) \leq f(x) \leq U(f,P)(x)$ for every $x$ different from one of the partition points.
+The lower and upper Darboux integrals of $f$ are then defined as
+\[
+\int_I L(f) = \sup_{P} \int_I L(f,P)
+\qandq
+\int_I U(f) = \inf_{P} \int_I U(f,P),
+\]
+where $P$ runs over all partitions of $I$.
+
+
+\begin{defi}
+A function $f : I \to \RR$ is \emph{Darboux integrable} if $\int_I L(f) = \int_I U(f)$, in which case its integral is defined to be $\int_I f = L(f) = U(f)$.
+\end{defi}
+
+
+\begin{prop}
+The Darboux integral is a linear functional:
+\begin{itemize}
+\item
+If $f$ is integrable and $\lambda \in \RR$ then so is $\lambda f$ and $\int_I \lambda f = \lambda \int_I f$.
+
+\item
+If $f$ and $g$ are integrable then so is $f + g$ and $\int_I f + g = \int_I f + \int_I g$.
+\end{itemize}
+\end{prop}
+
+\begin{proof}
+We have $\inf \lambda f = \lambda \inf f$ and $\sup \lambda f = \lambda \sup f$, so we get $L(\lambda f, P) = \lambda L(f, P)$ and $U(\lambda f, P) = \lambda U(f, P)$.
+Therefore $L(\lambda f) = \lambda L(f)$ and $U(\lambda f) = \lambda U(f)$, so the first statement holds.
+
+For the second statement, we only have
+\begin{align*}
+\inf f + \inf g
+&\leq \inf(f + g),
+\\
+\sup(f + g)
+&\leq \sup f + \sup g.
+\end{align*}
+Therefore
+\begin{align*}
+L(f, P) + L(g, P) 
+&\leq L(f + g, P),
+\\
+U(f + g, P) 
+&\leq U(f, P) + U(g, P)
+\end{align*}
+and thus
+\begin{align*}
+\int_I L(f) + \int_I L(g) &\leq \int_I L(f + g)
+\\
+\int_I U(f + g) &\leq \int_I U(f) + \int_I U(g).
+\end{align*}
+By hypothesis $\int_I L(f) = \int_I U(f)$ and $\int_I L(g) = \int_I U(g)$, so $\int_I L(f+g) = \int_I U(f+g)$.
+\end{proof}
+
+
+\begin{prop}
+If $J \subset I$ is an interval with endpoints $a < b$ then the indicator function $\chi_J$ is Darboux integrable and $\int_I \chi_J = b - a$.
+\end{prop}
+
+\begin{proof}
+Let $P$ be a partition of $I$.
+Let $l$ be the smallest index such that $a \leq t_l$ and $m$ the largest index such that $t_m \leq b$.
+Then $L(f, P)(x) = 1$ if $t_l \leq x \leq t_m$ and $0$ otherwise, so $\int_I L(f,P) = t_m - t_l$.
+We can pick partitions $P$ of $I$ such that $t_l \to a$ and $t_m \to b$, so $\int_I L(f) = b - a$.
+
+Now let $l$ be the smallest index such that $t_l \leq a$ and $m$ the largest index such that $b \leq t_m$.
+Then $U(f, P)(x) = 1$ if $t_l \leq x \leq t_m$ and $0$ otherwise, so $\int_I U(f, P) = t_m - t_l$.
+Again we can pick partitions $P$ of $I$ such that $t_l \to a$ and $t_m \to b$, so $\int_I U(f) = b - a$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Riemann--Stieltjes}
+
+\href{https://en.wikipedia.org/wiki/Riemann%E2%80%93Stieltjes_integral}{wikipedia}
+
+
+
+\section{Henstock--Kurzweil}
+
+\href{https://en.wikipedia.org/wiki/Henstock%E2%80%93Kurzweil_integral}{wikipedia}
+
+
+\section{Lebesgue}
+
+\href{https://en.wikipedia.org/wiki/Lebesgue_integral}{wikipedia}
+
+
+\end{document}

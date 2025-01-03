@@ -45,6 +45,7 @@
 \def\CC{\mathbf{C}}
 \def\PP{\mathbf{P}}
 
+\DeclareMathOperator{\Alt}{Alt}
 \DeclareMathOperator{\et}{Et}
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Hess}{Hess}
@@ -85,9 +86,225 @@
 \maketitle
 
 
+\section{Subbundles}
+
+
+\begin{prop}
+Let $X$ be a complex manifold and $E \to X$ a holomorphic vector bundle with a Hermitian metric $h$.
+Suppose $f : T_X \to E$ is an injective bundle map.
+Then the induced metric on $X$ is K\"ahler if and only if the second fundamental form of $T_X$ in $E$ is symmetric.
+\end{prop}
+
+\begin{proof}
+Let
+\[
+\begin{tikzcd}
+0 \ar[r] &
+T_X \ar[r,"f"] &
+E \ar[r,"q"] &
+Q \ar[r] &
+0
+\end{tikzcd}
+\]
+be the short exact sequence associated to $f$.
+The second fundamental form is
+\[
+b(\xi, \eta)
+= q(D_{E,\xi} f \eta).
+\]
+The connection of the metric on $X$ satisfies 
+\[
+D_E f\xi = f D_X \xi - q^\dagger b(\xi)
+\]
+so
+\[
+D_{E,\xi} f\eta
+- D_{E,\eta} f\xi 
+= f D_{X,\xi} \eta
+- f D_{X,\eta} \xi 
+- q^\dagger b(\xi,\eta)
++ q^\dagger b(\eta,\xi)
+\]
+and thus
+\[
+d^E f(\xi,\eta)
+= f \tau(\xi,\eta)
+- q^\dagger b(\xi,\eta)
++ q^\dagger b(\eta,\xi).
+\]
+\end{proof}
+
+
+What is $d^E f$?
+Take coordinates $(z_1,\ldots,z_n)$ around $x$ and a frame $(e_1,\ldots,e_r)$ normal at $x$.
+Write $f(\partial / \partial z_j) = \sum_k f_{jk} e_k$.
+Then
+\[
+D_{E,\xi_k} f(\xi_j)
+= \sum_{l} d_{\xi_k}f_{jl} \otimes e_l + f_{jl} D_{\xi_k} e_l
+\]
+so
+\begin{align*}
+d^E f(\xi_j, \xi_k)
+&= 
+D_{E,\xi_k} f(\xi_j)
+- D_{E,\xi_k} f(\xi_j)
+- f([\xi_j, \xi_k])
+\\
+&= 
+\sum_{l} d_{\xi_k}f_{jl} \otimes e_l 
++ f_{jl} D_{\xi_k} e_l
+\\
+& \qquad\qquad
+- \sum_{l} d_{\xi_j}f_{kl} \otimes e_l 
++ f_{kl} D_{\xi_j} e_l
+- f([\xi_j, \xi_k])
+\\
+&= 
+\sum_{l}\bigl(
+d_{\xi_k}f_{jl}
+- d_{\xi_j}f_{kl} 
+\bigr ) \otimes e_l 
+- f([\xi_j, \xi_k])
+\\
+&\qquad\qquad
++ 
+\sum_{l}
+f_{jl} D_{\xi_k} e_l
++ f_{kl} D_{\xi_j} e_l
+\end{align*}
+
+
+
+
+\section{Smooth}
+
+Let $M$ be a manifold and $E \to M$ a vector bundle with an injective bundle morphism $f : T_M \to E$.
+Suppose we are given:
+\begin{itemize}
+\item
+A metric $h$ on $E$.
+
+\item
+A connection $D$ compatible with $h$.
+
+\item
+A connection $\nabla$ compatible with the induced metric $g = f^*h$.
+\end{itemize}
+The connections give a connection $D_{\Hom}$ on the bundle $\Hom(T_M, E)$.
+Applying it to $f$ we get
+\[
+D_{\Hom}f
+\in \cc A^1(\Hom(T_M, E))
+\cong (T_M^*)^{\otimes 2} \otimes E.
+\]
+Recall also the exterior covariant derivative $d^D : \cc A^k(E) \to \cc A^{k+1}(E)$ associated a connection $D$ on $E$, and note that $\Hom(T_M, E) \cong T_M^* \otimes E = \cc A^1(E)$.
+
+We write $\Alt : V \otimes V \to \bigwedge^2 V$ for the projection onto the quotient of alternating $2$-forms for a vector space $V$, that is, $\Alt v \otimes w = v \otimes w - w \otimes v$.\footnote{The projection onto the subspace of $2$-forms also involves dividing by $2!$.}
+
+
+\begin{prop}
+The torsion tensor $\tau$ of $g$ satisfies
+\[
+f \tau
+= d^D f
+- \Alt D_{\Hom}f.
+\]
+\end{prop}
+
+\begin{proof}
+We have
+\[
+D(f(\xi))
+= D_{\Hom}f \xi + f(\nabla \xi)
+\]
+so
+\begin{align*}
+f \tau(\xi,\nu)
+&= D_\xi f(\nu) 
+- D_{\Hom,\xi} f(\nu)
+- D_\nu f(\xi) 
++ D_{\Hom,\nu} f(\xi)
+- f [\xi, \nu]
+\\
+&= 
+d^D f(\xi, \nu)
+- \Alt D_{\Hom}f (\xi, \nu).
+\end{align*}
+as claimed.
+\end{proof}
+
+Therefore $\tau = 0$ if and only if
+\[
+d^D f = D_{\Hom} f
+\]
+in $\bigwedge^2 T_X^* \otimes E$.
+($D_{\Hom}f \in (T_X^*)^{\otimes 2} \otimes E = \operatorname{Sym}^2 T_X^* \otimes E \oplus \bigwedge^2 T_X^* \otimes E$.)
+
+
+
+Because I forget: $V$ and $W$ vector spaces with bases $(v_j)$ and $(w_k)$ for $j=1,\ldots,n$ and $k=1,\ldots,m$.
+A map $f : V \to W$ gives a matrix $(f_{kj})$.
+Given inner products and taking $V \cong \CC^n$ and $W \cong \CC^m$ we get an adjoint $f^\dagger : W \to V = \ov f^t = (g_{jk})$, where $g_{jk} = \bar f_{kj}$.
+Then
+\[
+f^\dagger f : V \to V
+= \biggl(\sum_{l=1}^m g_{kl} f_{lj}\biggr)_{jk}
+= \biggl(\sum_{l=1}^m \bar f_{lk} f_{lj}\biggr)_{jk}.
+\]
+I'm beginning to think there is no special condition here.
+If our bundle is Hermitian and the manifold complex then we pick a point $x$, coordinates around it and a normal frame.
+The matrix of the metric on $X$ in this setup is
+\[
+H = \ov F^t F + O(|z|^2),
+\]
+where $F$ is the matrix of $f : T_X \to E$.
+The components of $H$ are then
+\[
+h_{jk} = \sum_{m=1}^r \bar f_{km} f_{jm} + O(|z|^2).
+\]
+Then
+\[
+\frac{\partial H}{\partial z_l}
+= \frac{\partial \ov{F^t}}{\partial z_l} F
++ \ov{F^t} \frac{\partial F}{\partial z_l}
++ O(|z|).
+\]
+If $\ov F$ is holomorphic this simplifies to
+\[
+\frac{\partial H}{\partial z_l}
+= \frac{\partial \ov F^t}{\partial z_l} F
++ O(|z|)
+\]
+so $H$ is K\"ahler at $x$ if and only if
+\[
+\sum_{m=1}^r \frac{\partial \bar f_{km}}{\partial z_l} f_{jm}
+= \frac{\partial h_{jk}}{\partial z_l}
+= \frac{\partial h_{lk}}{\partial z_j}
+= \sum_{m=1}^r \frac{\partial \bar f_{km}}{\partial z_j} f_{lm}
+\]
+for all $j,k,l = 1, \ldots, n$ at $x$.
+We could also say that
+\[
+\frac{\partial H}{\bar \partial z_m}
+= \ov F^t \frac{\partial F}{\partial \bar z_m}
++ O(|z|)
+\]
+so $H$ is K\"ahler at $x$ if and only if
+\[
+\sum_{l=1}^r \bar f_{kl} \frac{\partial f_{jl}}{\partial \bar z_m}
+= \frac{\partial h_{jk}}{\partial \bar z_m}
+= \frac{\partial h_{jm}}{\partial \bar z_k}
+= \sum_{l=1}^r \bar f_{ml} \frac{\partial f_{jl}}{\partial \bar z_k}
+\]
+for all $j,k,l = 1, \ldots, n$ at $x$.
+
+
+
 
 
 \section{Metrics induced by covering bundles}
+
 
 
 \begin{prop}
@@ -102,75 +319,12 @@ T_X \ar[r] &
 \end{tikzcd}
 \]
 a short exact sequence of vector bundles.
-There exists a Hermitian metric on $E$ such that the induced metric on $X$ is K\"ahler if and only if $Dq = \theta \otimes f$, where $\theta$ is a smooth $(1,0)$-form and $f$ is a smooth section of $\Hom(E,T_X)$.
+If there exists a Hermitian metric on $E$ such that the induced metric on $X$ is K\"ahler then the second fundamental form of the sequence is holomorphic to order one.
 \end{prop}
 
 
 
 \begin{proof}
-Being a K\"ahler metric is a local property, so we fix a point $x \in X$ and consider a coordinate neighborhood of it.
-By shrinking the neighborhood we can find a local frame $(s_1, \ldots, s_r)$ of $E$ that is normal at $x$ and such that the $q(s_j)$ span $T_X$.
-Write
-\[
-q(s_j) = \sum_{k=1}^n q_{kj} \frac{\partial}{\partial z_k}
-\]
-for holomorphic functions $q_{kj}$.
-For sections $s,t$ of $E$ we have
-\[
-\tau(q(s), q(t))
-= q(D_{E,q(s)} t) - q(D_{E,q(t)} s) - [q(s), q(t)].
-\]
-Since we picked our frame to be normal we have $D_{E,q(s_j)} s_k = 0$ at $x$ for all $j,k$.
-Therefore
-\begin{align*}
-\tau(q(s_j), q(s_k))
-&= [q(s_j), q(s_k)]
-\\
-&= \sum_{l,m=1}^n 
-\biggl[
-q_{lj} \frac{\partial}{\partial z_l},
-q_{mk} \frac{\partial}{\partial z_m}
-\biggr]
-\\
-&= \sum_{l,m=1}^n 
-q_{lj} \frac{\partial q_{km}}{\partial z_l} \frac{\partial}{\partial z_m}
-- q_{mk} \frac{\partial q_{jl}}{\partial z_m} \frac{\partial}{\partial z_l}
-+ q_{lj} q_{mk} 
-\biggl[
-\frac{\partial}{\partial z_l},
-\frac{\partial}{\partial z_m}
-\biggr]
-\\
-&= \sum_{l,m=1}^n 
-\biggl(
-q_{mj} \frac{\partial q_{lk}}{\partial z_m}
-- q_{mk} \frac{\partial q_{lj}}{\partial z_m}
-\biggr)
-\frac{\partial}{\partial z_l}
-\end{align*}
-at $x$.
-Then the metric on $X$ is K\"ahler at $x$ if and only if
-\[
-\sum_{m=1}^n q_{mj} \frac{\partial q_{lk}}{\partial z_m}
-= \sum_{m=1}^n q_{mk} \frac{\partial q_{lj}}{\partial z_m}
-\]
-for all $j,k = 1,\ldots,r$ and $l = 1,\ldots,n$.
-This means that
-\[
-D_{\Hom(E,T_X),q(s_j)} q = D_{\Hom(E,T_X),q(s_k)} q
-\]
-for all $j,k = 1,\ldots,r$.
-That is, the image of 
-\[
-T_X \to \Hom(E,T_X),
-\quad
-\xi \mapsto D_\xi q
-\]
-is at most a line, which happens exactly when we can then write $Dq = \theta \otimes f$ for a $(1,0)$-form $\theta$ and a morphism $f : E \to T_X$.
-\end{proof}
-
-
-\begin{proof}[Another attempt]
 For any section $s$ of $E$ we have 
 \[
 D_X q(s)
@@ -186,116 +340,32 @@ D_E s
 = \sum ds_l \otimes e_l
 \]
 at the center.
-Write $q(e_k) = \sum_l q_{lk} \partial / \partial z_l$.
+Write $q(e_k) = \sum_l q_{lk} \partial / \partial z_l$ with $q_{lk}$ holomorphic.
 Then
 \[
 D_X q(e_k)
 = \sum_l \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
-\]
-and
-\[
+\qandq
 b j^\dagger(e_k)
-= \sum_l \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
+= -\sum_l \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
 \]
 at $x$.
-Let $s$ be in $S$ and write $j(s) = \sum s_k e_k$.
+Let $s$ be in $\cc O(S)$ and write $j(s) = \sum s_k e_k$ with $s_k$ holomorphic.
 Then
 \[
 b(s)
-= \sum_{k,l} s_k \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
+= -\sum_{k,l} s_k \partial q_{lk} \otimes \frac{\partial}{\partial z_l}
 \]
-at $x$, which is holomorphic there.
-
-so
-\[
-\tau(\xi, \eta)
-= - b_{\xi} j^\dagger(t)
-+ b_{\eta} j^\dagger(s)
-+ q(D_{E,\xi} t)
-- q(D_{E,\eta} s)
-- [\xi, \eta].
-\]
-
-Note that $bj^\dagger$ is a tensor in $s$.
-So is $\tau$, so by linearity 
-\[
-\rho(s,t)
-= q(D_{E,q(s)} t)
-- q(D_{E,q(t)} s)
-- [q(s), q(t)]
-\]
-is a tensor in $s$ and $t$, as the reader can also check directly for their amusement.
-If $s \in \Ker q = S$ we get
-\[
-\rho(s, t)
-= q(D_{E,q(s)} t)
-- q(D_{E,q(t)} s)
-- [q(s), q(t)]
-= - q(D_{E,q(t)} s)
-= - b_{q(t)} s,
-\]
-where $b \in \cc A^{1,0}(\Hom(S,T_X))$ is the second fundamental form.
-If $t$ is also in $S$ we get $\rho(s,t) = 0$.
-If $q^\dagger$ is the adjoint of $q$ we have
-\[
-\tau(\xi, \eta) = \rho(q^\dagger \xi, q^\dagger \eta).
-\]
-Then the metric on $X$ is K\"ahler if and only if $\rho$ decomposes as
-\[
-\rho = \begin{pmatrix}
-0 & b
-\\
--b & 0
-\end{pmatrix}
-\]
-according to the smooth splitting $E = S \oplus T_X$.
-
-The terms $D_{\Hom,\xi}q (t) - D_{\Hom,\eta}q (s)$ and $q(D_{E,\xi} t) - q(D_{E,\eta} s) - [\xi, \eta]$ are both tensors in $s$ and $t$, so we get
-\[
-\tau(\xi, \eta)
-= D_{\Hom,\xi}q (t) 
-- D_{\Hom,\eta}q (s) 
-- [\xi, \eta]
-\]
-at the center of a normal coordinate frame on $E$.
-The metric on $X$ is K\"ahler there if and only if
-\[
-D_{\Hom,\xi}q (t) 
-- D_{\Hom,\eta}q (s) 
-= [\xi, \eta]
-\]
-there.
-If $t \in \Ker q = S$ we then get
-\[
-b_\xi(t) 
-= - D_{\Hom, \xi} q(t)
-= 0
-\]
-for any $\xi$, so $b(t) = 0$.
-Then the second fundamental form $b = 0$, so the sequence splits.
+at $x$.
+Hidden in this expression are non-holomorphic terms from $D_X$ that vanish at $x$, so $b$ is holomorphic to order one.
 \end{proof}
 
 
-\section{Misc}
 
-
-There is a smooth section $\eta$ of $T_X$ such that
-\[
-D_\xi q = \omega(\xi, \bar\eta) f
-\]
-for all $\xi$, where $\omega$ is the K\"ahler metric on $X$.
-We can apply $\omega$ and write
-\[
-\omega \circ D_\xi q \in \cc A^{1,1}(S).
-\]
-
-We do have $Dq = - b \circ j^\dagger$, so this does say something about the second fundamental form.
-
-
-\begin{exam}
+\begin{exam}[Curve your enthusiasm]
 It would have been neat if the induced metric being K\"ahler meant that the short exact sequence splits.
 This is not true:
-Consider an elliptic curve $C$ and extensions
+Consider a curve $C$ and extensions
 \[
 \begin{tikzcd}
 0 \ar[r] &
@@ -308,83 +378,13 @@ T_C \ar[r] &
 of the trivial line bundle by $T_C$.
 These are classified by 
 \[
-H^1(C, \Hom(\CC, T_C)) = H^{1,1}(C,\CC)
+H^1(C, \Hom(T_C, \CC)) = H^{1,1}(C,\CC)
 \]
 which has dimension $1$, so there are nonsplit such extensions.
-However any metric on $F$ induces a K\"ahler metric on $C$ for dimension reasons, so the fundamental form decomposes.
-
-This is not an accident of complex dimension one:
-If $X = \prod_n C$ and $\pi_j : X \to C$ are the projections we get an extension
-\[
-\begin{tikzcd}
-0 \ar[r] &
-\CC^n \ar[r] &
-\prod_{j=1}^n \pi_j^*E \ar[r] &
-T_X \ar[r] &
-0
-\end{tikzcd}
-\]
-and a metric on the middle term that induces a K\"ahler metric on $X$.
+However any metric on $E$ induces a K\"ahler metric on $C$ for dimension reasons.
 \end{exam}
 
 
-Let $X$ be a K\"ahler manifold and suppose there is an exact sequence
-\[
-\begin{tikzcd}
-0 \ar[r] &
-S \ar[r,"j"] &
-E \ar[r,"q"] &
-T_X \ar[r] &
-0
-\end{tikzcd}
-\]
-where $(E,h)$ is flat.
-Then the second fundamental form $b = Dq \circ j \in \cc A^{1,0}(\Hom(S,T_X))$ is holomorphic, and thus parallel.
-Suppose also the induced metric on $X$ is K\"ahler.
-Then $b = Dq \circ j = \theta \otimes fj$.
-
-
-
-
-\begin{exam}
-Let $X$ be a compact K\"ahler manifold and suppose there is an exact sequence
-\[
-\begin{tikzcd}
-0 \ar[r] &
-S \ar[r,"j"] &
-V \otimes L \ar[r,"q"] &
-T_X \ar[r] &
-0,
-\end{tikzcd}
-\]
-where $L \to X$ is a line bundle and $V$ is a fixed finite-dimensional vector space.
-Fix some inner product on $V$ and a Hermitian metric on $L$.
-Consider a local section $s$ of $V \otimes L$.
-Since $V$ is flat we can find a parallel frame $(v_j)$ of it, and write $s = \sum v_j \otimes s_j$, where $s_j$ are local sections of $L$.
-Then
-\[
-Ds = \sum v_j \otimes D_L s_j.
-\]
-\end{exam}
-
-
-Maybe stop the local work here.
-If the metric is K\"ahler the second fundamental form is $b = \theta \otimes f$.
-Then what?
-
-
-
-Its adjoint is $b^\dagger = \ov\theta \otimes f^\dagger$.
-We get
-\[
-b \wedge b^\dagger
-= \theta \wedge \ov\theta \otimes f f^\dagger
-\]
-and
-\[
-\tr b \wedge b^\dagger \wedge \omega^{n-1}
-= |\theta|^2 |f|^2 \omega^n.
-\]
 
 
 \section{Some non-K\"ahler metrics on projective varieties}
@@ -411,6 +411,85 @@ T_X \ar[r] &
 If we fix some Hermitian metric $\omega$ on $X$ we get an $L^2$-inner product on the global sections of $T_X \otimes kL$, so we have a Hermitian metric on the middle bundle.
 It induces another Hermitian metric $\omega_{h,k}$ on $X$.
 
+We've been ignoring the restriction map $H^0(X, T_X \otimes kL) \to T_X \otimes kL$ when calculating.
+Is that all right?
+
+
+Suppose first that $T_X$ is globally generated.
+There is a surjective map $H^0(T_X) \otimes \cc O_X \to T_X$.
+For any point $x$ there is a neighborhood $U$ of $x$ such that $r: H^0(X,T_X) \to T_X(U)$ is surjective.
+Take orthogonal sections $(e_1, \ldots, e_r)$ that form a parallel frame of $H^0(T_X)$.
+That frame is normal at any point.
+Any section $\xi$ of $T_X(U)$ can be written $\xi = \sum_{j=1}^r a_j e_{j|U}$.
+In particular we have $\partial / \partial z_k = \sum_{j=1}^r a_{jk} e_{j|U}$.
+Write $r(e_j) = e_{j|U} = \sum_{k=1}^n r_{kj} \partial / \partial z_k$.
+There are smooth $a_{jk}$ such that $r(a(\xi)) = \xi$ and
+\[
+\omega_{jk}
+= \Bigl\<
+\frac{\partial}{\partial z_j}, \ov{\frac{\partial}{\partial z_k}}
+\Bigr\>
+= \sum_{l,m} a_{jl} \bar a_{km} h(e_{l|U}, \ov e_{m|U})
+= \sum_{l} a_{jl} \bar a_{kl}.
+\]
+Then
+\[
+\frac{\partial \omega_{jk}}{\partial z_m}
+= \sum_{l=1}^r a_{jl} \frac{\partial \bar a_{kl}}{\partial z_m}
+\]
+because $a_{jl}$ is antiholomorphic.
+The $a_{jk}$ satisfy $h(s, \ov{a(\nu)}) = 0$ for any $\nu \in T_X(U)$ and $s \in \Ker r$.
+Writing $s = \sum s_l e_l$ we get
+\[
+\sum_{l} s_l \ov a_{kl} = 0
+\]
+so
+\[
+\sum_l \frac{\partial s_l}{\partial z_m} \ov a_{kl} 
++ s_l \frac{\partial \ov a_{kl}}{\partial z_m} = 0
+\]
+for any $s \in \Ker r$.
+
+
+
+Switch gears:
+Suppose $f : T_X \to E$ is injective and holomorphic.
+Pick a frame $(e_1, \ldots, e_r)$ of $E$ that is normal at $x$.
+The coefficients of the matrix of the metric on $X$ are
+\[
+h_{jk} 
+= \sum_{l,m=1}^r f_{jl} \bar f_{km} \< e_l, \bar e_m \>
+= \sum_{l=1}^r f_{jl} \bar f_{kl} + O(|z|^2)
+\]
+at $x$, so the metric is holomorphic there if
+\[
+\sum_{l=1}^r \frac{\partial f_{jl}}{\partial z_m} \bar f_{kl} 
+= \sum_{l=1}^r \frac{\partial f_{ml}}{\partial z_j} \bar f_{kl} 
+\]
+for all $j,k,m$, which happens when
+\[
+\sum_{l=1}^r \biggl(
+\frac{\partial f_{jl}}{\partial z_m}
+- \frac{\partial f_{ml}}{\partial z_j}
+\biggr) \bar f_{kl} 
+= 0.
+\]
+Then the vectors
+\[
+v_{jm} = 
+\biggl(
+\frac{\partial f_{j1}}{\partial z_m}
+- \frac{\partial f_{m1}}{\partial z_j},
+\ldots,
+\frac{\partial f_{jr}}{\partial z_m}
+- \frac{\partial f_{mr}}{\partial z_j}
+\biggr)
+\]
+are in the kernel of $\ov F^t : E_x \to T_{X,x}$.
+There are $n^2$ of these vectors, but $v_{jj} = 0$ for all $j$, so we have $n(n-1)$ possibly nonzero vectors.
+Since $f$ is injective $F^t$ is surjective, so $\dim \Ker \ov F^t = \dim E_x - \dim T_{X,x} = r - n$.
+Alternatively, the kernel of that map is $f(T_X)^\perp$.
+
 
 
 \begin{prop}
@@ -423,6 +502,7 @@ Let $(e_1, \ldots, e_r)$ be a basis of $H^0(X,T_X \otimes kL)$.
 The $L^2$-metric defines a flat Hermitian metric on the associated trivial bundle and the sections $e_j$ are parallel with respect to the Chern connection of the metric.
 
 Let $U$ be a coordinate neighborhood that trivializes $kL$ by a section $s$, and $\tau$ be a section of $-kL$ such that $\tau(s) = 1$ on $U$.
+We pick the section $s$ (and thus $\tau$) to define a normal frame at $x$.
 Any local section of $H^0(X, T_X \otimes kL) \otimes -kL$ can we written as $v = \sum f_j e_j \otimes \tau$, where $f_j$ are holomorphic.
 For these we have
 \[
@@ -473,8 +553,36 @@ for holomorphic functions $g_{kj}$.
 Once restricted to $U$ we then have
 \[
 q\Bigl(\sum_{j} f_j e_{j} \otimes \tau \Bigr) 
-= \sum_{j,k} f_j g_{kj} \frac{\partial}{\partial z_k}.
+= \sum_{j,k} f_j g_{kj} \frac{\partial}{\partial z_k}
 \]
+so the matrix of $q$ is
+\[
+Q = (g_{kj})
+\]
+for $j = 1, \ldots, r$ and $k = 1, \ldots, n$.
+The matrix of the metric on $X$ is then
+\[
+H = Q \ov Q^t + O(|z|^2)
+= \biggl(
+\sum_{m=1}^r g_{km} \ov g_{jm}
+\biggr) + O(|z|^2)
+\]
+around $x$ so the metric is K\"ahler there if and only if
+\[
+\sum_{m=1}^r \frac{g_{km}}{\partial z_l} \ov g_{jm}
+= \sum_{m=1}^r \frac{g_{km}}{\partial z_j} \ov g_{lm}
+\]
+for $j,k,l = 1,\ldots,r$.
+
+Pick a frame $(e_1, \ldots, e_n)$ of $T_X \otimes kL$ that is normal at $x$.
+Pick another frame $(s_1, \ldots, s_r)$ of $H^0(T_X \otimes kL) \otimes -kL$ such that $s_{j|U} = e_j$.
+Can't choose $s_j$ parallel but probably want to, so get some matrix $R$ with linear combinations of $s_j$.
+This is confused.
+
+
+
+
+
 For the Chern connection of the metric on $X$ we then get
 \[
 D_X q\Bigl(\sum_{j} f_j e_{j} \otimes \tau \Bigr) 

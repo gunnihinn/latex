@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt]{amsart}
 
 \usepackage{tgpagella}
 \linespread{1.1}
@@ -22,6 +22,7 @@
 \newtheorem{coro}[theo]{Corollary}
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
+\newtheorem{ques}[theo]{Question}
 \newtheorem{exam}[theo]{Example}
 \newtheorem{cexam}[theo]{Counterexample}
 
@@ -31,8 +32,21 @@
 \def\^#1{^{[#1]}}
 \def\qandq{\quad\text{and}\quad}
 \def\ov#1{\overline{#1}}
+\def\rank{\operatorname{rank}}
+
 
 \def\lit#1#2{\bgroup\color{#1} #2\egroup}
+
+\def\eps{\varepsilon}
+\def\lra{\longrightarrow}
+
+\def\pd{\operatorname{pd}}
+\def\NN{\mathbf{N}}
+\def\ZZ{\mathbf{Z}}
+\def\QQ{\mathbf{Q}}
+\def\RR{\mathbf{R}}
+\def\CC{\mathbf{C}}
+\def\PP{\mathbf{P}}
 
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Hess}{Hess}
@@ -43,6 +57,7 @@
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\Vol}{Vol}
 \DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Hom}{Hom}
@@ -51,8 +66,13 @@
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\adj}{adj}
 \DeclareMathOperator{\Rm}{Rm}
+\DeclareMathOperator{\sgn}{sgn}
 
 \newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
+
+% Projective spaces
+\newcommand{\PC}[1]{\PP(\CC^{#1})}
+\newcommand{\PV}[1]{\PP(#1)}
 
 \def\<{\langle}
 \def\>{\rangle}
@@ -69,6 +89,2043 @@
 \begin{document}
 
 \maketitle
+
+
+\section{3. January 2025}
+
+Reynir told me about a problem I remember as this (may be remembering this wrong):
+
+Define a binary operation $\cdot$ on the nonnegative reals by letting $x \cdot y$ be the nonnegative real such that $x, y, x \cdot y$ are the side lengths of a right-angled triangle.
+
+This can be defined in synthetic geometry as well, by the same idea.
+Apparently some Danish mathematician proved this operation was associative if we use triangles in three dimensions (supposedly one glues the triangles together there), and claimed it was then clear it was also associative if we use triangles in two dimensions.
+Reynir and a student have not been able to prove that.
+
+If we use triangles in good old $\RR^n$ this should be easy.
+By translating to the origin we may assume $x$ and $y$ are the lengths of vectors $u$ and $v$.
+Those vectors are orthogonal since we're asking for a right-angled triangle, so
+\[
+x \cdot y
+= |u + v|
+= \sqrt{|u|^2 + |v|^2}
+= \sqrt{x^2 + y^2}.
+\]
+Given a third real $z$ we then have
+\begin{align*}
+x \cdot (y \cdot z)
+= \sqrt{x^2 + \sqrt{y^2 + z^2}^2}
+&= \sqrt{x^2 + y^2 + z^2}
+\\
+&= \sqrt{\sqrt{x^2 + y^2}^2 + z^2}
+= (x \cdot y) \cdot z
+\end{align*}
+so this operation is associative.
+We can extend this operation to all reals by defining
+\[
+x \cdot y
+= \sgn(xy) \, |x| \cdot |y|,
+\]
+where $\sgn x$ is the sign of $x$ (1 if $x \geq 0$, $-1$ otherwise).
+
+If $x,y,z > 0$ we have
+\[
+x \cdot (y + z)
+= \sqrt{x^2 + (y+z)^2}
+\not= \sqrt{x^2 + y^2} + \sqrt{x^2 + z^2}
+= x \cdot y + x \cdot z
+\]
+for most $x,y,z$ so we don't get a ring with this as multiplication.
+
+We do have $x \cdot 0 = x$, so there is a neutral element.
+Since the operation is commutative we should actually treat it as addition, not multiplication.
+
+
+\section{1. December 2024}
+
+Same as yesterday, but let's put $v_k = e_k - e_n$ and
+\[
+u_k = v_k - \frac1k \sum_{j=1}^{k-1} v_j,
+\quad
+k = 1,\ldots,n-1.
+\]
+Want to show the $u_k$ are orthogonal.
+All the $v_j$ are orthogonal to $(1,\ldots,1)$, so the $u_k$ are also.
+We have $\<v_j, v_k \> = 1 + \delta_{jk}$.
+For $j < k$ we then have
+\[
+\<u_k, v_j \>
+= \<v_k, v_j \> - \frac1k \sum_{l=1}^{k-1} \<v_l, v_j\>
+= 1 - \frac1k \sum_{l=1}^{k-1} ( 1 + \delta_{jl} )
+= 1 - \frac1k k
+= 0
+\]
+because $1 \leq j \leq k-1$.
+Therefore
+\[
+\<u_k, u_j \>
+= \<u_k, v_j \> - \frac1j \sum_{l=1}^{j-1} \<u_k, v_l\>
+= 0.
+\]
+Now
+\[
+|u_k|^2
+= \<u_k, v_k \> - \frac1k \sum_{j=1}^{k-1} \<u_k, v_j\>
+= |v_k|^2 - \frac1k \sum_{j=1}^{k-1} \<v_j, v_k\>
+= 2 - \frac{k-1}{k}
+= \frac{k + 1}{k}
+\]
+so we get an orthonormal basis of $\Delta^\perp$.
+
+Let $\delta = (1,\ldots,1)$ and consider now the inner product $g = \frac1n \<\bullet, \bullet\>$.
+Scaling doesn't change orthogonal vectors, so the above statements still hold.
+The change of basis matrix from the standard basis $(e_j)$ to $(v_1, \ldots, v_{n-1}, \delta)$ is
+\[
+P = \begin{pmatrix}
+1 & 0 & \cdots & -1
+\\
+0 & 1 & \cdots & -1
+\\
+\vdots & \vdots & \ddots & \vdots
+\\
+1 & 1 & \cdots & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+I_{n-1} & - \mathbf{1}
+\\
+\mathbf{1} & I_1
+\end{pmatrix}
+\]
+and the change of basis from there to $(u_1, \ldots, u_{n-1}, \delta)$ is
+\[
+Q = \begin{pmatrix}
+1 & 0 & 0 & \cdots & 0
+\\
+-\frac12 & 1 & 0 & \cdots & 0
+\\
+-\frac13 & -\frac13 & 1 & \cdots & 0
+\\
+\vdots & \vdots & \vdots & \ddots & \vdots
+\\
+0 & 0 & 0 & \cdots & 1
+\end{pmatrix}.
+\]
+To go from $(e_j)$ to $(u_1,\ldots,u_{n-1},\delta)$ we then do
+\[
+QP = \begin{pmatrix}
+1 & 0 & 0 & \cdots & -1
+\\
+-\frac12 & 1 & 0 & \cdots & -1
+\\
+-\frac13 & -\frac13 & 1 & \cdots & -1
+\\
+\vdots & \vdots & \vdots & \ddots & \vdots
+\\
+1 & 1 & 1 & \cdots & 1
+\end{pmatrix}.
+\]
+To change to the orthonormal basis we have to use
+\def\tmpn#1#2{\sqrt{\frac{#1}{#2 n}}}
+\[
+R = \begin{pmatrix}
+1 & 0 & 0 & \cdots & -1
+\\
+-\tmpn23 \frac12 & \tmpn23 & 0 & \cdots & -1
+\\
+-\tmpn34 \frac13 & -\tmpn34 \frac13 & \tmpn34  & \cdots & -1
+\\
+\vdots & \vdots & \vdots & \ddots & \vdots
+\\
+1 & 1 & 1 & \cdots & 1
+\end{pmatrix}
+= \begin{pmatrix}
+L & -\mathbf{1}^t
+\\
+\mathbf{1} & I_1
+\end{pmatrix},
+\]
+where $L$ is lower diagonal.
+The inverse of the block matrix is
+\[
+\begin{pmatrix}
+(L + \mathbf{1}^t \mathbf{1})^{-1}
+& 0
+\\
+0 & (1 - \mathbf{1} L^{-1} \mathbf{1}^t)^{-1}
+\end{pmatrix}
+\begin{pmatrix}
+I & \mathbf{1}^t
+\\
+-\mathbf{1} L^{-1} & I
+\end{pmatrix}
+\]
+which looks pretty hard to calculate like that.
+Do I need to? (Or, rather, do \emph{I} need to?)
+
+We're doing this so we can change from the standard basis to the orthonormal one, apply a rotation matrix to the $u_k$, and go back.
+We'll have the computer calculate the rotation matrix and inverse.
+
+\section{30. November 2024}
+
+If we think of $\RR^n$ as the space of functions $\{1, \ldots, n\} \to \RR$ we get a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+\RR \ar[r,"\Delta"] &
+\RR^n \ar[r,"\pi"] &
+\RR^n / \RR \ar[r] &
+0
+\end{tikzcd}
+\]
+where $\RR$ are the constant functions and $\Delta$ the diagonal embedding.
+If we put the inner product $g = \frac 1n \< \bullet, \bullet \>$ on $\RR^n$ the projection onto $\RR$ is the average and the norm induced on the quotient is the standard deviation.
+
+The vectors $v_k = e_1 - e_k$, $k = 2, \ldots, n$, are all orthogonal to $\RR$.
+They all have $|v_k|^2 = 2 / n$.
+Let's run Gram--Schmidt with the standard inner product and then scale the result by $1/n$.
+Have $u_2 = v_2$.
+Next 
+\[
+u_3 
+= v_3
+- \frac{\<v_3, v_2\>}{|v_2|^2} v_2
+= v_3
+- \frac{1}{2} v_2
+\]
+and
+\[
+|u_3|^2
+= |v_3|^2 - \< v_3, v_2 \> + \frac14 |v_2|^2
+= 2 - 1 + \frac12
+= \frac 32.
+\]
+Then
+\begin{align*}
+u_4
+&= v_4
+- \frac{\<v_4, u_2\>}{|u_2|^2} u_2
+- \frac{\<v_4, u_3\>}{|u_3|^2} u_3
+\\
+&= v_4
+- \frac{1}{2} v_2
+- \frac{1 - 1/2}{3/2} \bigl(v_3 - \tfrac12 v_2\bigr)
+\\
+&= v_4
+- \frac{1}{3} v_2
+- \frac{1}{3} v_3.
+\end{align*}
+Now $u_2,u_3,u_4$ are orthogonal by construction and
+\[
+v_4
+= 
+\frac{\<v_4, u_2\>}{|u_2|^2} u_2
++ \frac{\<v_4, u_3\>}{|u_3|^2} u_3
++ u_4
+\]
+so
+\[
+\frac 2
+= \frac{\<v_4, u_2\>^2}{|u_2|^2}
++ \frac{\<v_4, u_3\>^2}{|u_3|^2}
++ |u_4|^2
+= \frac{1}{2}
++ \frac{(1 - 1/2)^2}{3/2}
++ |u_4|^2
+\]
+or
+\[
+|u_4|^2
+= 2
+- \frac{1}{2}
+- \frac{1}{6}
+= \frac{4}{3}.
+\]
+I'm ready to guess that
+\[
+u_k = v_k - \frac{1}{k} \sum_{j=2}^{k-1} v_j,
+\quad
+|u_k|^2 = \frac{k}{k-1}.
+\]
+All the $v_k$ are orthogonal to $(1,\ldots,1)$, so the $u_k$ are as well.
+They are linearly independent as well.
+Now for $j < k$ we have
+\begin{align*}
+\< u_j, u_k \>
+&= \biggl<
+v_j - \frac1j \sum_{l=2}^{j-1} v_l,
+v_k - \frac1k \sum_{m=2}^{j-1} v_m
+\biggr>
+\\
+&= 
+\< v_j, v_k \>
+- \frac1k \sum_{m=2}^{k-1} \< v_j, v_m \>
+- \frac1j \sum_{l=2}^{j-1} \< v_l, v_k \>
++ \frac1j \frac1k 
+\sum_{l=2}^{j-1} \sum_{m=2}^{k-1} \<v_l, v_m\>
+\\
+&= 
+1
+- \frac{k-1}{k} 
+- \frac{j-2}{j}
++ \frac1j \frac1k \sum_{l=2}^{j-1} \sum_{m=2}^{j-1} \<v_l, v_m\>
++ \frac1j \frac1k \sum_{l=2}^{j-1} \sum_{m=j}^{k-1} \<v_l, v_m\>
+\\
+&= 
+1
+- \frac{k{-1}}{k} 
+- \frac{j{-}2}{j}
++ \frac1j \frac1k ( 2(j{-}2) + (j{-}2)(j{-}3) )
++ \frac1j \frac1k (j{-}2)(k{-}j) 
+\\
+&= 
+1
+- \frac{j(k{-}1) + k(j{-}2) {-} 2(j{-}2) {-} (j{-}2)(j{-}3) {-} (j{-}2)(k{-}j)}{jk} 
+\\
+&= 
+1
+- \frac{jk - 2}{jk} 
+\end{align*}
+
+Suppose this is true up to a given $k-1$.
+% u_j = v_j - 1/j \sum_l v_l
+% <v_k, u_j> = 1 - 1j \sum_{l=2}^{j-1} 1 = 1 - (j-2)/j = 2/j
+Then
+\begin{align*}
+u_k 
+= v_k - \sum_{j=2}^{k-1} \frac{\<v_k, u_j\>}{|u_j|^2} u_j
+&= v_k - \sum_{j=2}^{k-1} \frac{2/j}{(j-1)/j}
+\biggl( v_j - \frac{1}{j} \sum_{l=2}^{j-1} v_l \biggr)
+\\
+&= v_k 
+- \sum_{j=2}^{k-1} \frac{2}{j-1} v_j
+- \sum_{j=2}^{k-1} \frac{1}{j} \sum_{l=2}^{j-1} v_l
+\end{align*}
+
+Let $v_1 = (1,\ldots,1)$ and $v_k = e_k$ for $k > 1$.
+Set $u_1 = v_1$.
+Then $u_2 = v_2 - \<v_2, u_1\>/|u_1|^2 u_1 = v_2 - \frac1n v_1$ and $|u_2|^2 = |v_2|^2 - 2/n \<v_2,v_1\> + |v_1|^2 = 1/n - 2/n^2 + 1 = 1 + (n-2)/n^2$.
+
+
+\section{12. November 2024}
+
+Being K\"ahler is a local property and I keep trying to do this globally.
+Or at least without local coordinates.
+Maybe that's just the wrong way to approach this and I should try to look for conditions on the germs of the metric.
+
+The setup is still that we have a bundle $p : E \to X$ and a surjective bundle morphism $q : E \to T_X$.
+We have a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+E \ar[r,"q"] &
+T_X \ar[r] &
+0.
+\end{tikzcd}
+\]
+We pick a bundle metric $h_E$ on $E$ and get a Hermitian metric $h$ on $X$.
+The following is true because the torsion tensor $\tau$ is a tensor:
+
+
+\begin{lemm}
+Let $h$ be a Hermitian metric on $X$.
+Suppose $T_X$ is spanned by sections $s_1, \ldots, s_r$ on a neighborhood and that $\tau(s_j, s_k) = 0$ for all $j,k = 1,\ldots,r$.
+Then $\tau = 0$.
+\end{lemm}
+
+
+\begin{theo}
+Let $X$ be a K\"ahler manifold and
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+E \ar[r,"q"] &
+T_X \ar[r] &
+0
+\end{tikzcd}
+\]
+a short exact sequence of vector bundles.
+If there exists a Hermitian metric on $E$ such that the induced metric on $X$ is K\"ahler, then the short exact sequence splits.
+\end{theo}
+
+\begin{proof}
+Being a K\"ahler metric is a local property, so we fix a point $x \in X$ and consider a coordinate neighborhood of it.
+By shrinking the neighborhood we can find a local frame $(s_1, \ldots, s_r)$ of $E$ that is normal at $x$ and such that the $q(s_j)$ span $T_X$.
+Write
+\[
+q(s_j) = \sum_{k=1}^n q_{jk} \frac{\partial}{\partial z_k}
+\]
+for holomorphic functions $q_{jk}$.
+For sections $s,t$ of $E$ we have
+\[
+q^\dagger \tau(q(s), q(t))
+= D_{E,q(s)} t - D_{E,q(t)} s - q^\dagger [q(s), q(t)].
+\]
+Since we picked our frame to be normal we have $D_{E,q(s_j)} s_k = 0$ at $x$ for all $j,k$.
+Therefore
+\begin{align*}
+\tau(q(s_j), q(s_k))
+&= [q(s_j), q(s_k)]
+\\
+&= \sum_{l,m=1}^n 
+\biggl[
+q_{jl} \frac{\partial}{\partial z_l},
+q_{km} \frac{\partial}{\partial z_m}
+\biggr]
+\\
+&= \sum_{l,m=1}^n 
+q_{jl} \frac{\partial q_{km}}{\partial z_l} \frac{\partial}{\partial z_m}
+- q_{km} \frac{\partial q_{jl}}{\partial z_m} \frac{\partial}{\partial z_l}
++ q_{jl} q_{km} 
+\biggl[
+\frac{\partial}{\partial z_l},
+\frac{\partial}{\partial z_m}
+\biggr]
+\\
+&= \sum_{l,m=1}^n 
+\biggl(
+q_{jm} \frac{\partial q_{kl}}{\partial z_m}
+- q_{km} \frac{\partial q_{jl}}{\partial z_m}
+\biggr)
+\frac{\partial}{\partial z_l}
+\end{align*}
+at $x$.
+Then the metric on $X$ is K\"ahler at $x$ if and only if
+\[
+\sum_{m=1}^n q_{jm} \frac{\partial q_{kl}}{\partial z_m}
+= \sum_{m=1}^n q_{km} \frac{\partial q_{jl}}{\partial z_m}
+\]
+for all $j,k = 1,\ldots,r$ and $l = 1,\ldots,n$.
+This means that
+\begin{equation}
+\label{eq:kahler-seq}
+D_{\Hom(E,T_X),q(s_j)} q = D_{\Hom(E,T_X),q(s_k)} q
+\end{equation}
+for all $j,k = 1,\ldots,r$.
+Since $\Ker q$ is nontrivial there exist holomorphic functions $a_1, \ldots, a_r$ such that $\sum a_j s_j \in \Ker q$ and the $a_j$ are not all zero at $x$.
+Then
+\begin{align*}
+0 = D_{\Hom(E,T_X),0} q
+&= D_{\Hom(E,T_X),q(\sum a_j s_j)} q
+\\
+&= \biggl(\sum_{j=1}^r a_j \biggr) D_{\Hom(E,T_X),q(s_j)} q.
+\end{align*}
+But because of \eqref{eq:kahler-seq} we must then have $D_{\Hom(E,T_X),q(s_j)} q = 0$ for all $j$.
+
+Now the second fundamental form of the short exact sequence is $b = D_{\Hom(E,T_X)}q \circ j$, so it is zero at $x$.
+Since that point was arbitrary, we have $b = 0$, and the sequence splits.
+\end{proof}
+
+
+
+
+\section{11. November 2024}
+
+Let $X$ be a compact K\"ahler manifold and suppose there is a short exact sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+S \ar[r,"j"] &
+E \ar[r,"q"] &
+T_X \ar[r] &
+0.
+\end{tikzcd}
+\]
+Given a metric $h$ on $E$ we get a metric on $S$ and $T_X$, and adjoints $j^\dagger : E \to S$ and $q^\dagger : Q \to E$.
+The connection on $T_X$ is $D_{T_X} \xi = q(D_E(q^\dagger \xi))$.
+Its torsion tensor is then
+\begin{align*}
+\tau(\xi, \eta)
+&= D_{T_X,\xi} \eta - D_{T_X,\eta} \xi - [\xi, \eta]
+\\
+&= q\bigl(
+D_\xi (q^\dagger \eta) - D_\eta (q^\dagger \xi) - q^\dagger [\xi, \eta]
+\bigr)
+= q(d^D q^\dagger)(\xi, \eta).
+\end{align*}
+It is \emph{not} useful to pull at this further and write $D(q^\dagger \xi) = (Dq^\dagger) \xi + q^\dagger D\xi$, because then we just end up saying ``the torsion tensor is the torsion tensor'', which we already knew.
+Note that $d^D q^\dagger$ is an element of $\cc A^{2,0}(E)$.
+The metric on $T_X$ is K\"ahler if and only if $\tau = q \circ d^D q^\dagger = 0$, which happens when there is an element $\theta$ of $\cc A^{2,0}(S)$ such that $d^D q^\dagger = j \theta$.
+We have $d^D = d^{D'} + \bar\partial$ so
+\[
+d^D q^\dagger
+= d^{D'} q^\dagger + \bar\partial q^\dagger
+= d^{D'} q^\dagger - j b^\dagger,
+\]
+so we only have to think about the $D'$ part.
+
+
+Do we have $\bar\partial d^D q^\dagger = 0$?
+Locally we can write $q^\dagger = \sum \alpha_i \otimes e_i$, where $e_i$ is a section of $E$ and $\alpha_i$ is a $(1,0)$-form.
+We know that
+\[
+-jb^\dagger
+= \bar\partial q^\dagger
+= \sum \bar\partial \alpha_i \otimes e_i
+- \alpha_i \otimes \bar\partial e_i.
+\]
+Then
+\[
+d^D q^\dagger
+= \sum \partial \alpha_i \otimes e_i 
+- \alpha_i \wedge D' e_i
++ \bar\partial q^\dagger.
+\]
+Then we have
+\[
+\bar\partial d^D q^\dagger
+= \sum - \partial\bar\partial \alpha_i \otimes e_i
++ \partial \alpha_i \otimes \bar\partial e_i
+- \bar\partial \alpha_i \wedge D'e_i
++ \alpha_i \wedge \bar\partial D'e_i,
+\]
+which doesn't look like it's zero.
+If it were $d^D q^\dagger$ would be a holomorphic section of $\Omega^2_X \otimes E$, which is perhaps unlikely.
+Don't we just have $\bar\partial d^D q^\dagger = \Theta \wedge q^\dagger$, where $\Theta$ is the curvature form of the metric on $T_X$?
+
+We can compare $d^D q^\dagger$ with
+\[
+D'q^\dagger
+= \sum D'(\alpha_i \otimes e_i)
+= \sum D'\alpha_i \otimes e_i
+- \alpha_i \otimes D'e_i.
+\]
+I guess there's a difference?
+In one we have $\partial \alpha_i$, in the other $D'_{\Omega_X}\alpha_i$?
+It should make a difference because $D'q^\dagger = 0$.
+There's also $\alpha_i \wedge D'e_i$ in one and $\alpha_i \otimes D'e_i$ in the other, and they're not the same.
+Actually $d^{D'} q^\dagger$ is a $(2,0)$-form with values in $E$ while $D' q^\dagger$ is a $(1,0)$-form with values in $\Hom(T_X,E)$, which is isomorphic to $\Omega_X \otimes \Omega_X \otimes E$.
+This is why the question is nontrivial at all.
+If the two spaces were the same all the metrics we get this way would be K\"ahler.
+
+
+Anyway.
+Suppose then that there exists a form $\theta$ with values in $S$ such that $j\theta = d^D q^\dagger$.
+That form then satisfies $j \bar\partial \theta = \Theta \wedge q^\dagger$, so $\bar\partial \theta = j^\dagger(\Theta \wedge q^\dagger)$.
+Do we have $\bar\partial \theta = \Theta_S \wedge \gamma$ for a $(1,0)$-form $\gamma$ on $S$?
+
+I still don't know where we're going with this if such a form exists.
+We know the short exact sequence splits if and only if 
+\[
+[b^\dagger] = 0 \in H^{0,1}(X, \Hom(T_X,S))
+\cong H^{1,1}(X, S).
+\]
+I don't know how to connect that to the form we have here.
+
+
+If our metric is K\"ahler then $d^D q^\dagger = j \theta$ for some $(2,0)$-form $\theta$ with values in $S$.
+Then $\theta \in \Hom(\bigwedge^2 T_X, S)$.
+
+
+
+If $f : E \to F$ is a bundle morphism and $u$ is a $k$-form with values in $E$, then
+\[
+d^D(f(u))
+= Df(u) + f(d^D u).
+\]
+First apply this to $\id_{T_X} = qq^\dagger$ to get the expression for the torsion tensor, that is,
+\[
+\tau = q(d^D q^\dagger).
+\]
+Then consider $j^\dagger q^\dagger = 0$ and consider that as a $1$-form with values in $S$ (or $E$).
+Then
+\begin{align*}
+0 = d^D(j^\dagger q^\dagger)
+&= Dj^\dagger(q^\dagger) + j^\dagger(d^D q^\dagger)
+\\
+&= b^\dagger q q^\dagger + j^\dagger(d^D q^\dagger)
+= b^\dagger + j^\dagger(d^D q^\dagger).
+\end{align*}
+Therefore $\tau = 0$ if and only if $d^D q^\dagger = - j b^\dagger$.
+
+Want to compare $f \in \Hom(T_X, E)$ and $u \in \cc A^{1,0}(E)$.
+For $\xi \in T_X$ we have
+\[
+D_E f(\xi)
+= (D_{\Hom} f)(\xi) + f(D_{T_X} \xi).
+\]
+So $D_{\Hom}f \in \cc A^{1}(\Hom(T_X,E)) \cong \Omega_X^{\otimes 2} \otimes E \oplus \cc A^{1,1}(E)$.
+In contrast $D_E u \in \cc A^{2,0}(E) \oplus \cc A^{1,1}(E)$.
+As a form with values in $E$ we have
+\begin{align*}
+d^{D_E} f(\xi,\eta)
+&= D_{E,\xi} f(\eta) - D_{E,\eta} f(\xi) - f([\xi, \eta]).
+\\
+&= D_{\Hom,\xi}f(\eta) - D_{\Hom,\eta}f(\xi) + f(\tau(\xi,\eta)),
+\end{align*}
+where $\tau$ is the torsion tensor of $D_{T_X}$.
+We know $d^{D_E}f$ is a form and so is $f(\tau)$, so it follows that $D_{\Hom}f$ is also a form.
+
+
+Let $(z_1,\ldots,z_n)$ be local coordinates.
+Pick a holomorphic frame $e_1, \ldots, e_r$ that is normal at $0$.
+Rearrange them so that $e_1,\ldots,e_n$ map to a frame of $T_X$ around $0$.
+Let $Q$ be the matrix of $q$ in these frames.
+Then 
+\[
+\Omega = Q \ov Q^t + O(|z|^2)
+= \biggl(
+\sum_{i=1}^r q_{ji}(z) \bar q_{ik}(z)
+\biggr) + O(|z|^2)
+\]
+For this to be K\"ahler need that
+\[
+\sum_{i=1}^r \frac{\partial q_{ji}(z)}{\partial z_l} \bar q_{ik}(z)
+= \sum_{i=1}^r \frac{\partial q_{li}(z)}{\partial z_j} \bar q_{ik}(z)
+\]
+for all $j,k,l$.
+
+
+
+
+\section{10. November 2024}
+
+Let $X$ be a projective manifold and $L \to X$ ample.
+For some $k$ the bundle $T_X \otimes kL$ is globally generated; there is a surjective map
+\[
+H^0(X, T_X \otimes kL) \otimes \cc O_X \lra T_X \otimes kL \lra 0
+\]
+and therefore a surjective map
+\[
+H^0(X, T_X \otimes kL) \otimes (-kL) \stackrel{q}{\lra} T_X \lra 0.
+\]
+Pick any Hermitian metric on $X$ and $L$.
+We get an inner product on the space $H^0(X, T_X \otimes kL)$ and a metric on $-kL$, and then a metric $h$ on the tensor product.
+We get a metric on $T_X$ by
+\[
+\< \xi, \bar\eta \>
+= h(q^\dagger \xi, \ov{q^\dagger \eta}).
+\]
+Its Chern connection satisfies
+\begin{align*}
+\< D'\xi, \bar\eta \>
+= \partial\< \xi, \bar\eta \>
+= \partial h(q^\dagger \xi, \ov{q^\dagger \eta})
+&= h(D'(q^\dagger \xi), \ov{q^\dagger \eta})
++ h(q^\dagger \xi, \ov{\bar\partial (q^\dagger \eta)})
+\\
+&= h(D'(q^\dagger \xi), \ov{q^\dagger \eta})
+- h(q^\dagger \xi, \ov{j b^\dagger \eta})
+\end{align*}
+on holomorphic tangent fields, where $j$ is the inclusion of $\Ker q$ and $b$ is the second fundamental form.
+If $\xi,\eta,\nu$ are holomorphic fields we get
+\[
+\< D'_{\nu}\xi, \bar\eta \>
+= h(D'_{\nu}(q^\dagger \xi), \ov{q^\dagger \eta})
+- h(q^\dagger \xi, \ov{j b^\dagger(\nu) \eta}).
+\]
+Note that
+\[
+h(q^\dagger \xi, \ov{j b^\dagger(\nu) \eta})
+= \< \xi, \ov{ q j b^\dagger(\nu) \eta} \>
+= 0
+\]
+because $qj = 0$ and so
+\[
+\< \tau(\xi, \nu), \bar\eta \>
+= h\bigl(D'_{\xi}(q^\dagger \nu) - D'_{\nu}(q^\dagger \xi) - q^\dagger [\xi, \nu], \ov{q^\dagger \eta}\bigr).
+\]
+
+We can view $q^\dagger : T_X \to E$ as a smooth $1$-form with values in $E$.
+The covariant exterior derivative of it is
+\[
+d^D q^\dagger(\xi, \nu)
+= D_\xi q^\dagger(\nu) - D_\nu q^\dagger(\xi) - q^\dagger([\xi,\nu]).
+\]
+This is with respect to the connection on $E$.
+The derivative with respect to the connection on $\Hom(T_X,E)$ is different.
+We can't use that $\id_{T_X} = q q^\dagger$ because $q : E \to T_X$ isn't a form.
+
+
+
+
+\section{6. November 2024}
+
+The projection formula
+\[
+f_*(x \cup f^*y) = f_*x \cup y
+\]
+holds for arbitrary morphisms $f : X \to Y$, say between compact K\"ahler manifolds.
+If there exists a class $x$ on $X$ such that $f_*x$ is a nonzero scalar, it implies that $f_*$ is surjective.
+If so, we claim that we get a surjective morphism of Albanese varieties $\operatorname{Alb} X \to \operatorname{Alb} Y$.
+
+
+Suppose $f : Z \to X$ is an inclusion of a proper subvariety with $\dim X = n$ and $\dim Z = p$.
+If $x \in H^k(Z,\CC)$ then any smooth form in $x$ defines a current of dimension $2p - k$ and degree $k$.
+Then $f_*x$ is a current on $X$ still of dimension $2p - k$, but degree $2n - 2p + k$.
+Let $y \in H^{2p-k}(X,\CC)$.
+Then
+\[
+\int_Z x \cup f^*y = \< x, f^*y \> = \< f_*x, y \>.
+\]
+
+Suppose $\omega$ is K\"ahler on $X$.
+Then
+\[
+0 < \Vol(Z, \omega)
+= \< \omega\^p, f^* 1 \>
+= \< f_* \omega\^p, 1 \>.
+\]
+
+
+I think what I'm poking at is that I need the generic fiber of $f$ to have positive dimension before I can do anything useful with this.
+Otherwise suppose $\sigma$ is a $(1,0)$-form on $Y$ above.
+Then $f^*\sigma$ may very well be a nonzero $(1,0)$-form on $X$.
+But if I want some class $x$ so that $f_*x$ is a scalar it needs to have degree $2p$, and then $x \cup f^*\sigma = 0$.
+
+
+
+\section{5. November 2024}
+
+
+Let $X$ and $Y$ be complex tori of dimensions $n$ and $m$.
+Let $f : X \to Y$ be a surjective map between them.
+Isn't $f$ then a submersion?
+
+Write $X = \CC^n / \Lambda$ and $Y = \CC^m / \Lambda'$.
+Then $f$ lifts to a holomorphic map $\tilde f : \CC^n \to \CC^m$ such that $\tilde f(\Lambda) \subset \Lambda'$.
+We may assume that $\tilde f(0) = 0$ after translating by an element of $\Lambda'$.
+Consider now $\phi_\lambda(z) = \tilde f(z + \lambda) - \tilde f(z)$ for $\lambda \in \Lambda$.
+This is a continuous function such that $[\phi_\lambda(z)]$ is constant in $Y$, so $\phi_\lambda(\CC^n) \subset \Lambda'$.
+Therefore $\phi_\lambda$ is a constant function.
+Its derivative is then zero and we get $d \tilde f(z + \lambda) = d \tilde f(z)$ for all $z$ and $\lambda$.
+For any tangent vector $\xi$ we then have $d_\xi \tilde f(z + \lambda) = d_\xi \tilde f(z)$ for all $z$ and $\lambda$, so $d_\xi \tilde f(z) = C(\xi)$ by Liouville.
+By the linearity of the derivative we see that $C$ is a linear function, so $C(\xi) = C \cdot \xi$ for some matrix $C$.
+But then $\tilde f(z) = C z$, so $\tilde f$ is a linear function.
+
+Since $f$ is surjective so is $\tilde f$.
+Since $\tilde f$ is a surjective linear map it is a submersion.
+Locally these are the same, so $f$ is a submersion.
+
+
+Any holomorphic map $f : X \to Y$ is the composition of a translation and a group homomorphism (Birkenhake--Lange).
+The homomorphism is induced by a linear map.
+
+If $f : X \to Y$ is a homomorphism then $\Ker f$ is a closed subgroup of $X$ and $\Img f$ is a complex subtorus of $Y$.
+The connected component $(\Ker f)_0$ of the identity is a complex subtorus of finite index in $\Ker f$.
+
+If $f : X \to Y$ is a surjective homomorphism then $(\Ker f)_0$ is a complex subtorus.
+Then $f$ factorizes as
+\[
+\begin{tikzcd}
+X \ar[r,"\hat f"] &
+X / (\Ker f)_0 \ar[r,"g"] &
+Y
+\end{tikzcd}
+\]
+where $\hat f$ is surjective with connected fibers and $g$ is a surjective map with finite kernel (an isogeny).
+This is the Stein factorization of $f$.
+
+
+
+\section{4. November 2024}
+
+
+I've been wondering if it's possible to say anything about the curvature of a metric that arises as the direct image of a submersion.
+To fix ideas, let $f : X \to Y$ be a surjective submersion of compact K\"ahler manifolds of dimensions $n$ and $m$, respectively.
+If $\omega$ is a K\"ahler metric on $X$ and $k = n - m + 1$ then $f_*\omega^k$ is a K\"ahler metric on $Y$.
+Can we calculate its curvature tensor and does it have any positivity properties inherited from $\omega$?
+
+I figured I'd look at the simplest case first, where $X = F \times Y$ and $f : F \times Y \to Y$ is the projection.
+Let $j_F$ and $j_Y$ be the inclusions of $F$ and $Y$ in $X$ and $p_F$, $p_Y$ the projections.
+Then $\omega_{|F} := j_F^*\omega$ is a K\"ahler metric on $F$, and similarly for $Y$.
+We have $\id_X = j_F p_F \oplus j_Y p_Y$, so
+\[
+\omega
+= p_F^* \omega_{|F} + p_Y^* \omega_{|Y}.
+\]
+Then $\omega^{n+1} = (n+1)\omega_{|F}^n \wedge \omega_{|Y}$ plus other terms that won't matter, and
+\[
+(p_Y)_* \omega^{n+1}
+= (n+1) \Vol(F, \omega) \, \omega_{|Y}.
+\]
+So there's nothing that interesting to say here.
+We get every metric on $Y$ in this way, and no restrictions on its curvature from the one upstairs.
+
+For a nontrivial fibration (one with nonzero Kodaira--Spencer morphism) we might get a metric downstairs plus a correction term.
+Or not?
+
+If we have a fibration then $\eta := f_*\omega^k$ is a K\"ahler metric.
+I think $\omega - f^*\eta$ is still nef.
+In any case it satisfies
+\begin{align*}
+f_*(\omega - f^*\eta)^k
+&= \sum_{j=0}^k \binom{k}{j} (-1)^{k-j} f_*\bigl ( \omega^j \wedge f^*\eta^{k-j} \bigr)
+\\
+&= (-1)^k\bigl( f_*\omega^{k} - k f_*(\omega^{k-1} \wedge f^*\eta) \bigr)
+\\
+&= (-1)^k\bigl( \eta - k \Vol(X_y, \omega) \, \eta \bigr)
+\end{align*}
+because $f_*(\omega^{j} \wedge f^*\eta^{k-j}) = f_*\omega^j \wedge \eta^{k-j} = 0$ for $j < k-1$.
+We can multiply $\eta$ by some $t > 0$ so this becomes zero, and then $\omega^k - t \omega^{k-1} \wedge f^*\eta \in \Ker f_*$.
+These are closed forms so they descend to cohomology.
+We have
+\[
+\begin{tikzcd}
+H^{1,1}(X,\RR) \ar[r,"L^{k-1}"] & 
+H^{k,k}(X,\RR) \ar[r,"f_*"] &
+H^{1,1}(Y,\RR)
+\end{tikzcd}
+\]
+and $L^{k-1}$ is injective because $k < \dim X$ (we're supposing $\dim Y < \dim X$).
+Also $f_*$ is surjective because of the projection formula, and so the composite $f_* L^{k-1}$ also is.
+Adding 
+\[
+f^* : H^{1,1}(Y,\RR) \to H^{1,1}(X,\RR)
+\]
+gives an inverse to $f_* L^{k-1}$ up to a constant.
+We can do this for any $(p,q)$-group.
+We get a split exact sequence
+\[
+0 \lra
+H^{p,q}(Y,\CC) \lra
+H^{p,q}(X,\CC) \lra
+Q^{p,q}(X) \lra 
+0
+\]
+or
+\[
+0 \lra
+S^{p,q}(X) \lra 
+H^{p,q}(X,\CC) \lra
+H^{p,q}(Y,\CC) \lra
+0.
+\]
+Maybe $S^{p,q}$ has something to do with $H^{p,q}(X_y, \CC)$?
+(Compare with $X = F \times Y$.
+Expect all classes that include ``less than'' a full fiber of $(k,k)$-classes.
+Maybe 
+\[
+S^{p,q}(X)
+= \bigoplus_{j \geq 0} H^{k-1+j,k-1+j}(X_y,\CC) \otimes H^{p-k-j+1,q-k-j+1}(Y,\CC)
+\]
+?)
+It would be easier to see that $Q^{p,q}(X)$ does since the inclusion $X_y \to X$ gives a map in cohomology.
+
+We have K\"ahler classes on $X$ and $Y$ now.
+From them we get Hermitian inner products.
+Does the splitting respect the inner products?
+Probably not: Applying $L$ to primitive decompositions changes the binomial coefficients in the decomposition.
+Also take $u = u_0 \eta^p + u_1 \eta^{p-1} + \cdots + u_p$ primitive on $Y$.
+This does not stay a primitive decomposition under $f^*$.
+Since the map going the other way has a kernel it cannot respect norms.
+
+
+Anyway.
+Since we have a surjective map $H^{p,q}(X,\CC) \to H^{p,q}(Y,\CC)$, and get maps $f_* : H_*(X) \to H_*(Y)$, don't we get an induced map of Albanese varieties that makes
+\[
+\begin{tikzcd}
+X \ar[d,"\alpha_X"] \ar[r,"f"] &
+Y \ar[d,"\alpha_Y"]
+\\
+\operatorname{Alb}(X) \ar[r,"\phi"] &
+\operatorname{Alb}(Y)
+\end{tikzcd}
+\]
+commute?
+We get a map anyway because of the universal property of the Albanese variety.
+I guess we see it's the same map then.
+
+If $[\sigma] \in \operatorname{Alb}(Y)$ we pick $\sigma$ on $Y$ in that class and find $\tau$ on $X$ such that $f_*L^{k-1}\tau = \sigma$.
+Doesn't then $[\tau] \mapsto [\sigma]$, so $\phi$ is surjective?
+What is its differential?
+
+
+
+\section{23. October 2024}
+
+The nef cone of a compact K\"ahler manifold $X$ is characterized by:
+
+\begin{prop}
+A class $\alpha$ is nef if and only if $\int_Z \alpha \cup \omega^{p-1} \geq 0$ for every analytic set $Z \subset X$ of dimension $p$ and every K\"ahler class $\omega$.
+\end{prop}
+
+Changing the $\geq 0$ to $> 0$ does not characterize K\"ahler classes; see Counterexample~\ref{counter:kleiman-kahler}.
+The counterexample shows a class that is nef but not big but has positive intersection with every K\"ahler class.
+
+
+\begin{ques}
+Let $\alpha$ be nef and big and suppose that $\int_Z \alpha \cup \omega^{p-1} > 0$ for every analytic set $Z$ of dimension $p$ and K\"ahler class $\omega$.
+Is $\alpha$ K\"ahler?
+\end{ques}
+
+A closed positive current $T$ is K\"ahler if for a K\"ahler metric $\omega$ there exists some $\eps > 0$ such that $T \geq \eps \omega$ as currents.
+For such a current we have
+\[
+\int_Z [T] \cup [\omega]^{p-1}
+= \int_Z T \wedge \omega^{p-1}
+\geq \eps \int_Z \omega^p > 0.
+\]
+We're then asking whether the class of a K\"ahler current whose class is nef is in fact K\"ahler.
+Collins--Tosatti have a whole article\footnote{\url{https://link.springer.com/article/10.1007/s00222-015-0585-9}} about these classes without concluding that they're K\"ahler, so that's probably not true.
+
+
+\subsection*{Pushing nef classes}
+
+\begin{prop}
+Let $f : X \to Y$ be surjective and $\mu$ nef on $X$.
+Set $k = \dim X - \dim Y$.
+Then $f_* \mu^{k+1}$ is nef on $Y$.
+\end{prop}
+
+\begin{proof}
+Let $Z \subset Y$ be analytic of dimension $p$.
+Let $\eta$ be a K\"ahler class on $Y$.
+Then
+\[
+\int_Z f_*\mu^{k+1} \cup \eta^{p-1}
+= \int_{f^{-1}(Z)} \mu^{k+1} \cup f^*\eta^{p-1}.
+\]
+Let $\omega$ be a K\"ahler class on $X$ and $\eps > 0$.
+Since $\mu$ is nef the class $\mu + \eps \omega$ is K\"ahler for all $\eps > 0$.
+Since $f^*\eta$ is nef on $X$ we have
+\[
+0 \leq \int_{f^{-1}(Z)} (\mu + \eps\omega)^{k+1} \cup f^*\eta^{p-1}.
+\]
+Then
+\[
+\int_Z f_*\mu^{k+1} \cup \eta^{p-1}
+= \lim_{\eps \to 0} \int_{f^{-1}(Z)} (\mu + \eps\omega)^{k+1} \cup f^*\eta^{p-1}
+\geq 0.
+\qedhere
+\]
+\end{proof}
+
+
+Write $F : H^{1,1}(X) \to H^{1,1}(Y)$ for the map $F(\mu) = f_*\mu^{k+1}$.
+It is the restriction of the multilinear map
+\[
+H^{1,1}(X)^{k+1} \to H^{1,1}(Y),
+\quad
+(\mu_0, \ldots, \mu_k) \mapsto f_*(\mu_0 \cup \cdots \cup \mu_k)
+\]
+to the diagonal.
+Therefore it is homogeneous of degree $k+1$, continuous, and if we pick norms on the spaces there exists a constant $\|F\|$ such that $\|F(\mu)\| \leq \|F\| \|\mu\|^k$ for all $\mu$.
+
+We can consider the map $G := Ff^*$ from $H^{1,1}(Y)$ to itself, which is then again continuous and bounded.
+Clearly $0$ is a fixed point of $G$.
+
+
+
+\section{22. October 2024}
+
+
+\subsection*{Contraction morphisms}
+
+I was reading Wikipedia's article on nef line bundles and saw an interesting remark about the faces of the nef cone:
+
+If $X$ is a projective variety we denote by $N^1(X)$ its real Neron--Severi group and $\operatorname{Nef}(X)$ the subset of (real) nef classes.
+A \emph{contraction} is a surjective morphism $f : X \to Y$ with connected fibers.
+Any contraction determines a face of the nef cone, and the ``contraction theorem'' gives conditions when a face gives such a morphism ($K_X$ must be negative on the face).
+If such a contraction exists then an irreducible curve $C \subset X$ is mapped to a point in $Y$ if and only if $[C]$ is in the face the contraction determines.
+
+An example they take is the blowup $\mu : X \to \PC2$ of a point.
+The nef cone there is spanned by the extremal rays $H$ and $H-E$.
+The face $H$ gives the birational morphism $\mu : X \to \PC2$, but $H-E$ gives a morphism $f : X \to \PC1$ with fibers isomorphic to $\PC1$.
+
+Isn't the K\"ahler metric on the blowup of a point in the plane that has positive holomorphic sectional curvature one we get from the second realization?
+If we blow up several points we get an extremal ray $H - \sum E_j$.
+What kind of contraction does that determine?
+Koll\`ar--Mori have a book about this stuff.
+
+\subsection*{Nef classes}
+
+Analmeth contains the following theorem (18.13(a)):
+
+\begin{theo}
+Let $X$ be a compact K\"ahler manifold.
+A $(1,1)$-class $\alpha$ is nef if and only if for every irreducible analytic set $Z \subset X$ of dimension $p$ and every K\"ahler metric $\omega$ we have
+\[
+\int_Z \alpha \wedge \omega^{p-1} \geq 0.
+\]
+\end{theo}
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact K\"ahler manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler metric on $X$.
+Then $[f_*\omega^{k+1}]$ is nef.
+\end{prop}
+
+\begin{proof}
+Let $Z \subset Y$ be analytic of dimension $p$ and let $\eta$ be a K\"ahler metric on $Y$.
+Then $f^{-1}(Z) \subset X$ is analytic of dimension $p+k$ and the projection formula gives
+\[
+\int_Z f_*\omega^{k+1} \cup \eta^{p-1}
+= \int_Z f_*(\omega^{k+1} \cup f^*\eta^{p-1})
+= \int_{f^{-1}(Z)} \omega^{k+1} \cup f^*\eta^{p-1}
+\geq 0
+\]
+because $\omega^{k+1} \cup f^*\eta^{p-1}$ is a smooth positive $(k+p,k+p)$-form on $X$.
+\end{proof}
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact K\"ahler manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler metric on $X$.
+Then the current $f_*\omega^{k}$ is a positive constant.
+\end{prop}
+
+\begin{proof}
+The form $\omega^k$ is smooth and closed, so $f_*\omega^k$ is a dimension-zero current on $Y$ such that $d f_*\omega^k = 0$.
+Then $\< f_*\omega^k, d\alpha \> = \< df_*\omega^k, \alpha \> = 0$ for any $(2\dim Y-1)$-form $\alpha$.
+Let $dV$ be a volume form of volume 1 on $Y$ and set $c = \< f_*\omega^k ,dV\>$.
+If $\eta$ is any $2\dim Y$-form on $Y$ we note that
+\[
+\int_Y (\eta - x dV) = 0,
+\]
+where $x = \int_Y \eta$.
+Then $\eta - x dV = d\alpha$ for some form $\alpha$, and
+\[
+\< f_*\omega^k, \eta \>
+= \< f_*\omega^k, x dV + d\alpha \>
+= cx
+= \< c, \eta \>.
+\]
+Since $\eta$ was arbitrary we have $f_*\omega^k = c$.
+Now
+\[
+c = \< f_*\omega^k, dV \>
+= \< \omega^k, f^*dV \>
+= \int_X \omega^k \wedge f^*dV 
+> 0
+\]
+because the integrand is positive on the dense open set where $f$ is a submersion.
+\end{proof}
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact complex manifolds where $X$ is K\"ahler.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler metric on $X$.
+Then $f_*\omega^{k+1}$ is a K\"ahler current on $Y$.
+\end{prop}
+
+\begin{proof}
+The form $\omega^{k+1}$ is strongly positive and $d$-closed, so $f_*\omega^{k+1}$ is positive and closed.
+Let $\eta$ be a Hermitian metric on $Y$.
+By compactness we have $\omega \geq t f^*\eta$ on $X$ for all $t > 0$ small enough.
+Then $\omega^{k+1} - t \omega^k \wedge f^*\eta$ is strongly positive for all small $t$, and thus
+\[
+f_*\omega^{k+1} - t f_*\omega^k \eta \geq 0
+\]
+for small enough $t$.
+\end{proof}
+
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact K\"ahler manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler metric on $X$.
+Then $\int_C f_*\omega^{k+1} > 0$ for any analytic set $C \subset Y$ of dimension $1$.
+\end{prop}
+
+\begin{proof}
+The set $f^{-1}(C)$ is analytic of dimension $k+1$ and
+\[
+\int_C f_*\omega^{k+1}
+= \int_{f^{-1}(C)} \omega^{k+1} > 0.
+\qedhere
+\]
+\end{proof}
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact K\"ahler manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler metric on $X$.
+Let $N \subset X$ be the proper analytic set where $f$ is not a submersion.
+If $Z \subset Y$ is irreducible and analytic of dimension $p$ and $Z \not\subset f(N)$ then $\int_Z (f_*\omega^{k+1})^p > 0$.
+\end{prop}
+
+\begin{proof}
+Since $Z \not\subset f(N)$ the intersection $Z \cap f(N)$ has dimension less than $p$.
+\end{proof}
+
+
+
+
+\subsection*{Demailly--Paun}
+
+The proof of the characterization of nef classes above is quite weird.
+D--P pull from their hat the expression
+\[
+(y - \delta x)^p - (1-\delta)^p x^p
+= (y-x) \int_0^1 A_p(t, \delta) \bigl( (1-t)x + ty \bigr)^{p-1} dt,
+\]
+where $A_p(t,\delta) = \sum_{m=0}^p a_m(t) \delta^m$ is a uniquely determined polynomial of degree $\leq p-1$ in $t$.
+Their proof then takes $y = \alpha + \omega$ and $x = \omega$ and uses that $A_p(t,0) = p$ identically.
+
+If we knew that $A_p(t,1)$ were bounded away from $0$ for $t$ close to $1$ we could use the same proof to give a similar characterization of K\"ahler classes.
+Unfortunately $A_2(t,\delta) = 2 + (6t - 4)\delta$, so that doesn't work.
+
+If we wanted to do something similar we would need $y - x = \alpha$ and $(1-t)x + ty$ K\"ahler for all $t$.
+Take $x$ a K\"ahler class.
+Then we have to take $y = \alpha + x$.
+But then $(1-t)x + t(\alpha + x) = x + t\alpha$, which is only K\"ahler for small $t$.
+We can scale $\alpha$ so that $x + t\alpha$ is K\"ahler for all $0 \leq t \leq 1$.
+But we have to be able to do this for any K\"ahler class.
+Pick a closed ball $B$ in the K\"ahler cone and do it for all classes in there.
+Then we get
+\[
+(\alpha - \delta\omega)^p - (1-\delta)^p\omega^p
+= \alpha \int_0^1 A_p(t,\delta)\bigl(\omega + t \alpha\bigr)^{p-1} dt
+\]
+and so
+\[
+\int_Z (\alpha - \delta\omega)^p
+= (1-\delta)^p \int_Z \omega^p
++ \int_0^1 A_p(t,\delta) \int_Z \alpha \cup \bigl(\omega + t \alpha\bigr)^{p-1} dt.
+\]
+Both $\omega$ and $\omega + t\alpha$ are K\"ahler for $0 \leq t \leq 1$, and $A_p(t,0) = p > 0$, so
+\[
+\int_Z (\alpha - \delta\omega)^p > 0
+\]
+for $\delta \in [0, \delta_0]$.
+
+
+I don't know anything about cones.
+
+Fix a real vector space $V$ of dimension $n$ with an inner product.
+
+\begin{defi}
+A set $C \subset V$ is a \emph{cone} if $\lambda x \in x$ for all $\lambda > 0$ and $x \in C$.
+\end{defi}
+
+A cone may be open or closed, or convex, if the underlying set is those things.
+
+If $S \subset V$ is any set the \emph{dual cone} of $S$ is
+\[
+S^* = \{ x \in V \mid \<x, y\> \geq 0 \text{ for all $y \in S$} \}.
+\]
+This is always a closed convex cone.
+
+If we don't have an inner product we get
+\[
+S^* = \{ \lambda \in V^* \mid \lambda(y) \geq 0 \text{ for all $y \in S$}\}
+\]
+which is still a closed convex cone.
+
+Suppose $C$ is a convex cone.
+Then $C^{**} = \{ x \in V \mid \lambda(x) \geq 0 \}$ for all $\lambda \in C^*$.
+But if $\lambda \in C^*$ then $\lambda(x) \geq 0$ for all $x \in C$, so $C \subset C^{**}$.
+We have $C^{**} = \ov{C}$ in general.
+
+When $C$ is closed and convex we also know that the interior of $C^*$ is exactly\footnote{\url{https://mathoverflow.net/questions/154415/interior-of-a-dual-cone}}
+\[
+\operatorname{int} C^*
+= \{ \lambda \in V^* \mid \lambda(x) > 0 \text{ for all $x\in C \setminus \{0\}$}\}.
+\]
+Taking $C$ convex and closed we get that 
+\[
+\operatorname{int} C
+= \{ x \in V \mid \lambda(x) > 0 \text{ for all $\lambda \in C^*$} \}.
+\]
+
+Suppose we have some family $(\mu_i)_{i \in I}$ of elements of $V^*$.
+Then we can define a closed convex cone by
+\[
+C = \bigcap_{i \in I} \{ x \in V \mid \mu_i(x) \geq 0 \}.
+\]
+Its dual is then
+\[
+C^* = \{ \lambda \in V^* \mid \lambda(x) \geq 0 \}
+\]
+which contains all the $(\mu_i)_{i \in I}$.
+Then its interior is
+\begin{align*}
+\operatorname{int} C 
+&= \{ x \in V \mid \lambda(x) > 0 \text{ for all $\lambda \in C^*$} \}
+\\
+&\subset \{ x \in V \mid \mu_i(x) > 0 \text{ for all $i \in I$} \}.
+\end{align*}
+The inclusion can be strict:
+
+\begin{cexam}[Kleiman criterion for K\"ahler classes]
+\label{counter:kleiman-kahler}
+There exists a projective surface $X$ with strictly nef divisor $D$ (so $D \cdot C > 0$ for all curves $C$) but $D^2 = 0$.\footnote{\url{https://mathoverflow.net/q/481104/4054}}
+Then $c_1(D)$ is nef but not K\"ahler.
+If $\omega$ is any K\"ahler class on $X$ we must have $\int_X c_1(D) \cup \omega > 0$, because otherwise we would get $c_1(D) = 0$ by Hodge--Riemann.
+\end{cexam}
+
+
+
+
+\section{21. October 2024}
+
+Let $f : X \to Y$ be surjective with $\dim X = n$, $\dim Y = m$, $k = n-m$.
+If $u$ is a $(1,1)$-form on $X$ and we want to calculate the current $T = f_*u^{k+1}$ there are three cases to consider:
+
+\begin{itemize}
+\item
+Over $U = \{ x \in X \mid \text{$\rank df = m$ at $x$}\}$.
+
+\item
+Over $K = \{ x \in X \mid \text{$\rank df = m-1$ at $x$}\}$.
+
+\item
+Over $N = \{ x \in X \mid \text{$\rank df < m-1$ at $x$}\}$.
+\end{itemize}
+
+The set $U$ is open because its complement is the zero locus of $\wedge^{m} df$.
+Then $X \setminus U = K \cup N$ is closed.
+The set $N$ is the zero locus of $\wedge^{m-1} df$, so it is also closed.
+We have $K \cap N = \varnothing$, so $K$ is also closed.
+
+We actually want to consider the images of those sets under $f$.
+They are pairwise disjoint, so their images are as well.
+Since $K$ and $N$ are compact so are $f(K)$ and $f(N)$, and are in particular closed.
+Then $f(U) = f(X) \setminus (f(K) \cup f(N))$ is open.
+
+By definition $f : U \to f(U)$ is a submersion.
+Then $T$ is a smooth $(1,1)$-form on $f(U)$.
+
+If $\eta$ is a $(m-1,m-1)$-form, then for any point in $f(N)$ we have $f^*\eta = 0$ because $N = \Ker \wedge^{m-1} df$.
+I'd like to say that it follows that $T = 0$ on $f(N)$.
+
+I think I'd like a better description of $f_*u$ for a differential form $u$.
+
+A map $f : X \to Y$ defines a family of integration currents $T_{f^{-1}(y)}$ on $X$, or just a family $X_y = f^{-1}(y)$ of analytic subsets of dimension $k = n-m$.
+
+If $u$ is a $(k+p,k+p)$-form with $p \geq 0$ then the current $T$ is defined by
+\[
+\< T, \eta \> 
+= \< u, f^*\eta \>
+= \int_X u \wedge f^*\eta
+\]
+for every $(m-p,m-p)$-form $\eta$ on $Y$.
+Locally we can write
+\[
+T = \sum_{I,J} T_{IJ} \, d z_I \wedge d\bar z_J
+\]
+where $|I| = |J| = p$ and $T_{IJ}$ are distributions.
+Let $\eta = g dz_{I^c} \wedge d\bar z_{J^c}$, where $I^c$ and $J^c$ are such that $I \cup I^c = \{1, \ldots, n\}$ and $J \cup J^c = \{1, \ldots, n\}$ and both are disjoint from $I$ and $J$, respectively.
+Then $\< T, \eta \> = g T_{IJ}\, dV$ and
+\[
+\<T, \eta\>
+= \int_X u \wedge f^*\eta.
+\]
+If we fix Hermitian metrics on $X$ and $Y$ we get that
+\[
+|\<T, \eta\>|
+\leq \int_X | u \wedge f^*\eta | dV_X
+\leq C \int_X |u| |f^*| |\eta| dV_X
+\leq C' |f^*| |u| |\eta|,
+\]
+where $C'$ depends on the volume of the fibers of $f$ and the dimensions $n,m$.
+Here $|f^*|$ is the norm of the map $f^* : \mathcal{C}^{m-p,m-p}(Y) \to \mathcal{C}^{m-p,m-p}(X)$.
+
+
+
+\subsection*{Chern class}
+
+I'm a little obsessed with finding the (a) form on the class that a subvariety defines.
+Let $X$ be compact and $Y \subset X$ an analytic set of dimension $p$.
+Then $Y$ defines an element
+\[
+\lambda_Y \in H^{p,p}(X)^\vee = H^{n-p,n-p}(X)
+\]
+by $\lambda_Y(\alpha) = \int_Y \alpha$.
+Denote by $\eta_Y$ the image of $\lambda_Y$ under this isomorphism.
+
+Suppose $Y \subset X$ is a hypersurface.
+If it is defined by $Y = s^{-1}(0)$, where $s \in H^0(X,L)$ for some line bundle, then we should have $\eta_Y = c_1(L)$.
+
+
+
+\subsection*{Pullback of nef is nef}
+
+\begin{defi}
+A class $\mu$ on a compact manifold $X$ with a Hermitian metric $\omega$ is nef if for every $\eps > 0$ there exists a form $u \in \mu$ such that $u + \eps \omega > 0$.
+\end{defi}
+
+By compactness, if a class is nef for one metric it is nef for any other metric.
+
+
+\begin{prop}
+Let $f : X \to Y$ be a map between compact manifolds.
+If $\mu$ is nef on $Y$ then $f^*\mu$ is nef on $X$.
+\end{prop}
+
+\begin{proof}
+Let $\eta$ be a Hermitian metric on $Y$ and $\omega$ a Hermitian metric on $X$.
+Let $\eps > 0$ and let $u \in \mu$ be such that $u + \eps \eta > 0$ on $Y$.
+Note that $\omega + f^*\eta$ is Hermitian on $X$, and
+$f^*u + \eps(\omega + f^*\eta) = \eps \omega + f^*(u + \eps \eta) > 0$.
+\end{proof}
+
+
+Let $X$ be a compact manifold and let
+\[
+N^p(X) := \biggl\{ \mu \in H^{p,p}(X,\RR) \Bigm| \int_Z \mu \geq 0 \biggr\}
+\]
+for every analytic set $Z \subset X$ of dimension $p$.
+Demailly--Paun showed that if $X$ is K\"ahler then $\mu \in H^{1,1}(X,\RR)$ is nef if and only if $\mu^p \in N^p$ for all $p$.
+
+
+\begin{prop}
+Let $X$ be a compact manifold with a Hermitian metric $\omega$.
+Then $\mu \in N^p(X)$ if and only if for every $\eps > 0$ there exists a form $u \in \mu$ such that $u + \eps \omega^p > 0$.
+\end{prop}
+
+\begin{proof}
+Suppose that for every $\eps > 0$ there exists $u \in \mu$ such that $u + \eps \omega^p > 0$.
+If $Z \subset X$ is analytic of dimension $p$ then we have
+\[
+\int_Z \mu
+= \int_Z u
+\geq -\eps \int_Z \omega^p
+\]
+and letting $\eps \to 0$ we get $\int_Z \mu \geq 0$.
+
+Suppose then that $\mu \in N^p(X)$.
+That's presumably the difficult direction.
+Suppose that for every $k$ there is a class $u_k \in \mu$ such that $u_k + \omega^p/k \leq 0$ somewhere.
+Try to pump up the negativity to get a negative integral over some analytic set?
+\end{proof}
+
+
+Paun proved in his thesis that if $f : X \to Y$ is surjective then $\mu$ is nef if and only if $f^*\mu$ is nef.
+
+
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact manifolds.
+Then $f^*(N^p(Y)) \subset N^p(X)$.
+\end{prop}
+
+\begin{proof}
+Let $\mu \in N^p(Y)$ and let $Z \subset X$ be analytic of dimension $p$.
+Then $f(Z) \subset Y$ is analytic of dimension $\leq p$ and
+\[
+\int_Z f^*\mu
+= \int_{f(Z)} \mu \geq 0.
+\qedhere
+\]
+\end{proof}
+
+
+\begin{prop}
+Let $X$ be a compact K\"ahler manifold and $\omega$ a K\"ahler class on $X$ with Lefschetz operator $L$.
+Then $L^k(N^p(X)) \subset N^{p+k}(X)$.
+\end{prop}
+
+\begin{proof}
+Let $\mu \in N^p(X)$.
+We write 
+\[
+\mu = \mu_p + L\mu_{p-1} + \cdots + L^p \mu_0
+\]
+for the primitive decomposition of $\mu$, where $\mu_j \in H^{j,j}(X,\RR)$.
+
+For analytic $Z$ of dimension $p$ there exists a class $\eta_Z$ of degree $(n-p,n-p)$ such that $\int_Z \alpha = \int_X \alpha \cup \eta_Z = \<\alpha, *\eta_Z\>$ for all $\alpha$.
+Then
+\[
+\int_W L^k \mu
+= \< L^k \mu, \eta_W \>
+= \< \mu, \Lambda^k \eta_W \>.
+\]
+I think even assuming the standard and Hodge conjectures this doesn't give us that much.
+\end{proof}
+
+
+
+\begin{prop}
+Let $f : X \to Y$ be a surjective map between compact K\"ahler manifolds.
+Let $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler class on $X$.
+Then $f_*\omega^{k+1}$ is nef on $Y$.
+\end{prop}
+
+\begin{proof}
+Set $\mu = f_*\omega^{k+1}$.
+We will prove that $\mu^p \in N^p(Y)$ for all $p$ by induction on $p$.
+
+First let $C \subset Y$ be an analytic set of dimension one.
+Then $f^{-1}(C) \subset X$ is an analytic set of dimension $k+1$ and
+\[
+\int_C f_*\omega^{k+1}
+= \int_{f^{-1}(C)} \omega^{k+1} > 0.
+\]
+
+Now suppose that $\mu^k \in N^k(Y)$ for $k = 1, \ldots, p-1$ and let $Z \subset Y$ be an analytic set of dimension $p$.
+Then $f^{-1}(Z)$ is again an analytic set of dimension $p+k$, and by the projection formula we have
+\[
+\int_Z \mu^p
+= \int_Z f_*(\omega^{k+1} \cup f^*\mu^{p-1})
+= \int_{f^{-1}(Z)} \omega^{k+1} \cup f^*\mu^{p-1}.
+\]
+By induction $f^*\mu^{p-1} \in N^{p-1}(X)$.
+\end{proof}
+
+
+\section{20. October 2024}
+
+Let $Y$ be a surface and $X \to Y$ the blowup of a point on $Y$ and $E \subset X$ the exceptional curve.
+For any $(1,1)$-class $\alpha$ on $X$ we have
+\[
+\< [E], \alpha \>
+= \int_E \alpha
+= \int_X \alpha \cup x
+\]
+for a class $x \in H^{1,1}(X)$.
+
+Demailly says that $[E]$ is a positive current (agbook, III.1.20), because for any positive test form $\alpha$ we have $\int_E \alpha \geq 0$.
+
+If $Y = \PP(\CC^2)$ then $H^*(Y,\ZZ) = \ZZ[h^2]/(h^6)$ and $H^*(X,\ZZ) = \tau^*H^*(Y,\ZZ) \oplus \ZZ[e](e^2+1)$.
+If $\alpha \in H^*(X)$ then $\alpha = \tau^*\beta + a e$.
+Then
+\[
+\int_X \alpha \cup x
+= \int_E (\tau^*\beta + ae)_{|E}
+= a \int_E e
+= -a.
+\]
+So $\alpha$ is a positive class when $\beta$ is positive and $a \leq 0$, which rules out $e$ itself.
+
+In this case the class that corresponds to the current $[E]$ is $e$, which is not nef and therefore not strongly positive.
+To hammer this home, under the isomorphism
+\[
+H^{1,1}(X)^\vee \longrightarrow H^{1,1}(X)
+\]
+the image of $[E]$ is $e \not\in H^{1,1}_{SP}(X)$.
+If there is any justice in the world it is in $H^{1,1}_{\geq0}(X)$; the cone of $d$-closed weakly positive currents of type $(1,1)$.
+
+We want to see that
+\[
+\int_Z f^*(f_*\omega^{k+1})^{p} 
+= \int_{f^{-1}(Z)} \omega^{k+1} \cup f^*(f_*\omega^{k+1})^{p-1} 
+> 0
+\]
+for any analytic $Z \subset Y$ of dimension $p$.
+This invites induction on $p$.
+The base case $p = 1$ is handled by noting that $f_*\omega^{k+1}$ is a K\"ahler current.
+We might try to argue that the class of $(f_*\omega^{k+1})^{p-1}$ is in $H^{p-1,p-1}_{SP}(Y)$ and that this is preserved under both pullbacks and cup products with K\"ahler classes.
+I think we get pullbacks for free, but the other might be difficult.
+Could try to switch gears and look at
+\[
+N^{p} = \biggl\{ \alpha \in H^{p,p}(Y) \Bigm| \int_Z \alpha \geq 0 \biggr\}
+\]
+for $Z \subset Y$ irreducible analytic of dimension $p$.
+These might be preserved under pullbacks.
+I don't know about wedging with K\"ahler class powers.
+
+Another approach:
+Paun proved in his thesis that if $T$ is a K\"ahler current then $[T]$ is a K\"ahler class if and only if $[T]_Z$ is a K\"ahler class for every irreducible component $Z$ in any Lelong level set $E_c(T)$.
+How do you prove the restrictions are K\"ahler classes?
+
+
+
+
+\section{19. October 2024}
+
+
+\subsection*{Example}
+
+My example of a pushforward of a K\"ahler class was wrong.
+If $j : C \to C \times C$ is the inclusion into the first factor and $p : C \times C \to C$ the projection onto the first factor, don't we have $j_* \omega = 0$ for a K\"ahler class on $C$?
+
+First off, $j_*\omega$ has degree zero.
+For any $\alpha \in H^4(C \times C)$ we have
+\[
+\< j_* \omega, \alpha \>
+= \< \omega, j^*\alpha \> 
+= 0
+\]
+because $j^*\alpha = 0$.
+Then $j_* = 0$.
+
+
+\subsection*{Pushing K\"ahler classes}
+
+As before, $f : X \to Y$ surjective, $\omega$ K\"ahler on $X$, $k = \dim X - \dim Y$.
+Would like to know if $\alpha = f_* \omega^{k+1}$ is K\"ahler on $Y$.
+
+Take $Z \subset Y$ irreducible analytic of dimension $p$.
+Have to calculate
+\begin{align*}
+\int_Z \alpha^p
+= \int_Z f_*\omega^{k+1} \wedge \bigwedge^{p-1} f_*\omega^{k+1}
+&= \int_Z f_*\biggl( \omega^{k+1} \wedge \bigwedge^{p-1} f^* f_*\omega^{k+1} \biggr)
+\\
+&= \int_{f^{-1}(Z)} \omega^{k+1} \wedge \bigwedge^{p-1} f^* f_*\omega^{k+1}.
+\end{align*}
+If $\omega = c_1(L)$ and $H$ is a hyperplane given by a section of $L$ then
+\begin{align*}
+\int_{f^{-1}(Z)} \omega^{k+1} \wedge \bigwedge^{p-1} f^* f_*\omega^{k+1}
+&= \int_{f^{-1}(Z) \cap H} \omega^{k} \wedge \bigwedge^{p-1} f^* f_*\omega^{k+1}
+\\
+&= \int_{f(f^{-1}(Z) \cap H)} f_* \omega^{k} \wedge  (f_*\omega^{k+1})^{p-1}
+\\
+&= f_*\omega^{k} \int_{f(f^{-1}(Z) \cap H)} (f_*\omega^{k+1})^{p-1}.
+\end{align*}
+As $f_* \omega^k > 0$ by Proposition~\ref{prop:kahler-pushforward-nonzero} and $\dim f(f^{-1}(Z) \cap H) < \dim Z$ we can induct on $\dim Z$ and conclude that $f_*\omega^{k+1}$ is K\"ahler when $X$ is projective and $\omega \in H^2(X,\QQ)$.
+
+Could try looking into Demailly--Paun to see if this can be extended to the general case.
+
+If $Z$ is analytic of dimension $p$ it defines an element of $H^{p,p}(X)^\vee$ by $\alpha \mapsto \int_Z \alpha$.
+We have $H^{p,p}(X)^\vee = H^{n-p,n-p}(X)$ so there exists a $\zeta \in H^{n-p,n-p}(X)$ such that
+\[
+\int_Z \alpha = \int_X \alpha \cup \zeta
+\]
+for all $\alpha \in H^{p,p}(X)$.
+These are probably positive.
+In our situation we get
+\[
+\int_Z (f_*\omega^{k+1})^p
+= \int_Y (f_*\omega^{k+1})^p \cup \zeta
+= \int_X \omega^{k+1} \cup f^*\bigl( (f_*\omega^{k+1})^{p-1} \cup \zeta\bigr).
+\]
+If we knew that $\zeta$ were strongly positive, then we could prove that $(f_*\omega^{k+1})^p$ is positive by induction on $p$.
+
+Let $V$ be a complex vector space of dimension $n$.
+
+\begin{defi}
+A $(p,p)$-form $u$ on $V$ is \emph{positive} if for all $\alpha_j \in V^*$ then
+\[
+u \wedge i \alpha_1 \wedge \bar \alpha_1 \wedge \cdots \wedge i \alpha_{n-p} \wedge \bar\alpha_{n-p}
+\]
+is a positive volume form.
+A form $u$ is \emph{strongly positive} if it is a convex combination
+\[
+u = \sum \gamma_s 
+i \alpha_{s,1} \wedge \bar \alpha_{s,1}
+\wedge \cdots \wedge 
+i \alpha_{s,q} \wedge \bar\alpha_{s,q}
+\]
+where $\alpha_{s,j} \in V^*$ and $\gamma_s \geq 0$.
+\end{defi}
+
+A strongly positive form is positive.
+Both types form closed convex cones.
+The positive cone is dual to the strongly positive one by definition.
+A form $u$ is (strongly positive) positive if and only if $u \wedge v \geq 0$ for all (positive) strongly positive forms $v$.
+The wedge product of strongly positive forms is strongly positive.
+The pullback of a (strongly) positive form is (strongly) positive.
+A form $u$ on $X$ is (strongly) positive if it is locally (strongly) positive.
+
+
+We define $H^{p,p}_{SP}(X)$ to be the closure of the cone of classes of $d$-closed strongly positive $(p,p)$-forms.
+We have $H^{1,1}_{SP}(X) = \ov{\mathcal K}$, the nef cone of $X$.
+
+
+\begin{ques}
+Let $X$ be K\"ahler and $Y \subset X$ a hypersurface given by the zero locus of a section of a line bundle $L$.
+Then the $(1,1)$-class that corresponds to $[Y]$ is $c_1(L)$.
+Is that class necessarily nef?
+\end{ques}
+
+
+\section{18. October 2024}
+
+
+\subsection*{Pushing forward powers of K\"ahler classes}
+
+Let $C$ be a curve, consider the inclusion $j : C \to C \times C$ of $C$ into the first factor.
+If $\omega$ is a K\"ahler class on $C$ then $j_*\omega$ is only nef on $C \times C$ because $\int_{* \times C} (j_*\omega) = 0$.
+
+Any proper morphism $f : X \to Y$ factors as the composition of a finite map and a map with connected fibers.
+The pushforward of a K\"ahler class under a finite map is K\"ahler.
+The example shows that the pushforward of the power of a K\"ahler class under a map with connected fibers may not be K\"ahler.
+
+If $f : X \to Y$ is a submersion and $\omega$ is K\"ahler on $X$ then $f_*\omega^{\dim X - \dim Y + 1}$ is K\"ahler on $Y$:
+We can pick a metric in the class and integrate it over the fibers and get a form downstairs.
+
+If $f : X \to Y$ is surjective it is a submersion outsize of an analytic set $A \subset X$.
+The image $f(A) \subset Y$ is also analytic.
+(Gunning--Rossi talk about relevant things near page 160.)
+I suppose that if there are problems with $f_*\omega^{k+1}$ then they happen in $f(A)$?
+
+If $Y$ is a curve then $f_*\omega^{\dim X}$ is K\"ahler, because we only have to check that $\int_Y f_* \omega^{n} = \int_X \omega^n > 0$.
+
+Suppose $\dim Y = 2$.
+For any curve $C \subset Y$ we have $\int_C f_*\omega^{n-1} > 0$ like above.
+Now
+\[
+f_*\omega^{k} \cup f_*\omega^k
+= f_*(\omega^k \cup f^*f_*\omega^k)
+\]
+and
+\[
+\int_Y f_*(\omega^k \cup f^*f_*\omega^k)
+= \int_X \omega^k \wedge f^*f_*\omega^k,
+\]
+which doesn't quite make sense because the inverse image $f^*f_*\omega^k$ is only defined when $f$ is a submersion.
+
+
+
+\subsection*{Pullbacks and pushforwards}
+
+
+\begin{prop}
+Let $f : X \to Y$ be a smooth map between compact smooth manifolds and let $k = \dim X - \dim Y$.
+If there exists $x \in H^k(X)$ such that $f_* x \not= 0$, then $f^* : H^*(Y) \to H^*(X)$ is injective.
+\end{prop}
+
+\begin{proof}
+We have
+\[
+f_*(x \cup f^*y) = f_*x \cup y
+\]
+in cohomology.
+For $x$ as in the statement and $y$ such that $f^*y = 0$ we get $f_* x \cup y = 0$.
+Because $f_* x$ has degree zero we then get $y = 0$.
+\end{proof}
+
+
+\begin{prop}
+\label{prop:kahler-pushforward-nonzero}
+Let $f : X \to Y$ be a surjective holomorphic map between compact complex manifolds with $X$ K\"ahler and let $k = \dim X - \dim Y$.
+Then $f_*\omega^{k} \not= 0$.
+\end{prop}
+
+\begin{proof}
+Set $k = \dim X - \dim Y$ and let $\omega$ be a K\"ahler form on $X$.
+Let $dV$ be a volume form on $Y$.
+Then $f_* \omega^k$ is a closed current of dimension zero on $Y$ and
+\[
+\< f_* \omega^k, dV \>
+= \int_X \omega^k \wedge f^*dV > 0
+\]
+because the integrand is positive on the open set where $f$ is a fibration,
+so $f_* [\omega^k] = [f_*\omega^k] \not= 0$.
+\end{proof}
+
+
+\begin{coro}
+Let $f : X \to Y$ be a surjective holomorphic map between compact complex manifolds with $X$ K\"ahler.
+Then $f^*$ is injective.
+\end{coro}
+
+
+If $f : X \to Y$ is a general holomorphic map we can let $Z = f(X) \subset Y$ and write
+\[
+\begin{tikzcd}
+X \ar[r,"g"] \ar[rr,bend right=-40,"f"] &
+Z \ar[r,"j"] &
+Y.
+\end{tikzcd}
+\]
+Then $g^* : H^*(Z) \to H^*(X)$ should be injective while $j^*: H^*(Y) \to H^*(Z)$ can have a kernel.
+
+
+
+
+\section{17. October 2024}
+
+\subsection*{Pullbacks are injective}
+
+If $f : X \to Y$ is a surjective map between compact K\"ahler manifolds then $f^*$ is injective.
+I found a neat proof of this using fairly basic facts, versus the proof in Voisin's book based on Hodge theory:
+
+Since our manifolds are smooth we have the projection formula
+\[
+f_*( u \cup f^* v) = f_* u \cup v
+\]
+for any class $u$ on $X$ and $v$ on $Y$.
+Set $k := \dim X - \dim Y$ and let $\omega$ be a K\"ahler class on $X$.
+Then
+\[
+f_*(\omega^k \cup f^* v) = f_* \omega^k \cup v,
+\]
+where $f_* \omega^k$ is a degree-zero class, that is, a scalar.
+Since $f$ is surjective it is a submersion outside of an analytic set of measure zero.
+On that set $f_* \omega^k$ is a constant given by the integration of a K\"ahler metric in $\omega$ over the fiber, so $f_* \omega^k \not= 0$.
+Therefore if $f^* v = 0$ we get $v = 0$.
+
+This made me wonder about the projection formula.
+It's not proved in Hatcher.
+Is it just a formal consequence of the axioms and Poincar\'e duality?
+
+Suppose we're given homology and cohomology theories that are related by Poincar\'e.
+If $f : X \to Y$ is a map we get $f^*$ in cohomology and $f_*$ in homology.
+We want to define $f_*$ in cohomology using Poincar\'e duality.
+If $[X]$ is the fundamental class of $X$ in $H_n(X,\ZZ)$ the duality map is
+\[
+\operatorname{pd}: H^i(X,\ZZ) \to H_{n-i}(X,\ZZ),
+\quad
+u \mapsto u \cap [X].
+\]
+We then define
+\[
+\begin{tikzcd}
+H^i(X,\ZZ) \ar[r,"\operatorname{pd}_X"] &
+H_{n-i}(X,\ZZ) \ar[r,"?"] &
+H_{n-i+j}(Y,\ZZ) \ar[r,"\operatorname{pd}_Y^{-1}"] &
+H^{i-j}(Y,\ZZ).
+\end{tikzcd}
+\]
+We need a kind of fundamental class of ``the'' fiber of $f$.
+Time to pivot.
+
+The map $f$ is ``the same'' as its graph $\Gamma_f \subset X \times Y$.
+We have maps $g: X \to X \times Y$ given by $g(x) = (x, f(x))$ and $\pi : X \times Y \to Y$, and $f = \pi g$.
+Can we do
+\[
+\begin{tikzcd}
+H_{n-i}(X, \ZZ) \ar[r,"g_*"] &
+H_{n-i}(X \times Y, \ZZ) \ar[r] &
+H_{n-i+?}(X \times Y, \ZZ) \ar[d,"\pi_*"]
+\\
+& & H_{n-i+?}(Y, \ZZ)
+\end{tikzcd}
+\]
+where the unlabeled map is $x \mapsto x \cap [\Gamma_f]$?
+But that shouldn't work, $[\Gamma_f]$ should be in $H_n(X\times Y,\ZZ)$, which has the wrong degree.
+
+We have the cap product
+\[
+\cap : H_p(X) \times H^q(X) \to H_{p-q}(X)
+\]
+that satisfies
+\[
+f_* x \cap y = f_*(x \cap f^*y).
+\]
+Then we get something of the right degree by taking $[\Gamma_f] \cap \operatorname{pd}^{-1}[* \times Y]$.
+Our candidate for $f_*$ is then
+\[
+f_*
+= 
+\pd_Y^{-1} \circ
+\pi_* \circ 
+(\, \cdot \cap [\Gamma_f] \cap \pd_{X\times Y}^{-1}[* \times Y]) \circ
+g_* \circ
+\pd_X
+=: 
+\pd_Y^{-1} \circ \phi
+.
+\]
+So let $x \in H^i(X)$, $y \in H^j(Y)$.
+We get $f^*y \in H^j(X)$ and have $\pd_X(x \cup f^*y) = (x \cup f^*y) \cap [X]$.
+Next
+\[
+\displaylines{
+\phi(x \cup f^*y)
+= \pi_*\Bigl(
+g_*\bigl(
+(x \cup f^*y) \cap [X]
+\bigr)
+\cap [\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr)
+\hfill\cr\hfill{}
+=
+\pi_*\Bigl(
+g_*\bigl(
+(x \cup f^*y) \cap [X]
+\bigr)
+\Bigr)
+\cap 
+\pi_*\Bigl([\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr)
+\cr\hfill{}
+=
+(\pi g)_*\bigl(
+(x \cup f^*y) \cap [X]
+\bigr)
+\cap 
+\pi_*\Bigl([\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr)
+\cr\hfill{}
+=
+f_*\bigl(
+(x \cup f^*y) \cap [X]
+\bigr)
+\cap 
+\pi_*\Bigl([\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr).
+}
+\]
+We need to do something to
+$
+f_*\bigl(
+(x \cup f^*y) \cap [X]
+\bigr)
+$, maybe compare it to $(f_*x \cup y) \cap [Y]$.
+
+We have $x \cup f^*y \in H^{i+j}(X)$ and $(x \cup f^*y) \cap [X] \in H_{n-i-j}(X)$ and so $f_*((x \cup f^*y) \cap [X]) \in H_{n-i-j}(Y)$.
+Let $z \in H^{n-i-j}(Y)$.
+Then
+\begin{align*}
+\< f_*((x \cup f^*y) \cap [X]), z \> 
+&= \< (x \cup f^*y) \cap [X], f^*z \> 
+\\
+&= \< x \cap [X], f^*(y \cup z) \>
+\\
+&= \< f_*(x \cap [X]), y \cup z \>
+\\
+&= \< f_*(x \cap [X]) \cap y , z \>
+\end{align*}
+so I'd like to say that $f_*((x \cup f^*y) \cap [X]) = f_*(x \cap [X]) \cap y$.
+If so then we've made it to
+\[
+\displaylines{
+f_*\bigl(
+(x \cup f^*y) \cap [X]
+\bigr)
+\cap 
+\pi_*\Bigl([\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr)
+\hfill\cr\hfill{}
+\begin{aligned}
+&= 
+f_*(x \cap [X]) \cap y
+\cap 
+\pi_*\Bigl([\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr)
+\\
+&= 
+\pi_*\Bigl(
+g_*(x \cap [X])
+\cap 
+[\Gamma_f]
+\cap \pd_{X\times Y}^{-1}[* \times Y]
+\Bigr)
+\cap y
+\\
+&= \phi(x) \cup y
+\end{aligned}
+}
+\]
+so all in all
+\[
+f_*( x \cup f^* y)
+= \pd_Y^{-1} \phi(x \cup f^* y)
+= \pd_Y^{-1} ( \phi(x) \cup y)
+= f_* x \cup y.
+\]
+
+
+On the other hand, ``According to Lawson--Michelsohn's book (p239)'' the Gysin map (which is what we're trying to define) is defined by
+\[
+f_! = \pd_Y^{-1} f_* \pd_X.
+\]
+Do the degrees match up here?
+If $x \in H^i(X)$ then $\pd_X x \in H_{n-i}(X)$ and $f_* \pd_X x \in H_{n-i}(Y)$.
+The Poincar\'e isomorphism on the $Y$ side is
+\[
+\pd_Y : H^k(Y) \to H_{m-k}(Y)
+\]
+and if $m - k = n - i$ then $k = m - n + i = i - (n-m)$ so $f_!x \in H^{i-(n-m)}(Y)$.
+So that's probably what we're doing after all.
+In that case from
+\[
+f_*(x \cap f^*y) = f_x \cap y
+\]
+we get
+\[
+f_!(x \cup f^*y)
+= \pd_Y^{-1} f_*(\pd_X(x \cup f^*y))
+= \pd_Y^{-1} f_*(\pd_X(x \cup f^*y))
+\]
+from which something.
+
+
+All of this to say:
+Let's prove that if $f : X \to Y$ is a surjective map between compact K\"ahler manifolds and $\omega$ is K\"ahler on $X$ then $f_*[\omega^k] \not= 0$ for $k = \dim X - \dim Y$:
+
+The form $\omega^k$ is smooth and closed, and in particular a current.
+Then $f_* \omega^k$ is a degree-$0$ current on $Y$ such that $d f_* \omega^k = f_* d\omega^k = 0$.
+Then
+\[
+\int_Y f_* \omega^k d\alpha = 0
+\]
+for any $(2m-1)$-form $\alpha$.
+Let $dV$ be a volume form of volume 1 on $Y$ and set $c = \< f_*\omega^k, dV \>$.
+If $\eta$ is any $2m$-form on $Y$ we note that 
+\[
+\int_Y (\eta - p dV) = 0
+\]
+for $p = \int_Y \eta$, so $\eta - pdV = d \nu$ for some $(2m-1)$-form $\nu$.
+Then
+\[
+0 
+= \< f_*\omega^k, d\nu \>
+= \<f_*\omega^k, \eta - pdV\>
+= \<f_*\omega^k, \eta \> - pc
+= \<f_*\omega^k, \eta \> - \< c, \eta \> 
+\]
+so $f_*\omega^k = c = \int_X f_*\omega^k dV$.
+Since $f_*\omega^k$ is constant it is in particular a smooth differential form of degree zero.
+In the neighborhood of a regular value $x$ of $f$ that map is a submersion, so over $y = f(x)$ there we find that
+\[
+c = f_* \omega^k_y
+= \int_{X_y} \omega^k > 0.
+\]
+
+This doesn't need $f$ to be surjective, only for it to have smooth fibers of dimension $\dim Y$.
+If it only has smaller-dimension fibers then $f_*\omega^k = 0$.
+In that case we can still look at $f_*\omega^j$ for some $j < k$ (where $j$ is the dimension of a generic fiber of $f$) but it won't be a degree-zero current.
+It might still be nonzero, but in that case we end up with
+\[
+f_* \omega^j \cup v = 0,
+\]
+which may not be enough to force $v = 0$.
+
+Definition: The rank of $f : X \to Y$ is the largest $d$ such that $\omega^{d+1} = 0$ when restricted to any fiber of $f$, where $\omega$ is a K\"ahler form on $X$.
+Is this the same as the generic rank of $df : T_X \to f^*T_Y$?
+
+Then: Let $f : X \to Y$ be a map of compact K\"ahler manifolds of rank $\dim Y$.
+Then $f^*$ is injective.
+
+
+
+\subsection*{Pushforwards of K\"ahler classes}
+
+Suppose $f$ has rank $\dim Y - 1$.
+Then $f_* \omega^k$ is a current of bidegree $(1,1)$.
+Is it a K\"ahler current?
+If so the conclusion still holds as long as the $\operatorname{deg} v < \dim Y$.
+
+A current is positive (strongly positive) if it is positive on all test forms that are strongly positive (positive).
+
+If $\omega$ is a K\"ahler metric then it is strongly positive.
+Let $\alpha$ be a (strongly) positive form on $Y$.
+Then
+\[
+\< f_*\omega^k, \alpha \>
+= \< \omega^k, f^* \alpha \>
+= \int_X \omega^k \wedge f^*\alpha.
+\]
+Now $f^*\alpha$ is (strongly) positive and $\omega^k$ is strongly positive, so $\omega^k \wedge f^*\alpha$ is (strongly) positive, so this is $\geq 0$.
+Therefore $f_*\omega^k$ is positive.
+It is of course closed.
+
+Let $\eta$ be a K\"ahler metric on $Y$.
+There exists $\delta > 0$ such that $\omega - \delta f^*\eta$ is still a K\"ahler metric.
+Then
+\begin{align*}
+0 \leq f_*(\omega - \delta f^*\eta)^k
+&= f_* \omega^k 
+- k \delta f_*(\omega^{k-1} \wedge f^*\eta)
++ O(\delta^2)
+\\
+&= f_* \omega^k 
+- k \delta f_*\omega^{k-1} \wedge \eta
++ O(\delta^2).
+\end{align*}
+We are picking things so that $f_*\omega^{k-1}$ is of degree zero, which means it is a positive constant as we saw before.
+By compactness we then see that $c \delta \eta \leq f_*\omega^k$ for some positive $c$, so $f_*\omega^k$ is a K\"ahler current.
+
+There exists a K\"ahler metric in the cohomology class of a K\"ahler current $T$ if and only if $[T]_{Z}$ is a K\"ahler class for every irreducible component of the Lelong sublevel sets $E_c(T)$.
+
+By Demailly--Paun we can also prove that
+\[
+\int_Z ([f_*\omega^k])^p > 0
+\]
+for any irreducible $p$-dimensional analytic subspace $Z \subset Y$.
+This is somewhat troubling because we can't take cup products of currents.
+
+
+Let $T$ be in $\mathcal N$, that is, the cone of classes in $H^{m-1,m-1}(Y,\RR)$ generated by positive currents of type $(m-1,m-1)$.
+Then a class $\alpha$ is nef if and only if $\<\alpha, T\> \geq 0$ for all such $T$.
+We have
+\[
+\< f_* \omega^k, T \>
+= \< \omega^k, f^*T \>
+\geq 0
+\]
+if $f^*T$ is positive because $\omega^k$ is (strongly) positive.
+Demailly only says that $f^*T$ is positive if $f$ is a submersion (Prop. III.1.17, p. 134).
+That is a bit more than we wanted to assume.
+
+
+
+
+\section{4. September 2024}
+
+\paragraph{Thomas}
+
+I was able to help Thomas with a little problem.
+He asked:
+
+If we have a compact K\"ahler manifold $X$ such that $c_1 \wedge \omega\^{n-1} \leq 0$ for all K\"ahler classes $\omega$ and there exists one class $\omega_0$ such that $c_1 \wedge \omega\^{n-1} = 0$, then is $c_1 = 0$?
+
+This is a generalization of the standard result that if $u \wedge \omega\^{n-1} = 0$ for all K\"ahler classes $\omega$ then $u = 0$.
+It is in fact true for any $(1,1)$-class $u$:
+
+
+\begin{prop}
+Let $X$ be a compact K\"ahler manifold.
+Let $u$ be a $(1,1)$-class on $X$ such that $u \wedge \omega\^{n-1} \leq 0$ for all K\"ahler classes $\omega$.
+Suppose that $u \wedge \omega_0^{n-1} = 0$ for one K\"ahler class $\omega_0$.
+Then $u = 0$.
+\end{prop}
+
+\begin{proof}
+As all decent people we write $\omega\^{k} := \omega^k / k!$.
+Consider the smooth function
+\[
+f(\omega) = \int_X u \wedge \omega\^{n-1}.
+\]
+By hypothesis we have $f(\omega) \leq 0$ for any K\"ahler class $\omega$, and it attains its minimum at $\omega_0$ in the open K\"ahler cone, so $d f(\omega_0) = 0$.
+
+Note that $u$ is $\omega_0$-primitive by hypothesis.
+We also see that
+\[
+0 = d_{\bar u} f(\omega_0) 
+= \int_X u \wedge \bar u \wedge \omega_0\^{n-2}
+= - \|u\|^2
+\]
+by the Hodge--Riemann bilinear relations; see Huybrechts, Corollary~1.2.36.
+\end{proof}
+
+\subsection*{Examples of geometrically negatively curved K\"ahler manifolds?}
+
+I was telling Thomas about the splitting $V \otimes V = \bigwedge^2 V \oplus \Sym^2 V$ and how it relates to K\"ahler curvature tensors, and how there is maybe a notion of positivity for K\"ahler metrics between Griffiths and Nakano positivities, where the metric is positive if the form on $\Sym^2 V$ its curvature tensor is a pullback of is positive.
+Can we find examples of this?
+Take for example a hypersurface $X \subset T$ in a complex torus $T$.
+Is $X$ geometrically negatively curved?
+
+Take the flat metric on the torus.
+We have
+\[
+\begin{tikzcd}
+0 \ar[r] &
+T_X \ar[r,"j"] &
+T_{T|X} \ar[r,"q"] &
+N_{X/T} \ar[r] &
+0
+\end{tikzcd}
+\]
+and the curvature tensor of $X$ is
+\[
+R(\alpha, \ov\beta, \gamma, \ov\delta)
+= - \< \sigma(\alpha) \gamma, \ov{\sigma(\beta) \delta} \>_{N_{X/T}},
+\]
+where $\sigma : \Sym^2 T_X^* \to N_{X/T}$ is the second fundamental form.
+Recall that $N_{X/T}$ is just a line bundle.
+If $\sigma$ is a perfect pairing then $R$ is geometrically negative.
+But $\dim \Sym^2 T_X^* = \binom n2 > 1 = \dim N_{X/T}$ so $\sigma$ must have a kernel.
+Therefore $X$ is not geometrically negative.
+
+In general if $Y \subset X$ then we have
+\[
+\begin{tikzcd}
+0 \ar[r] &
+T_Y \ar[r,"j"] &
+T_{X|Y} \ar[r,"q"] &
+N_{Y/X} \ar[r] &
+0
+\end{tikzcd}
+\]
+and the curvature tensor of $Y$ is
+\[
+R_Y(\alpha, \ov\beta, \gamma, \ov\delta)
+= R_X(\alpha, \ov\beta, \gamma, \ov\delta)
+- \< \sigma(\alpha) \gamma, \ov{\sigma(\beta) \delta} \>_{N_{Y/X}},
+\]
+where $\sigma : \Sym^2 T_Y^* \to N_{Y/X}$ is the second fundamental form.
+Suppose the dimension of $Y$ is very low compared to that of $X$; $\binom{\dim Y+1}{2} \leq \dim X - \dim Y$ so that $\sigma$ might be injective.
+If $Y$ is a surface we for example need $3 \leq \dim X - 2$, so $\dim X \geq 5$.
+
+
+
+
+
 
 \section{12. August 2024}
 
@@ -1211,8 +3268,8 @@ $$
 
 \section{28. June 2023}
 
-Let $R$ be the curvature tensor of a K\"ahler metric on a surface and $(e_1,
-\ldots, e_2)$ a local orthonormal basis of $T_X$.
+Let $R$ be the curvature tensor of a K\"ahler metric on a surface and let $(e_1,
+\ldots, e_2)$ be a local orthonormal basis of $T_X$.
 Let $v = x_1 e_1 + x_2 e_2$.
 Then
 $$
@@ -4649,8 +6706,7 @@ which should imply that $\tau_{12}$ is real.
 
 \section{8. November 2022}
 
-There was a fun paper on the arXiv today: https://arxiv.org/abs/2211.03469
-
+There was a fun paper on the arXiv today.\footnote{\url{https://arxiv.org/abs/2211.03469}}
 In it they review a construction of Donaldson.
 Let $(X,\omega)$ be a K\"ahler manifold.
 Then there exists a complex manifold $p : Z \to X$ called the extension of $X$
@@ -5852,7 +7908,7 @@ The only part of our curvature tensor that survives at $x$ is thus $R_\lambda =
 R_{X/B}$,
 which is positive, so $R_\lambda$ is positive on $T_{X/B}$.
 
-Now pick an auxiliary Hermitian metric on $X$ and define a compact sphere bundle
+Now pick an auxiliary Hermitian metric on $X$ and define a sphere bundle
 $S(T_X) \subset T_X$ to test positivity on.
 Let
 \begin{align*}
@@ -6436,7 +8492,11 @@ Let $f : \kk R \to \kk R$ be a continuous function, and let $v \in \kk R^n$. The
 where $\omega_n$ is the volume of the $n$-sphere.
 
 
-I want to show this by factorizing the constant map $S^{n-1} \to \{*\}$ as $S^{n-1} \to [-|v|, |v|] \to \{*\}$, apply functoriality of the pushforward, and use integration over fibers.
+I want to show this by factorizing the constant map $S^{n-1} \to \{*\}$ as 
+\[
+S^{n-1} \to [-|v|, |v|] \to \{*\},
+\]
+apply functoriality of the pushforward, and use integration over fibers.
 
 First assume $v = 0$. Then the statement we want to prove is
 \[
@@ -6931,9 +8991,10 @@ If $\dim S > 1$ then there always exists a nonzero morphism $f \in \Hom(S, V/S)$
 
 
 \section*{2. March 2021}
+
 \subsection*{Estimating the norm of the exterior product}
 
-Let \(V\) be a real finite-dimensional vector space, and let \(\bigwedge^\bullet V\) be the exterior algebra of \(V\).
+Let \(V\) be a real finite-dimen\-sional vector space, and let \(\bigwedge^\bullet V\) be the exterior algebra of \(V\).
 An inner product on \(V\) induces inner products on each component \(\bigwedge^k V\) of the exterior algebra.
 Recall that we have the exterior product
 \[

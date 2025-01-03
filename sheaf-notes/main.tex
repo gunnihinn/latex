@@ -1,0 +1,372 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{lmodern}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{fancyref}
+\usepackage[colorlinks=true]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[amsmath,thref,thmmarks,hyperref]{ntheorem}
+
+\usepackage{tikz-cd}
+
+\theorembodyfont{\itshape}
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+
+\theorembodyfont{\rm}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+\newtheorem{rema}[theo]{Remark}
+\newtheorem*{claim}{Claim}
+
+\theoremseparator{:}
+\theoremsymbol{\ensuremath{\Box}}
+\newtheorem*{proof}{Proof}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\newcommand{\sh}[1]{#1}
+\newcommand{\cat}[1]{\mathsf{#1}}
+
+\def\qedhere{}
+
+\def\^#1{^{[#1]}}
+\def\qandq{\quad\text{and}\quad}
+\def\ov#1{\overline{#1}}
+
+\def\NN{\mathbf{N}}
+\def\ZZ{\mathbf{Z}}
+\def\QQ{\mathbf{Q}}
+\def\RR{\mathbf{R}}
+\def\CC{\mathbf{C}}
+
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\GL}{GL}
+\def\Im{\operatorname{Im}}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Coker}{Coker}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+
+\newcommand{\ext}[1]{\bigwedge{}^{\!\!#1}\,}
+
+\newcommand{\topop}[1]{\cat{Top}(#1)^{\mathrm{op}}}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{Notes on sheaf theory}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Introduction}
+
+Some notes on sheaf theory I wrote for myself.
+I've forgotten a lot about sheaves from back in the day, and some I never
+really knew.
+
+
+
+\section{Sheaves}
+
+We'll work with sheaves on a topological space $X$.
+I suspect it's possible to define them on more general objects, like posets
+maybe, because of the functor definition of a presheaf but I'm interested in
+geometry and my bias will be towards that point of view.
+In particular we won't discuss sheaves in logic or similar venues.
+
+
+\paragraph{Presheaves}
+
+\begin{defi}
+A \emph{presheaf} $\sh{F}$ of sets on a topological space $X$ is the following
+data:
+\begin{enumerate}
+\item
+A set $\sh{F}(U)$ for every open set $U \subset X$.
+
+\item
+For $V \subset U$ a function $\rho_{VU} : \sh{F}(U) \to \sh{F}(V)$, where $\rho_{UU} = \id$.
+
+\item
+If $W \subset V \subset U$ then the diagram
+$$
+\begin{tikzcd}
+\sh{F}(W) \ar[r,"\rho_{WV}"] \ar[dr,"\rho_{WU}"] & \sh{F}(V) \ar[d,"\rho_{VU}"]
+\\
+                & \sh{F}(U)
+\end{tikzcd}
+$$
+commutes.
+\end{enumerate}
+\end{defi}
+
+Define a category $\cat{Top}(X)$ whose objects are the open sets of $X$ and the
+morphisms are inclusions.
+
+\begin{prop}
+A presheaf on $X$ is exactly a functor $\topop{X} \to
+\cat{Ens}$.
+\end{prop}
+
+\begin{proof}
+That a presheaf defines a functor is clear.
+
+Let $\sh{F} : \topop{X} \to \cat{Ens}$ be a functor.
+Then we get objects $\sh{F}(U)$ needed for condition 1 and morphisms like needed
+for conditions 2 and 3 as part of the functor data.
+Condition 3 in the definition of a presheaf is met automatically.
+A functor takes the identity to the identity, so we see that $\rho_{UU} 
+= \sh{F}(\id_U) = \id$.
+\end{proof}
+
+We also define presheaves of Abelian groups, rings, modules, and so on by
+requiring the sets $\sh{F}(U)$ to have those structures and the restriction
+morphisms to be morphisms of those structures.
+Or, by the above, just pick a category $\cat{C}$ and define a presheaf of $\cat{C}$
+objects on $X$ to be a functor $\topop{X} \to \cat{C}$.
+
+\begin{rema}
+Note that $\varnothing$ is an initial object in $\cat{Top}(X)$.
+If $U \subset X$ is open then $\varnothing \subset U$ so we get a morphism 
+$\sh{F}(U) \to \sh{F}(\varnothing)$.
+If $C$ has a terminal object this suggests that $\sh{F}(\varnothing)$ should be
+that object, but the axioms do not require this.
+Generally there should exist functors that do not take terminal objects to
+terminal objects, so this may not be true for arbitrary presheaves, but is
+often true for the sheaves that come up naturally.
+\end{rema}
+
+
+\begin{exam}
+Let $\cat{C}$ be a category and $C$ some object in it.
+Then $\sh{F}(U) = C$ with all morphisms the identity is a presheaf on $X$, called
+a constant presheaf.
+\end{exam}
+
+\begin{exam}
+On a topological space we have the presheaf of all real-valued functions, or
+maybe more reasonably, the presheaf $\cc{C}$ of all continuous functions.
+
+On a smooth manifold we have the presheaf $\cc{C}^\infty$ of smooth functions.
+On a complex manifold the presheaf $\cc O$ of holomorphic functions.
+
+Similarly we get the presheaf of sections of a vector (or fiber, or principal)
+bundle over a space.
+\end{exam}
+
+
+\paragraph{Sheaves}
+
+Continuous functions are determined by their local behavior, and can be glued
+together to form a function defined on a larger space.
+A sheaf captures this behavior.
+
+
+\begin{defi}
+A \emph{sheaf} $\sh{F}$ on a space $X$ is a presheaf that satisfies:
+\begin{enumerate}
+\item
+If $(U_\alpha)$ is an open covering of $U$ and $s, t \in \sh{F}(U)$ are such that
+$s_{|U_\alpha} = t_{|U_\alpha}$ for all $\alpha$, then $s = t$.
+
+\item
+If $(U_\alpha)$ is an open covering of $U$ and $s_\alpha \in \sh{F}(U_\alpha)$
+are such that $\rho_{U_\beta U_\alpha}s_{\alpha} = \rho_{U_\alpha U_\beta}
+s_\beta$ for all $\alpha,\beta$, then there exists $s \in \sh{F}(U)$ such that
+$s_\alpha = \rho_{U_\alpha U} s$ for all $\alpha$.
+\end{enumerate}
+\end{defi}
+
+
+\begin{exam}
+Presheaves of functions are almost always sheaves.
+This is the case for presheaves of continuous, smooth, and holomorphic
+functions on a space where those make sense.
+\end{exam}
+
+\begin{exam}
+Let $\sh{F}$ be the presheaf of bounded continuous functions on $\RR$.
+This is not a sheaf:
+Let $U_n = (-n, n)$ for $n > 0$ be an open covering of $\RR$ and let
+$s_n = \id_{U_n}$.
+These elements do not glue to a section of $\sh{F}$ on $\RR$, as the result is
+not bounded.
+\end{exam}
+
+
+\paragraph{Morphisms}
+
+\begin{defi}
+A morphism $f : \sh{F} \to \sh{G}$ of presheaves is
+a morphism $f_U : \sh{F}(U) \to \sh{G}(U)$
+for every open set $U$, such that
+for every open $V \subset U$ the diagram
+$$
+\begin{tikzcd}
+\sh{F}(V) \ar[d] \ar[r,"f_V"] & \sh{G}(V) \ar[d]
+\\
+\sh{F}(U) \ar[r,"f_U"] & \sh{G}(U)
+\end{tikzcd}
+$$
+commutes.
+A morphism of sheaves is a morphism of the underlying presheaves.
+\end{defi}
+
+Equivalently, a morphism $f : \sh{F} \to \sh{G}$ is a natural transformation of
+the corresponding functors $\sh{F} : \topop{X} \to \cat{C}$ and $\sh{G} : \topop{X}
+\to \cat{D}$.
+A common source of sheaf morphisms is continous maps between topological spaces.
+
+
+\begin{defi}
+Let $f : X \to Y$ be a continuous map between topological spaces.
+Let $\sh{F}$ be a presheaf over $X$.
+The \emph{direct image} of $\sh{F}$ is the presheaf over $Y$ defined as
+$f_*\sh{F}(U) = \sh{F}(f^{-1}(U))$ for open sets $U \subset Y$.
+\end{defi}
+
+If $f : X \to Y$ is a continuous map, it induces a functor $f^{-1} : \topop{Y}
+\to \topop{X}$ by $U \mapsto f^{-1}(U)$.
+The direct image of a sheaf $\sh{F} : \topop{X} \to \cat{C}$ is the composition
+$\sh{F} f^{-1} : \topop{Y} \to \cat{C}$.
+
+
+\begin{prop}
+If $\sh{F}$ is a sheaf over $X$, and $f : X \to Y$ is continuous, then
+$f_*\sh{F}$ is a sheaf over $Y$.
+\end{prop}
+
+\begin{proof}
+Let $(U_\alpha)$ be a covering of $U \subset Y$.
+
+Let $s, t$ be sections of $f_*\sh{F}(U)$ such that $s_\alpha = t_\alpha$ for
+all $\alpha$. The same is then true for the covering $(f^{-1}(U_\alpha))$ of
+$f^{-1}(U)$. As $\sh{F}$ is a sheaf we then have $s = t$ in $\sh{F}(f^{-1}(U))
+= f_*\sh{F}(U)$.
+
+Now let $s_\alpha$ be sections of $f_*\sh{F}(U_\alpha) = \sh{F}(f^{-1}(U_\alpha))$
+such that $s_\alpha = s_\beta$ on $U_\alpha \cap U_\beta$.
+Then there exists a section $s$ of $\sh{F}(f^{-1}(U)) = f_*\sh{F}(U)$ such that
+$s_{|U_\alpha} = s_\alpha$ for all $\alpha$.
+\end{proof}
+
+\begin{prop}
+If $f : X \to Y$ is continuous
+and $\phi : \sh{F} \to \sh{G}$ is a morphism of presheaves over $X$,
+then there is an induced morphism $f_*\phi : f_*\sh{F} \to f_*\sh{G}$.
+\end{prop}
+
+
+We'd like to be able to move sheaves in the other direction as well; given a
+sheaf on $Y$ we'd like to produce one on $X$.
+The naive definition of $f^{-1}\sh{F}(U) = \sh{F}(f(U))$ doesn't work as $f(U)$
+may not be open.
+To work around this we need to take direct limits over open sets that
+approximate $f(U)$.
+
+\begin{defi}
+Let $f : X \to Y$ be a continuous map.
+Let $\sh{F}$ be a presheaf on $Y$ with values in a category with direct limits.
+The \emph{inverse image} of $\sh{F}$ is the presheaf over $X$ defined as
+$$
+f^{-1}\sh{F}(U)
+= \varinjlim_{f(U) \subset V} \sh{F}(V),
+$$
+where $V$ are open sets.
+\end{defi}
+
+
+\paragraph{Sheafification}
+
+
+\begin{theo}
+Let $\sh{F}$ be a presheaf on $X$.
+There exists a sheaf $\widehat{\sh{F}}$ on $X$ and a presheaf morphism $\sh{F}
+\to \widehat{\sh{F}}$ such that for any other sheaf $\sh{G}$ and presheaf
+morphism $\sh{F} \to \sh{G}$ there is a unique sheaf morphism 
+$\widehat{\sh{F}} \to \sh{G}$ such that 
+$$
+\begin{tikzcd}
+\sh{F} \ar[r] \ar[dr] & \widehat{\sh{F}} \ar[d]
+\\
+             & \sh{G}
+\end{tikzcd}
+$$
+commutes.
+\end{theo}
+
+\begin{proof}
+TODO. Done in Hartshorne.
+\end{proof}
+
+The sheaf $\widehat{\sh{F}}$ is called the sheafification of $\sh{F}$.
+If $\sh{F}$ is already a sheaf we of course have $\widehat{\sh{F}} = \sh{F}$.
+
+
+
+\paragraph{Kernels and friends}
+
+When we're working in with sheaves of objects of a good enough category (that
+is, an Abelian category, which we will almost always do as we care about
+geometry) we get the usual algebraic objects from morphisms:
+
+\begin{defi}
+Let $\sh{F}$ and $\sh{G}$ be a sheaves of objects in Abelian categories and let
+$f : \sh F \to \sh G$ be a morphism.
+\begin{itemize}
+\item
+$\Ker f$ is the sheaf associated to the presheaf $U \mapsto \Ker f_U$.
+
+\item
+$\Im f$ is the sheaf associated to the presheaf $U \mapsto \Im f_U$.
+
+\item
+$\Coker f$ is the sheaf associated to the presheaf $U \mapsto \Coker f_U$.
+\end{itemize}
+\end{defi}
+
+This doesn't make sense right now because we haven't said what the ``sheaf
+associated to a presheaf'' is.
+We'll talk about that when we get to the sheafification of a presheaf.
+For now, it exists and is unique enough.
+
+This is necessary because while the kernel of a morphism of sheaves is again a
+sheaf, the image and cokernel of a morphism may fail to be sheaves:
+
+\begin{exam}
+Consider the sheaf $\cc O$ of holomorphic functions and the sheaf
+$\cc O^*$ of nowhere-vanishing holomorphic functions on $\CC \setminus \{0\}$.
+There is a sheaf morphism $\exp : \cc O \to \cc O^*$.
+If we pick an open cover $(U_\alpha)$ of $\CC \setminus \{0\}$ made up of
+simply connected sets then we can find local sections $s_\alpha$ such that
+$\exp s_\alpha = \id$.
+However, there is no section $s$ of $\cc O$ such that $\exp s = \id$ on all of
+$\CC \setminus \{0\}$ so the local identity sections of $\Im \exp$ fail to glue
+to a global section.
+\end{exam}
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+\end{document}

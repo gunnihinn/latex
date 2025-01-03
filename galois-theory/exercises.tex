@@ -1,0 +1,977 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,french]{babel}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+\newtheorem*{rema}{Remark}
+\newtheorem{e}[theo]{Exercise}
+\newenvironment{s}{\begin{proof}[Solution]}{\end{proof}}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\ov#1{\overline{#1}}
+
+\def\CC{\mathbf{C}}
+\def\EE{\mathcal{E}}
+\def\FF{\mathbf{F}}
+\def\NN{\mathbf{N}}
+\def\RR{\mathbf{R}}
+\def\QQ{\mathbf{Q}}
+\def\ZZ{\mathbf{Z}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\ord}{ord}
+
+\title[Galois theory]{A middle-aged man\\learns Galois theory}
+\author{Gunnar \TH\'or Magn\'usson}
+\email{gunnar@magnusson.io}
+\date{\today}
+
+
+\begin{document}
+
+
+\begin{abstract}
+A middle-aged man learns enough Galois theory to prove the insolvability of the quintic.
+\end{abstract}
+
+
+\maketitle
+
+
+
+\section*{Introduction}
+
+In school, sometime around when I was 12, I read that there was no formula for the solutions of a fifth-degree equation.
+I didn't understand how someone could know such a thing couldn't exist.
+Had they checked everywhere?
+
+During undergrad I had the idea that I didn't like algebra very much, that I was more interested in analysis and geometry.
+So I took all the courses I could on complex analysis, geometry, topology, logic and probability theory, and never learned Galois theory.
+Not that I learned all those topics I took courses on, necessarily.
+In graduate school I had to immerse myself in complex differential geometry, and certainly had no time for frivolous unrelated things like field theory.
+
+It is somewhat later and I've come to realize I really like algebra.
+In fact it's analysis I have little taste for.
+I'm also still curious about Abel and Ruffini's theorem.
+I'd like to dot this i and cross this t from my childhood.
+Why can't we solve fifth-degree equations?
+Of course I know the reason is (waves hands) Galois theory and that the symmetric group isn't something.
+But knowing the general outline isn't the same as understanding it, and I'd like to understand~it.%
+
+
+
+\section{A refresher on fields}
+
+Galois theory is about a relationship between groups and fields.
+It behooves us to recall some facts about the latter, at least.
+
+We all remember what a field is:
+A commutative ring where every non\-zero element is invertible.
+The very basic things are taken as granted, like the uniqueness of the neutral elements for addition and multiplications and inverses for the same operations.
+A field morphism $f : E \to F$ is just a ring morphism.
+The very basic facts about ring morphisms are also taken for granted, like them taking neutral elements to neutral elements, inverses to inverses, and so on.
+
+Let's begin with two ways to construct fields.
+
+\begin{e}
+Let $R$ be a commutative ring and $\mathfrak m \subset R$ a maximal ideal.
+Then $k := R / \mathfrak m$ is a field.
+\end{e}
+
+\begin{s}
+Since $R$ is a commutative ring then so is $k$.
+Since $\mathfrak m$ is a prime ideal $k$ is an integral ring, that is, the product of two nonzero elements is nonzero.
+
+Let $I \subset k$ be an ideal and suppose that $I \not= \{0\}$.
+Let $\pi : R \to k$ be the projection.
+Then $J := \pi^{-1}(I)$ is a nontrivial ideal of $R$:
+If $x \in J$ and $y \in R$ then $\pi(yx) = \pi(y) \pi(x) \in I$, so $yx \in J$.
+Furthermore $J$ contains $\mathfrak m$ since $\pi(\mathfrak m) = 0 \in I$, and $J$ also contains an element not in $\mathfrak m$, so $J = R$.
+
+Let now $x \in k$ be nonzero.
+Then $I := k x$ is a nontrivial ideal, so $I = R$.
+Therefore there exists $y \in k$ such that $xy = 1$.
+\end{s}
+
+\begin{e}
+Let $R$ be an integral domain.
+Then the field of fractions of $R$ is a field.
+\end{e}
+
+\begin{s}
+The field of fractions of $R$, denoted $\Frac R$, is the quotient of the set
+\(
+R \times R^\times
+\)
+with the operations
+\[
+(a,b) + (c,d) = (ad + bc, bd)
+\quad\text{and}\quad
+(a,b) \cdot (c,d) = (ac, db)
+\]
+by the equivalence relation $(a,b) \sim (c,d)$ if $ad = bc$.
+The operations are commutative and have the neutral elements $[(0,1)]$ and $[(1,1)]$, respectively.
+The additive inverse of $[(a,b)]$ is $[(-a,b)]$ and the multiplicative inverse of a nonzero $[(a,b)]$ is $[(b,a)]$.
+Therefore $\Frac R$ is a field.
+\end{s}
+
+
+\begin{exam}
+\phantom{.}
+\begin{itemize}
+\item
+The integers $\ZZ$ are a principal ideal domain.
+An ideal $n\ZZ \subset \ZZ$ is maximal exactly when $n$ is prime.
+Therefore $\FF_p := \ZZ / p\ZZ$, where $p \in \ZZ$ is prime, is a field.
+
+\item
+The integers $\ZZ$ are an integral domain, so their field of fractions $\QQ$ is a field.
+
+\item
+If $R$ is an integral domain, then so is $R[X]$.
+Therefore its field of fractions $R(X)$ is a field.
+In particular the rational functions with coefficients in a field are a field.
+
+\item
+The real numbers $\RR$ are a field.
+So are the complex numbers $\CC$.
+
+\item
+If $C$ is a connected Riemann surface, then the field of meromorphic functions on $C$ is, unsurprisingly, a field.
+\end{itemize}
+\end{exam}
+
+
+
+\begin{e}
+Any field morphism $f : E \to F$ is injective.
+\end{e}
+
+\begin{s}
+If $x \in E$ is nonzero then
+\[
+1 
+= f(1)
+= f(x x^{-1})
+= f(x) f(x)^{-1}
+\]
+so $f(x) \not= 0$.
+\end{s}
+
+A field morphism is then always either an embedding or an isomorphism.
+The category of fields then has neither an initial nor a terminal object.
+
+\begin{defi}
+Let $E$ be a field and $f : \ZZ \to E$ the ring morphism that sends $1_{\ZZ}$ to $1_E$.
+If $f$ is injective we say that the field $E$ has characteristic zero.
+Otherwise $\Ker f = \ZZ / n \ZZ$ for some $n > 0$ and we say $E$ has characteristic $n$.
+\end{defi}
+
+
+\begin{e}
+The characteristic of a field is either prime or zero.
+\end{e}
+
+\begin{s}
+Suppose it isn't zero and that $\Ker f = \ZZ / n \ZZ$.
+Let $n = km$.
+Then $f(km) = f(n) = 0$ so $f(k) = 0$ or $f(m) = 0$.
+If $f(k) = 0$ then $k = an = km$, so $m = 1$.
+Likewise we get $k = 1$ if $f(m) = 0$.
+\end{s}
+
+
+\begin{defi}
+A \emph{finite field} is a field with finitely many elements.
+\end{defi}
+
+By the above the characteristic of a finite field is a prime number.
+If the characteristic of a field is zero it contains a copy of $\QQ$, so it has infinitely many elements.
+There are also infinite fields of characteristic $p$:
+Take any field of characteristic $p$ and consider the field of rational functions with coefficients in it.
+
+
+\begin{e}
+If $F$ is a finite field of characteristic $p$ then $|F| = p^n$ for some $n > 0$.
+\end{e}
+
+\begin{s}
+Consider the map $f : \ZZ \to F$ that sends $1$ to $1$.
+By hypothesis its kernel is $\ZZ / p\ZZ$, and the induced map $f : \ZZ / p\ZZ \to F$ is a field morphism.
+Therefore $F$ contains a copy of $\ZZ / p\ZZ$ and we can consider $F$ as a vector space over $\ZZ / p \ZZ$.
+It is clearly finite-dimensional, as it is finite, so it is isomorphic to $(\ZZ / p \ZZ)^n$ for some $n$, and therefore contains $p^n$ elements.
+\end{s}
+
+
+We'll see later (Exercise~\ref{field_p_n}) that if $p$ is a prime and $n > 0$ there exists a field with $p^n$ elements.
+
+If $F$ is a field we write $F^\times$ for the set of nonzero elements of $F$.
+This is exactly the set of invertible elements of $F$.
+It forms an Abelian group under multiplication.
+
+
+\begin{e}
+Show that if $F$ is a field and $G \subset F^\times$ is a finite subgroup, then $G$ is cyclic.
+\end{e}
+
+\begin{s}
+TODO.
+\end{s}
+
+
+\section{Field theory}
+
+
+This more or less follows Chapter~2 in Artin's \emph{Galois theory}.
+
+
+\subsection*{Field extensions}
+
+
+\begin{defi}
+Let $E$ be a field.
+A \emph{subfield} of $E$ is a subset $F \subset E$ that is a field under the operations of $E$.
+We say that $E$ is an \emph{extension} of $F$.
+\end{defi}
+
+If we have a field morphism $f : F \to E$ we may or may not distinguish between $F$ and its image in $E$.
+If $F \subset E$ we can view $E$ as a vector space over $F$.
+We say $E$ is an \emph{extension} of $F$.
+
+
+\begin{e}
+Let $F \subset E$ be an extension and let $\alpha_1, \ldots, \alpha_n \in E$.
+Show that 
+\[
+F(\alpha_1, \ldots, \alpha_n)
+:= \biggl\{
+\frac{p(\alpha_1, \ldots, \alpha_n)}{q(\alpha_1, \ldots, \alpha_n)}
+\Bigm|
+\begin{gathered}
+p,q \in F[X_1, \ldots, X_n]\\[-6pt]
+q(\alpha_1, \ldots, \alpha_n) \not= 0
+\end{gathered}
+\biggr\}
+\]
+is a field extension of $F$ contained in $E$.
+\end{e}
+
+\begin{s}
+This is clear.
+\end{s}
+
+\begin{defi}
+The field $F(\alpha_1, \ldots, \alpha_n)$ is the field \emph{generated by} $\alpha_1, \ldots, \alpha_n$.
+\end{defi}
+
+
+\subsection*{The degree of an extension}
+
+\begin{defi}
+The \emph{degree} of $E$ over $F$ is $[E:F] := \dim_F E$.
+\end{defi}
+
+
+\begin{e}
+Let $K \subset F \subset E$ be fields.
+Show that
+\[
+[E:K] = [E:F] \, [F:K].
+\]
+\end{e}
+
+\begin{s}
+Pick vector space isomorphisms $E \cong K^{[E:K]}$, $F \cong K^{[F:K]}$ and $E \cong F^{[E:F]}$.
+Then
+\[
+K^{[E:K]}
+\cong E
+\cong F^{[E:F]}
+\cong (K^{[F:K]})^{[E:F]}
+\cong K^{[F:K][E:F]}
+\]
+which implies the result.
+\end{s}
+
+
+
+\subsection*{Algebraic elements}
+
+
+\begin{defi}
+Let $F \subset E$ be a field extension.
+If $x \in E$ and there exists $P \in F[X]$ such that $P(x) = 0$ we say $x$ is an \emph{algebraic} element of $E$.
+\end{defi}
+
+
+\begin{e}
+Let $F \subset E$ and let $x \in E$ be algebraic.
+Show that there is a unique monic polynomial of lowest degree that annihilates $x$.
+\end{e}
+
+\begin{s}
+Let
+\[
+I := \{ P \in F[X] \mid P(x) = 0 \}.
+\]
+If $Q \in F[X]$ and $P \in I$ then $(QP)(x) = 0$ so $QP \in I$, so $I$ is an ideal in $F[X]$.
+Since $F$ is a field this is a principal ideal domain, so $I = (R)$ for some polynomial $R$.
+That polynomial is necessarily irreducible, and we may multiply it by a constant to make it monic.
+Any other polynomial that annihilates $x$ is a multiple of $R$, so it is of the lowest degree among all polynomials that do so.
+\end{s}
+
+
+\begin{defi}
+The unique monic polynomial of lowest degree that annihilates an algebraic element is called its \emph{minimal polynomial}.
+\end{defi}
+
+
+\begin{e}
+Let $F \subset E$ be a field extension and let $a \in E$ be algebraic with minimal polynomial $M$.
+Show that
+\[
+F[X]/(M) \cong F(a).
+\]
+\end{e}
+
+\begin{s}
+The quotient $F[X]/(M)$ is a field since $M$ is irreducible, and we have a diagram
+\[
+\begin{tikzcd}
+F[X] \ar[d,"\pi"] \ar[dr,"\operatorname{ev_a}"] &
+\\
+F[X]/(M) & F(a)
+\end{tikzcd}
+\]
+where $\operatorname{ev_a}(P) := P(a)$.
+That map is constant on the fibers of $\pi$ so there is a unique map $f : F[X]/(M) \to F(a)$ that makes the diagram commute, defined by $f([P]) = P(a)$.
+This map is a field morphism, and thus injective.
+
+Let $x \in F(a)$ and find $P,Q \in F[X]$ such that $x = P(a) / Q(a)$.
+Since $F[X]/(M)$ is a field there exists $[Q]^{-1}$ in $F[X]/(M)$ that satisfies $[Q] [Q]^{-1} = 1$.
+Then
+\[
+1 = f(1)
+= f([Q] [Q]^{-1})
+= f([Q]) f([Q]^{-1})
+= Q(a) R(a)
+\]
+for a polynomial $R \in F[X]$, so $R(a) = 1/Q(a)$ in $F(a)$.
+Therefore 
+\[
+x = P(a)/Q(a) = P(a)R(a) = (PR)(a) = f(PR).
+\]
+Then $f$ is surjective, and thus a field isomorphism.
+\end{s}
+
+
+\begin{e}
+Let $F \subset E$ be a field extension and let $a \in E$.
+Show the following are equivalent:
+\begin{enumerate}
+\item
+$a$ is algebraic over $F$.
+
+\item
+The extension $F \subset F(a)$ is finite.
+\end{enumerate}
+\end{e}
+
+\begin{s}
+Suppose $a$ is algebraic and let $M$ be its minimal polynomial of degree $m$.
+Then $F[X]/(M) \cong F(a)$, so
+\[
+[F(a) : F] = [F[X]/(M) : F] = \deg M.
+\]
+
+Conversely, suppose the extension $F \subset F(a)$ is finite, of degree $m$.
+Then the elements $1, a, a^2, \ldots, a^m$ are linearly dependent; there exist $c_j \in F$ such that $c_0 + c_1 a + \cdots + c_m a^m = 0$.
+But then $P(X) = \sum_{j=0}^m c_j X^j \in F[X]$ annihilates $a$.
+\end{s}
+
+
+\begin{e}
+Let $F \subset E$ be a field extension and let $a \in E$ be algebraic.
+Show that any other element $b \in F(a)$ is algebraic.
+\end{e}
+
+\begin{s}
+Clearly $F(b) \subset F(a)$, and
+\[
+\infty > [F(a) : F]
+= [F(a) : F(b)] [F(b) : F].
+\qedhere
+\]
+\end{s}
+
+
+\begin{e}
+Let $F \subset E$ be a field extension.
+Show that the set of algebraic elements of $E$ is a subfield that contains $F$.
+\end{e}
+
+\begin{s}
+Clearly all elements of $F$ are algebraic, $a$ being annihilated by $X - a$.
+Let $x$ and $y$ be algebraic elements.
+Note that $-x, 1/x \in F(x)$, so they are algebraic.
+Also note that $x + y$ and $xy$ are in $F(x,y)$, and that $F(x,y) = F(x)(y)$.
+Since $y$ is algebraic over $F$ it is also algebraic over $F(x)$.
+We have $[F(x,y):F] = [F(x)(y) : F(x)] [F(x) : F]$, so $F(x,y)$ has finite degree over $F$.
+Now $F(x+y) \subset F(x,y)$ and $F(xy) \subset F(x,y)$, so both of those have finite degrees over $F$, so $x+y$ and $xy$ are algebraic.
+\end{s}
+
+
+
+\begin{defi}
+A field $F$ is \emph{algebraically closed} if any nonconstant polynomial $P \in F[X]$ has a root in $F$.
+\end{defi}
+
+\begin{e}
+Show that a finite field is never algebraically closed.
+\end{e}
+
+\begin{s}
+Let $F = \{a_1, \ldots, a_n\}$ and set $P(X) = \prod_{j=1}^n(X - a_j) + 1$.
+Then $P(a) = 1$ for all $a \in F$ so it has no roots in $F$.
+\end{s}
+
+
+
+\begin{e}
+Show that $\CC$ is algebraically closed.
+\end{e}
+
+\begin{s}
+There are many ways to do this, differing wildly in sophistication.
+Many proofs rely on results from complex analysis in one variable or differential topology.
+Here's a fairly low-tech proof that follows d'Alembert's original idea:
+
+Let $p(z) = a_0 + a_1 z + \cdots + a_n z^n$ be a polynomial of degree $n > 1$ with coefficients $a_j \in \CC$.
+If we write
+\[
+    p(z) = a_n z^n (1 + a_{n-1}/z + \cdots + a_0/z^n)
+\]
+then the triangle inequality shows that $1 + a_{n-1}/z + \cdots + a_0/z^n \to 1$ as $|z| \to \infty$,
+so $|p|$ tends to the same limit as $|a_n z^n|$, which is infinity.
+Thus $|p|$ attains a minimum value $m$, as it will be arbitrarily big outside
+a very large disk but attain a minimum on the inside of that compact set.
+
+Suppose that $m > 0$. If $|p|$ attains $m$ at $z_0$, then $q(z) := p(z-z_0)/m$
+attains its minimum at $0$ and its minimum is $1$, so we may assume the same is
+true for $p$. We then have
+\[
+    p(z) = 1 + b_k z^k + \cdots + b_n z^n,
+\]
+where $b_k \not= 0$.
+Note that $|p|^2$ also attains its minimum at $0$ and that its minimum is $1$.
+Now let $w \in \CC$ be such that $w^k = -1/b_k$.
+We have
+\begin{align*}
+    |p(tw)|^2
+    &= (1 - t^k + \cdots + b_n w^n t^n)
+    (1 - t^k + \cdots + \ov{b_n}\ov w^n t^n)
+    \\
+    &= 1 - t^k(2 + t q(t))
+\end{align*}
+for some real-valued polynomial $q$ and for real $t$.
+The function $t \mapsto 2 + tq(t)$ is continuous and takes the value $2$ at $0$,
+so it is positive for small $t > 0$.
+But then $|p(tw)|^2 < 1$ for those small $t$, which contradicts $1$ being its
+minimum.
+\end{s}
+
+
+\subsection*{Splitting fields}
+
+\begin{e}
+Let $F$ be a field and $P \in F[X]$ a polynomial.
+Show there exists an extension $F \subset E$ such that $P$ has a root in $E$.
+\end{e}
+
+\begin{s}
+If $P$ has a root in $F$ there is nothing to do.
+Otherwise factorize $P = \prod_{j=1}^k P_j$, where the $P_j$ are irreducible.
+Note that none of the $P_j$ are linear; otherwise $P$ would have a root in $F$.
+Consider now $E = F[X] / (P_1)$.
+This is a field, because $P_1$ is irreducible, and contains $F$ as the subfield corresponding to degree-$0$ polynomials..
+If $a = [X] \in E$, then
+\[
+P_1(a) 
+= P_1([X])
+= [P_1(X)]
+= 0
+\]
+so $a$ is a root of $P_1$ and thus of $P$.
+\end{s}
+
+
+\begin{defi}
+If $F$ is a field and $P \in F[X]$ a polynomial, a \emph{splitting field} for $P$ is an extension $F \subset E$ such that $P$ splits into linear factors over $E$ and the roots of $P$ in $E$ generate $E$.
+\end{defi}
+
+
+
+
+
+\begin{e}
+Let $F$ be a field and $P \in F[X]$ a polynomial.
+Show there exists a splitting field for $P$.
+\end{e}
+
+\begin{s}
+First write $P = \prod_{j=1}^k P_j$, where $P_j$ are irreducible.
+If we can show the statement for irreducible polynomials it follows for general polynomials, so assume $P$ is irreducible.
+We may also assume $P$ is monic since $F$ is a field.
+If $P$ is linear there is nothing to do.
+Otherwise it has degree $\deg P > 1$.
+There exists an extension $F \subset E_1$ such that $P$ has a root $a_1$ in $E_1$.
+We can then write $P = (X - a_1) P_1$, where $P_1 \in E_1[X]$ and $\deg P_1 = \deg P - 1$.
+Continuing we get a tower of extensions
+\[
+F \subset E_1 \subset \cdots \subset E_{\deg P - 1}
+\]
+and polynomials $P_j \in E_j[X]$ of degree $\deg P_j = \deg P - j$ and elements $a_j \in E_j$ such that $P_{j-1} = (X - a_j) P_j$ in $E_j[X]$.
+The final polynomial $P_{\deg P - 1}$ is linear, so $P_{\deg P - 1} = X - a_n$ for some $a_n \in E_{\deg P - 1}$.
+Then
+\[
+P = \prod_{j=1}^{\deg P} (X - a_j).
+\]
+Therefore there exists an extension of $F$ where $P$ splits into linear factors, and the field generated by the roots of $P$ in this extension is a splitting field for $P$.
+\end{s}
+
+
+\begin{e}
+Let $F$ be a field an $P \in F[X]$ a polynomial.
+Show that any two splitting fields $E$ and $K$ of $P$ are isomorphic.
+\end{e}
+
+\begin{s}
+Let $E = F(a_1, \ldots, a_n)$ and $K = F(b_1, \ldots, b_n)$.
+Define
+\[
+f : E \longrightarrow K,
+\quad
+\sum_j x_j a_j \mapsto \sum_j x_j b_j.
+\]
+Then $f$ is an $F$-linear isomorphism of vector spaces.
+If $x = \sum x_j a_j$ and $y = \sum y_j a_j$ then
+\[
+f(xy) = \sum_{j,k} x_j y_k b_j b_k
+= \biggl(\sum_j x_j b_j \biggr)
+\biggl( \sum_k y_k b_k \biggr)
+= f(x) f(y)
+\]
+so $f$ is in fact a field morphism.
+\end{s}
+
+
+
+\subsection*{Classification of finite fields}
+
+\begin{e}
+\label{field_p_n}
+Let $p$ be a prime and $n > 0$.
+Show that the splitting field of $P[X] = X^{p^n} - X$ contains $p^n$ elements.
+Therefore, for any prime $p$ and $n > 0$, there exists a field $\FF_{p^n}$ that contains $p^n$ elements.
+\end{e}
+
+\begin{s}
+By hypothesis there exist elements $a_1, \ldots, a_{p^n} \in E$ such that
+\[
+X^{p^n} - X
+= \prod_{j=1}^{p^n} (X - a_j).
+\]
+The derivative of $P$ is $P' = p^n X^{p^n-1} - 1 = -1$, which has no roots in $E$ so none of the roots of $P$ are repeated.
+Suppose that $x$ and $y$ are roots of $P$.
+Then $x^{p^n} = x$ and $y^{p^n} = y$, and
+\[
+(xy)^{p^n} = x^{p^n} y^{p^n} = xy,
+\]
+so $xy$ is again a root of $P$.
+Also
+\[
+(x + y)^{p^n}
+= \sum_{j=0}^{p^n} \binom{p^n}{j} x^{j} y^{p^n-j}
+= x^{p^n} + y^{p^n}
+= x + y
+\]
+because $p$ divides $\binom{p^n}{j}$ for $0 < j < p^n$, so $x+y$ is also a root of $P$.
+We further have
+\[
+(x^{-1})^{p^n}
+= (x^{p^n})^{-1}
+= x^{-1}
+\]
+so the inverse of a root is a root.
+If $p$ is even then $-x = x$ for all elements, so $-x$ is a root if $x$ is a root.
+If $p$ is odd then $P$ is an odd function, so $P(-x) = -P(x) = 0$ for a root $x$.
+In either case $-x$ is a root when $x$ is a root.
+Also one of the $a_j$ is $1$ and another is $0$, since both are roots of $P$ in $F$.
+Therefore $K := \{a_1, \ldots, a_{p^n}\}$ is closed under both addition and multiplication, contains $0$ and $1$, and contains the inverses under addition and multiplication of its elements.
+In short, it is a field, over which $P$ splits into linear factors.
+But it is clearly generated by the roots of $P$, as they are all the elements of the field, so it is a splitting field of $P$.
+\end{s}
+
+
+\begin{e}
+Let $F$ be a finite field of characteristic $p$.
+Show that $F \cong \FF_{p^n}$ for some $n$.
+\end{e}
+
+\begin{s}
+Let $n$ be such that $|F| = p^n$.
+Consider the polynomial $P(X) = X^{p^n} - X$ over $F$.
+The group $F^{\times}$ has $p^n-1$ elements.
+By Lagrange's theorem we know that $x^{p^n-1} = 1$ for any $x \in F^\times$, so any nonzero $x$ is a root of $P$, and so is $0$, obviously.
+Therefore $P$ splits over $F$, which is generated by its elements, so it is a splitting field of $P$ and therefore isomorphic to $\FF_{p^n}$.
+\end{s}
+
+
+
+\subsection*{Field automorphisms}
+
+\begin{defi}
+Let $E/F$ be a field extension.
+An automorphism $f$ of $E$ \emph{fixes $F$} if $f(x) = x$ for all $x \in F$.
+We denote the set of all such automorphisms by $\Aut E/F$.
+\end{defi}
+
+\begin{e}
+Show that $\Aut E/F$ is a subgroup of $\Aut E$.
+\end{e}
+
+\begin{s}
+We have $\id_E \in \Aut E/F$.
+If $f,g \in \Aut E/F$ then $f(g(x)) = f(x) = x$ for all $x \in F$, so $fg \in \Aut E/F$.
+Finally $x = f^{-1}(f(x)) = f^{-1}(x)$, so inverses are in $\Aut E/F$.
+\end{s}
+
+
+\begin{defi}
+Let $F$ be a field and $H \subset \Aut F$ a subgroup.
+Define
+\[
+F^H := \{ x \in F \mid \text{$f(x) = x$ for all $f \in H$}\}.
+\]
+\end{defi}
+
+\begin{e}
+Show that $F^H$ is a subfield of $F$.
+\end{e}
+
+\begin{s}
+If $f \in \Aut F$ then $f(0) = 0$ and $f(1) = 1$, so $\{0,1\} \subset F^H$.
+An automorphism is a linear morphism, so sums and additive inverses of elements in $F^H$ are in $F^H$.
+If $x,y \in F^H$ and $f \in H$ then $f(xy) = f(x)f(y) = xy$, so $xy \in F^H$.
+Finally $1 = f(x x^{-1}) = f(x) f(x^{-1}) = x f(x^{-1})$, and by the uniqueness of the multiplicative inverse we have $f(x^{-1}) = x^{-1}$.
+\end{s}
+
+\begin{e}
+Let $E/F$ be a field extension.
+Let $\cc F = \{ K \mid F \subset K \subset E \}$ be the set of intermediate field extensions of $F$.
+Let $\cc G = \{ H \subset \Aut E/F \}$ be the set of subgroups of $\Aut E/F$.
+Both of these sets are partially ordered by inclusion.
+Show that
+\begin{align*}
+\cc F &\to \cc G,
+\quad
+K \mapsto \Aut E/K, 
+\\
+\cc G &\to \cc F,
+\quad
+H \mapsto E^H
+\end{align*}
+define order-reversing maps between the two sets, such that if $L \subset K$ then $\Aut E/K \subset \Aut E/L$ and if $H \subset H'$ then $E^{H'} \subset E^H$.
+\end{e}
+
+\begin{s}
+First note that if $f \in \Aut E/K$ then $f$ fixes all of $K$.
+As $F \subset K$ then $f$ also fixes all of $F$, so $f \in \Aut E/F$, and $A$ is well-defined.
+Now let $F \subset L \subset K \subset E$.
+If $f \in \Aut E/K$ then $f$ also fixes $L$ by the same argument as above, so $f \in \Aut E/L$.
+
+Let $H \subset K \subset \Aut E/F$.
+Let $x \in E^K$, that is, $x$ is such that $f(x) = x$ for all $f \in K$.
+If $f \in H \subset K$ then $f(x) = x$, so $x \in E^H$.
+\end{s}
+
+
+\begin{e}
+Let $E/F$ be a field extension.
+Show that:
+\begin{enumerate}
+\item
+$\Aut E/E = \{ \id_E \}$.
+
+\item
+$E^{\{\id_E\}} = E$.
+
+\item
+$F \subset E^{\Aut E/F}$.
+
+\item
+If $[E:F]$ is finite then $F = E^{\Aut E/F}$.
+\end{enumerate}
+\end{e}
+
+\begin{s}
+For (1), $\Aut E/E$ is the set of automorphisms of $E$ that leave all elements of $E$ fixed.
+This is just $\id_E$.
+
+For (2), the set $E^{\{\id_E\}}$ contains the elements $x$ of $E$ such that $\id_E(x) = x$, which is all elements of $E$.
+
+For (3), $E^{\Aut E/F}$ contains all elements $x$ of $E$ such that $f(x) = x$ for all $x \in F$.
+This certainly contains $F$, but we cannot say it is equal to it.
+
+For (4), let $x \in E \setminus F$.
+Since $[E:F] = n$ is finite we can find elements $x_1 = x, x_2, \ldots, x_n \in E \setminus F$ such that $E = F(x_1, \ldots, x_n)$.
+Define an automorphism $f$ of $E$ by $f(t) = t$ for $t \in F$, $f(x_1) = 1/x_1$ and $f(x_j) = x_j$ for $j > 1$.
+Then $f$ fixes $F$ but not $x$, so $x \not\in E^{\Aut E/F}$.
+\end{s}
+
+
+
+\begin{defi}
+Let $G$ be a group and $F$ a field.
+A \emph{character} is a nonzero group morphism $\sigma : G \to F$.
+\end{defi}
+
+\begin{e}
+Let $\sigma : G \to F$ be a group morphism.
+Show that if $\sigma(g) = 0$ for some $g$ then $\sigma = 0$.
+\end{e}
+
+\begin{s}
+If $h \in G$ then $h = g (g^{-1}h)$ so $\sigma(h) = \sigma(g) \sigma(g^{-1}h) = 0$.
+\end{s}
+
+If $\sigma : G \to F$ be a character then $\sigma(e) = 1$ and $\sigma(g^{-1}) = \sigma(g)^{-1}$ by general properties on group morphisms.
+
+
+\begin{e}
+Let $G$ be a group.
+Show that $\Hom(G, F)$, the set of characters from $G$ to $F$, is a commutative group.
+\end{e}
+
+\begin{s}
+The group operation is $(\sigma \cdot \tau)(g) = \sigma(g) \tau(g)$, which is commutative since multiplication in $F$ is commutative.
+Since
+\begin{align*}
+(\sigma\cdot\tau)(gh)
+= \sigma(gh) \tau(gh)
+&= \sigma(g) \sigma(h) \tau(g) \tau(h)
+\\
+&= \sigma(g) \tau(g) \sigma(h) \tau(h)
+= (\sigma\cdot\tau)(g) \, (\sigma\cdot\tau)(h)
+\end{align*}
+the product of two characters is a character.
+The identity morphism $e : G \to F$ is a character, and if $\sigma$ is a character then $\sigma^{-1}(g) = \sigma(g)^{-1}$ is a character as well since $F$ is commutative.
+\end{s}
+
+
+\begin{defi}
+Let $G$ be a group and $F$ a field.
+Characters $\sigma_1, \ldots, \sigma_n : G \to F$ are \emph{independent} if whenever we have $a_1, \ldots, a_n \in F$ such that
+\[
+\sum_{j=1}^n a_j \sigma_j = 0
+\]
+then $a_1 = \cdots = a_n = 0$.
+If the characters are not independent they are \emph{dependent}.
+\end{defi}
+
+
+
+\begin{e}
+Show that if $\sigma_1, \ldots, \sigma_n : G \to F$ are pairwise distinct characters, then they are independent.
+\end{e}
+
+\begin{s}
+We induct on the number $n$ of characters.
+If $n = 1$ we know that $\sigma_1(g) \not= 0$ for any $g \in G$, so $a \sigma_1 \not= 0$ when $a \not= 0$.
+Therefore a single character is independent.
+
+Suppose that any collection of pairwise distinct characters that contains less than $n$ members is independent, and suppose that $\sum_{j=1}^n a_j \sigma_j = 0$.
+Fix $h \in G$ and replace $g$ by $gh$.
+We then get
+\[
+\sum_{j=1}^n a_j \sigma_j(h)\sigma_j = 0.
+\]
+We can now eliminate $a_n \sigma_n$ from our equations by multiplying $\sum_{j=1}^n a_j \sigma_j = 0$ by $\sigma_n(h)$ and subtracting the other equation.
+Then we get
+\[
+\sum_{j=1}^{n-1} \bigl(\sigma_n(h) - \sigma_j(h)\bigr) a_j \sigma_j = 0
+\]
+and by induction we must have $(\sigma_n(h) - \sigma_j(h)) a_j = 0$ for all $1 \leq j < n$.
+If some $a_j \not= 0$ we must then have $\sigma_j(h) = \sigma_n(h)$; but $h \in G$ was arbitrary so $\sigma_j = \sigma_n$, which contradicts the characters being pairwise distinct.
+Therefore $a_j = 0$ for $1 \leq j < n$.
+But then the equation we started with was $a_n \sigma_n = 0$, so also $a_n = 0$.
+\end{s}
+
+
+
+\begin{e}
+Let $E$ be a field and $\sigma_1, \ldots, \sigma_n$ automorphisms of $E$ that are pairwise distinct.
+Let $F = \{x \in E \mid \sigma_j(x) = x, j=1,\ldots,n\}$.
+Show that $F$ is a subfield of $E$ and that $[E:F] \geq n$.
+\end{e}
+
+\begin{s}
+Clearly $\{0,1\} \subset F$.
+If $x,y \in F$ then $\sigma_j(xy) = \sigma_j(x) \sigma_j(y) = xy$ so $xy \in F$.
+Also $\sigma_j(x+y) = \sigma_j(x) + \sigma_j(y) = x+y$, so $x+y \in F$.
+We have $0 = \sigma_j(0) = \sigma_j(x - x) = x + \sigma_j(-x)$, so $-x \in F$.
+Finally $1 = \sigma_j(1) = \sigma_j(x x^{-1}) = x \sigma_j(x^{-1})$, so $x^{-1} \in F$.
+Therefore $F$ is a field.
+
+Suppose that $[E:F] = m < n$ and let $\xi_1, \ldots, \xi_m$ generate $E$ over $F$.
+Then we can set up $m$ equations
+\[
+\sigma_1(\xi_j) x_1 + \cdots + \sigma_n(\xi_j) x_n = 0,
+\quad
+j=1,\ldots,m
+\]
+in $n > m$ variables, so there exists a nontrivial solution $(x_1, \ldots, x_n)$ to these equations.
+For any $a \in E$ there are $a_1, \ldots, a_m \in F$ such that $a = \sum_{j=1}^m a_j \xi_j$.
+Then
+\begin{equation*}
+\sum_{j=1}^n \sigma_j(a) x_j
+= \sum_{j=1}^n \sum_{k=1}^m a_k x_j \sigma_j(\xi_k)
+= \sum_{k=1}^m a_k \biggl( \sum_{j=1}^n x_j \sigma_j(\xi_k) \biggr)
+= 0.
+\end{equation*}
+But $\sigma_j : E^\times \to E$ are pairwise distinct characters, so $x_j = 0$ for all $j$, which is a contradiction.
+\end{s}
+
+
+\begin{e}
+Let $E$ be a field and let $H \subset \Aut E$ be a subgroup.
+Show that $[E:E^H] = |H|$.
+\end{e}
+
+\begin{s}
+We know that $[E:E^H] \geq |H|$.
+Suppose that $[E:H^H] > |H| = n$.
+Then there exist $n+1$ elements $\xi_1,\ldots,\xi_{n+1}$ of $E$ that are linearly independent over $F$.
+Consider the $E^H$-linear map
+\[
+f : E^{n+1} \longrightarrow E^n,
+\quad
+(x_1, \ldots, x_{n+1}) 
+\mapsto \biggl( \sum_{j=1}^{n+1} \sigma_k(\xi_j) x_j \biggr)_{k=1}^n.
+\]
+For dimensional reasons its kernel contains a nonzero vector $(x_1, \ldots, x_{n+1})$.
+This vector cannot lie in $E^H$, because one of the $\sigma_j = \id_E$ since $H$ is a group, and then the $\xi_j$ would be linearly dependent over $E^H$.
+
+Pick a nonzero vector $x = (x_1,\ldots,x_{n+1})$ in $\Ker f$ that has the lowest number of nonzero entries.
+If we permute the coordinates of a vector in $\Ker f$ we remain in $\Ker f$, so we may assume that $x = (x_1, \ldots, x_r, 0, \ldots, 0)$, where $x_j \not= 0$.
+We may also divide by $x_r$ and thus assume $x_r = 1$.
+Note that $r > 1$, as otherwise we'd have $\sigma_k(\xi_1) = 0$ and thus $\xi_1 = 0$.
+This solution $x$ then satisfies
+\[
+\sum_{j=1}^{r-1} \sigma_k(\xi_j) x_j + \sigma_k(\xi_r) = 0
+\]
+for $k = 1, \ldots, n$.
+
+Since $x$ is not in $E^H$ some $x_j$ must be in $E$, and we may assume it is $x_1$.
+There is an automorphism $\sigma_l$ such that $\sigma_l(x_1) \not= x_1$.
+Since $\Ker f$ is invariant under $H$ we then get
+\[
+\sum_{j=1}^{r-1} \sigma_l \sigma_k(\xi_j) \sigma_l(x_j) + \sigma_l\sigma_k(\xi_r) = 0
+\]
+for $k = 1, \ldots, n$.
+But $H$ is a group so the map $\sigma_k \mapsto \sigma_l\sigma_k$ is a permutation of $H$, so we actually have
+\[
+\sum_{j=1}^{r-1} \sigma_k(\xi_j) \sigma_l(x_j) + \sigma_k(\xi_r) = 0
+\]
+for $k = 1, \ldots, n$.
+Subtracting we get
+\[
+\sum_{j=1}^{r-1} \sigma_k(\xi_j)(\sigma_l(x_j) - x_j) = 0
+\]
+for $k = 1, \ldots, n$.
+But then $(\sigma_l(x_j) - x_j)_{j=1}^{n+1}$ defines a nonzero element of $\Ker f$ with fewer zero entries than $x$, which is a contradiction.
+\end{s}
+
+
+\begin{s}
+We know that $[E:E^H] \geq |H|$, so set $n = |H|$ and let $\xi_1,\ldots,\xi_{n+1}$ be elements of $E$.
+Consider the $E^H$-linear map
+\[
+f : E^{n+1} \longrightarrow E^n,
+\quad
+(x_1, \ldots, x_{n+1}) 
+\mapsto \biggl( \sum_{j=1}^{n+1} \sigma_k(\xi_j) x_j \biggr)_{k=1}^n.
+\]
+For dimensional reasons its kernel contains a nonzero vector $(x_1, \ldots, x_{n+1})$.
+Now let
+\[
+y = \biggl(
+\sum_{\sigma \in H} \sigma(x_j)
+\biggr)_{j=1}^{n+1}.
+\]
+Since $H$ is a group we see that $\sigma(y) = y$ for any $\sigma \in H$, so $y \in E^H$.
+We claim that $y \in \Ker f$, because $\Ker f$ is invariant under the action of $H$ on $E^{n+1}$.
+We have to justify that $y \not= 0$.
+
+Alternatively consider the $E^H$-linear maps
+\[
+f_k : E^{n+1} \longrightarrow E,
+\quad
+(x_1, \ldots, x_{n+1}) 
+\mapsto \sum_{j=1}^{n+1} \sigma_k(\xi_j) x_j
+\]
+for $k = 1, \ldots, n$.
+
+
+Let $\sigma \in H$.
+We know that $\sigma^n = \id_E$ and that $\sigma$ defines a $E^H$-linear map.
+It should follow that the characteristic polynomial of $\sigma$ is of degree at most $n$.
+Let $\xi(X)$ be the characteristic polynomial of $\sigma$.
+Then $\xi(\sigma) = 0$ by Caley--Hamilton.
+
+
+
+Some remarks:
+
+$E$ may be of characteristic $p$, which may mean that (a) we can't necessarily divide by $n$ and (b) that sum may be zero.
+
+Also consider $\RR \subset \CC$ and $\xi_1 = i, \xi_2 = -i$ and $H = \{\id_{\CC}, \sigma\}$, where $\sigma$ is conjugation.
+Then that sum is zero.
+Does that somehow help us see that $i$ and $-i$ are $\RR$-linearly dependent?
+\end{s}
+
+
+
+\end{document}

@@ -1,0 +1,438 @@
+\documentclass[11pt]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\oint#1#2{(#1, #2)}
+\def\cint#1#2{[#1, #2]}
+\def\coint#1#2{[#1, #2)}
+\def\ocint#1#2{(#1, #2]}
+
+\def\ov#1{\overline{#1}}
+
+\def\grp{\mathsf{Grp}}
+\def\set{\mathsf{Set}}
+\def\CC{\mathbf{C}}
+\def\EE{\mathcal{E}}
+\def\FF{\mathcal{F}}
+\def\NN{\mathbf{N}}
+\def\RR{\mathbf{R}}
+\def\QQ{\mathbf{Q}}
+\def\ZZ{\mathbf{Z}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\aut}{Aut}
+\DeclareMathOperator{\ke}{Ker}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\ord}{ord}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{Topics on Riemann surfaces}
+
+\begin{document}
+
+\maketitle
+
+
+A \emph{Riemann surface} is a complex manifold of dimension one.
+Suppose we all remember the basics, like what sheaves and ringed spaces are, and
+the results of basic complex analysis.
+Can we talk about some basic topics on Riemann surfaces?
+
+\begin{itemize}
+\item
+Uniformization of compact Riemann surfaces.
+
+\item
+A noncompact Riemann surface is Stein.
+
+\item
+Riemann--Roch theorem, obviously.
+
+\item
+Embedding into Abelian varieties.
+
+\item
+Hurwitz theorem on maps $C \to C'$.
+
+\item
+A compact Riemann surface is algebraic.
+
+\item
+A compact Riemann surface can be embedded into $\PP^3$.
+
+\item
+Existence of constant curvature metrics.
+
+\item
+Something with \sout{plasma} randomness?
+
+\item
+Weil--Petersson metric.
+Just do it locally, don't have to construct the whole moduli space.
+Then do Hurwitz spaces.
+\end{itemize}
+
+
+\begin{theo}
+Let $S$ be a compact Riemann surface.
+Then one of the following holds:
+
+(a) $S$ is isomorphic to the projective line.
+
+(b) $S$ is an elliptic curve and its universal cover is the complex plane $\CC$.
+
+(c) The universal cover of $S$ is the unit disk.
+\end{theo}
+
+
+\begin{theo}
+Let $S$ be a noncompact Riemann surface.
+Then $S$ is Stein.
+\end{theo}
+
+
+\section{Basics}
+
+
+\begin{defi}
+A \emph{Riemann surface} is a topological space $X$ that satisfies the
+following conditions:
+\begin{itemize}
+\item
+The space is Hausdorff.
+
+\item
+There is a countable base for the topology on the space.
+
+\item
+Every point is contained in
+a neighborhood $U$ that is homeomorphic to an open set in $\CC$.
+
+\item
+If $\phi : U \to \phi(U)$ and $\psi : V \to \psi(V)$ are two such
+homeomorphisms and $U \cap V \not= \empty$, then the function
+$\phi\circ\psi^{-1}: \psi(U \cap V) \to \phi(U \cap V)$ is holomorphic.
+\end{itemize}
+\end{defi}
+
+The first three conditions mean that $X$ is a topological manifold, and the
+fourth that the change of coordinate functions are holomorphic.
+We like our spaces to be Hausdorff, because $\RR^n$ is Hausdorff and we want
+something that looks like that when we zoom in.
+The condition on countable base excludes some things like the long line from
+being manifolds.
+
+The definition doesn't mention it, but we will always take our Riemann surfaces
+to be connected.
+The statements of some theorems require this, and we won't mention it when they do.
+
+
+\begin{exam}
+Every nonempty open set $U \subset \CC$ is a Riemann surface.
+\end{exam}
+
+
+\begin{exam}[Projective line]
+Let $\PP^1$ be the set of complex lines through the origin in $\CC^2$.
+We call $\PP^1$ the projective line.
+As a set
+$$
+\PP^1 
+= (\CC^2 \setminus \{0\}) / \CC
+$$
+and we denote the quotient map by $\pi : \CC^2 \setminus \{0\} \to \PP^1$.
+Let $U_0 = \{(z,w) \in \CC^2 \mid z\not=0\}$ and
+$U_1 = \{(z,w) \in \CC^2 \mid w\not=0\}$.
+These are open sets in $\CC^2\setminus\{0\}$, so they are open in the quotient
+space.
+They also cover $\PP^1$.
+
+We have a continuous map $\phi_0 : U_0 \to \CC$ given by $(z,w) \mapsto w/z$
+that is constant on the fibers of the quotient map $\pi : \CC^2\setminus\{0\}
+\to \PP^1$, so it induces a continuous map $\psi_0 : \pi(U_0) \to \CC$.
+
+We also have a continuous map $\theta_0 : \CC \to \CC^2\setminus\{0\}$ given by
+$w \mapsto (1, w)$. 
+We have 
+\begin{align*}
+\psi_0 \circ (\pi \circ \theta_0)(w) 
+&= \phi_0(1, w)
+= w,
+\\
+(\pi \circ \theta_0) \circ \psi_0([z,w]) 
+&= (\pi \circ \theta_0)(w/z) = \pi(1, w/z) = [z,w]
+\end{align*}
+so $\pi \circ \theta_0$ is a continuous inverse of $\psi_0$, which makes it a
+homeomorphism.
+
+On $\psi_1(\pi(U_0 \cap U_1))$ we have
+$$
+\psi_0 \circ (\pi \circ \theta_1)(z)
+= \phi_0 (z, 1)
+= 1/z
+$$
+which is holomorphic because $z \not= 0$ on the intersection.
+Therefore $\PP^1$ is a Riemann surface.
+It is also compact, as it is the image of the compact space $S^3 \subset \CC^2
+\setminus \{0\}$.
+
+We very often write $[z:w]$ for points in $\PP^1$, and call that way of writing
+points homogeneous coordinates on $\PP^1$. This should be understood to be the
+image of $(z,w)$ under $\pi$.
+\end{exam}
+
+
+
+\begin{defi}
+Let $X$ and $Y$ be Riemann surfaces.
+A map $f : X \to Y$ is \emph{holomorphic} if the composition
+$\psi \circ f \circ \phi^{-1}$ is holomorphic for all coordinate functions
+$\phi : U \subset X \to \phi(U)$ and $\psi : V \subset Y \to \psi(V)$.
+\end{defi}
+
+\begin{prop}[Open map theorem]
+Let $f : X \to Y$ be a holomorphic map between Riemann surfaces.
+If $U \subset X$ is open then $f(U) \subset Y$ is open.
+\end{prop}
+
+\begin{proof}
+The question of whether a set is open or not is local, and
+we reduce the the case of a holomorphic function in $\CC$ by picking coordinate
+neighborhoods around a point $x$ and $f(x)$.
+\end{proof}
+
+
+
+
+\begin{prop}[Identity theorem]
+Let $f,g : X \to Y$ be holomorphic maps between Riemann surfaces.
+If the set $\{ x \in X \mid f(x) = g(x) \}$ has an accumulation point
+then $f = g$.
+\end{prop}
+
+\begin{proof}
+By picking charts around an accumulation point and its image we can see that
+the functions agree on the whole chart by the identity theorem in the complex plane.
+Then they also agree on any chart that intersects our original one.
+Expanding outwards we cover the whole of $X$ and see the functions agree there.
+\end{proof}
+
+This is clearly a place where we used the connectedness of $X$ without saying so.
+
+
+
+\paragraph{Order of a function at a point}
+
+
+Let $U \subset \CC$ be an open set.
+If $f : U \to \CC$ is meromorphic and has at worst poles for singularities then
+for any point $z_0 \in U$ there exists an integer $k$ and a holomorphic
+function $g$ on a neighborhood around $z_0$ such that $g(z_0) \not= 0$ and
+$$
+f(z) = (z - z_0)^k g(z).
+$$
+This is because we can develop $f$ as a Laurent series
+$$
+f(z) = \sum_{j\in\ZZ} a_j (z - z_0)^j.
+$$
+We set $k = \inf\{ j \in \ZZ \mid a_j \not= 0 \}$ and then get
+$$
+f(z) = (z - z_0)^k \cdot \sum_{j \geq 0} a_{k+j} (z - z_0)^j.
+$$
+We define the \emph{order of $f$ at $z_0$} to be $k$ and write it as
+$\ord_{z_0}(f) = k$.
+
+This is well defined:
+Suppose we can also write $f(z) = (z - z_0)^l h(z)$ for $l \in \ZZ$ and $h$
+holomorphic and nonvanishing at $z_0$. Then
+$$
+\frac{g(z)}{h(z)} = \frac{(z - z_0)^k}{(z - z_0)^l}
+$$
+is holomorphic and nonvanishing at $z_0$, which is only possible if $l = k$.
+We also conclude that $h = g$ around $z_0$ in this case, so the decomposition
+above is unique.
+
+If $f(z) = (z - z_0)^k f_1(z)$ and $g(z) = (z - z_0)^l g_1(z)$ then
+$$
+fg(z) = (z - z_0)^{k + l} f_1g_1(z)
+$$
+so $\ord_{z_0}(fg) = \ord_{z_0}(f) + \ord_{z_0}(g)$.
+
+If $f$ has a zero at $z_0$ then $\ord_{z_0}(f) > 0$,
+if it has a pole there we have $\ord_{z_0}(f) < 0$, and otherwise we have
+$\ord_{z_0}(f) = 0$.
+
+
+Let $X$ be a Riemann surface and $\cc M$ the sheaf of meromorphic functions on $X$.
+It is a sheaf of fields, by definition, as $\cc M$ is the field of fractions of
+$\cc O$. For any point $x_0$ on $X$ there is a morphism of groups
+$$
+\ord_{x_0} : \cc M_{x_0} \to \ZZ.
+$$
+I guess $\ord$ is a sheaf morphism from $\cc M$ to the sheaf that assigns
+$\bigoplus_{x \in U} \ZZ x$ to any open $U \subset X$.
+
+
+
+\section{Divisors}
+
+
+\begin{defi}
+A \emph{divisor} on a Riemann surface $X$ is an element of the free abelian group
+on the points of $X$.
+Explicitly, a divisor $D$ on $X$ is a finite sum
+$$
+D = \sum_{k=1}^n a_k x_k,
+$$
+where $a_k \in \ZZ$ and $x_k \in X$.
+\end{defi}
+
+
+A meromorphic function $f : X \to \PP^1$ defines a divisor by
+$$
+(f) = \sum_{x \in X} \ord_x(f) \, x.
+$$
+The sum is finite because $\ord_x(f) \not= 0$ only if $f$ has a zero or a pole
+at $x$.
+We have $(fg) = (f) + (g)$ and $(1) = 0$ so these divisors form a subgroup of
+all divisors. They're called principal divisors.
+
+If all the coefficients of a divisor $D$ are nonnegative we write $D \geq 0$,
+and if they are all nonpositive we write $D \leq 0$.
+
+
+\begin{defi}
+Let $D$ be a divisor on $X$.
+The sheaf of functions with poles along $D$ is
+$$
+\cc O(D)(U)
+:= \{ f : U \to \PP^1 \mid (f) + D \geq 0 \}.
+$$
+\end{defi}
+
+
+What does this mean?
+By picking $U$ small enough we may assume that $D = n x$ for some $x \in X$.
+A section $f$ of $\cc O(nx)(U)$ must then be nonzero on $U \setminus \{x\}$,
+but it may have poles there.
+We also must have
+$$
+\ord_x(f) + n \geq 0
+$$
+so if $n > 0$ the section may have a pole of order up to $n$ at $x$;
+and if $n < 0$ the section must have a zero of order at least $n$ at $x$. 
+
+
+Want to see that $\cc O(D + D') = \cc O(D) \otimes \cc O(D')$
+and $\cc O(0) = \cc O$.
+Then it's clear that $\cc O(D)$ is an invertible sheaf for any divisor,
+and thus the sheaf of sections of some line bundle.
+
+
+
+\begin{theo}[Riemann existence theorem]
+Let $X$ be a compact Riemann surface.
+For any point on $X$ there exists a meromorphic function $f : X \to \PP^1$
+that only has a pole at the given point.
+\end{theo}
+
+
+\begin{proof}
+Fix a point $x$ and take $n > 0$.
+We have an inclusion $\cc O \to \cc O(nx)$  and thus a short exact sequence
+$$
+0 \longrightarrow \cc O 
+\longrightarrow \cc O(nx)
+\longrightarrow \cc O(nx) / \cc O
+\longrightarrow 0.
+$$
+We claim that $\cc O(nx) / \cc O$ is the skyscraper sheaf $\CC^n_x$.
+If $U$ does not contain $x$ then the quotient is zero on $U$, so the only
+nonzero stalk of the quotient is at $x$.
+There, by picking coordinates centered on $x$ and considering Laurent series,
+we see that the quotient is the set of sums of the form
+$$
+\sum_{k = -n}^{-1} a_k z^k
+$$
+which is just $\CC^n$.
+Taking cohomology we now get an exact sequence
+$$
+H^0(X, \cc O(nx)) \longrightarrow
+\CC^n \longrightarrow 
+H^1(X, \cc O).
+$$
+For $n > \dim H^1(X, \cc O)$ the second arrow will have a nontrivial kernel,
+so we must have $H^0(X, \cc O(nx)) \not= 0$.
+\end{proof}
+
+
+
+
+
+\section{Classification of compact Riemann surfaces}
+
+
+\begin{theo}
+Let $X$ be a compact Riemann surface of genus $0$.
+Then $X$ is isomorphic to $\PP^1$ and admits a metric of positive constant
+curvature.
+\end{theo}
+
+
+\begin{theo}
+Let $X$ be a compact Riemann surface of genus $1$.
+Then $X$ is isomorphic to a complex torus and admits a flat metric.
+\end{theo}
+
+
+\begin{theo}
+Let $X$ be a compact Riemann surface of genus $g > 1$.
+Then the universal cover of $X$ is the unit disk and $X$ admits a metric
+of negative constant curvature.
+\end{theo}
+
+
+Note that $H_1(X,\ZZ)$ is a lattice in $H^1(X, K_X)^*$:
+First off it embeds in the dual space via the linear map
+$$
+[\gamma] \mapsto \biggl(s \mapsto \int_\gamma s\biggr),
+$$
+where $\gamma$ is any representative of $[\gamma]$.
+Further it is an abelian group and has rank $2g$.
+This gives the Jacobian $J(X) := H^0(X, K_X)^* / H_1(X, \ZZ)$.
+
+We claim there is a holomorphic map $f : X \to J(X)$.
+
+
+
+
+\end{document}

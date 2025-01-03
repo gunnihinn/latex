@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{tikz-cd}
+\usepackage{color}
+
+\newtheorem{theo}{Theorem}
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exer}{Exercise}
+\newenvironment{sol}{\begin{proof}[\textit{Solution:}]}{\end{proof}}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\ov#1{\overline{#1}}
+
+
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\adj}{adj}
+
+
+\date{\today}
+\title{Exercises in Topology: A categorical approach}
+
+\begin{document}
+
+
+\begin{exer}[1.9]
+Are the subspace and product topologies consistent with each other?
+
+Let $(X_a)_{a \in A}$ be a collection of topological spaces, and let $(Y_a)$ be
+a collection of subsets so that $Y_a \subset X_a$ for all $a$. Construct two spaces:
+
+$Z$: Put the subspace topology on each $Y_a$, then take their product.
+
+$W$: Put the product topology on $X$, then view $\prod_a Y_a$ as a subset of $X$ and give it the subspace topology.
+
+Is $Z \cong W$?
+\end{exer}
+
+\begin{sol}
+Both $Z$ and $W$ have the underlying set $Y = \prod_a Y_a$, so the identity
+gives functions $f : Z \to W$ and $g : W \to Z$.
+
+Consider $f : Z \to W$.
+It is continuous if and only if the inclusion $Z \hookrightarrow X$ is continuous
+by the universal property of the subspace topology on $W$.
+That inclusion is the product $\prod_a (\iota_a : Y_a \to X_a)$ of continuous maps,
+and thus continuous, so $f$ is continuous.
+
+Now consider $g : W \to Z$.
+It is continuous if and only if the map $\pi_a g : W \to Y_a$ is continuous for all $a$.
+Let $V \subset Y_a$ be open.
+Then $(\pi_a g)^{-1} = V \times \prod_{b \not= a} Y_b$, up to reordering.
+This is open in $W$, so $g$ is continuous.
+\end{sol}
+
+\end{document}

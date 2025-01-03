@@ -1,0 +1,394 @@
+\documentclass[11pt]{article}
+
+\usepackage{lmodern}
+%\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem*{lemm}{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\newtheorem*{coro*}{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+\newtheorem{exer}[theo]{Exercise}
+\newtheorem*{rema}{Remark}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\^#1{^{[#1]}}
+\def\ov#1{\overline{#1}}
+\def\<{\langle}
+\def\>{\rangle}
+\def\bw#1{\bigwedge\!\!{}^{#1}\, T_X^*}
+
+\def\CC{\mathbf{C}}
+\def\EE{\mathcal{E}}
+\def\FF{\mathcal{F}}
+\def\NN{\mathbf{N}}
+\def\RR{\mathbf{R}}
+\def\QQ{\mathbf{Q}}
+\def\ZZ{\mathbf{Z}}
+\def\PP{\mathbf{P}}
+\def\HH{\mathcal{H}}
+
+\def\dV{\mathrm{d}\mkern-1mu V}
+
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\len}{len}
+\DeclareMathOperator{\id}{id}
+
+\author{Gunnar Þór Magnússon}
+\date{\today}
+\title{A primer on the inner product in the\\cohomology ring of compact K\"ahler manifolds}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We review the basic properties of the inner product on the cohomology of a compact K\"ahler manifold that the choice of a K\"ahler metric induces.
+\end{abstract}
+
+
+\section*{Introduction}
+
+A friend of mine is a Riemannian geometer.
+One day he came to me -- big guy, strong guy, tears in his eyes -- and asked a question that came down to some linear algebra in the cohomology ring of a compact K\"ahler manifold.
+We figured out the question and he asked for a reference for the background.
+As far as I know there is none; textbooks cover the basics but leave the connecting of the dots to PhD students.
+This little note is for my friend.
+
+If we're going to prove anything here, it is the following.
+Let $X$ be a compact K\"ahler manifold equipped with a K\"ahler metric $\omega$.
+The space of smooth differential forms on $X$ has the $L^2$ inner product
+\[
+\< u, \bar v \>
+= \int_X \< u(x), \ov{v(x)} \> \, dV_\omega,
+\]
+where $\< u(x), \ov{v(x)} \>$ is the inner product $\omega$ induces on $\bigwedge^\bullet T_X^*$.
+If $\HH^k(X, \CC)$ is the space of harmonic $k$-forms Hodge theory gives an isomorphism
+\[
+H^k(X,\CC)
+\cong \HH^k(X,\CC) 
+\subset \cc C^\infty\bigl(X, \bigwedge\!\!{}^k\, T_X^*\bigr).
+\]
+Thus we get an inner product on $H^k(X,\CC)$, defined by taking the $L^2$-inner product of the harmonic representatives of classes.
+A priori it depends on the harmonic representatives and thus the metric chosen.
+
+\begin{prop}
+The inner product on $H^k(X,\CC)$ only depends on the cohomology class of $\omega$.
+\end{prop}
+
+It is also possible to define the inner product directly in the cohomology ring without using a K\"ahler metric, though actually proving that the result is positive definite requires a metric.
+Sometimes the inner product can also be effectively calculated in the ring.
+
+
+
+
+\section{The setting}
+
+We will work on a compact K\"ahler manifold $X$ of complex dimension $n$, equipped with a K\"ahler metric $\omega$.
+
+
+\subsection{Hodge theory}
+
+The smooth closed differential forms on $X$ along with the exterior derivative form a resolution of the constant sheaf $\CC$, from which we get the de~Rham cohomology groups $H^k(X, \CC)$.
+The metric on $X$ yields a Laplace operator, and we have an isomorphism
+\[
+H^k(X, \CC) \cong \HH^k(X, \CC),
+\]
+where $\HH^k(X, \CC)$ is the space of harmonic $k$-forms.
+
+Each differential $k$-form can be written as a sum of $(p,q)$-forms.
+The $\bar\partial$ operator acts on these, and they give a resolution of the sheaf $\Omega^p$ of sections of holomorphic $p$-forms on $X$.
+These give the Dolbeault cohomology groups $H^{p,q}(X, \CC)$.
+
+We can also define a Laplace operator for the $\bar\partial$ (and $\partial$) operators.
+Since the metric is K\"ahler we have $\frac12 \Delta_d = \Delta_\partial = \Delta_{\bar\partial}$.
+It follows that if we take a harmonic $k$-form and write it as a sum of $(p,q)$-forms with $p+q = k$, the components of the sum are harmonic as well.
+This leads to the decomposition
+\[
+\HH^k(X, \CC) = \bigoplus_{p+q=k} \HH^{p,q}(X, \CC),
+\]
+and since we also have isomorphisms
+\[
+\HH^{p,q}(X,\CC) \cong H^{p,q}(X,\CC)
+\]
+we get a splitting 
+\[
+H^k(X, \CC) \cong \bigoplus_{p+q=k} H^{p,q}(X, \CC)
+\]
+and by conjugating harmonic $(p,q)$-forms we get isomorphisms
+\[
+H^{p,q}(X,\CC) \cong \ov{H^{q,p}(X,\CC)}.
+\]
+This splitting and isomorphisms are obtained by passing through harmonic forms and splitting those into their component parts, so a priori they depend on the metric chosen.
+Luckily for us they are in fact independent of the metric; see \cite[Corollary~VI.8.7]{demailly-complex}.
+
+
+\subsection{Operators of Hodge theory}
+
+
+\paragraph{Lefschetz operator}
+
+The K\"ahler metric $\omega$ defines the Lefschetz operator on differential forms by
+\[
+L : \cc C^\infty\bigl(X, \bw {p,q}\bigr) \to \cc C^\infty\bigl(X, \bw{p+1,q+1}\bigr),
+\quad
+u \mapsto u \wedge \omega.
+\]
+Since $d\omega = 0$ this operator descends to cohomology and gives an operator
+\[
+L_c : H^{p,q}(X,\CC) \to H^{p+1,q+1}(X,\CC),
+\quad
+[u] \mapsto [u] \cup [\omega].
+\]
+That operator clearly only depends on the cohomology class of the metric $\omega$.
+
+A basic fact in K\"ahler geometry is that $L$ commutes with the Laplacian $\Delta$, so $L\Delta = \Delta L$.
+Therefore $L$ sends harmonic forms to harmonic forms.
+It follows that $L_c$ is the same operator as we get by going through harmonic forms.
+In other words, the diagram
+\[
+\begin{tikzcd}
+\HH^{p,q}(X,\CC) \ar[r,"L"] \ar[d] & \HH^{p+1,q+1}(X,\CC) \ar[d]
+\\
+H^{p,q}(X,\CC) \ar[r,"L_c"] & H^{p+1,q+1}(X,\CC)
+\end{tikzcd}
+\]
+commutes.
+
+
+\paragraph{Hodge star}
+
+The metric also defines the Hodge star operator
+\[
+* : \cc C^\infty\bigl(X, \bw {p,q}\bigr) \to \cc C^\infty\bigl(X, \bw{n-q,n-p}\bigr)
+\]
+defined by requiring that
+\[
+u(x) \wedge *v(x)
+= \< u(x), \ov{v(x)} \> \, \dV_\omega(x)
+\]
+for all smooth $(p,q)$-forms $u$.
+It is again a basic fact that $* \Delta = \Delta *$, so $*$ sends harmonic forms to harmonic forms.
+We can use this to define an operator $*_c$ in cohomology by completing the diagram
+\[
+\begin{tikzcd}
+\HH^{p,q}(X,\CC) \ar[r,"*"] \ar[d] & \HH^{n-q,n-p}(X,\CC) \ar[d]
+\\
+H^{p,q}(X,\CC) \ar[r,"*_c"] & H^{n-q,n-p}(X,\CC).
+\end{tikzcd}
+\]
+
+
+\paragraph{Primitive forms and classes}
+
+One can check with linear algebra that the Lefschetz operator $L : \cc C^\infty(X, \bigwedge^{p,q}T_X^*) \to \cc C^\infty(X, \bigwedge^{p+1,q+1} T_X^*)$ is injective when $p+q < n$.
+A little more linear algebra shows that
+\[
+L^{k} : \cc C^\infty\bigl(X, \bw {n-k}\bigr) \to \cc C^\infty\bigl(X, \bw{n+k}\bigr)
+\]
+is an isomorphism.
+Pushing this one step futher, to $L^{k+1}$, then results in an operator that has a nontrivial kernel.
+We define \emph{primitive forms} as this kernel,
+\[
+\cc C^\infty\bigl(X, \bw {n-k}\bigr)_p := \Ker\Bigl( 
+L^{k+1} : \cc C^\infty\bigl(X, \bw {n-k}\bigr) \to \cc C^\infty\bigl(X, \bw{n+k+2}\bigr)
+\Bigr).
+\]
+Induction on the degree $k$ shows that $k$-forms split into primitive $k$-forms and the images of lower-degree primitive forms under powers of $L$, or
+\[
+\cc C^\infty\bigl(X, \bw {k}\bigr)
+= \bigoplus_{j} L^j \cc C^\infty\bigl(X, \bw {k-2j}\bigr)_p.
+\]
+As above we see that we can define primitive harmonic forms, and that if we decompose a harmonic form into its primitive parts, those parts are again harmonic.
+
+Using harmonic forms we prove the hard Lefschetz theorem, which says that we have the same isomorphisms in cohomology:
+\[
+L_c^k : H^{n-k}(X, \CC) \to H^{n+k}(X,\CC).
+\]
+We can now define primitive classes $H^{n-k}_p$ as the kernel of $L_c^{k+1}$.
+By the same induction process as before we prove that
+\[
+H^k(X,\CC) = \bigoplus_j L_c^j H^{k-2j}_p.
+\]
+Since the primitive decomposition of a harmonic form is harmonic, this decomposition is the same as the one we get through harmonic forms:
+The diagram
+\[
+\begin{tikzcd}
+\HH^k(X,\CC) \ar[r] \ar[d] &
+\displaystyle\bigoplus_j L^j \HH^{k-2j}_p \ar[d]
+\\
+H^k(X,\CC) \ar[r] &
+\displaystyle\bigoplus_j L_c^j H^{k-2j}_p
+\end{tikzcd}
+\]
+commutes.
+
+
+\paragraph{Hodge star and primitive forms}
+
+In general it is difficult to calculate $*v$ explicitly for a given form.
+If $v$ is a primitive $k$-form, however, there's a very useful formula by Andr\'e Weil that calculates it.
+
+We adopt the notation that $L\^k := L^k / k!$.
+It really helps.
+
+\begin{prop}
+Let $v$ be a primitive $(p,q)$-form and set $k = p+q$.
+Then
+\[
+* L\^j v
+= (-1)^{\binom{k+1}{2}} i^{p-q} L\^{n-k-j} \bar v.
+\]
+\end{prop}
+
+We can now explain the proof of the main result of this note.
+
+\begin{proof}
+Let $[u]$ and $[v]$ be $(p,q)$-classes on $X$ and let $u$ and $v$ be their harmonic representatives.
+By definition we have
+\[
+\< [u], \ov{[v]} \>
+= \< u, \bar v \>
+= \int_X \< u(x), \ov{v(x)} \> \, \dV
+= \int_X u(x) \wedge * v(x).
+\]
+Write
+\[
+u = \sum_j L\^j u_{k-2j}
+\quad\text{and}\quad
+v = \sum_j L\^j v_{k-2j},
+\]
+where $u_{k-2j}$ and $v_{k-2j}$ are harmonic primitive $(p-j,q-j)$-forms.
+Then
+\[
+*v = \sum_j (-1)^{\binom{k-2j}{2}} i^{p-q} L\^{n-k+2j} \ov{v_{k-2j}},
+\]
+so
+\begin{align*}
+\< [u], \ov{[v]} \>
+&= \sum_{j,l} (-1)^{\binom{k-2l}{2}} i^{p-q} \int_X L\^j u_{k-2j} \wedge L\^{n-k+2l} \ov{v_{k-2j}}
+\\
+&= \sum_{j,l} (-1)^{\binom{k-2l}{2}} i^{p-q} \int_X L_c\^j [u_{k-2j}] \cup L_c\^{n-k+2l} [\ov{v_{k-2j}}]
+\end{align*}
+and the right-hand side only depends on the cohomology class of $\omega$.
+\end{proof}
+
+
+It's common to use $L^2$ metrics to construct Hermitian metrics on the base of deformations of a manifold.
+For example, consider a family $\pi : \cc X \to S$ of manifolds with trivial canonical bundle, and suppose we have a smoothly varying family $\omega_s$ of Ricci-flat K\"ahler metrics on each manifold $X_s$.
+Using a local nonzero holomorphic section $\sigma : S \to \cc R^0 \pi_* K_{\cc X / S}$ we get a morphism
+\[
+\begin{tikzcd}
+T_S \ar[r,"\phi"] &
+\cc R^1 \pi_* T_{\cc X/S} \ar[r,"\bullet \cup \sigma"] &
+\cc R^1 \pi_* \Omega_{\cc X/S}^{n-1}
+\end{tikzcd}
+\]
+that is an isomorphism when the family is effective.
+The $L^2$ metrics induced by $\omega_s$ define a metric on the rightmost bundle, which turns out to only depend on the cohomology classes $[\omega_s]$.
+
+Let $\pi : \cc X \to S$ be a family of manifolds with ample canonical bundle.
+The Kodaira--Spencer morphism is
+\[
+\begin{tikzcd}
+T_S \ar[r,"\phi"] &
+\cc R^1 \pi_* T_{\cc X/S}.
+\end{tikzcd}
+\]
+We have the sequence
+\[
+\begin{tikzcd}
+0 \ar[r] & 
+T_{\cc X/S} \ar[r] &
+T_{\cc X} \ar[r] &
+\pi^* T_S \ar[r] &
+0
+\end{tikzcd}
+\]
+and thus
+\[
+K_{\cc X} = K_{\cc X / S} \otimes \pi^* K_S.
+\]
+Also
+\[
+\begin{tikzcd}
+0 \ar[r] & 
+\cc R^0 \pi_* T_{\cc X/S} \ar[r] &
+\cc R^0 \pi_* T_{\cc X} \ar[r] &
+T_{S} \ar[r] &
+\phantom{.}
+\\
+\ar[r] &
+\cc R^1 \pi_* T_{\cc X/S} \ar[r] &
+\cc R^1 \pi_* T_{\cc X} \ar[r] &
+\cc R^1 \pi_* \cc O_{\cc X} \otimes T_{S} \ar[r] &
+\phantom{.}
+\end{tikzcd}
+\]
+
+
+We can look at the intersection form
+\[
+b(u,\bar v) = \int_X u \cup \bar v \cup \omega\^{n-k}
+\]
+on $(p,q)$-classes with $k = p+q$ as a Hermitian form over the open set of the complexified K\"ahler cone.
+It is non-degenerate by the Hodge index theorem.
+We arrange things so that $\omega = \Re \sigma$.
+We have $\partial_\tau \omega = \frac12 \tau$, so
+\[
+\partial_\tau b(u, \bar v)(\sigma)
+= \frac12 \int_X u \cup \bar v \cup \tau \cup \omega\^{n-k-1}
+= b(D_\tau u, \bar v)(\sigma).
+\]
+Now
+\begin{align*}
+\bar\partial_\psi b(D_\tau u, \bar v)(\sigma)
+&= \frac12 \int_X u \cup \bar\partial_\psi \bar v \cup \tau \cup \omega\^{n-k-1}
++ \frac14 \int_X u \cup \bar v \cup \tau \cup \bar\psi \omega\^{n-k-2}
+\\
+&= b(D_\tau u, \ov{\partial_\psi v})
++ b(F_{\tau\bar\psi} u, \bar v)
+\end{align*}
+so
+\[
+b(F_{\tau\bar\psi} u, \bar v)
+= R(\tau, \bar\psi, u, \bar v)
+= \frac14 \int_X u \cup \bar v \cup \tau \cup \bar\psi \cup \omega\^{n-k-2}
+= \frac14 b(u \cup \tau, \ov{v \cup \psi}).
+\]
+
+
+
+\bibliographystyle{plain}
+\bibliography{main}
+
+
+\end{document}

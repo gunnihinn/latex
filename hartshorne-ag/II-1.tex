@@ -1,0 +1,366 @@
+\section{Sheaves}
+
+
+If $X$ is a topological space we write $\cat O_X$ for the partially ordered set of open sets in $U$ ordered by inclusion, viewed as a category.
+
+
+\begin{defi}
+A \emph{presheaf} on $X$ is a contravariant functor $\cat O_X \to \cat{Ab}$, where $\cat{Ab}$ is the category of Abelian groups.
+\end{defi}
+
+Let's unpack this.
+If $F$ is a presheaf on $X$ then $F(U)$ is an Abelian group for every open set $U \subset X$.
+We have the identity arrow $U \to U$ so we get the identity map $F(U) \to F(U)$.
+If $U \subset V \subset W$ we then get a commutative diagram
+\[
+\begin{tikzcd}
+F(W) \ar[rr, bend left=30] \ar[r] &
+F(V) \ar[r] &
+F(U).
+\end{tikzcd}
+\]
+By convention we think of $U \to V$ as the inclusion map and $F(V) \to F(U)$ as restrictions.
+If $U \subset V$ we usually write $\rho_{VU}$ for the morphism $F(V) \to F(U)$.
+
+We will consider presheaves with values in other categories, like modules over a ring or algebras.
+They will always be Abelian categories.
+Everything works out the same.
+
+
+\begin{defi}
+A \emph{morphism} of presheaves $\phi : F \to G$ over $X$ is a natural transformation of the functors $F \to G$.
+\end{defi}
+
+
+Unpacking time:
+For every open set $U \subset X$ we have a morphism $\phi(U) : F(U) \to G(U)$.
+If $U \subset V$ then these make the diagram
+\[
+\begin{tikzcd}
+F(V) \ar[r,"\phi(V)"] \ar[d,"\rho_{VU}"] &
+G(V) \ar[d,"\tau_{VU}"] \\
+F(U) \ar[r,"\phi(U)"] &
+G(U)
+\end{tikzcd}
+\]
+commute.
+
+
+
+\begin{defi}
+A presheaf $F$ on $X$ is a \emph{sheaf} if for any open set $U \subset X$ and open cover $(U_i)_{i \in I}$ of $U$ the sequence
+\[
+\begin{tikzcd}
+0 \ar[r] &
+F(U) \ar[r] &
+\displaystyle
+\prod_{i \in I} F(U_i) \ar[r,"\rho_{ij,i} - \rho_{ij,j}"] &[2em]
+\displaystyle
+\prod_{i,j \in I} F(U_i \cap U_j)
+\end{tikzcd}
+\]
+is exact.
+\end{defi}
+
+Let's unpack that.
+First off, if we have a section $s \in F(U)$ and restrict it to every $U_i$, then the results will be in the kernel of each $\rho_{ij,i} - \rho_{ij,j}$, so they agree on the intersections $U_i \cap U_j$.
+Second, if we have a family $s_i \in F(U_i)$ such that the $s_i$ agree on each intersection $U_i \cap U_j$, there exists a section $s \in F(U)$ such that $s_i = \rho_i(s)$.
+Further, that section is unique because of $0 \to F(U)$.
+
+A morphism of sheaves is just a morphism of the underlying presheaves.
+
+
+If $f : X \to Y$ is a continuous map we get a functor $f^{-1}: \cat O_Y \to \cat O_X$.
+If $F : \cat O_X \to \cat{Ab}$ is a presheaf we then get a presheaf $\cat O_Y \to \cat{Ab}$ by composition:
+
+\begin{defi}
+If $f : X \to Y$ is continuous and $F$ is a presheaf on $X$ we define the \emph{direct image} $f_*F$ on $Y$ by $F(U) = F(f^{-1}(U))$.
+\end{defi}
+
+
+\begin{prop}
+If $F$ is a sheaf on $X$ then $f_* F$ is a sheaf on $Y$.
+\end{prop}
+
+\begin{proof}
+Let $U \subset Y$ be open and $(U_i)_{i \in I}$ an open cover of it.
+Then $f^{-1}(U) \subset X$ is open and $(f^{-1}(U_i))_{i \in I}$ is an open cover of it.
+Since $F$ is a sheaf the relevant sequence is exact, and it is exactly the relevant sequence for $f_*F$.
+\end{proof}
+
+
+Let's write $\psh_X$ and $\sh_X$ for the categories of presheaves and sheaves over $X$.
+Then $f_* : \sh_X \to \sh_Y$ is a functor.
+There is clearly also a forgetful functor $\sh_X \to \psh_X$.
+These both have adjoints, but establishing that will take some work.
+
+
+\subsection{Direct limits}
+
+Recall that a \emph{directed set} is a pair $(I, \leq)$ of a set $I$ with a reflexive and transitive order with the property that any pair of elements has an upper bound.
+For example, fix a subset $Z \subset X$ of a toplogical space.
+Let $I(Z) = \{ U \subset X \mid Z \subset U \}$ and define $U \leq V$ if $V \subset U$.
+
+If $\cat C$ is a category then a \emph{direct system} in $\cat C$ is a collection $(A_i)_{i \in I}$ of objects in $\cat C$ along with morphisms $f_{ij} : A_i \to A_j$ when $i \leq j$ such that $f_{ii} = \id_{A_i}$ and
+\[
+f_{ik} = f_{jk} f_{ij}
+\]
+whenever $i \leq j \leq k$.
+
+Given a direct system a \emph{target} is a pair $(X, \phi_i)$, where $X \in \cat C$ and $\phi_i : A_i \to X$ are arrows such that $\phi_i = \phi_j \circ f_{ij}$ when $i \leq j$.
+
+
+\begin{defi}
+Let $Z \subset X$ be a subset and let $(I, \leq)$ be the directed set above.
+The \emph{direct limit} of a direct system $(A_i)_{i \in I}$ is
+\[
+\varinjlim A_i
+= \coprod_{i \in I} A_i \Bigm/ \sim, 
+\]
+where if $x_i \in A_i$ and $x_j \in A_j$ then $x_i \sim x_j$ if there exists some $k \in I$ with $i \leq k$ and $j \leq k$ and $f_{ik}(x_i) = f_{jk}(x_j)$.
+\end{defi}
+
+There are functions $\phi_j : A_j \to \varinjlim A_i$ that send an element to its equivalence class.
+The direct limit satisfies a universal property that is not trivial to write down.
+Basically any other object with functions like the above factors through the direct limit.
+
+
+\begin{defi}
+If $f : X \to Y$ is continuous and $F$ is a presheaf on $Y$ we define the \emph{inverse image} $f^{-1}F$ on $X$ by
+\[
+f^{-1}F(U)
+= \varinjlim F(V),
+\]
+where $V \in I(f(U))$.
+\end{defi}
+
+This is only a presheaf in general even when $F$ is a sheaf, so for now we only have a functor $f^{-1} : \psh_Y \to \psh_X$.
+We need to bootstrap ourselves to a sheaf from this, beginning with a special case.
+
+
+\begin{defi}
+Let $F$ be a presheaf on $X$ and $x \in X$ be a point.
+We write $j : \{x\} \to X$ for the inclusion map.
+The \emph{stalk} of $F$ at $x$ is $F_x := j^{-1}F$.
+\end{defi}
+
+Technically speaking this is a presheaf on the topological space $\{x\}$.
+However a presheaf on this space is just an Abelian group $F(\{x\})$, so we will often identify $F_x$ with this group.
+Armed with the stalk of a presheaf we can construct an adjoint to the forgetful functor $\sh_X \to \psh_X$; the sheafification of a presheaf.
+The important thing to know about it is this:
+
+
+\begin{prop}
+Let $F$ be a presheaf and $aF$ its sheafification.
+There exists a morphism $\theta : F \to aF$ such that for any sheaf $G$ and morphism $\phi : F \to G$ there exists a unique morphism $\psi : aF \to G$ such that $\psi \circ \theta = \phi$.
+\end{prop}
+
+
+\begin{defi}
+Let $F$ be a presheaf on $X$.
+The \'etal\'e space of $F$ is
+\[
+\et F = \coprod_{x \in X} F_x
+\]
+with the final topology defined by the maps $s : U \to \et F$, $x \mapsto s_x$, continuous for every open $U \subset X$ and every $s \in F(U)$.
+\end{defi}
+
+The final topology is the finest one that makes all the given maps continuous.
+It is characterized by $V \subset \et F$ being open if and only if $s^{-1}(V) \subset X$ is open for every section $s \in F(U)$ and every open $U \subset X$.
+
+If $U \subset X$ is open and $s \in F(U)$ we can consider the set $T(U,s) = \{(x, s_x) \mid x \in U\}$.
+We claim this is open in $\et F$:
+Let $V$ be open in $X$ and $t \in F(V)$.
+Then
+\[
+t^{-1}(T(U,s))
+= \{ x \in U \cap V \mid t_x = s_x \}.
+\]
+If this is empty it is open.
+Otherwise take $x$ in this set.
+Then there exists an open set $U_x \subset U \cap V$ such that $t_{|U_x} = s_{|U_x}$, so $U_x \subset t^{-1}(T(U,s))$.
+Every point in the set therefore has an open neighborhood contained in the set, so it is open.
+
+Note that $T(U,s) = s(U)$ is just the image of $U$ under $s$.
+
+
+\begin{prop}
+The projection map $\pi : \et F \to X$ given by $s_x \mapsto x$ is continuous.
+Further, it is a local homeomorphism.
+\end{prop}
+
+\begin{proof}
+Let $U \subset X$ be open.
+Let $V \subset X$ be any open set and $s \in F(V)$ a section.
+Then
+\[
+s^{-1}(\pi^{-1}(U)) = U \cap V
+\]
+is open, so $\pi$ is continuous.
+
+We saw above that every section $s$ is an open map.
+If $(x, s_x) \in \et F$ and $U$ is some neighborhood of $x$ the constant section $s : U \to \et F$, $y \mapsto s_x$, is continuous and $s(U) \subset \et F$ is open.
+The projection $\pi$ is a homeomorphism when restricted to $s(U)$.
+\end{proof}
+
+
+\begin{defi}
+An \emph{\'etal\'e space} over $X$ is a topological space $E$ with a continuous surjective local homeomorphism $\pi : E \to X$.
+\end{defi}
+
+Is $U \subset X$ is open a \emph{section} of $\pi : E \to X$ over $U$ is a continuous map $s : U \to E$ such that $\pi \circ c = \id_U$.
+We define the presheaf of sections of $\pi : E \to X$ by
+\[
+\Gamma(U, E)
+= \{ s : U \to E \mid \pi \circ s = \id_U \}.
+\]
+
+\begin{prop}
+The presheaf of sections of an \'etal\'e space is a sheaf.
+\end{prop}
+
+\begin{proof}
+Let $U$ be open and $(U_i)_{i \in I}$ an open covering of it.
+Let $s : U \to E$ be a section such that $s_{U_i} = 0$ for all $i$.
+Then $s = 0$ on $U$ as well.
+Now let $(s_i)_{i \in I}$ be a family of sections on each $U_i$ such that $s_i = s_j$ on $U_i \cap U_j$.
+Then we can a section $s$ on $U$ by $s(x) = s_i(x)$ when $x \in U_i$, and it is the only section that glues.
+\end{proof}
+
+
+\begin{prop}
+Let $F$ be a presheaf over $X$.
+There is a morphism $\theta : F \to \Gamma(\,\bullet\,, \et F)$.
+\end{prop}
+
+\begin{proof}
+Let $U$ be open in $X$.
+We define $\theta : F(U) \to \Gamma(U, \et F)$ by $s \mapsto (x, s_x)$.
+This behaves nicely with respect to restrictions and is thus a morphism of presheaves.
+\end{proof}
+
+
+\begin{prop}
+Let $F$ be a sheaf over $X$.
+Then $\theta : F \to \Gamma( \,\bullet\,, \et F)$ is an isomorphism of sheaves.
+\end{prop}
+
+
+\begin{proof}
+Being an isomorphism can be checked on stalks.
+If $x \in X$ the stalk $\Gamma( \,\bullet\,, \et F)_x$ is the set of equivalence classes $(U, s)$ where $x \in U$ is open and $s : U \to \et F$ is a continuous section.
+We thus get a map $\Gamma( \,\bullet\,, \et F)_x \to F_x$ that sends a section $s$ over $U$ to $s_x$.
+If $s_x \in F_x$ there exists some $U$ and section $s$ in $F(U)$ that restricts to $s_x$.
+This gives a section $s : U \to \et F$ that maps to $s_x$, so the above map is surjective.
+Suppose then that the image of a section $s : U \to \et F$ is zero.
+Then there is a neighborhood around $x$ where it is zero, so $s = 0$.
+Therefore $\Gamma( \,\bullet\,, \et F)_x = F_x$.
+But then $\theta_x : F_x \to F_x$ is just the identity, so it is an isomorphism.
+\end{proof}
+
+
+All of this gives us a way to turn a presheaf into a sheaf:
+
+\begin{defi}
+The \emph{sheafification} of a presheaf $F$ over $X$ is the sheaf $aF := \Gamma(\bullet\,, \et F)$.
+\end{defi}
+
+
+\begin{prop}
+The sheafification of a presheaf $F$ satisfies the following universal property:
+If $\phi : F \to G$ is a morphism to a sheaf $G$, there is a unique sheaf morphism $\psi : aF \to G$ such that
+\[
+\begin{tikzcd}
+F \ar[rd,"\phi"] \ar[r,"\theta"] &
+aF \ar[d,"\psi"] \\
+& G
+\end{tikzcd}
+\]
+commutes.
+\end{prop}
+
+\begin{proof}
+The morphism $\phi : F \to G$ induces a morphism on stalks $\phi_x : F_x \to G_x$ for every $x \in X$.
+Therefore we get a map $f : \et F \to \et G$ of \'etal\'e spaces.
+Let $U \subset \et G$ be open, $V \subset X$ open and $t \in G(V)$ any section.
+Then $t^{-1}(U)$ is open in $X$.
+If $s \in F(V)$ is a section then $\phi s \in G(V)$ and
+\[
+s^{-1}(f^{-1}(U))
+= \{ 
+x \in V \mid
+\phi_x(s_x) \in U
+\}
+= (\phi s)^{-1}(U)
+\]
+is open.
+Therefore the map $\et F \to \et G$ is continuous and thus sends continuous sections of $\et F$ to continuous sections of $\et G$.
+Then we get a commutative diagram
+\[
+\begin{tikzcd}
+F \ar[d,"\phi"] \ar[r] &
+\Gamma(\bullet, \et F) \ar[d] \\
+G \ar[r] & 
+\Gamma(\bullet, \et G)
+\end{tikzcd}
+\]
+where $G \cong \Gamma(\bullet, \et G)$, so a map like the one we want exists.
+Any other map that makes the diagram commute would equal this one on all stalks, and therefore on the whole sheaf.
+\end{proof}
+
+Here we showed in passing that the \'etal\'e space construction defines a functor from $\psh_X$ to the category of \'etal\'e spaces over $X$.
+
+
+
+
+\begin{e}[II.1.1]
+Let $A$ be an Abelian group and define a presheaf $F$ by $F(U) = A$ for all open sets $U$.
+Also define a sheaf $G$ by first giving $A$ the discrete topology.
+For any open $U$ let $G(U)$ be the continuous maps $U \to A$.
+We want to show that $aF = G$.
+
+If $U$ is open we define a morphism $\phi : F \to G$ by letting $\phi(U) : F(U) \to G(U)$ send $a$ to the constant map $x \mapsto a$.
+Then we get a sheaf morphism $\psi : aF \to G$.
+If $U$ is connected then $G(U) \cong A$ because the only continuous maps are constant.
+We need to use the description of $aF$ to see that $aF(U) = A$.
+This is fairly clear from the sheaf of sections viewpoint.
+
+Now if $U = \bigcup_{i \in I} U_i$ is the union of connected components of $U$ we have a diagram
+\[
+\begin{tikzcd}
+0 \ar[r] &
+aF(U) \ar[r] &
+\displaystyle
+\prod_{i \in I} aF(U_i) \ar[r] \ar[d,"="] &
+\displaystyle
+0
+\\
+0 \ar[r] &
+G(U) \ar[r] &
+\displaystyle
+\prod_{i \in I} G(U_i) \ar[r] &
+\displaystyle
+0
+\end{tikzcd}
+\]
+where the horizontal lines are exact.
+But then $aF(U) = G(U)$.
+\end{e}
+
+
+\begin{e}[II.1.3]
+Let $\phi : F \to G$ be a morphism of sheaves.
+
+(a)
+Suppose $\phi$ is surjective and let $U \subset X$ be open and let $t \in G(U)$.
+For every $x \in U$ we know $\phi_x$ is surjective, so there exists some neighborhood $U_i$ of $x$ on which $\phi(U_i)$ is surjective.
+Then there are sections $s_i \in F(U_i)$ such that $\phi(U_i)(s_i) = t$ on $U_i$.
+
+Conversely, suppose that for every $U$ and $t \in G(U)$ there exists an open covering $(U_i)$ of $U$ and sections $s_i$ that map to $t$ on $U_i$.
+Then $\phi_x$ is surjective on any stalk $x \in U_i$, so $\phi$ is surjective.
+
+(b)
+Consider the sheaf of holomorphic maps and $\exp : \cc O \to \cc O^*$.
+Then $\exp$ is surjective because the map $\exp_x : \CC \to \CC^*$ is surjective on every stalk.
+However there is no $f \in \cc O(\CC)$ such that $\exp f = \id_{\CC}$.
+\end{e}

@@ -1,0 +1,781 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{tgpagella}
+\linespread{1.1}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{prop}[theo]{Proposition}
+\newtheorem{lemm}[theo]{Lemma}
+\newtheorem{coro}[theo]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defi}[theo]{Definition}
+\newtheorem{exam}[theo]{Example}
+\newtheorem*{rema}{Remark}
+\newtheorem{e}[theo]{Exercise}
+\newenvironment{s}{\begin{proof}[Solution]}{\end{proof}}
+
+\newcommand{\kk}[1]{\mathbb{#1}}
+\newcommand{\cc}[1]{\mathcal{#1}}
+
+\def\eps{\varepsilon}
+\def\empty{\varnothing}
+
+\def\<{\langle}
+\def\>{\rangle}
+
+\def\ov#1{\overline{#1}}
+
+\def\CC{\mathbf{C}}
+\def\EE{\mathcal{E}}
+\def\FF{\mathbf{F}}
+\def\NN{\mathbf{N}}
+\def\RR{\mathbf{R}}
+\def\QQ{\mathbf{Q}}
+\def\ZZ{\mathbf{Z}}
+\def\PP{\mathbf{P}}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\ord}{ord}
+
+\title[Galois theory]{Notes on Milne's \textit{Galois theory}}
+\author{Gunnar \TH\'or Magn\'usson}
+\date{\today}
+
+
+\begin{document}
+
+
+\begin{abstract}
+My notes as I read through Milne's \textit{Galois theory}.
+\end{abstract}
+
+
+
+
+\maketitle
+
+\section{Basic definitions and results}
+
+Fields exist.
+Examples: $\QQ, \RR, \CC, \FF_p$.
+Morphisms between fields are morphisms of the underlying rings.
+A field morphism is always injective because we can divide by any nonzero element.
+A field has characteristic $0$ or $p$ prime, depending on the kernel of the ring morphism $\ZZ \to F$.
+
+A field isomorphic to $\FF_p$ or $\QQ$ is called a \emph{prime field}.
+Every field contains a prime field as the image of the morphism $\ZZ \to F$.
+
+If $F$ has characteristic $p$ then the Fr\"obenius map $x \mapsto x^p$ is a field automorphism.
+Composing that map with itself we see that $x \mapsto x^{p^n}$ is also a field automorphism.
+
+
+\subsection*{Polynomial rings}
+
+$F[X]$ is a ring.
+For any $f,g \in F[X]$ with $g \not= 0$ there exist $q,r \in F[X]$ such that $\deg r < \deg g$ and
+\[
+f = gr + q.
+\]
+Both $r$ and $q$ are unique.
+Therefore $F[X]$ is a Euclidean domain with $\deg$ as its norm function, and is therefore a unique factorization domain.
+An element $f$ is \emph{irreducible} if it cannot be written as the product of two nonconstant polynomials.
+
+Special case:
+For $c \in F$ and $f \in F[X]$ we can write
+\[
+f(X) = (X - c) r(X) + c.
+\]
+Therefore $f(c) = 0$ if and only if $X-c$ divides $f$.
+It follows that any polynomial has at most $\deg f$ roots.
+
+Given $f,g \in F[X]$ the Euclidean algorithm constructs $a,b,d \in F[X]$ such that
+\[
+af + bg = d
+\]
+where $\deg a < \deg g$, $\deg b < \deg f$ and $d = \gcd(f,g)$.
+Pari can calculate the greatest common divisor with \verb+gcd+.
+
+
+\begin{prop}
+Let $r \in \QQ$ be a root of
+\[
+f(X) = a_m X^m + \cdots + a_0,
+\quad
+a_j \in \ZZ
+\]
+and write $r = a/b$ with $a,b \in \ZZ$ and $\gcd(a,b) = 1$.
+Then $a \mid a_0$ and $b \mid a_m$.
+\end{prop}
+
+\begin{proof}
+By hypothesis $b^m f(a/b) = 0$.
+Expanding that out we have
+\[
+a_m a^m + a_{m-1} a^{m-1} b \cdots + a_0 b^m = 0
+\]
+so $b \mid a_m a^m$. But $\gcd(a,b) = 1$ so $b \mid a_m$.
+Similarly $a \mid a_0$.
+\end{proof}
+
+This gives a test for checking for roots of a polynomial with coefficients in $\ZZ$.
+Consider for example $p(X) = X^3 - 3X - 1$.
+By the above the only possible roots in $\QQ$ are $\pm 1$, but $p(1) = -3$ and $p(-1) = 1$.
+Therefore $p$ is irreducible over $\QQ$.
+
+
+
+\begin{prop}[Gauss' lemma]
+If $h$ factors nontrivially in $\QQ[X]$ then it factors nontrivially in $\ZZ[X]$.
+\end{prop}
+
+\begin{proof}
+Suppose that $h = fg$ in $\QQ[X]$.
+For some $n,m \in \ZZ$ the polynomials $f_1 := nf$ and $g_1 := mg$ are in $\ZZ[X]$, so we have $nm h = f_1g_1$.
+Suppose that $p$ is a prime that divides $nm$.
+Modulo $p$ we then have $0 = \bar f_1 \bar g_1$ in $\FF_p[X]$, so $p$ either divides all the coefficients of $f_1$ or of $g_1$.
+Then we can either write $f_1 = p f_2$ and $g_2 = g_1$, or $f_2 = f_1$ and $g_1 = p g_2$, and get $(nm/p) h = f_2 g_2$.
+Repeating this for every prime divisor of $nm$, we eventually find $h = f_k g_k$ with $f_k, g_k \in \ZZ[X]$.
+\end{proof}
+
+
+
+\begin{prop}
+If $f \in \ZZ[X]$ is monic then every monic factor of $f$ in $\QQ[X]$ lies in $\ZZ[X]$.
+\end{prop}
+
+
+
+\begin{prop}[Eisenstein's criterion]
+Let 
+\[
+f(X) = a_m X^m + a_{m-1} X^{m-1} + \cdots + a_0 \in \ZZ[X].
+\]
+If $p$ is a prime such that
+\begin{itemize}
+\item
+$p$ does not divide $a_m$
+
+\item
+$p$ divides $a_k$ for $0 \leq k < m$
+
+\item
+$p^2$ does not divide $a_0$
+\end{itemize}
+then $f$ is irreducible in $\QQ[X]$.
+\end{prop}
+
+The way to remember Eisenstein's criterion is to remember that it is built to detect the irreducibility of 
+\[
+\frac{(X + 1)^p - 1}{X}
+= X^{p-1} + p X^{p-2} + \cdots + \tbinom{p}{2} X + p
+\]
+where $p$ is prime.
+
+Also: Let $g$ be any polynomial with constant factor $c$.
+Pick a prime $p$ that does not divide $c$.
+Then $f = X^{\deg g + k} + p g$ is irreducible for any $k > 0$.
+If $n > 0$ and $p$ is prime then $X^n + p$ is irreducible.
+
+
+\begin{proof}
+If $f$ factors in $\QQ[X]$ then it factors as $f = gh$ in $\ZZ[X]$.
+Then
+\[
+\displaylines{
+a_m X^m + a_{m-1} X^{m-1} + \cdots + a_0
+\hfill\cr\hfill{}
+= \bigl(b_k X^k + b_{k-1} X^{k-1} + \cdots + b_0\bigr)
+\bigl(c_l X^l + c_{l-1} X^{l-1} + \cdots + c_0\bigr)
+}
+\]
+with $k,l < m$.
+Since $p$ divides $b_0 c_0 = a_0$ but not $p^2$ then eiher $p \mid b_0$ or $p \mid c_0$.
+We may suppose $p \mid b_0$.
+Now $p$ divides $a_1 = b_0 c_1 + b_1 c_0$, so it divides $b_1 c_0$, and thus $b_1$.
+In general $p$ divides
+\[
+a_r = \sum_{i = 0}^r b_{r-i} c_i
+\]
+and by induction we see that $p$ divides $b_j$ for $0 \leq j < r$.
+Then $p$ divides $b_r c_0$, and thus $b_r$.
+Therefore $p$ divides $b_k$, but since $a_m = b_k c_l$ then $p$ divides $a_m$, which is a contradiction.
+\end{proof}
+
+
+The following is pretty clear.
+
+\begin{prop}
+If $f = gh$ is a nontrivial factorization in $\ZZ[X]$, and the leading coefficient is not divisible by a prime $p$, then it is a nontrivial factorization in $\FF_p$.
+\end{prop}
+
+The contrapositive is more useful: If there is a prime $p$ that does not divide the leading coefficient of $f$ and $\bar f$ is irreducible in $\FF_p$, then $f$ is irreducible in $\ZZ[X]$.
+There are polynomials, like $X^4 - 10X^2 + 1$ that are irreducible but reducible over every prime, so this is not an if and only if.
+
+
+\begin{e}
+Let $E = \QQ(\alpha)$ where $\alpha^3 - \alpha^2 + \alpha + 2 = 0$.
+Express 
+\[
+(\alpha^2 + \alpha + 1)(\alpha^2 - \alpha)
+\quad\text{and}\quad
+(\alpha-1)^{-1}
+\]
+in the form $a \alpha^2 + b \alpha + c$ where $a,b,c \in \QQ$.
+\end{e}
+
+\begin{s}
+We have 
+\[
+(\alpha^2 + \alpha + 1)(\alpha^2 - \alpha)
+= \alpha^4 - \alpha
+= \alpha(\alpha^2 - \alpha + 2) - \alpha
+= (\alpha^2 - \alpha + 2) - \alpha^2 + \alpha
+= 2
+\]
+and note that
+\[
+2 
+= (\alpha^2 + \alpha + 1)(\alpha^2 - \alpha)
+= \alpha(\alpha^2 + \alpha + 1)(\alpha - 1)
+\]
+so
+\[
+(\alpha - 1)^{-1}
+= \tfrac12 \alpha(\alpha^2 + \alpha + 1)
+= \tfrac12 (2\alpha^2 + 2)
+= \alpha^2 + 1.
+\qedhere
+\]
+\end{s}
+
+\begin{e}
+Determine $[\QQ[\sqrt 2, \sqrt 3] : \QQ]$.
+\end{e}
+
+\begin{s}
+The polynomial $X^2 - 2$ is irreducible over $\QQ$ and its roots in $\QQ[\sqrt 2]$ are $\sqrt 2, -\sqrt 2$, so $[\QQ[\sqrt 2], \QQ] = 2$.
+In $\QQ[\sqrt 3]$ we have $\sqrt 3^2 - 3 = 0$, so the degree of $\QQ[\sqrt 2,\sqrt 3]$ over $\QQ[\sqrt 2]$ is at most 2.
+Every polynomial of degree two in $\QQ[\sqrt 2]$ can be written as
+\[
+p(X) = (a \sqrt 2 + b) X^2 + (c \sqrt 2 + d) X + (e \sqrt 2 + f)
+\]
+with $a,b,c,d,e,f \in \QQ$.
+Suppose $p(\sqrt 3) = 0$, so
+\[
+3 (a \sqrt 2 + b) + (e \sqrt 2 + f) + (c \sqrt 2 + d) \sqrt 3 = 0,
+\]
+which reduces to having some $a,b,c,d \in \QQ$ such that
+\[
+(a \sqrt 2 + b) + (c \sqrt 2 + d) \sqrt 3 = 0.
+\]
+If so then
+\[
+\sqrt 3 = -\frac{c \sqrt 2 + d}{a \sqrt 2 + b}.
+\]
+Then
+\[
+3 = \frac{(c \sqrt 2 + d)^2}{(a \sqrt 2 + b)^2}
+\]
+which ends up telling us that $\sqrt 2 \in \QQ$, which is not true.
+Thus $[\QQ[\sqrt 2, \sqrt 3] : \QQ] = 4$.
+\end{s}
+
+\begin{e}
+Let $G$ be a finite group.
+Suppose that $G$ has at most $m$ elements of order $m$ for every divisor $m$ of $|G|$.
+Show that $G$ is cyclic.
+\end{e}
+
+\begin{s}
+For $m$ that divides $|G|$, let $G_m$ be the set of elements of $G$ of order $m$.
+By hypothesis we have $|G_m| \leq m$.
+If $G_m \not= \empty$ we pick $x \in G_m$.
+Then $x, x^2, \ldots, x^m = e$ are distinct elements of $G_m$, so $\< x \> = G_m$, and $|G_m| = \phi(m)$, where $\phi$ is the Euler totient function.
+Now
+\[
+|G|
+= \sum_{m \mid |G|} |G_m|
+\leq \sum_{m \mid |G|} \phi(m)
+= |G|,
+\]
+where the last equality is by Gauss.
+Therefore $|G_m| = \phi(m)$ for all $m$ that divide $|G|$, and thus $G_{|G|} \not= \empty$, and $G$ is cyclic.
+\end{s}
+
+
+\begin{e}
+Let $F$ be a field.
+Show that a finite subgroup $G \subset F^\times$ is cyclic.
+\end{e}
+
+\begin{s}
+Let $n = |G|$ and let $m \mid n$.
+Every element $x$ of order $m$ in $G$ satisfies $x^m - 1 = 0$, so there are at most $m$ such elements.
+Therefore $G$ is cyclic by the above.
+\end{s}
+
+
+\begin{e}
+Let $f$ be an irreducible polynomial over $F$ of degree $n$, and let $E/F$ be a field extension with $[E:F] = m$.
+If $\gcd(n,m) = 1$, show that $f$ is irreducible over $E$.
+\end{e}
+
+\begin{s}
+Since $f$ is irreducible, $F[X]/(f)$ is a field.
+We have $[F[X]/(f) : F] = n$ since the elements $1, X, X^2, \ldots, X^{n-1}$ are linearly independent because $f$ is irreducible.
+If $g$ is an irreducible factor of $f$ in $E[X]$ then $E[X]/(g)$ is a field.
+We get a morphism
+\[
+\psi : F[X] / (f) \to E[X] / (g)
+\]
+because if $p = fq$ in $F[X]$ then $p = g (f/g) q$ in $E[X]$.
+Then we have a diagram
+\[
+\begin{tikzcd}
+F \ar[r] \ar[d] &
+E \ar[d] \\
+F[X]/(f) \ar[r] &
+E[X]/(g)
+\end{tikzcd}
+\]
+of field morphisms.
+We have $[E[X]/(g) : E] = \deg g \leq n$.
+On the one hand
+\[
+[E[X]/(g):F]
+= [E[X]/(g):E] [E:F]
+= m \deg g
+\]
+while on the other
+\begin{align*}
+[E[X]/(g):F]
+&= [E[X]/(g) : F[X]/(f)] [F[X]/(f) : F]
+\\
+&= [E[X]/(g) : F[X]/(f)] n.
+\end{align*}
+Therefore
+\[
+[E[X]/(g) : F[X]/(f)]
+= \frac{m \deg g}{n}
+\]
+is an integer.
+But $\gcd(n,m) = 1$, so $n \mid \deg g \leq n$. 
+Therefore $\deg g = \deg f$, so $g$ is a constant multiple of $f$, which is then irreducible over $E$.
+\end{s}
+
+
+\begin{e}
+Show that there does not exist a polynomial $f \in \ZZ[X]$ such that $\deg f > 1$ that is irreducible modulo $p$ for all primes $p$.
+\end{e}
+
+\begin{s}
+We may assume $f$ is irreducible over $\ZZ$; in particular it has no roots there.
+Since $\deg f > 1$ there is an $n \in \ZZ$ such that $f(n) \not= \pm1$.
+Let $p$ be a prime that divides $f(n)$.
+Then $f(n) = 0$ in $\FF_p$, so $f$ has a root there.
+\end{s}
+
+
+\section{Splitting fields}
+
+
+Let $F$ be a field and $E,E'$ fields containing $F$.
+An $F$-homomorphism $\phi : E \to E'$ maps a polynomial $\sum a_{I} \alpha_I$ where $\alpha_I = \alpha_{i_1 \ldots i_m} \in E$ to $\sum a_I \phi(\alpha_I)$.
+An $F$-homomorphism $E \to E'$ of fields is also an injective $F$-linear map of $F$-vector spaces, so it is an $F$-isomorphism if $E$ and $E'$ have the same finite degree over $F$.
+
+
+\begin{prop}
+Let $F(\alpha)$ be a simple extension of $F$ and $\Omega$ a second extension of $F$.
+
+\begin{enumerate}
+\item
+If $\alpha$ is trancendental over $F$, then
+for every $F$-homomorphism $\phi : F(\alpha) \to \Omega$, $\phi(\alpha)$ is trancendental over $F$, and the map 
+\begin{align*}
+\{\text{$F$-homomorphisms $F(\alpha) \to \Omega$}\}
+&\to
+\{\text{elements of $\Omega$ trancendental over $F$}\}
+\\
+\phi &\mapsto \phi(\alpha)
+\end{align*}
+is a bijection.
+
+\item
+Suppose $\alpha$ is algebraic over $F$ and let $f(X)$ be its minimal polynomial.
+For every $F$-homomorphism $\phi : F[\alpha] \to \Omega$, $\phi(\alpha)$ is a root of $f(X)$ in $\Omega$, and the map
+\begin{align*}
+\{\text{$F$-homomorphisms $F[\alpha] \to \Omega$}\}
+&\to
+\{\text{roots of $f$ in $\Omega$}\}
+\\
+\phi &\mapsto \phi(\alpha)
+\end{align*}
+is a bijection.
+In particular, the number of such maps is the number of distinct roots of $f$ in $\Omega$.
+\end{enumerate}
+\end{prop}
+
+
+\begin{defi}
+Let $f$ be a polynomial with coefficients in $F$.
+A field $E$ containing $F$ \emph{splits} $f$ if $f$ splits into linear factors in $E[X]$.
+If $E$ splits $f$ and is generated by the roots of $f$, then it is a \emph{splitting field} for $f$.
+\end{defi}
+
+
+Note that $\prod f_i(X)$ and $\prod f_i^{m_i}(X)$ have the same splitting fields.
+Having the same splitting field therefore does not imply polynomials are equal without further assumptions.
+
+Note that if $f = \sum_{k=0}^m a_k X^k$ has the roots $\alpha_1, \ldots, \alpha_m$ then $\sum \alpha_k = -\frac{a_1}{a_m}$ is in $E$.
+Therefore, if $f$ has $\deg f - 1$ roots in $E$ then all its roots are in $E$ and it splits there.
+
+
+\begin{prop}
+Every polynomial $f \in F[X]$ has a splitting field $E_f$ and
+\[
+[E_f : F] \leq (\deg f)!.
+\]
+\end{prop}
+
+\begin{proof}
+Let $F_1 = F[\alpha_1]$ be a stem field for some monic irreducible factor of $f$.
+Then $f(\alpha_1) = 0$ and $[F_1 : F] \leq \deg f$.
+We set $f_1 = f(X) / (X-\alpha_1)$ in $F_1[X]$, note that $\deg f_1 = \deg f - 1$ and repeat.
+After $\deg f$ steps we finish.
+\end{proof}
+
+Consider $f(X) = (X^p - 1) / (X - 1) \in \QQ[X]$ with $p$ prime.
+If $\zeta$ is one root of $f$ then the remaining roots are $\zeta^k$ for $k = 2, \ldots, p-1$, so the splitting field of $f$ is $\QQ[\zeta]$.
+We have $[\QQ[\zeta] : \QQ] = p < (p-1)! = \deg f$ for any $p > 3$.
+
+
+If $\alpha$ is a root of $X^n - a$, then the remaining roots are all of the form $\zeta \alpha$ where $\zeta^n = 1$.
+
+
+\begin{prop}
+Let $f \in F[X]$.
+Let $E$ be an extension of $F$ generated by the roots of $f$ in $E$ and $\Omega$ an extension of $F$ splitting $f$.
+There exists an $F$-homomorphism $\phi : E \to \Omega$.
+The number of such homomorphisms is at most $[E : F]$, and equals $[E:F]$ if $f$ has distinct roots in $\Omega$.
+\end{prop}
+
+\begin{proof}
+We may suppose $f$ is monic.
+We know that $f = \prod (X - \beta_i)$ in $\Omega[X]$ and that $E = F[\alpha_1, \ldots, \alpha_m]$ with the roots $\alpha_j \in E$.
+The minimal polynomial of $\alpha_1$ is an irreducible polynomial $f_1$ that divides $f$.
+It also divides $f$ in $\Omega$, so it is a product of some of the $X - \beta_i$, and its roots are distinct if the roots of $f$ are.
+By an earlier proposition, there exists an $F$-homomorphism $\phi_1 : F[\alpha_1] \to \Omega$, and the number of such homomorphisms is at most $[F[\alpha_1] : F]$, with equality when $f$ has distinct roots in $\Omega$.
+
+Now: The minimal polynomial $f_2$ of $\alpha_2$ in $F[\alpha_1][X]$ is an irreducible factor of $f$.
+By the same, we can extend $\phi_1$ to $\phi_2 : F[\alpha_1, \alpha_2] \to \Omega$, and the number of extensions is at most $[F[\alpha_1, \alpha_2] : F[\alpha_1]$ with equality when the roots of $f$ are distinct.
+
+Combining these we see that there exists an $F$-homomorphism 
+\[
+\phi : F[\alpha_1,\alpha_2] \to \Omega,
+\]
+the number of such morphisms is at most $[F[\alpha_1, \alpha_2] : F]$, with equality if $f$ has distinct roots.
+Repeating the argument we prove the claim.
+\end{proof}
+
+\begin{coro}
+If $E_1$ and $E_2$ are both splitting fields for $f$, then every $F$-homo\-morphism $E_1 \to E_2$ is an isomorphism.
+In particular, any two splitting fields for $f$ are $F$-isomorphic.
+\end{coro}
+
+
+\begin{coro}
+Let $E$ and $L$ be extensions of $F$, with $E$ finite over $F$.
+The number of $F$-homomorphisms $E \to L$ is at most $[E : F]$.
+\end{coro}
+
+
+\begin{prop}
+Let $f,g$ be polynomials over $F$, and let $\Omega$ be an extension of $F$.
+If $r = \gcd(f,g)$ in $F[X]$, then it is also the gcd in $\Omega[X]$.
+In particular, distinct monic irreducible polynomials in $F[X]$ do not acquire a common root in any extension of $F$.
+\end{prop}
+
+\begin{proof}
+Let $r_F$ and $r_\Omega$ be the gcd's of $f,g$ in $F$ and $\Omega$.
+Then $r_F \mid r_\Omega$ in $\Omega[X]$, but Euclid also gives $a,b \in F[X]$ such that
+\[
+a f + b g = r_F
+\]
+and so $r_\Omega \mid r_F$ in $\Omega[X]$ by the definition of the gcd.
+\end{proof}
+
+
+\begin{prop}
+For a nonconstant irreducible polynomial $f \in F[X]$ the following are equivalent:
+\begin{enumerate}
+\item
+$f$ has a multiple root.
+
+\item
+$\gcd(f, f') \not=1$.
+
+\item
+$F$ has nonzero characteristic $p$ and $f$ is a polynomial in $X^p$.
+
+\item
+All the roots of $f$ are multiple.
+\end{enumerate}
+\end{prop}
+
+
+\begin{defi}
+A polynomial is \emph{separable} if it is nonzero and has only simple root in a splitting field.
+\end{defi}
+
+In particular any irreducible polynomial over a characteristic zero field is separable.
+A \emph{perfect} field has characteristic zero or characteristic $p$ and every element of the field is a $p$th power.
+A field is perfect if and only if every irreducible polynomial is separable.
+
+If $F$ is finite then the Frobenius morphism is bijective, so $F$ is perfect.
+Any algebraically closed field is perfect because we can solve $X^p - a = 0$ for any $a$ in the field.
+If $\operatorname{char} F = p$ then $F(X)$ is not perfect because $X$ is not a $p$th power.
+
+
+
+\begin{e}
+Let $F$ be a field of characteristic $\not= 2$.
+\begin{enumerate}
+\item
+Let $E$ be a quadratic extension of $F$; show that
+\[
+S(E) = \{ a \in F^\times \mid \text{$a$ is a square in $E$} \}
+\]
+is a subgroup of $F^\times$ containing $F^{\times 2}$.
+
+\item
+Let $E$ and $E'$ be quadratic extensions of $F$; show that there exists an $F$-isomorphism $\phi : E \to E'$ if and only if $S(E) = S(E')$.
+
+\item
+Show that there is an infinite sequence of field $E_1, E_2, \ldots$ with $E_i$ a quadratic extension of $\QQ$ such that $E_i$ is not isomorphic to $E_j$ for $i \not= j$.
+
+\item
+Let $p$ be an odd prime.
+Show that up to isomorphism there is exactly one field with $p^2$ elements.
+\end{enumerate}
+\end{e}
+
+
+\begin{s}
+(1) If $x \in S(E)$ then there exists $z_x \in E$ such that $x = z_x^2$.
+If $y \in S(E)$ also then $xy \in S(E)$ because $(z_x z_y)^2 = xy$.
+We also have $1 \in S(E)$ and $x^{-1} = (z_x^{-1})^2$ so $S(E)$ is a subgroup of $F^\times$.
+I'm not sure how to understand $F^{\times 2}$.
+If it is $x^2$ for $x \in F^\times$ then this is clear.
+
+(2) If $\phi : E \to E'$ is an isomorphism then $S(E) = S(E')$.
+Suppose then that $S(E) = S(E')$.
+Since $E$ and $E'$ are quadratic extensions there are $\alpha \in E$ and $\beta \in E'$ such that $E = F[\alpha]$, $E' = F[\beta]$ and the minimal polynomials of $\alpha$ and $\beta$ have degree two.
+Then $\alpha^2 = x \alpha + y$ for some $x,y \in F$.
+We get $0 \not= (\alpha - x/2)^2 = x^2/4 + y$, so $x^2/4 + y \in S(E)$.
+As $S(E) = S(E')$ there exists $\gamma \in E'$ such that $\gamma^2 = x^2/4 + y$.
+Then
+\begin{align*}
+(\gamma + x/2)^2 - x(\gamma + x/2) - y
+&= \gamma^2 + x \gamma + x^2/4 - x \gamma - x^2/2 - y
+\\
+&= x^2/4 + y + x^2/4 - x^2/2 - y
+= 0
+\end{align*}
+so $\gamma + x/2 \in E'$ has the same minimal polynomial as $\alpha \in E$.
+Then $F \subset F(\gamma + x/2) \subset E'$ and since $F \not= F(\gamma+x/2)$ and $[E':F] = 2$ we see that $E' = F(\gamma + x/2)$.
+There is a unique field morphism $E = F(\alpha) \to F(\gamma + x/2)$ such that $\alpha \mapsto \gamma+x/2$ which is then a field isomorphism $E \to E'$.
+
+(3) Let $p_1, p_2, \ldots$ be the primes and let $E_i = \QQ(\sqrt p_i)$.
+Any element of $E_i$ can be written as $x + y\sqrt p_i$ for $x,y \in \QQ$.
+We have
+\[
+(x + y \sqrt p_i)^2 = x^2 + p_i y^2 + 2 xy \sqrt p_i
+\]
+which is in $\QQ$ if and only if $x = 0$ or $y = 0$.
+Therefore
+\[
+S(E_i) = \{ x^2 p_i^k \mid x \in \QQ, k \in \{0, 1\} \}
+\]
+and $S(E_i) \not= S(E_j)$ if $i \not= j$.
+
+(4)
+Let $F$ be a field with $p^2$ elements.
+Then $F$ contains $\FF_p$ and $[F:\FF_p] = 2$ so $F$ is a quadratic extension of $\FF_p$.
+The Frobenius morphism $x \mapsto x^2$ is a field endomorphism of $F$, and thus bijective.
+Therefore $S(F) = \FF_p^\times$.
+Thus any other quadratic extension of $\FF_p$ is isomorphic to $F$.
+There also exists a field with $p^2$ elements: the splitting field of $X^{p^2} - 1$.
+\end{s}
+
+
+\begin{e}
+\begin{enumerate}
+\item
+Let $F$ be a field of characteristic $p$.
+Show that if $X^p - X - a$ is reducible in $F[X]$ then it splits into distinct factors in $F[X]$.
+
+\item
+For every prime $p$, show that $X^p -X - 1$ is irreducible in $\QQ[X]$.
+\end{enumerate}
+\end{e}
+
+
+\begin{s}
+(1)
+Let $P = X^p - X - 1$.
+We have $P' = -1$ so $\gcd(P, P') = 1$.
+Suppose that $P = fg^m$ in $F[X]$ with $\gcd(f,g) = 1$.
+Then
+\[
+dP = df \, g^m + m f dg \, g^{m-1} 
+= g^{m-1}(df + mf dg)
+\]
+so $g^{m-1} \mid \gcd(P, dP) = 1$, which is only possible if $m = 1$.
+Therefore the factors in the factorization of $P$ into irreducible components are all different.
+
+(2)
+Let $f = X^p - X - 1$.
+We know $f$ is separable since $f' = -1$ which has no roots.
+Fermat's little theorem says that for any integer $n$ we have $n^p = n + kp$ for some integer $k$.
+Let $F$ be an extension of $\FF_p$ in which $f$ has a root $\alpha$.
+Then
+\[
+f(\alpha + k)
+= (\alpha + k)^p - \alpha - k -1
+= \alpha^p - \alpha - 1 + k^p - k
+= f(\alpha) = 0
+\]
+for any $k \in \FF_p$.
+Therefore these are exactly the roots of $f$ for degree reasons, and we have
+\[
+X^p - X - 1
+= \prod_{j=0}^{p-1} (X - \alpha - j).
+\]
+We have $\FF_p(\alpha + j) = \FF_p(\alpha)$ for any $j$, so all these elements have the same degree over $\FF_p$.
+
+Let $p_j$ be the minimal polynomial of $\alpha + j$.
+Then $p_j(\alpha+j) = 0$ and $p_j \mid f$, since $f(\alpha+j) = 0$.
+We have $\gcd(p_j, p_k) = 1$ or $p_j = p_k$ for any $j,k$.
+Then we can write $f = \prod p_j$ for some of the $p_j$ and find that $p = \deg f = k \deg p_0$ for some $k$.
+Since $p$ is prime this means $k = p$, which would entail that $\alpha$ is in $\FF_p$, or $k = 1$ and actually $f = p_0 = p_1 = \cdots$.
+
+Now, if $f$ were reducible in $\QQ[X]$ it would also be reducible in $\FF_p[X]$, which is a contradiction.
+\end{s}
+
+
+\begin{e}
+Construct a splitting field for $X^5 - 2$ over $\QQ$.
+What is its degree over $\QQ$.
+\end{e}
+
+\begin{s}
+Let $\zeta$ be a primitive fifth root of unity in $\CC$, let $\alpha = \sqrt[5] 2$, and consider $L = \QQ(\alpha, \zeta\alpha, \zeta^2\alpha, \zeta^3\alpha, \zeta^4\alpha)$.
+Since
+\[
+\alpha + \zeta\alpha + \zeta^2\alpha + \zeta^3\alpha + \zeta^4\alpha
+= \alpha(
+1 + \zeta + \zeta^2 + \zeta^3 + \zeta^4
+)
+= \alpha \frac{\zeta^5 - 1}{\zeta - 1} = 0
+\]
+we have $[L:\QQ] = 4$.
+\end{s}
+
+
+
+\section{The fundamental theorem of Galois theory}
+
+Consider fields $F \subset E$.
+An $F$-isomorphism $E \to E$ is called an $F$-automorphism of $E$.
+These form a group, denoted $\Aut E/F$.
+
+
+\begin{prop}
+Let $E$ be a splitting field of a separable polynomial $f$ in $F[X]$.
+Then $\Aut E/F$ has order $[E:F]$.
+\end{prop}
+
+\begin{proof}
+As $f$ is separable it has $\deg f$ distinct roots in $E$.
+Therefore the number of $F$-homomorphisms $E \to E$ is $[E:F]$.
+Because $E$ is finite over $F$, all such morphisms are isomorphisms.
+\end{proof}
+
+This is not true if $E$ is not the splitting field of a separable polynomial:
+Take $E = \QQ(\sqrt[3]2)$, where $\Aut E/\QQ = 1$ but $[E:\QQ] = 3$.
+
+When $G \subset \Aut E$ we set
+\[
+E^G = \{ \alpha \in E \mid \sigma \alpha = \alpha \text{ for all $\sigma \in G$}\}.
+\]
+
+\begin{theo}[Artin]
+Let $G$ be a finite group of automorphisms of a field $E$.
+Then
+\[
+[E : E^G] \leq |G|.
+\]
+\end{theo}
+
+Same proof as in Artin's notes.
+
+\begin{coro}
+Let $G$ be a finite group of automorphisms of a field $E$.
+Then
+\[
+G = \Aut E/E^G.
+\]
+\end{coro}
+
+\begin{proof}
+As $G \subset \Aut E/E^G$ we have
+\[
+[E:E^G] \leq |G|
+\leq |\!\Aut E/E^G|
+\leq [E:E^G].
+\qedhere
+\]
+\end{proof}
+
+
+\begin{defi}
+An algebraic extension $E/F$ is \emph{separable} if the minimal polynomial of every element of $E$ is separable.
+Otherwise it is \emph{inseparable}.
+\end{defi}
+
+In particular every number field (a finite extension of $\QQ$) is separable.
+
+
+\begin{defi}
+An algebraic extension $E/F$ is \emph{normal} if the minimal polynomial of every element of $E$ splits in $E[X]$.
+\end{defi}
+
+An extension $E/F$ is normal and separable if and only if every irreducible polynomial in $F[X]$ having a root in $E$ has $\deg f$ distinct roots in $E$.
+
+\begin{defi}
+An extension $E/F$ is \emph{Galois} if it is finite, normal, and separable.
+In this case $\Aut E/F$ is called the \emph{Galois group} of $E$ over $F$, and denoted $\Gal E/F$.
+\end{defi}
+
+
+\end{document}

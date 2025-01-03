@@ -1,0 +1,57 @@
+% Created 2024-04-17 Wed 11:49
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{17 April 2024}
+\title{What has Gunnar done for you lately?}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={What has Gunnar done for you lately?},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.1 (Org mode 9.6.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Organized response to Geneva demo problem}
+\label{sec:org43fdb1a}
+
+On 19 March 2024, the day of a demo in Geneva, part of the office network went down. I organized the response and found the problem blocking the demo going forward with the help of Gusti. We fixed it and the demo could proceed as planned.
+
+\section{Implemented record and replay prototype}
+\label{sec:org2c6f0c0}
+
+We have wanted the ability to record and replay messages for a while. I implemented a prototype that can work for many of our services, such as SNS and SDPS. Along with the QA people we already use this when filing bugs; they record a reproduction of the problem and give us the recording with the bug report. We then replay the recording locally and debug the problem there.
+
+\section{Prototyped capacity testing framework}
+\label{sec:org83359a9}
+
+During the hackathon this year my team wrote a prototype for a capacity test framework and used it to test the capacity of ICE and SNS. This kinds of performance tests have been on our radar for a long time and were necessary to show Isavia our systems could handle the load predicted for summer 2024.
+
+\section{Implemented three new SNS probes}
+\label{sec:orga21924b}
+
+Along with Philippe and Asgeir, implemented the AIW, RAM and DSAM probes for the SNS. The SNS is now close to where we want it to be for the general Polaris release, well ahead of schedule.
+
+\section{Held demo on debugging with rr}
+\label{sec:orgece36ab}
+
+I held a Product Development show and tell on how to debug our systems with \texttt{rr}, a time-traveling debugger. I had used it to fix a concurrency problem in SNS. It can be very effectively paired with the record-replay prototype.
+
+\section{Served on the staff committee}
+\label{sec:orgc3a81e4}
+
+I have been involved with the staff committee since the fall of 2023 and have been its president since January 2024. We help keep employee morale up with regular events and activities.
+\end{document}

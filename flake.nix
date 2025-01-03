@@ -52,6 +52,7 @@
         packages.wu = wu;
         packages.fundamental = fundamental-theorem-algebra;
 
-        devShell = pkgs.mkShell { buildInputs = [ tex pkgs.zathura ]; };
+        devShell =
+          pkgs.mkShell { buildInputs = [ tex pkgs.zathura pkgs.pari ]; };
       });
 }

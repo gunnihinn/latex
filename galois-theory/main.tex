@@ -16,8 +16,8 @@
 
 \newtheorem{theo}{Theorem}
 \newtheorem{prop}[theo]{Proposition}
-\newtheorem{lemm}[theo]{Lemma}
-\newtheorem{coro}[theo]{Corollary}
+\newtheorem*{lemm}{Lemma}
+\newtheorem{coro}{Corollary}
 \newtheorem*{coro*}{Corollary}
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
@@ -48,15 +48,12 @@
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\ord}{ord}
 
-\def\h#1#2{
-\if#11{\section{#2}}
-\else{\subsection{#2}}
-\fi
-}
-
 \author{Emil Artin}
 \date{\today}
 \title{Galois theory}
+
+\renewcommand\thesection{\Roman{section}}
+\renewcommand\thesubsection{\Alph{subsection}.}
 
 \begin{document}
 
@@ -64,10 +61,10 @@
 
 
 
-\h1{Linear algebra}
+\section{Linear algebra}
 
 
-\h2{Fields}
+\subsection{Fields}
 
 
 A field is a set of elements in which a pair of operations called multiplication and addition is defined analogous to the operations of multiplication and addition in the real number system (which is itself an example of a field).
@@ -80,7 +77,7 @@ Furthermore, the prodct of 0 and any element is defined to be 0.
 If multiplication in the field is commutative, then the field is called a commutative field.
 
 
-\h2{Vector spaces}
+\subsection{Vector spaces}
 
 If $V$ is an additive abelian group with elements $A$, $B$, $\ldots$, $F$ a field with elements $a$, $b$, $\ldots$, and if for each $a \in F$ and $A \in V$ the product $aA$ denotes an element of $V$, then $V$ is called a \emph{(left) vector space over $F$} if the following assumptions hold:
 
@@ -108,7 +105,7 @@ Sometimes product between elements of $F$ and $V$ are written in the form $Aa$ i
 If, in the discussion, left and right vector spaces do not occur simultaneously, we shall simply use the term ``vector space''.
 
 
-\h2{Homogeneous linear equations}
+\subsection{Homogeneous linear equations}
 
 If in a field $F$, $a_{ij}$, $i = 1,2,\ldots,m$, $j = 1,2,\ldots,n$ are $m \cdot n$ elements, it is frequently necessary to know conditions guaranteeing the existence of elements in $F$ such that the following equations are satisfied:
 \begin{equation}
@@ -140,13 +137,13 @@ In the system of equations~\eqref{eq:on} we assume that $n > m$, and denote the 
 We seek elements $x_1, \ldots, x_n$ not all $0$ such that $L_1 = L_2 = \cdots = L_m = 0$.
 If $a_{ij} = 0$ for each $i$ and $j$, then any choice of $x_1, \ldots, x_n$ will serve as a solution.
 If not all $a_{ij}$ are 0, then we may assume that $a_{11} \not= 0$, for the order in which the equations are written or in which the unknowns are numbered has no influence on the existence of non-existence of a simultaneous solution.
-We can find a non-trivial solution to our given system of equations, if and only if we can find a non-trivial soltution to the following system:
+We can find a non-trivial solution to our given system of equations, if and only if we can find a non-trivial solution to the following system:
 \begin{align*}
 L_1 &= 0
 \\
 L_2 - a_{21} a_{11}^{-1} L_1 &= 0
 \\
-\cdots &
+&\vdots
 \\
 L_m - a_{m1} a_{11}^{-1} L_1 &= 0
 \end{align*}
@@ -163,7 +160,7 @@ If the linear homogeneous equations had been written in the form $\sum x_j a_{ij
 
 
 
-\h2{Dependence and independence of vectors}
+\subsection{Dependence and independence of vectors}
 
 In a vector space $V$ over a field $F$, the vectors $A_1, \ldots, A_n$ are called \emph{dependent} if there exist elements $x_1, \ldots, x_n$, not all $0$, of $F$ such that $x_1 A_1 + x_2 A_2 + \cdots + x_n A_n = 0$.
 If the vectors $A_1, \ldots A_n$ are not dependent, they are called \emph{independent}.
@@ -327,7 +324,7 @@ If then to the transposed matrix we apply the above considerations we arrive at 
 
 
 
-\h2{Non-homogeneous linear equations}
+\subsection{Non-homogeneous linear equations}
 
 The system of non-homogeneous linear equations
 \begin{equation}
@@ -412,20 +409,20 @@ In this case, the homogeneous equations added term by term to a solution of the 
 Hence, the homogeneous equations have only the trivial solution.
 
 
-\h2{Determinants}
+\subsection{Determinants}
 
 The theory of determinants that we shall develop in this chapter is not need\-ed in Galois theory.
 \marginpar{\tiny{Scribe: Then we'll defer typing it. It's long.}}
 The reader may, therefore, omit this section if he so desires.%
-\footnote{Of the preceding theory only Theorem~\ref{theo:on}, for homogeneous equatoins and the notion of linear dependence are assumed known.}
+\footnote{Of the preceding theory only Theorem~\ref{theo:on}, for homogeneous equations and the notion of linear dependence are assumed known.}
 
 
 
 
-\h1{Field theory}
+\section{Field theory}
 
 
-\h2{Extension fields}
+\subsection{Extension fields}
 
 If $E$ is a field and $F$ a subset of $E$ which, under the operations of addition and multiplication in $E$, itself forms a field, that is, if $F$ is a subfield of $E$, then we shall call $E$ an \emph{extension} of $F$.
 The relation of being an extension of $F$ will be briefly designated by $F \subset E$.
@@ -464,11 +461,688 @@ Thus, $A = \sum a_{ij} C_i A_j$ and the $C_iA_j$ for an independent generating s
 
 
 \begin{coro*}
+\label{coro:p22}
 If $F \subset F_1 \subset F_2 \subset \cdots \subset F_n$, then 
 \[
 (F_n/F) = (F_1/F) \cdot (F_2/F_1) \, \cdots \, (F_n/F_{n-1}).
 \]
 \end{coro*}
+
+
+\subsection{Polynomials}
+
+An expression of the form $a_0 x^n + a_1 x^{n-1} + \cdots + a_n$ is called a \emph{polynomial} in $F$ of degree $n$ if the coefficients $a_0, \ldots, a_n$ are elements of the field $F$ and $a_0 \not= 0$.
+Multiplication and addition of polynomials are performed in the usual way.%
+\footnote{If we speak of the set of all polynomials of degree lower than $n$, we shall agree to include the polynomial $0$ in this set, though it has no degree in the proper sense.}
+
+A polynomial in $F$ is called \emph{reducible} in $F$ if it is equal to the product of two polynomials in $F$ each of degree at least one.
+Polynomials which are not reducible in $F$ are called \emph{irreducible} in $F$.
+
+If $f(x) = g(x) \cdot h(x)$ is a relation which holds between polynomials $f(x)$, $g(x)$, $h(x)$ in a field $F$, then we shall say that $g(x)$ \emph{divides} $f(x)$ in $F$, or that $g(x)$ is a \emph{factor} of $f(x)$.
+It is readily seen that the degree of $f(x)$ is equal to the sum of the degrees of $g(x)$ and $h(x)$, so that if neither $g(x)$ nor $h(x)$ is a constant then each has a degree less than $f(x)$.
+It follows from this that by a finite number of factorizations a polynomial can always be expressed as a product of irreducible polynomials in a field $F$.
+
+For any two polynomials $f(x)$ and $g(x)$ the division algorithm holds, i.e., $f(x) = q(x) g(x) + r(x)$ where $q(x)$ and $r(x)$ are unique polynomials in $F$ and the degree of $r(x)$ is less than that of $g(x)$.
+This may be shown by the argument as the reader met in elementary algebra in the case of the field of real or complex numbers.
+We also see that $r(x)$ is the uniquely determined polynomial of a degree less than that of $g(x)$ such that $f(x) - r(x)$ is divisible by $g(x)$.
+We shall call $r(x)$ the \emph{remainder} of $f(x)$.
+
+Also, in the usual way, it may be shown that if $\alpha$ is a root of the polynomial $f(x)$ in $F$ then $x - \alpha$ is a factor of $f(x)$, and as a consequence of this that a polynomial in a field cannot have more roots in the field than its degree.
+
+
+\begin{lemm}
+\label{lemm:p24}
+If $f(x)$ is an irreducible polynomial of degree $n$ in $F$, then there do not exist two polynomials each of degree less than $n$ in $F$ whose product is divisible by $f(x)$.
+\end{lemm}
+
+Let us suppose to the contrary that $g(x)$ and $h(x)$ are polynomials of degree less than $n$ whose product is divisible by $f(x)$.
+Among all polynomials occurring in such pairs we may suppose $g(x)$ has the smallest degree.
+Then since $f(x)$ is a factor of $g(x) \cdot h(x)$ there is a polynomial $k(x)$ such that
+\[
+k(x) \cdot f(x) = g(x) \cdot h(x).
+\]
+By the division algorithm,
+\[
+f(x) = q(x) \cdot g(x) + r(x)
+\]
+where the degree of $r(x)$ is less than that of $g(x)$ and $r(x) \not= 0$ since $f(x)$ was assumed to be irreducible.
+Multiplying
+\[
+f(x) = q(x) \cdot g(x) + r(x)
+\]
+by $h(x)$ and transposing, we have
+\[
+r(x) \cdot h(x)
+= f(x) \cdot h(x) - q(x) \cdot g(x) \cdot h(x)
+= f(x) \cdot h(x) - q(x) \cdot k(x) \cdot f(x)
+\]
+from which it follows that $r(x) \cdot h(x)$ is divisible by $f(x)$.
+Since $r(x)$ has a smaller degree than $g(x)$, this last is in contradiction to the choice of $g(x)$, from which the lemma follows.
+
+As we saw, many of the theorems of elementary algebra hold in any field~$F$.
+However, the so-called Fundamental Theorem of Algebra, at least in its customary form, does not hold.
+It will be replaced by a theorem due to Kronecker which guarantees for a given polynomial in $F$ the existence of an extension field in which the polynomial has a root.
+We shall also show that, in a given field, a polynomial can not only be factored into irreducible factors, but that this factorization is unique up to a constant factor.
+The uniqueness depends on the theorem of Kronecker.
+
+
+\subsection{Algebraic elements}
+
+Let $F$ be a field and $E$ an extension field of $F$.
+If $\alpha$ is an element of $E$ we may ask whether there are polynomials with coefficients in $F$ which have $\alpha$ as a root.
+$\alpha$ is called \emph{algebraic} with respect to $F$ if there are such polynomials.
+Now let $\alpha$ be algebraic and select among all polynomials in $F$ which have $\alpha$ as root one, $f(x)$, of lowest degree.
+
+We may assume that the highest coefficient of $f(x)$ is $1$.
+We content that this $f(x)$ is uniquely determined, that it is irreducible and that each polynomial in $F$ with the root $\alpha$ is divisible by $f(x)$.
+If, indeed, $g(x)$ is a polynomial in $F$ with $g(\alpha) = 0$, we may divide $g(x) = f(x) q(x) + r(x)$ where $r(x)$ has a degree smaller than that of $f(x)$.
+\label{p25}%
+Substituting $x = \alpha$ we get $r(\alpha) = 0$.
+Now $r(x)$ has to be identically $0$ since otherwise $r(x)$ would have the root $\alpha$ and be of degree lower than $f(x)$.
+So $g(x)$ is divisible by $f(x)$.
+This also shows the uniqueness of $f(x)$.
+If $f(x)$ were not irreducible, one of the factors would have to vanish for $x = \alpha$ contradicting again the choice of $f(x)$.
+
+We now consider the subset $E_0$ of the following elements $\theta$ of $E$:
+\[
+\theta = g(\alpha) = c_0 + c_1\alpha + c_2\alpha^2 + \cdots + c_{n-1} \alpha^{n-1}
+\]
+where $g(x)$ is a polynomial in $F$ of degree less than $n$ ($n$ being the degree of $f(x)$).
+This set $E_0$ is closed under addition and multiplication.
+The latter may be verified as follows:
+
+If $g(x)$ and $h(x)$ are two polynomials of degree less than $n$ we put 
+\[
+g(x) h(x) = q(x) f(x) + r(x)
+\]
+and hence $g(\alpha) h(\alpha) = r(\alpha)$.
+Finally we see that the constants $c_0, c_1, \ldots, c_{n-1}$ are uniquely determined by the element $\theta$.
+Indeed two expressions for the same $\theta$ would lead after subtracting to an equation for $\alpha$ of lower degree than $n$.
+
+We remark that the internal structure of the set $E_0$ does not depend on the nature of $\alpha$ but only on the irreducible $f(x)$.
+The knowledge of this polynomial enables us to perform the operations of addition and multiplication in our set $E_0$.
+We shall see very soon that $E_0$ is a field; in fact, $E_0$ is nothing but the field $F(\alpha)$.
+As soon as this is shown we have at once the degree, $(F(\alpha)/F)$, determined as $n$, since the space $F(\alpha)$ is generated by the linearly independent $1, \alpha, \alpha^2, \ldots, \alpha^{n-1}$.
+
+We shall now try to imitate the set $E_0$ without having an extension field $E$ and an element $\alpha$ at our disposal.
+We shall assume only an irreducible polynomial
+\[
+f(x) = x^n + a_{n-1} x^{n-1} + \cdots + a_0
+\]
+as given.
+
+We select a symbol $\xi$ and let $E_1$ be the set of all formal polynomials
+\[
+g(\xi) = c_0 + c_1 \xi + \cdots + c_{n-1} \xi^{n-1}
+\]
+of a degree lower than $n$.
+This set forms a group under addition.
+We now introduce besides the ordinary multiplication a new kind of multiplication of two elements $g(\xi)$ and $h(\xi)$ of $E_1$ denoted by $g(\xi) \times h(\xi)$.
+It is defined as the remainder $r(\xi)$ of the ordinary product $g(\xi) h(\xi)$ under division by $f(\xi)$.
+We first remark that any product of $m$ terms $g_1(\xi), g_2(\xi), \ldots, g_m(\xi)$ is again the remainder of the ordinary product $g_1(\xi) g_2(\xi) \cdots g_m(\xi)$.
+This is true by definition for $m = 2$ and follows for every $m$ by induction if we just prove the easy lemma: The remainder of the product of two remainders (of two polynomials) is the remainder of the product of these two polynomials.
+This fact shows that our new product is associative and commutative and also that the new product $g_1(\xi) \times g_2(\xi) \times \cdots \times g_m(\xi)$ will coincide with the old product $g_1(\xi) g_2(\xi) \cdots g_m(\xi)$ if the latter does not exceed $n$ in degree.
+The distributive law for our multiplication is readily verified.
+
+The set $E_1$ contains our field $F$ and our multiplication in $E_1$ has for $F$ the meaning of the old multiplication.
+One of the polynomials of $E_1$ is $\xi$.
+Multiplying it $i$-times with itself, clearly will just lead to $\xi^i$ as long as $i < n$.
+For $i = n$ this is not any more the case since it leads to the remainder of the polynomial $\xi^n$.
+This remainder is
+\[
+\xi^n - f(\xi)
+= -a_{n-1} \xi^{n-1} - a_{n-2} \xi^{n-2} - \cdots - a_0.
+\]
+
+We now give up our old multiplication altogether and keep only the new one;
+we also change notation, using the point (or juxtaposition) as symbol for the new multiplication.
+
+Computing in this sense
+\[
+c_0 + c_1 \xi + c_2 \xi^2 + \cdots + c_{n-1} \xi^{n-1}
+\]
+will readily lead to this element, since all the degrees involved are below $n$.
+But
+\[
+\xi^n
+= -a_{n-1} \xi^{n-1} - a_{n-2} \xi^{n-2} - \cdots - a_0.
+\]
+Transposing we see that $f(\xi) = 0$.
+
+We have thus constructed a set $E_1$ and an addition and multiplication in $E_1$ that already satisfies most of the field axioms.
+$E_1$ contains $F$ as a subfield an $\xi$ satisfies the equation $f(\xi) = 0$.
+We next have to show:
+If $g(\xi) \not= 0$ and $h(\xi)$ are given elements of $E_1$, there is an element
+\[
+X(\xi) = x_0 + x_1 \xi + \cdots + x_{n-1} \xi^{n-1}
+\]
+in $E_1$ such that
+\[
+g(\xi) \cdot X(\xi) = h(\xi).
+\]
+To prove it we consider the coefficients $x_i$ of $X(\xi)$ as unknowns and compute nevertheless the product on the left side, always reducing higher powers of $\xi$ to lower ones.
+The result is an expression $L_0 + L_1 \xi + \cdots + L_{n-1} \xi^{n-1}$ where each $L_i$ is a linear combination of the $x_i$ with coefficients in $F$.
+This expression is to be equal to $h(\xi)$; this leads to the $n$ equations with $n$ unknowns:
+\[
+L_0 = b_0,
+\quad
+L_1 = b_1,
+\quad
+\ldots, \quad
+L_{n-1} = b_{n-1}
+\]
+where the $b_i$ are the coefficients of $h(\xi)$.
+This system will be soluble if the corresponding homogeneous equations
+\[
+L_0 = 0,
+\quad
+L_1 = 0,
+\quad
+\ldots, \quad
+L_{n-1} = 0
+\]
+have only the trivial solution.
+
+The homogeneous problem would occur if we should ask for the set of elements $X(\xi)$ satisfying $g(\xi) \cdot X(\xi) = 0$.
+Going back for a moment to the old multiplication this would mean that the ordinary product $g(x) X(\xi)$ has the remainder $0$, and is therefore divisible by $f(\xi)$.
+According to the lemma, page~\pageref{lemm:p24}, this is only possible for $X(\xi) = 0$.
+
+Therefore $E_1$ is a field.
+
+Assume now that we also have our old extension $E$ with a root $\alpha$ of $f(x)$, leading to the set $E_0$.
+We see that $E_0$ has in a certain sense the same structure as $E_1$ if we map the element $g(\xi)$ of $E_1$ onto the element $g(\alpha)$ of $E_0$.
+This mapping will have the property that the image of a sum of elements is the sum of the images, and the image of a product is the product of the images.
+
+Let us therefore define:
+A mapping $\sigma$ of one field onto another which is one to one in both directions such that $\sigma(\alpha + \beta) = \sigma(\alpha) + \sigma(\beta)$ and $\sigma(\alpha \cdot \beta) = \sigma(\alpha) \cdot \sigma(\beta)$ is called an \emph{isomorphism}.
+If the fields in question are not distinct -- i.e., are both the same field -- the isomorphism is called an \emph{automorphism}.
+Two fields for which there exists an isomorphism mapping one on another are called \emph{isomorphic}.
+If not every element of the image field is the image under $\sigma$ of an element in the first field, then $\sigma$ is called an isomorphism of the first field \emph{into} the second.
+Under each isomorphism it is clear that $\sigma(0) = 0$ and $\sigma(1) = 1$.
+
+We see that $E_0$ is also a field and that it is isomorphic to $E_1$.
+
+We now mention a few theroems that follow from our discussion:
+
+\begin{theo}[Kronecker]
+\label{theo:se}
+If $f(x)$ is a polynomial in a field $F$, there exists an extension $E$ of $F$ in which $f(x)$ has a root.
+\end{theo}
+
+\begin{proof}
+Construct an extension field in which an irreducible factor of $f(x)$ has a root.
+\end{proof}
+
+\begin{theo}
+\label{theo:ei}
+Let $\sigma$ be an isomorphism mapping a field $F$ on a field $F'$.
+Let $f(x)$ be an irreducible polynomial in $F$ and $f'(x)$ the corresponding polynomial in $F'$.
+If $E = F(\beta)$ and $E' = F'(\beta')$ are extensions of $F$ and $F'$, respectively, where $f(\beta) = 0$ in $E$ and $f'(\beta') = 0$ in $E'$, then $\sigma$ can be extended to an isomorphicm between $E$ and $E'$.
+\end{theo}
+
+\begin{proof}
+$E$ and $E'$ are both isomorphic to $E_0$.
+\end{proof}
+
+
+\subsection{Splitting fields}
+
+If $F$, $B$ and $E$ are three fields such that $F \subset B \subset E$, then we shall refer to $B$ as an \emph{intermediate field}.
+
+If $E$ is an extension of a field $F$ in which a polynomial $p(x)$ in $F$ can be factored into linear factors, and if $p(x)$ can not so be factored in any intermediate field, then we call $E$ a \emph{splitting} field for $p(x)$.
+Thus, if $E$ is a splitting field of $p(x)$, \emph{the roots of $p(x)$ generate $E$}.
+
+A splitting field is of finite degree since it is constructed by a finite number of adjunctions of algebraic elements, each defining an extension field of finite degree.
+Because of the corollary on page~\pageref{coro:p22}, the total degree is finite.
+
+\begin{theo}
+\label{theo:ni}
+If $p(x)$ is a polynomial in a field $F$, there exists a splitting field $E$ of $p(x)$.
+\end{theo}
+
+We factor $p(x)$ in $F$ into irreducible factors $f_1(x) \cdots f_r(x) = p(x)$.
+If each of these is of the first degree then $F$ itself is the required splitting field.
+Suppose then that $f_1(x)$ is of degree higher than the first.
+By Theorem~\ref{theo:se} there is an extension $F_1$ of $F$ in which $f_1(x)$ has a root.
+Factor each of the factors $f_1(x), \ldots, f_r(x)$ into irreducible factors in $F_1$ and proceed as before.
+We finally arrive at a field in which $p(x)$ can be split into linear factors.
+The field generated out of $F$ by the roots of $p(x)$ is the required splitting field.
+
+The following theorem asserts that up to isomorphisms, the splitting field of a polynomial is unique.
+
+\begin{theo}
+\label{theo:onze}
+Let $\sigma$ be an isomorphism mapping the field $F$ on the field $F'$.
+Let $p(x)$ be a polynomial in $F$ and $p'(x)$ the polynomial in $F'$ with coefficients corresponding to those of $p(x)$ under $\sigma$.
+Finally, let $E$ be a splitting field of $p(x)$ and $E'$ a splitting field of $p'(x)$.
+Under these conditions the isomorphism $\sigma$ can be extended to an isomorphism between $E$ and $E'$.
+\end{theo}
+
+If $f(x)$ is an irreducible factor of $p(x)$ in $F$, then $E$ contains a root of $f(x)$.
+For let $p(x) = (x - \alpha_1) (x - \alpha_2) \cdots (x - \alpha_s)$ be the splitting of $p(x)$ in $E$.
+Then $(x - \alpha_1) (x - \alpha_2) \cdots (x - \alpha_s) = f(x) g(x)$.
+We consider $(x)$ as a polynomial in $E$ and construct the extension field $B = E(\alpha)$ in which $f(\alpha) = 0$.
+Then $(\alpha - \alpha_1) \cdot (\alpha - \alpha_2) \cdot \cdots \cdot (\alpha - \alpha_s) = f(\alpha) \cdot g(\alpha) = 0$ and $\alpha - \alpha_i$ being elements of the field $B$ can have a product equal to $0$ only if for one of the factors, say the first, we have $\alpha - \alpha_1 = 0$.
+Thus, $\alpha = \alpha_1$, and $\alpha_1$ is a root of $f(x)$.
+
+Now in case all roots of $p(x)$ are in $F$, then $E = F$ and $p(x)$ can be split in $F$.
+This factored form has an image in $F'$ which is a splitting of $p'(x)$, since the isomorphism $\sigma$ preserves all operations of addition and multiplication in the process of multiplying out the factors of $p(x)$ and collecting to get the original form.
+Since $p'(x)$ can be split in $F'$, we must have $F' = E'$.
+In this case, $\sigma$ itself is the required extension and the theorem is proved if all roots of $p(x)$ are in $F$.
+
+We proceed by complete induction.
+Let us suppose the theorem proved for all cases in which the number of roots of $p(x)$ outside of $F$ is less than $n > 1$, and suppose that $p(x)$ is a polynomial having $n$ roots outside of $F$.
+We factor $p(x)$ into irreducible factors in $F$; $p(x) = f_1(x) f_2(x) \cdots f_m(x)$.
+Not all of these factors can be of degree 1, since otherwise $p(x)$ would split in $F$, contrary to assumption.
+Hence, we may suppose the degree of $f_1(x)$ to be $r > 1$.
+Let $f'_1(x) f'_2(x) \cdots f'_m(x) = p'(x)$ be the factorization of $p'(x)$ into the polynomials corresponding to $f_1(x), \ldots, f_m(x)$ under $\sigma$.
+$f'_1(x)$ is irreducible in $F'$, for a factorization of $f'_1(x)$ in $F'$ would induce\footnote{See page~\pageref{p38} for the definition of $\sigma^{-1}$.} under $\sigma^{-1}$ a factorization of $f_1(x)$, which was however taken to be irreducible.
+
+By Theorem~\ref{theo:ei}, the isomorphism $\sigma$ can be extended to an isomorphism $\sigma_1$, between the fields $F(\alpha)$ and $F'(\alpha')$.
+
+Since $F \subset F(\alpha)$, $p(x)$ is a polynomial in $F(\alpha)$ and $E$ is a splitting field for $p(x)$ in $F(\alpha)$.
+Similarly for $p'(x)$.
+There are now less than $n$ roots of $p(x)$ outside the new ground field $F(\alpha)$.
+Hence by our inductive assumption $\sigma_1$ can be extended from an isomorphism between $F(\alpha)$ and $F'(\alpha')$ to an isomorphism $\sigma_2$ between $E$ and $E'$.
+Since $\sigma_1$ is an extension of $\sigma$, and $\sigma_2$ and extension of $\sigma_1$, we conclude $\sigma_2$ is an extension of $\sigma$ and the theorem follows.
+
+
+\begin{coro*}
+If $p(x)$ is a polynomial in a field $F$, then any two splitting fields for $p(x)$ are isomorphic.
+\end{coro*}
+
+This follows from Theorem~\ref{theo:onze} if we take $F = F'$ and $\sigma$ to be the identity mapping, i.e., $\sigma(x) = x$.
+
+As a consequence of this corollary we see that we are justified in using the expression ``the splitting field of $p(x)$'' since any two differ only by an isomorphism.
+Thus, if $p(x)$ has repeated roots in one splitting field, so also in any other splitting field it will have repeated roots.
+The statement ``$p(x)$ has repeated roots'' will be significant without reference to a particular splitting field.
+
+
+
+\subsection{Unique decomposition of polynomials into irreducible factors}
+
+
+\begin{theo}
+\label{theo:onon}
+If $p(x)$ is a polynomial in a field $F$, and if $p(x) = p_1(x) \cdot p_2(x) \cdot \cdots \cdot p_r(x) = q_1(x) \cdot q_2(x) \cdot \cdots \cdot q_s(x)$ are two factorizations of $p(x)$ into irreducible polynomials each of degree at least one, then $r = s$ and after a suitable change in the order in which the $q$'s are written, $p_i(x) = c_i q_i(x)$, $i = 1,2,\ldots,r$ and $c_i \in F$.
+\end{theo}
+
+Let $F(\alpha)$ be an extension of $F$ in which $p_1(\alpha) = 0$.
+We may suppose the leading coefficients of the $p_i(x)$ and the $q_i(x)$ to be 1, for, by factoring out all leading coefficients and combining, the constant multiplier on each side of the equation must be the leading coefficient of $p(x)$ and hence can be divided out of both sides of the equation.
+Since $0 = p_1(\alpha) \cdot p_2(\alpha) \cdot \cdots \cdot p_r(\alpha) = p(\alpha) = q_1(\alpha) \cdot \cdots \cdot q_s(\alpha)$ and since a product of elements of $F(\alpha)$ can be 0 only lif one of these is 0, it follows that one ofthe $q_i(\alpha)$, say $q_1(\alpha)$ is 0.
+This gives (see page~\pageref{p25}) $p_1(x) = q_1(x)$.
+Thus $p_1(x) \cdot p_2(x) \cdot \cdots \cdot p_r(x) = p_1(x) \cdot q_2(x) \cdot \cdots \cdot q_s(x)$ or $p_1(x) \cdot (p_2(x) \cdot \cdots \cdot p_r(x) - q_2(x) \cdot \cdots \cdot q_s(x)) = 0$.
+Since the product of two polynomials is $0$ only if one of the two is the $0$ polynomial, it follows that the polynomial within the brackets is 0 so that $p_2(x) \cdot \cdots \cdot p_r(x) = q_2(x) \cdot \cdots \cdot q_s(x)$.
+If we repeat the above argument $r$ times we obtain $p_i(x) = q_i(x)$, $i = 1,2,\ldots, r$.
+Since the remaining $q$'s must have a product 1, it follows that $r = s$.
+
+
+\subsection{Group characters}
+
+If $G$ is a multiplicative group, $F$ a field and $\sigma$ a homomorphism mapping $G$ into $F$, then $\sigma$ is called a \emph{character} of $G$ in $F$.
+By homomorphism is meant a mapping $\sigma$ such that for $\alpha, \beta$ any two elements of $G$, $\sigma(\alpha) \cdot \sigma(\beta) = \sigma(\alpha \cdot \beta)$ and $\sigma(\alpha) \not= 0$ for any $\alpha$.
+(If $\sigma(\alpha) = 0$ for one element $\alpha$, then $\sigma(x) = 0$ for each $x \in G$, since $\sigma(\alpha y) = \sigma(\alpha) \sigma(y) = 0$ and $\alpha y$ takes all values in $G$ when $y$ assumes all values in $G$.)
+
+The characters $\sigma_1, \sigma_2, \ldots, \sigma_n$ are called \emph{dependent} if there exist elements $a_1, a_2, \ldots a_n$ not all zero in $F$ such that $a_1 \sigma_1(x) + a_2 \sigma_2(x) + \cdots + a_n \sigma_n(x) = 0$ for each $x \in G$.
+Such a dependence relation is called \emph{non-trivial}.
+If the characters are not dependent they are called \emph{independent}.
+
+
+\begin{theo}
+\label{theo:ontw}
+If $G$ is a group and $\sigma_1, \sigma_2, \ldots, \sigma_n$ are $n$ mutually distinct characters of $G$ in a field $F$, the $\sigma_1, \sigma_2, \ldots, \sigma_n$ are independent.
+\end{theo}
+
+
+One character cannot be dependent, since $a_1 \sigma_1(x) = 0$ implies $a_1 = 0$ due to the assumption that $\sigma_1(x) \not= 0$.
+Suppose $n > 1$.
+We make the inductive assumption that no set of less than $n$ distinct characters is dependent.
+Suppose now that $a_1 \sigma_1(x) + a_2 \sigma_2(x) + \cdots + a_n \sigma_n(x) = 0$ is a non-trivial dependence between the $\sigma$'s.
+None of the elements $a_i$ is zero, else we should have a dependence between less than $n$ characters contrary to our inductive assumption.
+Since $\sigma_1$ and $\sigma_n$ are distinct, there exists an element $\alpha$ in $G$ such that $\sigma_1(\alpha) \not= \sigma_n(\alpha)$.
+Multiply the relation between the $\sigma$'s by $a_n^{-1}$.
+We obtain a relation
+\begin{equation}
+\label{eq:star}
+b_1 \sigma_1(x) + \cdots + b_{n-1} \sigma_{n-1}(x) + \sigma_n(x) = 0,
+\quad
+b_i = a_n^{-1} a_i \not= 0.
+\tag{$*$}
+\end{equation}
+Replace in this relation $x$ by $\alpha x$. We have
+\[
+b_1 \sigma_1(\alpha) \sigma_1(x) 
++ \cdots 
++ b_{n-1} \sigma_{n-1} (\alpha) \sigma_{n-1}(x) 
++ \sigma_n(\alpha) \sigma_n(x) = 0,
+\]
+or $\sigma_n^{-1} b_1 \sigma_1(\alpha) \sigma_1(x) + \cdots + \sigma_n(x) = 0$.
+Subtracting the latter from \eqref{eq:star} we have
+\begin{equation}
+\label{eq:starstar}
+\bigl(b_1 - \sigma_n(\alpha)^{-1}b_1 \sigma_1(\alpha)\bigr) \sigma_1(x)
++ \cdots
++ c_{n-1} \sigma_{n-1}() = 0.
+\tag{$**$}
+\end{equation}
+The coefficient of $\sigma_1(x)$ in this relation is not 0, otherwise we should have $b_1 = \sigma_n(\alpha)^{-1}b_1\sigma_1(\alpha)$, so that
+\[
+\sigma_n(\alpha) b_1 = b_1 \sigma_1(\alpha) = \sigma_1(\alpha)b_1
+\]
+and since $b_1 \not= 0$, we get $\sigma_n(\alpha) = \sigma_1(\alpha)$ contrary to the choice of $\alpha$.
+Thus, \eqref{eq:starstar} is a non-trivial dependence between $\sigma_1, \sigma_2, \ldots, \sigma_{n-1}$ which is contrary to our inductive assumption.
+
+
+\begin{coro*}
+If $E$ and $E'$ are two fields, and $\sigma_1, \sigma_2, \ldots, \sigma_n$ are $n$ mutually distinct isomorphisms mapping $E$ into $E'$, then $\sigma_1, \ldots, \sigma_n$ are independent.
+(Where ``independent'' again means that there exists no non-trivial dependence $a_1 \sigma_1(x) + \cdots + a_n \sigma_n(x) = 0$ which holds for every $x \in E$.)
+\end{coro*}
+
+
+This follows from Theorem~\ref{theo:ontw}, since $E$ without the 0 is a group and the $\sigma$'s defined in this group are mutually distinct characters.
+
+If $\sigma_1, \sigma_2, \ldots, \sigma_n$ are isomorphisms of a field $E$ into a field $E'$, then each element $a$ of $E$ such that $\sigma_1(a) = \sigma_2(a) = \ldots = \sigma_n(a)$ is called a \emph{fixed point} of $E$ under $\sigma_1, \sigma_2, \ldots, \sigma_n$.
+This name is chosen because in the case where the $\sigma$'s are automorphisms and $\sigma_1$ is the identity, i.e., $\sigma_1(x) = x$, we have $\sigma_i(x) = x$ for a fixed point.
+
+
+\begin{lemm}
+The set of fixed points of $E$ is a subfield of $E$.
+We shall call this subfield the fixed field.
+\end{lemm}
+
+For if $a$ and $b$ are fixed points, then $\sigma_i(a + b) = \sigma_i(a) + \sigma_i(b) = \sigma_j(a) + \sigma_j(b) = \sigma_j(a + b)$ and $\sigma_i(a \cdot b) = \sigma_i(a) \cdot \sigma_i(b) = \sigma_j(a) \cdot \sigma_j(b) = \sigma_j(a \cdot b)$.
+Finally from $\sigma_i(a) = \sigma_j(a)$ we have $(\sigma_j(a))^{-1} = (\sigma_i(a))^{-1} = \sigma_i(a^{-1}) = \sigma_j(a^{-1})$.
+Thus, the sum and products of two fixed points is a fixed point, and the inverse of a fixed point is a fixed point.
+Clearly, the negative of a fixed point is a fixed point.
+
+
+\begin{theo}
+\label{theo:onth}
+If $\sigma_1, \ldots, \sigma_n$ are $n$ mutually distinct isomorphisms of a field $E$ into a field $E'$, and if $F$ is the fixed field of $E$, then $(E/F) \geq n$.
+\end{theo}
+
+Suppose to the contrary that $(E/F) = r < n$.
+We shall show that we are led to a contradiction.
+Let $\omega_1, \omega_2, \ldots, \omega_r$ be a generating system of $E$ of $F$.
+In the homogeneous linear equations
+\begin{align*}
+\sigma_1(\omega_1)x_1 + \sigma_2(\omega_1)x_2 + \cdots + \sigma_n(\omega_1)x_n &= 0
+\\
+\sigma_1(\omega_2)x_1 + \sigma_2(\omega_2)x_2 + \cdots + \sigma_n(\omega_2)x_n &= 0
+\\
+\vdots &
+\\
+\sigma_1(\omega_r)x_1 + \sigma_2(\omega_r)x_2 + \cdots + \sigma_n(\omega_r)x_n &= 0
+\end{align*}
+there are more unknowns than equations so that there exists a non-trivial solution which, we may suppose, $x_1, x_2, \ldots, x_n$ denotes.
+For any element $\alpha$ in $E$ we can find $a_1, a_2, \ldots, a_r$ in $F$ such that $\alpha = a_1 \omega_1 + \cdots + a_r \omega_r$.
+We multiply the first equation by $\sigma_1(a)$, the second by $\sigma_1(a_2)$, and so on.
+Using that $a_i \in F$, hence that $\sigma_1(a_i) = \sigma_j(a_i)$ and also that $\sigma_j(a_i) \sigma_j(\omega_i) = \sigma_j(a_i \omega_i)$, we obtain
+\begin{align*}
+\sigma_1(a_1 \omega_1)x_1 + \cdots + \sigma_n(a_1 \omega_1)x_n &= 0
+\\
+\vdots &
+\\
+\sigma_1(a_r \omega_r)x_1 + \cdots + \sigma_n(a_r \omega_r)x_n &= 0.
+\end{align*}
+Adding these last equations and using
+\[
+\sigma_i(a_1 \omega_1) + \sigma_i(a_2 \omega_2) + \cdots + \sigma_i(a_r \omega_r)
+= \sigma_i(a_1 \omega_1 + \cdots + a_r \omega_r) 
+= \sigma_i(\alpha)
+\]
+we obtain
+\[
+\sigma_1(\alpha)x_1 + \sigma_2(\alpha)x_2 + \cdots + \sigma_n(\alpha)x_n = 0.
+\]
+This, however, is a non-trivial dependence relation between $\sigma_1, \sigma_2, \ldots, \sigma_n$ which cannot exist according to the corollary of Theroem~\ref{theo:ontw}. 
+
+
+\begin{coro*}
+If $\sigma_1, \sigma_2, \ldots, \sigma_n$ are automorphisms of the field $E$, and $F$ is the fixed field, then $(E/F) \geq n$.
+\end{coro*}
+
+
+If $F$ is a subfield of the field $E$, and $\sigma$ an automorphism of $E$, we shall say that $\sigma$ \emph{leaves $F$ fixed} if for each element $a$ of $F$, $\sigma(a) = a$.
+If $\sigma$ and $\tau$ are two automorphisms of $E$, then the mapping $\sigma(\tau(x))$ written briefly $\sigma\tau$ is an automorphism, as the reader may readily verify.
+(E.G., $\sigma\tau(x\cdot y) = \sigma(\tau(x \cdot y)) = \sigma(\tau(x) \cdot \tau(y)) = \sigma(\tau(x)) \cdot \sigma(\tau(y))$.)
+We shall call $\sigma\tau$ the \emph{product} of $\sigma$ and $\tau$.
+If $\sigma$ is an automorphism ($\sigma(x) = y$), then we shall call $\sigma^{-1}$ the mapping of $y$ into $x$, i.e., $\sigma^{-1}(y) = x$ the inverse of $\sigma$.\label{p38}
+The reader may readily verify that $\sigma^{-1}$ is an automorphism.
+The automorphism $I(x) = x$ shall be called the \emph{unit automorphism}.
+
+
+\begin{lemm}
+If $E$ is an extension field of $F$, the set $G$ of automorphisms which leave $F$ fixed is a group.
+\end{lemm}
+
+
+The product of two automorphisms which leave $F$ fixed clearly leaves $F$ fixed.
+Also, the inverse of any automorphism in $G$ is in $G$.
+
+The reader will observe that $G$, the set of automorphisms which leave $F$ fixed, does not necessarily have $F$ as its fixed field.
+It may be that certain elements in $E$ which do not belong to $F$ are left fixed by every automorphism which leaves $F$ fixed.
+Thus, the fixed field of $G$ may be larger than $F$.
+
+
+\subsection{Applications and examples to Theorem~\ref{theo:onth}}
+
+
+Theorem \ref{theo:onth} is very powerful as the following examples show:
+
+
+1)
+Let $k$ be a field and consider the field $E = k(x)$ of all rational functions of the variable $x$.
+If we map each of the functions $f(x)$ of $E$ onto $f(1/x)$ we obviously obtain an automorphism of $E$.
+Let us consider the following six automorphisms where $f(x)$ is mapped onto $f(x)$ (identity), $f(1-x)$, $f(1/x)$, $f(1-1/x)$, $f(1/(1-x))$ and $f(x/(x-1))$ and call $F$ the fixed point field.
+$F$ consists of all rational functions satisfying
+\begin{equation}
+\label{eq:twGon}
+f(x)
+= f(1-x)
+= f\Bigl(\frac 1x\Bigr)
+= f\Bigl(1 - \frac 1x\Bigr)
+= f\Bigl(\frac 1{1-x}\Bigr)
+= f\Bigl(\frac{x}{x-1}\Bigr).
+\end{equation}
+It suffices to check the first two equalities, the others being consequences.
+The function
+\begin{equation}
+\label{eq:twGtw}
+I = I(x) = \frac{(x^2 - x + 1)^3}{x^2(x-1)^2}
+\end{equation}
+belongs to $F$ as is readily seen.
+Hence, the field $S = k(I)$ of all rational functions of $I$ will belong to $F$.
+
+We contend: $F = S$ and $(E/F) = 6$.
+
+Indeed, from Theorem~\ref{theo:onth} we obtain $(E/F) \geq 6$.
+Since $S \subset F$ it suffices to prove $(E/S) \leq 6$.
+Now $E = S(x)$.
+It is thus sufficient to find some 6-th degree equation with coefficients in $S$ satisfied by $x$.
+The following one is obviously satisfied;
+\[
+        (x^2 - x + 1)^3 - 1 \cdot x^2(x-1)^2 = 0.
+\]
+
+The reader will find the study of these fields a profitable exercise.
+At a later occasion he will be able to derive all intermediate fields.
+
+
+2)
+Let $k$ be a field and $E = k(x_1, x_2, \ldots, x_n)$ the field of all rational functions of $n$ variables $x_1,x_2, \ldots, x_n$.
+If $(\nu_1, \nu_2, \ldots, \nu_n)$ is a permutation of $(1,2,\ldots,n)$ we replace in each function $f(x_1,x_2,\ldots,x_n)$ of $E$ the variable $x_1$ by $x_{\nu_1}$, $x_2$ by $x_{\nu_2}$, \ldots, $x_n$ by $x_{\nu_n}$.
+The mapping of $E$ onto itself obtained in this way is obviously an automorphism and we may construct $n!$ automorphisms in this fashion (including the identity).
+Let $F$ be the fixed point field, that is, the set of all so-called ``symmetric functions''.
+Theorem~\ref{theo:onth} shows that $(E/F) \geq n!$.
+Let us introduce the polynomial:
+\begin{equation}
+\label{eq:twGth}
+f(t) = (t-x_1)(t-x_2) \cdots (t-x_n)
+= t^n + a_1 t^{n-1} + \cdots + a_n
+\end{equation}
+where $a_1 = -(x_1 + x_2 + \cdots + x_n)$; $a_2 = +(x_1x_2 + x_1x_3 + \cdots + x_{n-1}x_n)$, and more generally $a_i$ is $(-1)^i$ times the sum of all products of $i$ different variables of the set $x_1, x_2, \ldots, x_n$.
+The functions $a_1, a_2, \ldots, a_n$ are called the elementary symmetric functions and the field $S = k(a_1, a_2, \ldots, a_n)$ of all rational functions of $a_1, a_2, \ldots, a_n$ is obviously a part of $F$.
+Should we succeed in proving $(E/S) \leq n!$ we would have shown $S = F$ and $(E/F) = n!$.
+
+We construct to this effect the following tower of fields:
+\[
+S = S_n
+\subset S_{n-1}
+\subset S_{n-2}
+\subset \cdots
+\subset S_2
+\subset S_1 = E
+\]
+by the definition
+\begin{equation}
+\label{eq:twGfo}
+S_n = S;
+\quad
+S_i = S(x_{i+1}, x_{i+2}, \ldots, x_n) = S_{i+1}(x_{i+1}).
+\end{equation}
+It would be sufficient to prove $(S_{i-1} / S_i) \leq i$ or that the generator $x_i$ for $S_{i-1}$ out of $S_i$ satisfies an equation of degree $i$ with coefficients in $S_i$.
+
+Such an equation is easily constructed.
+Put
+\begin{equation}
+\label{eq:twGfi}
+F_i(t)
+= \frac{f(t)}{(t-x_{i+1})(t-x_{i+2}) \cdots (t-x_{i+n})}
+= \frac{F_{i+1}(t)}{(t-x_{i+1})}
+\end{equation}
+and $F_n(t) = f(t)$.
+Performing the division we see that $F_i(t)$ is a polynomial in $t$ of degree $i$ whose highest coefficient is $1$ and whose coefficients are polynomials in the variables $a_1, a_2, \ldots, a_n$ and $x_{i+1}, x_{i+2}, \ldots, x_n$.
+Only integers enter as coefficients in these expressions.
+Now $x_i$ is obviously a root of $F_i(t) = 0$.
+
+Now let $g(x_1, x_2, \ldots, x_n)$ be a \emph{polynomial} in $x_1, x_2, \ldots, x_n$.
+Since $F_1(x_1) = 0$ is of first degree in $x_1$, we can express $x_1$ as a polynomial of the $a_i$ and of $x_2, x_3, \ldots, x_n$.
+We introduce this expression in $g(x_1,x_2,\ldots,x_n)$.
+Since $F_2(x_2) = 0$ we can express $x_2^2$ or higher powers as polynomials in $x_3, \ldots, x_n$ and the $a_i$.
+Since $F_3(x_3) = 0$ we can express $x_3^3$ and higher powers as polynomials in $x_4, x_5, \ldots, x_n$ and the $a_i$.
+Introducing these expressions in $g(x_1, x_2, \ldots, x_n)$ we see that we can express it as a polynomial in the $x_\nu$ and the $a_\nu$ such that the degree in $x_i$ is below $i$.
+So $g(x_1, x_2, \ldots, x_n)$ is a linear combination of the following $n!$ terms:
+\begin{equation}
+\label{eq:twGsi}
+x_1^{\nu_1} x_2^{\nu_2} \cdots x_n^{\nu_n}
+\quad
+\text{where each $\nu_i \leq i-1$.}
+\end{equation}
+The coefficients of these terms are polynomials in the $a_i$.
+Since the expressions \eqref{eq:twGsi} are linearly independent in $S$ (this is our previous result), the expression is unique.
+
+This is a \emph{generalization} of the theorem of symmetric functions in its usual form.
+The latter says that a symmetric polynomial can be written as a polynomial in $a_1, a_2, \ldots, a_n$.
+Indeed, if $g(x_1, \ldots, x_n)$ is symmetric we have already an expression as linear combination of the terms \eqref{eq:twGsi} where only the term $1$ corresponding to $\nu_1 = \nu_2 = \cdots = \nu_n = 0$ has a coefficient $\not= 0$ in $S$, namely $g(x_1, \ldots, x_n)$.
+So $g(x_1, x_2, \ldots, x_n)$ is a polynomial in $a_1, a_2, \ldots, a_n$.
+
+But our theorem gives an expression of any polynomial, symmetric or not.
+
+
+
+\subsection{Normal extensions}
+
+An extension field $E$ of $F$ is called a \emph{normal} extension if the group $G$ of automorphisms of $E$ which leave $F$ fixed has $F$ for its fixed field, and $(E/F)$ is finite.
+
+Although the result in Theorem~\ref{theo:onth} cannot be sharpened in general, there is one case in which the equality sign will always occur, namely, in the case in which $\sigma_1, \sigma_2, \ldots, \sigma_n$ is a set of automorphisms which form a group.
+We prove:
+
+\begin{theo}
+\label{theo:onfo}
+If $\sigma_1, \sigma_2, \ldots, \sigma_n$ is a group of automorphisms of a field $E$ and if $F$ is the fixed field of $\sigma_1, \sigma_2, \ldots, \sigma_n$, then $(E/F) = n$.
+\end{theo}
+
+If $\sigma_1, \sigma_2, \ldots, \sigma_n$ is a group, then the identity occurs, say, $\sigma_1 = 1$.
+The fixed field consists of those elements $x$ which are not moved by any of the $\sigma$'s, i.e., $\sigma_i(x) = x$, $i = 1,2,\ldots,n$.
+Suppose that $(E/F) > n$.
+Then there exist $n+1$ elements $\alpha_1, \alpha_2, \ldots, \alpha_{n+1}$ of $E$ which are linearly independent with respect to $F$.
+By Theorem~\ref{theo:on}, there exists a non-trivial solution in $E$ to the system of equations
+\begin{equation}
+\tag{'}
+\begin{aligned}
+x_1 \sigma_1(\alpha_1) + 
+x_2 \sigma_1(\alpha_2) + 
+\cdots +
+x_{n+1} \sigma_{1}(\alpha_{n+1}) &= 0
+\\
+x_1 \sigma_2(\alpha_1) + 
+x_2 \sigma_2(\alpha_2) + 
+\cdots +
+x_{n+1} \sigma_{2}(\alpha_{n+1}) &= 0
+\\
+\cdots &
+\\
+x_1 \sigma_{n}(\alpha_1) + 
+x_2 \sigma_{n}(\alpha_2) + 
+\cdots +
+x_{n+1} \sigma_{n}(\alpha_{n+1}) &= 0.
+\end{aligned}
+\end{equation}
+We note that the solution cannot lie in $F$, otherwise, since $\sigma_1$ is the identity, the first equation would be a dependence between $\alpha_1, \ldots, \alpha_n$.
+
+Among all non-trivial solutions $x_1, x_2, \ldots, x_{n+1}$ we choose one which has the least number of elements different from $0$.
+We may suppose this solution to be $a_1, a_2, \ldots, a_r, 0, \ldots, 0$, where the first $r$ terms are different from $0$.
+Moreover, $r\not=1$ because $a_1 \sigma_1(\alpha_1) = 0$ implies $a_1 = 0$ since $\sigma_1(\alpha_1) = \alpha_1 \not= 0$.
+Also, we may suppose $a_r = 1$, since if we multiply the given solution by $a_r^{-1}$ we obtain a new solution in which the $r$-th term is $1$.
+Thus, we have
+\begin{equation}
+\tag{$*$}
+a_1 \sigma_{i}(\alpha_1) + 
+a_2 \sigma_{i}(\alpha_2) + 
+\cdots +
+a_{r-1} \sigma_{i}(\alpha_{r-1}) +
+\sigma_{i}(\alpha_{r}) = 0
+\end{equation}
+for $i = 1,2,\ldots,n$.
+Since $a_1, \ldots, a_{r-1}$ cannot all belong to $F$, one of these, say $a_1$ is in $E$ but not in $F$.
+There is an automorphism $\sigma_k$ for which $\sigma_k(\alpha_1) \not= a_1$.
+If we use the fact that $\sigma_1, \sigma_2, \ldots, \sigma_n$ form a group, we see $\sigma_k \cdot \sigma_1, \sigma_k \cdot \sigma_2, \ldots, \sigma_k \cdots \sigma_n$ is a permutation of $\sigma_1, \sigma_2, \ldots, \sigma_n$.
+Applying $\sigma_k$ to the expressions in $(*)$ we obtain
+\begin{equation*}
+\sigma_k(a_1) \sigma_k \sigma_{j}(\alpha_1) + 
+\sigma_k(a_2) \sigma_k \sigma_{j}(\alpha_2) + 
+\cdots +
+\sigma_k(a_{r-1}) \sigma_k \sigma_{j}(\alpha_{r-1}) +
+\sigma_k \sigma_{j}(\alpha_{r}) = 0
+\end{equation*}
+for $j=1,2,\ldots,n$, so that from $\sigma_k \sigma_j = \sigma_i$
+\begin{equation}
+\tag{$**$}
+\sigma_k(a_1) \sigma_{i}(\alpha_1) + 
+\sigma_k(a_2) \sigma_{i}(\alpha_2) + 
+\cdots +
+\sigma_k(a_{r-1}) \sigma_{i}(\alpha_{r-1}) +
+\sigma_{i}(\alpha_{r}) = 0
+\end{equation}
+and if we subtract $(**)$ from $(*)$ we have
+\begin{equation*}
+(a_1 - \sigma_k(a_1)) \sigma_{i}(\alpha_1) + 
+(a_2 - \sigma_k(a_2)) \sigma_{i}(\alpha_2) + 
+\cdots +
+(a_{r-1} - \sigma_k(a_{r-1})) \sigma_{i}(\alpha_{r-1}) = 0
+\end{equation*}
+which is a non-trivial solution to the system $(')$ having fewer than $r$ elements different from $0$, contrary to the choice of $r$.
+
+
+\begin{coro}
+\label{coro:on}
+If $F$ is the fixed field for the finite group $G$, then each automorphism $\sigma$ that leaves $F$ fixed must belong to $G$.
+\end{coro}
+
+$(E/F) = \text{order of $G$} = n$.
+Assume there is a $\sigma$ not in $G$.
+Then $F$ would remain fixed under the $n+1$ elements consisting of $\sigma$ and the elements of $G$, thus contradicting the corollary to Theorem~\ref{theo:onth}.
+
+\begin{coro}
+\label{coro:tw}
+There are no two finite group $G_1$ and $G_2$ with the same fixed field.
+\end{coro}
+
+This follows immediately from Corollary~\ref{coro:on}.
+
+
+
 
 
 \end{document}
