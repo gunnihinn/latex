@@ -24,6 +24,7 @@
 \newtheorem{lemm}[theo]{Lemma}
 \newtheorem{coro}[theo]{Corollary}
 \newtheorem{rh}[theo]{The Riemann Hypothesis}
+\newtheorem{rhqff}[theo]{Riemann Hypothesis for quadratic function fields}
 \theoremstyle{definition}
 \newtheorem{defi}[theo]{Definition}
 \newtheorem{exam}[theo]{Example}
@@ -34,6 +35,7 @@
 
 \def\eps{\varepsilon}
 \def\empty{\varnothing}
+\def\qandq{\quad\text{and}\quad}
 
 \def\ov#1{\overline{#1}}
 
@@ -58,47 +60,80 @@
 \def\qw#1{`#1'}
 
 \def\fnon{See Cashwell and Everett~\cite{bib:31}, Gilmer~\cite{bib:63}.}
-\def\fntw{See Sansone and Gerretsen, vol. 1~\cite{bib:162}, \S7.2.1, p.353.}
-\def\fnth{Ibid., \S7.1.3, p.351.}
-\def\fnfo{Ibid., \S7.1.2, p.351.}
+\def\fntw{See Sansone and Gerretsen, vol. 1~\cite{bib:162}, \S7.2.1, p.~353.}
+\def\fnth{Ibid., \S7.1.3, p.~351.}
+\def\fnfo{Ibid., \S7.1.2, p.~351.}
 \def\fnfi{Two holomorphic functions defined in half-planes are \emph{equivalent} if they agree in some half-plane, and a \emph{germ} is an equivalence class.}
-\def\fnsi{This may be proved directly, as in Hardy \& Wright~\cite{bib:86}, \S17.1, p.245.}
-\def\fnse{See Titchmarsh~\cite{bib:194}, \S9.42, p.300.}
-\def\fnei{See Titchmarsh~\cite{bib:195}, Theorem 2.1, p.13.}
-\def\fnni{Ibid., pp.1,2, or Hardy \& Wright~\cite{bib:86}, Theorem 280, p.246.}
+\def\fnsi{This may be proved directly, as in Hardy \& Wright~\cite{bib:86}, \S17.1, p.~245.}
+\def\fnse{See Titchmarsh~\cite{bib:194}, \S9.42, p.~300.}
+\def\fnei{See Titchmarsh~\cite{bib:195}, Theorem 2.1, p.~13.}
+\def\fnni{Ibid., pp.~1,2, or Hardy \& Wright~\cite{bib:86}, Theorem 280, p.~246.}
 
-\def\fnonze{See Sansone and Gerretsen, vol. 1 \cite{bib:162}, \S3.11.1, p.156.}
-\def\fnonon{In his proof of the prime number theorem (see Riemann~\cite{bib:155} p.148), Riemann says of the function $\xi(t) = \Gamma(s) (s-1) \zeta(s) \pi^{-t/2}$ where $s = \frac12 + it$ ``Man findet nun in der That etwa so viel reele Wurzeln innerhalb dieser Genzen und es ist sehr wahrscheinlich dass alle Wurzeln reell sind. Hiervon w\"are allerdings eine strenge Beweis zu wanschen; ich habe indess die Aufsuchung desselben nach einigen fl\"uchtigen vergeblichen Veruschen vorl\"aufig bei Seite gelassen, da er f\"ur n\"achsten Zweck meiner Untersuchung entbehrlich sind.''}
+\def\fnonze{See Sansone and Gerretsen, vol. 1 \cite{bib:162}, \S3.11.1, p.~156.}
+\def\fnonon{In his proof of the prime number theorem (see Riemann~\cite{bib:155} p.~148), Riemann says of the function $\xi(t) = \Gamma(s) (s-1) \zeta(s) \pi^{-t/2}$ where $s = \frac12 + it$ ``Man findet nun in der That etwa so viel reele Wurzeln innerhalb dieser Genzen und es ist sehr wahrscheinlich dass alle Wurzeln reell sind. Hiervon w\"are allerdings eine strenge Beweis zu wanschen; ich habe indess die Aufsuchung desselben nach einigen fl\"uchtigen vergeblichen Veruschen vorl\"aufig bei Seite gelassen, da er f\"ur n\"achsten Zweck meiner Untersuchung entbehrlich sind.''}
 \def\fnontw{See Hardy and Wright \cite{bib:86}, Chapter 17 for further details and examples.}
-\def\fnonth{For the definition and properties of integral closure, see Atiyah and Macdonald \cite{bib:17}, Chapter 5, pp.59--73.}
-\def\fnonfo{See Cohn \cite{bib:36}, Theorem 3, p.96 for example.}
-\def\fnonfi{See Cohn \cite{bib:36}, Chapter 6, \S9, p.110, or Niven and Zuckermann \cite{bib:148}, Chapter 7, in particular \S7.8, pp.175--179.}
-\def\fnonsi{See Atiyah and Macdonald \cite{bib:17}, Chapter 8, pp.93--98.}
-\def\fnonse{This zeta function was introduced by Dedekind in 1871 (see Dedekind \cite{bib:37}), who proved convergence in $H_1$. Landau proved that $\zeta$ extends to a meromorphic function in the half plane $H_a$ where $a = 1 - \deg(K / \QQ)^{-1}$ (see Landau \cite{bib:116}), and Hecke finally proved the extension to $\CC$, see Hecke \cite{bib:94}. See Narkiewicz \cite{bib:146}, Chapter VII, Prop. 7.1, p.293 and Theorem 7.1, p.296.}
-\def\fnonei{See Narkiewicz \cite{bib:146}, Chapter VI, Prop. 7.1, p.293. The class number relation was first proved by Dedekind (see Dedekind \cite{bib:37}).}
+\def\fnonth{For the definition and properties of integral closure, see Atiyah and Macdonald \cite{bib:17}, Chapter 5, pp.~59--73.}
+\def\fnonfo{See Cohn \cite{bib:36}, Theorem 3, p.~96 for example.}
+\def\fnonfi{See Cohn \cite{bib:36}, Chapter 6, \S9, p.~110, or Niven and Zuckermann \cite{bib:148}, Chapter 7, in particular \S7.8, pp.~175--179.}
+\def\fnonsi{See Atiyah and Macdonald \cite{bib:17}, Chapter 8, pp.~93--98.}
+\def\fnonse{This zeta function was introduced by Dedekind in 1871 (see Dedekind \cite{bib:37}), who proved convergence in $H_1$. Landau proved that $\zeta$ extends to a meromorphic function in the half plane $H_a$ where $a = 1 - \deg(K / \QQ)^{-1}$ (see Landau \cite{bib:116}), and Hecke finally proved the extension to $\CC$, see Hecke \cite{bib:94}. See Narkiewicz \cite{bib:146}, Chapter VII, Prop. 7.1, p.~293 and Theorem 7.1, p.~296.}
+\def\fnonei{See Narkiewicz \cite{bib:146}, Chapter VI, Prop. 7.1, p.~293. The class number relation was first proved by Dedekind (see Dedekind \cite{bib:37}).}
 \def\fnonni{This was first proved by Hecke in Hecke \cite{bib:94}.}
 
-\def\fntwze{See Ribenboim \cite{bib:154}, pp.97--98.}
-\def\fntwon{}
-\def\fntwtw{}
-\def\fntwth{}
-\def\fntwfo{}
-\def\fntwfi{}
-\def\fntwsi{}
-\def\fntwse{}
-\def\fntwei{}
-\def\fntwni{}
+\def\fntwze{See Ribenboim \cite{bib:154}, pp.~97--98.}
+\def\fntwon{See Artin \cite{bib:6}.}
+\def\fntwtw{It is easy to show from the equation $1 + x = (\sum \binom{1/2}{r} X^r)^2$.}
+\def\fntwth{See Artin \cite{bib:6}, pp.~196--197.}
+\def\fntwfo{Ibid., p.~180 (imaginary case) and p.~194 (real case).}
+\def\fntwfi{See Sansone and Gerretsen \cite{bib:162}, \S4.1, pp.~175--176.}
+\def\fntwsi{See Artin \cite{bib:6}, p.~207.}
+\def\fntwse{Ibid., p.~209.}
+\def\fntwei{Ibid., p.~216.}
+\def\fntwni{Ibid., p.~2223}
 
-\def\fnthze{}
-\def\fnthon{}
-\def\fnthtw{}
-\def\fnthth{}
-\def\fnthfo{}
-\def\fnthfi{}
-\def\fnthsi{}
-\def\fnthse{}
-\def\fnthei{}
-\def\fnthni{}
+\def\fnthze{See \S\ref{ch:4.7} and Armitage \cite{bib:5}.}
+\def\fnthon{This follows from a simple calculation using the formula.}
+\def\fnthtw{See Artin \cite{bib:6}, equation (5), p.~209.}
+\def\fnthth{See example \ref{8.3.2}.}
+\def\fnthfo{For the definition and properties of transcendence degree, see Winter \cite{bib:217}, p.~41.}
+\def\fnthfi{See Weil \cite{bib:214}, Chapter III, \S2, Lemma 1, p.~48.}
+\def\fnthsi{See Endler \cite{bib:58}, \S1.14 and \S1.15, p.~6.}
+\def\fnthse{Ibid., \S2, p.~8.}
+\def\fnthei{Ibid., \S1.5, p.~2.}
+\def\fnthni{Immediate from the definition.}
+
+\def\fnfoze{}
+\def\fnfoon{}
+\def\fnfotw{}
+\def\fnfoth{}
+\def\fnfofo{}
+\def\fnfofi{}
+\def\fnfosi{}
+\def\fnfose{}
+\def\fnfoei{}
+\def\fnfoni{}
+
+\def\fnfize{}
+\def\fnfion{}
+\def\fnfitw{}
+\def\fnfith{}
+\def\fnfifo{}
+\def\fnfifi{}
+\def\fnfisi{}
+\def\fnfise{}
+\def\fnfiei{}
+\def\fnfini{}
+
+\def\fnsize{}
+\def\fnsion{}
+\def\fnsitw{}
+\def\fnsith{}
+\def\fnsifo{}
+\def\fnsifi{}
+\def\fnsisi{}
+\def\fnsise{}
+\def\fnsiei{}
+\def\fnsini{}
 
 
 \begin{document}
@@ -589,8 +624,337 @@ d = \begin{cases}
 \section{Artin's thesis}
 \label{ch:3}
 
+E. Artin, in his thesis\footnote{\fntwon} in 1921, observing the analogy between the ring $\FF_p[X]$ of polynomials over the finite field $\FF_p$ with $p$ elements ($p$ is prime) has much in common with the ring $\ZZ$ of integers, examined the analogues of the quadratic function fields.
+That is to say, let $f(X) \in \FF_p[X]$ be a polynomial of degree at least $1$ and which is square-free, and let $K$ be the splitting field of the polynomial $Y^2 - f(X)$ (in the variable $Y$) over the field $\FF_P(X)$ of rational functions of $X$ (which is the field of fractions of $\FF_p[X]$).
+Let $A$ be the integral closure of $\FF_p[X]$ in $K$.
+Artin investigated the properties of the ring $A$ by analogy with the classical case.
+
+If we write $Y = \sqrt f$, then any element of $K$ can be expressed uniquely in the form $a + b \sqrt f$ where $a,b \in \FF_p(X)$.
+If $p$ is odd, then $a + b \sqrt f \in A$ if and only if $a,b \in \FF_p[X]$.
+(This is similar with the classical case, where the integers of $\QQ(\sqrt d)$ are of the form $1/2(a + b\sqrt d)$, where $a,b$ are rational integers.
+Since $p\not=2$, we can divide by $2$ in $\FF_p[X]$.)
+Thus if $p \not= 2$ (which we tacitly assume throughout this number) $A = \{a + b \sqrt f \in K \mid a, b \in \FF_p[X]\}$.
+Clearly $A$ is a free $\FF_p[X]$-module of rank $2$.
+
+
+\subsection[The units of A]{The units of $A$}
+\label{ch:3.1}
+
+The theory of units in the classical case depends on whether or not $\sqrt d$ is real.
+Artin introduces the analogue of this as follows.
+Let $\FF_p(X)_\infty$ be the field of finite Laurent series in $X^{-1}$.
+An element of this field is a formal sum of the form $\sum_{n=-\infty}^{\infty} a_n X^n$ such that for some $m \in \ZZ$, $a_n = 0$ if $n \geq m$.
+This field contains $\FF_p[X]$, and hence $\FF_p(X)$ as a subfield.
+
+
+\begin{defi}
+\label{3.1.1}
+We say that $\sqrt f$ is \emph{real} if $Y^2 - f$ factorises over $\FF_p(X)_\infty$, i.e., if there exists a $g \in \FF_p(X)_\infty$ such that $g^2 = f$.
+We say that $\sqrt f$ is \emph{imaginary} if it is not real.
+\end{defi}
+
+Thus $\sqrt f$ is real if and only if there is an embedding of $K$ into $\FF_p(X)_\infty$ which is the identity on $\FF_p(X)$.
+
+\begin{lemm}
+\label{3.1.2}
+If $f(X) = a_n X^n + \cdots + a_0$, where $a_n \not= 0$, then $\sqrt f$ is real if and only~if%
+\begin{enumerate}
+\item
+\label{3.1.2.1}
+$\deg f = n$ is even,
+
+\item
+\label{3.1.2.2}
+the leading coefficient $a_n$ has a square root in $\FF_p$.
+\end{enumerate}
+\end{lemm}
+
+\begin{proof}
+If $\sqrt f$ is real, clearly \eqref{3.1.2.1} and \eqref{3.1.2.2} are satisfied.
+Conversely, if \eqref{3.1.2.1} and \eqref{3.1.2.2} are satisfied we can write $f = a^2 X^{2m}(1 + h)$, where $a^2 = a_n$, $2m = n$ and $h$ is a polynomial in $X^{-1}$ of degree $2m$ with $h(0) = 0$.
+Since\footnote{\fntwtw} the binomial coefficient $\binom{1/2}{r}$ is a rational number of the form $a/2^m$ with $a\in\ZZ$ it can be considered as an element of $\FF_p$.
+The power series $\sum_{r=1}^\infty \binom{1/2}{r} h^r$ converges in $\FF_p(X)_\infty$ to a square root of $1+h$, and so
+\[
+g = aX^m \sum_{r=1}^\infty \binom{1/2}{r} h^r
+\]
+is an element of $\FF_p(X)_\infty$ whose square is $f$.
+\end{proof}
+
+Let $U$ denote the group of units of $A$.
+The subgroup of elements of finite order is $\mu(K) = \mu(\FF_p) = \FF_p^*$ which is a finite cyclic group of order $p-1$.
+Artin shows\footnote{\fntwth} that $U / \FF_p^*$ is zero if $\sqrt f$ is imaginary, but is infinite cyclic if $\sqrt f$ is real, in the second case using continued fractions as in the classical case to obtain fundamental units.
+
+
+\subsection{Ideal theory}
+\label{ch:3.2}
+
+The ring $A$ is Noetherian, every non-zero prime ideal is maximal and $A$is integrally closed, so again $A$ is a Dedekind domain, and hence every non-zero ideal is a unique product of prime ideals.
+The ideal class group is again finite;\footnote{\fntwfo} its order is as usual denoted by $h$.
+
+If $I$ is a non-zero ideal of $A$, then $A/I$ is finite; let $N(I)$ be its order.
+For any $n \in \NN$ the set $\{I \tri A \mid N(I) = n\}$ is finite.
+We define the $\zeta$-function of the extension $K/\FF_p(X)$ by the Dirichlet series
+\begin{equation}
+\label{3.2.1}
+\zeta(z,K/\FF_p(X))
+= \sum_{I \tri A, I\not=0} \frac{1}{N(I)^z}.
+\end{equation}
+Because of unique factorisation of ideals and the fact that $N$ is multiplicative, we could equally well define the $\zeta$ function as the infinite product
+\begin{equation}
+\label{3.2.2}
+\zeta(z,K/\FF_p(X))
+= \prod_{P \in \max A} \frac{1}{1 - N(P)^{-z}}.
+\end{equation}
+If $I$ is a non-zero ideal of $A$, then $A/I$ is a finite vector space over $\FF_p$, say of dimension $\deg I$, so that $N(I) = p^{\deg I}$.
+We define the $Z$-function of $K / \FF_p(X)$ to be the power series/infinite product
+\begin{equation}
+\label{3.2.3}
+Z(t, K/\FF_p(X))
+= \sum_{I \tri A, I\not=0} t^{\deg I}
+= \prod_{P \in \max A} \frac{1}{1 - t^{\deg P}}.
+\end{equation}
+The relation between the $\zeta$ function and the $Z$ function is that
+\begin{align*}
+\zeta(z, K/\FF_p(X))
+&= Z(p^{-z}, K/\FF_p(X)),
+\\
+Z(t, K/\FF_p(X)) 
+&= \zeta(-\log_p t, K/\FF_p(X)).
+\end{align*}
+
+
+\begin{prop}
+\label{3.2.4}
+The $\zeta$ function of $K/\FF_p(X)$ is absolutely convergent in $H_1$.
+\end{prop}
+
+\begin{proof}
+Consider the infinite product representation \eqref{3.2.2} of $\zeta(z, K/\FF_p(X))$.
+For a fixed value of $z$, this product is absolutely convergent if\footnote{\fntwfi} (and only if) the series $\sum_{P \in \max A} 1/N(P)^z$ is absolutely convergent.
+If $P \in \max A$ then the ideal $P' = P \cap \FF_p[X]$ of $\FF_p[X]$ is prime, and is non-zero, so is maximal.
+Since $A/P$ is an extension of $\FF_p[X] / P'$, we know that $N(P) \geq p^r$ where $r$ is the degree of any polynomial which generates $P'$.
+Conversely, if $P_1$ is a maximal ideal of $\FF_p[X]$, there are\footnote{\fntwsi} at most $2$ maximal ideals $P'$ of $A$ such that $P' \cap \FF_p[X] = P_1$.
+Hence we have
+\[
+\sum_{P \in \max A} \frac{1}{|N(P)^z|}
+\leq 2 \sum_{k=1}^\infty \sum_{f \in \FF_p[X], \text{$f$ monic}, \deg f = k} \frac{1}{|p^{kz}|}
+\leq 2 \sum_{k=1}^\infty \frac{p^k}{|p^{kz}|}
+\]
+and the series on the right of the inequalities, being a geometric series with ratio less than $1$, is convergent.
+\end{proof}
+
+
+\begin{coro}
+\label{3.2.5}
+The $Z$ function of $K / \FF_p(X)$ is absolutely convergent in the disc $\{ t \in \CC \mid |t| < p^{-1} \}$.
+\end{coro}
+
+Artin next showed that $Z(t, K/\FF_p(X)) = P(t, K/\FF_p(X)) / (1 - pt)$, where $P(t, K/\FF_p(X))$ is a polynomial in $t$, of degree less than the degree of $f$.
+In fact he gave an explicit value of its degree, depending on whether or not $\sqrt f$ is real and whether $n$ is even\footnote{\fntwse} and these results can be etracted from \eqref{3.3.4} and \eqref{3.3.7} below.
+
+Thus $Z$ and $\zeta$ extend to meromorphic functions on the complex plane.
+The $Z$ function has a single simple pole at $t = 1/p$, and so the $\zeta$ function (being periodic with period $2\pi i / p$) has simple poles at $z = 1 + 2k \pi i / p$ for any $k \in \ZZ$.
+The residues at these poles involve\footnote{\fntwei} the class number of $K$, and can be determined from \eqref{3.3.9}.
+
+
+\subsection{The functional equation}
+\label{ch:3.3}
+
+Suppose that $f \in \FF_p[X]$ is square-free of degree $n$.
+The $Z$ function satisfies the functional equation\footnote{\fntwni}
+\begin{equation}
+\label{3.3.1}
+Z(1/pt, K/\FF_p(X))
+= \biggl(
+\frac{1-pt}{1-1/t}
+\biggr)
+\biggl(
+\frac{1}{pt^2}
+\biggr)^g
+Z(t, K/\FF_p(X))
+\end{equation}
+if $\sqrt f$ is imaginary and $n$ is odd,
+\begin{equation}
+\label{3.3.2}
+Z(1/pt, K/\FF_p(X))
+= \biggl(
+\frac{1-p^2t^2}{1-1/t^2}
+\biggr)
+\biggl(
+\frac{1}{pt^2}
+\biggr)^g
+Z(t, K/\FF_p(X))
+\end{equation}
+if $f$ is imaginary, $n$ even,
+\begin{equation}
+\label{3.3.3}
+Z(1/pt, K/\FF_p(X))
+= \biggl(
+\frac{1-pt}{1-1/t}
+\biggr)^2
+\biggl(
+\frac{1}{pt^2}
+\biggr)^g
+Z(t, K/\FF_p(X))
+\end{equation}
+if $\sqrt f$ is real, where $g$ is the genus\footnote{\fnthze} of $K/\FF_p(X)$, which is\footnote{\fnthon} $(n-1)/2$ if $n$ is odd, but $n/2 - 1$ if $n$ is even.
+We define the $Z$ function of $K$, $Z(t,K)$ to be
+\begin{equation}
+\label{3.3.4}
+\begin{aligned}
+Z(t,K/\FF_p(X)) / (1-t) & \quad \text{if $\sqrt f$ is imaginary, $n$ odd,}
+\\
+Z(t,K/\FF_p(X)) / (1-t^2) & \quad \text{if $\sqrt f$ is imaginary, $n$ even,}
+\\
+Z(t,K/\FF_p(X)) / (1-t)^2 & \quad \text{if $\sqrt f$ is real,}
+\end{aligned}
+\end{equation}
+then the above functional equations \eqref{3.3.1}--\eqref{3.3.3} can be condensed into the single equation
+\begin{equation}
+\label{3.3.5}
+Z(1/pt,K) = (pt^2)^{1-g} Z(t,K).
+\end{equation}
+
+
+\begin{rema}
+We shall see in Chapter~\ref{ch:5} that, as the notation suggests, 
+% TODO: remove line, check for overfull hbox
+the function
+$Z(t, K/\FF_p(X))$ depends on the extension $K/\FF_p(X)$, and thus on $A$, whereas $Z(t,K)$ depends only on the field $K$.
+This situation does not arise in the classical case.
+\end{rema}
+
+As we have said, Artin showed\footnote{\fnthtw} essentially that
+\begin{equation}
+\label{3.3.7}
+Z(t,K) = P(t,K)/(1-pt)(1-t)
+\end{equation}
+where $P(t,K)$ is a polynomial of degree $2g$, and satisfies the functional equation
+\begin{equation}
+\label{3.3.8}
+P(1/pt, K) = (pt^2)^{-g} P(t,K).
+\end{equation}
+
+Artin's results about the residues of the $\zeta$ functions are summarized in the following:
+
+\begin{theo}
+\label{3.3.9}
+The resiude of $\zeta(z,K)$ at $z = 1$ is
+\[
+\frac{hp^{1-g}}{(p-1)\log p}.
+\]
+\end{theo}
+
+
+This result is equivalent to either of the statements (i) the residue of $Z(t,K)$ at $t=1$ is $h/p-1$ or (ii) $P(1) = h$.
+
+
+\subsection{The Riemann hypothesis}
+\label{ch:3.4}
+
+Artin observed, by making specific calculations in many cases that the non-integral zeros of the $\zeta$ function appeared to lie on the line $\re z = \frac12$.
+He conjectured (by virtue of the relation between the $\zeta$ function and the $Z$ function) the following.
+
+
+\begin{rhqff}
+\label{3.4.1}
+The zeros of the $Z$ function of a quadratic extension of $\FF_p(X)$ are either trivial (i.e., $\pm1$) or lie on the circle $|t| = 1/\sqrt p$.
+\end{rhqff}
+
+It follows from \eqref{3.3.8} that $P(t,K) = \prod_{i=1}^{2g} (1-\alpha_i(t))$ where $\alpha_i \alpha_{g+i} = p$.
+The Riemann Hypothesis is that $|\alpha_i|^2 = p$.
+
+
+\subsection{The points at infinity}
+\label{ch:3.5}
+
+The ideas of Artin extend to the study of the integral closure of $\FF_p[X]$ in some finite separable extension $K$ of $\FF_p[X]$.
+One can define exactly as in \eqref{3.2.2} and \eqref{3.2.3} the corresponding $\zeta$ and $Z$ functions, and ask the following questions.
+
+% TODO: Check p.16 for counters that use \ref{ch:3.5}
+\begin{enumerate}
+\item
+\label{3.5.1}
+Are the $\zeta$ and $Z$ functions absolutely convergent at any points, i.e., are they holomorphic in some domain?
+
+\item
+\label{3.5.2}
+Do they extend to meromorphic functions on the complex plane, and if so where are the zeros and poles and what are the residues?
+
+\item
+\label{3.5.3}
+Do they satisfy a functional equation?
+
+\item
+\label{3.5.4}
+Is the $Z$ function rational?
+
+\item
+\label{3.5.5}
+Is the generalised Riemann Hypothesis true, i.e., do the zeros of the $Z$ function have absolute value $1/\sqrt p$?
+\end{enumerate}
+
+We have seen that even in the quadratic case that there seem to be three separate cases to consider (depending on whether $\sqrt f$ is real or imaginary).
+But these distinctions are somewhat artificial as the next example shows.
+
+
+\begin{exam}
+\label{3.5.6}
+Let $K$ be the field obtained by adjoining to $\FF_7(X)$ the square roots of $f(X) = 3X^4 + 1$.
+We shall see later\footnote{\fnthth} that $Z(t,K) = (1+7t^2)/(1-t)(1-7t)$.
+Now since $Y = \sqrt f$ is imaginary, we have $Z(t,K/\FF_7(X)) = (1+t)(1+7t^2)$.
+
+Now consider the elements $X_1 = 1/X$ and $Y_1 = Y/X^2$ of $K$.
+The field $K$ is obtained by adjoining to $\FF_7(X_1)$ the element $Y_1$ which is a square root of $X_1^4 + 3$, so that $Y_1$ is real, and so $Z(t, K/\FF_7(X_1)) = (1-t)(1+7t^2)/(1-7t)$.
+
+If we put $X_2 = 1/X-2$ and $Y_2 = Y/(X-2)^2$, then $K$ is also obtained from $\FF_7(X_2)$ by adjoining $Y_2$ which is a square root of $5X_2^3 + 2X_2^2 + 3X_2 + 3$.
+Again $Y_2$ is imaginary, but $Y_2^2$ has odd degree in $X_2$, so $Z(t, K/\FF_7(X_2)) = (1+7t^2)/(1-7t)$.
+
+This example shows that the same field can occur as a real or imaginary quadratic extension of either type depending on the choice of subfield of rational functions.
+
+Moreover, since the three $Z$ functions are different, the three corresponding rings of integers, the integral closures of $\FF_7[X]$, $\FF_7[X_1]$ and $\FF_7[X_2]$ are not isomorphic.
+\end{exam}
+
+If $K$ is a finite algebraic extension of $\FF_p(X)$, then $K$ is a finitely generated extension of a finite field of transcendence degree\footnote{\fnthfo} one.
+Conversely\footnote{\fnthfi} any finitely generated extension of a finite field of transcendence degree one is a finite separable extension of $\FF_p(X)$.
+
+
+\begin{defi}
+\label{3.5.7}
+A \emph{function field in $n$ variables over a field $F$} is a finitely generated extension of $F$ of transcendence degree $n$.
+A function field in one variable over a finite field is called an \emph{algebraic function field}.
+If $K$ is an algebraic function field, its \emph{field of constants} (or constant field) is the algebraic closure of the prime field in $K$.
+A \emph{global field} (or \emph{$A$-field}) is either an algebraic number field, or an algebraic function field.
+\end{defi}
+
+We shall see in the next section that there is a close analogy between algebraic number fields and algebraic function fields, which justifies the introduction of a common label.
+
+Suppose that $K$ is an algebraic function field, with field of constants $k$.
+A choice of embedding $k(X) \to K$ (or equivalently a choice of element $x \in K$ transcendental over $k$) is called a model for $K$.
+Each model has an associated ring of integers, which as example~\ref{3.5.6} shows depends on the model.
+The explanation of this and the relation between various models is geometrical, and will be given in Chapter~\ref{ch:9}.
+We give a simple sketch now.
+
+\begin{figure}[h]
+% TODO: figure, p. 18
+\end{figure}
+
+An algebraic function field $K$ corresponds to a \qw{smooth} curve $\Gamma$ in some projective space, and each model corresponds to a projection from $\Gamma$ onto a projective line.
+The ring of integers of a model corresponds to that part of $\Gamma$ which projects onto the affine line, which consists of all but a finite set of points of $\Gamma$.
+In other words, the model \qw{ignores information at infinity}.
+However, since there is only a finite set of points at infinity, not too much is lost.
+The equations \eqref{3.3.4} are essentially putting back the points at infinity.
+
+Altough this situation does not arise in the classical case (because there is a unique embedding of $\QQ$ into any algebraic number field) it can still be useful to consider points at infinity.
+In order to do this, one introduces valuations.
+
+
+
 \section{Valuation theory}
 \label{ch:4}
+
+\subsection{Todo}
+\label{ch:4.7}
 
 \section{Global fields}
 \label{ch:5}
@@ -606,6 +970,10 @@ d = \begin{cases}
 
 \section{Elliptic curves}
 \label{ch:8}
+
+\begin{exam}
+\label{8.3.2}
+\end{exam}
 
 \section{Varieties}
 \label{ch:9}
