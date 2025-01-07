@@ -1,4 +1,4 @@
-\documentclass[10pt]{article}
+\documentclass[10pt,leqno]{article}
 
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
@@ -55,10 +55,13 @@
 \def\FF{\mathbf{F}}
 \def\PP{\mathbf{P}}
 
+\def\mm{\mathfrak{m}}
+
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\img}{Im}
 \newcommand{\tri}{\mathbin{\triangleleft}}
 
 \def\qw#1{`#1'}
@@ -562,13 +565,15 @@ It may be shown that the $\zeta$-function of $K$ satisfies\footnote{\fnonni} the
 \begin{equation}
 \label{2.4.1}
 \zeta(z,K)
-= |D|^{1/2 - z}
+= |D|^{\frac12 - z}
 \biggl(
-\frac{\pi^{z-1/2} \Gamma(1/2 - z/2)}{\Gamma(z/2)}
-\biggr)^{r_1}
+\frac{\pi^{z-\frac12} \Gamma(\frac{1-z}2)}{\Gamma(z/2)}
+\biggr)^{\!r_1}
+\!\!
 \biggl(
 \frac{(2\pi)^{2z-1} \Gamma(1-z)}{\Gamma(z)}
-\biggr)^{r_2}
+\biggr)^{\!r_2}
+\!\!
 \zeta(1-z, K).
 \end{equation}
 
@@ -1431,7 +1436,336 @@ N_{E/F}(e)
 \subsection{Valuation rings}
 \label{ch:4.3}
 
+Let $F$ be a field, and $S$ a non-archimedian spot on $F$ represented by the valuation $v \in S$.
+The subset
+\begin{equation}
+\label{4.3.1}
+R_S = R_S(F)
+= \{ x \in F \mid v(x) \leq 1 \}
+\end{equation}
+is a subring of $F$, and is independent of the choice of $v \in S$, by \eqref{4.1.3.2}.
+% TODO: Fix \eqref above to point to something that makes sense
+It is called the \emph{valuation ring of $F$ at $S$}, or the \emph{ring of integers at $S$}, its elements being called \emph{integers at $S$}.
 
+
+\begin{prop}
+\label{4.3.2}
+The ring $R_S$ is integrally closed in $F$.
+\end{prop}
+
+\begin{proof}
+Suppose $x \in F$ is integral over $R_S$ and so satisfies an equation of the form
+\[
+x^n + a_{n-1} x^{n-1} + \cdots + a_0 = 0
+\]
+with $a_0, \ldots, a_{n-1} \in R_S$.
+If $x$ were not in $R_S$ so that $v(x) > 1$, then we would have $v(x^n) > v(a_i x^i)$ for $i = 0, \ldots, n-1$ and hence
+\[
+v(0) = v(x^n + a_{n-1} x^{n-1} + \cdots + a_0) = v(x)^n > 1
+\]
+(using \ref{4.1.2}) which is a contradiction.
+\end{proof}
+
+The ring $R_S$ is a local ring with (unique) maximal ideal
+\begin{equation}
+\label{4.3.3}
+\mm_S = \mm_S(F) = \{ x \in F \mid v(x) < 1 \}
+\quad
+\text{(the interior of $R_S$)}
+\end{equation}
+and group of units
+\begin{equation}
+\label{4.3.4}
+U_S = U_S(F) = \{ x \in F \mid v(x) = 1 \}
+\quad
+\text{(the boundary of $R_S$).}
+\end{equation}
+The quotient field
+\begin{equation}
+\label{4.3.5}
+F(S) = R_S / \mm_S
+\end{equation}
+is called the \emph{residue field} of $F$ at $S$.
+The natural map from $R_S$ to $F(S)$ will be denoted by $\rho$ or $\rho_S$, and is called \qw{reduction mod $S$}.
+
+
+\begin{exam}
+\label{4.3.6}
+If $A$ is a Dedekind domain with field of fractions $F$ and $S$ is the $P$-adic spot on $F$ where $P$ is some maximal ideal of $A$ (see \ref{4.1.6}) then the ring of integers at $S$ is precisely the localisation $A_P$ of the ring $A$ at the maximal ideal $P$, and the residue field is $A/P$.
+
+If $i : F \to E$ is a field extension and $T$ is a spot on $E$ extending the spot $S$ on $F$ then by restriction $i$ maps $R_S$ into $R_T$.
+Moreover $i^{-1}(\mm_T) = \mm_B$, that is to say $i$ is a \emph{local homomorphism}, and it induces a (natural) embedding $i : F(S) \to E(T)$.
+Clearly we have $\deg E(T)/F(S) \leq \deg E/F$.
+In particular, if $S$ is a non-archimedian spot on a global field $K$, then $K(S)$ is finite.
+\end{exam}
+
+
+The following lemma is quite straightforward.\footnote{\fnfofo}
+
+
+\begin{lemm}
+\label{4.3.7}
+If $F$ is a field, and $S$ is a non-archimedian spot on $F$ with completion $F_S$, then
+\begin{enumerate}
+\item
+\label{4.3.7.1}
+the natural embedding $F(S) \to F_S(S)$ is an isomorphism,
+
+\item
+\label{4.3.7.2}
+if $v$ is a valuation on $F_S$ representing the spot $S$ then
+\[
+\img(v : F_S \to \RR) = \img(v : F \to \RR).
+\]
+\end{enumerate}
+\end{lemm}
+
+
+Thus the residue field and value group are invariant under completion.
+We now consider the effect of algebraic closure.
+
+
+\begin{lemm}
+\label{4.3.8}
+Let $F$ be a field which is complete with respect to the non-archimedian spot $S$.
+Let $S^a$ denote the unique spot on $F^a$ (the algebraic closure of $F$) which extends $S$ (see \eqref{4.2.2}).
+Then $F^a(S^a)$ is the algbraic closure of $F(S)$.
+\end{lemm}
+
+\begin{proof}
+Suppose $\bar f(X)$ is a monic polynomial over $F^a(S^a)$.
+Let $f(X)$ be a monic polynomial over $R_{S^a}$ of the same degree such that $\rho f = \bar f$.
+All the roots of $f$ lie in $F^a$, and hence in $R_{S^a}$ by \ref{4.3.2}.
+Their images in $F(S)$ are all the roots of $\bar f(X)$, so $F^a(S^a)$ is algebraically closed.
+
+Now suppose that $\bar x$ is an element of $F^a(S^a)$ and let $x \in \rho^{-1}(\bar x) \subset R_{S^a}$ representatives of $\bar x$.
+Since $x$ is algebraic over $F$ we have $f(x) = 0$ for some polynomial $F(X) \in F[X]$.
+By multiplying $f(X)$ by some element of $F$ if necessary we can assume that $f(X) \in R_S[X]$ and that $1$ is a coefficient of $f(X)$.
+The reduction $\bar f(X)$ of $f(X) \mod \mm_S$ is thus non-trivial and has $\bar x$ as a root, that is to say each element of $F^a(S^a)$ is algebraic over $F(S)$.
+\end{proof}
+
+
+
+\subsection{Integral closure}
+\label{ch:4.4}
+
+The relation between integral closure and spots is contained in the following result.
+
+
+\begin{prop}
+\label{4.4.1}
+If $E/F$ is a finite separable extension and $S$ a non-archi\-median spot on $F$, then the integral closure $A$ of $R_S$ in $E$ is $\bigcap_{T \mid S} R_T$.
+\end{prop}
+
+\begin{proof}
+Since $\bigcap_{T \mid S} R_T$ is integrally closed by \ref{4.3.2} and contains $R_S$, it contains $A$.
+Conversely, suppose that $x \in \bigcap_{T \mid S} R_T$, and let $m(X) = X^n + a_{n-1} X^{n-1} + \cdots + a_0$ be its minimum polynomial over $F$.
+Let $B$ be the splitting field of $m(X)$ over $F_S$ and let $R$ be the ring of integers of $B$ (at the unique spot extending $S$ on $F_S$).
+Let $x_1, \ldots, x_n$ be the roots of $m(X)$ in $B$; if $x_i \not\in R$ for some $i$, then the embedding $F(x) \to B$ which takes $x$ to $x_i$ would define a spot on $F(x)$ which would extend to a spot $T \in S^E$ with the property that $x \in R_T$.
+Hence $x_i \in R$ for all $i$, and since $a_j$ is, up to sign, the $j$-th elementary symmetric polynomial in the roots we have $a_j \in R$ for all $j$, and so $x$ is integral over $R_S$.
+\end{proof}
+
+
+\subsection{Discrete spots}
+\label{ch:4.5}
+
+Suppose that $S$ is a discrete spot on the field $F$ represented by the valuation $v \in S$.
+By definition the value group $v(F^*)$ is a discrete subgroup of $\RR^*$, and so\footnote{\fnfofi} is a free abelian group of rank 1 generated by $v(\eta)$ where $\eta$ is any element of $\mm_S \setminus \mm_S^2$.
+Such an element $\eta$ is called a \emph{prime element} of $F$ at $S$.
+Any other element $x \in F$ is also a prime element if and only if $x = u \eta$ for some $u \in U_S$, that is to say there is a unique prime element up to units.
+
+For any $r \in \ZZ$, let $\mm_S^r$ denote the $R_S$-submodule of $F$ generated by $\eta^r$.
+(This notation is consistent since fo r$r \in \NN$, the element $\eta^r$ does generate the ideal $\mm_S^r$ of $R_S$.)
+
+The function $\ord_S : F \to \ZZ$ defined by
+\begin{equation}
+\label{4.5.1}
+\ord_S(x) = \max \{ r \mid x \in \mm_S^r \}
+\end{equation}
+is a Euclidean algorithm on $R_S$, and for any constant $c > 0$ the function $x \mapsto c^{-\ord_S x}$ from $F$ to $\RR$ is a valuation of $F$ representing $S$.
+This should be compared with \ref{4.1.8} since $R_S$ is a Dedekind domain with unique maximal ideal; in fact it is a principal ideal domain.
+The completion $\widehat R_S$ of $R_S$ with respect to the $\mm_S$-adic topology, namely $\varprojlim_{n} R_S / \mm_S^n$, is precisely the ring of integers in the complete field $F_S$.
+
+
+\begin{lemm}
+\label{4.5.2}
+Let $S$ be a discrete spot on the field $F$ such that $F$ is complete and the residue field $F(S)$ is perfect, and has characteristic $p \not= 0$.
+There exists a unique function $j : F(S) \to R_S$ such that
+\begin{enumerate}
+\item
+\label{4.5.2.1}
+$\rho j = 1$ (where $\rho : R_S \to F(S)$ is reduction mod $S$).
+
+\item
+\label{4.5.2.2}
+$j(xy) = j(x) j(y)$ for all $x,y \in F(S)$.
+\end{enumerate}
+If $\chr F = p$, then $j$ is a field homomorphism.
+
+If $\widetilde U_S = \{x \in U_S \mid \text{$x^m = 1$ for some $m$ with $(m,p) = 1$} \}$, then $\rho : \widetilde U_S \to \mu(F(S))$ is an isomorphism with inverse $j$.
+\end{lemm}
+
+\begin{proof}
+For $x \in F$ and $n$ a positive integer let $U_n(X) = (\rho^{-1}(x^{p^{-n}}))^{p^n} \subset F$.
+The family $\{U_n(x) \mid n \in \NN\}$ is a Cauchy filter\footnote{\fnfosi} in $F$.
+Define $j(x) = \lim_n U_n(x)$, then clearly $j$ satisfies \eqref{4.5.2.1} and \eqref{4.5.2.2}.
+If $j' : F(S) \to R_S$ is any other function satisfying these conditions then $j'(x) \in U_n(x)$ for all $n$, so $j' = j$.
+Clearly $j$ is additive if $\chr F = \chr F(S)$.
+
+To prove the last part, it suffices to show that $\rho : \widetilde U_S \to \mu(F(S))$ is injective.
+Suppose then for some $x \in \widetilde U_S$ of order $m \not= 1$ we have $\rho(x) = 1$.
+For any positive integer $n$ there are integers $a_n, b_n$ such that $a_n m + b_n p^n = 1$, since $(m,p) = 1$, and so $x$ is the $p^n$-th power of $x^{b_n}$.
+This means that $x$ and $1$ both belong to $U_n(1)$ for all $n$, hence $x = 1$.
+\end{proof}
+
+
+In particular, under the conditions of \ref{4.5.2} if $\chr F = \chr F(S)$ and $F(S)$ is finite, then the map $j : F(S) \to F$ is an isomorphism onto the algebraic closure of the prime field in $F$.
+
+
+\begin{defi}
+\label{4.5.3}
+If $F$ is any field and $S$ is a spot on $F$ which is discrete, then a function $j : F(S) \to R_S$ satisfying \eqref{4.5.2.1} and \eqref{4.5.2.2} and the set $j(F(S))$ are both called a \emph{system of multiplicative representatives (SMR)} for $F(S)$.
+If the SMR is unique, then we write $\operatorname{SMR}(S)$ for $j(F(S))$.
+\end{defi}
+
+Suppose now that $S$ is a discrete spot on $F$, and that $F$ is complete with finite residue field.
+Let $\eta \in \mm_S \setminus \mm_S^2$ be a prime element.
+If $x \in \mm_S^n$ then it is easy to see that there is a unique element $a_n \in \operatorname{SMR}(S)$ such that $x - a_n \eta^n \in \mm_S^{n+1}$, namely $a_n = j\rho(x\eta^{-n})$, and hence by induction there is for each ineger $\NN$ a unique finite Laurent series $x_N = \sum_{\ord_S x}^n a_i \eta^i$ with $a_i \in \operatorname{SMR}(S)$ such that $x - x_N \in \mm_S^{N+1}$ or equivalently $\ord_S(x - x_N) > N$.
+The sequence $\{ x_N \}$ is Cauchy, and converges to $x$, so each element of $F$ has a unique \qw{Laurent series} representation
+\begin{equation}
+\label{4.5.4}
+x = \sum_{\ord_S x}^\infty a_i \eta^i
+\quad
+\text{where $a_i \in \operatorname{SMR}(S)$.}
+\end{equation}
+
+Such a Laurent series is integral (i.e., belongs to $R_S$) if and only if it is a power series.
+This result shows that if $\chr F = \chr F(S)$ then $F$ is isomorphic to the field of Laurent series over $F(S)$, while $R_S$ is isomorphic to the ring of power series over $F(S)$.
+
+This also shows that if $F(S) = R_S / \mm_S$ is finite, then so is $R_S / \mm_S^n$ for any $n \geq 1$, and so $\widehat R_S$ is compact since $\widehat R_S = \varprojlim_n R_S / \mm_S^n$ is an inverse limit of finite, hence compact, spaces.
+
+These methods admit straightforward generalisations to finite $R_S$-algebras.
+Suppose that $S$ is a discrete spot on the field $F$, that $F$ is complete, and that $F(S)$ is perfect of characteristic $p \not= 0$.
+If $A$ is a finite $R_S$-algebra, then\footnote{\fnfose} $A$ is complete with respect to the $\mm_S$-adic topology and there exists and $\operatorname{SMR}(j : A/\mm_S A \to A)$ as in \ref{4.5.4}.
+This enables us to prove \emph{Hensel's Lemma}.\footnote{\fnfoei}
+
+
+\begin{lemm}
+\label{4.5.5}
+Let $S$ be a discrete spot on the field $F$ such that $F$ is complete, $F(S)$ is perfect.
+Let $f(X)$ be a monic polynomial in $R_S[X]$ such that $\rho(f) = g_1g_2$ where $g_1,g_2$ are monic polynomials over $F(S)$ and are relatively prime and $\deg \rho(f) = \deg f$.
+Then there exist monic polynomials $h_1,h_2 \in R_S[X]$ such that
+\begin{enumerate}
+\item
+$f = h_1 h_2$
+
+\item
+$\rho(h_i) = g_i$ for $i = 1,2$.
+\end{enumerate}
+\end{lemm}
+
+\begin{proof}
+Consider the finite $R_S$-algebra $A = R_S[X]/\<f\>$ and its residue algebra $A/\mm_S A = F(S)/\<\rho f\>$.
+Since $(g_1,g_2) = 1$ there is a decomposition $A/\mm_S A \cong F(S)[X]/\< g_1 \> \oplus F(S)[X] / \<g_2\>$; let $e_1$ and $e_2$ be the idempotents in $A/\mm_S A$ corresponding to this decomposition to $(1,0)$ and $(0,1)$, and let $a_i = j(e_i) \in A$, where $j : A / \mm_S A \to A$ is an $\operatorname{SMR}$.
+Since $j$ is multiplicative, each $a_i$ is idempotent and $a_1 a_2 = 0$, so there is a decomposition $A = A a_1 \oplus A a_2 \oplus A(1 - a_1 - a_2)$.
+The subalgebra $A(1 - a_1 - a_2)$ reduced mod $M_S$ is zero, so is itself zero by Nakayama's lemma.\footnote{\fnfoni}
+If $a \in A$ denotes the image of $X$ under the map $R_S[X] \to A$ and $h_i(X) \in R_S[X]$ is the characteristic polynomial of $a : A a_i \to A a_i$, then $h_i(X)$ is monic and $h_1(X) h_2(X)$ is the characteristic polynomial of $a : A \to A$, which is $f(X)$.
+Moreover $\rho h_i(X)$ is the characteristic polynomial of $\rho(a) : F(S) e_i \to F(S) e_i$ which is $g_i(X)$.
+\end{proof}
+
+
+\subsection{Ramification}
+\label{ch:4.6}
+
+Let $E/F$ be a finite extension and $T$ a discrete spot on $E$ extending $S$ on $F$.
+If $v$ is a valuation on $E$ representing $T$ then $v(F^*)$ is a subgroup of $v(E^*)$ which has finite index since both groups are free of rank 1.
+The integer
+\begin{equation}
+\label{4.6.1}
+e_{T \mid S} = e = | v(E^*) / v(F^*) |
+\end{equation}
+is independent of the choice of $v$ and is called the \emph{ramification index} of $T$ over $S$, and satisfies (or is equally defined  by) the conditions
+\begin{align}
+\label{4.6.2}
+&\text{$e \ord_S x = \ord_T x$ for all $x \in F$;}
+\\
+\label{4.6.3}
+&\text{if $\eta$ is a prime of $F$ at $S$ and $\xi$ of $E$ at $T$ then $\eta^{-1} \xi^e \in U_T$.}
+\end{align}
+
+
+\begin{defi}
+\label{4.6.4}
+If $S$ is a complete discrete spot on the field $F$ and $E/F$ is a finite extension with spot $T$ extending $S$, then $S$ is \emph{unramified over $T$} if the ramification index $e_{T \mid S}$ is 1, and the extension $E(T)/F(S)$ is separable.
+
+If $S$ is a discrete spot on a field $F$ which is not necessarily complete and $E/F$ is a finite extension, then $S$ is \emph{unramified over $E$} if for each $T$ extending $S$ on $F$, the spot $S$ on $F_S$ is unramified over $E_T$.
+\end{defi}
+
+
+From \ref{4.3.7} we see that the ramification index is invariant under completion.
+The integer
+\begin{equation}
+\label{4.6.5}
+f_{T \mid S} = f = \deg E(T) / F(S)
+\end{equation}
+is called the \emph{relative degree} of $T$ over $S$.
+
+
+\begin{prop}
+\label{4.6.6}
+If $E/F$ is a finite extension, $T,S$ are discrete spots on $E,F$ which are also complete and $T \mid S$ then
+\[
+e_{T\mid S} \cdot f_{T \mid S} = \deg E/F.
+\]
+\end{prop}
+
+\begin{proof}
+Let $a_1, \ldots, a_f$ be a basis for $E(T)/F(S)$ and let $j : E(T) \to E$ be an SMR for $T$, which exists by \ref{4.5.2}.
+If $\xi$ is a prime element of $E$ at $T$ then we shall show that the set $D = \{ j(a_r) \xi^s \mid 1 \leq r \leq f, 0 \leq s < e\}$ is a basis for $E$ over $F$.
+
+Let $V$ be the $F$-subspace of $E$ generated by $E$, which is complete, being a finite-dimensional vector space over a complete field.
+If $x \in E$ and $\ord_T x = m$ then $x = u\xi^m = u' \eta^n \xi^s$ where $u,u' \in U_T$ and $\eta$ is a prime element of $F$ at $S$ and $m = ne + s$ with $0 \leq s < e$.
+Let $x_1, \ldots, x_f$ be the elements of $F(S)$ such that $\rho(u') = \sum x_i a_i$ and let $y = \sum j(x_i) j(a_i) \in V$.
+Now $x  -y \eta^n \xi^s \in \mm_T^{m+1}$ since $u' - y \in \mm_T$; so there exists an element $v_1 \in V$ such that $\ord_T(x - v_1) > \ord_T x$.
+So by induction there is a Cauchy sequence $\{v_i\}$ in $V$ which converges to $x$, so $x \in V$ and $B$ generates $E$ over $F$.
+
+Suppose there is a non-trivial linear relation between the elements of $D$ over $F$.
+We can assume without loss of generality that it is of the form
+\begin{equation}
+\label{4.6.6.1}
+\sum d_{r,s} j(a_r) \xi^s = 0
+\end{equation}
+where $d_{r,s} \in R_S$ and for some $r,s$ we have $\ord_S d_{r,s} = 0$.
+
+Let $n$ be the least integer such that $\ord_S d_{m,n} = 0$ for some $m$.
+For any $s \not= n$, if $d_{r,s} \not= 0$ then we have
+\begin{equation}
+\label{4.6.6.2}
+\ord_T( d_{r,s} j(a_r) \xi^s ) = s + \ord_S d_{r,s} \cdot e > n.
+\end{equation}
+Multiplying \eqref{4.6.6.1} by $\xi^{-n}$ and applying $\rho$ we obtain $\sum_r \rho(d_{r,n}) a_r = 0$, so we get $\ord_S d_{r,n} > 0$ for all $r$, which is a contradiction, so the elements of $D$ are linearly independent over $F$.
+\end{proof}
+
+
+\begin{coro}
+\label{4.6.7}
+If $E/F$ is a finite separable extension and $S$ is a discrete spot on $F$ then
+\[
+\sum_{T \mid S} e_{T \mid S} \cdot f_{T \mid S} = \deg E/F.
+\]
+\end{coro}
+
+\begin{proof}
+Immediate from \ref{4.6.6} and \ref{4.2.10}.
+\end{proof}
+
+
+\begin{rema}
+\label{4.6.8}
+Under the conditions of \ref{4.6.6}, the subspace $K$ of $E$ generated by $\operatorname{SMR}(T)$ is clearly a subfield of $E$ whose residue field is also $E(T)$.
+The ramification index of $K$ over $F$ is 1.
+This is a basic ingredient and starting point for class-field theory,\footnote{\fnfize} along with the relation between the Galois groups of $K/F$ and $K(T)/F(S)$.
+\end{rema}
 
 
 
