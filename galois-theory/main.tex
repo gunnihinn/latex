@@ -1838,6 +1838,7 @@ By a \emph{finite field} is meant one having only a finite number of elements.
 
 
 \begin{coro*}
+\label{coro:p53}
 The non-zero elements of a finite field form a cyclic group.
 \end{coro*}
 
@@ -1927,6 +1928,417 @@ But $\alpha$ is also a root of $f'(x)$ which contradicts the irreducibility of $
 
 
 \subsection{Roots of unity}
+
+If $F$ is a field having any characteristic $p$, and $E$ the splitting field of the polynomial $x^n - 1$ where $p$ does not divide $n$, then we shall refer to $E$ as \emph{the field generated out of $F$ by the adjunction of a primitive $n$-th root of unity}.
+
+The polynomial $x^n - 1$ does not have repeated roots in $E$, since its derivative, $n x^{n-1}$, has only the root $0$ and has, therefore, no roots in common with $x^n - 1$.
+Thus, $E$ is a normal extension of $F$.
+If $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ are the roots of $x^n - 1$ in $E$, they form a group under multiplication and by Theorem~\ref{theo:onse} this group will be cyclic.
+If $1, \epsilon, \epsilon^2, \ldots, \epsilon^{n-1}$ are the elements of this group, we shall call $\epsilon$ a primitive $n$-th root of unity.
+The smallest power of $\epsilon$ which is $1$ is the $n$-th.
+
+
+\begin{theo}
+\label{theo:twze}
+If $E$ is the field generated from $F$ by a primitive $n$-th root of unity, then the group $G$ of $E$ over $F$ is abelian for any $n$ and cyclic if $n$ is a prime power.
+\end{theo}
+
+
+\begin{proof}
+We have $E = F(\epsilon)$, since the roots of $x^n - 1$ are powers of $\epsilon$.
+Thus, if $\sigma$ and $\tau$ are distinct elements of $G$, $\sigma(\epsilon) \not= \tau(\epsilon)$.
+But $\sigma(\epsilon) = \epsilon^{n_\sigma}$ where $n_\sigma$ is an integer $1 \leq n_\sigma < n$.
+Moreover, $\tau \sigma(\epsilon) = \tau(\epsilon^{n_\sigma}) = (\tau(\epsilon))^{n_\sigma} = \epsilon^{n_\tau \cdot n_\sigma} = \sigma \tau(\epsilon)$.
+Thus, $n_{\sigma\tau} = n_\sigma n_\tau \mod n$.
+Thus, the mapping of $\sigma$ on $n_\sigma$ is a homomorphism of $G$ into a multiplicative subgroup of the integers mod $n$.
+Since $\tau \not= \sigma$ implies $\tau(\epsilon) \not= \sigma(\epsilon)$, it follows that $\tau \not= \sigma$ implies $n_{\sigma} \not= n_\tau \mod n$.
+Hence, the homomorphism is an isomorphism.
+If $n$ is a prime number, the multiplicative group of numbers forms a cyclic group.
+\end{proof}
+
+
+\subsection{Noether equations}
+
+If $E$ is a field, and $G = (\sigma, \tau, \ldots)$ a group of automorphisms of $E$, any set of elements $x_\sigma, x_\tau, \ldots$ in $E$ will be said to provide a \emph{solution to Noether's equations} if $x_\sigma \cdot \sigma(x_\tau) = x_{\sigma\tau}$ for each $\sigma$ and $\tau$ in $G$.
+If one element $x_\sigma = 0$ then $x_\tau = 0$ for each $\tau \in G$.
+As $\tau$ traces $G$, or assumes all values in $G$, and in the above equation $x_{\sigma\tau} = 0$ when $x_\sigma = 0$.
+Thus, in any solution of the Noether equations no element $x_\sigma = 0$ unless the solution is completely trivial.
+We shall assume in the sequel that the trivial solution has been excluded.
+
+
+\begin{theo}
+\label{theo:21}
+The system $x_\sigma, x_\tau, \ldots$ is a solution to Noether's equations if and only if there exists an element $\alpha \in E$, such that $x_\sigma = \alpha / \sigma(\alpha)$ for each $\sigma$.
+\end{theo}
+
+
+\begin{proof}
+For any $\alpha$, it is clear that $x_\sigma = \alpha / \sigma(\alpha)$ is a solution to the equations, since
+\[
+\alpha / \sigma(\alpha) \cdot \sigma(\alpha / \tau(\alpha))
+= \alpha / \sigma(\alpha) \cdot \sigma(\alpha) / \sigma\tau(\alpha)
+= \alpha / \sigma\tau(\alpha).
+\]
+Conversely, let $x_\sigma, x_\tau, \ldots$ be a non-trivial solution.
+Since the automorphisms $\sigma, \tau, \ldots$ are distinct they are linearly independent, and the equation $x_\sigma \cdot \sigma(z) + x_\tau\tau(z) + \cdots = 0$ does not hold identically.
+Hence, there is an element $a$ in $E$ such that $x_\sigma \sigma(a) + x_\tau \tau(a) + \cdots = \alpha \not= 0$.
+Applying $\sigma$ to $\alpha$ gives
+\[
+\sigma(\alpha)
+= \sum_{\tau \in G} x_\sigma \sigma(x_\tau) \, \sigma\tau(a).
+\]
+Replacing $x_\sigma \cdot \sigma(x_\tau)$ by $x_{\sigma\tau}$ and noting that $\sigma\tau$ assumes all values in $G$ when $\tau$ does, we have
+\[
+x_\sigma \cdot \sigma(\alpha)
+= \sum_{\tau \in G} x_{\tau} \tau(a) 
+= \alpha
+\]
+so that
+\[
+x_\sigma = \alpha / \sigma(\alpha).
+\qedhere
+\]
+\end{proof}
+
+
+A solution to the Noether equations defines a mapping $C$ of $G$ into $E$, namely $C(\sigma) = x_\sigma$.
+If $F$ is the fixed field of $G$, and the elements of $x_\sigma$ lie in $F$, then $C$ is a \emph{character} of $G$.
+For $C(\sigma\tau) = x_{\sigma\tau} = x_\sigma \cdot \sigma(x_\tau) = x_\sigma x_\tau = C(\sigma) \cdot C(\tau)$ since $\sigma(x_\tau) = x_\tau$ if $x_\tau \in F$.
+Conversely, each character $C$ of $G$ in $F$ provides a solution to the Noether equations.
+Call $C(\sigma) = x_\sigma$.
+Then, since $x_\tau \in F$, we have $\sigma(x_\tau) = x_\tau$.
+Thus, $x_\sigma \cdot \sigma(x_\tau) = x_\sigma \cdot x_\tau = C(\sigma) \cdot C(\tau) = C(\sigma\tau) = x_{\sigma\tau}$.
+We therefore have, by combining this with Theorem~\ref{theo:21}.
+
+\begin{theo}
+\label{theo:22}
+If $G$ is the group of the normal field $E$ over $F$, then for each character $C$ of $G$ into $F$ there exists an element $\alpha$ in $E$ such that $C(\sigma) = \alpha / \sigma(\alpha)$ and, conversely, if $\alpha / \sigma(\alpha)$ is in $F$ for each $\sigma$, then $C(\sigma) = \alpha/\sigma(\alpha)$ is a character of $G$.
+If $r$ is the least common multiple of the orders of elements of $G$, then $\alpha^r \in F$.
+\end{theo}
+
+
+
+\subsection{Kummer's fields}
+
+If $F$ contains a primitive $n$-th root of unity, any splitting field $E$ of a polynomial $(x^n - a_1)(x^n - a_2) \cdots (x^n - a_r)$ where $a_i \in F$ for $i = 1,2,\ldots,r$ will be called a \emph{Kummer extension} of $F$, or more briefly, a \emph{Kummer field}.
+
+
+If a field $F$ contains a primitive $n$-th root of unity, the number $n$ is not divisible by the characteristic of $F$.
+Suppose, to the contrary, $F$ has characteristic $p$ and $n = qp$.
+Then $y^p - 1 = (y-1)^p$ since in the expansion of $(y-1)^p$ each coefficient other than the first and last is divisible by $p$ and therefore is a multiple of the $p$-fold of the unit of $F$ and is thus equal to $0$.
+Therefore $x^n - 1 = (x^q)^p - 1 = (x^q - 1)^p$ and $x^n - 1$ cannot have more than $q$ distinct roots.
+But we assume that $F$ has a primitive $n$-th root of unity, and $1, \epsilon, \epsilon^2, \ldots, \epsilon^{n-1}$ would be $n$ distinct roots of $x^n - 1$.
+It follows that $n$ is not divisible by the characteristic of $F$.
+For a Kummer field $E$, none of the factors $x^n - a_i$, $a_i \not= 0$ has repeated roots since the derivative, $n x^{n-1}$, has only the root $0$ and has therefore no roots in common with $x^n - a_i$.
+Therefore, the irreducible factors of $x^n - a_i$ are separable, so that \emph{$E$ is a normal extension of $F$}.
+
+Let $\alpha_i$ be a root of $x^n - a_i$ in $E$.
+If $\epsilon_1, \epsilon_2, \ldots, \epsilon_n$ are the $n$ distinct $n$-th roots of unity in $F$, then $\alpha_i \epsilon, \alpha_i \epsilon_2, \ldots, \alpha_i \epsilon_n$ will be $n$ distinct roots of $x^n - a_i$, and hence will be the roots of $x^n - a_i$, so that $E = F(\alpha_1, \alpha_2, \ldots, \alpha_n)$.
+Let $\sigma$ and $\tau$ be two automorphisms in the group $G$ of $E$ over $F$.
+For each $\alpha_i$, both $\sigma$ and $\tau$ map $\alpha_i$ on some other root of $x^n - a_i$.
+Thus $\tau(\alpha_i) = \epsilon_{i\tau} \alpha_i$ and $\sigma(\alpha_i) = \epsilon_{i\sigma} \alpha_i$ where $\epsilon_{i\sigma}$ and $\epsilon_{i\tau}$ are $n$-th roots of unity in the basic field $F$.
+It follows that $\tau(\sigma(\alpha_i)) = \tau(\epsilon_{i\sigma} \alpha_i) = \epsilon_{i\sigma} \tau(\alpha_i) = \epsilon_{i\sigma}\epsilon_{i\tau} \alpha_i = \sigma(\tau(\alpha_i))$.
+Since $\sigma$ and $\tau$ are commutative over the generators of $E$, they commute over each element of $E$.
+Hence, $G$ is commutative.
+If $\sigma \in G$, then $\sigma(\alpha_i) = \epsilon_{i\sigma}\alpha_i$, $\sigma^2(\alpha_i) = \epsilon_{i\sigma}^2 \alpha_i$, etc.
+Thus, $\sigma^{n_i}(\alpha_i) = \alpha_i$ for $n_i$ such that $\epsilon_{i\sigma}^{n_i} = 1$.
+Since the order of an $n$-th root of unity is a divisor of $n$, we have $n_i$ a divisor of $n$ and the least common multiple $m$ of $n_1, n_2, \ldots, n_r$ is a divisor of $n$.
+Since $\sigma^m(\alpha_i) = \alpha_i$ for $i = 1,2,\ldots, r$ it follows that $m$ is the order of $\sigma$.
+Hence, the order of each element of $G$ is a divisor of $n$ and, therefore, the least common multiple $r$ of the orders of the elements of $G$ is a divisor of $n$.
+If $\epsilon$ is a primitive $n$-th root of unity, then $\epsilon^{n/r}$ is a primitive $r$-th root of unity.
+These remarks can be summarized in the following:
+
+
+\begin{theo}
+\label{theo:23}
+If $E$ is a Kummer field, i.e., a splitting field of $p(x) = (x^n - a_1)(x^n - a_2) \cdots (x^n - a_r)$ where $a_i$ lie in $F$, and $F$ contains a primitive $n$-th root of unity, then:
+\begin{enumerate}
+\item
+\label{theo:23a}
+$E$ is a normal extension of $F$;
+
+\item
+\label{theo:23b}
+the group $G$ of $E$ over $F$ is abelian;
+
+\item
+\label{theo:23c}
+the least common multiple of the orders of the elements of $G$ is a divisor of $n$.
+\end{enumerate}
+\end{theo}
+
+
+\begin{coro*}
+If $E$ is the splitting field of $x^p - a$, and $F$ contains a primitive $p$-th root of unity where $p$ is a prime number, then either $E = F$ and $x^p - a$ is split in $F$, or $x^p - a$ is irreducible and its group of $E$ over $F$ is cyclic of order $p$.
+\end{coro*}
+
+
+\begin{proof}
+The order of each element is, by Theorem~\ref{theo:23}, a divisor of $p$ and hence, if the element is not the unit its order must be $p$.
+If $\alpha$ is a root of $x^p - a$, then $\alpha, \epsilon\alpha, \ldots, \epsilon^{p-1} \alpha$ are all the roots of $x^p - a$ so that $F(\alpha) = E$ and $(E/F) \leq p$.
+Hence, the order of $G$ does not exceed $p$ so that if $G$ has one element different from the unit, it and its powers must constitute all of $G$.
+Since $G$ has $p$ distinct elements and their behavior is determined by their effect on $\alpha$, then $\alpha$ must have $p$ distinct images.
+Hence, the irreducible equation in $F$ for $\alpha$ must be of degree $p$ and is therefore $x^p - a = 0$.
+\end{proof}
+
+
+The properties \eqref{theo:23a}, \eqref{theo:23b} and \eqref{theo:23c} in Theorem~\ref{theo:23} actually characterize Kummer fields.
+
+
+Let us suppose that $E$ is a normal extension of a field $F$, whose group $G$ over $F$ is abelian.
+Let us further assume that $F$ contains a primitive $r$-th root of unity where $r$ is the least common multiple of the orders of the elements of $G$.
+
+The group of characters $X$ of $G$ int othe group of $r$-th roots of unity is isomorphic to $G$.
+Moreover, to each $\sigma \in G$, if $\sigma \not= 1$, there exists a character $C \in X$ such that $C(\sigma) \not= 1$.
+Write $G$ as the direct product of the cyclic groups $G_1, G_2, \ldots, G_t$ of orders $m_1 \mid m_2 \mid \cdots \mid m_t$.
+Each $\sigma \in G$ may be written $\sigma = \sigma_1^{\nu_1} \sigma_2^{\nu_2} \cdots \sigma_t^{\nu_t}$.
+Call $C_i$ the character sending $\sigma_i$ into $\epsilon_i$, a primitive $m_i$-th root of unity and $\sigma_j$ into $1$ for $j\not= i$.
+Let $C$ be any character.
+$C(\sigma_i) = \epsilon_i^{\mu_i}$, then we have $C(\sigma) = C_1^{\mu_1} C_2^{\mu_2} \cdots C_t^{\mu_t}$
+Conversely, $C_1^{\mu_1} C_2^{\mu_2} \cdots C_t^{\mu_t}$ defines a character.
+Since the order of $C_i$ is $m_i$, the character group $X$ of $G$ is isomorphic to $G$.
+If $\sigma \not= 1$, then in $\sigma = \sigma_1^{\nu_1} \sigma_2^{\nu_2} \cdots \sigma_t^{\nu_t}$ at least one $\nu_i$, say $\nu_1$, is not divisible by $m_i$.
+Thus $C_i(\sigma) = \epsilon_1^{\nu_1} \not= 1$.
+
+Let $A$ denote the set of those non-zero elements $\alpha$ of $E$ for which $\alpha^r \in F$ and let $F_1$ denote the non-zero elements of $F$.
+It is obvious that $A$ is a multiplicative group and that $F_1$ is a subgroup of $A$.
+Let $A^r$ denote the set of $r$-th powers of elements in $A$ and $F_1^r$ the set of $r$-th powers of elements of $F_1$.
+The following theorem provides in most application a convenient method for computing the group $G$.
+
+
+\begin{theo}
+\label{theo:24}
+The factor groups $A/F_1$ and $A^r/F_1^r$ are isomorphic to each other and to the groups $G$ and $X$.
+\end{theo}
+
+\begin{proof}
+We map $A$ on $A^r$ by making $\alpha \in A$ correspond to $a^r \in A^r$.
+If $a^r \in F_1^r$ where $a \in F_1$ then $b \in A$ is mapped on $a^r$ if and only if $b^r = a^r$., that is, if $b$ is a solution to the equation $x^r - a^r = 0$.
+But $a, \epsilon a, \epsilon^2 a, \ldots, \epsilon^{r-1} a$ are distinct solutions to this equation and since $\epsilon$ and $a$ belong to $F_1$, it follows that $b$ must be one of these elements and must belong to $F_1$.
+Thus, the inverse set on $A$ of the subgroup $F_1^r$ of $A^r$ is $F_1$, so that the factor groups $A/F_1$ and $A^r/F_1^r$ are isomorphic.
+
+If $\alpha$ is an element of $A$, then $(\alpha / \sigma(\alpha))^r = \alpha^r / \sigma(\alpha^r) = 1$.
+Hence, $\alpha / \sigma(\alpha)$ is an $r$-th root of unity and lies in $F_1$.
+By Theorem~\ref{theo:22}, $\alpha / \sigma(\alpha)$ defines a character $C(\sigma)$ of $G$ in $F$.
+We map $\alpha$ on the corresponding character $C$.
+Each character $C$ is by Theorem~\ref{theo:22} the image of some $\alpha$.
+Moreover, $\alpha \cdot \alpha'$ is mapped on the character $C^*(\sigma) = \alpha \cdot \alpha' / \sigma(\alpha \cdot \alpha') = \alpha \cdot \alpha' / \sigma(\alpha) \cdot \sigma(\alpha') = C(\sigma) \cdot C'(\sigma) = C \cdot C'(\sigma)$, so that the mapping is a homomorphism.
+The kernel of this homomorphism is the set of those elements $\alpha$ for which $\alpha / \sigma(\alpha) = 1$ for each $\alpha$, hence is $F_1$.
+It follows, therefore, that $A / F_1$ is isomorphic to $X$ and hence also to $G$.
+In particular, $A/F_1$ is a finite group.
+\end{proof}
+
+
+We now prove the equivalence between Kummer fields and fields satisfying \eqref{theo:23a}, \eqref{theo:23b} and \eqref{theo:23c} of Theorem~\ref{theo:23}.
+
+
+
+\begin{theo}
+\label{theo:25}
+If $E$ is an extension field over $F$, then $E$ is a Kummer field if and only if $E$ is normal, its group $G$ is abelian and $F$ contains a primitive $r$-th root of unity where $r$ is the least common multiple of the orders of the elements of $G$.
+\end{theo}
+
+
+\begin{proof}
+The necessity is already contained in Theorem~\ref{theo:23}.
+We prove the sufficiency.
+Out of the group $A$, let $\alpha_1 F_1, \alpha_2 F_1, \ldots, \alpha_t F_1$ be the cosets of $F_1$.
+Since $\alpha_i \in A$ we have $\alpha_i^r = a_i \in F$.
+Thus, $\alpha_i$ is a root of the equation $x^r - a_i = 0$ and since $\epsilon \alpha_i, \epsilon^2 \alpha_i, \ldots, \epsilon^{r-1} \alpha_i$ are also roots, $x^r - a_i$ must split in $E$.
+We prove that $E$ is the splitting field of $(x^r - a_1) (x^r - a_2) \cdots (x^r - a_t)$ which will complete the proof of the theorem.
+To this end it suffices to show that $F(\alpha_1, \alpha_2, \ldots, \alpha_t) = E$.
+
+Suppose that $F(\alpha_1, \alpha_2, \ldots, \alpha_t) \not= E$.
+Then $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ is an intermediate field between $F$ and $E$, and since $E$ is normal over $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ there exists an automorphism $\sigma \in G$, $\sigma \not= 1$, which leaves $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ fixed.
+There exists a character $C$ of $G$ for which $C(\sigma) \not= 1$.
+Finally, there exists an element $\alpha$ in $E$ such that $C(\sigma) = \alpha / \sigma(\alpha) \not= 1$.
+But $\alpha^r \in F_1$ by Theorem~\ref{theo:22}, hence $\alpha \in A$.
+Moreover, $A \subset F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ since all the cosets $\alpha_i F$ are contained in $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$.
+Since $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ is by assumption left fixed by $\sigma$, $\sigma(\alpha) = \alpha$ which contradicts $\alpha / \sigma(\alpha) \not= 1$.
+It follows, therefore, that $F(\alpha_1, \alpha_2, \ldots, \alpha_t) = E$.
+\end{proof}
+
+
+\begin{coro*}
+If $E$ is a normal extension of $F$, of prime order $p$, and if $F$ contains a primitive $p$-th root of unity, then $E$ is the splitting field of an irreducible polynomial $x^p - a$ in $F$.
+\end{coro*}
+
+\begin{proof}
+$E$ is generated by elements $\alpha_1, \ldots, \alpha_n$ where $\alpha_i^p \in F$.
+Let $\alpha_1$ be not in $F$ and let $a = \alpha_1^r$.
+Then $x^p - a$ is irreducible, for otherwise $F(\alpha_1)$ would be an intermediate field between $F$ and $E$ of degree less than $p$, and by the product theorem for the degrees, $p$ would not be a prime number, contrary to assumption.
+$E = F(\alpha_1)$ is the splitting field of $x^p - a$.
+\end{proof}
+
+
+
+\subsection{Simple extensions}
+
+We consider the question of determining under what conditions an extension field is generated by a \emph{single element}, called a \emph{primitive}.
+We prove the following.
+
+
+\begin{theo}
+\label{theo:26}
+A finite extension $E$ of $F$ is primitive over $F$ if and only if there are only a finite number of intermediate fields.
+\end{theo}
+
+
+\begin{proof}
+(a)\quad
+Let $E = F(\alpha)$ and call $f(x) = 0$ the irreducible equation for $\alpha$ in $F$.
+Let $B$ be an intermediate field and $g(x)$ the irreducible equation for $\alpha$ in $B$.
+The coefficients of $g(x)$ adjoined to $F$ will generate a field $B'$ between $F$ and $B$.
+$g(x)$ is irreducible in $B$, hence also in $B'$.
+Since $E = B'(\alpha)$ we see $(E/B) = (E/B')$.
+This proves $B' = B$.
+So $B$ is uniquely determined by the polynomial $g(x)$.
+But $g(x)$ is a divisor of $f(x)$, and there are only a finite number of possible divisors of $f(x)$ in $E$.
+Hence there are only a a finite number of possible $B$'s.
+
+(b)\quad
+Assume there are only a finite number of fields between $E$ and $F$.
+Should $F$ consist of only a finite number of elements, then $E$ is generated by one element according to the Corollary on page~\pageref{coro:p53}.
+We may therefore assume $F$ to contain an infinity of elements.
+We prove:
+To any two elements $\alpha,\beta$ there is a $\gamma$ in $E$ such that $F(\alpha,\beta) = F(\gamma)$.
+Let $\gamma = \alpha + a \beta$ with $a$ in $F$ but for the moment undetermined.
+Consider all the fields $F(\gamma)$ obtained in this way.
+Since we have an infinity of $a$'s at our disposal, we can find two, say $a_1$ and $a_2$, such that the corresponding $\gamma$'s, $\gamma_1 = \alpha + a_1 \beta$ and $\gamma_2 = \alpha + a_2 \beta$, yield the same field $F(\gamma_1) = F(\gamma_2)$.
+Since both $\gamma_1$ and $\gamma_2$ are in $F(\gamma_1)$, their different (and therefore $\beta$) is in this field.
+Consequently also $\gamma_1 - \alpha_1 \beta = \alpha$.
+For $F(\alpha,\beta) \subset F(\gamma_1)$.
+Since $F(\gamma_1) \subset F(\alpha,\beta)$ our contention is proved.
+Select now $\eta$ in $E$ in such a way that $(F(\eta) / F)$ is as large as possible.
+Every element $\epsilon$ of $E$ must be in $F(\eta)$ or else we could find an element $\delta$ such that $F(\delta)$ contains both $\eta$ and $\epsilon$.
+This proves $E = F(\eta)$.
+\end{proof}
+
+
+
+\begin{theo}
+\label{theo:27}
+If $E = F(\alpha_1, \alpha_2, \ldots, \alpha_n)$ is a finite extension of the field $F$, and $\alpha_1, \alpha_2, \ldots, \alpha_n$ are separable elements in $E$, then there exists a primitive $\theta$ in $E$ such that $E = F(\theta)$.
+\end{theo}
+
+
+\begin{proof}
+Let $f_i(x)$ be the irreducible equation of $\alpha_i$ in $F$ and let $B$ be an extension of $E$ that splits $f_1(x) f_2(x) \cdots f_n(x)$.
+Then $B$ is normal over $F$ and contains, therefore, only a finite number of intermediate fields (as many as there are subgroups of $G$).
+So the subfield $E$ contains only a finite number of intermediate fields.
+Theorem~\ref{theo:26} now completes the proof.
+\end{proof}
+
+
+
+\subsection{Existence of a normal basis}
+
+The following theorem is true for any field though we prove it only in the case that $F$ contains an infinity of elements.
+
+
+\begin{theo}
+\label{theo:28}
+If $E$ is a normal extension of $F$ and $\sigma_1, \sigma_2, \ldots, \sigma_n$ are the elements of its group $G$, there is an element $\theta$ in $E$ such that the $n$ elements of $\sigma_1(\theta), \sigma_2(\theta), \ldots, \sigma_n(\theta)$ are linearly independent with respect to $F$.
+\end{theo}
+
+
+\begin{proof}
+According to Theorem~\ref{theo:27} there is an $\alpha$ such that $E = F(\alpha)$.
+Let $f(x)$ be the equation for $\alpha$, put $\sigma_i(\alpha) = \alpha_i$,
+\[
+g(x) = \frac{f(x)}{(x-\alpha)f'(\alpha)}
+\quad\text{and}\quad
+g_i(x) = \sigma_i(g(x))
+= \frac{f(x)}{(x - \alpha_i)f'(\alpha_i)}.
+\]
+$g_i(x)$ is a polynomial in $E$ having $\alpha_k$ as a root for $k\not= i$ and hence
+\begin{equation}
+\label{eq:N1}
+g_i(x) g_k(x) = 0
+\quad
+\text{$\pmod{f(x)}$ for $i \not= k$}.
+\end{equation}
+In the equation
+\begin{equation}
+\label{eq:N2}
+g_1(x) + g_2(x) + \cdots + g_n(x) - 1 = 0
+\end{equation}
+the left side is of degree at most $n-1$.
+If \eqref{eq:N2} is true for $n$ different values of $x$, the left side must be identically $0$.
+Such $N$ values are $\alpha_1, \alpha_2, \ldots, \alpha_n$, since $g_i(\alpha_i) = 1$ and $g_k(\alpha_i) = 0$ for $k \not= i$.
+
+Multiplying \eqref{eq:N2} by $g_i(x)$ and using \eqref{eq:N1} shows:
+\begin{equation}
+\label{eq:N3}
+(g_i(x))^2 = g_i(x) \pmod{f(x)}.
+\end{equation}
+We next compute the determinant
+\begin{equation}
+\label{eq:N4}
+D(x) = |\sigma_i \sigma_k (g(x)) |
+\quad
+i,k = 1,2,\ldots,n
+\end{equation}
+and prove $D(x) \not= 0$.
+If we square it by multiplying column by column and compute its value mod $f(x)$ we get from \eqref{eq:N1}, \eqref{eq:N2}, \eqref{eq:N3} a determinant that has $1$ in the diagonal and $0$ elsewhere.
+So
+\[
+D(x)^2 = 1 \pmod{f(x)}.
+\]
+$D(x)$ can only have a finite number of roots in $F$.
+Avoiding them we can find a value $a$ for $x$ such that $D(a) \not= 0$.
+Now set $\theta = g(a)$.
+Then the determinant
+\begin{equation}
+\label{eq:N5}
+|\sigma_i \sigma_k (\theta) | \not= 0.
+\end{equation}
+
+Consider any linear relation $x_1 \sigma_1(\theta) + x_2 \sigma_2(\theta) + \cdots + x_n \sigma_n(\theta) = 0$ where the $x_i$ are in $F$.
+Applying the automorphism $\sigma_i$ to it would lead to $n$ homogeneous equations for the $n$ unknowns $x_i$.
+\eqref{eq:N5} shows that $x_i = 0$ and our theorem is proved.
+\end{proof}
+
+
+\subsection{Theorem on natural irrationalities}
+
+Let $F$ be a field, $p(x)$ a polynomial in $F$ whose irreducible factors are separable, and let $E$ be a splitting field for $p(x)$.
+Let $B$ be an arbitrary extension of $F$, and let us denote by $EB$ the splitting field of $p(x)$ when $p(x)$ is taken to lie in~$B$.
+If $\alpha_1, \ldots, \alpha_s$ are the roots of $p(x)$ in $EB$, then $F(\alpha_1, \ldots, \alpha_s)$ is a subfield of $EB$ which is readily seen to form a splitting field for $p(x)$ in $F$.
+By Theorem~\ref{theo:onze}, $E$ and $F(\alpha_1,\ldots,\alpha_s)$ are isomorphic.
+There is therefore no loss of generality if in the sequel we take $E = F(\alpha_1,\ldots,\alpha_s)$ and assume therefore that $E$ is a subfield of $EB$.
+Also, $E = B(\alpha_1, \ldots, \alpha_n)$.
+
+Let us denote by $E \cap B$ the intersection of $E$ and $B$.
+It is readily seen that $E \cap B$ is a field and is intermediate to $F$ and $E$.
+
+
+\begin{theo}
+\label{theo:29}
+If $G$ is the group of automorphisms of $E$ over $F$, and $H$ the group of $EB$ over $B$, then $H$ is isomorphic to the subgroup of $G$ having $E \cap B$ as its fixed field.
+\end{theo}
+
+
+\begin{proof}
+Each automorphism of $EB$ over $B$ simply permutes $\alpha_1, \ldots, \alpha_s$ in some fashion and leaves $B$, and hence also $F$, fixed.
+Since the elements of $EB$ are quotients of polynomial expressions in $\alpha_1, \ldots, \alpha_s$ with coefficients in $B$, the automorphism is completely determined by the permutation it effects on $\alpha_1, \ldots, \alpha_s$.
+Thus, each automorphism of $EB$ over $B$ defines an automorphism of $E = F(\alpha_1,\ldots,\alpha_s)$ which leaves $F$ fixed.
+Distnict automorphisms, since $\alpha_1, \ldots, \alpha_s$ belong to $E$, have different effects on $E$.
+Thus, the group $H$ of $EB$ over $B$ can be considered as a subgroup of the group $G$ of $E$ over $F$.
+Each element of it leaves $E \cap B$ fixed since it leaves even all of $B$ fixed.
+However, any element of $E$ which is not in $E \cap B$ is not in $B$, and hence would be moved by at least one automorphism of $H$.
+It follows that $E \cap B$ is the fixed field of $H$.
+\end{proof}
+
+
+\begin{coro*}
+If, under the conditions of Theorem~\ref{theo:29}, the group $G$ is of prime order, then either $H = G$ of $H$ consists of the unit element alone.
+\end{coro*}
+
+
+
+
+\section{Applications}
 
 
 
