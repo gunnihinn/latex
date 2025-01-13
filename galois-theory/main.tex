@@ -2340,6 +2340,175 @@ If, under the conditions of Theorem~\ref{theo:29}, the group $G$ is of prime ord
 
 \section{Applications}
 
+% The counters in this book are fubar
+\setcounter{theo}{0}
+\setcounter{coro}{0}
+
+
+\subsection{Solvable groups}
+
+Before proceeding with the applications we must discuss certain questions in the theory of groups.
+We shall assume several simple propositions:
+(a) If $N$ is a normal subgroup of the group $G$, then the mapping $f(x) = xN$ is a homomorphism of $G$ on the factor group $G/N$.
+$f$ is called the natural homomorphism.
+(b) The image and the inverse image of a normal subgroup under a homomorphism is a normal subgroup.
+(c) If $f$ is a homomorphism of the group $G$ on $G'$, then setting $N' = f(N)$, and defining the mapping $g$ as $g(xN) = f(x) N'$, we readily see that $g$ is a homomorphism of the factor group $G/N$ on the factor group $G'/N'$.
+Indeed, if $N$ is the inverse image of $N'$ then $g$ is an isomorphism.
+
+We now prove:
+
+
+\begin{theo}[Zassenhaus]
+\label{theo:III.1}
+If $U$ and $V$ are subgroups of $G$, $u$ and $v$ normal subgroups of $U$ and $V$, respectively, then the following three factor groups are isomorphic:
+\[
+u( U \cap V) / u(U \cap v),
+\quad
+v(U \cap V) / v(u \cap V),
+\quad
+(U \cap V)/ (u \cap V) (v \cap U).
+\]
+\end{theo}
+
+
+\begin{proof}
+If is obvious that $U \cap v$ is a normal subgroup of $U \cap V$.
+Let $f$ be the natural mapping of $U$ on $U / u$.
+Call $f(U \cap V) = H$ and $f(U \cap v) = K$.
+Then $f^{-1}(H) = u(U \cap V)$ and $f^{-1}(K) = u(U \cap v)$ from which it follows that $u(U \cap V) / u(U \cap v)$ is isomorphic to $H / K$.
+If, however, we view $f$ as defined only over $U \cap V$, then $f^{-1}(K) = ( u \cap (U \cap V) ) (U \cap v) = (u \cap V)(U \cap v)$ so that $(U \cap V) / (u \cap V)(U \cap v)$ is also isomorphic to $H/K$.
+Thus the first and third of the above factor groups are isomorphic to each other.
+Similarly, the second and third factor groups are isomorphic.
+\end{proof}
+
+
+\begin{coro}
+\label{coro:III.1}
+If $H$ is a subgroup and $N$ a normal subgroup of the group $G$, then $H / (H \cap N)$ is isomorphic to $HN/N$, a subgroup of $G/N$.
+\end{coro}
+
+\begin{proof}
+Set $G = U$, $N = u$, $H = V$ and the identity $1 = v$ in Theorem~\ref{theo:III.1}.
+\end{proof}
+
+
+\begin{coro}
+\label{coro:III.2}
+Under the conditions of Corollary~\ref{coro:III.1}, if $G/N$ is abelian, so also is $H/H \cap N$.
+\end{coro}
+
+
+Let us call a group $G$ \emph{solvable} if it contains a sequence of subgroups $G = G_0 \supset G_1 \supset \cdots \supset G_s = 1$, each a normal subgroup of the preceding, and with $G_{i-1}/G_i$ abelian.
+
+
+\begin{theo}
+\label{theo:III.2}
+Any subgroup of a solvable group is solvable.
+\end{theo}
+
+\begin{proof}
+For let $H$ be a subgroup of $G$, and call $H_i = H \cap G_i$.
+Then that $H_{i-1}/H_i$ is abelian follows from Corollary~\ref{coro:III.2} above, where $G_{i-i}, G_i$ and $H_{i-1}$ play the role of $G, N$ and $H$.
+\end{proof}
+
+
+\begin{theo}
+\label{theo:III.3}
+The homomorph of a solvable group is solvable.
+\end{theo}
+
+\begin{proof}
+Let $f(G) = G'$, and define $G'_i = f(G_i)$ where $G_i$ belongs to a sequence exhibiting the solvability of $G$.
+Then by (c) there exists a homomorphism mapping $G_{i-1}/G_i$ on $G'_{i-1} / G_i'$.
+But the homomorphic image of an abelian group is abelian so that the groups $G_i'$ exhibit the solvability of $G'$.
+\end{proof}
+
+
+\subsection{Permutation groups}
+
+Any one to one mapping of a set of $n$ objects on itself is called a \emph{permutation}.
+The iteration of two such mappings is called their \emph{product}.
+It may be readily verified that the set of all such mappings form a group in which the unit is the identity map.
+The group is called the \emph{symmetric} group on $n$ letters.
+
+Let us for simplicity denote the set of $n$ objects by the numbers $1,2,\ldots,n$.
+The mapping $S$ such that $S(i) = i+1 \mod n$ will be denoted by $(123 \ldots n)$ and more generally $(ij\ldots m)$ will denote the mapping $T$ such that $T(i) = j$, \ldots, $T(m) = i$.
+If $(ij\ldots m)$ has $k$ numbers, then it will be called a $k$ cycle.
+It is clear that if $T = (ij\ldots s)$ then $T^{-1} = (s \ldots ji)$.
+
+We now establish:
+
+\begin{lemm*}
+If a subgroup $U$ of the symmetric group on $n$ letters $(n > 4)$ contains every $3$-cycle, and if $u$ is a normal subgroup of $U$ such that $U / u$ is abelian, then $u$ contains every $3$-cycle.
+\end{lemm*}
+
+
+\begin{proof}
+Let $f$ be the natural homomorphism $f(U) = U/u$ and let $x = (ijk)$, $y = (krs)$ be two elements of $U$, where $i,j,k,r,s$ are $5$ numbers.
+Then since $U/u$ is abelian, setting $f(x) = x'$, $f(y) = y'$, we have $f(x^{-1}y^{-1}xy) = {x'}^{-1} {y'}^{-1} x' y' = 1$, so that $x^{-1}y^{-1}xy \in u$.
+But $x^{-1}y^{-1}xy = (kji) \cdot (srk) \cdot (ijk) \cdot (krs) = (kjs)$ and for each $k,j,s$ we have $(kjs) \in u$.
+\end{proof}
+
+\begin{theo}
+\label{theo:III.4}
+The symmetric group $G$ on $n$ letters is not solvable for $n > 4$.
+\end{theo}
+
+\begin{proof}
+If there were a sequence exhibiting the solvability, since $G$ contains every $3$-cycle, so would each succeeding group, and the sequence could not end with the unit.
+\end{proof}
+
+
+\subsection{Solution of equations by radicals}
+
+The extension field $E$ over $F$ is called an \emph{extension by radicals} if there exist intermediate fields $B_1, B_2, \ldots, B_r = E$ and $B_i = B_{i-1}(\alpha_i)$ where each $\alpha_i$ is a root of an equation of the form $x^{n_i} - a_i = 0$, $a_i \in B_{i-1}$.
+A polynomial $f(x)$ in a field $F$ is said to be \emph{solvable by radicals} if its splitting field lies in an extension by radicals.
+We assume unless otherwise specified that the base field has characteristic $0$ and that $F$ contains as many roots of unity as are needed to make our subsequent statements valid.
+
+Let us remark first that any extension of $F$ by radicals can always be extended to an extension of $F$ by radicals which is normal over $F$.
+Indeed $B_1$ is a normal extension of $B_0$ since it contains not only $\alpha_1$ but $\epsilon \alpha_1$, where $\epsilon$ is any $n_1$-root of unity, so that $B_1$ is the splitting field of $x^{n_1} - a_1$.
+If $f_1(x) = \prod_\sigma (x^{n_2} - \sigma(a_2))$, where $\sigma$ takes all values in the group of automorphisms of $B_1$ over $B_0$, then $f_1$ is in $B_0$, and adjoining successively the roots of $x^{n_2} - \sigma(a_2)$ brings us to an extension of $B_2$ which is normal over $F$.
+Continuing in this way we arrive at an extension of $E$ by radicals which will be normal over $F$.
+We now prove:
+
+\begin{theo}
+\label{theo:III.5}
+The polynomial $f(x)$ is solvable by radicals if and only if its group is solvable.
+\end{theo}
+
+
+\begin{proof}
+Suppose $f(x)$ is solvable by radicals.
+Let $E$ be a normal extension of $F$ by radicals containing the splitting field $B$ of $f(x)$, and call $G$ the group of $E$ over $F$.
+Since for each $i$, $B_i$ is a Kummer extension of $B_{i-1}$, the group of $B_i$ over $B_{i-1}$ is abelian.
+In the sequence of groups $G = G_{B_0} \supset G_{B_1} \supset \cdots \supset G_{B_r} = 1$ each is a normal subgroup of the preceding since $G_{B_{i-1}}$ is the gruop of $E$ over $B_{i-1}$, and $B_i$ is a normal extension of $B_{i-1}$.
+But $G_{B_{i-1}}/G_{B_i}$ is the group of $B_i$ over $B_{i-1}$ and hence is abelian.
+Thus $G$ is solvable.
+However, $G_B$ is a normal subgroup of $G$, and $G/G_B$ is the group of $B$ over $F$, and is therefore the group of the polynomial $f(x)$.
+But $G/G_B$ is a homomorph of the solvable group $G$ and hence is itself solvable.
+
+On the other hand, suppose the group $G$ of $f(x)$ to be solvable and let $E$ be the splitting field.
+Let $G = G_0 \supset G_1 \supset \cdots \supset G_r = 1$ be a sequence with abelian groups.
+Call $B_i$ the fixed field for $G_i$.
+Since $G_{i-1}$ is the group of $E$ over $B_{i-1}$ and $G_i$ is a normal subgroup of $G_{i-1}$, then $B_i$ is normal over $B_{i-1}$ and the group $G_{i-1} / G_i$ is abelian.
+Thus $B_i$ is a Kummer extension of $B_{i-1}$, hence is the splitting field of a polynomial of the form $(x^n - a_1) (x^n - a_2) \cdots (x^n - a_s)$ so that by forming the successive splitting fields of the $x^n - a_k$ we see that $B_i$ is an extension of $B_{i-1}$ by radicals, from which it follows that $E$ is an extension by radicals.
+\end{proof}
+
+
+\begin{rema}
+The assumption that $F$ contains roots of unity is not necessary in the above theorem.
+For if $f(x)$ has a solvable group $G$, then we may adjoin to $F$ a primitive $n$-th root of unity, where $n$ is, say, equal to the order of $G$.
+The group of $f(x)$ when considered as lying in $F'$ is, by the theorem on natural irrationalities, a subgroup $G'$ of $G$, and hence is solvable.
+Thus the splitting field over $F'$ of $f(x)$ can be obtained by radicals.
+Conversely, if the splitting field $E$ over $F$ of $f(x)$ can be obtained by radicals, then by adjoining a suitable root of unity $E$ is extended to $E'$ which is still normal over $F'$.
+But $E'$ could be obtained by adjoining first the root of unity, and then the radicals, to $F$; $F$ would first be extended to $F'$ and then $F'$ would be extended to $E'$.
+Calling $G$ the group of $E'$ over $F$ and $G'$ the group of $E'$ over $F'$, we see that $G'$ is solvable and $G / G'$ is the group of $F'$ over $F$ and hence abelian.
+Thus $G$ is solvable.
+The factor group $G / G_E$ is the group of $f(x)$ and being a homomorph of a solvable group is also solvable.
+\end{rema}
+
+
+\subsection[The general equation of degree n]{The general equation of degree $n$}
 
 
 
