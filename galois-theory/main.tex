@@ -1,14 +1,24 @@
-\documentclass[10pt,leqno]{article}
+\documentclass[10pt,leqno,a5paper]{book}
 
 \usepackage{lmodern}
-%\linespread{1.1}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage[
+a5paper
+, top=45pt
+, bottom=45pt
+]{geometry}
+\usepackage{fancyhdr}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\setlength{\headheight}{23pt}
+\renewcommand{\headrulewidth}{0pt}
+
+\usepackage{titlesec}
 \usepackage[normalem]{ulem}
-\usepackage{textcomp}
 \usepackage{bookmark}
-\usepackage{tikz-cd}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -21,72 +31,99 @@
 % https://en.wikipedia.org/wiki/Copyright_law_of_the_United_States#History
 
 \author{Emil Artin}
-\date{\today}
 \title{Galois theory}
+\date{}
+
+\titleformat
+{\chapter} % command
+[block] % shape
+{\center\bfseries\Large} % format
+{\thechapter} % label
+{1.25em} % sep
+{} % before-code
+[] % after-code
+
+\titleformat
+{\section} % command
+[block] % shape
+{\bfseries\large} % format
+{\thesection.} % label
+{1ex} % sep
+{} % before-code
+[] % after-code
+
+\makeatletter
+\newcommand{\chapterauthor}[1]{%
+  {\parindent0pt\vspace*{-35pt}%
+  \linespread{1.1}\center\bfseries by #1%
+  \par\nobreak\vspace*{35pt}}
+  \@afterheading%
+}
+\makeatother
+
+
+\renewcommand{\theequation}{\arabic{equation}}
+
 
 \newtheorem{theo}{Theorem}
 \newtheorem*{theo*}{Theorem}
-\newtheorem{prop}[theo]{Proposition}
 \newtheorem{lemm}{Lemma}
 \newtheorem*{lemm*}{Lemma}
 \newtheorem{coro}{Corollary}
 \newtheorem*{coro*}{Corollary}
 \theoremstyle{definition}
-\newtheorem{defi}[theo]{Definition}
 \newtheorem*{defi*}{Definition}
-\newtheorem{exam}[theo]{Example}
 \newtheorem*{rema}{Remark}
 
-\newcommand{\kk}[1]{\mathbb{#1}}
-\newcommand{\cc}[1]{\mathcal{#1}}
-
 \def\eps{\varepsilon}
-\def\empty{\varnothing}
 
-\def\ov#1{\overline{#1}}
-
-\def\CC{\mathbf{C}}
-\def\EE{\mathcal{E}}
 \def\FF{\mathcal{F}}
-\def\NN{\mathbf{N}}
-\def\RR{\mathbf{R}}
 \def\QQ{\mathbf{Q}}
-\def\ZZ{\mathbf{Z}}
-\def\PP{\mathbf{P}}
 
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Ker}{Ker}
-\DeclareMathOperator{\Img}{Im}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\ord}{ord}
+\let\hon\chapter
+\let\htw\section
+\renewcommand\thechapter{\Roman{chapter}}
+\renewcommand\thesection{\Alph{section}}
 
-\renewcommand\thesection{\Roman{section}}
-\renewcommand\thesubsection{\Alph{subsection}.}
 
 \begin{document}
 
+
+\pagestyle{empty}
+\frontmatter
 \maketitle
 
+\small
+\tableofcontents
+\thispagestyle{empty}
+\normalsize
 
 
-\section{Linear algebra}
 
 
-\subsection{Fields}
+
+\mainmatter
+\pagestyle{fancy}
+
+
+\hon{Linear algebra}
+\thispagestyle{empty}
+
+
+\htw{Fields}
 
 
 A field is a set of elements in which a pair of operations called multiplication and addition is defined analogous to the operations of multiplication and addition in the real number system (which is itself an example of a field).
 In each field $F$ there exist unique elements called 0 and 1 which, under the operations of addition and multiplication, behave with respect to all the other elements of $F$ exactly as their correspondents in the real number system.
 In two respects, the analogy is not complete: 1) multiplication is not assumed to be commutative in every field, and 2) a field may have only a finite number of elements.
 
-More exactly, a field is a set of elements which, under the above mentioned operation of addition, forms an additive abelian group and for which the elements, exclusive of zero, form a multiplicative group and, finally, in which the two group operations are connected by the distributive law.
+More exactly, a field is a set of elements which, under the above mentioned operation of addition, forms an additive abel\-ian group and for which the elements, exclusive of zero, form a multiplicative group and, finally, in which the two group operations are connected by the distributive law.
 Furthermore, the product of 0 and any element is defined to be 0.
 
 If multiplication in the field is commutative, then the field is called a commutative field.
 
 
-\subsection{Vector spaces}
+\htw{Vector spaces}
 
 If $V$ is an additive abelian group with elements $A$, $B$, $\ldots$, $F$ a field with elements $a$, $b$, $\ldots$, and if for each $a \in F$ and $A \in V$ the product $aA$ denotes an element of $V$, then $V$ is called a \emph{(left) vector space over $F$} if the following assumptions hold:
 
@@ -114,7 +151,7 @@ Sometimes product between elements of $F$ and $V$ are written in the form $Aa$ i
 If, in the discussion, left and right vector spaces do not occur simultaneously, we shall simply use the term ``vector space''.
 
 
-\subsection{Homogeneous linear equations}
+\htw{Homogeneous linear equations}
 
 If in a field $F$, $a_{ij}$, $i = 1,2,\ldots,m$, $j = 1,2,\ldots,n$ are $m \cdot n$ elements, it is frequently necessary to know conditions guaranteeing the existence of elements in $F$ such that the following equations are satisfied:
 \begin{equation}
@@ -169,7 +206,7 @@ If the linear homogeneous equations had been written in the form $\sum x_j a_{ij
 
 
 
-\subsection{Dependence and independence of vectors}
+\htw[Dependence and independence]{Dependence and independence of vectors}
 
 In a vector space $V$ over a field $F$, the vectors $A_1, \ldots, A_n$ are called \emph{dependent} if there exist elements $x_1, \ldots, x_n$, not all $0$, of $F$ such that $x_1 A_1 + x_2 A_2 + \cdots + x_n A_n = 0$.
 If the vectors $A_1, \ldots A_n$ are not dependent, they are called \emph{independent}.
@@ -224,14 +261,14 @@ An $s$-tuple of elements $(a_1, \ldots, a_s)$ in a field $F$ will be called a \e
 The totality of such $s$-tuple for a vector space if we define
 
 $\alpha$)
-$(a_1, a_2, \ldots, a_s) = (b_1, b_2, \ldots, b_s)$ if and only if $a_i = b_i$, $i = 1, \ldots, s$,
+$(a_1, \ldots, a_s) = (b_1, \ldots, b_s)$ if and only if $a_i = b_i$ for all $i = 1, \ldots, s$,
 
 $\beta$)
-$(a_1, a_2, \ldots, a_s) + (b_1, b_2, \ldots, b_s)
-= (a_1 + b_1, a_2 + b_2, \ldots, a_s + b_2)$,
+$(a_1, \ldots, a_s) + (b_1, \ldots, b_s)
+= (a_1 + b_1, \ldots, a_s + b_2)$,
 
 $\gamma$)
-$b (a_1, a_2, \ldots, a_s) = (ba_1, ba_2, \ldots, ba_s)$, for $b$ an element of $F$.
+$b (a_1, \ldots, a_s) = (ba_1, \ldots, ba_s)$, for $b$ an element of $F$.
 
 When the $s$-tuples are written vertically,
 \[
@@ -253,12 +290,12 @@ The $n$ elements
 \\
 \eps_2 &= (0, 1, 0, \ldots, 0)
 \\
-       & \vdots 
+& \vdots
 \\
 \eps_n &= (0, 0, 0, \ldots, 1)
 \end{align*}
 are independent and generate $F^n$, as
-%Both remarks follow from the relation 
+%Both remarks follow from the relation
 $(a_1, a_2, \ldots, a_n) = \sum a_i \eps_i$.
 
 
@@ -334,7 +371,7 @@ If then to the transposed matrix we apply the above considerations we arrive at 
 
 
 
-\subsection{Non-homogeneous linear equations}
+\htw{Non-homogeneous linear equations}
 
 The system of non-homogeneous linear equations
 \begin{equation}
@@ -360,7 +397,7 @@ lies in the space generated by the vectors
 \begin{pmatrix}
 a_{11} \\ \vdots \\ a_{m1}
 \end{pmatrix}
-,\quad \ldots,\quad 
+,\quad \ldots,\quad
 \begin{pmatrix}
 a_{1n} \\ \vdots \\ a_{mn}
 \end{pmatrix}.
@@ -390,7 +427,7 @@ since the vector space generated by the original matrix must be the same as the 
 By Theorem~\ref{theo:fo}, this means that the row ranks are equal.
 Conversely, if the row rank of the augmented matrix is the same as the row rank of the original matrix, the column ranks will be the same and the equations will have a solution.
 
-If the equations~\eqref{eq:Etw} have a solution, then any relation among the rows of the original matrix subsists among the rows of the augmented matrix.
+If equations~\eqref{eq:Etw} have a solution, then any relation among the rows of the original matrix subsists among the rows of the augmented matrix.
 For equations~\eqref{eq:Etw} this merely means that like combinations of equals are equal.
 Conversely, if each relation which subsists between the rows of the augmented matrix, then the row rank of the augmented matrix is the same as the row rank of the original matrix.
 \emph{In terms of the equations this means that there will exist a solution if and only if the equations are consistent, i.e., if and only if any dependence between the left hand sides of the equations also holds between the right sides.}
@@ -419,7 +456,7 @@ In this case, the homogeneous equations added term by term to a solution of the 
 Hence, the homogeneous equations have only the trivial solution.
 
 
-\subsection{Determinants}
+\htw{Determinants}
 
 The theory of determinants that we shall develop in this chapter is not need\-ed in Galois theory.
 The reader may, therefore, omit this section if he so desires.%
@@ -454,14 +491,14 @@ a_{n1} & a_{n2} & \cdots & a_{nn}
 \end{vmatrix}
 \end{equation}
 or by $D(A_1, A_2, \ldots, A_n)$ if we wish to consider it as a function of the column vectors $A_1, A_2, \ldots, A_n$ of \eqref{eq:1F1}.
-if we keep all the columns but $A_k$ constant and consider the determinant as a function of $A_k$, then we write $D_k(A_k)$ and sometimes even only $D$.
+If we keep all the columns but $A_k$ constant and consider the determinant as a function of $A_k$, then we write $D_k(A_k)$ and sometimes even only $D$.
 
 \begin{defi*}
 A function of the column vectors is a determinant if it satisfies the following three axioms:
 \begin{enumerate}
-\item 
+\item
 \label{ax:1}
-Viewed as a function of any column $A_k$ it is linear and homonegenous, i.e.,
+Viewed as a function of any column $A_k$ it is linear and homogeneous, i.e.,
 \begin{align}
 \label{eq:1F3}
 D_k(A_k + A_k') &= D_k(A_k) + D_k(A_k'),
@@ -472,7 +509,7 @@ D_k(c A_k) &= c \cdot D_k(A_k).
 
 \item
 \label{ax:2}
-Its value is $=0$\footnote{Henceforth, $0$ will denote the zero element of a field.} if the adjancent columns $A_k$ and $A_{k+1}$ are equal.
+Its value is $=0$\footnote{Henceforth, $0$ will denote the zero element of a field.} if the adjacent columns $A_k$ and $A_{k+1}$ are equal.
 
 \item
 \label{ax:3}
@@ -495,7 +532,7 @@ U_2 = \begin{pmatrix}
 0
 \end{pmatrix},
 \quad
-\ldots, 
+\ldots,
 \quad
 U_n = \begin{pmatrix}
 0 \\
@@ -528,21 +565,21 @@ We may replace them by $A_{k}$ and $A_{k+1} + A_k$; subtracting the second from 
 We conclude: a determinant changes sign if we interchange two adjacent columns.
 
 d) A determinant vanishes if any two of its columns are equal.
-Indeed, we may bring the two columns side by side after an interchange of adjancent columns and then use axiom~\ref{ax:2}.
+Indeed, we may bring the two columns side by side after an interchange of adjacent columns and then use axiom~\ref{ax:2}.
 In the same way as in b) and c) we may now prove the more general rules:
 
 e) Adding a multiple of one column to another does not change the value of the determinant.
 
 f) Interchanging any two columns changes the sign of $D$.
 
-g) Let $(\nu_1, \nu_2, \ldots, \nu_n)$ be a permutation of the subscripts $(1,2,\ldots,n)$.
-If we rearrange the columns in $D(A_{\nu_1}, A_{\nu_2}, \ldots, A_{\nu_n})$ until they are back in the natural order, we see that
+g) Let $(\nu_1, \nu_2, \ldots, \nu_n)$ be a permutation of $(1,2,\ldots,n)$.
+Rearranging the columns in $D(A_{\nu_1}, A_{\nu_2}, \ldots, A_{\nu_n})$ until they are back in the natural order, we see that
 \[
 D(A_{\nu_1}, A_{\nu_2}, \ldots, A_{\nu_n})
 = \pm D(A_1, A_2, \ldots, A_n).
 \]
 Here $\pm$ is a definite sign that does not depend on the special values of the $A_k$.
-If we substitute $U_k$ for $A_k$ w esee that $D(U_{\nu_1}, U_{\nu_2}, \ldots, U_{\nu_n}) = \pm 1$ and that the sign depends only on the permutation of the unit vectors.
+If we substitute $U_k$ for $A_k$ we see that $D(U_{\nu_1}, \ldots, U_{\nu_n}) = \pm 1$ and that the sign depends only on the permutation of the unit vectors.
 
 Now we replace each vector $A_k$ by the following linear combination $A_k'$ of $A_1, A_2, \ldots, A_n$:
 \begin{equation}
@@ -554,27 +591,25 @@ In computing $D(A_1', A_2', \ldots, A_n')$ we first apply axiom~\ref{ax:1} on $A
 We get
 \begin{align}
 \label{eq:1F7}
-D(A_1', A_2', \ldots, A_n')
-&= 
+D(A_1', \ldots, A_n')
+&=
 \!\!\!
-\sum_{\nu_1,\nu_2,\ldots,\nu_n} 
+\sum_{\nu_1,\ldots,\nu_n}
 \!\!\!\!
 D(
-        b_{\nu_1 1} A_{\nu_1},
-        b_{\nu_2 2} A_{\nu_2},
-        \ldots,
-        b_{\nu_n n} A_{\nu_n}
+b_{\nu_1 1} A_{\nu_1},
+\ldots,
+b_{\nu_n n} A_{\nu_n}
 )
 \\
-&= 
+&=
 \!\!\!
-\sum_{\nu_1,\nu_2,\ldots,\nu_n} 
+\sum_{\nu_1,\ldots,\nu_n}
 \!\!\!\!
-b_{\nu_1 1} \cdot
-b_{\nu_2 2} \cdot
-\cdots \cdot
+b_{\nu_1 1}
+\cdots
 b_{\nu_n n}
-D(A_{\nu_1}, A_{\nu_2}, \ldots, A_{\nu_n})
+D(A_{\nu_1}, \ldots, A_{\nu_n})
 \notag
 \end{align}
 where each $\nu_i$ runs independently from $1$ to $n$.
@@ -582,14 +617,14 @@ Should two of the indices $\nu_i$ be equal then $D(A_{\nu_1}, A_{\nu_2}, \ldots,
 This gives
 \begin{equation}
 \label{eq:1F8}
-D(A_1', A_2', \ldots, A_n')
-= D(A_1, A_2, \ldots, A_n)
+D(A_1', \ldots, A_n')
+= D(A_1, \ldots, A_n)
 \!\!\!
 \sum_{(\nu_1, \ldots, \nu_n)}
 \!\!\!\!
-\pm b_{\nu_1 1} \cdot b_{\nu_2 2} \cdot \cdots \cdot b_{\nu_n n}
+\pm b_{\nu_1 1} \cdots b_{\nu_n n}
 \end{equation}
-where $(\nu_1, \ldots, \nu_n)$ runs through all the permutations of $(1,2,\ldots,n)$ and where $\pm$ stands for the sign associated with that permutation.
+where $(\nu_1, \ldots, \nu_n)$ runs through all the permutations of the numbers $(1,2,\ldots,n)$ and where $\pm$ stands for the sign associated with that permutation.
 It is important to remark that we would only have arrived at the same formula \eqref{eq:1F8} if our function $D$ satisfied only the first two of our axioms.
 
 Many conclusions may be derived from \eqref{eq:1F8}.
@@ -599,7 +634,7 @@ This makes $A_k' = B_k$ where $B_k$ is the column vector of the matrix of the $b
 \begin{equation}
 \label{eq:1F9}
 D(B_1, B_2, \ldots, B_n)
-= 
+=
 \!\!\!
 \sum_{(\nu_1, \ldots, \nu_n)}
 \!\!\!\!
@@ -611,25 +646,25 @@ With expression \eqref{eq:1F9} we return to formula \eqref{eq:1F8} and get
 \begin{equation}
 \label{eq:1F10}
 D(A_1', A_2', \ldots, A_n')
-= 
+=
 D(A_1, A_2, \ldots, A_n)
 \,
 D(B_1, B_2, \ldots, B_n).
 \end{equation}
 
-This is the so-called multiplication theorem for determinants.
+This is the so-called multiplication theorem for determin\-ants.
 At the left of \eqref{eq:1F10} we have the determinant of an $n$-rowed matrix whose elements $c_{ik}$ are given by
 \begin{equation}
 \label{eq:1F11}
 c_{ik} = \sum_{\nu=1}^n a_{1\nu} b_{\nu_k}.
 \end{equation}
-$c_{ik}$ is obtained by multiplying the elements of the $i$-th row of $D(A_1, A_2, \ldots, A_n)$ by those of the $k$-th column of $D(B_1, B_2, \ldots, B_n)$ and adding.
+The element $c_{ik}$ is obtained by multiplying the elements of the $i$-th row of $D(A_1, \ldots, A_n)$ by those of the $k$-th column of $D(B_1, \ldots, B_n)$ and adding.
 
 Let us now replace $D$ in \eqref{eq:1F8} by a function $F(A_1, \ldots, A_n)$ that satisfies only the first two axioms.
 Comparing with \eqref{eq:1F9} we find
 \[
 F(A_1', A_2', \ldots, A_n')
-= 
+=
 F(A_1, A_2, \ldots, A_n)
 \,
 D(B_1, B_2, \ldots, B_n).
@@ -771,7 +806,7 @@ We refer the reader to any textbook on determinants since in most application \e
 We now investigate what it means for a matrix if its determinant is zero.
 We can easily establish the following facts:
 
-a) $A_1, A_2, \ldots, A_n$ are linearly dependent, then $D(A_1, A_2, \ldots, A_n) = 0$.
+a) $A_1, \ldots, A_n$ are linearly dependent, then $D(A_1, \ldots, A_n) = 0$.
 Indeed one of the vectors, say $A_k$, is then a linear combination of the other columns; subtracting this linear combination from the column $A_k$ reduces it to $0$ and so $D = 0$.
 
 b) If any vector $B$ can be expressed as a linear combination of $A_1, A_2, \ldots, A_n$, then $D(A_1, A_2, \ldots, A_n) \not= 0$.
@@ -800,7 +835,7 @@ in $n$ unknowns has a non-trivial solution if and only if the determinant of the
 
 Another result that can be deduced is:
 
-If $A_1, A_2, \ldots, A_n$ are given, then their linear combinations can represent any other vector $B$ if and only if $D(A_1,A_2, \ldots, A_n) \not= 0$.
+If $A_1, \ldots, A_n$ are given, then their linear combinations can represent any other vector $B$ if and only if $D(A_1,\ldots, A_n) \not= 0$.
 
 Or:
 The set of linear equations
@@ -830,10 +865,11 @@ The rule thus obtained is known as Cramer's rule.
 
 
 
-\section{Field theory}
+\hon{Field theory}
+\thispagestyle{empty}
 
 
-\subsection{Extension fields}
+\htw{Extension fields}
 
 If $E$ is a field and $F$ a subset of $E$ which, under the operations of addition and multiplication in $E$, itself forms a field, that is, if $F$ is a subfield of $E$, then we shall call $E$ an \emph{extension} of $F$.
 The relation of being an extension of $F$ will be briefly designated by $F \subset E$.
@@ -873,14 +909,14 @@ Thus, $A = \sum a_{ij} C_i A_j$ and the $C_iA_j$ for an independent generating s
 
 \begin{coro*}
 \label{coro:p22}
-If $F \subset F_1 \subset F_2 \subset \cdots \subset F_n$, then 
+If $F \subset F_1 \subset F_2 \subset \cdots \subset F_n$, then
 \[
 (F_n/F) = (F_1/F) \cdot (F_2/F_1) \, \cdots \, (F_n/F_{n-1}).
 \]
 \end{coro*}
 
 
-\subsection{Polynomials}
+\htw{Polynomials}
 
 An expression of the form $a_0 x^n + a_1 x^{n-1} + \cdots + a_n$ is called a \emph{polynomial} in $F$ of degree $n$ if the coefficients $a_0, \ldots, a_n$ are elements of the field $F$ and $a_0 \not= 0$.
 Multiplication and addition of polynomials are performed in the usual way.%
@@ -922,11 +958,12 @@ Multiplying
 f(x) = q(x) \cdot g(x) + r(x)
 \]
 by $h(x)$ and transposing, we have
-\[
+\begin{align*}
 r(x) \cdot h(x)
-= f(x) \cdot h(x) - q(x) \cdot g(x) \cdot h(x)
-= f(x) \cdot h(x) - q(x) \cdot k(x) \cdot f(x)
-\]
+&= f(x) \cdot h(x) - q(x) \cdot g(x) \cdot h(x)
+\\
+&= f(x) \cdot h(x) - q(x) \cdot k(x) \cdot f(x)
+\end{align*}
 from which it follows that $r(x) \cdot h(x)$ is divisible by $f(x)$.
 Since $r(x)$ has a smaller degree than $g(x)$, this last is in contradiction to the choice of $g(x)$, from which the lemma follows.
 
@@ -937,7 +974,7 @@ We shall also show that, in a given field, a polynomial can not only be factored
 The uniqueness depends on the theorem of Kronecker.
 
 
-\subsection{Algebraic elements}
+\htw{Algebraic elements}
 
 Let $F$ be a field and $E$ an extension field of $F$.
 If $\alpha$ is an element of $E$ we may ask whether there are polynomials with coefficients in $F$ which have $\alpha$ as a root.
@@ -962,7 +999,7 @@ where $g(x)$ is a polynomial in $F$ of degree less than $n$ ($n$ being the degre
 This set $E_0$ is closed under addition and multiplication.
 The latter may be verified as follows:
 
-If $g(x)$ and $h(x)$ are two polynomials of degree less than $n$ we put 
+If $g(x)$ and $h(x)$ are two polynomials of degree less than $n$ we put
 \[
 g(x) h(x) = q(x) f(x) + r(x)
 \]
@@ -1096,7 +1133,7 @@ $E$ and $E'$ are both isomorphic to $E_0$.
 \end{proof}
 
 
-\subsection{Splitting fields}
+\htw{Splitting fields}
 
 If $F$, $B$ and $E$ are three fields such that $F \subset B \subset E$, then we shall refer to $B$ as an \emph{intermediate field}.
 
@@ -1170,25 +1207,38 @@ The statement ``$p(x)$ has repeated roots'' will be significant without referenc
 
 
 
-\subsection{Unique decomposition of polynomials into irreducible factors}
+\htw{Unique decomposition of polynomials into irreducible factors}
 
 
 \begin{theo}
 \label{theo:onon}
-If $p(x)$ is a polynomial in a field $F$, and if $p(x) = p_1(x) \cdot p_2(x) \cdot \cdots \cdot p_r(x) = q_1(x) \cdot q_2(x) \cdot \cdots \cdot q_s(x)$ are two factorizations of $p(x)$ into irreducible polynomials each of degree at least one, then $r = s$ and after a suitable change in the order in which the $q$'s are written, $p_i(x) = c_i q_i(x)$, $i = 1,2,\ldots,r$ and $c_i \in F$.
+If $p(x)$ is a polynomial in a field $F$, and if 
+$$
+p(x) = p_1(x) \cdot \cdot \cdots \cdot p_r(x) = q_1(x) \cdot q_2(x) \cdot \cdots \cdot q_s(x)
+$$
+are two factorizations of $p(x)$ into irreducible polynomials each of degree at least one, then $r = s$ and after a suitable change in the order in which the $q$'s are written, $p_i(x) = c_i q_i(x)$, $i = 1,2,\ldots,r$ and $c_i \in F$.
 \end{theo}
 
 Let $F(\alpha)$ be an extension of $F$ in which $p_1(\alpha) = 0$.
 We may suppose the leading coefficients of the $p_i(x)$ and the $q_i(x)$ to be 1, for, by factoring out all leading coefficients and combining, the constant multiplier on each side of the equation must be the leading coefficient of $p(x)$ and hence can be divided out of both sides of the equation.
 Since $0 = p_1(\alpha) \cdot p_2(\alpha) \cdot \cdots \cdot p_r(\alpha) = p(\alpha) = q_1(\alpha) \cdot \cdots \cdot q_s(\alpha)$ and since a product of elements of $F(\alpha)$ can be 0 only if one of these is 0, it follows that one of the $q_i(\alpha)$, say $q_1(\alpha)$ is 0.
 This gives (see page~\pageref{p25}) $p_1(x) = q_1(x)$.
-Thus $p_1(x) \cdot p_2(x) \cdot \cdots \cdot p_r(x) = p_1(x) \cdot q_2(x) \cdot \cdots \cdot q_s(x)$ or $p_1(x) \cdot (p_2(x) \cdot \cdots \cdot p_r(x) - q_2(x) \cdot \cdots \cdot q_s(x)) = 0$.
+Thus 
+$$
+p_1(x) \cdot p_2(x) \cdot \cdots \cdot p_r(x) 
+= p_1(x) \cdot q_2(x) \cdot \cdots \cdot q_s(x)
+$$
+or 
+$$
+p_1(x) \cdot (p_2(x) \cdot \cdots \cdot p_r(x) - q_2(x) \cdot \cdots \cdot q_s(x)) 
+= 0.
+$$
 Since the product of two polynomials is $0$ only if one of the two is the $0$ polynomial, it follows that the polynomial within the brackets is 0 so that $p_2(x) \cdot \cdots \cdot p_r(x) = q_2(x) \cdot \cdots \cdot q_s(x)$.
 If we repeat the above argument $r$ times we obtain $p_i(x) = q_i(x)$, $i = 1,2,\ldots, r$.
 Since the remaining $q$'s must have a product 1, it follows that $r = s$.
 
 
-\subsection{Group characters}
+\htw{Group characters}
 
 If $G$ is a multiplicative group, $F$ a field and $\sigma$ a homomorphism mapping $G$ into $F$, then $\sigma$ is called a \emph{character} of $G$ in $F$.
 By homomorphism is meant a mapping $\sigma$ such that for $\alpha, \beta$ any two elements of $G$, $\sigma(\alpha) \cdot \sigma(\beta) = \sigma(\alpha \cdot \beta)$ and $\sigma(\alpha) \not= 0$ for any $\alpha$.
@@ -1222,9 +1272,9 @@ b_i = a_n^{-1} a_i \not= 0.
 \end{equation}
 Replace in this relation $x$ by $\alpha x$. We have
 \[
-b_1 \sigma_1(\alpha) \sigma_1(x) 
-+ \cdots 
-+ b_{n-1} \sigma_{n-1} (\alpha) \sigma_{n-1}(x) 
+b_1 \sigma_1(\alpha) \sigma_1(x)
++ \cdots
++ b_{n-1} \sigma_{n-1} (\alpha) \sigma_{n-1}(x)
 + \sigma_n(\alpha) \sigma_n(x) = 0,
 \]
 or $\sigma_n^{-1} b_1 \sigma_1(\alpha) \sigma_1(x) + \cdots + \sigma_n(x) = 0$.
@@ -1241,11 +1291,11 @@ The coefficient of $\sigma_1(x)$ in this relation is not 0, otherwise we should 
 \sigma_n(\alpha) b_1 = b_1 \sigma_1(\alpha) = \sigma_1(\alpha)b_1
 \]
 and since $b_1 \not= 0$, we get $\sigma_n(\alpha) = \sigma_1(\alpha)$ contrary to the choice of $\alpha$.
-Thus, \eqref{eq:starstar} is a non-trivial dependence between $\sigma_1, \sigma_2, \ldots, \sigma_{n-1}$ which is contrary to our inductive assumption.
+Thus, \eqref{eq:starstar} is a non-trivial dependence between $\sigma_1, \ldots, \sigma_{n-1}$ which is contrary to our inductive assumption.
 
 
 \begin{coro*}
-If $E$ and $E'$ are two fields, and $\sigma_1, \sigma_2, \ldots, \sigma_n$ are $n$ mutually distinct isomorphisms mapping $E$ into $E'$, then $\sigma_1, \ldots, \sigma_n$ are independent.
+If $E$ and $E'$ are two fields, and $\sigma_1, \ldots, \sigma_n$ are $n$ mutually distinct isomorphisms mapping $E$ into $E'$, then $\sigma_1, \ldots, \sigma_n$ are independent.
 (Where ``independent'' again means that there exists no non-trivial dependence $a_1 \sigma_1(x) + \cdots + a_n \sigma_n(x) = 0$ which holds for every $x \in E$.)
 \end{coro*}
 
@@ -1297,16 +1347,17 @@ Using that $a_i \in F$, hence that $\sigma_1(a_i) = \sigma_j(a_i)$ and also that
 \sigma_1(a_r \omega_r)x_1 + \cdots + \sigma_n(a_r \omega_r)x_n &= 0.
 \end{align*}
 Adding these last equations and using
-\[
+\begin{align*}
 \sigma_i(a_1 \omega_1) + \sigma_i(a_2 \omega_2) + \cdots + \sigma_i(a_r \omega_r)
-= \sigma_i(a_1 \omega_1 + \cdots + a_r \omega_r) 
-= \sigma_i(\alpha)
-\]
+&= \sigma_i(a_1 \omega_1 + \cdots + a_r \omega_r)
+\\
+&= \sigma_i(\alpha)
+\end{align*}
 we obtain
 \[
 \sigma_1(\alpha)x_1 + \sigma_2(\alpha)x_2 + \cdots + \sigma_n(\alpha)x_n = 0.
 \]
-This, however, is a non-trivial dependence relation between $\sigma_1, \sigma_2, \ldots, \sigma_n$ which cannot exist according to the corollary of Theorem~\ref{theo:ontw}. 
+This, however, is a non-trivial dependence relation between the automorphisms $\sigma_1, \sigma_2, \ldots, \sigma_n$ which cannot exist according to the corollary of Theorem~\ref{theo:ontw}.
 
 
 \begin{coro*}
@@ -1328,7 +1379,7 @@ If $E$ is an extension field of $F$, the set $G$ of automorphisms which leave $F
 \end{lemm*}
 
 
-The product of two automorphisms which leave $F$ fixed clearly leaves $F$ fixed.
+The product of two automorphisms which leave $F$ fixed also clearly leaves $F$ fixed.
 Also, the inverse of any automorphism in $G$ is in $G$.
 
 The reader will observe that $G$, the set of automorphisms which leave $F$ fixed, does not necessarily have $F$ as its fixed field.
@@ -1336,7 +1387,7 @@ It may be that certain elements in $E$ which do not belong to $F$ are left fixed
 Thus, the fixed field of $G$ may be larger than $F$.
 
 
-\subsection[Applications and examples]{Applications and examples to Theorem~\ref{theo:onth}}
+\htw[Applications and examples]{Applications and examples to Theorem~\ref{theo:onth}}
 
 
 Theorem \ref{theo:onth} is very powerful as the following examples show:
@@ -1350,11 +1401,11 @@ $F$ consists of all rational functions satisfying
 \begin{equation}
 \label{eq:twGon}
 f(x)
-= f(1-x)
+= f(1{-}x)
 = f\Bigl(\frac 1x\Bigr)
-= f\Bigl(1 - \frac 1x\Bigr)
-= f\Bigl(\frac 1{1-x}\Bigr)
-= f\Bigl(\frac{x}{x-1}\Bigr).
+= f\Bigl(1 {-} \frac 1x\Bigr)
+= f\Bigl(\frac 1{1{-}x}\Bigr)
+= f\Bigl(\frac{x}{x{-}1}\Bigr).
 \end{equation}
 It suffices to check the first two equalities, the others being consequences.
 The function
@@ -1373,7 +1424,7 @@ Now $E = S(x)$.
 It is thus sufficient to find some 6-th degree equation with coefficients in $S$ satisfied by $x$.
 The following one is obviously satisfied;
 \[
-        (x^2 - x + 1)^3 - 1 \cdot x^2(x-1)^2 = 0.
+(x^2 - x + 1)^3 - 1 \cdot x^2(x-1)^2 = 0.
 \]
 
 The reader will find the study of these fields a profitable exercise.
@@ -1452,7 +1503,7 @@ But our theorem gives an expression of any polynomial, symmetric or not.
 
 
 
-\subsection{Normal extensions}
+\htw{Normal extensions}
 
 An extension field $E$ of $F$ is called a \emph{normal} extension if the group $G$ of automorphisms of $E$ which leave $F$ fixed has $F$ for its fixed field, and $(E/F)$ is finite.
 
@@ -1472,25 +1523,25 @@ By Theorem~\ref{theo:on}, there exists a non-trivial solution in $E$ to the syst
 \begin{equation}
 \tag{'}
 \begin{aligned}
-x_1 \sigma_1(\alpha_1) + 
-x_2 \sigma_1(\alpha_2) + 
+x_1 \sigma_1(\alpha_1) +
+x_2 \sigma_1(\alpha_2) +
 \cdots +
 x_{n+1} \sigma_{1}(\alpha_{n+1}) &= 0
 \\
-x_1 \sigma_2(\alpha_1) + 
-x_2 \sigma_2(\alpha_2) + 
+x_1 \sigma_2(\alpha_1) +
+x_2 \sigma_2(\alpha_2) +
 \cdots +
 x_{n+1} \sigma_{2}(\alpha_{n+1}) &= 0
 \\
 \cdots &
 \\
-x_1 \sigma_{n}(\alpha_1) + 
-x_2 \sigma_{n}(\alpha_2) + 
+x_1 \sigma_{n}(\alpha_1) +
+x_2 \sigma_{n}(\alpha_2) +
 \cdots +
 x_{n+1} \sigma_{n}(\alpha_{n+1}) &= 0.
 \end{aligned}
 \end{equation}
-We note that the solution cannot lie in $F$, otherwise, since $\sigma_1$ is the identity, the first equation would be a dependence between $\alpha_1, \ldots, \alpha_n$.
+We note that the solution cannot lie in $F$, otherwise, since $\sigma_1$ is the identity, the first equation would be a dependence between the elements $\alpha_1, \ldots, \alpha_n$.
 
 Among all non-trivial solutions $x_1, x_2, \ldots, x_{n+1}$ we choose one which has the least number of elements different from $0$.
 We may suppose this solution to be $a_1, a_2, \ldots, a_r, 0, \ldots, 0$, where the first $r$ terms are different from $0$.
@@ -1499,8 +1550,8 @@ Also, we may suppose $a_r = 1$, since if we multiply the given solution by $a_r^
 Thus, we have
 \begin{equation}
 \tag{$*$}
-a_1 \sigma_{i}(\alpha_1) + 
-a_2 \sigma_{i}(\alpha_2) + 
+a_1 \sigma_{i}(\alpha_1) +
+a_2 \sigma_{i}(\alpha_2) +
 \cdots +
 a_{r-1} \sigma_{i}(\alpha_{r-1}) +
 \sigma_{i}(\alpha_{r}) = 0
@@ -1510,29 +1561,37 @@ Since $a_1, \ldots, a_{r-1}$ cannot all belong to $F$, one of these, say $a_1$ i
 There is an automorphism $\sigma_k$ for which $\sigma_k(\alpha_1) \not= a_1$.
 If we use the fact that $\sigma_1, \sigma_2, \ldots, \sigma_n$ form a group, we see $\sigma_k \cdot \sigma_1, \sigma_k \cdot \sigma_2, \ldots, \sigma_k \cdots \sigma_n$ is a permutation of $\sigma_1, \sigma_2, \ldots, \sigma_n$.
 Applying $\sigma_k$ to the expressions in $(*)$ we obtain
-\begin{equation*}
-\sigma_k(a_1) \sigma_k \sigma_{j}(\alpha_1) + 
-\sigma_k(a_2) \sigma_k \sigma_{j}(\alpha_2) + 
+\[
+\displaylines{
+\sigma_k(a_1) \sigma_k \sigma_{j}(\alpha_1) +
+\sigma_k(a_2) \sigma_k \sigma_{j}(\alpha_2)
+\hfill\cr\hfill{}
++
 \cdots +
 \sigma_k(a_{r-1}) \sigma_k \sigma_{j}(\alpha_{r-1}) +
 \sigma_k \sigma_{j}(\alpha_{r}) = 0
-\end{equation*}
+}
+\]
 for $j=1,2,\ldots,n$, so that from $\sigma_k \sigma_j = \sigma_i$
-\begin{equation}
+\begin{multline}
 \tag{$**$}
-\sigma_k(a_1) \sigma_{i}(\alpha_1) + 
-\sigma_k(a_2) \sigma_{i}(\alpha_2) + 
-\cdots +
+\sigma_k(a_1) \sigma_{i}(\alpha_1) +
+\sigma_k(a_2) \sigma_{i}(\alpha_2)
+\\
++ \cdots +
 \sigma_k(a_{r-1}) \sigma_{i}(\alpha_{r-1}) +
 \sigma_{i}(\alpha_{r}) = 0
-\end{equation}
+\end{multline}
 and if we subtract $(**)$ from $(*)$ we have
-\begin{equation*}
-(a_1 - \sigma_k(a_1)) \sigma_{i}(\alpha_1) + 
-(a_2 - \sigma_k(a_2)) \sigma_{i}(\alpha_2) + 
-\cdots +
+\[
+\displaylines{
+(a_1 - \sigma_k(a_1)) \sigma_{i}(\alpha_1) +
+(a_2 - \sigma_k(a_2)) \sigma_{i}(\alpha_2)
+\hfill\cr\hfill{}
++ \cdots +
 (a_{r-1} - \sigma_k(a_{r-1})) \sigma_{i}(\alpha_{r-1}) = 0
-\end{equation*}
+}
+\]
 which is a non-trivial solution to the system $(')$ having fewer than $r$ elements different from $0$, contrary to the choice of $r$.
 
 
@@ -1612,8 +1671,8 @@ Moreover any element of $E$ is a root of an equation over $F$ which splits compl
 \end{lemm*}
 
 \begin{proof}
-Let $\sigma_1,\sigma_2, \ldots,\sigma_s$ be the group $G$ of automorphisms of $E$ whose fixed field is $F$.
-Let $\alpha$ be an element of $E$, and let $\alpha, \alpha_2, \alpha_3, \ldots, \alpha_r$ be the set of distinct elements in the sequence $\sigma_1(\alpha), \sigma_2(\alpha), \ldots, \sigma_s(\alpha)$.
+Let $\sigma_1, \ldots,\sigma_s$ be the group $G$ of automorphisms of $E$ whose fixed field is $F$.
+Let $\alpha$ be an element of $E$, and let $\alpha, \alpha_2, \ldots, \alpha_r$ be the set of distinct elements in the sequence $\sigma_1(\alpha), \sigma_2(\alpha), \ldots, \sigma_s(\alpha)$.
 Since $G$ is a group,
 \[
 \sigma_j(\alpha_i)
@@ -1652,7 +1711,7 @@ The intermediate field $B$ is a normal extension of $F$ if and only if the subgr
 In this case the group of automorphisms of $B$ which leaves $F$ fixed is isomorphic to the factor group $G/G_B$.
 
 \item
-For each intermediate field $B$, we have $(B/F) = \text{the index of $G_B$}$ and $(E/B) = \text{the order of $G_B$}$.
+For each intermediate field $B$, we have $(B/F) =$ the index of $G_B$ and $(E/B) =$ the order of $G_B$.
 \end{enumerate}
 \end{theo}
 
@@ -1701,7 +1760,7 @@ This completes the proof of Theorem~\ref{theo:onsi}.
 \end{proof}
 
 
-\subsection{Finite fields}
+\htw{Finite fields}
 
 It is frequently necessary to know the nature of a finite subset of a field which under multiplication in the field is a group.
 The answer to this question is particularly simple.
@@ -1713,7 +1772,7 @@ If $S$ is a finite subset ($\not= 0$) of a field $F$ which is a group under mult
 \end{theo}
 
 
-The proof is based on the following lemmas for abelian groups.
+The proof is based on the next lemmas for abelian groups.
 
 
 \begin{lemm}
@@ -1794,7 +1853,7 @@ Each abelian group having a finite number of generators is the direct product of
 We assume the theorem true for all groups having minimal generating systems of $k-1$ elements.
 If $n=1$ the group is cyclic and the theorem trivial.
 Now suppose $G$ is an abelian group having a minimal generating system of $k$ elements.
-If no minimal generating system satisfies a non-trivial relation, then let $g_1,g_2, \ldots, g_k$ be a minimal generaing system and $G_1, G_2, \ldots, G_k$ be the cyclic groups generated by them.
+If no minimal generating system satisfies a non-trivial relation, then let $g_1, \ldots, g_k$ be a minimal generating system and $G_1, \ldots, G_k$ be the cyclic groups generated by them.
 For each $g \in G$, $g = n_1g_1 + \cdots + n_kg_k$ where the expression is unique; otherwise we should obtain a relation.
 Thus the theorem would be true.
 Assume now that some non-trivial relations hold for some minimal generating systems.
@@ -1804,7 +1863,7 @@ Among all relations between minimal generating systems, let
 m_1 g_1 + \cdots + m_k g_k = 0
 \end{equation}
 be a relation in which the smallest positive coefficient occurs.
-After an eventual reordering of the generators we can suppose this coefficient to be $m_1$.
+After a reordering of the generators we can suppose this coefficient to be $m_1$.
 In any other relation between $g_1, \ldots, g_k$,
 \begin{equation}
 \label{eq:Itw}
@@ -1881,7 +1940,7 @@ Two finite fields having the same number of elements are isomorphic.
 
 
 
-\paragraph{Differentation}
+\paragraph{Differentiation}
 If $f(x) = a_0 + a_1x + \cdots + a_nx^n$ is a polynomial in a field $F$, then we define $f' = a_1 + 2a_2x + \cdots + n a_n x^{n-1}$.
 The reader may readily verify that for each pair of polynomials $f$ and $g$ we have
 \begin{align*}
@@ -1901,12 +1960,14 @@ This condition is equivalent to the assertion that $f$ and $f'$ have a common fa
 \begin{proof}
 If $\alpha$ is a root of multiplicity $k$ of $f(x)$ then $f = (x-\alpha)^k Q(x)$ where $Q(\alpha) \not= 0$.
 This gives
-\[
-f' = (x - \alpha)^k Q'(x) + k (x - \alpha)^{k-1} Q(x)
-= (x - \alpha)^{k-1}\bigl(
+\begin{align*}
+f'
+&= (x - \alpha)^k Q'(x) + k (x - \alpha)^{k-1} Q(x)
+\\
+&= (x - \alpha)^{k-1}\bigl(
 (x - \alpha) Q'(x) - k Q(x)
 \bigr).
-\]
+\end{align*}
 If $k > 1$, then $\alpha$ is a root of $f'$ of multiplicity at least $k-1$.
 If $k=1$, then $f'(x) = Q(x) + (x -\alpha) Q'(x)$ and $f'(\alpha) = Q(\alpha) \not= 0$.
 Thus, $f$ and $f'$ have a root $\alpha$ in common if and only if $\alpha$ is a root of $f$ of multiplicity greater than $1$.
@@ -1927,7 +1988,7 @@ But $\alpha$ is also a root of $f'(x)$ which contradicts the irreducibility of $
 \end{proof}
 
 
-\subsection{Roots of unity}
+\htw{Roots of unity}
 
 If $F$ is a field having any characteristic $p$, and $E$ the splitting field of the polynomial $x^n - 1$ where $p$ does not divide $n$, then we shall refer to $E$ as \emph{the field generated out of $F$ by the adjunction of a primitive $n$-th root of unity}.
 
@@ -1957,7 +2018,7 @@ If $n$ is a prime number, the multiplicative group of numbers forms a cyclic gro
 \end{proof}
 
 
-\subsection{Noether equations}
+\htw{Noether equations}
 
 If $E$ is a field, and $G = (\sigma, \tau, \ldots)$ a group of automorphisms of $E$, any set of elements $x_\sigma, x_\tau, \ldots$ in $E$ will be said to provide a \emph{solution to Noether's equations} if $x_\sigma \cdot \sigma(x_\tau) = x_{\sigma\tau}$ for each $\sigma$ and $\tau$ in $G$.
 If one element $x_\sigma = 0$ then $x_\tau = 0$ for each $\tau \in G$.
@@ -1990,7 +2051,7 @@ Applying $\sigma$ to $\alpha$ gives
 Replacing $x_\sigma \cdot \sigma(x_\tau)$ by $x_{\sigma\tau}$ and noting that $\sigma\tau$ assumes all values in $G$ when $\tau$ does, we have
 \[
 x_\sigma \cdot \sigma(\alpha)
-= \sum_{\tau \in G} x_{\tau} \tau(a) 
+= \sum_{\tau \in G} x_{\tau} \tau(a)
 = \alpha
 \]
 so that
@@ -2018,7 +2079,7 @@ If $r$ is the least common multiple of the orders of elements of $G$, then $\alp
 
 
 
-\subsection{Kummer's fields}
+\htw{Kummer's fields}
 
 If $F$ contains a primitive $n$-th root of unity, any splitting field $E$ of a polynomial $(x^n - a_1)(x^n - a_2) \cdots (x^n - a_r)$ where $a_i \in F$ for $i = 1,2,\ldots,r$ will be called a \emph{Kummer extension} of $F$, or more briefly, a \emph{Kummer field}.
 
@@ -2088,7 +2149,7 @@ The properties \eqref{theo:23a}, \eqref{theo:23b} and \eqref{theo:23c} in Theore
 Let us suppose that $E$ is a normal extension of a field $F$, whose group $G$ over $F$ is abelian.
 Let us further assume that $F$ contains a primitive $r$-th root of unity where $r$ is the least common multiple of the orders of the elements of $G$.
 
-The group of characters $X$ of $G$ int othe group of $r$-th roots of unity is isomorphic to $G$.
+The group of characters $X$ of $G$ into the group of $r$-th roots of unity is isomorphic to $G$.
 Moreover, to each $\sigma \in G$, if $\sigma \not= 1$, there exists a character $C \in X$ such that $C(\sigma) \not= 1$.
 Write $G$ as the direct product of the cyclic groups $G_1, G_2, \ldots, G_t$ of orders $m_1 \mid m_2 \mid \cdots \mid m_t$.
 Each $\sigma \in G$ may be written $\sigma = \sigma_1^{\nu_1} \sigma_2^{\nu_2} \cdots \sigma_t^{\nu_t}$.
@@ -2142,20 +2203,20 @@ If $E$ is an extension field over $F$, then $E$ is a Kummer field if and only if
 \begin{proof}
 The necessity is already contained in Theorem~\ref{theo:23}.
 We prove the sufficiency.
-Out of the group $A$, let $\alpha_1 F_1, \alpha_2 F_1, \ldots, \alpha_t F_1$ be the cosets of $F_1$.
+Out of the group $A$, let $\alpha_1 F_1, \ldots, \alpha_t F_1$ be the cosets of $F_1$.
 Since $\alpha_i \in A$ we have $\alpha_i^r = a_i \in F$.
 Thus, $\alpha_i$ is a root of the equation $x^r - a_i = 0$ and since $\epsilon \alpha_i, \epsilon^2 \alpha_i, \ldots, \epsilon^{r-1} \alpha_i$ are also roots, $x^r - a_i$ must split in $E$.
 We prove that $E$ is the splitting field of $(x^r - a_1) (x^r - a_2) \cdots (x^r - a_t)$ which will complete the proof of the theorem.
 To this end it suffices to show that $F(\alpha_1, \alpha_2, \ldots, \alpha_t) = E$.
 
-Suppose that $F(\alpha_1, \alpha_2, \ldots, \alpha_t) \not= E$.
-Then $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ is an intermediate field between $F$ and $E$, and since $E$ is normal over $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ there exists an automorphism $\sigma \in G$, $\sigma \not= 1$, which leaves $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ fixed.
+Suppose that $F(\alpha_1, \ldots, \alpha_t) \not= E$.
+Then $F(\alpha_1, \ldots, \alpha_t)$ is an intermediate field between $F$ and $E$, and since $E$ is normal over $F(\alpha_1, \ldots, \alpha_t)$ there exists an automorphism $\sigma \in G$, $\sigma \not= 1$, which leaves $F(\alpha_1, \ldots, \alpha_t)$ fixed.
 There exists a character $C$ of $G$ for which $C(\sigma) \not= 1$.
 Finally, there exists an element $\alpha$ in $E$ such that $C(\sigma) = \alpha / \sigma(\alpha) \not= 1$.
 But $\alpha^r \in F_1$ by Theorem~\ref{theo:22}, hence $\alpha \in A$.
-Moreover, $A \subset F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ since all the cosets $\alpha_i F$ are contained in $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$.
-Since $F(\alpha_1, \alpha_2, \ldots, \alpha_t)$ is by assumption left fixed by $\sigma$, $\sigma(\alpha) = \alpha$ which contradicts $\alpha / \sigma(\alpha) \not= 1$.
-It follows, therefore, that $F(\alpha_1, \alpha_2, \ldots, \alpha_t) = E$.
+Moreover, $A \subset F(\alpha_1, \ldots, \alpha_t)$ since all the cosets $\alpha_i F$ are contained in $F(\alpha_1, \ldots, \alpha_t)$.
+Since $F(\alpha_1, \ldots, \alpha_t)$ is by assumption left fixed by $\sigma$, $\sigma(\alpha) = \alpha$ which contradicts $\alpha / \sigma(\alpha) \not= 1$.
+It follows, therefore, that $F(\alpha_1, \ldots, \alpha_t) = E$.
 \end{proof}
 
 
@@ -2172,7 +2233,7 @@ $E = F(\alpha_1)$ is the splitting field of $x^p - a$.
 
 
 
-\subsection{Simple extensions}
+\htw{Simple extensions}
 
 We consider the question of determining under what conditions an extension field is generated by a \emph{single element}, called a \emph{primitive}.
 We prove the following.
@@ -2194,7 +2255,7 @@ Since $E = B'(\alpha)$ we see $(E/B) = (E/B')$.
 This proves $B' = B$.
 So $B$ is uniquely determined by the polynomial $g(x)$.
 But $g(x)$ is a divisor of $f(x)$, and there are only a finite number of possible divisors of $f(x)$ in $E$.
-Hence there are only a a finite number of possible $B$'s.
+Hence there are only a finite number of possible $B$'s.
 
 (b)\quad
 Assume there are only a finite number of fields between $E$ and $F$.
@@ -2231,14 +2292,14 @@ Theorem~\ref{theo:26} now completes the proof.
 
 
 
-\subsection{Existence of a normal basis}
+\htw{Existence of a normal basis}
 
 The following theorem is true for any field though we prove it only in the case that $F$ contains an infinity of elements.
 
 
 \begin{theo}
 \label{theo:28}
-If $E$ is a normal extension of $F$ and $\sigma_1, \sigma_2, \ldots, \sigma_n$ are the elements of its group $G$, there is an element $\theta$ in $E$ such that the $n$ elements of $\sigma_1(\theta), \sigma_2(\theta), \ldots, \sigma_n(\theta)$ are linearly independent with respect to $F$.
+If $E$ is a normal extension of $F$ and $\sigma_1, \ldots, \sigma_n$ are the elements of its group $G$, there is an element $\theta$ in $E$ such that the $n$ elements of $\sigma_1(\theta), \ldots, \sigma_n(\theta)$ are linearly independent with respect to $F$.
 \end{theo}
 
 
@@ -2246,10 +2307,10 @@ If $E$ is a normal extension of $F$ and $\sigma_1, \sigma_2, \ldots, \sigma_n$ a
 According to Theorem~\ref{theo:27} there is an $\alpha$ such that $E = F(\alpha)$.
 Let $f(x)$ be the equation for $\alpha$, put $\sigma_i(\alpha) = \alpha_i$,
 \[
-g(x) = \frac{f(x)}{(x-\alpha)f'(\alpha)}
+g(x) = \frac{f(x)}{(x{-}\alpha)f'(\alpha)}
 \quad\text{and}\quad
 g_i(x) = \sigma_i(g(x))
-= \frac{f(x)}{(x - \alpha_i)f'(\alpha_i)}.
+= \frac{f(x)}{(x {-} \alpha_i)f'(\alpha_i)}.
 \]
 $g_i(x)$ is a polynomial in $E$ having $\alpha_k$ as a root for $k\not= i$ and hence
 \begin{equation}
@@ -2294,13 +2355,13 @@ Then the determinant
 |\sigma_i \sigma_k (\theta) | \not= 0.
 \end{equation}
 
-Consider any linear relation $x_1 \sigma_1(\theta) + x_2 \sigma_2(\theta) + \cdots + x_n \sigma_n(\theta) = 0$ where the $x_i$ are in $F$.
+Consider any linear relation $x_1 \sigma_1(\theta) + \cdots + x_n \sigma_n(\theta) = 0$ where the $x_i$ are in $F$.
 Applying the automorphism $\sigma_i$ to it would lead to $n$ homogeneous equations for the $n$ unknowns $x_i$.
 \eqref{eq:N5} shows that $x_i = 0$ and our theorem is proved.
 \end{proof}
 
 
-\subsection{Theorem on natural irrationalities}
+\htw{Theorem on natural irrationalities}
 
 Let $F$ be a field, $p(x)$ a polynomial in $F$ whose irreducible factors are separable, and let $E$ be a splitting field for $p(x)$.
 Let $B$ be an arbitrary extension of $F$, and let us denote by $EB$ the splitting field of $p(x)$ when $p(x)$ is taken to lie in~$B$.
@@ -2310,7 +2371,7 @@ There is therefore no loss of generality if in the sequel we take $E = F(\alpha_
 Also, $E = B(\alpha_1, \ldots, \alpha_n)$.
 
 Let us denote by $E \cap B$ the intersection of $E$ and $B$.
-It is readily seen that $E \cap B$ is a field and is intermediate to $F$ and $E$.
+It is readily seen that $E \cap B$ is a field and is intermediate to $F$ and~$E$.%
 
 
 \begin{theo}
@@ -2320,10 +2381,10 @@ If $G$ is the group of automorphisms of $E$ over $F$, and $H$ the group of $EB$ 
 
 
 \begin{proof}
-Each automorphism of $EB$ over $B$ simply permutes $\alpha_1, \ldots, \alpha_s$ in some fashion and leaves $B$, and hence also $F$, fixed.
+Each automorphism of $EB$ over $B$ simply permutes the roots $\alpha_1, \ldots, \alpha_s$ in some fashion and leaves $B$, and hence also $F$, fixed.
 Since the elements of $EB$ are quotients of polynomial expressions in $\alpha_1, \ldots, \alpha_s$ with coefficients in $B$, the automorphism is completely determined by the permutation it effects on $\alpha_1, \ldots, \alpha_s$.
 Thus, each automorphism of $EB$ over $B$ defines an automorphism of $E = F(\alpha_1,\ldots,\alpha_s)$ which leaves $F$ fixed.
-Distnict automorphisms, since $\alpha_1, \ldots, \alpha_s$ belong to $E$, have different effects on $E$.
+Distinct automorphisms, since $\alpha_1, \ldots, \alpha_s$ belong to $E$, have different effects on $E$.
 Thus, the group $H$ of $EB$ over $B$ can be considered as a subgroup of the group $G$ of $E$ over $F$.
 Each element of it leaves $E \cap B$ fixed since it leaves even all of $B$ fixed.
 However, any element of $E$ which is not in $E \cap B$ is not in $B$, and hence would be moved by at least one automorphism of $H$.
@@ -2338,14 +2399,16 @@ If, under the conditions of Theorem~\ref{theo:29}, the group $G$ is of prime ord
 
 
 
-\section{Applications}
+\hon{Applications}
+\chapterauthor{A. N. Milgram}
+\thispagestyle{empty}
 
 % The counters in this book are fubar
 \setcounter{theo}{0}
 \setcounter{coro}{0}
 
 
-\subsection{Solvable groups}
+\htw{Solvable groups}
 
 Before proceeding with the applications we must discuss certain questions in the theory of groups.
 We shall assume several simple propositions:
@@ -2394,7 +2457,7 @@ Set $G = U$, $N = u$, $H = V$ and the identity $1 = v$ in Theorem~\ref{theo:III.
 
 \begin{coro}
 \label{coro:III.2}
-Under the conditions of Corollary~\ref{coro:III.1}, if $G/N$ is abelian, so also is $H/H \cap N$.
+Under the conditions of Corollary~\ref{coro:III.1}, if $G\mkern-1mu/\mkern-2mu N$ is abelian, so also is $H/H \cap N$.
 \end{coro}
 
 
@@ -2424,7 +2487,7 @@ But the homomorphic image of an abelian group is abelian so that the groups $G_i
 \end{proof}
 
 
-\subsection{Permutation groups}
+\htw{Permutation groups}
 
 Any one to one mapping of a set of $n$ objects on itself is called a \emph{permutation}.
 The iteration of two such mappings is called their \emph{product}.
@@ -2459,7 +2522,7 @@ If there were a sequence exhibiting the solvability, since $G$ contains every $3
 \end{proof}
 
 
-\subsection{Solution of equations by radicals}
+\htw{Solution of equations by radicals}
 
 The extension field $E$ over $F$ is called an \emph{extension by radicals} if there exist intermediate fields $B_1, B_2, \ldots, B_r = E$ and $B_i = B_{i-1}(\alpha_i)$ where each $\alpha_i$ is a root of an equation of the form $x^{n_i} - a_i = 0$, $a_i \in B_{i-1}$.
 A polynomial $f(x)$ in a field $F$ is said to be \emph{solvable by radicals} if its splitting field lies in an extension by radicals.
@@ -2481,7 +2544,7 @@ The polynomial $f(x)$ is solvable by radicals if and only if its group is solvab
 Suppose $f(x)$ is solvable by radicals.
 Let $E$ be a normal extension of $F$ by radicals containing the splitting field $B$ of $f(x)$, and call $G$ the group of $E$ over $F$.
 Since for each $i$, $B_i$ is a Kummer extension of $B_{i-1}$, the group of $B_i$ over $B_{i-1}$ is abelian.
-In the sequence of groups $G = G_{B_0} \supset G_{B_1} \supset \cdots \supset G_{B_r} = 1$ each is a normal subgroup of the preceding since $G_{B_{i-1}}$ is the gruop of $E$ over $B_{i-1}$, and $B_i$ is a normal extension of $B_{i-1}$.
+In the sequence of groups $G = G_{B_0} \supset G_{B_1} \supset \cdots \supset G_{B_r} = 1$ each is a normal subgroup of the preceding since $G_{B_{i-1}}$ is the group of $E$ over $B_{i-1}$, and $B_i$ is a normal extension of $B_{i-1}$.
 But $G_{B_{i-1}}/G_{B_i}$ is the group of $B_i$ over $B_{i-1}$ and hence is abelian.
 Thus $G$ is solvable.
 However, $G_B$ is a normal subgroup of $G$, and $G/G_B$ is the group of $B$ over $F$, and is therefore the group of the polynomial $f(x)$.
@@ -2508,9 +2571,9 @@ The factor group $G / G_E$ is the group of $f(x)$ and being a homomorph of a sol
 \end{rema}
 
 
-\subsection[The general equation of degree n]{The general equation of degree $n$}
+\htw[The general equation of degree n]{The general equation of degree $n$}
 
-If $F$ is a field, the collection of rational expressions in the variables $u_1, u_2, \ldots, u_n$ with coefficients in $F$ is a field $F(u_1, u_2, \ldots, u_n)$.
+If $F$ is a field, the collection of rational expressions in the variables $u_1, \ldots, u_n$ with coefficients in $F$ is a field $F(u_1, \ldots, u_n)$.
 By the \emph{general equation of degree $n$} we mean the equation
 \begin{equation}
 \label{eq:III.1}
@@ -2531,8 +2594,8 @@ u_n &= v_1 \cdot v_2 \cdot \cdots \cdot v_n.
 
 We shall prove that the group of $E$ over $F(u_1, u_2, \ldots, u_n)$ is the symmetric group.
 
-Let $F(x_1, x_2, \ldots, x_n)$ be generated from $F$ by the variables $x_1, x_2, \ldots, x_n$.
-Let 
+Let $F(x_1, x_2, \ldots, x_n)$ be generated from $F$ by the variables $x_1$, $x_2$, $\ldots$, $x_n$.
+Let
 \begin{align*}
 \alpha_1 &= x_1 + x_2 + \cdots + x_n,
 \\
@@ -2542,27 +2605,29 @@ Let
 \\
 \alpha_n &= x_1 x_2 \cdots x_n
 \end{align*}
-be the elementary symmetric functions, i.e., 
-\[
-(x - x_1) (x - x_2) \cdots (x - x_n) 
-= x^n - \alpha_1 x^{n-1} + \cdots + (-1)^n \alpha_n = f^*(x).
-\]
-If $g(\alpha_1, \alpha_2, \ldots, \alpha_n)$ is a polynomial in $\alpha_1, \ldots, \alpha_n$, then $g(\alpha_1, \alpha_2, \ldots, \alpha_n) = 0$ only if $g$ is the zero polynomial:
-If $g(\sum x_i, \sum x_i x_k, \ldots ) = 0$, then this relation would hold also if the $x_i$ were replaced by the $v_i$.
+be the elementary symmetric functions, i.e.,
+\begin{align*}
+(x - x_1) (x - x_2) \cdots (x - x_n)
+&= x^n - \alpha_1 x^{n-1} + \cdots + (-1)^n \alpha_n
+\\
+&= f^*(x).
+\end{align*}
+If $g(\alpha_1, \ldots, \alpha_n)$ is a polynomial in the roots $\alpha_1, \ldots, \alpha_n$, then we have $g(\alpha_1, \ldots, \alpha_n) = 0$ only if $g$ is the zero polynomial:
+If we had $g(\sum x_i, \sum x_i x_k, \ldots ) = 0$, then this relation would hold also if the $x_i$ were replaced by the $v_i$.
 Thus, $g(\sum v_i, \sum v_i v_k, \ldots) = 0$ or $g(u_1, u_2, \ldots, u_n) = 0$ from which it follows that $g$ is identically zero.
 
 
-Between the subfield $F(\alpha_1, \ldots, \alpha_n)$ of $F(x_1, \ldots, x_n)$ and $F(u_1, u_2, \ldots, u_n)$ we set up the following correspondence:
+Between the subfield $F(\alpha_1, \ldots, \alpha_n)$ of $F(x_1, \ldots, x_n)$ and the field $F(u_1, \ldots, u_n)$ we set up the following correspondence:
 \begin{align*}
 F(u_1, \ldots, u_n) &\to F(\alpha_1, \ldots, \alpha_n),
 \\
-f(u_1, \ldots, u_n) / g(u_1, \ldots, u_n) 
+f(u_1, \ldots, u_n) / g(u_1, \ldots, u_n)
 &\mapsto f(\alpha_1, \ldots, \alpha_n) / g(\alpha_1, \ldots, \alpha_n).
 \end{align*}
-This is clearly a mapping of $F(u_1, u_2, \ldots, u_n)$ on all of $F(\alpha_1, \ldots, \alpha_n)$.
-Moreover, if 
+It is clearly a mapping of $F(u_1, \ldots, u_n)$ on all of $F(\alpha_1, \ldots, \alpha_n)$.
+Moreover, if
 \[
-f(\alpha_1, \ldots, \alpha_n) / g(\alpha_1, \ldots, \alpha_n) 
+f(\alpha_1, \ldots, \alpha_n) / g(\alpha_1, \ldots, \alpha_n)
 = f_1(\alpha_1, \ldots, \alpha_n) / g_1(\alpha_1, \ldots, \alpha_n),
 \]
 then $f g_1 - f_1 g = 0$.
@@ -2571,14 +2636,18 @@ But this implies by the above that
 f(u_1, \ldots, u_n) g_1(u_1, \ldots, u_n)
 - f_1(u_1, \ldots, u_n) g(u_1, \ldots, u_n) = 0
 \]
-so that $f(u_1, \ldots, u_n) / g(u_1, \ldots, u_n) = f_1(u_1, \ldots, u_n) / g_1(u_1, \ldots, u_n)$.
-It follows readily from this that the mapping of $F(u_1,u_2,\ldots,u_n)$ on $F(\alpha_1,\alpha_2,\ldots,\alpha_n)$ is an isomorphism.
+so that
+\[
+f(u_1, \ldots, u_n) / g(u_1, \ldots, u_n)
+= f_1(u_1, \ldots, u_n) / g_1(u_1, \ldots, u_n).
+\]
+It follows readily from this that the mapping of $F(u_1,\ldots,u_n)$ on $F(\alpha_1,\ldots,\alpha_n)$ is an isomorphism.
 But under this correspondence $f(x)$ corresponds to $f^*(x)$.
 Since $E$ and $F(x_1,x_2,\ldots,x_n)$ are respectively splitting fields of $f(x)$ and $f^*(x)$, by Theorem~\ref{theo:onze} the isomorphism can be extended to an isomorphism between $E$ and $F(x_1,x_2,\ldots,x_n)$.
-Therefore, the group of $E$ over $F(u_1,u_2,\ldots,u_n)$ is isomorphic to the group of $F(x_1,x_2,\ldots,x_n)$ over $F(\alpha_1,\alpha_2,\ldots,\alpha_n)$.
+Therefore, the group of $E$ over $F(u_1,\ldots,u_n)$ is isomorphic to the group of $F(x_1,\ldots,x_n)$ over $F(\alpha_1,\ldots,\alpha_n)$.
 
-Each permutation of $x_1,x_2,\ldots,x_n$ leaves $\alpha_1,\alpha_2,\ldots,\alpha_n$ fixed and, therefore, induces an automorphism of $F(x_1,x_2,\ldots,x_n)$ which leaves $F(\alpha_1,\alpha_2,\ldots,\alpha_n)$ fixed.
-Conversely, each automorphism of $F(x_1,x_2,\ldots,x_n)$ which leaves the field $F(\alpha_1,\alpha_2,\ldots,\alpha_n)$ fixed must permute the roots $x_1,x_2,\ldots,x_n$ of $f^*(x)$ and is completely determined by the permutation it effects of $x_1,x_2,\ldots,x_n)$.
+Each permutation of $x_1,\ldots,x_n$ leaves $\alpha_1,\ldots,\alpha_n$ fixed and therefore induces an automorphism of $F(x_1,x_2,\ldots,x_n)$ which leaves the field $F(\alpha_1,\alpha_2,\ldots,\alpha_n)$ fixed.
+Conversely, each automorphism of $F(x_1,\ldots,x_n)$ which leaves the field $F(\alpha_1,\ldots,\alpha_n)$ fixed must permute the roots $x_1,x_2,\ldots,x_n$ of $f^*(x)$ and is completely determined by the permutation it effects of $x_1,x_2,\ldots,x_n)$.
 Thus, the group of $F(x_1,x_2,\ldots,x_n)$ over $F(\alpha_1,\alpha_2,\ldots,\alpha_n)$ is the symmetric group on $n$ letters.
 Because of the isomorphism between $F(x_1,x_2,\ldots,x_n)$ and $E$, the group for $E$ over $F(u_1,u_2,\ldots,u_n)$ is also the symmetric group.
 If we remark that the symmetric group for $n > 4$ is not solvable, we obtain from the theorem on solvability of equations the famous theorem of Abel:
@@ -2590,13 +2659,13 @@ The general equation of degree $n$ is not solvable by radicals if $n > 4$.
 \end{theo}
 
 
-\subsection{Solvable equations of prime degree}
+\htw{Solvable equations of prime degree}
 
 % fubar
 \setcounter{coro}{0}
 
 The group of an equation can always be considered as a permutation group.
-If $f(x)$ is a polynomial in a field $F$, let $\alpha_1, \alpha_2, \ldots, \alpha_n$ be the roots of $f(x)$ in the splitting field $E = F(\alpha_1, \alpha_2, \ldots, \alpha_n)$.
+If $f(x)$ is a polynomial in a field $F$, let $\alpha_1, \ldots, \alpha_n$ be the roots of $f(x)$ in the splitting field $E = F(\alpha_1, \ldots, \alpha_n)$.
 Then each automorphism of $E$ over $F$ maps each root of $f(x)$ into a root of $f(x)$, that is, permutes the roots.
 Since $E$ is generated by the roots of $f(x)$, different automorphisms must effect distinct permutations.
 Thus, the group of $E$ over $F$ is a permutation group acting on the roots $\alpha_1, \alpha_2, \ldots, \alpha_n$ of $f(x)$.
@@ -2687,7 +2756,7 @@ By Corollary~\ref{coro:III.1.2}, if two roots are left fixed, then all the roots
 \end{proof}
 
 
-\subsection{Ruler and compass constructions}
+\htw{Ruler and compass constructions}
 
 
 Suppose there is given in the plane a finite number of elementary geometric figures, that is, points, straight lines and circles.
@@ -2699,7 +2768,7 @@ Since a straight line, or a line segment, or a circle is determined by two point
 
 If we are given two points we may join them by a line, erect a perpendicular to this line at, say, one of the points and, taking the distance between the two points to be the unit, we can with the compass lay off any integer $n$ on each side of the lines.
 Moreover, by the usual method, we can draw parallels and can construct $m/n$.
-Using the two lines as axes of a certesian coordinate system, we can with ruler and compass construct all points with rational coordinates.
+Using the two lines as axes of a Cartesian coordinate system, we can with ruler and compass construct all points with rational coordinates.
 
 If $a,b,c,\ldots$ are numbers involved as coordinates of points which determine the figures given, then the sum, product, difference and quotient of any two of these numbers can be constructed.
 Thus, each element of the field $\QQ(a,b,c,\ldots)$ which they generate out of the rational numbers can be constructed.
